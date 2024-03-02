@@ -28,6 +28,7 @@ export default function LoginForm(props: IRegisterFormProps) {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors }
   } = useForm<FormData>({
     resolver: zodResolver(userAuthSchema)
@@ -50,12 +51,16 @@ export default function LoginForm(props: IRegisterFormProps) {
 
     setIsLoading(false);
 
-    if (!signInResult?.ok || signInResult?.error) {
-      //   return toast({
-      //     title: signInResult?.error ?? 'Something went wrong.',
-      //     description: 'Your sign in request failed. Please try again.',
-      //     variant: 'destructive'
-      //   });
+    if (signInResult && signInResult.error) {
+      if (signInResult.error.includes('400')) {
+        setError('email', {
+          message: 'Email not exists!'
+        });
+      } else if (signInResult.error.includes('401')) {
+        setError('password', {
+          message: 'Password is incorrect!'
+        });
+      }
     }
 
     // toast({
@@ -85,7 +90,7 @@ export default function LoginForm(props: IRegisterFormProps) {
               Email
             </label>
             <input
-              // type='email'
+              type='email'
               className={cn(classStyleInput)}
               placeholder='Your Email'
               autoComplete='one-time-code'

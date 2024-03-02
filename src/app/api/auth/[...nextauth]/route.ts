@@ -1,5 +1,4 @@
 import { AppConfig } from '@/configs/app.config';
-import '@/configs/axios.config';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import NextAuth, { NextAuthOptions } from 'next-auth';
@@ -13,71 +12,44 @@ import { UserLogin } from '@/types/users.type';
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      id: 'credentials',
       name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
-        try {
-          if (credentials) {
-            let data: IResponse<UserLogin>;
-            if (AppConfig.enableApiMockup) {
-              data = {
-                status: 200,
-                message: 'mock_message',
-                metadata: {
-                  user: {
-                    id: 'mock_id',
-                    name: 'mock_name',
-                    email: 'mock_email'
-                  },
-                  accessToken: 'mock_access_token',
-                  refreshToken: 'mock_refresh_token'
-                }
-              };
+        if (credentials) {
+          const data: IResponse<UserLogin> = await axios
+            .post(process.env.NEXT_PUBLIC_API_BASE + '/auth/login', {
+              email: credentials.email,
+              password: credentials.password
+            })
+            .then((res) => res.data);
+
+          // If no error and we have user data, return it
+          if (data.status !== 200) {
+            if (data.status === 401) {
+              throw new Error('Password is incorrect!');
             } else {
-              data = await axios
-                .post(process.env.NEXT_PUBLIC_API_BASE + '/auth/login', {
-                  email: credentials.email,
-                  password: credentials.password
-                })
-                .then((res) => res.data);
-
-              // res = await fetch('https://dummyjson.com/auth/login', {
-              //   method: 'POST',
-              //   headers: { 'Content-Type': 'application/json' },
-              //   body: JSON.stringify({
-              //     username: credentials.username,
-              //     password: credentials.password,
-              //     expiresInMins: 60 // optional
-              //   })
-              // }).then((res) => res.json());
+              throw new Error('Email not exists!');
             }
-
-            // If no error and we have user data, return it
-            if (data.status !== 200) {
-              throw new Error('Login Failed');
-            }
-
-            // res.status === 200
-            if (data) {
-              return {
-                id: data.metadata.user.id,
-                name: data.metadata.user.name,
-                email: data.metadata.user.email,
-                access_token: data.metadata.accessToken,
-                refresh_token: data.metadata.refreshToken
-              };
-            } else {
-              return null;
-            }
-          } else {
-            return null;
           }
-        } catch (error) {
-          return null;
+
+          // res.status === 200
+          if (data) {
+            return {
+              id: data.metadata.user.id,
+              name: data.metadata.user.name,
+              email: data.metadata.user.email,
+              image: data.metadata.user.user_image,
+              access_token: data.metadata.accessToken,
+              refresh_token: data.metadata.refreshToken
+            };
+          } else {
+            throw new Error('Internal Server Error!');
+          }
+        } else {
+          throw new Error('No credentials provided');
         }
       }
     }),

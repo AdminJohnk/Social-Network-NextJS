@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
+
 import ThemeRegistry from '@/theme/ThemeRegistry';
-import './globals.css';
 import SessionProvider from '@/wrapper/SessionWrapper';
+import './globals.css';
 
 const font = Inter({ subsets: ['latin'] });
 
