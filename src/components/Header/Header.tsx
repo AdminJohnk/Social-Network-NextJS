@@ -6,7 +6,7 @@ import useAuth from '@/hooks/auth/useAuth';
 
 export default function Header() {
   const { data } = useSession();
-  const isAuthenticated = useAuth(true);
+  // const isAuthenticated = useAuth(true);
 
   const menuItems = [
     {

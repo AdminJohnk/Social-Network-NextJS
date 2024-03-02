@@ -64,7 +64,7 @@ export const authOptions: NextAuthOptions = {
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ''
       // profile: (profile, tokens) => {
       //   if (profile) {
       //     return {
@@ -114,22 +114,24 @@ export const authOptions: NextAuthOptions = {
       //   }
       // }
 
-      // Refresh the token if it's expired
-      const decode_token: { exp: number; iat: number } = jwtDecode(
-        token.access_token
-      );
-      const shouldRefreshTime = Math.round(
-        decode_token.exp * 1000 - 30 * 60 * 1000 - Date.now()
-      );
-      // If the token is still valid, just return it.
-      if (shouldRefreshTime > 1000) {
-        return {
-          ...token,
-          access_token_expiry: decode_token.exp
-        };
-      }
+      return token;
 
-      return await refreshAccessToken(token);
+      // Refresh the token if it's expired
+      // const decode_token: { exp: number; iat: number } = jwtDecode(
+      //   token.access_token
+      // );
+      // const shouldRefreshTime = Math.round(
+      //   decode_token.exp * 1000 - 30 * 60 * 1000 - Date.now()
+      // );
+      // // If the token is still valid, just return it.
+      // if (shouldRefreshTime > 1000) {
+      //   return {
+      //     ...token,
+      //     access_token_expiry: decode_token.exp
+      //   };
+      // }
+
+      // return await refreshAccessToken(token);
     },
     async session({ session, token, user }) {
       // const sessionInfo = {
