@@ -1,3 +1,4 @@
+'use client'
 import { } from 'react';
 
 import { IonIcon } from '@ionic/react';
@@ -1848,7 +1849,7 @@ const Profile = () => {
                         </div>
 
                         <div>
-                            <div className="w-full h-72 relative border1 rounded-lg overflow-hidden bg-[url('../images/ad_pattern.png')] bg-repeat">
+                            <div className="w-full h-72 relative border1 rounded-lg overflow-hidden bg-[url('/assets/images/ad_pattern.png')] bg-repeat">
 
                                 <label htmlFor="createStatusUrl" className="flex flex-col justify-center items-center absolute -translate-x-1/2 left-1/2 bottom-0 z-10 w-full pb-6 pt-10 cursor-pointer bg-gradient-to-t from-gray-700/60">
                                     <input id="createStatusUrl" type="file" className="hidden" accept="image/png, image/jpeg" />
@@ -2157,7 +2158,7 @@ const Profile = () => {
                                                                 <input type="checkbox" checked /><span className="switch-button !relative shrink-0"></span>
                                                             </label>
                                                             <div>
-                                                                <p className="text-[13px] font-light mt-1.5"> Only you will see the total number of likes and views on this post. You can change this later by going to the ··· menu at the top of the post. To hide like counts on other people's posts, go to your
+                                                                <p className="text-[13px] font-light mt-1.5"> Only you will see the total number of likes and views on this post. You can change this later by going to the ··· menu at the top of the post. To hide like counts on other people&apos;s posts, go to your
                                                                     account settings. <a href="/#"> Learn more</a>.</p>
                                                             </div>
                                                         </div>
