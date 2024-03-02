@@ -32,11 +32,11 @@ export default function UserListItem({ user, isNew = false }: Props) {
   const [data, setData] = useState(user);
 
   const toggleEdit = () => {
-    setOpenEdit(prev => !prev);
+    setOpenEdit((prev) => !prev);
   };
 
   const toggleDelete = () => {
-    setOpenDelete(prev => !prev);
+    setOpenDelete((prev) => !prev);
   };
 
   const handleItemClick = () => {
@@ -46,9 +46,7 @@ export default function UserListItem({ user, isNew = false }: Props) {
   return (
     <Collapse in={visible}>
       <Card sx={{ minWidth: 300 }}>
-        <CardActionArea
-          onClick={handleItemClick}
-          sx={{ backgroundColor: 'primary.main' }}>
+        <CardActionArea onClick={handleItemClick} sx={{ backgroundColor: 'primary.main' }}>
           <CardMedia component={'img'} image={data.avatar} height='180' />
           {isNew && (
             <Chip
@@ -69,10 +67,7 @@ export default function UserListItem({ user, isNew = false }: Props) {
           <Button startIcon={<EditIcon />} onClick={toggleEdit}>
             Edit
           </Button>
-          <Button
-            color='error'
-            startIcon={<DeleteIcon />}
-            onClick={toggleDelete}>
+          <Button color='error' startIcon={<DeleteIcon />} onClick={toggleDelete}>
             Delete
           </Button>
           <Box flexGrow={1} />

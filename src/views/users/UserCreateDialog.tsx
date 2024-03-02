@@ -61,14 +61,14 @@ function UserCreateDialog({ open, onClose, onCreated }: Props) {
 
   const onSubmit = (data: Partial<User>) => {
     doCreate({ data })
-      .then(res => {
+      .then((res) => {
         if (res.status == 201) {
           onClose();
           onCreated({ ...res.data, ...data }); // in real-project, it should be onCreated(res.data);
           reset();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -82,11 +82,7 @@ function UserCreateDialog({ open, onClose, onCreated }: Props) {
       <DialogTitle>Create User</DialogTitle>
       {loading && <LinearProgress />}
       <DialogContent>
-        <Box
-          id='user-create-form'
-          component={'form'}
-          onSubmit={handleSubmit(onSubmit)}
-          mt={2}>
+        <Box id='user-create-form' component={'form'} onSubmit={handleSubmit(onSubmit)} mt={2}>
           <FormControl fullWidth sx={{ mb: 3 }}>
             <Controller
               name='first_name'
@@ -103,9 +99,7 @@ function UserCreateDialog({ open, onClose, onCreated }: Props) {
               )}
             />
             {errors.first_name && (
-              <FormHelperText sx={{ color: 'error.main' }}>
-                {errors.first_name.message}
-              </FormHelperText>
+              <FormHelperText sx={{ color: 'error.main' }}>{errors.first_name.message}</FormHelperText>
             )}
           </FormControl>
           <FormControl fullWidth sx={{ mb: 3 }}>
@@ -124,9 +118,7 @@ function UserCreateDialog({ open, onClose, onCreated }: Props) {
               )}
             />
             {errors.last_name && (
-              <FormHelperText sx={{ color: 'error.main' }}>
-                {errors.last_name.message}
-              </FormHelperText>
+              <FormHelperText sx={{ color: 'error.main' }}>{errors.last_name.message}</FormHelperText>
             )}
           </FormControl>
           <FormControl fullWidth sx={{ mb: 3 }}>
@@ -145,27 +137,17 @@ function UserCreateDialog({ open, onClose, onCreated }: Props) {
               )}
             />
             {errors.email && (
-              <FormHelperText sx={{ color: 'error.main' }}>
-                {errors.email.message}
-              </FormHelperText>
+              <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>
             )}
           </FormControl>
         </Box>
-        {error && (
-          <DialogContentText color={'error'}>
-            Error: {error.message}
-          </DialogContentText>
-        )}
+        {error && <DialogContentText color={'error'}>Error: {error.message}</DialogContentText>}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={loading}>
           Close
         </Button>
-        <Button
-          type='submit'
-          form='user-create-form'
-          color='success'
-          disabled={loading}>
+        <Button type='submit' form='user-create-form' color='success' disabled={loading}>
           Save
         </Button>
       </DialogActions>
