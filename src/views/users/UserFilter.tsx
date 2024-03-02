@@ -29,7 +29,7 @@ function UserFilter({ filter, onChange, onCreatedUser }: Props) {
   const [openCreate, setOpenCreate] = useState(false);
 
   const toggleCreate = () => {
-    setOpenCreate(prev => !prev);
+    setOpenCreate((prev) => !prev);
   };
 
   const handleChangePageSize = (e: SelectChangeEvent) => {
@@ -57,22 +57,13 @@ function UserFilter({ filter, onChange, onCreatedUser }: Props) {
 
   return (
     <Toolbar disableGutters>
-      <Typography
-        sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}
-        variant='h5'>
+      <Typography sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }} variant='h5'>
         All Users
-        <IconButton
-          sx={{ marginLeft: 2 }}
-          color='primary'
-          onClick={toggleCreate}>
+        <IconButton sx={{ marginLeft: 2 }} color='primary' onClick={toggleCreate}>
           <AddIcon />
         </IconButton>
       </Typography>
-      <UserCreateDialog
-        open={openCreate}
-        onClose={toggleCreate}
-        onCreated={onCreatedUser}
-      />
+      <UserCreateDialog open={openCreate} onClose={toggleCreate} onCreated={onCreatedUser} />
       <TextField
         sx={{ marginRight: 2 }}
         size='small'
@@ -91,9 +82,7 @@ function UserFilter({ filter, onChange, onCreatedUser }: Props) {
         <Select
           value={per_page}
           onChange={handleChangePageSize}
-          startAdornment={
-            <InputAdornment position='start'>Page Size:</InputAdornment>
-          }>
+          startAdornment={<InputAdornment position='start'>Page Size:</InputAdornment>}>
           <MenuItem value={10}>10</MenuItem>
           <MenuItem value={20}>20</MenuItem>
           <MenuItem value={30}>30</MenuItem>

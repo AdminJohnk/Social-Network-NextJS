@@ -13,7 +13,8 @@ declare module 'next-auth' {
   interface User {
     access_token: string;
     refresh_token: string;
-    username: string;
+    name: string;
+    email: string;
   }
 }
 

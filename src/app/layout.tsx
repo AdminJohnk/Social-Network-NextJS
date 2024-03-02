@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
+import { ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
 import ThemeRegistry from '@/theme/ThemeRegistry';
 import './globals.css';
-import Header from '@/components/Header/Header';
 import SessionProvider from '@/wrapper/SessionWrapper';
 
 const font = Inter({ subsets: ['latin'] });
@@ -20,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       {/* <ThemeRegistry> */}
+      <head>
+        <ThemeModeScript />
+      </head>
       <body className={font.className}>
         <SessionProvider>
-          <Header />
           {children}
         </SessionProvider>
       </body>

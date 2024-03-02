@@ -54,7 +54,7 @@ function UserEditDialog({ open, onClose, initialData, onUpdated }: Props) {
   });
 
   const onSubmit = (data: Partial<User>) => {
-    doUpdate({ data }).then(res => {
+    doUpdate({ data }).then((res) => {
       if (res.status == 200) {
         onClose();
         onUpdated({ ...res.data, ...data }); // in real-project, it should be onUpdated(res.data);
@@ -73,11 +73,7 @@ function UserEditDialog({ open, onClose, initialData, onUpdated }: Props) {
       <DialogTitle>Edit User</DialogTitle>
       {loading && <LinearProgress />}
       <DialogContent>
-        <Box
-          id='user-edit-form'
-          component={'form'}
-          onSubmit={handleSubmit(onSubmit)}
-          mt={2}>
+        <Box id='user-edit-form' component={'form'} onSubmit={handleSubmit(onSubmit)} mt={2}>
           <FormControl fullWidth sx={{ mb: 3 }}>
             <Controller
               name='first_name'
@@ -94,9 +90,7 @@ function UserEditDialog({ open, onClose, initialData, onUpdated }: Props) {
               )}
             />
             {errors.first_name && (
-              <FormHelperText sx={{ color: 'error.main' }}>
-                {errors.first_name.message}
-              </FormHelperText>
+              <FormHelperText sx={{ color: 'error.main' }}>{errors.first_name.message}</FormHelperText>
             )}
           </FormControl>
           <FormControl fullWidth sx={{ mb: 3 }}>
@@ -115,9 +109,7 @@ function UserEditDialog({ open, onClose, initialData, onUpdated }: Props) {
               )}
             />
             {errors.last_name && (
-              <FormHelperText sx={{ color: 'error.main' }}>
-                {errors.last_name.message}
-              </FormHelperText>
+              <FormHelperText sx={{ color: 'error.main' }}>{errors.last_name.message}</FormHelperText>
             )}
           </FormControl>
           <FormControl fullWidth sx={{ mb: 3 }}>
@@ -136,27 +128,17 @@ function UserEditDialog({ open, onClose, initialData, onUpdated }: Props) {
               )}
             />
             {errors.email && (
-              <FormHelperText sx={{ color: 'error.main' }}>
-                {errors.email.message}
-              </FormHelperText>
+              <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>
             )}
           </FormControl>
         </Box>
-        {error && (
-          <DialogContentText color={'error'}>
-            Error: {error.message}
-          </DialogContentText>
-        )}
+        {error && <DialogContentText color={'error'}>Error: {error.message}</DialogContentText>}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={loading}>
           Close
         </Button>
-        <Button
-          type='submit'
-          form='user-edit-form'
-          color='success'
-          disabled={loading}>
+        <Button type='submit' form='user-edit-form' color='success' disabled={loading}>
           Save
         </Button>
       </DialogActions>
