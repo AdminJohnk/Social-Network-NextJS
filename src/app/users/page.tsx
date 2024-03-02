@@ -16,7 +16,7 @@ function UserPage() {
   }, []);
 
   const handleCreatedUser = useCallback((data: User) => {
-    setJustCreatedUser(prev => [data, ...prev]);
+    setJustCreatedUser((prev) => [data, ...prev]);
   }, []);
 
   return (
@@ -25,11 +25,7 @@ function UserPage() {
         <title>Users</title>
       </Head>
       <Container maxWidth='xl'>
-        <UserFilter
-          filter={filter}
-          onChange={handleChangeFilter}
-          onCreatedUser={handleCreatedUser}
-        />
+        <UserFilter filter={filter} onChange={handleChangeFilter} onCreatedUser={handleCreatedUser} />
         <UserList filter={filter} justCreatedUser={justCreatedUser} />
       </Container>
     </>

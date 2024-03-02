@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
+import { ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
 import ThemeRegistry from '@/theme/ThemeRegistry';
 import './globals.css';
 import Header from '@/components/Header/Header';
 import SessionProvider from '@/wrapper/SessionWrapper';
 
-const inter = Inter({ subsets: ['latin'] });
+const font = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,7 +21,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       {/* <ThemeRegistry> */}
-      <body className={inter.className}>
+      <head>
+        <ThemeModeScript />
+      </head>
+      <body className={font.className}>
         <SessionProvider>
           <Header />
           {children}

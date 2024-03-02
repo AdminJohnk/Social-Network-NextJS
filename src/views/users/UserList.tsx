@@ -32,14 +32,14 @@ export default function UserList({ filter, justCreatedUser }: Props) {
         </Grid>
       )}
 
-      {justCreatedUser.map(user => (
+      {justCreatedUser.map((user) => (
         <Grid item xs key={user.id}>
           <UserListItem user={user} isNew />
         </Grid>
       ))}
 
       {data &&
-        data.data?.map(user => (
+        data.data?.map((user) => (
           <Grid item xs key={user.id}>
             <UserListItem user={user} />
           </Grid>

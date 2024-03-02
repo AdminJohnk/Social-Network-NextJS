@@ -1,56 +1,75 @@
 import { AppConfig } from '@/configs/app.config';
+import '@/configs/axios.config';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import NextAuth, { NextAuthOptions, Session } from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
 
+import { IResponse } from '@/types/common.type';
+import { UserLogin } from '@/types/users.type';
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
+      id: 'credentials',
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: 'johnsmith' },
+        email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         try {
           if (credentials) {
-            let res;
+            let data: IResponse<UserLogin>;
             if (AppConfig.enableApiMockup) {
-              res = {
+              data = {
                 status: 200,
-                data: {
-                  access_token: 'mock_access_token',
-                  refresh_token: 'mock_refresh_token'
+                message: 'mock_message',
+                metadata: {
+                  user: {
+                    id: 'mock_id',
+                    name: 'mock_name',
+                    email: 'mock_email'
+                  },
+                  accessToken: 'mock_access_token',
+                  refreshToken: 'mock_refresh_token'
                 }
               };
             } else {
-              // res = await axios.post(`http://localhost:3336/auth/sign-in`, {
-              //   username: credentials?.username,
-              //   password: credentials?.password
-              // });
-
-              res = await fetch('https://dummyjson.com/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  username: credentials.username,
-                  password: credentials.password,
-                  expiresInMins: 60 // optional
+              data = await axios
+                .post(process.env.NEXT_PUBLIC_API_BASE + '/auth/login', {
+                  email: credentials.email,
+                  password: credentials.password
                 })
-              }).then(res => res.json());
+                .then((res) => res.data);
+
+              // res = await fetch('https://dummyjson.com/auth/login', {
+              //   method: 'POST',
+              //   headers: { 'Content-Type': 'application/json' },
+              //   body: JSON.stringify({
+              //     username: credentials.username,
+              //     password: credentials.password,
+              //     expiresInMins: 60 // optional
+              //   })
+              // }).then((res) => res.json());
             }
 
             // If no error and we have user data, return it
-            if (res?.message) {
+            if (data.status !== 200) {
               throw new Error('Login Failed');
             }
 
             // res.status === 200
-            if (res) {
-              return res;
+            if (data) {
+              return {
+                id: data.metadata.user.id,
+                name: data.metadata.user.name,
+                email: data.metadata.user.email,
+                access_token: data.metadata.accessToken,
+                refresh_token: data.metadata.refreshToken
+              };
             } else {
               return null;
             }
@@ -64,7 +83,7 @@ export const authOptions: NextAuthOptions = {
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ''
       // profile: (profile, tokens) => {
       //   if (profile) {
       //     return {
@@ -85,51 +104,63 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, user, account }) {
       if (user) {
-        return { ...token, ...user };
-      }
-      // if (account) {
-      //   if (account.provider === 'github') {
-      //     let res;
-      //     if (AppConfig.enableApiMockup) {
-      //       res = {
-      //         status: 200,
-      //         data: {
-      //           access_token: 'mock_access_token',
-      //           refresh_token: 'mock_refresh_token'
-      //         }
-      //       };
-      //     } else {
-      //       res = await axios.post(
-      //         `${AppConfig.apiBase}/github-authentication`,
-      //         {
-      //           access_token: account.access_token,
-      //           token_type: account.token_type
-      //         }
-      //       );
-      //     }
-      //     token.access_token = res.data.access_token;
-      //     token.refres_token = res.data.refresh_token;
-      //   }
-      // }
+        if (account) {
+          switch (account.provider) {
+            case 'github': {
+              let res;
+              if (AppConfig.enableApiMockup) {
+                res = {
+                  status: 200,
+                  data: {
+                    access_token: 'mock_access_token',
+                    refresh_token: 'mock_refresh_token'
+                  }
+                };
+              } else {
+                res = await axios.post(`${AppConfig.apiBase}/github-authentication`, {
+                  access_token: account.access_token,
+                  token_type: account.token_type
+                });
+              }
+              token.access_token = res.data.access_token;
+              token.refresh_token = res.data.refresh_token;
 
-      // Refresh the token if it's expired
-      const decode_token: { exp: number; iat: number } = jwtDecode(
-        token.access_token
-      );
-      const shouldRefreshTime = Math.round(
-        decode_token.exp * 1000 - 30 * 60 * 1000 - Date.now()
-      );
-      // If the token is still valid, just return it.
-      if (shouldRefreshTime > 1000) {
-        return {
-          ...token,
-          access_token_expiry: decode_token.exp
-        };
+              return {
+                ...token,
+                access_token_expiry: res.data.access_token_expiry
+              };
+            }
+            case 'google': {
+              token.access_token = account.access_token!;
+              token.refresh_token = account.id_token!;
+
+              return {
+                ...token,
+                access_token_expiry: new Date(account.expires_at!).getTime() / 1000
+              };
+            }
+          }
+        } else {
+          token.access_token = user.access_token;
+          token.refresh_token = user.refresh_token;
+
+          // Refresh the token if it's expired
+          const decode_token: { exp: number; iat: number } = jwtDecode(token.access_token);
+          const shouldRefreshTime = Math.round(decode_token.exp * 1000 - 30 * 60 * 1000 - Date.now());
+          // If the token is still valid, just return it.
+          if (shouldRefreshTime > 1000) {
+            return {
+              ...token,
+              access_token_expiry: decode_token.exp
+            };
+          }
+        }
       }
 
-      return await refreshAccessToken(token);
+      // return await refreshAccessToken(token);
+      return token;
     },
     async session({ session, token, user }) {
       // const sessionInfo = {

@@ -15,8 +15,8 @@ axios.interceptors.request.use(
   async config => {
     // Get session from NextAuth
     const session = await getSession();
-    if (session?.access_token) {
-      config.headers.Authorization = `Bearer ${session?.access_token}`;
+    if (session && session.access_token) {
+      config.headers.Authorization = `Bearer ${session.access_token}`;
     }
     return config;
   },
