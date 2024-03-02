@@ -24,7 +24,7 @@ function UserDeleteDialog({ data, open, onClose, onDeleted }: Props) {
   const [{ loading, error }, doDelete] = useUserDelete(data.id);
 
   const handleDelete = () =>
-    doDelete().then(res => {
+    doDelete().then((res) => {
       if (res.status == 204) {
         onClose();
         onDeleted();
@@ -43,11 +43,7 @@ function UserDeleteDialog({ data, open, onClose, onDeleted }: Props) {
           </strong>
           ?
         </DialogContentText>
-        {error && (
-          <DialogContentText color={'error'}>
-            Error: {error.message}
-          </DialogContentText>
-        )}
+        {error && <DialogContentText color={'error'}>Error: {error.message}</DialogContentText>}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={loading}>

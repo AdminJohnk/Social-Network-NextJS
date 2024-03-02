@@ -6,6 +6,16 @@ export interface User {
   avatar: string;
 }
 
+export interface UserLogin {
+  user: {
+    id: string;
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+}
+
 export interface UserGetParams {
   keyword?: string;
   per_page?: number;

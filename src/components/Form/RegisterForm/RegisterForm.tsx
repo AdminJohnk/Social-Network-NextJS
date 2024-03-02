@@ -1,8 +1,10 @@
-import { cn } from '@/lib/utils';
+import * as React from 'react';
 import Link from 'next/link';
 import { ClassValue } from 'clsx';
-import Image from 'next/image';
 import { Button } from '@mui/material';
+import { FaSnowflake } from 'react-icons/fa';
+
+import { cn } from '@/lib/utils';
 
 export interface IRegisterFormProps {
   className: string;
@@ -18,23 +20,15 @@ export default function RegisterForm(props: IRegisterFormProps) {
         <div className='flex-center'>
           <div>
             <div className='flex-center'>
-              <Image
-                src='https://flowbite.com/images/logo.svg'
-                width={36}
-                height={36}
-                alt='logo'
-                priority
-              />
-              <span className='h2-bold text-text-1 ms-3'>Connectify</span>
+            <FaSnowflake className='icon_logo text-text-1' />
+              <span className='h2-bold text-text-1 ms-3'>DevHub</span>
             </div>
             <div className='h3-bold text-text-1 my-3'>Create an account</div>
           </div>
         </div>
         <form>
           <div className='mb-5'>
-          <label
-              htmlFor='name'
-              className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+            <label htmlFor='name' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
               Name
             </label>
             <input
@@ -47,9 +41,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
             />
           </div>
           <div className='mb-5'>
-            <label
-              htmlFor='alias'
-              className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+            <label htmlFor='alias' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
               Alias
             </label>
             <input
@@ -62,9 +54,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
             />
           </div>
           <div className='mb-5'>
-            <label
-              htmlFor='email'
-              className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+            <label htmlFor='email' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
               Email
             </label>
             <input
@@ -86,7 +76,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
               type='password'
               id='password'
               className={cn(classStyleInput)}
-              placeholder='********'
+              placeholder='******'
               autoComplete='one-time-code'
               required
             />
@@ -101,7 +91,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
               type='password'
               id='repeat-password'
               className={cn(classStyleInput)}
-              placeholder='********'
+              placeholder='******'
               autoComplete='one-time-code'
               required
             />
