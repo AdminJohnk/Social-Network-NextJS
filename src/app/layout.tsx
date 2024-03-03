@@ -24,10 +24,8 @@ export default function RootLayout({
 
         <ThemeModeScript />
       </head>
-      <body className={font.className}>
-        <SessionProvider>
-          {children}
-        </SessionProvider>
+      <body className={font.className + ' dark'}>
+        <SessionProvider>{children}</SessionProvider>
       </body>
       {/* </ThemeRegistry> */}
     </html>
