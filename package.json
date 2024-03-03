@@ -19,6 +19,7 @@
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.11",
     "@mui/material-nextjs": "^5.15.11",
+    "@tanstack/react-query": "^5.24.6",
     "axios": "^1.6.7",
     "axios-hooks": "^5.0.2",
     "class-variance-authority": "^0.7.0",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@tanstack/eslint-plugin-query": "^5.20.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

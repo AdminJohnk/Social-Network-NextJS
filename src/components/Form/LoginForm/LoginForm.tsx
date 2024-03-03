@@ -4,14 +4,15 @@ import { useState } from 'react';
 import { FaSnowflake, FaSpinner } from 'react-icons/fa';
 import Link from 'next/link';
 import { ClassValue } from 'clsx';
-import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
-import { userAuthSchema } from '@/lib/schema/auth';
 import { useRouter } from 'next/navigation';
+
+import { userAuthSchema } from '@/lib/schema/auth';
+import { Button } from '@/components/ui/button';
 
 import { cn } from '@/lib/utils';
 
@@ -126,8 +127,8 @@ export default function LoginForm(props: IRegisterFormProps) {
         </form>
         <div className='max-w-sm flex-center'>
           <div className='flex-start'>
-            <div className='me-2 text-text-1'>Dont have an account yet?</div>
-            <Link href='/register' className='text-primary-800 dark:text-primary-500'>
+            <div className='me-2 text-text-1'>Don&apos;t have an account yet?</div>
+            <Link href='/register' className='text-primary-800 dark:text-primary-500 hover:underline'>
               Sign up
             </Link>
           </div>
