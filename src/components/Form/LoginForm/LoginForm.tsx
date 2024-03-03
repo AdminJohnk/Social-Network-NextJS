@@ -9,7 +9,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
 
 import { userAuthSchema } from '@/lib/schema/auth';
 import { Button } from '@/components/ui/button';
@@ -36,7 +35,6 @@ export default function LoginForm(props: IRegisterFormProps) {
   });
 
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -46,7 +44,6 @@ export default function LoginForm(props: IRegisterFormProps) {
     const signInResult = await signIn('credentials', {
       email: data.email,
       password: data.password,
-      redirect: false,
       callbackUrl: searchParams.get('callbackUrl') || '/'
     });
 
@@ -62,14 +59,6 @@ export default function LoginForm(props: IRegisterFormProps) {
           message: 'Password is incorrect!'
         });
       }
-    }
-
-    // toast({
-    //   title: 'Login Success'
-    // });
-
-    if (signInResult && signInResult.url) {
-      router.push(signInResult.url);
     }
   }
 
@@ -94,7 +83,6 @@ export default function LoginForm(props: IRegisterFormProps) {
               type='email'
               className={cn(classStyleInput)}
               placeholder='Your Email'
-              autoComplete='one-time-code'
               disabled={isLoading}
               {...register('email')}
             />
@@ -108,10 +96,8 @@ export default function LoginForm(props: IRegisterFormProps) {
             </label>
             <input
               type='password'
-              id='password'
               className={cn(classStyleInput)}
               placeholder='Your Password'
-              autoComplete='one-time-code'
               disabled={isLoading}
               {...register('password')}
             />
