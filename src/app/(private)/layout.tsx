@@ -8,7 +8,7 @@ export default function PrivateLayout({
   return (
     <>
       <SideBar />
-      <div className='ms-60 px-36 py-10'>{children}</div>
+      <div className='ms-60 px-40 py-10'>{children}</div>
     </>
   );
 }

@@ -1,0 +1,32 @@
+import { Avatar } from '@mui/material';
+import * as React from 'react';
+
+export interface ISuggestMemberItemProps {
+  member: {
+    id: number;
+    name: string;
+    follow_number: string;
+    avatar: string;
+  };
+}
+
+export default function SuggestMemberItem({
+  member: { id, name, follow_number, avatar }
+}: ISuggestMemberItemProps) {
+  return (
+    <div className='suggest-member-item flex-center flex-col'>
+      <Avatar src={avatar} className='size-16 mb-4' />
+      <div>
+        <span className='base-bold'>{name}</span>
+      </div>
+      <div>
+        <span className='small-regular text-text-2'>
+          {follow_number + ' Followers'}
+        </span>
+      </div>
+      <button className='mt-4 px-10 py-2 base-bold bg-hover-1 hover:bg-hover-2 rounded-lg duration-300'>
+        Follow
+      </button>
+    </div>
+  );
+}
