@@ -34,7 +34,8 @@ const config: Config = {
           '950': '#172554'
         },
         hover: {
-          1: 'var(--hover1)'
+          1: 'var(--hover1)',
+          2: 'var(--hover2)'
         },
         background: {
           1: 'var(--background1)',
@@ -73,6 +74,11 @@ const config: Config = {
           1: 'var(--purple1)',
           2: 'var(--purple2)',
           3: 'var(--purple3)'
+        },
+        pink: {
+          1: 'var(--pink1)',
+          2: 'var(--pink2)',
+          3: 'var(--pink3)'
         }
       },
       fontFamily: {
