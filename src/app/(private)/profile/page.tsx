@@ -1,36 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
-'use client'
+'use client';
+
 import { } from 'react';
 
-import { IonIcon } from '@ionic/react';
 import {
-    chevronForwardOutline,
-    chevronBack,
-    personOutline,
-    bookmarkOutline,
-    settingsOutline,
-    logOutOutline,
-    pricetagsOutline,
-    camera,
-    cameraOutline,
-    ellipsisHorizontal,
-    playOutline,
-    flagOutline,
-    shareOutline,
-    stopCircleOutline,
-    heart,
-    addCircle,
-    chatbubbleEllipses,
-    chatbubbleEllipsesOutline,
-    heartCircle,
-    heartOutline,
-    notificationsOffOutline,
-    timeOutline,
-    image,
-    happy
-} from 'ionicons/icons';
-
-import { IoCameraOutline, IoPlayOutline, IoPricetagsOutline } from 'react-icons/io5'
+    IoCameraOutline,
+    IoPlayOutline,
+    IoPricetagsOutline,
+    IoHappy,
+    IoTimeOutline,
+    IoNotificationsOffOutline,
+    IoHeartOutline,
+    IoHeartCircle,
+    IoAddCircle,
+    IoChatbubbleEllipsesOutline,
+    IoChatbubbleEllipses,
+    IoStopCircleOutline,
+    IoShareOutline,
+    IoFlagOutline,
+    IoEllipsisHorizontal,
+    IoBookmarkOutline,
+    IoChevronForwardOutline,
+    IoChevronBack,
+    IoCamera,
+} from 'react-icons/io5'
+import { FaImage, FaHeart } from 'react-icons/fa'
 import Link from 'next/link';
 
 import { Dropdown, Tabs, CustomFlowbiteTheme } from 'flowbite-react';
@@ -45,7 +39,7 @@ const customTabsTheme: CustomFlowbiteTheme['tabs'] = {
             "base": "flex items-center justify-center p-4 rounded-b-lg text-sm font-medium first:ml-0 disabled:cursor-not-allowed disabled:text-gray-400 disabled:dark:text-gray-500 focus:outline-none",
             'styles': {
                 'underline': {
-                    'base': 'border-t-2 border-transparent',
+                    'base': 'border-t-2 border-transparent font-bold',
                     'active': {
                         "on": "text-cyan-600 rounded-b-lg border-t-2 border-cyan-600 active dark:text-cyan-500 dark:border-cyan-500",
                         "off": "border-t-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
@@ -54,7 +48,6 @@ const customTabsTheme: CustomFlowbiteTheme['tabs'] = {
             }
         }
     },
-    'tabpanel': ''
 };
 const Profile = () => {
     return (
@@ -62,7 +55,8 @@ const Profile = () => {
             <div id="wrapper">
 
                 {/* <!-- main contents --> */}
-                <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]">
+                {/* <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]"> */}
+                <main>
 
                     <div className="main__inner">
 
@@ -74,7 +68,7 @@ const Profile = () => {
                                     <div className="relative md:w-40 md:h-40 h-16 w-16 rounded-full overflow-hidden md:border-[6px] border-gray-100 shrink-0 dark:border-slate-900">
                                         <img src="assets/images/avatars/avatar-6.jpg" alt="" className="w-full h-full absolute object-cover" />
                                     </div>
-                                    <button type="button" className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white shadow p-1.5 rounded-full sm:flex hidden"><IonIcon icon={camera} className="text-2xl text-black"></IonIcon></button>
+                                    <button type="button" className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white shadow p-1.5 rounded-full sm:flex hidden"><IoCamera className="text-2xl text-black" /></button>
                                 </div>
                                 <div className="max-w-2x flex-1">
                                     <h3 className="md:text-xl text-base font-semibold text-black dark:text-white"> Monroe Parker </h3>
@@ -105,26 +99,24 @@ const Profile = () => {
                                             <button type="button" className="button bg-pink-100 text-pink-600 border border-pink-200">Unfollow</button>
                                             <button type="submit" className="button bg-pink-600 text-white">Message</button>
                                             <Dropdown label="" dismissOnClick={false} renderTrigger={() => <button
-                                                className="rounded-lg bg-slate-200/60 flex px-2 py-1.5 dark:bg-dark2"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon></button>}>
+                                                className="rounded-lg bg-slate-200/60 flex px-2 py-1.5 dark:bg-dark2">  <IoEllipsisHorizontal className="text-xl" /></button>}>
                                                 <div className="w-[240px]">
                                                     <Dropdown.Item>
-                                                        <Link href="/#"> <IonIcon className=" text-xl" icon={pricetagsOutline}></IonIcon> Unfollow </Link>
+                                                        <Link href="/#" className='flex items-center gap-1'> <IoPricetagsOutline className=" text-xl" /> Unfollow </Link>
                                                     </Dropdown.Item>
                                                     <Dropdown.Item>
-                                                        <Link href="/#"> <IonIcon className=" text-xl" icon={timeOutline} ></IonIcon> Mute story </Link>
+                                                        <Link href="/#" className='flex items-center gap-1'> <IoTimeOutline className=" text-xl" /> Mute story </Link>
                                                     </Dropdown.Item>
                                                     <Dropdown.Item>
-                                                        <Link href="/#">
-                                                            <IonIcon className=" text-xl" icon={flagOutline} ></IonIcon> Report </Link>
+                                                        <Link href="/#" className='flex items-center gap-1'> <IoFlagOutline className=" text-xl" /> Report </Link>
                                                     </Dropdown.Item>
                                                     <Dropdown.Item>
-                                                        <Link href="/#">
-                                                            <IonIcon className=" text-xl" icon={shareOutline}></IonIcon> Share profile </Link>
+                                                        <Link href="/#" className='flex items-center gap-1'> <IoShareOutline className=" text-xl" /> Share profile </Link>
                                                     </Dropdown.Item>
                                                     <Dropdown.Divider />
                                                     <Dropdown.Item>
-                                                        <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                            <IonIcon className="text-xl" icon={stopCircleOutline}></IonIcon> Block </Link>
+                                                        <Link href="/#" className="flex items-center gap-1 text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                            <IoStopCircleOutline className="text-xl" /> Block </Link>
                                                     </Dropdown.Item>
                                                 </div>
                                             </Dropdown>
@@ -140,1085 +132,1069 @@ const Profile = () => {
 
                             {/* <!-- sticky tabs --> */}
 
-                            <div className="flex justify-center flex-wrap -mb-px border-t border-gray-200 dark:border-gray-700">
-                                <Tabs style={'underline'} className='gap-2' theme={customTabsTheme}>
-                                    <Tabs.Item className='ring-0' active title='Post' icon={IoCameraOutline}>  </Tabs.Item>
-                                    <Tabs.Item active title='Reels' icon={IoPlayOutline}>  </Tabs.Item>
-                                    <Tabs.Item active title='Tagged' icon={IoPricetagsOutline}>  </Tabs.Item>
-                                </Tabs>
-                            </div>
+                            <div className="flex-wrap -mb-px border-t border-gray-200 dark:border-gray-700">
+                                <Tabs style={'underline'} className='gap-2 flex justify-center' theme={customTabsTheme}>
+                                    <Tabs.Item active title='Post' icon={IoCameraOutline}>
+                                        {/* <!-- highest slider post --> */}
+                                        <div className="mt-8">
+                                            {/* <!-- post heading --> */}
+                                            <div className="flex items-center justify-between py-3">
+                                                <h1 className="text-xl font-bold text-black dark:text-white">High Lights</h1>
 
-                            <div id="story_tab" className="uk-switcher">
+                                                <button type="button" className="lg:hidden">
+                                                    <svg id="icon__outline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
 
-
-                                {/* <!-- Post list --> */}
-                                <div>
-                                    {/* <!-- highest slider post --> */}
-                                    <div className="mt-8">
-                                        {/* <!-- post heading --> */}
-                                        <div className="flex items-center justify-between py-3">
-                                            <h1 className="text-xl font-bold text-black dark:text-white">Highths</h1>
-
-                                            <button type="button" className="lg:hidden">
-                                                <svg id="icon__outline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-
-                                        <div className="relative mt-5" tabIndex={-1} uk-slider="autoplay: true;finite: true">
-
-                                            <div className="overflow-hidden uk-slider-container py-10">
-
-                                                <ul className="-ml-2 uk-slider-items w-[calc(100%+0.875rem)]" uk-scrollspy="target: > li; cls: uk-animation-slide-right-small; delay: 50" uk-lightbox="">
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5 max-lg:hidden" uk-scrollspy-className="uk-animation-fade">
-                                                        <div className="flex flex-col items-center justify-center rounded-lg h-64 border-2 border-dashed border-teal-600">
-                                                            <IonIcon icon={addCircle} className="text-4xl text-teal-900"></IonIcon>
-                                                            <div className="mt-1 font-semibold">Add New</div>
-                                                        </div>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="/assets/images/avatars/avatar-lg-1.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-1.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
-                                                                </div>
+                                            <div className="relative mt-5" tabIndex={-1}>
+                                                <div className="overflow-hidden py-10">
+                                                    <ul className="flex flex-row w-[calc(100%+0.875rem)]">
+                                                        <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5 max-lg:hidden">
+                                                            <div className="flex flex-col items-center justify-center rounded-lg h-64 border-2 border-dashed border-teal-600">
+                                                                <IoAddCircle className="text-4xl text-teal-900"></IoAddCircle>
+                                                                <div className="mt-1 font-semibold">Add New</div>
                                                             </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="/assets/images/avatars/avatar-lg-2.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-2.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
+                                                        </li>
+                                                        <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
+                                                            <Link href="/assets/images/avatars/avatar-lg-1.jpg" data-caption="Caption">
+                                                                <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                                    <div className="w-full lg:h-64 aspect-[2.5/4] relative">
+                                                                        <img src="assets/images/avatars/avatar-lg-1.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="/assets/images/avatars/avatar-lg-3.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-3.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
+                                                            </Link>
+                                                        </li>
+                                                        <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
+                                                            <Link href="/assets/images/avatars/avatar-lg-2.jpg" data-caption="Caption">
+                                                                <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                                    <div className="w-full lg:h-64 aspect-[2.5/4] relative">
+                                                                        <img src="assets/images/avatars/avatar-lg-2.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="/assets/images/avatars/avatar-lg-4.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-4.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
+                                                            </Link>
+                                                        </li>
+                                                        <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
+                                                            <Link href="/assets/images/avatars/avatar-lg-3.jpg" data-caption="Caption">
+                                                                <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                                    <div className="w-full lg:h-64 aspect-[2.5/4] relative">
+                                                                        <img src="assets/images/avatars/avatar-lg-3.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="/assets/images/avatars/avatar-lg-5.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-5.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
+                                                            </Link>
+                                                        </li>
+                                                        <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
+                                                            <Link href="/assets/images/avatars/avatar-lg-4.jpg" data-caption="Caption">
+                                                                <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                                    <div className="w-full lg:h-64 aspect-[2.5/4] relative">
+                                                                        <img src="assets/images/avatars/avatar-lg-4.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <div className="w-full lg:h-64 aspect-[2.5/4] bg-slate-200/60 rounded-lg animate-pulse"></div>
-                                                    </li>
-                                                </ul>
+                                                            </Link>
+                                                        </li>
+                                                        <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
+                                                            <Link href="/assets/images/avatars/avatar-lg-5.jpg" data-caption="Caption">
+                                                                <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                                    <div className="w-full lg:h-64 aspect-[2.5/4] relative">
+                                                                        <img src="assets/images/avatars/avatar-lg-5.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                        </li>
+                                                        <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
+                                                            <div className="w-full lg:h-64 aspect-[2.5/4] bg-slate-200/60 rounded-lg animate-pulse"></div>
+                                                        </li>
+                                                    </ul>
+
+                                                </div>
+
+                                                <button type="button" className="absolute -translate-y-1/2 bg-white rounded-full top-1/2 -left-4 grid w-9 h-9 place-items-center shadow  dark:bg-dark3" uk-slider-item="previous"> <IoChevronBack className="text-2xl" /></button>
+                                                <button type="button" className="absolute -right-4 -translate-y-1/2 bg-white rounded-full top-1/2 grid w-9 h-9 place-items-center shadow  dark:bg-dark3" uk-slider-item="next"> <IoChevronForwardOutline className="text-2xl" /></button>
 
                                             </div>
 
-                                            <button type="button" className="absolute -translate-y-1/2 bg-white rounded-full top-1/2 -left-4 grid w-9 h-9 place-items-center shadow  dark:bg-dark3" uk-slider-item="previous"> <IonIcon icon={chevronBack} className="text-2xl"></IonIcon></button>
-                                            <button type="button" className="absolute -right-4 -translate-y-1/2 bg-white rounded-full top-1/2 grid w-9 h-9 place-items-center shadow  dark:bg-dark3" uk-slider-item="next"> <IonIcon icon={chevronForwardOutline} className="text-2xl"></IonIcon></button>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    {/* <!-- post list  --> */}
-
-                                    <div className="mt-8">
-
-                                        {/* <!-- post heading --> */}
-                                        <div className="flex items-center justify-between py-3">
-                                            <h1 className="text-xl font-bold text-black dark:text-white">Posts</h1>
-
-                                            <Link href="/#" className="text-sm font-semibold flex items-center gap-2">
-                                                Show achieved  <IonIcon icon={chevronForwardOutline}></IonIcon>
-                                            </Link>
                                         </div>
 
                                         {/* <!-- Post list --> */}
-                                        <div className="grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-6" uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 100">
+                                        <div>
 
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-1.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
 
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-2.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
 
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-3.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
+                                            {/* <!-- post list  --> */}
 
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-4.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
+                                            <div className="mt-8">
 
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-5.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
+                                                {/* <!-- post heading --> */}
+                                                <div className="flex items-center justify-between py-3">
+                                                    <h1 className="text-xl font-bold text-black dark:text-white">Posts</h1>
 
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-4.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-1.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-3.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-1.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-3.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-2.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                    <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
-                                                        <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
-                                                            <img src="assets/images/post/post-4.jpg" alt="" className="object-cover w-full h-full" />
-                                                        </div>
-                                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
-                                                            <div className="flex items-center justify-center gap-4 text-white w-full h-full">
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={heartCircle}></IonIcon> 152</div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <IonIcon className="text-2xl" icon={chatbubbleEllipses}></IonIcon> 290</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-
-                                            {/* <!-- placeholders --> */}
-                                            <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-                                            <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-                                            <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-                                            <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-
-                                        </div>
-
-
-                                    </div>
-
-                                    {/* <!-- load more --> */}
-                                    <div className="flex justify-center my-6">
-                                        <button type="button" className="bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-dark2">Load more...</button>
-                                    </div>
-
-                                </div>
-
-
-
-                                {/* <!-- Reels  list --> */}
-                                <div className="pt-16">
-
-
-                                    <div className="grid gap-3 lg:gap-4 lg:grid-cols-4 md:grid-cols-5 sm:grid-cols-3 grid-cols-2" uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true">
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-1.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 14
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-2.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 24
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-3.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 32
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-4.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 46
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-3.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon>16
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-4.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 24
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-5.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 38
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-1.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 33
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-1.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 62
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-2.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 42
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-3.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 18
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-                                        {/* <!-- single reels --> */}
-                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-
-                                            <Link href="/#">
-                                                <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
-
-                                                    <img className="object-cover w-full h-full" src="assets/images/reels/reels-4.jpg" alt="" />
-
-                                                    <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
-                                                        <div className="flex items-center gap-2.5 text-white p-3">
-                                                            <IonIcon className="text-2xl" icon={playOutline}></IonIcon> 29
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-
-                                        </div>
-
-
-                                        {/* <!-- placeholders --> */}
-                                        <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-                                        <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-                                        <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-                                        <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-
-                                    </div>
-
-                                    {/* <!-- load more --> */}
-                                    <div className="flex justify-center my-6">
-                                        <button type="button" className="bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-dark2">Load more...</button>
-                                    </div>
-
-
-                                </div>
-
-
-
-
-
-                                {/* <!-- short list --> */}
-                                <div className="pt-16">
-
-
-                                    <div className="grid lg:grid-cols-3 grid-cols-2 gap-4" uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true">
-
-
-                                        <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
-
-                                            {/* <!-- heading --> */}
-                                            <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
-                                                <Link href="/profile" className="max-md:hidden">
-                                                    <img src="assets/images/avatars/avatar-5.jpg" alt="" className="w-6 h-6 rounded-full" />
-                                                </Link>
-                                                <div className="flex-1">
-                                                    <Link href="/profile">
-                                                        <h4 className="text-black dark:text-white"> Monroe Parker </h4>
+                                                    <Link href="/#" className="text-sm font-semibold flex items-center gap-2">
+                                                        Show achieved <IoChevronForwardOutline />
                                                     </Link>
                                                 </div>
 
-                                                {/* <!-- dropdown options --> */}
-                                                <div className="absolute top-0.5 right-0 md:m-2.5 m-1">
-                                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
-                                                    <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                                        <nav>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline}></IonIcon> Add favorites </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share </Link>
-                                                            <hr />
-                                                            <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Remove </Link>
-                                                        </nav>
-                                                    </div>
+                                                {/* <!-- Post list --> */}
+                                                <div className="grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-6" uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 100">
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 transition-all ease-in-out duration-500 delay-100 group">
+                                                            <div className="relative overflow-hidden rounded-lg">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-1.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-500 delay-100 absolute inset-0 bg-white/5 backdrop-blur-sm">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-2.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-3.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-4.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-5.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-4.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-1.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-3.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-1.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-3.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-2.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+                                                            <div className="relative overflow-hidden rounded-lg uk-transition-toggle">
+                                                                <div className="relative w-full lg:h-60 h-full aspect-[3/3]">
+                                                                    <img src="assets/images/post/post-4.jpg" alt="" className="object-cover w-full h-full" />
+                                                                </div>
+                                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade">
+                                                                    <div className="flex items-center justify-center gap-4 text-white w-full h-full">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoHeartCircle className="text-2xl" /> 152</div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <IoChatbubbleEllipses className="text-2xl" /> 290</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- placeholders --> */}
+                                                    <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                                                    <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                                                    <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                                                    <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+
                                                 </div>
+
 
                                             </div>
 
-                                            {/* <!-- post image --> */}
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="relative w-full h-48">
-                                                    <img src="assets/images/post/post-1.jpg" alt="" className="w-full h-full object-cover inset-0" />
-                                                </div>
-                                            </Link>
-
-                                            {/* <!-- post icons --> */}
-                                            <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={heartOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={chatbubbleEllipsesOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico ml-auto"> <IonIcon className="md:text-2xl text-lg" icon={bookmarkOutline}></IonIcon> </button>
+                                            {/* <!-- load more --> */}
+                                            <div className="flex justify-center my-6">
+                                                <button type="button" className="bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-dark2">Load more...</button>
                                             </div>
 
                                         </div>
+                                    </Tabs.Item>
+                                    <Tabs.Item active title='Reels' icon={IoPlayOutline}>
+                                        {/* <!-- Reels  list --> */}
+                                        <div className="pt-16">
 
-                                        <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
 
-                                            {/* <!-- heading --> */}
-                                            <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
-                                                <Link href="/profile" className="max-md:hidden">
-                                                    <img src="assets/images/avatars/avatar-2.jpg" alt="" className="w-6 h-6 rounded-full" />
-                                                </Link>
-                                                <div className="flex-1">
-                                                    <Link href="/profile">
-                                                        <h4 className="text-black dark:text-white"> Jesse Steeve </h4>
+                                            <div className="grid gap-3 lg:gap-4 lg:grid-cols-4 md:grid-cols-5 sm:grid-cols-3 grid-cols-2" uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true">
+
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
+
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-1.jpg" alt="" />
+
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" />  14
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </Link>
+
+                                                </div>
+
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
+
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-2.jpg" alt="" />
+
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 24
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
                                                     </Link>
                                                 </div>
 
-                                                {/* <!-- dropdown options --> */}
-                                                <div className="absolute top-0.5 right-0 m-2.5">
-                                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
-                                                    <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                                        <nav>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline}></IonIcon> Add favorites </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share </Link>
-                                                            <hr />
-                                                            <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Remove </Link>
-                                                        </nav>
-                                                    </div>
-                                                </div>
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
 
-                                            </div>
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
 
-                                            {/* <!-- post image --> */}
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="relative w-full h-48">
-                                                    <img src="assets/images/post/post-2.jpg" alt="" className="w-full h-full object-cover inset-0" />
-                                                </div>
-                                            </Link>
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-3.jpg" alt="" />
 
-                                            {/* <!-- post icons --> */}
-                                            <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={heartOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={chatbubbleEllipsesOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico ml-auto"> <IonIcon className="md:text-2xl text-lg" icon={bookmarkOutline}></IonIcon> </button>
-                                            </div>
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 32
+                                                                </div>
+                                                            </div>
 
-                                        </div>
-
-                                        <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
-
-                                            {/* <!-- heading --> */}
-                                            <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
-
-                                                <Link href="/profile" className="max-md:hidden">
-                                                    <img src="assets/images/avatars/avatar-3.jpg" alt="" className="w-6 h-6 rounded-full" />
-                                                </Link>
-                                                <div className="flex-1">
-                                                    <Link href="/profile">
-                                                        <h4 className="text-black dark:text-white"> Martin Gray </h4>
+                                                        </div>
                                                     </Link>
+
                                                 </div>
 
-                                                {/* <!-- dropdown options --> */}
-                                                <div className="absolute top-0.5 right-0 m-2.5">
-                                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
-                                                    <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                                        <nav>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline}></IonIcon> Add favorites </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share </Link>
-                                                            <hr />
-                                                            <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Remove </Link>
-                                                        </nav>
-                                                    </div>
-                                                </div>
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
 
-                                            </div>
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
 
-                                            {/* <!-- post image --> */}
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="relative w-full h-48">
-                                                    <img src="assets/images/post/post-3.jpg" alt="" className="w-full h-full object-cover inset-0" />
-                                                </div>
-                                            </Link>
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-4.jpg" alt="" />
 
-                                            {/* <!-- post icons --> */}
-                                            <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={heartOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={chatbubbleEllipsesOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico ml-auto"> <IonIcon className="md:text-2xl text-lg" icon={bookmarkOutline}></IonIcon> </button>
-                                            </div>
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 46
+                                                                </div>
+                                                            </div>
 
-                                        </div>
-
-                                        <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
-
-                                            {/* <!-- heading --> */}
-                                            <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
-
-                                                <Link href="/profile" className="max-md:hidden">
-                                                    <img src="assets/images/avatars/avatar-4.jpg" alt="" className="w-6 h-6 rounded-full" />
-                                                </Link>
-                                                <div className="flex-1">
-                                                    <Link href="/profile">
-                                                        <h4 className="text-black dark:text-white"> John Michael </h4>
+                                                        </div>
                                                     </Link>
+
                                                 </div>
 
-                                                {/* <!-- dropdown options --> */}
-                                                <div className="absolute top-0.5 right-0 m-2.5">
-                                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
-                                                    <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                                        <nav>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline}></IonIcon> Add favorites </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share </Link>
-                                                            <hr />
-                                                            <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Remove </Link>
-                                                        </nav>
-                                                    </div>
-                                                </div>
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
 
-                                            </div>
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
 
-                                            {/* <!-- post image --> */}
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="relative w-full h-48">
-                                                    <img src="assets/images/post/post-4.jpg" alt="" className="w-full h-full object-cover inset-0" />
-                                                </div>
-                                            </Link>
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-3.jpg" alt="" />
 
-                                            {/* <!-- post icons --> */}
-                                            <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={heartOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={chatbubbleEllipsesOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico ml-auto"> <IonIcon className="md:text-2xl text-lg" icon={bookmarkOutline}></IonIcon> </button>
-                                            </div>
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" />16
+                                                                </div>
+                                                            </div>
 
-                                        </div>
-
-                                        <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
-
-                                            {/* <!-- heading --> */}
-                                            <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
-
-                                                <Link href="/profile" className="max-md:hidden">
-                                                    <img src="assets/images/avatars/avatar-7.jpg" alt="" className="w-6 h-6 rounded-full" />
-                                                </Link>
-                                                <div className="flex-1">
-                                                    <Link href="/profile">
-                                                        <h4 className="text-black dark:text-white"> Alexia stella </h4>
+                                                        </div>
                                                     </Link>
+
                                                 </div>
 
-                                                {/* <!-- dropdown options --> */}
-                                                <div className="absolute top-0.5 right-0 m-2.5">
-                                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
-                                                    <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                                        <nav>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline}></IonIcon> Add favorites </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share </Link>
-                                                            <hr />
-                                                            <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Remove </Link>
-                                                        </nav>
-                                                    </div>
-                                                </div>
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
 
-                                            </div>
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
 
-                                            {/* <!-- post image --> */}
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="relative w-full h-48">
-                                                    <img src="assets/images/post/post-5.jpg" alt="" className="w-full h-full object-cover inset-0" />
-                                                </div>
-                                            </Link>
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-4.jpg" alt="" />
 
-                                            {/* <!-- post icons --> */}
-                                            <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={heartOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={chatbubbleEllipsesOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico ml-auto"> <IonIcon className="md:text-2xl text-lg" icon={bookmarkOutline}></IonIcon> </button>
-                                            </div>
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 24
+                                                                </div>
+                                                            </div>
 
-                                        </div>
-
-                                        <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
-
-                                            {/* <!-- heading --> */}
-                                            <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
-                                                <Link href="/profile" className="max-md:hidden">
-                                                    <img src="assets/images/avatars/avatar-5.jpg" alt="" className="w-6 h-6 rounded-full" />
-                                                </Link>
-                                                <div className="flex-1">
-                                                    <Link href="/profile">
-                                                        <h4 className="text-black dark:text-white"> Monroe Parker </h4>
+                                                        </div>
                                                     </Link>
+
                                                 </div>
 
-                                                {/* <!-- dropdown options --> */}
-                                                <div className="absolute top-0.5 right-0 m-2.5">
-                                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
-                                                    <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                                        <nav>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline}></IonIcon> Add favorites </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share </Link>
-                                                            <hr />
-                                                            <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Remove </Link>
-                                                        </nav>
-                                                    </div>
-                                                </div>
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
 
-                                            </div>
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
 
-                                            {/* <!-- post image --> */}
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="relative w-full h-48">
-                                                    <img src="assets/images/post/post-1.jpg" alt="" className="w-full h-full object-cover inset-0" />
-                                                </div>
-                                            </Link>
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-5.jpg" alt="" />
 
-                                            {/* <!-- post icons --> */}
-                                            <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={heartOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={chatbubbleEllipsesOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico ml-auto"> <IonIcon className="md:text-2xl text-lg" icon={bookmarkOutline}></IonIcon> </button>
-                                            </div>
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 38
+                                                                </div>
+                                                            </div>
 
-                                        </div>
-
-                                        <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
-
-                                            {/* <!-- heading --> */}
-                                            <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
-                                                <Link href="/profile" className="max-md:hidden">
-                                                    <img src="assets/images/avatars/avatar-2.jpg" alt="" className="w-6 h-6 rounded-full" />
-                                                </Link>
-                                                <div className="flex-1">
-                                                    <Link href="/profile">
-                                                        <h4 className="text-black dark:text-white"> Jesse Steeve </h4>
+                                                        </div>
                                                     </Link>
+
                                                 </div>
 
-                                                {/* <!-- dropdown options --> */}
-                                                <div className="absolute top-0.5 right-0 m-2.5">
-                                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
-                                                    <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                                        <nav>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline}></IonIcon> Add favorites </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share </Link>
-                                                            <hr />
-                                                            <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Remove </Link>
-                                                        </nav>
-                                                    </div>
-                                                </div>
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
 
-                                            </div>
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
 
-                                            {/* <!-- post image --> */}
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="relative w-full h-48">
-                                                    <img src="assets/images/post/post-2.jpg" alt="" className="w-full h-full object-cover inset-0" />
-                                                </div>
-                                            </Link>
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-1.jpg" alt="" />
 
-                                            {/* <!-- post icons --> */}
-                                            <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={heartOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={chatbubbleEllipsesOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico ml-auto"> <IonIcon className="md:text-2xl text-lg" icon={bookmarkOutline}></IonIcon> </button>
-                                            </div>
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 33
+                                                                </div>
+                                                            </div>
 
-                                        </div>
-
-                                        <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
-
-                                            {/* <!-- heading --> */}
-                                            <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
-
-                                                <Link href="/profile" className="max-md:hidden">
-                                                    <img src="assets/images/avatars/avatar-3.jpg" alt="" className="w-6 h-6 rounded-full" />
-                                                </Link>
-                                                <div className="flex-1">
-                                                    <Link href="/profile">
-                                                        <h4 className="text-black dark:text-white"> Martin Gray </h4>
+                                                        </div>
                                                     </Link>
+
                                                 </div>
 
-                                                {/* <!-- dropdown options --> */}
-                                                <div className="absolute top-0.5 right-0 m-2.5">
-                                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
-                                                    <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                                        <nav>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline}></IonIcon> Add favorites </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share </Link>
-                                                            <hr />
-                                                            <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Remove </Link>
-                                                        </nav>
-                                                    </div>
-                                                </div>
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
 
-                                            </div>
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
 
-                                            {/* <!-- post image --> */}
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="relative w-full h-48">
-                                                    <img src="assets/images/post/post-3.jpg" alt="" className="w-full h-full object-cover inset-0" />
-                                                </div>
-                                            </Link>
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-1.jpg" alt="" />
 
-                                            {/* <!-- post icons --> */}
-                                            <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={heartOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={chatbubbleEllipsesOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico ml-auto"> <IonIcon className="md:text-2xl text-lg" icon={bookmarkOutline}></IonIcon> </button>
-                                            </div>
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 62
+                                                                </div>
+                                                            </div>
 
-                                        </div>
-
-                                        <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
-
-                                            {/* <!-- heading --> */}
-                                            <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
-
-                                                <Link href="/profile" className="max-md:hidden">
-                                                    <img src="assets/images/avatars/avatar-4.jpg" alt="" className="w-6 h-6 rounded-full" />
-                                                </Link>
-                                                <div className="flex-1">
-                                                    <Link href="/profile">
-                                                        <h4 className="text-black dark:text-white"> John Michael </h4>
+                                                        </div>
                                                     </Link>
+
                                                 </div>
 
-                                                {/* <!-- dropdown options --> */}
-                                                <div className="absolute top-0.5 right-0 m-2.5">
-                                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
-                                                    <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                                        <nav>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline}></IonIcon> Add favorites </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report </Link>
-                                                            <Link href="/#">
-                                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share </Link>
-                                                            <hr />
-                                                            <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Remove </Link>
-                                                        </nav>
-                                                    </div>
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
+
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-2.jpg" alt="" />
+
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 42
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </Link>
+
                                                 </div>
+
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
+
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-3.jpg" alt="" />
+
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 18
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </Link>
+
+                                                </div>
+
+                                                {/* <!-- single reels --> */}
+                                                <div className="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
+
+                                                    <Link href="/#">
+                                                        <div className="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0">
+
+                                                            <img className="object-cover w-full h-full" src="assets/images/reels/reels-4.jpg" alt="" />
+
+                                                            <div className="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20">
+                                                                <div className="flex items-center gap-2.5 text-white p-3">
+                                                                    <IoPlayOutline className="text-2xl" /> 29
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </Link>
+
+                                                </div>
+
+
+                                                {/* <!-- placeholders --> */}
+                                                <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                                                <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                                                <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                                                <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
 
                                             </div>
 
-                                            {/* <!-- post image --> */}
-                                            <Link href="/#preview_modal" uk-toggle="">
-                                                <div className="relative w-full h-48">
-                                                    <img src="assets/images/post/post-4.jpg" alt="" className="w-full h-full object-cover inset-0" />
-                                                </div>
-                                            </Link>
+                                            {/* <!-- load more --> */}
+                                            <div className="flex justify-center my-6">
+                                                <button type="button" className="bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-dark2">Load more...</button>
+                                            </div>
 
-                                            {/* <!-- post icons --> */}
-                                            <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={heartOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico"> <IonIcon className="md:text-2xl text-lg" icon={chatbubbleEllipsesOutline}></IonIcon> </button>
-                                                <button type="button" className="button__ico ml-auto"> <IonIcon className="md:text-2xl text-lg" icon={bookmarkOutline}></IonIcon> </button>
+
+                                        </div>
+                                    </Tabs.Item>
+                                    <Tabs.Item active title='Tagged' icon={IoPricetagsOutline}>
+                                        {/* <!-- short list --> */}
+                                        <div className="pt-16">
+
+
+                                            <div className="grid lg:grid-cols-3 grid-cols-2 gap-4" uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true">
+
+
+                                                <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
+
+                                                    {/* <!-- heading --> */}
+                                                    <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
+                                                        <Link href="/profile" className="max-md:hidden">
+                                                            <img src="assets/images/avatars/avatar-5.jpg" alt="" className="w-6 h-6 rounded-full" />
+                                                        </Link>
+                                                        <div className="flex-1">
+                                                            <Link href="/profile">
+                                                                <h4 className="text-black dark:text-white"> Monroe Parker </h4>
+                                                            </Link>
+                                                        </div>
+
+                                                        {/* <!-- dropdown options --> */}
+                                                        <div className="absolute top-0.5 right-0 md:m-2.5 m-1">
+                                                            <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
+                                                            <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                                                                <nav>
+                                                                    <Link href="/#">
+                                                                        <IoBookmarkOutline className="text-xl shrink-0" />   Add favorites </Link>
+                                                                    <Link href="/#">
+                                                                        <IoFlagOutline className="text-xl shrink-0" /> Report </Link>
+                                                                    <Link href="/#">
+                                                                        <IoShareOutline className="text-xl shrink-0" /> Share </Link>
+                                                                    <hr />
+                                                                    <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                                        <IoStopCircleOutline className="text-xl shrink-0" /> Remove </Link>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* <!-- post image --> */}
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="relative w-full h-48">
+                                                            <img src="assets/images/post/post-1.jpg" alt="" className="w-full h-full object-cover inset-0" />
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- post icons --> */}
+                                                    <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
+                                                        <button type="button" className="button__ico"> <IoHeartOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico"> <IoChatbubbleEllipsesOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico ml-auto"> <IoBookmarkOutline className="md:text-2xl text-lg" /> </button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
+
+                                                    {/* <!-- heading --> */}
+                                                    <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
+                                                        <Link href="/profile" className="max-md:hidden">
+                                                            <img src="assets/images/avatars/avatar-2.jpg" alt="" className="w-6 h-6 rounded-full" />
+                                                        </Link>
+                                                        <div className="flex-1">
+                                                            <Link href="/profile">
+                                                                <h4 className="text-black dark:text-white"> Jesse Steeve </h4>
+                                                            </Link>
+                                                        </div>
+
+                                                        {/* <!-- dropdown options --> */}
+                                                        <div className="absolute top-0.5 right-0 m-2.5">
+                                                            <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
+                                                            <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                                                                <nav>
+                                                                    <Link href="/#">
+                                                                        <IoBookmarkOutline className="text-xl shrink-0" /> Add favorites </Link>
+                                                                    <Link href="/#">
+                                                                        <IoFlagOutline className="text-xl shrink-0" /> Report </Link>
+                                                                    <Link href="/#">
+                                                                        <IoShareOutline className="text-xl shrink-0" /> Share </Link>
+                                                                    <hr />
+                                                                    <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                                        <IoStopCircleOutline className="text-xl shrink-0" /> Remove </Link>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* <!-- post image --> */}
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="relative w-full h-48">
+                                                            <img src="assets/images/post/post-2.jpg" alt="" className="w-full h-full object-cover inset-0" />
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- post icons --> */}
+                                                    <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
+                                                        <button type="button" className="button__ico"> <IoHeartOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico"> <IoChatbubbleEllipsesOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico ml-auto"> <IoBookmarkOutline className="md:text-2xl text-lg" /> </button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
+
+                                                    {/* <!-- heading --> */}
+                                                    <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
+
+                                                        <Link href="/profile" className="max-md:hidden">
+                                                            <img src="assets/images/avatars/avatar-3.jpg" alt="" className="w-6 h-6 rounded-full" />
+                                                        </Link>
+                                                        <div className="flex-1">
+                                                            <Link href="/profile">
+                                                                <h4 className="text-black dark:text-white"> Martin Gray </h4>
+                                                            </Link>
+                                                        </div>
+
+                                                        {/* <!-- dropdown options --> */}
+                                                        <div className="absolute top-0.5 right-0 m-2.5">
+                                                            <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
+                                                            <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                                                                <nav>
+                                                                    <Link href="/#">
+                                                                        <IoBookmarkOutline className="text-xl shrink-0" /> Add favorites </Link>
+                                                                    <Link href="/#">
+                                                                        <IoFlagOutline className="text-xl shrink-0" /> Report </Link>
+                                                                    <Link href="/#">
+                                                                        <IoShareOutline className="text-xl shrink-0" /> Share </Link>
+                                                                    <hr />
+                                                                    <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                                        <IoStopCircleOutline className="text-xl shrink-0" /> Remove </Link>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* <!-- post image --> */}
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="relative w-full h-48">
+                                                            <img src="assets/images/post/post-3.jpg" alt="" className="w-full h-full object-cover inset-0" />
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- post icons --> */}
+                                                    <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
+                                                        <button type="button" className="button__ico"> <IoHeartOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico"> <IoChatbubbleEllipsesOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico ml-auto"> <IoBookmarkOutline className="md:text-2xl text-lg" /> </button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
+
+                                                    {/* <!-- heading --> */}
+                                                    <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
+
+                                                        <Link href="/profile" className="max-md:hidden">
+                                                            <img src="assets/images/avatars/avatar-4.jpg" alt="" className="w-6 h-6 rounded-full" />
+                                                        </Link>
+                                                        <div className="flex-1">
+                                                            <Link href="/profile">
+                                                                <h4 className="text-black dark:text-white"> John Michael </h4>
+                                                            </Link>
+                                                        </div>
+
+                                                        {/* <!-- dropdown options --> */}
+                                                        <div className="absolute top-0.5 right-0 m-2.5">
+                                                            <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
+                                                            <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                                                                <nav>
+                                                                    <Link href="/#">
+                                                                        <IoBookmarkOutline className="text-xl shrink-0" /> Add favorites </Link>
+                                                                    <Link href="/#">
+                                                                        <IoFlagOutline className="text-xl shrink-0" /> Report </Link>
+                                                                    <Link href="/#">
+                                                                        <IoShareOutline className="text-xl shrink-0" /> Share </Link>
+                                                                    <hr />
+                                                                    <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                                        <IoStopCircleOutline className="text-xl shrink-0" /> Remove </Link>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* <!-- post image --> */}
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="relative w-full h-48">
+                                                            <img src="assets/images/post/post-4.jpg" alt="" className="w-full h-full object-cover inset-0" />
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- post icons --> */}
+                                                    <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
+                                                        <button type="button" className="button__ico"> <IoHeartOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico"> <IoChatbubbleEllipsesOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico ml-auto"> <IoBookmarkOutline className="md:text-2xl text-lg" /> </button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
+
+                                                    {/* <!-- heading --> */}
+                                                    <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
+
+                                                        <Link href="/profile" className="max-md:hidden">
+                                                            <img src="assets/images/avatars/avatar-7.jpg" alt="" className="w-6 h-6 rounded-full" />
+                                                        </Link>
+                                                        <div className="flex-1">
+                                                            <Link href="/profile">
+                                                                <h4 className="text-black dark:text-white"> Alexia stella </h4>
+                                                            </Link>
+                                                        </div>
+
+                                                        {/* <!-- dropdown options --> */}
+                                                        <div className="absolute top-0.5 right-0 m-2.5">
+                                                            <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
+                                                            <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                                                                <nav>
+                                                                    <Link href="/#">
+                                                                        <IoBookmarkOutline className="text-xl shrink-0" /> Add favorites </Link>
+                                                                    <Link href="/#">
+                                                                        <IoFlagOutline className="text-xl shrink-0" /> Report </Link>
+                                                                    <Link href="/#">
+                                                                        <IoShareOutline className="text-xl shrink-0" /> Share </Link>
+                                                                    <hr />
+                                                                    <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                                        <IoStopCircleOutline className="text-xl shrink-0" /> Remove </Link>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* <!-- post image --> */}
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="relative w-full h-48">
+                                                            <img src="assets/images/post/post-5.jpg" alt="" className="w-full h-full object-cover inset-0" />
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- post icons --> */}
+                                                    <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
+                                                        <button type="button" className="button__ico"> <IoHeartOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico"> <IoChatbubbleEllipsesOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico ml-auto"> <IoBookmarkOutline className="md:text-2xl text-lg" /> </button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
+
+                                                    {/* <!-- heading --> */}
+                                                    <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
+                                                        <Link href="/profile" className="max-md:hidden">
+                                                            <img src="assets/images/avatars/avatar-5.jpg" alt="" className="w-6 h-6 rounded-full" />
+                                                        </Link>
+                                                        <div className="flex-1">
+                                                            <Link href="/profile">
+                                                                <h4 className="text-black dark:text-white"> Monroe Parker </h4>
+                                                            </Link>
+                                                        </div>
+
+                                                        {/* <!-- dropdown options --> */}
+                                                        <div className="absolute top-0.5 right-0 m-2.5">
+                                                            <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
+                                                            <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                                                                <nav>
+                                                                    <Link href="/#">
+                                                                        <IoBookmarkOutline className="text-xl shrink-0" /> Add favorites </Link>
+                                                                    <Link href="/#">
+                                                                        <IoFlagOutline className="text-xl shrink-0" /> Report </Link>
+                                                                    <Link href="/#">
+                                                                        <IoShareOutline className="text-xl shrink-0" /> Share </Link>
+                                                                    <hr />
+                                                                    <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                                        <IoStopCircleOutline className="text-xl shrink-0" /> Remove </Link>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* <!-- post image --> */}
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="relative w-full h-48">
+                                                            <img src="assets/images/post/post-1.jpg" alt="" className="w-full h-full object-cover inset-0" />
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- post icons --> */}
+                                                    <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
+                                                        <button type="button" className="button__ico"> <IoHeartOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico"> <IoChatbubbleEllipsesOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico ml-auto"> <IoBookmarkOutline className="md:text-2xl text-lg" /> </button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
+
+                                                    {/* <!-- heading --> */}
+                                                    <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
+                                                        <Link href="/profile" className="max-md:hidden">
+                                                            <img src="assets/images/avatars/avatar-2.jpg" alt="" className="w-6 h-6 rounded-full" />
+                                                        </Link>
+                                                        <div className="flex-1">
+                                                            <Link href="/profile">
+                                                                <h4 className="text-black dark:text-white"> Jesse Steeve </h4>
+                                                            </Link>
+                                                        </div>
+
+                                                        {/* <!-- dropdown options --> */}
+                                                        <div className="absolute top-0.5 right-0 m-2.5">
+                                                            <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
+                                                            <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                                                                <nav>
+                                                                    <Link href="/#">
+                                                                        <IoBookmarkOutline className="text-xl shrink-0" /> Add favorites </Link>
+                                                                    <Link href="/#">
+                                                                        <IoFlagOutline className="text-xl shrink-0" /> Report </Link>
+                                                                    <Link href="/#">
+                                                                        <IoShareOutline className="text-xl shrink-0" /> Share </Link>
+                                                                    <hr />
+                                                                    <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                                        <IoStopCircleOutline className="text-xl shrink-0" /> Remove </Link>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* <!-- post image --> */}
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="relative w-full h-48">
+                                                            <img src="assets/images/post/post-2.jpg" alt="" className="w-full h-full object-cover inset-0" />
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- post icons --> */}
+                                                    <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
+                                                        <button type="button" className="button__ico"> <IoHeartOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico"> <IoChatbubbleEllipsesOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico ml-auto"> <IoBookmarkOutline className="md:text-2xl text-lg" /> </button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
+
+                                                    {/* <!-- heading --> */}
+                                                    <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
+
+                                                        <Link href="/profile" className="max-md:hidden">
+                                                            <img src="assets/images/avatars/avatar-3.jpg" alt="" className="w-6 h-6 rounded-full" />
+                                                        </Link>
+                                                        <div className="flex-1">
+                                                            <Link href="/profile">
+                                                                <h4 className="text-black dark:text-white"> Martin Gray </h4>
+                                                            </Link>
+                                                        </div>
+
+                                                        {/* <!-- dropdown options --> */}
+                                                        <div className="absolute top-0.5 right-0 m-2.5">
+                                                            <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
+                                                            <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                                                                <nav>
+                                                                    <Link href="/#">
+                                                                        <IoBookmarkOutline className="text-xl shrink-0" /> Add favorites </Link>
+                                                                    <Link href="/#">
+                                                                        <IoFlagOutline className="text-xl shrink-0" /> Report </Link>
+                                                                    <Link href="/#">
+                                                                        <IoShareOutline className="text-xl shrink-0" /> Share </Link>
+                                                                    <hr />
+                                                                    <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                                        <IoStopCircleOutline className="text-xl shrink-0" /> Remove </Link>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* <!-- post image --> */}
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="relative w-full h-48">
+                                                            <img src="assets/images/post/post-3.jpg" alt="" className="w-full h-full object-cover inset-0" />
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- post icons --> */}
+                                                    <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
+                                                        <button type="button" className="button__ico"> <IoHeartOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico"> <IoChatbubbleEllipsesOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico ml-auto"> <IoBookmarkOutline className="md:text-2xl text-lg" /> </button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div className="relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-dark2">
+
+                                                    {/* <!-- heading --> */}
+                                                    <div className="flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal">
+
+                                                        <Link href="/profile" className="max-md:hidden">
+                                                            <img src="assets/images/avatars/avatar-4.jpg" alt="" className="w-6 h-6 rounded-full" />
+                                                        </Link>
+                                                        <div className="flex-1">
+                                                            <Link href="/profile">
+                                                                <h4 className="text-black dark:text-white"> John Michael </h4>
+                                                            </Link>
+                                                        </div>
+
+                                                        {/* <!-- dropdown options --> */}
+                                                        <div className="absolute top-0.5 right-0 m-2.5">
+                                                            <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
+                                                            <div className="w-[232px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                                                                <nav>
+                                                                    <Link href="/#">
+                                                                        <IoBookmarkOutline className="text-xl shrink-0" /> Add favorites </Link>
+                                                                    <Link href="/#">
+                                                                        <IoFlagOutline className="text-xl shrink-0" /> Report </Link>
+                                                                    <Link href="/#">
+                                                                        <IoShareOutline className="text-xl shrink-0" /> Share </Link>
+                                                                    <hr />
+                                                                    <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
+                                                                        <IoStopCircleOutline className="text-xl shrink-0" /> Remove </Link>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* <!-- post image --> */}
+                                                    <Link href="/#preview_modal" uk-toggle="">
+                                                        <div className="relative w-full h-48">
+                                                            <img src="assets/images/post/post-4.jpg" alt="" className="w-full h-full object-cover inset-0" />
+                                                        </div>
+                                                    </Link>
+
+                                                    {/* <!-- post icons --> */}
+                                                    <div className="flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5">
+                                                        <button type="button" className="button__ico"> <IoHeartOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico"> <IoChatbubbleEllipsesOutline className="md:text-2xl text-lg" /> </button>
+                                                        <button type="button" className="button__ico ml-auto"> <IoBookmarkOutline className="md:text-2xl text-lg" /> </button>
+                                                    </div>
+
+                                                </div>
+
+
+                                                {/* <!-- placeholders --> */}
+                                                <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                                                <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                                                <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+
+                                            </div>
+
+                                            {/* <!-- load more --> */}
+                                            <div className="flex justify-center my-6">
+                                                <button type="button" className="bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-dark2">Load more...</button>
                                             </div>
 
                                         </div>
-
-
-                                        {/* <!-- placeholders --> */}
-                                        <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-                                        <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-                                        <div className="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
-
-                                    </div>
-
-                                    {/* <!-- load more --> */}
-                                    <div className="flex justify-center my-6">
-                                        <button type="button" className="bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-dark2">Load more...</button>
-                                    </div>
-
-                                </div>
-
-
+                                    </Tabs.Item>
+                                </Tabs>
                             </div>
-
                         </div>
-
                     </div>
-
-
                 </main>
 
             </div>
@@ -1259,20 +1235,20 @@ const Profile = () => {
 
                                 {/* <!-- dropdown --> */}
                                 <div className="-m-1">
-                                    <button type="button" className="button__ico w-8 h-8"> <IonIcon className="text-xl" icon={ellipsisHorizontal}></IonIcon> </button>
+                                    <button type="button" className="button__ico w-8 h-8"> <IoEllipsisHorizontal className="text-xl" /> </button>
                                     <div className="w-[253px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true">
                                         <nav>
                                             <Link href="/#">
-                                                <IonIcon className="text-xl shrink-0" icon={bookmarkOutline} ></IonIcon> Add to favorites </Link>
+                                                <IoBookmarkOutline className="text-xl shrink-0" /> Add to favorites </Link>
                                             <Link href="/#">
-                                                <IonIcon className="text-xl shrink-0" icon={notificationsOffOutline}></IonIcon> Mute Notification </Link>
+                                                <IoNotificationsOffOutline className="text-xl shrink-0" /> Mute Notification </Link>
                                             <Link href="/#">
-                                                <IonIcon className="text-xl shrink-0" icon={flagOutline}></IonIcon> Report this post </Link>
+                                                <IoFlagOutline className="text-xl shrink-0" /> Report this post </Link>
                                             <Link href="/#">
-                                                <IonIcon className="text-xl shrink-0" icon={shareOutline}></IonIcon> Share your profile </Link>
+                                                <IoShareOutline className="text-xl shrink-0" /> Share your profile </Link>
                                             <hr />
                                             <Link href="/#" className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50">
-                                                <IonIcon className="text-xl shrink-0" icon={stopCircleOutline}></IonIcon> Unfollow </Link>
+                                                <IoStopCircleOutline className="text-xl shrink-0" /> Unfollow </Link>
                                         </nav>
                                     </div>
                                 </div>
@@ -1283,15 +1259,15 @@ const Profile = () => {
                             <div className="shadow relative -mx-5 px-5 py-3 mt-3">
                                 <div className="flex items-center gap-4 text-xs font-semibold">
                                     <div className="flex items-center gap-2.5">
-                                        <button type="button" className="button__ico text-red-500 bg-red-100 dark:bg-slate-700"> <IonIcon className="text-lg" icon={heart}></IonIcon> </button>
+                                        <button type="button" className="button__ico text-red-500 bg-red-100 dark:bg-slate-700"> <FaHeart className="text-lg" /> </button>
                                         <Link href="/#">1,300</Link>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <button type="button" className="button__ico bg-slate-100 dark:bg-slate-700"> <IonIcon className="text-lg" icon={chatbubbleEllipses}></IonIcon> </button>
+                                        <button type="button" className="button__ico bg-slate-100 dark:bg-slate-700"> <IoChatbubbleEllipses className="text-lg" /> </button>
                                         <span>260</span>
                                     </div>
-                                    <button type="button" className="button__ico ml-auto"> <IonIcon className="text-xl" icon={shareOutline}></IonIcon> </button>
-                                    <button type="button" className="button__ico"> <IonIcon className="text-xl" icon={bookmarkOutline}></IonIcon> </button>
+                                    <button type="button" className="button__ico ml-auto"> <IoShareOutline className="text-xl" /> </button>
+                                    <button type="button" className="button__ico"> <IoBookmarkOutline className="text-xl" /> </button>
                                 </div>
                             </div>
 
@@ -1399,8 +1375,8 @@ const Profile = () => {
                                 <textarea placeholder="Add Comment...." rows={1} className="w-full resize-  px-4 py-2 focus:!border-transparent focus:!ring-transparent resize-y"></textarea>
 
                                 <div className="flex items-center gap-2 absolute bottom-0.5 right-0 m-3">
-                                    <IonIcon className="text-xl flex text-blue-700" icon={image}></IonIcon>
-                                    <IonIcon className="text-xl flex text-yellow-500" icon={happy}></IonIcon>
+                                    <FaImage className="text-xl flex text-blue-700" />
+                                    <IoHappy className="text-xl flex text-yellow-500" />
                                 </div>
 
                             </div>
@@ -1444,7 +1420,7 @@ const Profile = () => {
 
                                 <label htmlFor="createStatusUrl" className="flex flex-col justify-center items-center absolute -translate-x-1/2 left-1/2 bottom-0 z-10 w-full pb-6 pt-10 cursor-pointer bg-gradient-to-t from-gray-700/60">
                                     <input id="createStatusUrl" type="file" className="hidden" accept="image/png, image/jpeg" />
-                                    <IonIcon icon={image} name="image" className="text-3xl text-teal-600"></IonIcon>
+                                    <FaImage name="image" className="text-3xl text-teal-600" />
                                     <span className="text-white mt-2">Browse to Upload image </span>
                                 </label>
 
@@ -1457,7 +1433,7 @@ const Profile = () => {
                         <div className="flex justify-between items-center">
 
                             <div className="flex items-start gap-2">
-                                <IonIcon icon={timeOutline} className="text-3xl text-sky-600  rounded-full bg-blue-50 dark:bg-transparent"></IonIcon>
+                                <IoTimeOutline className="text-3xl text-sky-600  rounded-full bg-blue-50 dark:bg-transparent" />
                                 <p className="text-sm text-gray-500 font-medium"> Your Status will be available <br /> for <span className="text-gray-800"> 24 Hours</span> </p>
                             </div>
 
