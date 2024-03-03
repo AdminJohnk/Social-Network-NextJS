@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
 import ThemeRegistry from '@/theme/ThemeRegistry';
+import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 import './globals.css';
 import SessionProvider from '@/wrapper/SessionWrapper';
 
@@ -24,8 +25,13 @@ export default function RootLayout({
 
         <ThemeModeScript />
       </head>
-      <body className={font.className + ' dark'}>
-        <SessionProvider>{children}</SessionProvider>
+      <body className={font.className}>
+        <SessionProvider>
+          <Flowbite>
+            <DarkThemeToggle className='fixed right-1 top-1/2 bg-hover-1 hover:bg-hover-2' />
+            {children}
+          </Flowbite>
+        </SessionProvider>
       </body>
       {/* </ThemeRegistry> */}
     </html>
