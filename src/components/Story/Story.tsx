@@ -39,7 +39,7 @@ export interface IStoryProps {}
 export default function Story(props: IStoryProps) {
   var settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 10,
     slidesToScroll: 10,

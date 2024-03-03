@@ -35,12 +35,12 @@ function SamplePrevArrow(props: any) {
 
 var settings = {
   dots: false,
-  infinite: true,
+  infinite: false,
   speed: 500,
   slidesToShow: 6,
   slidesToScroll: 6,
   nextArrow: <SampleNextArrow />,
-  prevArrow: <SamplePrevArrow />
+  prevArrow: <SamplePrevArrow />,
 };
 
 const FriendList = [

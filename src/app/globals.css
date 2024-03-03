@@ -5,23 +5,23 @@
 @tailwind utilities;
 
 @layer base {
-  .dark {
+  :root {
     --tw-bg-opacity: 1;
     --tw-text-opacity: 1;
     --tw-border-opacity: 1;
 
-    --background1: #0f172a;
+    --background1: #f6f9fb;
     --background2: rgb(31 41 55 / var(--tw-bg-opacity));
 
-    --foreground1: #1e293b;
+    --foreground1: #ffffff;
     --foreground2: #ff0000;
 
-    --hover1: #334155;
-    --hover2: #303951;
+    --hover1: #f1f5f9;
+    --hover2: #f4f7fa;
 
-    --text1: #ffffff;
-    --text2: #d0d0d3;
-    --text3: rgb(107 114 128 / var(--tw-text-opacity));
+    --text1: #000000;
+    --text2: #4b5563;
+    --text3: #6b7280;
 
     --border1: rgb(75 85 99 / var(--tw-border-opacity));
     --border2: #ff0000;
@@ -42,28 +42,29 @@
     --green3: #d5f5f6;
 
     --pink1: #db2777;
-    --pink2: #FCE7F3;
+    --pink2: #fce7f3;
     --pink3: #e3c6d7;
 
     --scroll: #ff0000;
   }
 
-  :root {
+  .dark {
     --tw-bg-opacity: 1;
     --tw-text-opacity: 1;
     --tw-border-opacity: 1;
 
-    --background1: #12122b;
+    --background1: #0f172a;
     --background2: rgb(31 41 55 / var(--tw-bg-opacity));
 
-    --foreground1: #20263c;
+    --foreground1: #1e293b;
     --foreground2: #ff0000;
 
-    --hover1: rgb(226 232 240 / var(--tw-bg-opacity));
+    --hover1: #334155;
+    --hover2: #303951;
 
     --text1: #ffffff;
     --text2: #d0d0d3;
-    --text3: rgb(107 114 128 / var(--tw-text-opacity));
+    --text3: #6b7280;
 
     --border1: rgb(75 85 99 / var(--tw-border-opacity));
     --border2: #ff0000;
@@ -73,15 +74,19 @@
 
     --blue1: #2563eb;
     --blue2: #dbeafe;
-    --blue3: #2563eb;
+    --blue3: #b1c2d8;
 
-    --purple1: rgb(126 58 242 / var(--tw-text-opacity));
-    --purple2: rgb(237 235 254 / var(--tw-bg-opacity));
-    --purple3: rgb(126 58 242 / var(--tw-text-opacity));
+    --purple1: #7e3af2;
+    --purple2: #edebfe;
+    --purple3: #edebfe;
 
-    --green1: rgb(6 148 162 / var(--tw-text-opacity));
-    --green2: rgb(213 245 246 / var(--tw-bg-opacity));
-    --green3: rgb(4 116 129 / var(--tw-text-opacity));
+    --green1: #0694a2;
+    --green2: #d5f5f6;
+    --green3: #d5f5f6;
+
+    --pink1: #db2777;
+    --pink2: #fce7f3;
+    --pink3: #e3c6d7;
 
     --scroll: #ff0000;
   }
