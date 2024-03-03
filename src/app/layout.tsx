@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang='en'>
       {/* <ThemeRegistry> */}
       <head>
+
         <ThemeModeScript />
       </head>
       <body className={font.className}>
