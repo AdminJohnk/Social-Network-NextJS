@@ -1098,25 +1098,25 @@ const Profile = (props: IProfileProps) => {
                                         data-uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true"
                                     >
                                         <nav>
-                                            <Link href="/#" className="hover:!bg-hover-1 my-1">
+                                            <Link href="#" className="hover:!bg-hover-1 my-1">
                                                 <IoBookmarkOutline className="shrink-0 text-xl" /> Add
                                                 to favorites
                                             </Link>
-                                            <Link href="/#" className="hover:!bg-hover-1 my-1">
+                                            <Link href="#" className="hover:!bg-hover-1 my-1">
                                                 <IoNotificationsOffOutline className="shrink-0 text-xl" />
                                                 Mute Notification
                                             </Link>
-                                            <Link href="/#" className="hover:!bg-hover-1 my-1">
+                                            <Link href="#" className="hover:!bg-hover-1 my-1">
                                                 <IoFlagOutline className="shrink-0 text-xl" /> Report
                                                 this post
                                             </Link>
-                                            <Link href="/#" className="hover:!bg-hover-1 my-1">
+                                            <Link href="#" className="hover:!bg-hover-1 my-1">
                                                 <IoShareOutline className="shrink-0 text-xl" /> Share
                                                 your profile
                                             </Link>
                                             <hr />
                                             <Link
-                                                href="/#"
+                                                href="#"
                                                 className="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50"
                                             >
                                                 <IoStopCircleOutline className="shrink-0 text-xl" />
@@ -1142,7 +1142,7 @@ const Profile = (props: IProfileProps) => {
                                         >
                                             <FaHeart className="text-lg" />
                                         </button>
-                                        <Link href="/#">1,300</Link>
+                                        <Link href="#">1,300</Link>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <button
@@ -1176,7 +1176,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1193,7 +1193,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1210,7 +1210,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1227,7 +1227,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1244,7 +1244,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1261,7 +1261,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1278,7 +1278,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1295,7 +1295,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1312,7 +1312,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1329,7 +1329,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1346,7 +1346,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
@@ -1363,7 +1363,7 @@ const Profile = (props: IProfileProps) => {
                                     />
                                     <div className="flex-1">
                                         <Link
-                                            href="/#"
+                                            href="#"
                                             className="inline-block font-medium text-black dark:text-white"
                                         >
 
