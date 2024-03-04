@@ -48,7 +48,7 @@ const customTabsTheme: CustomFlowbiteTheme["tabs"] = {
 };
 const Profile = () => {
   return (
-    <>
+    <div>
       <div id="wrapper">
         {/* <!-- main contents --> */}
         {/* <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]"> */}
@@ -2901,7 +2901,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
