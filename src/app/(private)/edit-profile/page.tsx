@@ -31,7 +31,7 @@ export default function EditProfile(props: IEditProfileProps) {
 
   return (
     <div className='flex flex-1 *:w-full *:max-w-2xl flex-col items-center gap-10 px-5 py-10 md:p-14 custom-scrollbar-bg overflow-scroll'>
-      <div className=''>
+      <div>
         <Button variant='ghost'>
           <IoArrowBack size={18} />
           <span className='small-medium lg:base-medium'>Back</span>
@@ -74,9 +74,9 @@ export default function EditProfile(props: IEditProfileProps) {
         <hr className='m-0 border-t border-gray-100 dark:border-slate-700' />
 
         <div className='relative -mb-px px-2' data-uk-slider='finite: true' tabIndex={-1}>
-          <nav className='uk-slider-container overflow-hidden rounded-xl pt-2'>
+          <nav className='overflow-hidden rounded-xl uk-slider-container pt-2'>
             <ul
-              className='uk-slider-items w-[calc(100%+10px)] text-sm font-semibold capitalize text-gray-500 dark:text-white'
+              className='uk-slider-items w-[calc(100%+10px)] capitalize font-semibold text-gray-500 text-sm dark:text-white'
               data-uk-switcher='connect: #setting_tab ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
               <li className='w-auto pr-2.5'>
                 <Link
