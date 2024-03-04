@@ -31,7 +31,7 @@ export default function ChatInfo(props: IChatInfoProps) {
                         <div className="flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1">
                             <IoNotificationsOffOutline className="text-2xl" />
                             Mute Notification
-                            <label className="switch cursor-pointer ml-auto"> <input type="checkbox" checked={false} onChange={() => { }} /><span className="switch-button !relative"></span></label>
+                            <label className="switch cursor-pointer ml-auto"> <input type="checkbox" defaultChecked /><span className="switch-button !relative"></span></label>
                         </div>
                     </li>
                     <li> <button type="button" className="flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1"> <IoFlagOutline className="text-2xl" /> Report     </button></li>
