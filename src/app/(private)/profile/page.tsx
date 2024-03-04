@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
+"use client";
 
 import {
     IoCameraOutline,
@@ -22,6 +22,7 @@ import {
 } from "react-icons/io5";
 import { FaImage, FaHeart } from "react-icons/fa";
 import Link from "next/link";
+
 import SliderPost from "@/components/SliderPost";
 
 export interface IProfileProps { }
