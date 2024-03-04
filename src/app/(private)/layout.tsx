@@ -4,7 +4,7 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
   return (
     <div className='w-full overflow-hidden sm:flex'>
       <SideBar />
-      <section className='flex flex-1 justify-center overflow-auto p-14 h-full'>{children}</section>
+      <section className='flex flex-1 justify-center overflow-auto h-full'>{children}</section>
     </div>
   );
 }
