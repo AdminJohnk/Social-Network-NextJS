@@ -8,7 +8,7 @@ export default function PrivateLayout({
   return (
     <div className="w-full overflow-hidden sm:flex">
       <SideBar />
-      <section className="flex h-[calc(100%-160px)] flex-1 overflow-auto p-14 md:h-full">
+      <section className="flex h-[calc(100%-160px)] flex-1 justify-center overflow-auto p-14 md:h-full custom-scrollbar-bg">
         {children}
       </section>
     </div>

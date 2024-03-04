@@ -38,7 +38,7 @@ export default function RootLayout({
       <body className={font.className}>
         <QueryProvider>
           <SessionProvider>
-            <main className="flex h-dvh">
+            <main className="flex h-dvh custom-scrollbar-fg">
               <Flowbite>{children}</Flowbite>
             </main>
           </SessionProvider>
