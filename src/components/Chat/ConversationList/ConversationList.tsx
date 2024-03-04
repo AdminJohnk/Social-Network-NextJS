@@ -7,7 +7,7 @@ export interface IConversationListProps { }
 
 function ConversationList(props: IConversationListProps) {
     return (
-        <div className="space-y-2 p-2 overflow-y-auto h-[calc(100vh-130px)] custom-scrollbar-bg custom-scrollbar-fg">
+        <div className="space-y-2 p-2 overflow-y-auto h-[calc(100vh-130px)] custom-scrollbar-fg">
 
             <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">

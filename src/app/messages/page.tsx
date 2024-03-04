@@ -140,7 +140,7 @@ const Message = () => {
                                 </div>
 
                                 {/* <!-- chats bubble --> */}
-                                <div className="w-full p-5 py-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-bg custom-scrollbar-fg">
+                                <div className="w-full p-5 py-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg">
 
                                     <div className="py-10 text-center text-sm lg:pt-8">
                                         <img src="assets/images/avatars/avatar-6.jpg" className="w-24 h-24 rounded-full mx-auto mb-3" alt="" />
