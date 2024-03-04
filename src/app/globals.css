@@ -199,6 +199,21 @@
     --tw-bg-opacity: 1;
     background-color: rgb(var(--color-secondery) / var(--tw-bg-opacity));
   }
+  .itemAddTag {
+    background-color: var(--background1);
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    color: var(--text2);
+    border-radius: 1.5rem;
+    &.active {
+      background-color: var(--background2);
+    }
+    &:hover {
+      background-color: var(--hover1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  }
 }
 
 @layer utilities {
