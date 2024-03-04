@@ -1,155 +1,151 @@
-import * as React from 'react';
+"use client";
+
+import * as React from "react";
+import { IoMdHome, IoMdNotificationsOutline, IoMdPeople } from "react-icons/io";
+import { IoSearch } from "react-icons/io5";
+import { MdOutlineExplore, MdArrowForwardIos } from "react-icons/md";
+import { TbMessage } from "react-icons/tb";
+import { BsCameraReels } from "react-icons/bs";
+import { FiShoppingCart } from "react-icons/fi";
+import { useSession } from "next-auth/react";
+import { CiCirclePlus } from "react-icons/ci";
+import { CgComponents, CgProfile } from "react-icons/cg";
+import { Avatar, Skeleton } from "@mui/material";
+import Link from "next/link";
+
 import {
-  IoMdHome,
-  IoMdNotificationsOutline,
-  IoMdPeople,
-  IoIosLogOut
-} from 'react-icons/io';
-import { IoSearch, IoSettingsOutline } from 'react-icons/io5';
-import { MdOutlineExplore, MdArrowForwardIos } from 'react-icons/md';
-import { TbMessage } from 'react-icons/tb';
-import { BsCameraReels } from 'react-icons/bs';
-import { FiShoppingCart } from 'react-icons/fi';
-import { CiCirclePlus } from 'react-icons/ci';
-import { CgComponents, CgProfile } from 'react-icons/cg';
-import { Avatar, Divider } from '@mui/material';
-import { CiUser } from 'react-icons/ci';
-import { GrUpgrade } from 'react-icons/gr';
-import MouseOverPopover from '../ui/popover';
-import Link from 'next/link';
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import AccountDetail from "@/components/Profile/AccountDetail";
+import getImageURL, { cn } from "@/lib/utils";
 
 export interface ISideBarProps {}
 
 const MenuItem = [
   {
-    title: 'Home',
+    title: "Home",
     icon: <IoMdHome />,
-    link: '/'
+    link: "/",
   },
   {
-    title: 'Search',
+    title: "Search",
     icon: <IoSearch />,
-    link: '/search'
+    link: "/search",
   },
   {
-    title: 'Explore',
+    title: "Explore",
     icon: <MdOutlineExplore />,
-    link: '/explore'
+    link: "/explore",
   },
   {
-    title: 'Messages',
+    title: "Messages",
     icon: <TbMessage />,
-    link: '/messages'
+    link: "/messages",
   },
   {
-    title: 'Reels',
+    title: "Reels",
     icon: <BsCameraReels />,
-    link: '/reels'
+    link: "/reels",
   },
   {
-    title: 'Notifications',
+    title: "Notifications",
     icon: <IoMdNotificationsOutline />,
-    link: '/notifications'
+    link: "/notifications",
   },
   {
-    title: 'Shop',
+    title: "Shop",
     icon: <FiShoppingCart />,
-    link: '/shop'
+    link: "/shop",
   },
   {
-    title: 'People',
+    title: "People",
     icon: <IoMdPeople />,
-    link: '/people'
+    link: "/people",
   },
   {
-    title: 'Create',
+    title: "Create",
     icon: <CiCirclePlus />,
-    link: '/create'
+    link: "/create",
   },
   {
-    title: 'Components',
+    title: "Components",
     icon: <CgComponents />,
-    link: '/components'
+    link: "/components",
   },
   {
-    title: 'Profile',
+    title: "Profile",
     icon: <CgProfile />,
-    link: '/profile'
-  }
+    link: "/profile",
+  },
 ];
 
 export default function SideBar(props: ISideBarProps) {
+  const [open, setOpen] = React.useState(false);
+
+  const { data: session } = useSession();
+
   return (
-    <div className='fixed top-0 left-0 side-bar bg-foreground-1 w-60 min-h-dvh h-fit px-2'>
-      <div className='h2-bold mb-1 px-3'>Instello</div>
+    <nav className="hidden w-[73px] flex-col justify-between bg-foreground-1 px-2 transition-all delay-100 duration-300 ease-in-out sm:flex lg:w-60">
       <div>
+        <div className="h2-bold mb-1 px-3">Instello</div>
         {MenuItem.map((item, index) => (
           <Link
             href={item.link}
             key={index}
-            className='flex-start mb-3 px-3 py-2.5 rounded-lg group cursor-pointer hover:bg-hover-1'>
-            <div className='text-2xl mr-3'>{item.icon}</div>
-            <div className='text-text-2 group-hover:text-text-1'>
+            className="flex-center lg:flex-start group mb-3 cursor-pointer rounded-lg px-3 py-2.5 hover:bg-hover-1"
+          >
+            <div className="text-2xl lg:mr-3">{item.icon}</div>
+            <div className="hidden text-text-2 group-hover:text-text-1 lg:block">
               {item.title}
             </div>
           </Link>
         ))}
       </div>
-      <MouseOverPopover
-        DisplayContent={
-          <div className='px-3 flex-start'>
-            <Avatar className='size-7 me-3' />
-            <span className='me-7 base-bold'>Monroe Parker</span>
-            <MdArrowForwardIos />
-          </div>
-        }
-        HideContent={
-          <div className='bg-foreground-1 text-text-1 py-3 w-64 rounded-lg overflow-hidden border border-border-1'>
-            <div className='ps-3'>
-              <Avatar className='size-7 mb-3' />
-              <div>
-                <span className='h5-bold mb-2'>Monroe Parker</span>
-              </div>
-              <div>
-                <span className='small-regular text-text-2 mb-4'>@monroe</span>
-              </div>{' '}
-              <div className='*:small-bold'>
-                <span className='me-2'>620K</span>
-                <span className='text-text-2 me-3'>Following</span>
-                <span className='me-2'>38K</span>
-                <span className='text-text-2'>Followers</span>
-              </div>
-            </div>
-            <Divider className='bg-text-1 my-3' />
-            <div className='*:px-3 *:py-2.5'>
-              <div className='flex'>
-                <span className='text-xl me-3'>
-                  <CiUser />
-                </span>
-                <span>Profile</span>
-              </div>
-              <div className='flex'>
-                <span className='text-xl me-3'>
-                  <GrUpgrade />
-                </span>
-                <span>Upgrade</span>
-              </div>
-              <div className='flex'>
-                <span className='text-xl me-3'>
-                  <IoSettingsOutline />
-                </span>
-                <span>Account Setting</span>
-              </div>
-              <div className='flex'>
-                <span className='text-xl me-3'>
-                  <IoIosLogOut />
-                </span>
-                <span>Log Out</span>
-              </div>
-            </div>
-          </div>
-        }
-      />
-    </div>
+      {session ? (
+        <HoverCard openDelay={100} onOpenChange={setOpen}>
+          <HoverCardTrigger className="flex-center lg:flex-start mb-2 cursor-default px-3">
+            <Avatar
+              className="size-7 lg:me-3"
+              src={getImageURL(session?.user.image!)}
+            />
+            <span className="base-bold me-7 hidden lg:block">
+              {session?.user.name}
+            </span>
+            <MdArrowForwardIos
+              className={cn(
+                "hidden transition duration-200 lg:block",
+                open && "-rotate-90",
+              )}
+            />
+          </HoverCardTrigger>
+          <HoverCardContent className="mb-2 overflow-hidden rounded-lg border border-border-1 bg-foreground-1 py-3 text-text-1">
+            <AccountDetail />
+          </HoverCardContent>
+        </HoverCard>
+      ) : (
+        <div className="flex-center lg:flex-start mb-2 cursor-default px-3">
+          <Skeleton
+            className="size-7 lg:me-3"
+            variant="circular"
+            width={40}
+            height={40}
+          />
+          <Skeleton
+            className="base-bold me-7 hidden lg:block"
+            variant="text"
+            width={100}
+            height={30}
+          />
+          <MdArrowForwardIos
+            className={cn(
+              "hidden transition duration-200 lg:block",
+              open && "-rotate-90",
+            )}
+          />
+        </div>
+      )}
+    </nav>
   );
 }

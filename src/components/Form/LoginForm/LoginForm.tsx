@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { FaSnowflake, FaSpinner } from 'react-icons/fa';
 import Link from 'next/link';
 import { ClassValue } from 'clsx';
-import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
+
 import { userAuthSchema } from '@/lib/schema/auth';
-import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 import { cn } from '@/lib/utils';
 
@@ -28,13 +28,13 @@ export default function LoginForm(props: IRegisterFormProps) {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors }
   } = useForm<FormData>({
     resolver: zodResolver(userAuthSchema)
   });
 
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -44,26 +44,21 @@ export default function LoginForm(props: IRegisterFormProps) {
     const signInResult = await signIn('credentials', {
       email: data.email,
       password: data.password,
-      redirect: false,
       callbackUrl: searchParams.get('callbackUrl') || '/'
     });
 
     setIsLoading(false);
 
-    if (!signInResult?.ok || signInResult?.error) {
-      //   return toast({
-      //     title: signInResult?.error ?? 'Something went wrong.',
-      //     description: 'Your sign in request failed. Please try again.',
-      //     variant: 'destructive'
-      //   });
-    }
-
-    // toast({
-    //   title: 'Login Success'
-    // });
-
-    if (signInResult && signInResult.url) {
-      router.push(signInResult.url);
+    if (signInResult && signInResult.error) {
+      if (signInResult.error.includes('400')) {
+        setError('email', {
+          message: 'Email not exists!'
+        });
+      } else if (signInResult.error.includes('401')) {
+        setError('password', {
+          message: 'Password is incorrect!'
+        });
+      }
     }
   }
 
@@ -85,10 +80,9 @@ export default function LoginForm(props: IRegisterFormProps) {
               Email
             </label>
             <input
-              // type='email'
+              type='email'
               className={cn(classStyleInput)}
               placeholder='Your Email'
-              autoComplete='one-time-code'
               disabled={isLoading}
               {...register('email')}
             />
@@ -102,10 +96,8 @@ export default function LoginForm(props: IRegisterFormProps) {
             </label>
             <input
               type='password'
-              id='password'
               className={cn(classStyleInput)}
               placeholder='Your Password'
-              autoComplete='one-time-code'
               disabled={isLoading}
               {...register('password')}
             />
@@ -121,8 +113,8 @@ export default function LoginForm(props: IRegisterFormProps) {
         </form>
         <div className='max-w-sm flex-center'>
           <div className='flex-start'>
-            <div className='me-2 text-text-1'>Dont have an account yet?</div>
-            <Link href='/register' className='text-primary-800 dark:text-primary-500'>
+            <div className='me-2 text-text-1'>Don&apos;t have an account yet?</div>
+            <Link href='/register' className='text-primary-800 dark:text-primary-500 hover:underline'>
               Sign up
             </Link>
           </div>

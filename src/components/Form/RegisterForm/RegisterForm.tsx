@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { ClassValue } from 'clsx';
-import { Button } from '@mui/material';
 import { FaSnowflake } from 'react-icons/fa';
 
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 export interface IRegisterFormProps {
   className: string;
@@ -20,7 +20,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
         <div className='flex-center'>
           <div>
             <div className='flex-center'>
-            <FaSnowflake className='icon_logo text-text-1' />
+              <FaSnowflake className='icon_logo text-text-1' />
               <span className='h2-bold text-text-1 ms-3'>DevHub</span>
             </div>
             <div className='h3-bold text-text-1 my-3'>Create an account</div>
@@ -101,7 +101,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
         <div className='max-w-sm flex-center'>
           <div className='flex-start'>
             <div className='me-2 text-text-1'>Already have an account?</div>
-            <Link href='/login' className='text-primary-800 dark:text-primary-500'>
+            <Link href='/login' className='text-primary-800 dark:text-primary-500 hover:underline'>
               Sign in
             </Link>
           </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -94,17 +94,17 @@
 
 @layer base {
   * {
-    @apply m-0 p-0 box-border scroll-smooth;
+    @apply m-0 box-border scroll-smooth p-0;
   }
 
   body {
-    @apply font-inter text-[14px] bg-background-1 text-text-1;
+    @apply bg-background-1 font-inter text-[14px] text-text-1;
   }
 }
 
 @layer components {
   .icon_logo {
-    @apply w-[50px] h-[50px];
+    @apply h-[50px] w-[50px];
     padding: 8px;
     border: double 4px transparent;
     border-radius: 50%;

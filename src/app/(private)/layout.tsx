@@ -1,14 +1,16 @@
-import SideBar from '@/components/SideBar/Sidebar';
+import SideBar from "@/components/SideBar/Sidebar";
 
 export default function PrivateLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="w-full overflow-hidden sm:flex">
       <SideBar />
-      <div className='ms-60 px-40 py-10'>{children}</div>
-    </>
+      <section className="flex h-[calc(100%-160px)] flex-1 overflow-auto p-14 md:h-full">
+        {children}
+      </section>
+    </div>
   );
 }
