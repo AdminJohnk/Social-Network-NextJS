@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+'use client';
 
 import {
     IoCameraOutline,
@@ -10,7 +10,6 @@ import {
     IoNotificationsOffOutline,
     IoHeartOutline,
     IoHeartCircle,
-    IoAddCircle,
     IoChatbubbleEllipsesOutline,
     IoChatbubbleEllipses,
     IoStopCircleOutline,
@@ -19,9 +18,7 @@ import {
     IoEllipsisHorizontal,
     IoBookmarkOutline,
     IoChevronForwardOutline,
-    IoChevronBack,
     IoCamera,
-    IoChevronForward,
 } from "react-icons/io5";
 import { FaImage, FaHeart } from "react-icons/fa";
 import Link from "next/link";

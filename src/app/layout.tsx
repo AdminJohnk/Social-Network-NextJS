@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Flowbite, ThemeModeScript } from 'flowbite-react';
+import { DarkThemeToggle, Flowbite, ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 
@@ -23,16 +23,21 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <head>
         <ThemeModeScript />
+
+        <link
+          rel='stylesheet'
+          href='https://cdn.jsdelivr.net/npm/uikit@3.19.1/dist/css/uikit.min.css'
+        />
       </head>
-
-      <Script src='https://cdn.jsdelivr.net/npm/uikit@3.19.1/dist/js/uikit.min.js' defer />
-
-      <body className={font.className}>
+      <Script
+        src='https://cdn.jsdelivr.net/npm/uikit@3.19.1/dist/js/uikit.min.js'
+        defer
+      />
+      <body className={font.className + ' custom-scrollbar-fg'}>
         <QueryProvider>
           <SessionProvider>
-            <main className='flex h-dvh custom-scrollbar-fg'>
-              <Flowbite>{children}</Flowbite>
-            </main>
+            <DarkThemeToggle className='fixed right-1 top-1/2 bg-hover-1 hover:bg-hover-2 z-20' />
+            <Flowbite>{children}</Flowbite>
           </SessionProvider>
         </QueryProvider>
       </body>

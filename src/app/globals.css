@@ -143,18 +143,18 @@
     }
   }
 
-  input:checked + .switch-button {
+  input:checked+.switch-button {
     --tw-bg-opacity: 1;
     background-color: rgb(2 132 199 / var(--tw-bg-opacity));
   }
 
   @media (prefers-color-scheme: dark) {
-    input:checked + .switch-button {
+    input:checked+.switch-button {
       --tw-bg-opacity: 1;
       background-color: rgb(147 197 253 / var(--tw-bg-opacity));
     }
 
-    input:checked + .switch-button:before {
+    input:checked+.switch-button:before {
       --tw-bg-opacity: 1;
       background-color: rgb(2 132 199 / var(--tw-bg-opacity));
     }
@@ -202,6 +202,7 @@
 }
 
 @layer utilities {
+
   /* Text */
   .h1-bold {
     @apply text-[36px] font-bold leading-[140%];
@@ -347,6 +348,12 @@
 
   .custom-scrollbar-fg::-webkit-scrollbar-thumb:hover {
     background: var(--background1);
+  }
+
+  /* Custom scrollbar none*/
+  .custom-scrollbar-none::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
   }
 
   input:-webkit-autofill,
