@@ -36,7 +36,7 @@ function SamplePrevArrow(props: any) {
   );
 }
 
-export interface IStoryProps {}
+export interface IStoryProps { }
 
 export default function Story(props: IStoryProps) {
   // var settings: Settings = {

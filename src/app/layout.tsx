@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { DarkThemeToggle, Flowbite, ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
-import ThemeRegistry from '@/theme/ThemeRegistry';
+
 import { QueryProvider, SessionProvider } from './provider';
+import './uk.css';
 import './globals.css';
 
 const font = Inter({ subsets: ['latin'] });
@@ -19,21 +20,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      {/* <ThemeRegistry> */}
+    <html lang='en' suppressHydrationWarning>
       <head>
         <ThemeModeScript />
-
-        <link
-          rel='stylesheet'
-          href='https://cdn.jsdelivr.net/npm/uikit@3.19.1/dist/css/uikit.min.css'
-        />
       </head>
+
       <Script
-        src='https://cdn.jsdelivr.net/npm/uikit@3.19.1/dist/js/uikit.min.js'
+        src='https://cdn.jsdelivr.net/npm/uikit@3.15.25/dist/js/uikit.min.js'
         defer
       />
-      <body className={font.className}>
+
+      <body className={font.className + ' custom-scrollbar-fg'}>
         <QueryProvider>
           <SessionProvider>
             <DarkThemeToggle className='fixed right-1 top-1/2 bg-hover-1 hover:bg-hover-2 z-20' />
@@ -41,7 +38,6 @@ export default function RootLayout({
           </SessionProvider>
         </QueryProvider>
       </body>
-      {/* </ThemeRegistry> */}
     </html>
   );
 }

@@ -7,9 +7,9 @@ export interface IConversationListProps { }
 
 function ConversationList(props: IConversationListProps) {
     return (
-        <div className="space-y-2 p-2 overflow-y-auto h-[calc(100vh-130px)] custom-scrollbar-bg custom-scrollbar-fg">
+        <div className="space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)] custom-scrollbar-fg">
 
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-5.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                     <div className="w-4 h-4 absolute bottom-0 right-0  bg-green-500 rounded-full border border-white dark:border-slate-800"></div>
@@ -22,7 +22,7 @@ function ConversationList(props: IConversationListProps) {
                     <div className="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap">Love your photos 😍</div>
                 </div>
             </Link>
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-2.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                 </div>
@@ -35,7 +35,7 @@ function ConversationList(props: IConversationListProps) {
                     <div className="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap">Photo editor needed. Fix photos? 🛠️</div>
                 </div>
             </Link>
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-3.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                     <div className="w-4 h-4 absolute bottom-0 right-0  bg-green-500 rounded-full border border-white dark:border-slate-800"></div>
@@ -48,7 +48,7 @@ function ConversationList(props: IConversationListProps) {
                     <div className="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap">Can i call you to day?</div>
                 </div>
             </Link>
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-4.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                 </div>
@@ -61,7 +61,7 @@ function ConversationList(props: IConversationListProps) {
                 </div>
             </Link>
 
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-5.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                     <div className="w-4 h-4 absolute bottom-0 right-0  bg-green-500 rounded-full border border-white dark:border-slate-800"></div>
@@ -74,7 +74,7 @@ function ConversationList(props: IConversationListProps) {
                     <div className="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap">Headshot needed. Resume. Do it? 👩‍💼</div>
                 </div>
             </Link>
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-2.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                 </div>
@@ -87,7 +87,7 @@ function ConversationList(props: IConversationListProps) {
                     <div className="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap">Online course interesting? 🎓</div>
                 </div>
             </Link>
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-3.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                 </div>
@@ -99,7 +99,7 @@ function ConversationList(props: IConversationListProps) {
                     <div className="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap">I’m glad you like it.😊</div>
                 </div>
             </Link>
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-4.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                 </div>
@@ -111,7 +111,7 @@ function ConversationList(props: IConversationListProps) {
                     <div className="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap"> Product photographer wanted? 📷 </div>
                 </div>
             </Link>
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-5.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                     <div className="w-4 h-4 absolute bottom-0 right-0  bg-green-500 rounded-full border border-white dark:border-slate-800"></div>
@@ -124,7 +124,7 @@ function ConversationList(props: IConversationListProps) {
                     <div className="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap">Love your photos 😍</div>
                 </div>
             </Link>
-            <Link href="/#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
+            <Link href="#" className="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1">
                 <div className="relative w-14 h-14 shrink-0">
                     <img src="assets/images/avatars/avatar-2.jpg" alt="" className="object-cover w-full h-full rounded-full" />
                 </div>
