@@ -11,6 +11,7 @@ export interface UserLogin {
     id: string;
     email: string;
     name: string;
+    user_image: string;
   };
   accessToken: string;
   refreshToken: string;

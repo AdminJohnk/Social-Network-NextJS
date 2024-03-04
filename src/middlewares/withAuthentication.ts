@@ -15,7 +15,7 @@ export const withAuthentication: MiddlewareFactory = next => {
 
       if (isAuthPage) {
         if (isAuth) {
-          return NextResponse.redirect(new URL('/dashboard', req.url));
+          return NextResponse.redirect(new URL('/', req.url));
         }
 
         return null;
@@ -34,7 +34,7 @@ export const withAuthentication: MiddlewareFactory = next => {
     },
     {
       callbacks: {
-        authorized: ({ req, token }) => {
+        authorized: () => {
           return true;
         }
       }

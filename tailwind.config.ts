@@ -3,7 +3,6 @@ import type { Config } from 'tailwindcss';
 const config: Config = {
   darkMode: 'class',
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     'node_modules/flowbite-react/lib/esm/**/*.js'
@@ -20,16 +19,6 @@ const config: Config = {
       '2xl': '1536px'
     },
     extend: {
-      // screens: {
-      //   sm: '640px',
-      //   md: '768px',
-      //   'md/2': '896px',
-      //   lg: '1024px',
-      //   'lg/2': '1152px',
-      //   xl: '1280px',
-      //   'xl/2': '1408px',
-      //   '2xl': '1536px'
-      // },
       colors: {
         primary: {
           '50': '#eff6ff',
