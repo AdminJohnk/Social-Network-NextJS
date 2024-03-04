@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -143,23 +143,22 @@
     }
   }
 
-  input:checked+.switch-button {
+  input:checked + .switch-button {
     --tw-bg-opacity: 1;
     background-color: rgb(2 132 199 / var(--tw-bg-opacity));
   }
 
   @media (prefers-color-scheme: dark) {
-    input:checked+.switch-button {
+    input:checked + .switch-button {
       --tw-bg-opacity: 1;
       background-color: rgb(147 197 253 / var(--tw-bg-opacity));
     }
 
-    input:checked+.switch-button:before {
+    input:checked + .switch-button:before {
       --tw-bg-opacity: 1;
       background-color: rgb(2 132 199 / var(--tw-bg-opacity));
     }
   }
-
 
   /*button*/
 
@@ -200,11 +199,9 @@
     --tw-bg-opacity: 1;
     background-color: rgb(var(--color-secondery) / var(--tw-bg-opacity));
   }
-
 }
 
 @layer utilities {
-
   /* Text */
   .h1-bold {
     @apply text-[36px] font-bold leading-[140%];
