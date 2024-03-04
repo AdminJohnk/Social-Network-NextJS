@@ -8,6 +8,9 @@ import { IoHeart } from 'react-icons/io5';
 import { FaCommentDots } from 'react-icons/fa';
 import CommentList from '../CommentList/CommentList';
 import InputComment from '../InputComment/InputComment';
+import PostMoreChoose from './PostMoreChoose';
+import PopOverclick from '../ui/click-cards';
+import Link from 'next/link';
 
 export interface IPostProps {}
 
@@ -19,11 +22,23 @@ export default function Post(props: IPostProps) {
           <Avatar src='assets/images/avatars/avatar-3.jpg' />
           <div className='flex flex-col ms-3'>
             <span className='base-bold'>Monroe Parker</span>
-            <span className='small-bold text-text-2'>2 hours ago</span>
+            <Link
+              href='/posts/657f06489c29b021b905b804'
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
+            >
+              2 hours ago
+            </Link>
           </div>
         </div>
-        <div className='p-1 rounded-full hover:bg-hover-1'>
-          <IoIosMore className='size-6' />
+        <div className='popover'>
+          <PopOverclick
+            Content={
+              <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
+                <IoIosMore className='size-6' />
+              </div>
+            }
+            HoverContent={<PostMoreChoose />}
+          />
         </div>
       </div>
       <div className='mt-4'>

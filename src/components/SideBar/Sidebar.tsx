@@ -24,81 +24,107 @@ import Image from 'next/image';
 
 export interface ISideBarProps {}
 
-const MenuItem = [
-  {
-    title: 'Home',
-    icon: <IoMdHome />,
-    link: '/',
-  },
-  {
-    title: 'Search',
-    icon: <IoSearch />,
-    link: '/search',
-  },
-  {
-    title: 'Explore',
-    icon: <MdOutlineExplore />,
-    link: '/explore',
-  },
-  {
-    title: 'Messages',
-    icon: <TbMessage />,
-    link: '/messages',
-  },
-  {
-    title: 'Reels',
-    icon: <BsCameraReels />,
-    link: '/reels',
-  },
-  {
-    title: 'Notifications',
-    icon: <IoMdNotificationsOutline />,
-    link: '/notifications',
-  },
-  {
-    title: 'People',
-    icon: <IoMdPeople />,
-    link: '/people',
-  },
-  {
-    title: 'Create',
-    icon: <CiCirclePlus />,
-    link: '/create',
-  },
-  {
-    title: 'Profile',
-    icon: <CgProfile />,
-    link: '/profile',
-  },
-];
-
 export default function SideBar(props: ISideBarProps) {
   const [open, setOpen] = React.useState(false);
+  const [collapse, setCollapse] = React.useState(true);
+
+  const MenuItem = [
+    {
+      title: 'Home',
+      icon: <IoMdHome />,
+      link: '/',
+    },
+    {
+      title: 'Search',
+      icon: <IoSearch />,
+      link: '',
+      onclick: () => {
+        alert('Search');
+      },
+    },
+    {
+      title: 'Explore',
+      icon: <MdOutlineExplore />,
+      link: '/explore',
+    },
+    {
+      title: 'Messages',
+      icon: <TbMessage />,
+      link: '/messages',
+    },
+    {
+      title: 'Reels',
+      icon: <BsCameraReels />,
+      link: '/reels',
+    },
+    {
+      title: 'Notifications',
+      icon: <IoMdNotificationsOutline />,
+      link: '/notifications',
+    },
+    {
+      title: 'People',
+      icon: <IoMdPeople />,
+      link: '/people',
+    },
+    {
+      title: 'Create',
+      icon: <CiCirclePlus />,
+      link: '/create',
+    },
+    {
+      title: 'Profile',
+      icon: <CgProfile />,
+      link: '/profile',
+    },
+  ];
 
   const { data: session } = useSession();
 
   return (
-    <nav className='side-bar fixed left-0 top-0 h-dvh bg-foreground-1 px-2 w-60 max-lg/2:w-20 overflow-y-scroll custom-scrollbar-none'>
+    <nav
+      className={cn(
+        'side-bar fixed left-0 top-0 h-dvh bg-foreground-1 px-2 w-60 max-lg/2:w-20 overflow-y-scroll custom-scrollbar-none',
+      )}
+    >
       <div>
-        <div className='h2-bold mb-1 px-3 flex-center mt-1'>
+        <div
+          className={cn(
+            'h2-bold mb-1 px-3 mt-1 hidden max-lg/2:block max-lg/2:flex-center',
+            {
+              block: !collapse,
+            },
+          )}
+        >
           <Image
-            className='hidden max-lg/2:block size-6'
+            className='size-6'
             src='/assets/images/logo-icon.png'
             width={40}
             height={40}
             alt='logo'
           />
         </div>
-        <div className='h2-bold mb-1 px-3 max-lg/2:hidden'>Instello</div>
+        <div className={cn('h2-bold mb-1 px-3 max-lg/2:hidden')}>Instello</div>
 
         {MenuItem.map((item, index) => (
           <Link
             href={item.link}
             key={index}
-            className='flex-start group mb-3 cursor-pointer rounded-lg px-3 py-2.5 hover:bg-hover-1 max-lg/2:flex-center'
+            onClick={() => {
+              if (item.onclick) item.onclick();
+            }}
+            className={cn(
+              'flex-start group mb-3 cursor-pointer rounded-lg px-3 py-2.5 hover:bg-hover-1 max-lg/2:flex-center',
+            )}
           >
-            <div className='text-2xl mr-3 max-lg/2:mr-0'>{item.icon}</div>
-            <div className='text-text-2 group-hover:text-text-1 max-lg/2:hidden'>
+            <div className={cn('text-2xl mr-3 max-lg/2:mr-0 text-text-1')}>
+              {item.icon}
+            </div>
+            <div
+              className={cn(
+                'text-text-2 group-hover:text-text-1 max-lg/2:hidden',
+              )}
+            >
               {item.title}
             </div>
           </Link>

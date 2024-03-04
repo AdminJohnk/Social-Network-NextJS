@@ -8,7 +8,7 @@ export default function PrivateLayout({
   return (
     <>
       <SideBar />
-      {children}
+      <div className='h-fit min-h-dvh'>{children}</div>
     </>
   );
 }

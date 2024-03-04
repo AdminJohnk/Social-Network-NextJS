@@ -79,7 +79,6 @@ const Profile = () => {
                   </p>
 
                   <p className='mt-2 text-sm font-light md:font-normal'>
-                    {' '}
                     I love beauty and emotion. 🥰 I’m passionate about
                     photography and learning. 📚 I explore genres and styles. 🌈
                     I think photography is storytelling. 📖 I hope you like and
@@ -92,15 +91,15 @@ const Profile = () => {
                   >
                     <Link href='/#' className='inline-block'>
                       Travel
-                    </Link>{' '}
-                    .{' '}
+                    </Link>
+                    .
                     <Link href='/#' className='inline-block'>
                       Business
-                    </Link>{' '}
-                    .{' '}
+                    </Link>
+                    .
                     <Link href='/#' className='inline-block'>
                       Technology
-                    </Link>{' '}
+                    </Link>
                   </p>
 
                   <div className='mt-4 flex justify-between gap-4 max-md:flex-col md:mt-8 md:items-end'>
@@ -148,7 +147,6 @@ const Profile = () => {
                         dismissOnClick={false}
                         renderTrigger={() => (
                           <button className='dark:bg-dark2 flex rounded-lg bg-slate-200/60 px-2 py-1.5'>
-                            {' '}
                             <IoEllipsisHorizontal className='text-xl' />
                           </button>
                         )}
@@ -156,28 +154,24 @@ const Profile = () => {
                         <div className='w-[240px]'>
                           <Dropdown.Item>
                             <Link href='/#' className='flex items-center gap-1'>
-                              {' '}
-                              <IoPricetagsOutline className=' text-xl' />{' '}
-                              Unfollow{' '}
+                              <IoPricetagsOutline className=' text-xl' />
+                              Unfollow
                             </Link>
                           </Dropdown.Item>
                           <Dropdown.Item>
                             <Link href='/#' className='flex items-center gap-1'>
-                              {' '}
-                              <IoTimeOutline className=' text-xl' /> Mute story{' '}
+                              <IoTimeOutline className=' text-xl' /> Mute story
                             </Link>
                           </Dropdown.Item>
                           <Dropdown.Item>
                             <Link href='/#' className='flex items-center gap-1'>
-                              {' '}
-                              <IoFlagOutline className=' text-xl' /> Report{' '}
+                              <IoFlagOutline className=' text-xl' /> Report
                             </Link>
                           </Dropdown.Item>
                           <Dropdown.Item>
                             <Link href='/#' className='flex items-center gap-1'>
-                              {' '}
                               <IoShareOutline className=' text-xl' /> Share
-                              profile{' '}
+                              profile
                             </Link>
                           </Dropdown.Item>
                           <Dropdown.Divider />
@@ -186,7 +180,7 @@ const Profile = () => {
                               href='/#'
                               className='flex items-center gap-1 text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                             >
-                              <IoStopCircleOutline className='text-xl' /> Block{' '}
+                              <IoStopCircleOutline className='text-xl' /> Block
                             </Link>
                           </Dropdown.Item>
                         </div>
@@ -336,7 +330,6 @@ const Profile = () => {
                           className='dark:bg-dark3 absolute -left-4 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-white  shadow'
                           uk-slider-item='previous'
                         >
-                          {' '}
                           <IoChevronBack className='text-2xl' />
                         </button>
                         <button
@@ -344,7 +337,6 @@ const Profile = () => {
                           className='dark:bg-dark3 absolute -right-4 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-white  shadow'
                           uk-slider-item='next'
                         >
-                          {' '}
                           <IoChevronForwardOutline className='text-2xl' />
                         </button>
                       </div>
@@ -390,7 +382,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -415,7 +407,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -440,7 +432,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -465,7 +457,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -490,7 +482,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -515,7 +507,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -540,7 +532,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -565,7 +557,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -590,7 +582,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -615,7 +607,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -640,7 +632,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -665,7 +657,7 @@ const Profile = () => {
                                       <IoHeartCircle className='text-2xl' /> 152
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                      <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                      <IoChatbubbleEllipses className='text-2xl' />
                                       290
                                     </div>
                                   </div>
@@ -967,8 +959,7 @@ const Profile = () => {
                             <div className='flex-1'>
                               <Link href='/profile'>
                                 <h4 className='text-black dark:text-white'>
-                                  {' '}
-                                  Monroe Parker{' '}
+                                  Monroe Parker
                                 </h4>
                               </Link>
                             </div>
@@ -979,8 +970,7 @@ const Profile = () => {
                                 type='button'
                                 className='button__ico h-8 w-8'
                               >
-                                {' '}
-                                <IoEllipsisHorizontal className='text-xl' />{' '}
+                                <IoEllipsisHorizontal className='text-xl' />
                               </button>
                               <div
                                 className='w-[232px]'
@@ -988,24 +978,24 @@ const Profile = () => {
                               >
                                 <nav>
                                   <Link href='/#'>
-                                    <IoBookmarkOutline className='shrink-0 text-xl' />{' '}
-                                    Add favorites{' '}
+                                    <IoBookmarkOutline className='shrink-0 text-xl' />
+                                    Add favorites
                                   </Link>
                                   <Link href='/#'>
-                                    <IoFlagOutline className='shrink-0 text-xl' />{' '}
-                                    Report{' '}
+                                    <IoFlagOutline className='shrink-0 text-xl' />
+                                    Report
                                   </Link>
                                   <Link href='/#'>
-                                    <IoShareOutline className='shrink-0 text-xl' />{' '}
-                                    Share{' '}
+                                    <IoShareOutline className='shrink-0 text-xl' />
+                                    Share
                                   </Link>
                                   <hr />
                                   <Link
                                     href='/#'
                                     className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                                   >
-                                    <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                                    Remove{' '}
+                                    <IoStopCircleOutline className='shrink-0 text-xl' />
+                                    Remove
                                   </Link>
                                 </nav>
                               </div>
@@ -1026,19 +1016,16 @@ const Profile = () => {
                           {/* <!-- post icons --> */}
                           <div className='flex items-center gap-1 p-1.5 md:gap-3 md:px-3 md:py-2.5'>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoHeartOutline className='text-lg md:text-2xl' />{' '}
+                              <IoHeartOutline className='text-lg md:text-2xl' />
                             </button>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />{' '}
+                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />
                             </button>
                             <button
                               type='button'
                               className='button__ico ml-auto'
                             >
-                              {' '}
-                              <IoBookmarkOutline className='text-lg md:text-2xl' />{' '}
+                              <IoBookmarkOutline className='text-lg md:text-2xl' />
                             </button>
                           </div>
                         </div>
@@ -1056,8 +1043,7 @@ const Profile = () => {
                             <div className='flex-1'>
                               <Link href='/profile'>
                                 <h4 className='text-black dark:text-white'>
-                                  {' '}
-                                  Jesse Steeve{' '}
+                                  Jesse Steeve
                                 </h4>
                               </Link>
                             </div>
@@ -1068,8 +1054,7 @@ const Profile = () => {
                                 type='button'
                                 className='button__ico h-8 w-8'
                               >
-                                {' '}
-                                <IoEllipsisHorizontal className='text-xl' />{' '}
+                                <IoEllipsisHorizontal className='text-xl' />
                               </button>
                               <div
                                 className='w-[232px]'
@@ -1077,24 +1062,24 @@ const Profile = () => {
                               >
                                 <nav>
                                   <Link href='/#'>
-                                    <IoBookmarkOutline className='shrink-0 text-xl' />{' '}
-                                    Add favorites{' '}
+                                    <IoBookmarkOutline className='shrink-0 text-xl' />
+                                    Add favorites
                                   </Link>
                                   <Link href='/#'>
-                                    <IoFlagOutline className='shrink-0 text-xl' />{' '}
-                                    Report{' '}
+                                    <IoFlagOutline className='shrink-0 text-xl' />
+                                    Report
                                   </Link>
                                   <Link href='/#'>
-                                    <IoShareOutline className='shrink-0 text-xl' />{' '}
-                                    Share{' '}
+                                    <IoShareOutline className='shrink-0 text-xl' />
+                                    Share
                                   </Link>
                                   <hr />
                                   <Link
                                     href='/#'
                                     className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                                   >
-                                    <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                                    Remove{' '}
+                                    <IoStopCircleOutline className='shrink-0 text-xl' />
+                                    Remove
                                   </Link>
                                 </nav>
                               </div>
@@ -1115,19 +1100,16 @@ const Profile = () => {
                           {/* <!-- post icons --> */}
                           <div className='flex items-center gap-1 p-1.5 md:gap-3 md:px-3 md:py-2.5'>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoHeartOutline className='text-lg md:text-2xl' />{' '}
+                              <IoHeartOutline className='text-lg md:text-2xl' />
                             </button>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />{' '}
+                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />
                             </button>
                             <button
                               type='button'
                               className='button__ico ml-auto'
                             >
-                              {' '}
-                              <IoBookmarkOutline className='text-lg md:text-2xl' />{' '}
+                              <IoBookmarkOutline className='text-lg md:text-2xl' />
                             </button>
                           </div>
                         </div>
@@ -1145,8 +1127,7 @@ const Profile = () => {
                             <div className='flex-1'>
                               <Link href='/profile'>
                                 <h4 className='text-black dark:text-white'>
-                                  {' '}
-                                  Martin Gray{' '}
+                                  Martin Gray
                                 </h4>
                               </Link>
                             </div>
@@ -1157,8 +1138,7 @@ const Profile = () => {
                                 type='button'
                                 className='button__ico h-8 w-8'
                               >
-                                {' '}
-                                <IoEllipsisHorizontal className='text-xl' />{' '}
+                                <IoEllipsisHorizontal className='text-xl' />
                               </button>
                               <div
                                 className='w-[232px]'
@@ -1166,24 +1146,24 @@ const Profile = () => {
                               >
                                 <nav>
                                   <Link href='/#'>
-                                    <IoBookmarkOutline className='shrink-0 text-xl' />{' '}
-                                    Add favorites{' '}
+                                    <IoBookmarkOutline className='shrink-0 text-xl' />
+                                    Add favorites
                                   </Link>
                                   <Link href='/#'>
-                                    <IoFlagOutline className='shrink-0 text-xl' />{' '}
-                                    Report{' '}
+                                    <IoFlagOutline className='shrink-0 text-xl' />
+                                    Report
                                   </Link>
                                   <Link href='/#'>
-                                    <IoShareOutline className='shrink-0 text-xl' />{' '}
-                                    Share{' '}
+                                    <IoShareOutline className='shrink-0 text-xl' />
+                                    Share
                                   </Link>
                                   <hr />
                                   <Link
                                     href='/#'
                                     className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                                   >
-                                    <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                                    Remove{' '}
+                                    <IoStopCircleOutline className='shrink-0 text-xl' />
+                                    Remove
                                   </Link>
                                 </nav>
                               </div>
@@ -1204,19 +1184,16 @@ const Profile = () => {
                           {/* <!-- post icons --> */}
                           <div className='flex items-center gap-1 p-1.5 md:gap-3 md:px-3 md:py-2.5'>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoHeartOutline className='text-lg md:text-2xl' />{' '}
+                              <IoHeartOutline className='text-lg md:text-2xl' />
                             </button>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />{' '}
+                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />
                             </button>
                             <button
                               type='button'
                               className='button__ico ml-auto'
                             >
-                              {' '}
-                              <IoBookmarkOutline className='text-lg md:text-2xl' />{' '}
+                              <IoBookmarkOutline className='text-lg md:text-2xl' />
                             </button>
                           </div>
                         </div>
@@ -1234,8 +1211,7 @@ const Profile = () => {
                             <div className='flex-1'>
                               <Link href='/profile'>
                                 <h4 className='text-black dark:text-white'>
-                                  {' '}
-                                  John Michael{' '}
+                                  John Michael
                                 </h4>
                               </Link>
                             </div>
@@ -1246,8 +1222,7 @@ const Profile = () => {
                                 type='button'
                                 className='button__ico h-8 w-8'
                               >
-                                {' '}
-                                <IoEllipsisHorizontal className='text-xl' />{' '}
+                                <IoEllipsisHorizontal className='text-xl' />
                               </button>
                               <div
                                 className='w-[232px]'
@@ -1255,24 +1230,24 @@ const Profile = () => {
                               >
                                 <nav>
                                   <Link href='/#'>
-                                    <IoBookmarkOutline className='shrink-0 text-xl' />{' '}
-                                    Add favorites{' '}
+                                    <IoBookmarkOutline className='shrink-0 text-xl' />
+                                    Add favorites
                                   </Link>
                                   <Link href='/#'>
-                                    <IoFlagOutline className='shrink-0 text-xl' />{' '}
-                                    Report{' '}
+                                    <IoFlagOutline className='shrink-0 text-xl' />
+                                    Report
                                   </Link>
                                   <Link href='/#'>
-                                    <IoShareOutline className='shrink-0 text-xl' />{' '}
-                                    Share{' '}
+                                    <IoShareOutline className='shrink-0 text-xl' />
+                                    Share
                                   </Link>
                                   <hr />
                                   <Link
                                     href='/#'
                                     className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                                   >
-                                    <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                                    Remove{' '}
+                                    <IoStopCircleOutline className='shrink-0 text-xl' />
+                                    Remove
                                   </Link>
                                 </nav>
                               </div>
@@ -1293,19 +1268,16 @@ const Profile = () => {
                           {/* <!-- post icons --> */}
                           <div className='flex items-center gap-1 p-1.5 md:gap-3 md:px-3 md:py-2.5'>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoHeartOutline className='text-lg md:text-2xl' />{' '}
+                              <IoHeartOutline className='text-lg md:text-2xl' />
                             </button>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />{' '}
+                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />
                             </button>
                             <button
                               type='button'
                               className='button__ico ml-auto'
                             >
-                              {' '}
-                              <IoBookmarkOutline className='text-lg md:text-2xl' />{' '}
+                              <IoBookmarkOutline className='text-lg md:text-2xl' />
                             </button>
                           </div>
                         </div>
@@ -1323,8 +1295,7 @@ const Profile = () => {
                             <div className='flex-1'>
                               <Link href='/profile'>
                                 <h4 className='text-black dark:text-white'>
-                                  {' '}
-                                  Alexia stella{' '}
+                                  Alexia stella
                                 </h4>
                               </Link>
                             </div>
@@ -1335,8 +1306,7 @@ const Profile = () => {
                                 type='button'
                                 className='button__ico h-8 w-8'
                               >
-                                {' '}
-                                <IoEllipsisHorizontal className='text-xl' />{' '}
+                                <IoEllipsisHorizontal className='text-xl' />
                               </button>
                               <div
                                 className='w-[232px]'
@@ -1344,24 +1314,24 @@ const Profile = () => {
                               >
                                 <nav>
                                   <Link href='/#'>
-                                    <IoBookmarkOutline className='shrink-0 text-xl' />{' '}
-                                    Add favorites{' '}
+                                    <IoBookmarkOutline className='shrink-0 text-xl' />
+                                    Add favorites
                                   </Link>
                                   <Link href='/#'>
-                                    <IoFlagOutline className='shrink-0 text-xl' />{' '}
-                                    Report{' '}
+                                    <IoFlagOutline className='shrink-0 text-xl' />
+                                    Report
                                   </Link>
                                   <Link href='/#'>
-                                    <IoShareOutline className='shrink-0 text-xl' />{' '}
-                                    Share{' '}
+                                    <IoShareOutline className='shrink-0 text-xl' />
+                                    Share
                                   </Link>
                                   <hr />
                                   <Link
                                     href='/#'
                                     className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                                   >
-                                    <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                                    Remove{' '}
+                                    <IoStopCircleOutline className='shrink-0 text-xl' />
+                                    Remove
                                   </Link>
                                 </nav>
                               </div>
@@ -1382,19 +1352,16 @@ const Profile = () => {
                           {/* <!-- post icons --> */}
                           <div className='flex items-center gap-1 p-1.5 md:gap-3 md:px-3 md:py-2.5'>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoHeartOutline className='text-lg md:text-2xl' />{' '}
+                              <IoHeartOutline className='text-lg md:text-2xl' />
                             </button>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />{' '}
+                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />
                             </button>
                             <button
                               type='button'
                               className='button__ico ml-auto'
                             >
-                              {' '}
-                              <IoBookmarkOutline className='text-lg md:text-2xl' />{' '}
+                              <IoBookmarkOutline className='text-lg md:text-2xl' />
                             </button>
                           </div>
                         </div>
@@ -1412,8 +1379,7 @@ const Profile = () => {
                             <div className='flex-1'>
                               <Link href='/profile'>
                                 <h4 className='text-black dark:text-white'>
-                                  {' '}
-                                  Monroe Parker{' '}
+                                  Monroe Parker
                                 </h4>
                               </Link>
                             </div>
@@ -1424,8 +1390,7 @@ const Profile = () => {
                                 type='button'
                                 className='button__ico h-8 w-8'
                               >
-                                {' '}
-                                <IoEllipsisHorizontal className='text-xl' />{' '}
+                                <IoEllipsisHorizontal className='text-xl' />
                               </button>
                               <div
                                 className='w-[232px]'
@@ -1433,24 +1398,24 @@ const Profile = () => {
                               >
                                 <nav>
                                   <Link href='/#'>
-                                    <IoBookmarkOutline className='shrink-0 text-xl' />{' '}
-                                    Add favorites{' '}
+                                    <IoBookmarkOutline className='shrink-0 text-xl' />
+                                    Add favorites
                                   </Link>
                                   <Link href='/#'>
-                                    <IoFlagOutline className='shrink-0 text-xl' />{' '}
-                                    Report{' '}
+                                    <IoFlagOutline className='shrink-0 text-xl' />
+                                    Report
                                   </Link>
                                   <Link href='/#'>
-                                    <IoShareOutline className='shrink-0 text-xl' />{' '}
-                                    Share{' '}
+                                    <IoShareOutline className='shrink-0 text-xl' />
+                                    Share
                                   </Link>
                                   <hr />
                                   <Link
                                     href='/#'
                                     className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                                   >
-                                    <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                                    Remove{' '}
+                                    <IoStopCircleOutline className='shrink-0 text-xl' />
+                                    Remove
                                   </Link>
                                 </nav>
                               </div>
@@ -1471,19 +1436,16 @@ const Profile = () => {
                           {/* <!-- post icons --> */}
                           <div className='flex items-center gap-1 p-1.5 md:gap-3 md:px-3 md:py-2.5'>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoHeartOutline className='text-lg md:text-2xl' />{' '}
+                              <IoHeartOutline className='text-lg md:text-2xl' />
                             </button>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />{' '}
+                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />
                             </button>
                             <button
                               type='button'
                               className='button__ico ml-auto'
                             >
-                              {' '}
-                              <IoBookmarkOutline className='text-lg md:text-2xl' />{' '}
+                              <IoBookmarkOutline className='text-lg md:text-2xl' />
                             </button>
                           </div>
                         </div>
@@ -1501,8 +1463,7 @@ const Profile = () => {
                             <div className='flex-1'>
                               <Link href='/profile'>
                                 <h4 className='text-black dark:text-white'>
-                                  {' '}
-                                  Jesse Steeve{' '}
+                                  Jesse Steeve
                                 </h4>
                               </Link>
                             </div>
@@ -1513,8 +1474,7 @@ const Profile = () => {
                                 type='button'
                                 className='button__ico h-8 w-8'
                               >
-                                {' '}
-                                <IoEllipsisHorizontal className='text-xl' />{' '}
+                                <IoEllipsisHorizontal className='text-xl' />
                               </button>
                               <div
                                 className='w-[232px]'
@@ -1522,24 +1482,24 @@ const Profile = () => {
                               >
                                 <nav>
                                   <Link href='/#'>
-                                    <IoBookmarkOutline className='shrink-0 text-xl' />{' '}
-                                    Add favorites{' '}
+                                    <IoBookmarkOutline className='shrink-0 text-xl' />
+                                    Add favorites
                                   </Link>
                                   <Link href='/#'>
-                                    <IoFlagOutline className='shrink-0 text-xl' />{' '}
-                                    Report{' '}
+                                    <IoFlagOutline className='shrink-0 text-xl' />
+                                    Report
                                   </Link>
                                   <Link href='/#'>
-                                    <IoShareOutline className='shrink-0 text-xl' />{' '}
-                                    Share{' '}
+                                    <IoShareOutline className='shrink-0 text-xl' />
+                                    Share
                                   </Link>
                                   <hr />
                                   <Link
                                     href='/#'
                                     className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                                   >
-                                    <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                                    Remove{' '}
+                                    <IoStopCircleOutline className='shrink-0 text-xl' />
+                                    Remove
                                   </Link>
                                 </nav>
                               </div>
@@ -1560,19 +1520,16 @@ const Profile = () => {
                           {/* <!-- post icons --> */}
                           <div className='flex items-center gap-1 p-1.5 md:gap-3 md:px-3 md:py-2.5'>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoHeartOutline className='text-lg md:text-2xl' />{' '}
+                              <IoHeartOutline className='text-lg md:text-2xl' />
                             </button>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />{' '}
+                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />
                             </button>
                             <button
                               type='button'
                               className='button__ico ml-auto'
                             >
-                              {' '}
-                              <IoBookmarkOutline className='text-lg md:text-2xl' />{' '}
+                              <IoBookmarkOutline className='text-lg md:text-2xl' />
                             </button>
                           </div>
                         </div>
@@ -1590,8 +1547,7 @@ const Profile = () => {
                             <div className='flex-1'>
                               <Link href='/profile'>
                                 <h4 className='text-black dark:text-white'>
-                                  {' '}
-                                  Martin Gray{' '}
+                                  Martin Gray
                                 </h4>
                               </Link>
                             </div>
@@ -1602,8 +1558,7 @@ const Profile = () => {
                                 type='button'
                                 className='button__ico h-8 w-8'
                               >
-                                {' '}
-                                <IoEllipsisHorizontal className='text-xl' />{' '}
+                                <IoEllipsisHorizontal className='text-xl' />
                               </button>
                               <div
                                 className='w-[232px]'
@@ -1611,24 +1566,24 @@ const Profile = () => {
                               >
                                 <nav>
                                   <Link href='/#'>
-                                    <IoBookmarkOutline className='shrink-0 text-xl' />{' '}
-                                    Add favorites{' '}
+                                    <IoBookmarkOutline className='shrink-0 text-xl' />
+                                    Add favorites
                                   </Link>
                                   <Link href='/#'>
-                                    <IoFlagOutline className='shrink-0 text-xl' />{' '}
-                                    Report{' '}
+                                    <IoFlagOutline className='shrink-0 text-xl' />
+                                    Report
                                   </Link>
                                   <Link href='/#'>
-                                    <IoShareOutline className='shrink-0 text-xl' />{' '}
-                                    Share{' '}
+                                    <IoShareOutline className='shrink-0 text-xl' />
+                                    Share
                                   </Link>
                                   <hr />
                                   <Link
                                     href='/#'
                                     className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                                   >
-                                    <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                                    Remove{' '}
+                                    <IoStopCircleOutline className='shrink-0 text-xl' />
+                                    Remove
                                   </Link>
                                 </nav>
                               </div>
@@ -1649,19 +1604,16 @@ const Profile = () => {
                           {/* <!-- post icons --> */}
                           <div className='flex items-center gap-1 p-1.5 md:gap-3 md:px-3 md:py-2.5'>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoHeartOutline className='text-lg md:text-2xl' />{' '}
+                              <IoHeartOutline className='text-lg md:text-2xl' />
                             </button>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />{' '}
+                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />
                             </button>
                             <button
                               type='button'
                               className='button__ico ml-auto'
                             >
-                              {' '}
-                              <IoBookmarkOutline className='text-lg md:text-2xl' />{' '}
+                              <IoBookmarkOutline className='text-lg md:text-2xl' />
                             </button>
                           </div>
                         </div>
@@ -1679,8 +1631,7 @@ const Profile = () => {
                             <div className='flex-1'>
                               <Link href='/profile'>
                                 <h4 className='text-black dark:text-white'>
-                                  {' '}
-                                  John Michael{' '}
+                                  John Michael
                                 </h4>
                               </Link>
                             </div>
@@ -1691,8 +1642,7 @@ const Profile = () => {
                                 type='button'
                                 className='button__ico h-8 w-8'
                               >
-                                {' '}
-                                <IoEllipsisHorizontal className='text-xl' />{' '}
+                                <IoEllipsisHorizontal className='text-xl' />
                               </button>
                               <div
                                 className='w-[232px]'
@@ -1700,24 +1650,24 @@ const Profile = () => {
                               >
                                 <nav>
                                   <Link href='/#'>
-                                    <IoBookmarkOutline className='shrink-0 text-xl' />{' '}
-                                    Add favorites{' '}
+                                    <IoBookmarkOutline className='shrink-0 text-xl' />
+                                    Add favorites
                                   </Link>
                                   <Link href='/#'>
-                                    <IoFlagOutline className='shrink-0 text-xl' />{' '}
-                                    Report{' '}
+                                    <IoFlagOutline className='shrink-0 text-xl' />
+                                    Report
                                   </Link>
                                   <Link href='/#'>
-                                    <IoShareOutline className='shrink-0 text-xl' />{' '}
-                                    Share{' '}
+                                    <IoShareOutline className='shrink-0 text-xl' />
+                                    Share
                                   </Link>
                                   <hr />
                                   <Link
                                     href='/#'
                                     className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                                   >
-                                    <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                                    Remove{' '}
+                                    <IoStopCircleOutline className='shrink-0 text-xl' />
+                                    Remove
                                   </Link>
                                 </nav>
                               </div>
@@ -1738,19 +1688,16 @@ const Profile = () => {
                           {/* <!-- post icons --> */}
                           <div className='flex items-center gap-1 p-1.5 md:gap-3 md:px-3 md:py-2.5'>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoHeartOutline className='text-lg md:text-2xl' />{' '}
+                              <IoHeartOutline className='text-lg md:text-2xl' />
                             </button>
                             <button type='button' className='button__ico'>
-                              {' '}
-                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />{' '}
+                              <IoChatbubbleEllipsesOutline className='text-lg md:text-2xl' />
                             </button>
                             <button
                               type='button'
                               className='button__ico ml-auto'
                             >
-                              {' '}
-                              <IoBookmarkOutline className='text-lg md:text-2xl' />{' '}
+                              <IoBookmarkOutline className='text-lg md:text-2xl' />
                             </button>
                           </div>
                         </div>
@@ -1830,11 +1777,9 @@ const Profile = () => {
                 />
                 <div className='flex-1'>
                   <h4 className='font-medium text-black dark:text-white'>
-                    {' '}
-                    Steeve{' '}
+                    Steeve
                   </h4>
                   <div className='text-xs text-gray-500 dark:text-white/80'>
-                    {' '}
                     2 hours ago
                   </div>
                 </div>
@@ -1842,8 +1787,7 @@ const Profile = () => {
                 {/* <!-- dropdown --> */}
                 <div className='-m-1'>
                   <button type='button' className='button__ico h-8 w-8'>
-                    {' '}
-                    <IoEllipsisHorizontal className='text-xl' />{' '}
+                    <IoEllipsisHorizontal className='text-xl' />
                   </button>
                   <div
                     className='w-[253px]'
@@ -1852,27 +1796,27 @@ const Profile = () => {
                     <nav>
                       <Link href='/#'>
                         <IoBookmarkOutline className='shrink-0 text-xl' /> Add
-                        to favorites{' '}
+                        to favorites
                       </Link>
                       <Link href='/#'>
-                        <IoNotificationsOffOutline className='shrink-0 text-xl' />{' '}
-                        Mute Notification{' '}
+                        <IoNotificationsOffOutline className='shrink-0 text-xl' />
+                        Mute Notification
                       </Link>
                       <Link href='/#'>
                         <IoFlagOutline className='shrink-0 text-xl' /> Report
-                        this post{' '}
+                        this post
                       </Link>
                       <Link href='/#'>
                         <IoShareOutline className='shrink-0 text-xl' /> Share
-                        your profile{' '}
+                        your profile
                       </Link>
                       <hr />
                       <Link
                         href='/#'
                         className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                       >
-                        <IoStopCircleOutline className='shrink-0 text-xl' />{' '}
-                        Unfollow{' '}
+                        <IoStopCircleOutline className='shrink-0 text-xl' />
+                        Unfollow
                       </Link>
                     </nav>
                   </div>
@@ -1880,9 +1824,8 @@ const Profile = () => {
               </div>
 
               <p className='mt-4 text-sm font-normal leading-6'>
-                {' '}
                 Photography is the art of capturing light with a camera. it can
-                be fun, challenging. It can also be a hobby, a passion. 📷{' '}
+                be fun, challenging. It can also be a hobby, a passion. 📷
               </p>
 
               <div className='relative -mx-5 mt-3 px-5 py-3 shadow'>
@@ -1892,8 +1835,7 @@ const Profile = () => {
                       type='button'
                       className='button__ico bg-red-100 text-red-500 dark:bg-slate-700'
                     >
-                      {' '}
-                      <FaHeart className='text-lg' />{' '}
+                      <FaHeart className='text-lg' />
                     </button>
                     <Link href='/#'>1,300</Link>
                   </div>
@@ -1902,18 +1844,15 @@ const Profile = () => {
                       type='button'
                       className='button__ico bg-slate-100 dark:bg-slate-700'
                     >
-                      {' '}
-                      <IoChatbubbleEllipses className='text-lg' />{' '}
+                      <IoChatbubbleEllipses className='text-lg' />
                     </button>
                     <span>260</span>
                   </div>
                   <button type='button' className='button__ico ml-auto'>
-                    {' '}
-                    <IoShareOutline className='text-xl' />{' '}
+                    <IoShareOutline className='text-xl' />
                   </button>
                   <button type='button' className='button__ico'>
-                    {' '}
-                    <IoBookmarkOutline className='text-xl' />{' '}
+                    <IoBookmarkOutline className='text-xl' />
                   </button>
                 </div>
               </div>
@@ -1933,8 +1872,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Steeve{' '}
+                      Steeve
                     </Link>
                     <p className='mt-0.5'>What a beautiful, I love it. 😍 </p>
                   </div>
@@ -1950,8 +1888,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Monroe{' '}
+                      Monroe
                     </Link>
                     <p className='mt-0.5'> You captured the moment.😎 </p>
                   </div>
@@ -1967,8 +1904,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Alexia{' '}
+                      Alexia
                     </Link>
                     <p className='mt-0.5'> This photo is amazing! </p>
                   </div>
@@ -1984,8 +1920,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      John{' '}
+                      John
                     </Link>
                     <p className='mt-0.5'> Wow, You are so talented 😍 </p>
                   </div>
@@ -2001,8 +1936,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Michael{' '}
+                      Michael
                     </Link>
                     <p className='mt-0.5'> I love taking photos 🌳🐶</p>
                   </div>
@@ -2018,8 +1952,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Monroe{' '}
+                      Monroe
                     </Link>
                     <p className='mt-0.5'> Awesome. 😊😢 </p>
                   </div>
@@ -2035,8 +1968,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Jesse{' '}
+                      Jesse
                     </Link>
                     <p className='mt-0.5'> Well done 🎨📸 </p>
                   </div>
@@ -2052,8 +1984,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Steeve{' '}
+                      Steeve
                     </Link>
                     <p className='mt-0.5'>What a beautiful, I love it. 😍 </p>
                   </div>
@@ -2069,8 +2000,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Alexia{' '}
+                      Alexia
                     </Link>
                     <p className='mt-0.5'> This photo is amazing! </p>
                   </div>
@@ -2086,8 +2016,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      John{' '}
+                      John
                     </Link>
                     <p className='mt-0.5'> Wow, You are so talented 😍 </p>
                   </div>
@@ -2103,8 +2032,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Michael{' '}
+                      Michael
                     </Link>
                     <p className='mt-0.5'> I love taking photos 🌳🐶</p>
                   </div>
@@ -2120,8 +2048,7 @@ const Profile = () => {
                       href='/#'
                       className='inline-block font-medium text-black dark:text-white'
                     >
-                      {' '}
-                      Monroe{' '}
+                      Monroe
                     </Link>
                     <p className='mt-0.5'> Awesome. 😊😢 </p>
                   </div>
@@ -2153,7 +2080,6 @@ const Profile = () => {
                 type='submit'
                 className='bg-secondery hidden rounded-full px-4 py-1.5 text-sm font-semibold'
               >
-                {' '}
                 Replay
               </button>
             </div>
@@ -2192,7 +2118,7 @@ const Profile = () => {
           <div className='mt-7 space-y-5'>
             <div>
               <label htmlFor='' className='text-base'>
-                What do you have in mind?{' '}
+                What do you have in mind?
               </label>
               <input type='text' className='mt-3 w-full' />
             </div>
@@ -2211,7 +2137,7 @@ const Profile = () => {
                   />
                   <FaImage name='image' className='text-3xl text-teal-600' />
                   <span className='mt-2 text-white'>
-                    Browse to Upload image{' '}
+                    Browse to Upload image
                   </span>
                 </label>
 
@@ -2229,9 +2155,8 @@ const Profile = () => {
               <div className='flex items-start gap-2'>
                 <IoTimeOutline className='rounded-full bg-blue-50  text-3xl text-sky-600 dark:bg-transparent' />
                 <p className='text-sm font-medium text-gray-500'>
-                  {' '}
-                  Your Status will be available <br /> for{' '}
-                  <span className='text-gray-800'> 24 Hours</span>{' '}
+                  Your Status will be available <br /> for
+                  <span className='text-gray-800'> 24 Hours</span>
                 </p>
               </div>
 
@@ -2239,7 +2164,6 @@ const Profile = () => {
                 type='button'
                 className='button bg-blue-500 px-8 text-white'
               >
-                {' '}
                 Create
               </button>
             </div>
@@ -2282,7 +2206,6 @@ const Profile = () => {
                 className='absolute right-1 top-0 m-3 text-blue-600'
                 uk-switcher-item='next'
               >
-                {' '}
                 Next
               </Link>
             </li>
@@ -2315,7 +2238,6 @@ const Profile = () => {
                 className='absolute right-1 top-0 m-3.5 text-blue-600'
                 uk-switcher-item='next'
               >
-                {' '}
                 Next
               </Link>
             </li>
@@ -2349,8 +2271,7 @@ const Profile = () => {
                 type='button'
                 className='uk-animation-slide-right-small absolute right-0 top-0 m-2.5 rounded-lg bg-blue-600 px-5 py-1.5 text-sm text-white'
               >
-                {' '}
-                Share{' '}
+                Share
               </button>
             </li>
           </ul>
@@ -2405,7 +2326,6 @@ const Profile = () => {
                       type='button'
                       className='rounded-lg bg-blue-600 px-4 py-1.5 text-sm text-white dark:bg-white/5'
                     >
-                      {' '}
                       Select from the Computer
                     </button>
                   </div>
@@ -2437,7 +2357,6 @@ const Profile = () => {
                         uk-switcher
                       >
                         <li className='flex-1'>
-                          {' '}
                           <Link
                             href='/#'
                             className='block rounded-md px-4 py-1.5 aria-expanded:bg-white aria-expanded:shadow aria-expanded:dark:bg-white/10'
@@ -2446,7 +2365,6 @@ const Profile = () => {
                           </Link>
                         </li>
                         <li className='flex-1'>
-                          {' '}
                           <Link
                             href='/#'
                             className='block rounded-md px-4 py-1.5 aria-expanded:bg-white aria-expanded:shadow aria-expanded:dark:bg-white/10'
@@ -2464,8 +2382,7 @@ const Profile = () => {
                               htmlFor='range1'
                               className='mb-2 inline-block'
                             >
-                              {' '}
-                              Example range{' '}
+                              Example range
                             </label>
                             <input
                               type='range'
@@ -2480,8 +2397,7 @@ const Profile = () => {
                               htmlFor='range2'
                               className='mb-2 inline-block'
                             >
-                              {' '}
-                              Example range{' '}
+                              Example range
                             </label>
                             <input
                               type='range'
@@ -2496,8 +2412,7 @@ const Profile = () => {
                               htmlFor='range3'
                               className='mb-2 inline-block'
                             >
-                              {' '}
-                              Example range{' '}
+                              Example range
                             </label>
                             <input
                               type='range'
@@ -2512,8 +2427,7 @@ const Profile = () => {
                               htmlFor='range4'
                               className='mb-2 inline-block'
                             >
-                              {' '}
-                              Example range{' '}
+                              Example range
                             </label>
                             <input
                               type='range'
@@ -2528,8 +2442,7 @@ const Profile = () => {
                               htmlFor='range5'
                               className='mb-2 inline-block'
                             >
-                              {' '}
-                              Example range{' '}
+                              Example range
                             </label>
                             <input
                               type='range'
@@ -2544,8 +2457,7 @@ const Profile = () => {
                               htmlFor='range6'
                               className='mb-2 inline-block'
                             >
-                              {' '}
-                              Example range{' '}
+                              Example range
                             </label>
                             <input
                               type='range'
@@ -2776,10 +2688,7 @@ const Profile = () => {
                           className='group flex items-center justify-between px-3.5 py-2 '
                           aria-expanded='true'
                         >
-                          <h4 className='text-sm font-medium'>
-                            {' '}
-                            Accessibility
-                          </h4>
+                          <h4 className='text-sm font-medium'>Accessibility</h4>
                           <svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
@@ -2799,11 +2708,10 @@ const Profile = () => {
                           <li>
                             <div className='p-4'>
                               <p className='text-[13px] font-light'>
-                                {' '}
                                 Alt text helps people with visual impairments
                                 understand your photos. You can either write
                                 your own alt text or let it be created
-                                automatically for your photos.{' '}
+                                automatically for your photos.
                               </p>
                               <input
                                 type='text'
@@ -2822,7 +2730,6 @@ const Profile = () => {
                           aria-expanded='true'
                         >
                           <h4 className='text-sm font-medium'>
-                            {' '}
                             Advanced settings
                           </h4>
                           <svg
@@ -2846,7 +2753,6 @@ const Profile = () => {
                               <label className='switch flex min-h-[30px] cursor-pointer items-start justify-between gap-4'>
                                 <div>
                                   <h4 className='text-sm font-medium'>
-                                    {' '}
                                     Hide like and view counts on this post
                                   </h4>
                                 </div>
@@ -2855,7 +2761,6 @@ const Profile = () => {
                               </label>
                               <div>
                                 <p className='mt-1.5 text-[13px] font-light'>
-                                  {' '}
                                   Only you will see the total number of likes
                                   and views on this post. You can change this
                                   later by going to the ··· menu at the top of
@@ -2871,8 +2776,7 @@ const Profile = () => {
                               <label className='switch flex min-h-[30px] cursor-pointer items-start justify-between gap-4'>
                                 <div>
                                   <h4 className='text-sm font-medium'>
-                                    {' '}
-                                    Turn off commenting{' '}
+                                    Turn off commenting
                                   </h4>
                                 </div>
                                 <input type='checkbox' checked />
@@ -2880,7 +2784,6 @@ const Profile = () => {
                               </label>
                               <div>
                                 <p className='mt-1.5 text-[13px] font-light'>
-                                  {' '}
                                   You can change this later by going to the menu
                                   at the top of your post.
                                 </p>
