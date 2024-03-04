@@ -8,6 +8,7 @@ import './uk.css';
 import './globals.css';
 
 const font = Inter({ subsets: ['latin'] });
+const font = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Devhub',
@@ -30,9 +31,8 @@ export default function RootLayout({
       <body className={font.className}>
         <QueryProvider>
           <SessionProvider>
-            <main className='flex h-dvh'>
-              <Flowbite>{children}</Flowbite>
-            </main>
+            <DarkThemeToggle className='fixed right-1 top-1/2 bg-hover-1 hover:bg-hover-2 z-20' />
+            <Flowbite>{children}</Flowbite>
           </SessionProvider>
         </QueryProvider>
       </body>

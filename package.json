@@ -43,9 +43,11 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@tailwindcss/container-queries": "^0.1.1",
     "@tanstack/eslint-plugin-query": "^5.20.1",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.19",
     "@types/react-dom": "^18.2.19",
     "@types/react-slick": "^0.23.13",
     "autoprefixer": "^10.4.18",

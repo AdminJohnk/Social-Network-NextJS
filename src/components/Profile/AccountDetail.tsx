@@ -24,6 +24,7 @@ export default function AccountDetail(props: IAccountDetailProps) {
         <Avatar className='mb-3 size-7' src={getImageURL(session?.user.image!)} />
         <div>
           <span className='h5-bold mb-2'>{session?.user.name}</span>
+          <span className='h5-bold mb-2'>{session?.user.name}</span>
         </div>
         <div>
           <span className='small-regular mb-4 text-text-2'>@{session?.user.name}</span>
