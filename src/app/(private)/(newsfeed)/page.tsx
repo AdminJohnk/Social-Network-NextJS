@@ -12,10 +12,10 @@ export interface INewFeedProps {}
 
 export default function NewFeed(props: INewFeedProps) {
   return (
-    <div className="newsfeed max-w-7xl" style={{ height: "5000px" }}>
+    <div className="newsfeed max-w-7xl pl-9" style={{ height: "5000px" }}>
       <Story />
       <div className="newsfeed-content mt-14 flex w-full">
-        <div className="post w-3/5 px-9">
+        <div className="post w-3/5 pr-9">
           <div className="new-post mb-8">
             <NewPost />
           </div>

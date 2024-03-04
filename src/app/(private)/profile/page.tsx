@@ -25,8 +25,11 @@ import {
 } from "react-icons/io5";
 import { FaImage, FaHeart } from "react-icons/fa";
 import Link from "next/link";
+import SliderPost from "@/components/SliderPost";
 
-const Profile = () => {
+export interface IProfileProps { }
+
+const Profile = (props: IProfileProps) => {
     return (
         <div>
             <div id="wrapper">
@@ -43,7 +46,7 @@ const Profile = () => {
                                     <div className="relative md:w-40 md:h-40 h-16 w-16 rounded-full overflow-hidden md:border-[6px] border-gray-100 shrink-0 dark:border-slate-900">
                                         <img src="assets/images/avatars/avatar-6.jpg" alt="" className="w-full h-full absolute object-cover" />
                                     </div>
-                                    <button type="button" className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white shadow p-1.5 rounded-full sm:flex hidden"> <IoCamera className="text-2xl" /></button>
+                                    <button type="button" className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden"> <IoCamera className="text-2xl" /></button>
                                 </div>
                                 <div className="max-w-2x flex-1">
                                     <h3 className="md:text-xl text-base font-semibold text-black dark:text-white"> Monroe Parker </h3>
@@ -52,7 +55,7 @@ const Profile = () => {
 
                                     <p className="text-sm mt-2 md:font-normal font-light"> I love beauty and emotion. 🥰 I’m passionate about photography and learning. 📚 I explore genres and styles. 🌈 I think photography is storytelling. 📖 I hope you like and feel my photos. 😊</p>
 
-                                    <p className="mt-2 space-x-2 text-gray-500 text-sm hidden" style={{ marginTop: "11px" }}><Link href="#" className="inline-block">Travel</Link> . <Link href="#" className="inline-block">Business</Link> . <Link href="#" className="inline-block">Technolgy</Link>  </p>
+                                    <p className="mt-2 space-x-2 text-gray-500 text-sm hidden" style={{ marginTop: "11px" }}><Link href="#" className="inline-block">Travel</Link> . <Link href="#" className="inline-block">Business</Link> . <Link href="#" className="inline-block">Technology</Link>  </p>
 
                                     <div className="flex md:items-end justify-between md:mt-8 mt-4 max-md:flex-col gap-4">
                                         <div className="flex sm:gap-10 gap-6 sm:text-sm text-xs max-sm:absolute max-sm:top-10 max-sm:left-36">
@@ -103,9 +106,9 @@ const Profile = () => {
                                 <nav className="text-sm text-center text-gray-500 capitalize font-semibold dark:text-white">
                                     <ul className="flex gap-2 justify-center border-t dark:border-slate-700" data-uk-switcher="connect: #story_tab ; animation: uk-animation-fade, uk-animation-slide-left-medium">
 
-                                        <li> <Link href="#" className="flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:text-black aria-expanded:border-black aria-expanded:dark:text-white aria-expanded:dark:border-white"> <IoCameraOutline className="mr-2 text-2xl" /> Posts  </Link> </li>
-                                        <li> <Link href="#" className="flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:text-black aria-expanded:border-black aria-expanded:dark:text-white aria-expanded:dark:border-white"> <IoPlayOutline className="mr-2 text-2xl" /> Reels </Link> </li>
-                                        <li> <Link href="#" className="flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:text-black aria-expanded:border-black aria-expanded:dark:text-white aria-expanded:dark:border-white"> <IoPricetagsOutline className="mr-2 text-2xl" /> Tagged </Link> </li>
+                                        <li> <Link href="#" className="flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500"> <IoCameraOutline className="mr-2 text-2xl" /> Posts  </Link> </li>
+                                        <li> <Link href="#" className="flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500"> <IoPlayOutline className="mr-2 text-2xl" /> Reels </Link> </li>
+                                        <li> <Link href="#" className="flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500"> <IoPricetagsOutline className="mr-2 text-2xl" /> Tagged </Link> </li>
                                     </ul>
                                 </nav>
 
@@ -119,88 +122,7 @@ const Profile = () => {
 
                                     {/* <!-- hightlets slider post --> */}
 
-                                    <div className="mt-8">
-
-                                        {/* <!-- post heading --> */}
-                                        <div className="flex items-center justify-between py-3">
-                                            <h1 className="text-xl font-bold text-black dark:text-white">Highths</h1>
-
-                                            <button type="button" className="lg:hidden">
-                                                <svg id="icon__outline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-
-                                        <div className="relative mt-5" tabIndex={-1} data-uk-slider="autoplay: true;finite: true">
-
-                                            <div className="overflow-hidden uk-slider-container py-10">
-
-                                                <ul className="-ml-2 uk-slider-items w-[calc(100%+0.875rem)]" data-uk-scrollspy="target: > li; cls: uk-animation-slide-right-small; delay: 50" uk-lightbox="">
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5 max-lg:hidden" data-uk-scrollspy-className="uk-animation-fade">
-                                                        <div className="flex flex-col items-center justify-center rounded-lg h-64 border-2 border-dashed border-teal-600">
-                                                            <IoAddCircle className="text-4xl text-teal-900" />
-                                                            <div className="mt-1 font-semibold">Add New</div>
-                                                        </div>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="assets/images/avatars/avatar-lg-1.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-1.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="assets/images/avatars/avatar-lg-2.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-2.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="assets/images/avatars/avatar-lg-3.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-3.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="assets/images/avatars/avatar-lg-4.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-4.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <Link href="assets/images/avatars/avatar-lg-5.jpg" data-caption="Caption">
-                                                            <div className=" lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100">
-                                                                <div className="w-full lg:h-64 aspect-[2.5/4] relative">
-                                                                    <img src="assets/images/avatars/avatar-lg-5.jpg" className="rounded-lg w-full h-full object-cover inset-0" alt="" />
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    </li>
-                                                    <li className="lg:w-1/5 sm:w-1/4 w-1/3 pr-3.5">
-                                                        <div className="w-full lg:h-64 aspect-[2.5/4] bg-slate-200/60 rounded-lg animate-pulse"></div>
-                                                    </li>
-                                                </ul>
-
-                                            </div>
-
-                                            <button type="button" className="absolute -translate-y-1/2 bg-white rounded-full top-1/2 -left-4 grid w-9 h-9 place-items-center shadow  dark:bg-dark3" data-uk-slider-item="previous"> <IoChevronBack className="text-2xl" /> </button>
-                                            <button type="button" className="absolute -right-4 -translate-y-1/2 bg-white rounded-full top-1/2 grid w-9 h-9 place-items-center shadow  dark:bg-dark3" data-uk-slider-item="next"> <IoChevronForward className="text-2xl" /> </button>
-
-                                        </div>
-
-                                    </div>
+                                    <SliderPost />
 
 
                                     {/* <!-- post list  --> */}
@@ -212,7 +134,7 @@ const Profile = () => {
                                             <h1 className="text-xl font-bold text-black dark:text-white">Posts</h1>
 
                                             <Link href="#" className="text-sm font-semibold flex items-center gap-2">
-                                                Show acheived <IoChevronForwardOutline />
+                                                Show achieved <IoChevronForwardOutline />
                                             </Link>
                                         </div>
 
@@ -1133,13 +1055,13 @@ const Profile = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="h-6 w-6"
                             >
                                 <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                     d="M6 18L18 6M6 6l12 12"
                                 />
                             </svg>
@@ -1178,19 +1100,19 @@ const Profile = () => {
                                         data-uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true"
                                     >
                                         <nav>
-                                            <Link href="/#">
+                                            <Link href="/#" className="hover:!bg-hover-1 my-1">
                                                 <IoBookmarkOutline className="shrink-0 text-xl" /> Add
                                                 to favorites
                                             </Link>
-                                            <Link href="/#">
+                                            <Link href="/#" className="hover:!bg-hover-1 my-1">
                                                 <IoNotificationsOffOutline className="shrink-0 text-xl" />
                                                 Mute Notification
                                             </Link>
-                                            <Link href="/#">
+                                            <Link href="/#" className="hover:!bg-hover-1 my-1">
                                                 <IoFlagOutline className="shrink-0 text-xl" /> Report
                                                 this post
                                             </Link>
-                                            <Link href="/#">
+                                            <Link href="/#" className="hover:!bg-hover-1 my-1">
                                                 <IoShareOutline className="shrink-0 text-xl" /> Share
                                                 your profile
                                             </Link>
@@ -1245,7 +1167,7 @@ const Profile = () => {
                             </div>
                         </div>
 
-                        <div className="h-full flex-1 overflow-y-auto p-5">
+                        <div className="h-full flex-1 overflow-y-auto p-5 custom-scrollbar-fg">
                             {/* <!-- comment list --> */}
                             <div className="relative space-y-5 text-sm font-medium">
                                 <div className="relative flex items-start gap-3">
@@ -1455,7 +1377,7 @@ const Profile = () => {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-2 bg-white p-3 text-sm font-medium">
+                        <div className="flex items-center gap-2 bg-white p-3 text-sm font-medium bg-background-2">
                             <img
                                 src="assets/images/avatars/avatar-2.jpg"
                                 alt=""
@@ -1466,7 +1388,7 @@ const Profile = () => {
                                 <textarea
                                     placeholder="Add Comment...."
                                     rows={1}
-                                    className="resize- w-full  resize-y px-4 py-2 focus:!border-transparent focus:!ring-transparent"
+                                    className="resize- w-full rounded-lg bg-hover-1 resize-y px-4 py-2 focus:!border-transparent focus:!ring-transparent"
                                 ></textarea>
 
                                 <div className="absolute bottom-0.5 right-0 m-3 flex items-center gap-2">

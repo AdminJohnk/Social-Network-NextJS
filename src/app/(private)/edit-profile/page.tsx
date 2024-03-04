@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 
 import getImageURL from '@/lib/utils';
 
-export interface IEditProfileProps {}
+export interface IEditProfileProps { }
 
 function a11yProps(index: number) {
   return {

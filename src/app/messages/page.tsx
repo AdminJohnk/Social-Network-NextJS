@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { IoCheckmarkCircleOutline, IoCheckmarkOutline, IoChevronBackOutline, IoChevronDownOutline, IoClose, IoFlagOutline, IoNotificationsOffOutline, IoSettingsOutline, IoStopCircleOutline, IoTrashOutline, IoVolumeMuteOutline } from 'react-icons/io5';
+import { IoCheckmarkCircleOutline, IoCheckmarkOutline, IoChevronBackOutline, IoChevronDownOutline, IoNotificationsOffOutline, IoSettingsOutline, IoVolumeMuteOutline } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
 import { Dropdown } from 'flowbite-react';
 import Link from 'next/link';
