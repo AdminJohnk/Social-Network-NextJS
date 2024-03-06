@@ -1,7 +1,7 @@
 import { AppConfig } from '@/configs/app.config';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
@@ -9,7 +9,36 @@ import GithubProvider from 'next-auth/providers/github';
 import { IResponse } from '@/types/common.type';
 import { UserLogin } from '@/types/users.type';
 
-export const authOptions: NextAuthOptions = {
+// async function refreshAccessToken(token: any) {
+//   try {
+//     // Get a new set of tokens with a refreshToken
+//     const token_response = await axios.post(
+//       'http://localhost:3336/auth/refresh',
+//       {},
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token.refresh_token}`
+//         }
+//       }
+//     );
+
+//     return {
+//       ...token,
+//       access_token: token_response.data.access_token,
+//       access_token_expiry:
+//         token_response.data.access_token_expiry ||
+//         jwtDecode<{ exp: number }>(token_response.data.access_token).exp,
+//       refresh_token: token_response.data.refresh_token
+//     };
+//   } catch (error) {
+//     return {
+//       ...token,
+//       error: 'RefreshAccessTokenError'
+//     };
+//   }
+// }
+
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -158,37 +187,6 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login'
   }
-};
-
-async function refreshAccessToken(token: any) {
-  try {
-    // Get a new set of tokens with a refreshToken
-    const token_response = await axios.post(
-      'http://localhost:3336/auth/refresh',
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token.refresh_token}`
-        }
-      }
-    );
-
-    return {
-      ...token,
-      access_token: token_response.data.access_token,
-      access_token_expiry:
-        token_response.data.access_token_expiry ||
-        jwtDecode<{ exp: number }>(token_response.data.access_token).exp,
-      refresh_token: token_response.data.refresh_token
-    };
-  } catch (error) {
-    return {
-      ...token,
-      error: 'RefreshAccessTokenError'
-    };
-  }
-}
-
-const handler = NextAuth(authOptions);
+});
 
 export { handler as GET, handler as POST };

@@ -1,42 +1,35 @@
-import {
-  faFacebookF,
-  faTwitter,
-  faGithub,
-  faInstagram,
-  faLinkedin
-} from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const contactArrays = [
   {
     key: '0',
     label: 'Facebook',
     linkDefault: 'https://www.facebook.com/',
-    icon: <FontAwesomeIcon icon={faFacebookF} />
+    icon: <FaFacebook />
   },
   {
     key: '1',
     label: 'Github',
     linkDefault: 'https://github.com/',
-    icon: <FontAwesomeIcon icon={faGithub} />
+    icon: <FaGithub />
   },
   {
     key: '2',
     label: 'Twitter',
     linkDefault: 'https://twitter.com/',
-    icon: <FontAwesomeIcon icon={faTwitter} />
+    icon: <FaTwitter />
   },
   {
     key: '3',
     label: 'Instagram',
     linkDefault: 'https://www.instagram.com/',
-    icon: <FontAwesomeIcon icon={faInstagram} />
+    icon: <FaInstagram />
   },
   {
     key: '4',
     label: 'Linkedin',
     linkDefault: 'https://www.linkedin.com/',
-    icon: <FontAwesomeIcon icon={faLinkedin} />
+    icon: <FaLinkedin />
   }
 ];
 export default contactArrays;
