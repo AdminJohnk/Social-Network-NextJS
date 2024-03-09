@@ -19,13 +19,12 @@ export default function Post(props: IPostProps) {
     <div className='post bg-foreground-1 rounded-lg p-4'>
       <div className='flex-between'>
         <div className='flex-start'>
-          <Avatar src='assets/images/avatars/avatar-3.jpg' />
+          <Avatar src='images/avatars/avatar-3.jpg' />
           <div className='flex flex-col ms-3'>
             <span className='base-bold'>Monroe Parker</span>
             <Link
               href='/posts/657f06489c29b021b905b804'
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
-            >
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
               2 hours ago
             </Link>
           </div>
@@ -44,7 +43,7 @@ export default function Post(props: IPostProps) {
       <div className='mt-4'>
         <Image
           className='rounded-lg'
-          src='/assets/images/reels/reels-1.jpg'
+          src='/images/reels/reels-1.jpg'
           width={1000}
           height={1000}
           alt='image'

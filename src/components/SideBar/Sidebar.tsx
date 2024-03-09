@@ -1,268 +1,298 @@
 'use client';
 
-import * as React from 'react';
-import { IoMdHome, IoMdNotificationsOutline, IoMdPeople } from 'react-icons/io';
-import { IoSearch } from 'react-icons/io5';
-import { MdOutlineExplore, MdArrowForwardIos } from 'react-icons/md';
-import { TbMessage } from 'react-icons/tb';
-import { BsCameraReels } from 'react-icons/bs';
-import { useSession } from 'next-auth/react';
-import { CiCirclePlus } from 'react-icons/ci';
-import { CgProfile } from 'react-icons/cg';
-import { Avatar, Skeleton } from '@mui/material';
-import Link from 'next/link';
-
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger
-} from '@/components/ui/hover-card';
-import AccountDetail from '@/components/Profile/AccountDetail';
-import getImageURL, { cn } from '@/lib/utils';
+import { IoChevronDown } from 'react-icons/io5';
 import Image from 'next/image';
-import Search from '../Search/Search';
-import Notification from '../Notification/Notification';
+import Link from 'next/link';
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
 
-export interface ISideBarProps {}
-
-export default function SideBar(props: ISideBarProps) {
-  const [open, setOpen] = React.useState(true);
-
-  const [collapse, setCollapse] = React.useState(false);
-  const [openSearch, setOpenSearch] = React.useState(false);
-  const [openNotification, setOpenNotification] = React.useState(false);
-
-  const CloseAllComponent = () => {
-    setOpenSearch(false);
-    setOpenNotification(false);
-  };
-
-  const MenuItem = [
-    {
-      title: 'Home',
-      icon: <IoMdHome />,
-      link: '/'
-    },
-    {
-      title: 'Search',
-      icon: <IoSearch />,
-      link: '',
-      onclick: () => {
-        if (openSearch) {
-          setCollapse(false);
-          setOpenSearch(false);
-        } else {
-          CloseAllComponent();
-          setCollapse(true);
-          setOpenSearch(true);
-        }
-      }
-    },
-    {
-      title: 'Explore',
-      icon: <MdOutlineExplore />,
-      link: '/explore'
-    },
-    {
-      title: 'Messages',
-      icon: <TbMessage />,
-      link: '/messages'
-    },
-    {
-      title: 'Reels',
-      icon: <BsCameraReels />,
-      link: '/reels'
-    },
-    {
-      title: 'Notifications',
-      icon: <IoMdNotificationsOutline />,
-      link: '',
-      onclick: () => {
-        if (openNotification) {
-          setCollapse(false);
-          setOpenNotification(false);
-        } else {
-          CloseAllComponent();
-          setCollapse(true);
-          setOpenNotification(true);
-        }
-      }
-    },
-    {
-      title: 'People',
-      icon: <IoMdPeople />,
-      link: '/people'
-    },
-    {
-      title: 'Create',
-      icon: <CiCirclePlus />,
-      link: '/create'
-    },
-    {
-      title: 'Profile',
-      icon: <CgProfile />,
-      link: '/profile'
-    }
-  ];
-
-  const { data: session } = useSession();
-
+export default function SideBar() {
   return (
-    <nav
-      className={cn('side-bar fixed left-0 top-0 h-dvh bg-foreground-1')}
-      style={{
-        zIndex: 2
-      }}
-    >
-      <div className={cn('flex h-full', collapse && '')}>
-        <div
-          className={cn(
-            'overflow-y-scroll px-2 w-60 max-lg/2:w-20 custom-scrollbar-none h-full animate-fade-right',
-            collapse ? 'w-20' : ''
-          )}
-        >
-          <div
-            className={cn(
-              'h2-bold px-3 mt-3 mb-3 hidden max-lg/2:block max-lg/2:flex-center',
-              collapse && 'block flex-center'
-            )}
-          >
-            <Image
-              className='size-6'
-              src='/assets/images/logo-icon.png'
-              width={40}
-              height={40}
-              alt='logo'
-            />
-          </div>
-          <div
-            className={cn(
-              'h2-bold mb-1 px-3 max-lg/2:hidden',
-              collapse && 'hidden'
-            )}
-          >
-            Devhub
-          </div>
+    <div
+      id='site_sidebar'
+      className='fixed top-0 left-0 z-[99] pt-[--m-top] overflow-hidden transition-transform xl:duration-500 max-xl:w-full max-xl:-translate-x-full'>
+      <div className='p-2 max-xl:bg-white shadow-sm 2xl:w-72 sm:w-64 w-[80%] h-[calc(100vh-64px)] relative z-30 max-lg:border-r dark:max-xl:!bg-slate-700 dark:border-slate-700'>
+        <SimpleBar className='pr-4'>
+          <nav id='side'>
+            <ul>
+              <li className='active'>
+                <Link href='/'>
+                  <Image src='/images/home/home.png' alt='feeds' width={24} height={24} />
+                  <span> Feed </span>
+                </Link>
+              </li>
+              <li>
+                <Link href='messages'>
+                  <Image src='/images/home/message.png' alt='messages' width={20} height={20} />
+                  <span> messages </span>
+                </Link>
+              </li>
+              <li>
+                <Link href=''>
+                  <Image src='/images/home/video.png' alt='messages' width={24} height={24} />
+                  <span> video </span>
+                </Link>
+              </li>
+              <li>
+                <Link href=''>
+                  <Image src='/images/home/event.png' alt='messages' width={24} height={24} />
+                  <span> event </span>
+                </Link>
+              </li>
+              <li>
+                <Link href=''>
+                  <Image src='/images/home/page.png' alt='pages' width={24} height={24} />
+                  <span> Pages </span>
+                </Link>
+              </li>
+              <li>
+                <Link href=''>
+                  <Image src='/images/home/group.png' alt='groups' width={24} height={24} />
+                  <span> Groups </span>
+                </Link>
+              </li>
+              <li>
+                <Link href=''>
+                  <Image
+                    src='/images/home/market.png'
+                    alt='market'
+                    className='-ml-1'
+                    width={28}
+                    height={28}
+                  />
+                  <span> market </span>
+                </Link>
+              </li>
+              <li>
+                <Link href=''>
+                  <Image src='/images/home/blog.png' alt='blog' width={24} height={24} />
+                  <span> blog </span>
+                </Link>
+              </li>
+              <li className='!hidden' id='show_more'>
+                <Link href=''>
+                  <Image src='/images/home/game.png' alt='games' width={24} height={24} />
+                  <span> games </span>
+                </Link>
+              </li>
+              <li className='!hidden' id='show_more'>
+                <Link href=''>
+                  <Image src='/images/home/fund.png' alt='messages' width={24} height={24} />
+                  <span> Fundraiser </span>
+                </Link>
+              </li>
+              <li className='!hidden' id='show_more'>
+                <Link href=''>
+                  <Image src='/images/home/blog-2.png' alt='blog' width={24} height={24} />
+                  <span> blog II </span>
+                </Link>
+              </li>
+              <li className='!hidden' id='show_more'>
+                <Link href=''>
+                  <Image src='/images/home/event-2.png' alt='event' width={24} height={24} />
+                  <span> Event II </span>
+                </Link>
+              </li>
+              <li className='!hidden' id='show_more'>
+                <Link href=''>
+                  <Image src='/images/home/group-2.png' alt='groups' width={24} height={24} />
+                  <span> Groups II </span>
+                </Link>
+              </li>
+            </ul>
 
-          {MenuItem.map((item, index) => (
-            <Link
-              href={item.link}
-              key={index}
-              onClick={() => {
-                if (item.onclick) item.onclick();
-              }}
-            >
-              <div
-                className={cn(
-                  'group mb-3 cursor-pointer rounded-lg px-3 py-2.5 hover:bg-hover-1 max-lg/2:flex-center',
-                  collapse ? 'flex-center' : 'flex-start'
-                )}
-              >
-                <div
-                  className={cn(
-                    'text-2xl mr-3 max-lg/2:mr-0 text-text-1',
-                    collapse && 'mr-0'
-                  )}
-                >
-                  {item.icon}
-                </div>
-                <div
-                  className={cn(
-                    'text-text-2 group-hover:text-text-1 max-lg/2:hidden',
-                    collapse && 'hidden'
-                  )}
-                >
-                  {item.title}
-                </div>
+            <button
+              type='button'
+              className='flex items-center gap-4 py-2 px-4 w-full font-medium text-sm text-black dark:text-white'
+              data-uk-toggle='target: #show_more; cls: !hidden uk-animation-fade'>
+              <svg
+                className='bg-gray-200 rounded-full w-6 h-6 dark:bg-slate-700'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'>
+                <path
+                  fillRule='evenodd'
+                  d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
+                  clipRule='evenodd'></path>
+              </svg>
+              <span id='show_more'> See More </span>
+              <span className='!hidden' id='show_more'>
+                See Less
+              </span>
+            </button>
+          </nav>
+
+          <div className='font-medium text-sm text-black border-t pt-3 mt-2 dark:text-white dark:border-slate-800'>
+            <div className='px-3 pb-2 text-sm font-medium'>
+              <div className='text-black dark:text-white'>Shortcut</div>
+            </div>
+            <Link href='#'>
+              <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-secondery'>
+                <Image
+                  src='/images/home/avatar-2.jpg'
+                  alt=''
+                  className='rounded-full object-cover'
+                  width={24}
+                  height={24}
+                />
+                <div>Marin Gray</div>
               </div>
             </Link>
-          ))}
+            <Link href='#'>
+              <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-secondery'>
+                <Image
+                  src='/images/home/avatar-7.jpg'
+                  alt=''
+                  className='rounded-full object-cover'
+                  width={24}
+                  height={24}
+                />
+                <div>Alexa Stella</div>
+              </div>
+            </Link>
+            <Link href='#'>
+              <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-secondery'>
+                <Image
+                  src='/images/home/avatar-3.jpg'
+                  alt=''
+                  className='rounded-full object-cover'
+                  width={24}
+                  height={24}
+                />
+                <div>Sarah Ali</div>
+              </div>
+            </Link>
+          </div>
 
-          {session ? (
-            <div className='mt-5'>
-              <HoverCard openDelay={100} onOpenChange={setOpen}>
-                <HoverCardTrigger
-                  className={cn(
-                    'max-lg/2:flex-center mb-2 cursor-default px-3',
-                    collapse ? 'flex-center' : 'flex-start'
-                  )}
-                  onMouseEnter={() => {
-                    CloseAllComponent();
-                    setCollapse(false);
-                  }}
-                >
-                  <Avatar
-                    className={cn(
-                      'size-7 me-3 max-lg/2:me-0',
-                      collapse && 'me-0'
-                    )}
-                    src={getImageURL(session?.user.image!)}
-                  />
-                  <span
-                    className={cn(
-                      'base-bold me-7 text-text-2 max-lg/2:hidden',
-                      collapse && 'hidden'
-                    )}
-                  >
-                    {session?.user.name || 'John Doe'}
-                  </span>
-                  <MdArrowForwardIos
-                    className={cn(
-                      'transition duration-200 max-lg/2:hidden',
-                      collapse && 'hidden',
-                      open && '-rotate-90'
-                    )}
-                  />
-                </HoverCardTrigger>
-                <HoverCardContent className='mb-2 overflow-hidden rounded-lg border border-border-1 bg-foreground-1 py-3 text-text-1'>
-                  <AccountDetail />
-                </HoverCardContent>
-              </HoverCard>
+          <nav
+            id='side'
+            className='font-medium text-sm text-black border-t pt-3 mt-2 dark:text-white dark:border-slate-800'>
+            <div className='px-3 pb-2 text-sm font-medium'>
+              <div className='text-black dark:text-white'>Pages</div>
             </div>
-          ) : (
-            <div className='flex-center lg:flex-start mb-2 cursor-default px-3'>
-              <Skeleton
-                className='size-7 lg:me-3'
-                variant='circular'
-                width={40}
-                height={40}
-              />
-              <Skeleton
-                className='base-bold me-7 hidden lg:block'
-                variant='text'
-                width={100}
-                height={30}
-              />
-              <MdArrowForwardIos
-                className={cn(
-                  'hidden transition duration-200 lg:block',
-                  open && '-rotate-90'
-                )}
-              />
-            </div>
-          )}
-        </div>
-        <div
-          className={cn(
-            'search w-[380px] bg-foreground-1 overflow-y-scroll custom-scrollbar-fg py-6 h-full duration-300',
-            openSearch
-              ? 'animate-in slide-in-from-left border-s border-border-1'
-              : 'w-0 border-none'
-          )}
-        >
-          <Search />
-        </div>
-        <div
-          className={cn(
-            'search w-[380px] bg-foreground-1 overflow-y-scroll custom-scrollbar-fg py-6 h-full duration-300',
-            openNotification
-              ? 'animate-in slide-in-from-left border-s border-border-1'
-              : 'w-0 border-none'
-          )}
-        >
-          <Notification />
-        </div>
+
+            <ul className='mt-2 -space-y-2' data-uk-nav='multiple: true'>
+              <li>
+                <Link href=''>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth='1.5'
+                    stroke='currentColor'
+                    className='w-4 h-4'>
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z'></path>
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'></path>
+                  </svg>
+                  <span> Setting </span>
+                </Link>
+              </li>
+              <li>
+                <Link href=''>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth='1.5'
+                    stroke='currentColor'
+                    className='w-4 h-4'>
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z'></path>
+                  </svg>
+                  <span> Upgrade </span>
+                </Link>
+              </li>
+              <li>
+                <Link href=''>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth='1.5'
+                    stroke='currentColor'
+                    className='w-4 h-4'>
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9'></path>
+                  </svg>
+                  <span> Authentication </span>
+                </Link>
+              </li>
+              <li className='uk-parent'>
+                <Link href='#' className='group'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth='1.5'
+                    stroke='currentColor'
+                    className='w-4 h-4'>
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z'></path>
+                  </svg>
+                  <span> Development </span>
+                  <IoChevronDown className='text-base ml-auto duration-200 group-aria-expanded:rotate-180' />
+                </Link>
+                <ul className='pl-10 my-1 space-y-0 text-sm'>
+                  <li>
+                    <Link href='' className='!py-2 !rounded -md'>
+                      Elements
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href='' className='!py-2 !rounded -md'>
+                      Components
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href='' className='!py-2 !rounded -md'>
+                      Icons
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+
+          <div className='text-xs font-medium flex flex-wrap gap-2 gap-y-0.5 p-2 mt-2'>
+            <Link href='#' className='hover:underline'>
+              About
+            </Link>
+            <Link href='#' className='hover:underline'>
+              Blog
+            </Link>
+            <Link href='#' className='hover:underline'>
+              Careers
+            </Link>
+            <Link href='#' className='hover:underline'>
+              Support
+            </Link>
+            <Link href='#' className='hover:underline'>
+              Contact Us
+            </Link>
+            <Link href='#' className='hover:underline'>
+              Developer
+            </Link>
+          </div>
+        </SimpleBar>
       </div>
-    </nav>
+
+      {/* <!-- sidebar overly --> */}
+      <div
+        id='site__sidebar__overly'
+        className='absolute top-0 left-0 z-20 w-screen h-screen xl:hidden backdrop-blur-sm'
+        data-uk-toggle='target: #site_sidebar ; cls :!-translate-x-0'></div>
+    </div>
   );
 }

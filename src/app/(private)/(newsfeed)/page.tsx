@@ -13,19 +13,17 @@ export interface INewFeedProps {}
 export default function NewFeed(props: INewFeedProps) {
   return (
     <div
-      className='ms-60 max-lg/2:ms-20 @container/pri'
+      className='ms-60 mt-16 max-lg/2:ms-20 @container/pri'
       style={{
-        zIndex: 1,
-      }}
-    >
+        zIndex: 1
+      }}>
       <div
-        className='newfeed px-40 py-10 @6xl/pri:px-32 @5xl/pri:px-24 @xl/pri:px-14 @sm/pri:px-2'
-        style={{ height: '5000px' }}
-      >
+        className='newsfeed px-40 py-10 @6xl/pri:px-32 @5xl/pri:px-24 @xl/pri:px-14 @sm/pri:px-2'
+        style={{ height: '5000px' }}>
         <div className='max-md:hidden'>
           <Story />
         </div>
-        <div className='newfeed-content mt-14 max-md:mt-0 flex w-full'>
+        <div className='newsfeed-content mt-14 max-md:mt-0 flex w-full'>
           <div className='post w-3/5 max-lg:w-full px-9'>
             <div className='new-post mb-8'>
               <NewPost />

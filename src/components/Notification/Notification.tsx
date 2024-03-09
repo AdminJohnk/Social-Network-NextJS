@@ -9,7 +9,7 @@ const NewNotification = [
   {
     user: {
       name: 'John Michael',
-      avatar: '/assets/images/avatars/avatar-1.jpg'
+      avatar: '/images/avatars/avatar-1.jpg'
     },
     content: 'who you might know, is on Instello',
     time: '1 hour ago'
@@ -17,7 +17,7 @@ const NewNotification = [
   {
     user: {
       name: 'Alexa Gray',
-      avatar: '/assets/images/avatars/avatar-2.jpg'
+      avatar: '/images/avatars/avatar-2.jpg'
     },
     content: 'started following you. Welcome him to your profile. 👋',
     time: '4 hour ago'
@@ -25,7 +25,7 @@ const NewNotification = [
   {
     user: {
       name: 'Sarah Lee',
-      avatar: '/assets/images/avatars/avatar-3.jpg'
+      avatar: '/images/avatars/avatar-3.jpg'
     },
     content: 'liked your post "Amazing sunset!"',
     time: '8 hour ago'
@@ -36,7 +36,7 @@ const ThisWeekNotification = [
   {
     user: {
       name: 'David Kim',
-      avatar: '/assets/images/avatars/avatar-4.jpg'
+      avatar: '/images/avatars/avatar-4.jpg'
     },
     content: 'commented on your photo "Happy birthday!" 💖',
     time: '12 hour ago'
@@ -44,7 +44,7 @@ const ThisWeekNotification = [
   {
     user: {
       name: 'Instello Team',
-      avatar: '/assets/images/logo-icon.png'
+      avatar: '/images/logo-icon.png'
     },
     content: 'suggested some groups you might like to join.',
     time: '1 day ago'
@@ -52,7 +52,7 @@ const ThisWeekNotification = [
   {
     user: {
       name: 'Emily Jones',
-      avatar: '/assets/images/avatars/avatar-5.jpg'
+      avatar: '/images/avatars/avatar-5.jpg'
     },
     content: 'mentioned you in a post: "Check out this article by @username"',
     time: '2 days ago'
@@ -60,7 +60,7 @@ const ThisWeekNotification = [
   {
     user: {
       name: 'William Chen',
-      avatar: '/assets/images/avatars/avatar-6.jpg'
+      avatar: '/images/avatars/avatar-6.jpg'
     },
     content: 'is celebrating their work anniversary today! 😍  ',
     time: '3 days ago'
@@ -68,7 +68,7 @@ const ThisWeekNotification = [
   {
     user: {
       name: 'Christine Lee',
-      avatar: '/assets/images/avatars/avatar-7.jpg'
+      avatar: '/images/avatars/avatar-7.jpg'
     },
     content: 'started a new conversation with you. Say hi! ',
     time: '4 days ago'
@@ -76,7 +76,7 @@ const ThisWeekNotification = [
   {
     user: {
       name: 'Instello Polls',
-      avatar: '/assets/images/logo-icon.png'
+      avatar: '/images/logo-icon.png'
     },
     content: 'created a new poll: "What is your favorite food?" Vote now!',
     time: '1 week ago'
@@ -84,7 +84,7 @@ const ThisWeekNotification = [
   {
     user: {
       name: 'Michael Brown',
-      avatar: '/assets/images/avatars/avatar-5.jpg'
+      avatar: '/images/avatars/avatar-5.jpg'
     },
     content: 'shared a link: "Interesting article about social media trends"',
     is_followed: false,
@@ -110,8 +110,7 @@ export default function Notification(props: INotificationProps) {
           {NewNotification.map((item, index) => (
             <div
               key={index}
-              className='notification-item flex-between gap-3 px-3 py-2 mb-1 hover:bg-hover-1 hover:cursor-pointer rounded-lg duration-300'
-            >
+              className='notification-item flex-between gap-3 px-3 py-2 mb-1 hover:bg-hover-1 hover:cursor-pointer rounded-lg duration-300'>
               <div className='left flex-start'>
                 <div className='avatar me-3'>
                   <Avatar src={item.user.avatar} className='size-12' />
@@ -121,9 +120,7 @@ export default function Notification(props: INotificationProps) {
                     <span className='base-bold me-2'>{item.user.name}</span>
                     <span>{item.content}</span>
                   </div>
-                  <div className='text-text-2 small-regular mt-1'>
-                    {item.time}
-                  </div>
+                  <div className='text-text-2 small-regular mt-1'>{item.time}</div>
                 </div>
               </div>
               {/* <div className='right'>
@@ -140,8 +137,7 @@ export default function Notification(props: INotificationProps) {
           {ThisWeekNotification.map((item, index) => (
             <div
               key={index}
-              className='notification-item flex-between gap-3 px-3 py-2 mb-1 hover:bg-hover-1 hover:cursor-pointer rounded-lg duration-300'
-            >
+              className='notification-item flex-between gap-3 px-3 py-2 mb-1 hover:bg-hover-1 hover:cursor-pointer rounded-lg duration-300'>
               <div className='left flex-start'>
                 <div className='avatar me-3'>
                   <Avatar src={item.user.avatar} className='size-12' />
@@ -151,9 +147,7 @@ export default function Notification(props: INotificationProps) {
                     <span className='base-bold me-2'>{item.user.name}</span>
                     <span>{item.content}</span>
                   </div>
-                  <div className='text-text-2 small-regular mt-1'>
-                    {item.time}
-                  </div>
+                  <div className='text-text-2 small-regular mt-1'>{item.time}</div>
                 </div>
               </div>
               {/* <div className='right'>

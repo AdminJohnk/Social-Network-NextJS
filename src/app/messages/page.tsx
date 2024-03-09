@@ -115,7 +115,7 @@ const Message = () => {
                 <div className='w-full p-5 py-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg'>
                   <div className='py-10 text-center text-sm lg:pt-8'>
                     <img
-                      src='assets/images/avatars/avatar-6.jpg'
+                      src='images/avatars/avatar-6.jpg'
                       className='w-24 h-24 rounded-full mx-auto mb-3'
                       alt=''
                     />
@@ -137,21 +137,13 @@ const Message = () => {
                   <div className='text-sm font-medium space-y-6'>
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
-                        src='assets/images/avatars/avatar-2.jpg'
-                        alt=''
-                        className='w-9 h-9 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'> Hi, I’m John </div>
                     </div>
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
-                        src='assets/images/avatars/avatar-3.jpg'
-                        alt=''
-                        className='w-5 h-5 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         I’m Lisa. welcome John
                       </div>
@@ -166,11 +158,7 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
-                        src='assets/images/avatars/avatar-2.jpg'
-                        alt=''
-                        className='w-9 h-9 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
                         I’m selling a photo of a sunset. It’s a print on canvas, signed by the photographer.
                         Do you like it? 😊
@@ -179,11 +167,7 @@ const Message = () => {
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
-                        src='assets/images/avatars/avatar-3.jpg'
-                        alt=''
-                        className='w-4 h-4 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-4 h-4 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         Wow, it’s beautiful. How much ? 😍
                       </div>
@@ -191,11 +175,7 @@ const Message = () => {
 
                     {/* <!-- sent media--> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
-                        src='assets/images/avatars/avatar-3.jpg'
-                        alt=''
-                        className='w-4 h-4 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-4 h-4 rounded-full shadow' />
 
                       <Link className='block rounded-[18px] border overflow-hidden' href='#'>
                         <div className='max-w-md'>
@@ -203,7 +183,7 @@ const Message = () => {
                             <div className='relative' style={{ paddingBottom: '57.4286%' }}>
                               <div className='w-full h-full absolute inset-0'>
                                 <img
-                                  src='assets/images/product/product-2.jpg'
+                                  src='images/product/product-2.jpg'
                                   alt=''
                                   className='block max-w-full max-h-52 w-full h-full object-cover'
                                 />
@@ -223,11 +203,7 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
-                        src='assets/images/avatars/avatar-2.jpg'
-                        alt=''
-                        className='w-9 h-9 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
                         I’m glad you like it. I’m asking for $200 🤑
                       </div>
@@ -235,11 +211,7 @@ const Message = () => {
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
-                        src='assets/images/avatars/avatar-3.jpg'
-                        alt=''
-                        className='w-5 h-5 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         $200? Too steep. Can you lower the price a bit? 😕
                       </div>
@@ -247,11 +219,7 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
-                        src='assets/images/avatars/avatar-2.jpg'
-                        alt=''
-                        className='w-9 h-9 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
                         Well, I can’t go too low because I paid a lot. But I’m willing to negotiate. What’s
                         your offer? 🤔
@@ -260,11 +228,7 @@ const Message = () => {
 
                     {/* <!-- sent -->  */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
-                        src='assets/images/avatars/avatar-3.jpg'
-                        alt=''
-                        className='w-5 h-5 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         Sorry, can’t pay more than $150. 😅
                       </div>
@@ -279,11 +243,7 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
-                        src='assets/images/avatars/avatar-2.jpg'
-                        alt=''
-                        className='w-9 h-9 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
                         $150? Too low. Photo worth more. 😬
                       </div>
@@ -291,11 +251,7 @@ const Message = () => {
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
-                        src='assets/images/avatars/avatar-3.jpg'
-                        alt=''
-                        className='w-5 h-5 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         Too high. I Can’t . How about $160? Final offer. 😬
                       </div>
@@ -303,11 +259,7 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
-                        src='assets/images/avatars/avatar-2.jpg'
-                        alt=''
-                        className='w-9 h-9 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
                         Fine, fine. You’re hard to please. I’ll take $160, but only because I like you. 😍
                       </div>
@@ -315,11 +267,7 @@ const Message = () => {
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
-                        src='assets/images/avatars/avatar-3.jpg'
-                        alt=''
-                        className='w-5 h-5 rounded-full shadow'
-                      />
+                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         Great, thank you. I appreciate it. I love this photo and can’t wait to hang it. 😩
                       </div>

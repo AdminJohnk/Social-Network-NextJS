@@ -24,9 +24,7 @@ function SamplePrevArrow(props: any) {
   const { onClick } = props;
   return (
     <span
-      className={cn(
-        'text-text-1 text-xl absolute -left-4 top-10 rounded-full bg-hover-1 cursor-pointer p-2'
-      )}
+      className={cn('text-text-1 text-xl absolute -left-4 top-10 rounded-full bg-hover-1 cursor-pointer p-2')}
       onClick={onClick}>
       <IoIosArrowBack />
     </span>
@@ -48,37 +46,37 @@ const MemberList = [
     id: 1,
     name: 'John Doe',
     follow_number: '12K',
-    avatar: '/assets/images/avatars/avatar-1.jpg'
+    avatar: '/images/avatars/avatar-1.jpg'
   },
   {
     id: 2,
     name: 'Jane Doe',
     follow_number: '10K',
-    avatar: '/assets/images/avatars/avatar-2.jpg'
+    avatar: '/images/avatars/avatar-2.jpg'
   },
   {
     id: 3,
     name: 'John Doe',
     follow_number: '12K',
-    avatar: '/assets/images/avatars/avatar-3.jpg'
+    avatar: '/images/avatars/avatar-3.jpg'
   },
   {
     id: 4,
     name: 'Jane Doe',
     follow_number: '10K',
-    avatar: '/assets/images/avatars/avatar-4.jpg'
+    avatar: '/images/avatars/avatar-4.jpg'
   },
   {
     id: 5,
     name: 'John Doe',
     follow_number: '12K',
-    avatar: '/assets/images/avatars/avatar-5.jpg'
+    avatar: '/images/avatars/avatar-5.jpg'
   },
   {
     id: 6,
     name: 'Jane Doe',
     follow_number: '10K',
-    avatar: '/assets/images/avatars/avatar-6.jpg'
+    avatar: '/images/avatars/avatar-6.jpg'
   }
 ];
 

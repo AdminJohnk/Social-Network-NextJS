@@ -6,6 +6,8 @@
 
 @layer base {
   :root {
+    --m-top: 4rem;
+
     --tw-bg-opacity: 1;
     --tw-text-opacity: 1;
     --tw-border-opacity: 1;
@@ -233,11 +235,9 @@
     background-color: rgb(226 232 240 / var(--tw-bg-opacity));
   }
 
-  @media (prefers-color-scheme: dark) {
-    .switch-button {
-      --tw-bg-opacity: 1;
-      background-color: rgb(30 41 59 / var(--tw-bg-opacity));
-    }
+  .dark .switch-button {
+    --tw-bg-opacity: 1;
+    background-color: rgb(30 41 59 / var(--tw-bg-opacity));
   }
 
   .switch-button:before {
@@ -245,11 +245,9 @@
     background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   }
 
-  @media (prefers-color-scheme: dark) {
-    .switch-button:before {
-      --tw-bg-opacity: 1;
-      background-color: rgb(2 132 199 / var(--tw-bg-opacity));
-    }
+  .dark .switch-button:before {
+    --tw-bg-opacity: 1;
+    background-color: rgb(2 132 199 / var(--tw-bg-opacity));
   }
 
   input:checked + .switch-button {
@@ -257,16 +255,285 @@
     background-color: rgb(2 132 199 / var(--tw-bg-opacity));
   }
 
-  @media (prefers-color-scheme: dark) {
-    input:checked + .switch-button {
-      --tw-bg-opacity: 1;
-      background-color: rgb(147 197 253 / var(--tw-bg-opacity));
-    }
+  .dark input:checked + .switch-button {
+    --tw-bg-opacity: 1;
+    background-color: rgb(147 197 253 / var(--tw-bg-opacity));
+  }
 
-    input:checked + .switch-button:before {
-      --tw-bg-opacity: 1;
-      background-color: rgb(2 132 199 / var(--tw-bg-opacity));
-    }
+  .dark input:checked + .switch-button:before {
+    --tw-bg-opacity: 1;
+    background-color: rgb(2 132 199 / var(--tw-bg-opacity));
+  }
+
+  /* Simplebar */
+
+  [data-simplebar] {
+    position: relative;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    height: 100%;
+  }
+
+  .simplebar-wrapper {
+    overflow: hidden;
+    width: inherit;
+    height: inherit;
+    max-width: inherit;
+    max-height: inherit;
+  }
+
+  .simplebar-mask {
+    direction: inherit;
+    position: absolute;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: auto !important;
+    height: auto !important;
+    z-index: 0;
+  }
+
+  .simplebar-offset {
+    direction: inherit !important;
+    -webkit-box-sizing: inherit !important;
+    box-sizing: inherit !important;
+    resize: none !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .simplebar-content {
+    direction: inherit;
+    -webkit-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    position: relative;
+    display: block;
+    height: 100%;
+    width: auto;
+    visibility: visible;
+    overflow: scroll;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .simplebar-placeholder {
+    max-height: 100%;
+    max-width: 100%;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .simplebar-height-auto-observer-wrapper {
+    -webkit-box-sizing: inherit !important;
+    box-sizing: inherit !important;
+    height: 100%;
+    width: inherit;
+    max-width: 1px;
+    position: relative;
+    float: left;
+    max-height: 1px;
+    overflow: hidden;
+    z-index: -1;
+    padding: 0;
+    margin: 0;
+    pointer-events: none;
+    -webkit-box-flex: inherit;
+    -ms-flex-positive: inherit;
+    flex-grow: inherit;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+  }
+
+  .simplebar-height-auto-observer {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+    display: block;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1000%;
+    width: 1000%;
+    min-height: 1px;
+    min-width: 1px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .simplebar-track {
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+
+  .simplebar-scrollbar {
+    position: absolute;
+    right: 5px;
+    width: 5px;
+    min-height: 10px;
+  }
+
+  .simplebar-scrollbar:before {
+    position: absolute;
+    content: '';
+    border-radius: 7px;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    -webkit-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s, background-color 0.3s;
+    transition: opacity 0.2s, background-color 0.3s;
+    background-color: #545252;
+  }
+
+  .simplebar-track .simplebar-scrollbar.simplebar-visible:before {
+    opacity: 0.5;
+    -webkit-transition: opacity 0s linear;
+    transition: opacity 0s linear;
+  }
+
+  .simplebar-track.simplebar-vertical {
+    top: 0;
+    width: 10px;
+  }
+
+  .simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+    top: 2px;
+    bottom: 2px;
+  }
+
+  .simplebar-track.simplebar-horizontal {
+    left: 0;
+    height: 11px;
+  }
+
+  .simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+    height: 100%;
+    left: 2px;
+    right: 2px;
+  }
+
+  .simplebar-track.simplebar-horizontal .simplebar-scrollbar {
+    right: auto;
+    left: 0;
+    top: 2px;
+    height: 7px;
+    min-height: 0;
+    min-width: 10px;
+    width: auto;
+  }
+
+  [data-simplebar-direction='rtl'] .simplebar-track.simplebar-vertical {
+    right: auto;
+    left: 0;
+  }
+
+  .hs-dummy-scrollbar-size {
+    direction: rtl;
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    height: 500px;
+    width: 500px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
+
+  /*sidebar nav links */
+
+  #site_sidebar .simplebar-scrollbar {
+    width: 7px;
+  }
+
+  #side > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0.125rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0.125rem * var(--tw-space-y-reverse));
+  }
+
+  #side {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: capitalize;
+    letter-spacing: 0.025em;
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity));
+  }
+
+  .dark #side {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+
+  #side a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dark #side a:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+  }
+
+  #side a:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(var(--color-secondery) / var(--tw-bg-opacity));
+  }
+
+  #side a svg {
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+  }
+
+  #side a.active svg,
+  #side a.uk-active svg,
+  #side .active a,
+  #side a.uk-active {
+    --tw-bg-opacity: 1;
+    background-color: rgb(var(--color-secondery) / var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(var(--color-primary) / var(--tw-text-opacity));
+  }
+
+  .dark #side a.active svg,
+  .dark #side a.uk-active svg,
+  .dark #side .active a,
+  .dark #side a.uk-active {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 
   /*button*/
@@ -282,11 +549,9 @@
     font-weight: 600;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .button {
-      --tw-text-opacity: 1;
-      color: rgb(255 255 255 / var(--tw-text-opacity));
-    }
+  .dark .button {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 
   .button__ico {
@@ -297,11 +562,9 @@
     border-radius: 9999px;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .button__ico:hover {
-      --tw-bg-opacity: 1;
-      background-color: rgb(51 65 85 / var(--tw-bg-opacity));
-    }
+  .dark .button__ico:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(51 65 85 / var(--tw-bg-opacity));
   }
 
   .button__ico:hover {
