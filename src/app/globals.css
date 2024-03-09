@@ -30,20 +30,24 @@
     --light1: rgb(255 255 255 / var(--tw-bg-opacity));
 
     --blue1: #2563eb;
-    --blue2: #dbeafe;
-    --blue3: #b1c2d8;
+    --blue2: #2157cc;
+    --blue3: #dbeafe;
+    --blue4: #b1c2d8;
 
     --purple1: #7e3af2;
-    --purple2: #edebfe;
+    --purple2: #7e3af2;
     --purple3: #edebfe;
+    --purple4: #edebfe;
 
     --green1: #0694a2;
-    --green2: #d5f5f6;
+    --green2: #0694a2;
     --green3: #d5f5f6;
+    --green4: #d5f5f6;
 
     --pink1: #db2777;
-    --pink2: #fce7f3;
-    --pink3: #e3c6d7;
+    --pink2: #db2777;
+    --pink3: #fce7f3;
+    --pink4: #e3c6d7;
 
     --scroll: #ff0000;
   }
@@ -73,20 +77,24 @@
     --light1: rgb(255 255 255 / var(--tw-bg-opacity));
 
     --blue1: #2563eb;
-    --blue2: #dbeafe;
-    --blue3: #b1c2d8;
+    --blue2: #2157cc;
+    --blue3: #dbeafe;
+    --blue4: #b1c2d8;
 
     --purple1: #7e3af2;
-    --purple2: #edebfe;
+    --purple2: #7e3af2;
     --purple3: #edebfe;
+    --purple4: #edebfe;
 
     --green1: #0694a2;
-    --green2: #d5f5f6;
+    --green2: #0694a2;
     --green3: #d5f5f6;
+    --green4: #d5f5f6;
 
     --pink1: #db2777;
-    --pink2: #fce7f3;
-    --pink3: #e3c6d7;
+    --pink2: #db2777;
+    --pink3: #fce7f3;
+    --pink4: #e3c6d7;
 
     --scroll: #ff0000;
   }
@@ -143,7 +151,7 @@
     display: none;
   }
 
-  .switch.interactive-effect input:checked+.switch-button:before {
+  .switch.interactive-effect input:checked + .switch-button:before {
     -webkit-animation: switch-shadow-color 0.4s;
     animation: switch-shadow-color 0.4s;
   }
@@ -215,7 +223,7 @@
     border-radius: 50px;
   }
 
-  input:checked+.switch-button:before {
+  input:checked + .switch-button:before {
     -webkit-transform: translateX(14px);
     transform: translateX(14px);
   }
@@ -244,18 +252,18 @@
     }
   }
 
-  input:checked+.switch-button {
+  input:checked + .switch-button {
     --tw-bg-opacity: 1;
     background-color: rgb(2 132 199 / var(--tw-bg-opacity));
   }
 
   @media (prefers-color-scheme: dark) {
-    input:checked+.switch-button {
+    input:checked + .switch-button {
       --tw-bg-opacity: 1;
       background-color: rgb(147 197 253 / var(--tw-bg-opacity));
     }
 
-    input:checked+.switch-button:before {
+    input:checked + .switch-button:before {
       --tw-bg-opacity: 1;
       background-color: rgb(2 132 199 / var(--tw-bg-opacity));
     }
@@ -321,7 +329,6 @@
 }
 
 @layer utilities {
-
   /* Text */
   .h1-bold {
     @apply text-[36px] font-bold leading-[140%];

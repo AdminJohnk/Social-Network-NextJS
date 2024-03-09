@@ -65,22 +65,26 @@ const config: Config = {
         blue: {
           1: 'var(--blue1)',
           2: 'var(--blue2)',
-          3: 'var(--blue3)'
+          3: 'var(--blue3)',
+          4: 'var(--blue4)'
         },
         green: {
           1: 'var(--green1)',
           2: 'var(--green2)',
-          3: 'var(--green3)'
+          3: 'var(--green3)',
+          4: 'var(--green4)'
         },
         purple: {
           1: 'var(--purple1)',
           2: 'var(--purple2)',
-          3: 'var(--purple3)'
+          3: 'var(--purple3)',
+          4: 'var(--purple4)'
         },
         pink: {
           1: 'var(--pink1)',
           2: 'var(--pink2)',
-          3: 'var(--pink3)'
+          3: 'var(--pink3)',
+          4: 'var(--pink4)'
         }
       },
       fontFamily: {
