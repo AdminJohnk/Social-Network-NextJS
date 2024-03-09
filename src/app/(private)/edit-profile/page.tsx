@@ -13,21 +13,8 @@ import { Button } from '@/components/ui/button';
 
 export interface IEditProfileProps { }
 
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`
-  };
-}
-
 export default function EditProfile(props: IEditProfileProps) {
   const { data: session } = useSession();
-
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
 
   return (
     <div className='flex flex-1 *:w-full *:max-w-2xl flex-col items-center gap-10 px-5 py-10 md:p-14 custom-scrollbar-bg overflow-scroll'>

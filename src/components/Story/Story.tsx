@@ -12,11 +12,8 @@ function SampleNextArrow(props: any) {
   const { onClick } = props;
   return (
     <span
-      className={cn(
-        'text-text-1 text-xl absolute -right-5 top-5 rounded-full bg-hover-1 cursor-pointer p-1',
-      )}
-      onClick={onClick}
-    >
+      className={cn('text-text-1 text-xl absolute -right-5 top-5 rounded-full bg-hover-1 cursor-pointer p-1')}
+      onClick={onClick}>
       <IoIosArrowForward />
     </span>
   );
@@ -26,17 +23,14 @@ function SamplePrevArrow(props: any) {
   const { onClick } = props;
   return (
     <span
-      className={cn(
-        'text-text-1 text-xl absolute -left-10 top-5 rounded-full bg-hover-1 cursor-pointer p-1',
-      )}
-      onClick={onClick}
-    >
+      className={cn('text-text-1 text-xl absolute -left-10 top-5 rounded-full bg-hover-1 cursor-pointer p-1')}
+      onClick={onClick}>
       <IoIosArrowBack />
     </span>
   );
 }
 
-export interface IStoryProps { }
+export interface IStoryProps {}
 
 export default function Story(props: IStoryProps) {
   // var settings: Settings = {
@@ -90,110 +84,110 @@ export default function Story(props: IStoryProps) {
         breakpoint: 1024,
         settings: {
           slidesToShow: 8,
-          slidesToScroll: 8,
-        },
+          slidesToScroll: 8
+        }
       },
       {
         breakpoint: 800,
         settings: {
           slidesToShow: 5,
-          slidesToScroll: 5,
-        },
-      },
-    ],
+          slidesToScroll: 5
+        }
+      }
+    ]
   };
 
   const storyList = [
     {
       id: 1,
       name: 'John Doe',
-      image: 'assets/images/avatars/avatar-1.jpg',
+      image: 'images/avatars/avatar-1.jpg'
     },
     {
       id: 2,
       name: 'Jane Doe',
-      image: 'assets/images/avatars/avatar-2.jpg',
+      image: 'images/avatars/avatar-2.jpg'
     },
     {
       id: 3,
       name: 'John Doe',
-      image: 'assets/images/avatars/avatar-3.jpg',
+      image: 'images/avatars/avatar-3.jpg'
     },
     {
       id: 4,
       name: 'Jane Doe',
-      image: 'assets/images/avatars/avatar-4.jpg',
+      image: 'images/avatars/avatar-4.jpg'
     },
     {
       id: 5,
       name: 'John Doe',
-      image: 'assets/images/avatars/avatar-5.jpg',
+      image: 'images/avatars/avatar-5.jpg'
     },
     {
       id: 6,
       name: 'Jane Doe',
-      image: 'assets/images/avatars/avatar-6.jpg',
+      image: 'images/avatars/avatar-6.jpg'
     },
     {
       id: 7,
       name: 'John Doe',
-      image: 'assets/images/avatars/avatar-7.jpg',
+      image: 'images/avatars/avatar-7.jpg'
     },
     {
       id: 8,
       name: 'Jane Doe',
-      image: 'assets/images/avatars/avatar-5.jpg',
+      image: 'images/avatars/avatar-5.jpg'
     },
     {
       id: 9,
       name: 'John Doe',
-      image: 'assets/images/avatars/avatar-4.jpg',
+      image: 'images/avatars/avatar-4.jpg'
     },
     {
       id: 10,
       name: 'Jane Doe',
-      image: 'assets/images/avatars/avatar-3.jpg',
+      image: 'images/avatars/avatar-3.jpg'
     },
     {
       id: 11,
       name: 'John Doe',
-      image: 'assets/images/avatars/avatar-6.jpg',
+      image: 'images/avatars/avatar-6.jpg'
     },
     {
       id: 12,
       name: 'Jane Doe',
-      image: 'assets/images/avatars/avatar-1.jpg',
+      image: 'images/avatars/avatar-1.jpg'
     },
     {
       id: 13,
       name: 'John Doe',
-      image: 'assets/images/avatars/avatar-7.jpg',
+      image: 'images/avatars/avatar-7.jpg'
     },
     {
       id: 14,
       name: 'Jane Doe',
-      image: 'assets/images/avatars/avatar-2.jpg',
+      image: 'images/avatars/avatar-2.jpg'
     },
     {
       id: 15,
       name: 'John Doe',
-      image: 'assets/images/avatars/avatar-6.jpg',
+      image: 'images/avatars/avatar-6.jpg'
     },
     {
       id: 16,
       name: 'Jane Doe',
-      image: 'assets/images/avatars/avatar-3.jpg',
+      image: 'images/avatars/avatar-3.jpg'
     },
     {
       id: 17,
       name: 'John Doe',
-      image: 'assets/images/avatars/avatar-4.jpg',
+      image: 'images/avatars/avatar-4.jpg'
     },
     {
       id: 18,
       name: 'Jane Doe',
-      image: 'assets/images/avatars/avatar-1.jpg',
-    },
+      image: 'images/avatars/avatar-1.jpg'
+    }
   ];
 
   return (

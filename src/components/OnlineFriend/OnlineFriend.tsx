@@ -11,9 +11,7 @@ function SampleNextArrow(props: any) {
   const { onClick } = props;
   return (
     <span
-      className={cn(
-        'text-text-1 text-xl absolute -right-3 top-2 rounded-full bg-hover-1 cursor-pointer'
-      )}
+      className={cn('text-text-1 text-xl absolute -right-3 top-2 rounded-full bg-hover-1 cursor-pointer')}
       onClick={onClick}>
       <IoIosArrowForward />
     </span>
@@ -24,9 +22,7 @@ function SamplePrevArrow(props: any) {
   const { onClick } = props;
   return (
     <span
-      className={cn(
-        'text-text-1 text-xl absolute -left-5 top-2 rounded-full bg-hover-1 cursor-pointer'
-      )}
+      className={cn('text-text-1 text-xl absolute -left-5 top-2 rounded-full bg-hover-1 cursor-pointer')}
       onClick={onClick}>
       <IoIosArrowBack />
     </span>
@@ -40,22 +36,22 @@ var settings = {
   slidesToShow: 6,
   slidesToScroll: 6,
   nextArrow: <SampleNextArrow />,
-  prevArrow: <SamplePrevArrow />,
+  prevArrow: <SamplePrevArrow />
 };
 
 const FriendList = [
-  { src: '/assets/images/avatars/avatar-7.jpg' },
-  { src: '/assets/images/avatars/avatar-2.jpg' },
-  { src: '/assets/images/avatars/avatar-3.jpg' },
-  { src: '/assets/images/avatars/avatar-4.jpg' },
-  { src: '/assets/images/avatars/avatar-5.jpg' },
-  { src: '/assets/images/avatars/avatar-6.jpg' },
-  { src: '/assets/images/avatars/avatar-1.jpg' },
-  { src: '/assets/images/avatars/avatar-5.jpg' },
-  { src: '/assets/images/avatars/avatar-3.jpg' },
-  { src: '/assets/images/avatars/avatar-5.jpg' },
-  { src: '/assets/images/avatars/avatar-6.jpg' },
-  { src: '/assets/images/avatars/avatar-1.jpg' }
+  { src: '/images/avatars/avatar-7.jpg' },
+  { src: '/images/avatars/avatar-2.jpg' },
+  { src: '/images/avatars/avatar-3.jpg' },
+  { src: '/images/avatars/avatar-4.jpg' },
+  { src: '/images/avatars/avatar-5.jpg' },
+  { src: '/images/avatars/avatar-6.jpg' },
+  { src: '/images/avatars/avatar-1.jpg' },
+  { src: '/images/avatars/avatar-5.jpg' },
+  { src: '/images/avatars/avatar-3.jpg' },
+  { src: '/images/avatars/avatar-5.jpg' },
+  { src: '/images/avatars/avatar-6.jpg' },
+  { src: '/images/avatars/avatar-1.jpg' }
 ];
 
 export interface IOnlineFriendProps {}

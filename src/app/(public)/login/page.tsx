@@ -7,7 +7,7 @@ export default function Login() {
     <div className='w-full h-dvh relative'>
       <div className='w-full h-full'>
         <Image
-          src='/assets/images/backgroundLogin.webp'
+          src='/images/backgroundLogin.webp'
           className='w-full h-full object-cover '
           width={2000}
           height={2000}

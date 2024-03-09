@@ -5,27 +5,27 @@ import { FiRefreshCw } from 'react-icons/fi';
 const FollowList = [
   {
     name: 'John Doe',
-    avatar: '/assets/images/avatars/avatar-7.jpg',
+    avatar: '/images/avatars/avatar-7.jpg',
     feature: 'Suggested For You'
   },
   {
     name: 'James Lewis',
-    avatar: '/assets/images/avatars/avatar-2.jpg',
+    avatar: '/images/avatars/avatar-2.jpg',
     feature: 'Follow By Johnson'
   },
   {
     name: 'Jane Doe',
-    avatar: '/assets/images/avatars/avatar-3.jpg',
+    avatar: '/images/avatars/avatar-3.jpg',
     feature: 'Suggested For You'
   },
   {
     name: 'John Doe',
-    avatar: '/assets/images/avatars/avatar-4.jpg',
+    avatar: '/images/avatars/avatar-4.jpg',
     feature: 'Follow By Marisa'
   },
   {
     name: 'John Doe',
-    avatar: '/assets/images/avatars/avatar-5.jpg',
+    avatar: '/images/avatars/avatar-5.jpg',
     feature: 'Suggested For You'
   }
 ];
@@ -49,9 +49,7 @@ export default function SuggestFollow(props: ISuggestFollowProps) {
                 <Avatar src={item.avatar} className='size-10' />
                 <div className='flex flex-col ms-3'>
                   <span className='base-bold'>{item.name}</span>
-                  <span className='small-regular text-text-2'>
-                    {item.feature}
-                  </span>
+                  <span className='small-regular text-text-2'>{item.feature}</span>
                 </div>
               </div>
               <button className='base-bold bg-hover-1 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl'>
