@@ -15,7 +15,7 @@ export default function NewFeed(props: INewFeedProps) {
     <div
       className='ms-60 max-lg/2:ms-20 @container/pri'
       style={{
-        zIndex: 10,
+        zIndex: 1,
       }}
     >
       <div
