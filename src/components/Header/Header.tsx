@@ -30,9 +30,7 @@ import {
 } from 'react-icons/io5';
 
 export default function Header() {
-  const { toggleMode } = useThemeMode();
-
-  const mode = localStorage.getItem('flowbite-theme-mode');
+  const { toggleMode, mode } = useThemeMode();
 
   return (
     <header className='z-[100] h-[--m-top] fixed top-0 left-0 w-full flex items-center bg-background-1 backdrop-blur-xl border-b border-border-1'>
