@@ -17,7 +17,7 @@ export default function EditProfile(props: IEditProfileProps) {
   const { data: session } = useSession();
 
   return (
-    <div className='flex flex-1 *:w-full *:max-w-2xl flex-col items-center gap-10 px-5 py-10 md:p-14 custom-scrollbar-bg overflow-scroll'>
+    <div className='flex flex-1 mt-16 *:w-full *:max-w-2xl flex-col items-center gap-10 px-5 py-10 md:p-14 custom-scrollbar-bg overflow-scroll'>
       <div>
         <Button variant='ghost'>
           <IoArrowBack size={18} />

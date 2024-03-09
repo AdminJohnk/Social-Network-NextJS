@@ -42,41 +42,32 @@ export default function ChatInfo(props: IChatInfoProps) {
               <IoNotificationsOffOutline className='text-2xl' />
               Mute Notification
               <label className='switch cursor-pointer ml-auto'>
-                {' '}
                 <input type='checkbox' defaultChecked />
                 <span className='switch-button !relative'></span>
               </label>
             </div>
           </li>
           <li>
-            {' '}
             <button type='button' className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-              {' '}
-              <IoFlagOutline className='text-2xl' /> Report{' '}
+              <IoFlagOutline className='text-2xl' /> Report
             </button>
           </li>
           <li>
-            {' '}
             <button type='button' className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-              {' '}
-              <IoSettingsOutline className='text-2xl' /> Ignore messages{' '}
-            </button>{' '}
+              <IoSettingsOutline className='text-2xl' /> Ignore messages
+            </button>
           </li>
           <li>
-            {' '}
             <button type='button' className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-              {' '}
-              <IoStopCircleOutline className='text-2xl' /> Block{' '}
-            </button>{' '}
+              <IoStopCircleOutline className='text-2xl' /> Block
+            </button>
           </li>
           <li>
-            {' '}
             <button
               type='button'
               className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-red-50 text-red-500'>
-              {' '}
-              <IoTrashOutline className='text-2xl' /> Delete Chat{' '}
-            </button>{' '}
+              <IoTrashOutline className='text-2xl' /> Delete Chat
+            </button>
           </li>
         </ul>
 

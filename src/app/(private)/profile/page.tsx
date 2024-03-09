@@ -34,7 +34,7 @@ const Profile = (props: IProfileProps) => {
         {/* <!-- main contents --> */}
         {/* <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]"> */}
         <main>
-          <div className='main__inner'>
+          <div className='main__inner mt-16'>
             {/* <!-- profile  --> */}
             <div className='py-6 relative'>
               <div className='flex md:gap-16 gap-4 max-md:flex-col'>
@@ -49,20 +49,17 @@ const Profile = (props: IProfileProps) => {
                   <button
                     type='button'
                     className='absolute -bottom-2 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
-                    {' '}
                     <IoCamera className='text-2xl' />
                   </button>
                 </div>
                 <div className='max-w-2x flex-1'>
                   <h3 className='md:text-xl text-base font-semibold text-black dark:text-white'>
-                    {' '}
-                    Monroe Parker{' '}
+                    Monroe Parker
                   </h3>
 
                   <p className='sm:text-sm text-blue-600 mt-1 font-normal text-xs'>@Monroepak</p>
 
                   <p className='text-sm mt-2 md:font-normal font-light'>
-                    {' '}
                     I love beauty and emotion. 🥰 I’m passionate about photography and learning. 📚 I explore
                     genres and styles. 🌈 I think photography is storytelling. 📖 I hope you like and feel my
                     photos. 😊
@@ -71,15 +68,15 @@ const Profile = (props: IProfileProps) => {
                   <p className='mt-2 space-x-2 text-gray-500 text-sm hidden' style={{ marginTop: '11px' }}>
                     <Link href='#' className='inline-block'>
                       Travel
-                    </Link>{' '}
-                    .{' '}
+                    </Link>
+                    .
                     <Link href='#' className='inline-block'>
                       Business
-                    </Link>{' '}
-                    .{' '}
+                    </Link>
+                    .
                     <Link href='#' className='inline-block'>
                       Technology
-                    </Link>{' '}
+                    </Link>
                   </p>
 
                   <div className='flex md:items-end justify-between md:mt-8 mt-4 max-md:flex-col gap-4'>
@@ -119,7 +116,6 @@ const Profile = (props: IProfileProps) => {
                         <button
                           type='submit'
                           className='rounded-lg bg-slate-200/60 flex px-2 py-1.5 dark:bg-background-2'>
-                          {' '}
                           <IoEllipsisHorizontal className='text-xl' />
                         </button>
                         <div
@@ -127,27 +123,22 @@ const Profile = (props: IProfileProps) => {
                           data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                           <nav>
                             <Link href='#' className='hover:!bg-hover-1'>
-                              {' '}
-                              <IoPricetagsOutline className=' text-xl' /> Unfollow{' '}
+                              <IoPricetagsOutline className=' text-xl' /> Unfollow
                             </Link>
                             <Link href='#' className='hover:!bg-hover-1'>
-                              {' '}
-                              <IoTimeOutline className=' text-xl' /> Mute story{' '}
+                              <IoTimeOutline className=' text-xl' /> Mute story
                             </Link>
                             <Link href='#' className='hover:!bg-hover-1'>
-                              {' '}
-                              <IoFlagOutline className=' text-xl' /> Report{' '}
+                              <IoFlagOutline className=' text-xl' /> Report
                             </Link>
                             <Link href='#' className='hover:!bg-hover-1'>
-                              {' '}
-                              <IoShareOutline className=' text-xl' /> Share profile{' '}
+                              <IoShareOutline className=' text-xl' /> Share profile
                             </Link>
                             <hr />
                             <Link
                               href='#'
                               className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                              {' '}
-                              <IoStopCircleOutline className='text-xl' /> Block{' '}
+                              <IoStopCircleOutline className='text-xl' /> Block
                             </Link>
                           </nav>
                         </div>
@@ -167,31 +158,25 @@ const Profile = (props: IProfileProps) => {
                     className='flex gap-2 justify-center border-t dark:border-slate-700'
                     data-uk-switcher='connect: #story_tab ; animation: uk-animation-fade, uk-animation-slide-left-medium'>
                     <li>
-                      {' '}
                       <Link
                         href='#'
                         className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                        {' '}
-                        <IoCameraOutline className='mr-2 text-2xl' /> Posts{' '}
-                      </Link>{' '}
+                        <IoCameraOutline className='mr-2 text-2xl' /> Posts
+                      </Link>
                     </li>
                     <li>
-                      {' '}
                       <Link
                         href='#'
                         className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                        {' '}
-                        <IoPlayOutline className='mr-2 text-2xl' /> Reels{' '}
-                      </Link>{' '}
+                        <IoPlayOutline className='mr-2 text-2xl' /> Reels
+                      </Link>
                     </li>
                     <li>
-                      {' '}
                       <Link
                         href='#'
                         className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                        {' '}
-                        <IoPricetagsOutline className='mr-2 text-2xl' /> Tagged{' '}
-                      </Link>{' '}
+                        <IoPricetagsOutline className='mr-2 text-2xl' /> Tagged
+                      </Link>
                     </li>
                   </ul>
                 </nav>
@@ -233,11 +218,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -259,11 +242,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -285,11 +266,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -311,11 +290,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -337,11 +314,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -363,11 +338,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -389,11 +362,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -415,11 +386,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -441,11 +410,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -467,11 +434,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -493,11 +458,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -519,11 +482,9 @@ const Profile = (props: IProfileProps) => {
                             <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
                               <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  {' '}
                                   <IoChatbubbleEllipses className='text-2xl' /> 290
                                 </div>
                               </div>
@@ -773,31 +734,26 @@ const Profile = (props: IProfileProps) => {
                         {/* <!-- dropdown options --> */}
                         <div className='absolute top-0.5 right-0 md:m-2.5 m-1'>
                           <button type='button' className='button__ico w-8 h-8'>
-                            {' '}
-                            <IoEllipsisHorizontal className='text-xl' />{' '}
+                            <IoEllipsisHorizontal className='text-xl' />
                           </button>
                           <div
                             className='w-[232px]'
                             data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                             <nav>
                               <Link href='#'>
-                                {' '}
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites{' '}
+                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoFlagOutline className='text-xl shrink-0' /> Report{' '}
+                                <IoFlagOutline className='text-xl shrink-0' /> Report
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoShareOutline className='text-xl shrink-0' /> Share{' '}
+                                <IoShareOutline className='text-xl shrink-0' /> Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
                                 className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                {' '}
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove{' '}
+                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
                               </Link>
                             </nav>
                           </div>
@@ -818,16 +774,13 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- post icons --> */}
                       <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoHeartOutline className='md:text-2xl text-lg' />{' '}
+                          <IoHeartOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />{' '}
+                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico ml-auto'>
-                          {' '}
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />{' '}
+                          <IoBookmarkOutline className='md:text-2xl text-lg' />
                         </button>
                       </div>
                     </div>
@@ -847,31 +800,26 @@ const Profile = (props: IProfileProps) => {
                         {/* <!-- dropdown options --> */}
                         <div className='absolute top-0.5 right-0 m-2.5'>
                           <button type='button' className='button__ico w-8 h-8'>
-                            {' '}
-                            <IoEllipsisHorizontal className='text-xl' />{' '}
+                            <IoEllipsisHorizontal className='text-xl' />
                           </button>
                           <div
                             className='w-[232px]'
                             data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                             <nav>
                               <Link href='#'>
-                                {' '}
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites{' '}
+                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoFlagOutline className='text-xl shrink-0' /> Report{' '}
+                                <IoFlagOutline className='text-xl shrink-0' /> Report
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoShareOutline className='text-xl shrink-0' /> Share{' '}
+                                <IoShareOutline className='text-xl shrink-0' /> Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
                                 className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                {' '}
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove{' '}
+                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
                               </Link>
                             </nav>
                           </div>
@@ -892,16 +840,13 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- post icons --> */}
                       <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoHeartOutline className='md:text-2xl text-lg' />{' '}
+                          <IoHeartOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />{' '}
+                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico ml-auto'>
-                          {' '}
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />{' '}
+                          <IoBookmarkOutline className='md:text-2xl text-lg' />
                         </button>
                       </div>
                     </div>
@@ -921,31 +866,26 @@ const Profile = (props: IProfileProps) => {
                         {/* <!-- dropdown options --> */}
                         <div className='absolute top-0.5 right-0 m-2.5'>
                           <button type='button' className='button__ico w-8 h-8'>
-                            {' '}
-                            <IoEllipsisHorizontal className='text-xl' />{' '}
+                            <IoEllipsisHorizontal className='text-xl' />
                           </button>
                           <div
                             className='w-[232px]'
                             data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                             <nav>
                               <Link href='#'>
-                                {' '}
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites{' '}
+                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoFlagOutline className='text-xl shrink-0' /> Report{' '}
+                                <IoFlagOutline className='text-xl shrink-0' /> Report
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoShareOutline className='text-xl shrink-0' /> Share{' '}
+                                <IoShareOutline className='text-xl shrink-0' /> Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
                                 className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                {' '}
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove{' '}
+                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
                               </Link>
                             </nav>
                           </div>
@@ -966,16 +906,13 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- post icons --> */}
                       <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoHeartOutline className='md:text-2xl text-lg' />{' '}
+                          <IoHeartOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />{' '}
+                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico ml-auto'>
-                          {' '}
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />{' '}
+                          <IoBookmarkOutline className='md:text-2xl text-lg' />
                         </button>
                       </div>
                     </div>
@@ -995,31 +932,26 @@ const Profile = (props: IProfileProps) => {
                         {/* <!-- dropdown options --> */}
                         <div className='absolute top-0.5 right-0 m-2.5'>
                           <button type='button' className='button__ico w-8 h-8'>
-                            {' '}
-                            <IoEllipsisHorizontal className='text-xl' />{' '}
+                            <IoEllipsisHorizontal className='text-xl' />
                           </button>
                           <div
                             className='w-[232px]'
                             data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                             <nav>
                               <Link href='#'>
-                                {' '}
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites{' '}
+                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoFlagOutline className='text-xl shrink-0' /> Report{' '}
+                                <IoFlagOutline className='text-xl shrink-0' /> Report
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoShareOutline className='text-xl shrink-0' /> Share{' '}
+                                <IoShareOutline className='text-xl shrink-0' /> Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
                                 className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                {' '}
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove{' '}
+                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
                               </Link>
                             </nav>
                           </div>
@@ -1040,16 +972,13 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- post icons --> */}
                       <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoHeartOutline className='md:text-2xl text-lg' />{' '}
+                          <IoHeartOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />{' '}
+                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico ml-auto'>
-                          {' '}
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />{' '}
+                          <IoBookmarkOutline className='md:text-2xl text-lg' />
                         </button>
                       </div>
                     </div>
@@ -1069,31 +998,26 @@ const Profile = (props: IProfileProps) => {
                         {/* <!-- dropdown options --> */}
                         <div className='absolute top-0.5 right-0 m-2.5'>
                           <button type='button' className='button__ico w-8 h-8'>
-                            {' '}
-                            <IoEllipsisHorizontal className='text-xl' />{' '}
+                            <IoEllipsisHorizontal className='text-xl' />
                           </button>
                           <div
                             className='w-[232px]'
                             data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                             <nav>
                               <Link href='#'>
-                                {' '}
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites{' '}
+                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoFlagOutline className='text-xl shrink-0' /> Report{' '}
+                                <IoFlagOutline className='text-xl shrink-0' /> Report
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoShareOutline className='text-xl shrink-0' /> Share{' '}
+                                <IoShareOutline className='text-xl shrink-0' /> Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
                                 className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                {' '}
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove{' '}
+                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
                               </Link>
                             </nav>
                           </div>
@@ -1114,16 +1038,13 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- post icons --> */}
                       <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoHeartOutline className='md:text-2xl text-lg' />{' '}
+                          <IoHeartOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />{' '}
+                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico ml-auto'>
-                          {' '}
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />{' '}
+                          <IoBookmarkOutline className='md:text-2xl text-lg' />
                         </button>
                       </div>
                     </div>
@@ -1143,31 +1064,26 @@ const Profile = (props: IProfileProps) => {
                         {/* <!-- dropdown options --> */}
                         <div className='absolute top-0.5 right-0 m-2.5'>
                           <button type='button' className='button__ico w-8 h-8'>
-                            {' '}
-                            <IoEllipsisHorizontal className='text-xl' />{' '}
+                            <IoEllipsisHorizontal className='text-xl' />
                           </button>
                           <div
                             className='w-[232px]'
                             data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                             <nav>
                               <Link href='#'>
-                                {' '}
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites{' '}
+                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoFlagOutline className='text-xl shrink-0' /> Report{' '}
+                                <IoFlagOutline className='text-xl shrink-0' /> Report
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoShareOutline className='text-xl shrink-0' /> Share{' '}
+                                <IoShareOutline className='text-xl shrink-0' /> Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
                                 className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                {' '}
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove{' '}
+                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
                               </Link>
                             </nav>
                           </div>
@@ -1188,16 +1104,13 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- post icons --> */}
                       <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoHeartOutline className='md:text-2xl text-lg' />{' '}
+                          <IoHeartOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />{' '}
+                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico ml-auto'>
-                          {' '}
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />{' '}
+                          <IoBookmarkOutline className='md:text-2xl text-lg' />
                         </button>
                       </div>
                     </div>
@@ -1217,31 +1130,26 @@ const Profile = (props: IProfileProps) => {
                         {/* <!-- dropdown options --> */}
                         <div className='absolute top-0.5 right-0 m-2.5'>
                           <button type='button' className='button__ico w-8 h-8'>
-                            {' '}
-                            <IoEllipsisHorizontal className='text-xl' />{' '}
+                            <IoEllipsisHorizontal className='text-xl' />
                           </button>
                           <div
                             className='w-[232px]'
                             data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                             <nav>
                               <Link href='#'>
-                                {' '}
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites{' '}
+                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoFlagOutline className='text-xl shrink-0' /> Report{' '}
+                                <IoFlagOutline className='text-xl shrink-0' /> Report
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoShareOutline className='text-xl shrink-0' /> Share{' '}
+                                <IoShareOutline className='text-xl shrink-0' /> Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
                                 className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                {' '}
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove{' '}
+                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
                               </Link>
                             </nav>
                           </div>
@@ -1262,16 +1170,13 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- post icons --> */}
                       <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoHeartOutline className='md:text-2xl text-lg' />{' '}
+                          <IoHeartOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />{' '}
+                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico ml-auto'>
-                          {' '}
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />{' '}
+                          <IoBookmarkOutline className='md:text-2xl text-lg' />
                         </button>
                       </div>
                     </div>
@@ -1291,31 +1196,26 @@ const Profile = (props: IProfileProps) => {
                         {/* <!-- dropdown options --> */}
                         <div className='absolute top-0.5 right-0 m-2.5'>
                           <button type='button' className='button__ico w-8 h-8'>
-                            {' '}
-                            <IoEllipsisHorizontal className='text-xl' />{' '}
+                            <IoEllipsisHorizontal className='text-xl' />
                           </button>
                           <div
                             className='w-[232px]'
                             data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                             <nav>
                               <Link href='#'>
-                                {' '}
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites{' '}
+                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoFlagOutline className='text-xl shrink-0' /> Report{' '}
+                                <IoFlagOutline className='text-xl shrink-0' /> Report
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoShareOutline className='text-xl shrink-0' /> Share{' '}
+                                <IoShareOutline className='text-xl shrink-0' /> Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
                                 className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                {' '}
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove{' '}
+                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
                               </Link>
                             </nav>
                           </div>
@@ -1336,16 +1236,13 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- post icons --> */}
                       <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoHeartOutline className='md:text-2xl text-lg' />{' '}
+                          <IoHeartOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />{' '}
+                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico ml-auto'>
-                          {' '}
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />{' '}
+                          <IoBookmarkOutline className='md:text-2xl text-lg' />
                         </button>
                       </div>
                     </div>
@@ -1365,31 +1262,26 @@ const Profile = (props: IProfileProps) => {
                         {/* <!-- dropdown options --> */}
                         <div className='absolute top-0.5 right-0 m-2.5'>
                           <button type='button' className='button__ico w-8 h-8'>
-                            {' '}
-                            <IoEllipsisHorizontal className='text-xl' />{' '}
+                            <IoEllipsisHorizontal className='text-xl' />
                           </button>
                           <div
                             className='w-[232px]'
                             data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                             <nav>
                               <Link href='#'>
-                                {' '}
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites{' '}
+                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoFlagOutline className='text-xl shrink-0' /> Report{' '}
+                                <IoFlagOutline className='text-xl shrink-0' /> Report
                               </Link>
                               <Link href='#'>
-                                {' '}
-                                <IoShareOutline className='text-xl shrink-0' /> Share{' '}
+                                <IoShareOutline className='text-xl shrink-0' /> Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
                                 className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                {' '}
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove{' '}
+                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
                               </Link>
                             </nav>
                           </div>
@@ -1410,16 +1302,13 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- post icons --> */}
                       <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoHeartOutline className='md:text-2xl text-lg' />{' '}
+                          <IoHeartOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico'>
-                          {' '}
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />{' '}
+                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
                         </button>
                         <button type='button' className='button__ico ml-auto'>
-                          {' '}
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />{' '}
+                          <IoBookmarkOutline className='md:text-2xl text-lg' />
                         </button>
                       </div>
                     </div>
