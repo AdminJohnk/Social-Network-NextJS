@@ -32,7 +32,6 @@ export default function Profile({ params }: { params: { slug: string } }, props:
       {/* <main id="site__main" className="2xl:ml-[--w-side]  xl:ml-[--w-side-sm] p-2.5 h-[calc(100vh-var(--m-top))] mt-[--m-top]"> */}
 
       <div className='max-w-[1065px] mx-auto'>
-      <div className='max-w-[1065px] mx-auto'>
         {/* <!-- cover  --> */}
         <div className='bg-foreground-1 shadow lg:rounded-b-2xl'>
           {/* <!-- cover --> */}
