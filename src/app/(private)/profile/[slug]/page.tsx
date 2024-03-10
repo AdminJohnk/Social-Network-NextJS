@@ -19,7 +19,7 @@ import Post from '@/components/Post/Post';
 import PostSkeleton from '@/components/Post/PostSkeleton';
 import NewPost from '@/components/NewPost/NewPost';
 
-export interface IProfileProps { }
+export interface IProfileProps {}
 
 export default function Profile({ params }: { params: { slug: string } }, props: IProfileProps) {
 
@@ -31,6 +31,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
     <main className='ms-60 max-lg:ms-0 mt-16'>
       {/* <main id="site__main" className="2xl:ml-[--w-side]  xl:ml-[--w-side-sm] p-2.5 h-[calc(100vh-var(--m-top))] mt-[--m-top]"> */}
 
+      <div className='max-w-[1065px] mx-auto'>
       <div className='max-w-[1065px] mx-auto'>
         {/* <!-- cover  --> */}
         <div className='bg-foreground-1 shadow lg:rounded-b-2xl'>
@@ -44,7 +45,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
               className='h-full w-full object-cover inset-0'
             />
 
-            {/* <!-- overly --> */}
+            {/* <!-- overlay --> */}
             <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10'></div>
 
             {isMe && (
@@ -223,34 +224,22 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                 className='hover:bg-hover-1 hover:rounded-sm inline-block  py-3 leading-8 px-3.5 border-b-2 border-blue-600 text-blue-600'>
                 Timeline
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Friend <span className='text-xs pl-2 font-normal lg:inline-block hidden'>2,680</span>
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Photo
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Photo
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Photo
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Video
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Group
               </Link>
 
@@ -344,7 +333,6 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       />
                     </svg>
                     <div>
-
                       Live In <span className='font-semibold text-text-1'> Cairo , Egypt </span>
                     </div>
                   </li>
@@ -363,11 +351,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       />
                     </svg>
                     <div>
-
-                      Studied at <span className='font-semibold text-text-1'>
-
-                        University of Turkey
-                      </span>
+                      Studied at <span className='font-semibold text-text-1'>University of Turkey</span>
                     </div>
                   </li>
                   <li className='flex items-center gap-3'>
@@ -386,7 +370,6 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     </svg>
 
                     <div>
-
                       Works at <span className='font-semibold text-text-1'> Envanto Martket </span>
                     </div>
                   </li>
@@ -405,7 +388,6 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       />
                     </svg>
                     <div>
-
                       In <span className='font-semibold text-text-1'> Relationship </span>
                     </div>
                   </li>
@@ -489,10 +471,8 @@ export default function Profile({ params }: { params: { slug: string } }, props:
               <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
                 <div className='flex items-ce justify-between text-text-1'>
                   <h3 className='font-bold text-lg'>
-
                     Friends
                     <span className='block text-sm text-gray-500 mt-0. font-normal dark:text-white'>
-
                       3489 Friends
                     </span>
                   </h3>

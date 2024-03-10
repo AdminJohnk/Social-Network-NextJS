@@ -19,12 +19,10 @@ export default function Community(props: ICommunityProps) {
       className='ms-60 max-lg/2:ms-20 @container/pri'
       style={{
         zIndex: 1
-      }}
-    >
+      }}>
       <div
-        className='newfeed px-40 py-10 @6xl/pri:px-32 @5xl/pri:px-24 @xl/pri:px-14 @sm/pri:px-2'
-        style={{ height: '5000px' }}
-      >
+        className='newsfeed px-40 py-10 @6xl/pri:px-32 @5xl/pri:px-24 @xl/pri:px-14 @sm/pri:px-2'
+        style={{ height: '5000px' }}>
         <div className='cover'>
           <Image
             className='w-full h-[300px] object-cover object-center'
@@ -36,32 +34,15 @@ export default function Community(props: ICommunityProps) {
           <div className='bg-foreground-1 p-4 flex items-center justify-between rounded-br-lg rounded-bl-lg'>
             <div>
               <h1 className='h3-bold font-bold'>Friends Forever</h1>
-              <p className='text-text-2 mt-2.5 h5-regular'>
-                Public group • 1.2K likes • 1.4K followers
-              </p>
+              <p className='text-text-2 mt-2.5 h5-regular'>Public group • 1.2K likes • 1.4K followers</p>
             </div>
             <div className='flex items-center space-x-4'>
               <div className='flex -space-x-1'>
-                <Avatar
-                  src='/images/avatars/avatar-1.jpg'
-                  className='size-8'
-                />
-                <Avatar
-                  src='/images/avatars/avatar-2.jpg'
-                  className='size-8'
-                />
-                <Avatar
-                  src='/images/avatars/avatar-3.jpg'
-                  className='size-8'
-                />
-                <Avatar
-                  src='/images/avatars/avatar-4.jpg'
-                  className='size-8'
-                />
-                <Avatar
-                  src='/images/avatars/avatar-5.jpg'
-                  className='size-8'
-                />
+                <Avatar src='/images/avatars/avatar-1.jpg' className='size-8' />
+                <Avatar src='/images/avatars/avatar-2.jpg' className='size-8' />
+                <Avatar src='/images/avatars/avatar-3.jpg' className='size-8' />
+                <Avatar src='/images/avatars/avatar-4.jpg' className='size-8' />
+                <Avatar src='/images/avatars/avatar-5.jpg' className='size-8' />
               </div>
               <button className='px-6 py-2 bg-foreground-2 hover:bg-hover-2 duration-300 rounded-lg flex-start'>
                 <FiPlus className='me-2 size-5' /> <span>Join</span>

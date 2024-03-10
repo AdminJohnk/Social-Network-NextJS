@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 
 import { QueryProvider, SessionProvider } from './provider';
+import { cn } from '@/lib/utils';
 import './uk.css';
 import './globals.css';
 
@@ -27,7 +28,7 @@ export default function RootLayout({
 
       <Script src='https://cdn.jsdelivr.net/npm/uikit@3.15.25/dist/js/uikit.min.js' defer />
 
-      <body className={font.className + ' custom-scrollbar-fg'}>
+      <body className={cn(font.className, 'h-dvh custom-scrollbar-fg')}>
         <QueryProvider>
           <SessionProvider>
             <Flowbite>{children}</Flowbite>

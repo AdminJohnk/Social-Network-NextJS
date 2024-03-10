@@ -19,9 +19,7 @@ const generateItems = () => {
             <div className='small-regular text-text-2'>218 Members</div>
           </div>
         </div>
-        <button className='px-6 py-2 bg-foreground-2 hover:bg-hover-2 rounded-lg duration-300'>
-          Join
-        </button>
+        <button className='px-6 py-2 bg-foreground-2 hover:bg-hover-2 rounded-lg duration-300'>Join</button>
       </div>
     );
   }

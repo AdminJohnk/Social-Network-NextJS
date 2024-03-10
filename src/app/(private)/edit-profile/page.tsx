@@ -7,11 +7,12 @@ import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } f
 import { Avatar } from '@mui/material';
 import { useSession } from 'next-auth/react';
 
+import { Button } from '@/components/ui/button';
+import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 import getImageURL, { cn } from '@/lib/utils';
 import descArrays from '@/lib/Descriptions/Tags';
-import { Button } from '@/components/ui/button';
 
-export interface IEditProfileProps { }
+export interface IEditProfileProps {}
 
 export default function EditProfile(props: IEditProfileProps) {
   const { data: session } = useSession();
@@ -60,75 +61,18 @@ export default function EditProfile(props: IEditProfileProps) {
 
         <hr className='m-0 border-t border-gray-100 dark:border-slate-700' />
 
-        <div className='relative -mb-px px-2' data-uk-slider='finite: true' tabIndex={-1}>
-          <nav className='overflow-hidden rounded-xl uk-slider-container pt-2'>
-            <ul
-              className='uk-slider-items w-[calc(100%+10px)] capitalize font-semibold text-gray-500 text-sm dark:text-white'
-              data-uk-switcher='connect: #setting_tab ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
-              <li className='w-auto pr-2.5'>
-                <Link
-                  href='#'
-                  className='inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 text-white transition-colors duration-300 ease-in-out aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                  General
-                </Link>
-              </li>
-              <li className='w-auto pr-2.5'>
-                <Link
-                  href='#'
-                  className='inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 text-white transition-colors duration-300 ease-in-out aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                  Social links
-                </Link>
-              </li>
-              <li className='w-auto pr-2.5'>
-                <Link
-                  href='#'
-                  className='inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 text-white transition-colors duration-300 ease-in-out aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                  Expertise
-                </Link>
-              </li>
-              <li className='w-auto pr-2.5'>
-                <Link
-                  href='#'
-                  className='inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 text-white transition-colors duration-300 ease-in-out aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                  Experience
-                </Link>
-              </li>
-              <li className='w-auto pr-2.5'>
-                <Link
-                  href='#'
-                  className='inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 text-white transition-colors duration-300 ease-in-out aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                  Repository
-                </Link>
-              </li>
-              <li className='w-auto pr-2.5'>
-                <Link
-                  href='#'
-                  className='inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 text-white transition-colors duration-300 ease-in-out aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                  Password
-                </Link>
-              </li>
-            </ul>
-          </nav>
-
-          {/* <Link
-            href='#'
-            className='absolute -translate-y-1/2 top-1/2 left-0 flex items-center w-20 h-full p-2.5 justify-start rounded-xl bg-gradient-to-r from-white via-white dark:from-dark-1 dark:via-dark-1'
-            data-uk-slider-item='previous'>
-            <IoChevronBack className='text-2xl ml-1' />
-          </Link>
-          <Link
-            href='#'
-            className='absolute right-0 -translate-y-1/2 top-1/2 flex items-center w-20 h-full p-2.5 justify-end rounded-xl bg-gradient-to-l from-white via-white dark:from-dark-1 dark:via-dark-1'
-            data-uk-slider-item='next'>
-            <IoChevronForward className='text-2xl mr-1' />
-          </Link> */}
-        </div>
+        <Tabs disableChevron>
+          <TabTitle>General</TabTitle>
+          <TabTitle>Social links</TabTitle>
+          <TabTitle>Expertise</TabTitle>
+          <TabTitle>Experience</TabTitle>
+          <TabTitle>Repository</TabTitle>
+          <TabTitle>Password</TabTitle>
+        </Tabs>
       </div>
 
       <div className='mb-20 mt-6 text-sm font-medium text-gray-600 dark:text-white/80'>
-        <div
-          id='setting_tab'
-          className='uk-switcher overflow-hidden rounded-xl border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-dark-1 md:px-20 md:py-12'>
+        <TabsContent>
           <div>
             <div className='space-y-6'>
               <div className='md:flex items-center gap-10'>
@@ -185,91 +129,90 @@ export default function EditProfile(props: IEditProfileProps) {
               </Button>
             </div>
           </div>
-          <div>
-            <div className='font-normal text-gray-400'>
-              <div className='space-y-6 mt-8'>
-                <div className='flex items-center gap-3'>
-                  <div className='bg-blue-50 rounded-full p-2 flex '>
-                    <FaFacebook className='text-2xl text-blue-600' />
-                  </div>
-                  <div className='flex-1'>
-                    <input
-                      type='text'
-                      className='w-full rounded-lg bg-foreground-1 border-none'
-                      placeholder='http://www.facebook.com/myname'
-                    />
-                  </div>
-                </div>
-                <div className='flex items-center gap-3'>
-                  <div className='bg-pink-50 rounded-full p-2 flex '>
-                    <FaInstagram className='text-2xl text-pink-600' />
-                  </div>
-                  <div className='flex-1'>
-                    <input
-                      type='text'
-                      className='w-full rounded-lg bg-foreground-1 border-none'
-                      placeholder='http://www.instagram.com/myname'
-                    />
-                  </div>
-                </div>
-                <div className='flex items-center gap-3'>
-                  <div className='bg-sky-50 rounded-full p-2 flex '>
-                    <FaTwitter className='text-2xl text-sky-600' />
-                  </div>
-                  <div className='flex-1'>
-                    <input
-                      type='text'
-                      className='w-full rounded-lg bg-foreground-1 border-none'
-                      placeholder='http://www.twitter.com/myname'
-                    />
-                  </div>
-                </div>
-                <div className='flex items-center gap-3'>
-                  <div className='bg-red-50 rounded-full p-2 flex '>
-                    <FaYoutube className='text-2xl text-red-600' />
-                  </div>
-                  <div className='flex-1'>
-                    <input
-                      type='text'
-                      className='w-full rounded-lg bg-foreground-1 border-none'
-                      placeholder='http://www.youtube.com/myname'
-                    />
-                  </div>
-                </div>
-                <div className='flex items-center gap-3'>
-                  <div className='bg-slate-50 rounded-full p-2 flex '>
-                    <FaGithub className='text-2xl text-black' />
-                  </div>
-                  <div className='flex-1'>
-                    <input
-                      type='text'
-                      className='w-full rounded-lg bg-foreground-1 border-none'
-                      placeholder='http://www.github.com/myname'
-                    />
-                  </div>
-                </div>
-                <div className='flex items-center gap-3'>
-                  <div className='bg-slate-50 rounded-full p-2 flex '>
-                    <FaLinkedin className='text-2xl text-blue-1' />
-                  </div>
-                  <div className='flex-1'>
-                    <input
-                      type='text'
-                      className='w-full rounded-lg bg-foreground-1 border-none'
-                      placeholder='http://www.linkedin.com/myname'
-                    />
-                  </div>
-                </div>
-              </div>
 
-              <div className='flex items-center justify-center gap-4 mt-16'>
-                <Button variant='destructive' className='button lg:px-6 bg-secondery max-md:flex-1'>
-                  Cancel
-                </Button>
-                <Button type='submit' className='button lg:px-6 bg-primary text-white max-md:flex-1'>
-                  Save
-                </Button>
+          <div className='font-normal text-gray-400'>
+            <div className='space-y-6 mt-8'>
+              <div className='flex items-center gap-3'>
+                <div className='bg-blue-50 rounded-full p-2 flex '>
+                  <FaFacebook className='text-2xl text-blue-600' />
+                </div>
+                <div className='flex-1'>
+                  <input
+                    type='text'
+                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    placeholder='http://www.facebook.com/myname'
+                  />
+                </div>
               </div>
+              <div className='flex items-center gap-3'>
+                <div className='bg-pink-50 rounded-full p-2 flex '>
+                  <FaInstagram className='text-2xl text-pink-600' />
+                </div>
+                <div className='flex-1'>
+                  <input
+                    type='text'
+                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    placeholder='http://www.instagram.com/myname'
+                  />
+                </div>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='bg-sky-50 rounded-full p-2 flex '>
+                  <FaTwitter className='text-2xl text-sky-600' />
+                </div>
+                <div className='flex-1'>
+                  <input
+                    type='text'
+                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    placeholder='http://www.twitter.com/myname'
+                  />
+                </div>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='bg-red-50 rounded-full p-2 flex '>
+                  <FaYoutube className='text-2xl text-red-600' />
+                </div>
+                <div className='flex-1'>
+                  <input
+                    type='text'
+                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    placeholder='http://www.youtube.com/myname'
+                  />
+                </div>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='bg-slate-50 rounded-full p-2 flex '>
+                  <FaGithub className='text-2xl text-black' />
+                </div>
+                <div className='flex-1'>
+                  <input
+                    type='text'
+                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    placeholder='http://www.github.com/myname'
+                  />
+                </div>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='bg-slate-50 rounded-full p-2 flex '>
+                  <FaLinkedin className='text-2xl text-blue-1' />
+                </div>
+                <div className='flex-1'>
+                  <input
+                    type='text'
+                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    placeholder='http://www.linkedin.com/myname'
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className='flex items-center justify-center gap-4 mt-16'>
+              <Button variant='destructive' className='button lg:px-6 bg-secondery max-md:flex-1'>
+                Cancel
+              </Button>
+              <Button type='submit' className='button lg:px-6 bg-primary text-white max-md:flex-1'>
+                Save
+              </Button>
             </div>
           </div>
 
@@ -358,7 +301,7 @@ export default function EditProfile(props: IEditProfileProps) {
               </Button>
             </div>
           </div>
-        </div>
+        </TabsContent>
       </div>
     </div>
   );

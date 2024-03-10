@@ -9,11 +9,10 @@ function ConversationList(props: IConversationListProps) {
     <div className='space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)] custom-scrollbar-fg'>
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-5.jpg'
+            src='/images/avatars/avatar-5.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
@@ -21,12 +20,8 @@ function ConversationList(props: IConversationListProps) {
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              Jesse Steeve
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              09:40AM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>Jesse Steeve</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
             Love your photos 😍
@@ -35,23 +30,18 @@ function ConversationList(props: IConversationListProps) {
       </Link>
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-2.jpg'
+            src='/images/avatars/avatar-2.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              Martin Gray
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              09:40AM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>Martin Gray</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
             <div className='w-2.5 h-2.5 bg-blue-600 rounded-full dark:bg-slate-700'></div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
@@ -61,11 +51,10 @@ function ConversationList(props: IConversationListProps) {
       </Link>
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-3.jpg'
+            src='/images/avatars/avatar-3.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
@@ -73,12 +62,8 @@ function ConversationList(props: IConversationListProps) {
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              Monroe Parker
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              09:40AM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>Monroe Parker</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
             Can i call you to day?
@@ -87,23 +72,18 @@ function ConversationList(props: IConversationListProps) {
       </Link>
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-4.jpg'
+            src='/images/avatars/avatar-4.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              James Lewis
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              09:40AM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>James Lewis</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
             {' '}
@@ -114,11 +94,10 @@ function ConversationList(props: IConversationListProps) {
 
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-5.jpg'
+            src='/images/avatars/avatar-5.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
@@ -126,12 +105,8 @@ function ConversationList(props: IConversationListProps) {
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              Jesse Steeve
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              09:40AM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>Jesse Steeve</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
             Headshot needed. Resume. Do it? 👩‍💼
@@ -140,23 +115,18 @@ function ConversationList(props: IConversationListProps) {
       </Link>
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-2.jpg'
+            src='/images/avatars/avatar-2.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              Martin Gray
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              04:20PM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>Martin Gray</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>04:20PM</div>
             <div className='w-2.5 h-2.5 bg-blue-600 rounded-full dark:bg-slate-700'></div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
@@ -166,23 +136,18 @@ function ConversationList(props: IConversationListProps) {
       </Link>
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-3.jpg'
+            src='/images/avatars/avatar-3.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              Monroe Parker
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              09:40AM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>Monroe Parker</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
             I’m glad you like it.😊
@@ -191,23 +156,18 @@ function ConversationList(props: IConversationListProps) {
       </Link>
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-4.jpg'
+            src='/images/avatars/avatar-4.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              James Lewis
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              01:10PM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>James Lewis</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>01:10PM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
             {' '}
@@ -217,11 +177,10 @@ function ConversationList(props: IConversationListProps) {
       </Link>
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-5.jpg'
+            src='/images/avatars/avatar-5.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
@@ -229,12 +188,8 @@ function ConversationList(props: IConversationListProps) {
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              Jesse Steeve
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              09:40AM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>Jesse Steeve</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
             Love your photos 😍
@@ -243,23 +198,18 @@ function ConversationList(props: IConversationListProps) {
       </Link>
       <Link
         href='#'
-        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'
-      >
+        className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
           <img
-            src='images/avatars/avatar-2.jpg'
+            src='/images/avatars/avatar-2.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
           />
         </div>
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-              Martin Gray
-            </div>
-            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              02:52PM
-            </div>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>Martin Gray</div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>02:52PM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
             Photo editor needed. Fix photos? 🛠️
