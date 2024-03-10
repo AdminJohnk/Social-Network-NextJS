@@ -11,7 +11,7 @@ import {
   IoFlagOutline,
   IoSearch,
   IoShareOutline,
-  IoStopCircleOutline,
+  IoStopCircleOutline
 } from 'react-icons/io5';
 import { FaCheckCircle, FaPencilAlt, FaPhoneAlt, FaVideo } from 'react-icons/fa';
 
@@ -22,7 +22,6 @@ import NewPost from '@/components/NewPost/NewPost';
 export interface IProfileProps {}
 
 export default function Profile({ params }: { params: { slug: string } }, props: IProfileProps) {
-
   const isFriend = params.slug === 'friend';
   const isMe = params.slug === 'me';
   const friendName = params.slug === 'friend' ? 'Monroe Parker' : '';
@@ -99,9 +98,8 @@ export default function Profile({ params }: { params: { slug: string } }, props:
           {/* <!-- navigation --> */}
           <div
             className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'
-            data-uk-sticky='offset:64; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl  animation:uk-animation-slide-top ; media: 992'>
+            data-uk-sticky='offset:50; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl  animation:uk-animation-slide-top ; media: 992'>
             <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
-
               {isMe && (
                 <button className='button bg-foreground-2 hover:bg-hover-1 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
                   <FaPencilAlt className='text-lg' />
@@ -147,9 +145,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                 </div>
               )}
 
-              <button
-                type='submit'
-                className='rounded-lg bg-foreground-1 flex px-2.5 py-2 hover:bg-hover-1'>
+              <button type='submit' className='rounded-lg bg-foreground-1 flex px-2.5 py-2 hover:bg-hover-1'>
                 <IoSearch className='text-xl' />
               </button>
 
@@ -201,7 +197,8 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                           <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
                             <FaVideo className='text-xl' /> Video Call
                           </Link>
-                        </>)}
+                        </>
+                      )}
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
                         <IoFlagOutline className='text-xl' /> Report
                       </Link>
@@ -212,7 +209,8 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
                         <IoStopCircleOutline className='text-xl' /> Block
                       </Link>
-                    </nav>)}
+                    </nav>
+                  )}
                 </div>
               </div>
             </div>
@@ -282,13 +280,17 @@ export default function Profile({ params }: { params: { slug: string } }, props:
           </div>
         </div>
 
-        <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='js-oversized'>
+        <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col' id='js-oversized'>
           {/* <!-- feed story --> */}
 
           <div className='flex-1 xl:space-y-6 space-y-3'>
             {/* <!-- add story --> */}
             <NewPost title={'Write some thing for ' + friendName + '...'} />
 
+            <Post />
+            <Post />
+            <Post />
+            <Post />
             <Post />
             <Post />
             <Post />
@@ -302,7 +304,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
               className='lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
               data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
               <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
-                <div className='flex items-ce justify-between text-text-1'>
+                <div className='flex items-center justify-between text-text-1'>
                   <h3 className='font-bold text-lg'> Intro </h3>
                   {isMe && (
                     <Link href='#' className='text-sm text-blue-500'>
@@ -405,7 +407,6 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       />
                     </svg>
                     <div>
-
                       Followed By <span className='font-semibold text-text-1'> 3,240 People </span>
                     </div>
                   </li>
@@ -570,7 +571,11 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     <Link href='timeline-group.html'>
                       <Image
                         width={500}
-                        height={500} src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-full' />
+                        height={500}
+                        src='/images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-full'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -584,7 +589,11 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     <Link href='timeline-group.html'>
                       <Image
                         width={500}
-                        height={500} src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-full' />
+                        height={500}
+                        src='/images/avatars/avatar-4.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-full'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -598,7 +607,11 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     <Link href='timeline-group.html'>
                       <Image
                         width={500}
-                        height={500} src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-full' />
+                        height={500}
+                        src='/images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-full'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -612,7 +625,11 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     <Link href='timeline-group.html'>
                       <Image
                         width={500}
-                        height={500} src='/images/avatars/avatar-1.jpg' alt='' className='h-10 w-10 rounded-full' />
+                        height={500}
+                        src='/images/avatars/avatar-1.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-full'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -643,7 +660,11 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     <Link href='timeline-group.html'>
                       <Image
                         width={500}
-                        height={500} src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-md' />
+                        height={500}
+                        src='/images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-md'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -657,7 +678,11 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     <Link href='timeline-group.html'>
                       <Image
                         width={500}
-                        height={500} src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-md' />
+                        height={500}
+                        src='/images/avatars/avatar-4.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-md'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -671,7 +696,11 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     <Link href='timeline-group.html'>
                       <Image
                         width={500}
-                        height={500} src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-md' />
+                        height={500}
+                        src='/images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-md'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>

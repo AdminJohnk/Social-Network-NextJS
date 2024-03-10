@@ -70,8 +70,8 @@ export default function EditProfile(props: IEditProfileProps) {
         </Tabs>
       </div>
 
-      <div className='mb-20 mt-6 text-sm font-medium text-gray-600 dark:text-white/80'>
-        <TabsContent id='setting_tab'>
+      <div className='mb-20 mt-6 text-sm font-medium text-text-1'>
+        <TabsContent id='setting_tab' className='bg-foreground-1 p-6 md:px-20 md:py-12'>
           <div>
             <div className='space-y-6'>
               <div className='md:flex items-center gap-10'>

@@ -68,7 +68,7 @@ function TabsContent(props: ITabContentProps) {
     <div
       id={props.id}
       className={cn(
-        'uk-switcher overflow-hidden rounded-xl border bg-foreground-1 p-6 shadow-sm dark:border-slate-700 md:px-20 md:py-12',
+        'uk-switcher overflow-hidden rounded-xl border shadow-sm dark:border-slate-700',
         props.className
       )}>
       {props.children}
