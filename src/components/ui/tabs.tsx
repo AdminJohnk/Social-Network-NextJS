@@ -23,7 +23,7 @@ function Tabs(props: ITabsProps) {
       <nav className={cn('overflow-hidden rounded-xl uk-slider-container pt-2', props.navClassName)}>
         <ul
           className={cn(
-            'uk-slider-items w-[calc(100%+10px)] capitalize font-semibold text-gray-500 text-sm dark:text-white',
+            'uk-slider-items w-[calc(100%+10px)] capitalize font-semibold text-text-1',
             props.ulClassName
           )}
           data-uk-switcher={`connect: #${props.id} ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium`}>
@@ -68,7 +68,7 @@ function TabsContent(props: ITabContentProps) {
     <div
       id={props.id}
       className={cn(
-        'uk-switcher overflow-hidden rounded-xl border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-dark-1 md:px-20 md:py-12',
+        'uk-switcher overflow-hidden rounded-xl border bg-foreground-1 p-6 shadow-sm dark:border-slate-700 md:px-20 md:py-12',
         props.className
       )}>
       {props.children}
@@ -87,7 +87,7 @@ function TabTitle(props: ITabTitleProps) {
       <Link
         href='#'
         className={cn(
-          'inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 text-white transition-colors duration-300 ease-in-out aria-expanded:border-blue-500 aria-expanded:text-blue-500',
+          'inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 transition-colors duration-300 ease-in-out aria-expanded:border-blue-500 aria-expanded:text-blue-500',
           props.className
         )}>
         {props.children}

@@ -24,7 +24,7 @@ export default function EditProfile(props: IEditProfileProps) {
           <span className='small-medium lg:base-medium'>Back</span>
         </Button>
       </div>
-      <div className='rounded-xl border border-slate-200 bg-foreground-1 shadow-sm dark:border-slate-700 dark:bg-dark-1'>
+      <div className='rounded-xl border border-border-1 bg-foreground-1 shadow-sm'>
         <div className='flex relative space-y-4'>
           <div className='flex-start gap-4 p-8'>
             <div className='relative md:w-20 md:h-20 w-12 h-12 shrink-0'>
@@ -83,7 +83,7 @@ export default function EditProfile(props: IEditProfileProps) {
                     id='name'
                     type='text'
                     placeholder='Monroe'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                     defaultValue={session?.user.name}
                   />
                 </div>
@@ -98,7 +98,7 @@ export default function EditProfile(props: IEditProfileProps) {
                     id='alias'
                     type='text'
                     placeholder='@monroe'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                     defaultValue={session?.user.name}
                   />
                 </div>
@@ -111,7 +111,7 @@ export default function EditProfile(props: IEditProfileProps) {
                 <div className='flex-1 max-md:mt-4'>
                   <textarea
                     id='about'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                     rows={5}
                     placeholder='Write something about yourself...'
                   />
@@ -120,10 +120,10 @@ export default function EditProfile(props: IEditProfileProps) {
             </div>
 
             <div className='flex items-center justify-center gap-4 mt-16'>
-              <Button variant='destructive' className='button lg:px-6 bg-secondery max-md:flex-1'>
+              <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
                 Cancel
               </Button>
-              <Button type='submit' className='button lg:px-6 bg-primary text-white max-md:flex-1'>
+              <Button type='submit' className='button lg:px-6 text-white max-md:flex-1'>
                 Save <span className='ripple-overlay'></span>
               </Button>
             </div>
@@ -138,7 +138,7 @@ export default function EditProfile(props: IEditProfileProps) {
                 <div className='flex-1'>
                   <input
                     type='text'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                     placeholder='http://www.facebook.com/myname'
                   />
                 </div>
@@ -150,7 +150,7 @@ export default function EditProfile(props: IEditProfileProps) {
                 <div className='flex-1'>
                   <input
                     type='text'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                     placeholder='http://www.instagram.com/myname'
                   />
                 </div>
@@ -162,7 +162,7 @@ export default function EditProfile(props: IEditProfileProps) {
                 <div className='flex-1'>
                   <input
                     type='text'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                     placeholder='http://www.twitter.com/myname'
                   />
                 </div>
@@ -174,7 +174,7 @@ export default function EditProfile(props: IEditProfileProps) {
                 <div className='flex-1'>
                   <input
                     type='text'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                     placeholder='http://www.youtube.com/myname'
                   />
                 </div>
@@ -186,7 +186,7 @@ export default function EditProfile(props: IEditProfileProps) {
                 <div className='flex-1'>
                   <input
                     type='text'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                     placeholder='http://www.github.com/myname'
                   />
                 </div>
@@ -198,7 +198,7 @@ export default function EditProfile(props: IEditProfileProps) {
                 <div className='flex-1'>
                   <input
                     type='text'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                     placeholder='http://www.linkedin.com/myname'
                   />
                 </div>
@@ -206,10 +206,10 @@ export default function EditProfile(props: IEditProfileProps) {
             </div>
 
             <div className='flex items-center justify-center gap-4 mt-16'>
-              <Button variant='destructive' className='button lg:px-6 bg-secondery max-md:flex-1'>
+              <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
                 Cancel
               </Button>
-              <Button type='submit' className='button lg:px-6 bg-primary text-white max-md:flex-1'>
+              <Button type='submit' className='button lg:px-6 text-white max-md:flex-1'>
                 Save
               </Button>
             </div>
@@ -243,10 +243,10 @@ export default function EditProfile(props: IEditProfileProps) {
             </div>
 
             <div className='flex items-center justify-center gap-4 mt-10'>
-              <Button variant='destructive' className='button lg:px-6 bg-secondery max-md:flex-1'>
+              <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
                 Cancel
               </Button>
-              <Button type='submit' className='button lg:px-6 bg-primary text-white max-md:flex-1'>
+              <Button type='submit' className='button lg:px-6 max-md:flex-1'>
                 Save
               </Button>
             </div>
@@ -263,7 +263,7 @@ export default function EditProfile(props: IEditProfileProps) {
                   <input
                     type='password'
                     placeholder='******'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                   />
                 </div>
               </div>
@@ -274,7 +274,7 @@ export default function EditProfile(props: IEditProfileProps) {
                   <input
                     type='password'
                     placeholder='******'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                   />
                 </div>
               </div>
@@ -285,17 +285,17 @@ export default function EditProfile(props: IEditProfileProps) {
                   <input
                     type='password'
                     placeholder='******'
-                    className='w-full rounded-lg bg-foreground-1 border-none'
+                    className='w-full rounded-lg bg-foreground-2 border-none'
                   />
                 </div>
               </div>
             </div>
 
             <div className='flex items-center justify-center gap-4 mt-16'>
-              <Button variant='destructive' className='button lg:px-6 bg-secondery max-md:flex-1'>
+              <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
                 Cancel
               </Button>
-              <Button type='submit' className='button lg:px-6 bg-primary text-white max-md:flex-1'>
+              <Button type='submit' className='button lg:px-6 text-white max-md:flex-1'>
                 Save
               </Button>
             </div>
