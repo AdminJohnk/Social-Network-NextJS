@@ -827,22 +827,6 @@ export default function Header() {
                   </Link>
                 </nav>
               </div>
-
-              <div className='flex items-center gap-2 md:hidden'>
-                <img src='images/home/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
-
-                <div className='w-20 font-semibold text-gray-600'>Hamse</div>
-
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth='1.5'
-                  stroke='currentColor'
-                  className='w-5 h-5'>
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'></path>
-                </svg>
-              </div>
             </div>
           </div>
         </div>
