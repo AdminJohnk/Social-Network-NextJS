@@ -65,7 +65,7 @@ export default function Header() {
           <div className='max-w-[1220px] mx-auto flex items-center'>
             <div
               id='search--box'
-              className='xl:w-[680px] sm:w-96 sm:relative rounded-xl overflow-hidden z-20 bg-foreground-1 max-md:hidden w-screen left-0 max-sm:fixed max-sm:top-2'>
+              className='xl:w-[680px] sm:w-96 lg:w-[560px] sm:relative rounded-xl overflow-hidden z-20 bg-foreground-1 max-md/2:hidden w-screen left-0 max-sm:fixed max-sm:top-2'>
               <IoSearch className='absolute left-4 top-1/2 -translate-y-1/2' />
               <input
                 type='text'
@@ -74,9 +74,9 @@ export default function Header() {
               />
             </div>
             <div
-              className='hidden open !z-10'
+              className='hidden !z-10'
               data-uk-drop='pos: bottom-center ; animation: uk-animation-slide-bottom-small; mode:click'>
-              <div className='xl:w-[694px] sm:w-96 bg-hover-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
+              <div className='xl:w-[694px] sm:w-96 lg:w-[574px] bg-hover-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
                 <div className='flex justify-between px-2 py-2.5 text-sm font-medium'>
                   <div className='text-black dark:text-white'>Recent</div>
                   <button type='button' className='text-blue-500'>
@@ -696,7 +696,7 @@ export default function Header() {
               </div>
               <div
                 className='hidden bg-white rounded-lg drop-shadow-xl dark:bg-slate-700 w-64 border2'
-                data-uk-drop='offset:6;pos: bottom-right;animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
+                data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
                 <Link href=''>
                   <div className='p-4 py-5 flex items-center gap-4'>
                     <img src='images/home/avatar-2.jpg' alt='' className='w-10 h-10 rounded-full shadow' />

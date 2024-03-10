@@ -12,11 +12,7 @@ export interface INewFeedProps {}
 
 export default function NewFeed(props: INewFeedProps) {
   return (
-    <div
-      className='ms-60 mt-16 max-lg/2:ms-20 @container/pri'
-      style={{
-        zIndex: 1
-      }}>
+    <div className='ms-60 mt-16 max-lg:ms-0 @container/pri z-[1]'>
       <div
         className='newsfeed px-40 py-10 @6xl/pri:px-32 @5xl/pri:px-24 @xl/pri:px-14 @sm/pri:px-2'
         style={{ height: '5000px' }}>

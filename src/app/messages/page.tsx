@@ -30,11 +30,15 @@ const Message = () => {
               <div className='md:w-[360px] relative border-r dark:border-slate-700'>
                 <div
                   id='side-chat'
-                  className='top-0 left-0 max-md:fixed max-md:w-5/6 max-md:h-screen bg-white z-50 max-md:shadow max-md:-translate-x-full dark:bg-background-2'>
+                  className='top-0 left-0 max-md:fixed max-md:w-5/6 max-md:h-screen bg-white z-50 max-md:shadow max-md:-translate-x-full dark:bg-background-2'
+                >
                   {/* <!-- heading title --> */}
                   <div className='p-4 border-b dark:border-slate-700'>
                     <div className='flex mt-2 items-center justify-between'>
-                      <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'> Chats </h2>
+                      <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'>
+                        {' '}
+                        Chats{' '}
+                      </h2>
 
                       {/* <!-- right action buttons --> */}
                       <div className='flex items-center gap-2.5'>
@@ -43,17 +47,20 @@ const Message = () => {
                         </button>
                         <div
                           className='md:w-[270px] w-full'
-                          data-uk-dropdown='pos: bottom-left; offset:10; animation: uk-animation-slide-bottom-small'>
+                          data-uk-dropdown='pos: bottom-left; offset:10; animation: uk-animation-slide-bottom-small'
+                        >
                           <nav>
-                            <Link href='#' className='hover:!bg-hover-1'>
-                              <IoCheckmarkOutline className='text-2xl shrink-0 -ml-1' /> Mark all as read
+                            <Link href='#' className='hover:!bg-foreground-2'>
+                              <IoCheckmarkOutline className='text-2xl shrink-0 -ml-1' />{' '}
+                              Mark all as read
                             </Link>
-                            <Link href='#' className='hover:!bg-hover-1'>
-                              <IoNotificationsOutline className='text-2xl shrink-0 -ml-1' /> notifications
-                              setting
+                            <Link href='#' className='hover:!bg-foreground-2'>
+                              <IoNotificationsOutline className='text-2xl shrink-0 -ml-1' />{' '}
+                              notifications setting
                             </Link>
-                            <Link href='#' className='hover:!bg-hover-1'>
-                              <IoVolumeMuteOutline className='text-2xl shrink-0 -ml-1' /> Mute notifications
+                            <Link href='#' className='hover:!bg-foreground-2'>
+                              <IoVolumeMuteOutline className='text-2xl shrink-0 -ml-1' />{' '}
+                              Mute notifications
                             </Link>
                           </nav>
                         </div>
@@ -66,7 +73,8 @@ const Message = () => {
                         <button
                           type='button'
                           className='md:hidden'
-                          data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'>
+                          data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'
+                        >
                           <IoChevronDownOutline />
                         </button>
                       </div>
@@ -77,7 +85,11 @@ const Message = () => {
                       <div className='absolute left-3 bottom-1/2 translate-y-1/2 flex'>
                         <FaSearch className='text-xl' />
                       </div>
-                      <input type='text' placeholder='Search' className='w-full !pl-10 !py-2 !rounded-lg' />
+                      <input
+                        type='text'
+                        placeholder='Search'
+                        className='w-full !pl-10 !py-2 !rounded-lg'
+                      />
                     </div>
                   </div>
 
@@ -89,7 +101,8 @@ const Message = () => {
                 <div
                   id='side-chat'
                   className='bg-slate-100/40 backdrop-blur w-full h-full dark:bg-slate-800/40 z-40 fixed inset-0 max-md:-translate-x-full md:hidden'
-                  data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'></div>
+                  data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'
+                ></div>
               </div>
 
               {/* <!-- message center --> */}
@@ -109,12 +122,16 @@ const Message = () => {
                       <div className='md:text-xl text-base font-medium text-black dark:text-white'>
                         Monroe Parker
                       </div>
-                      <div className='text-gray-500 text-sm   dark:text-white/80'> @Monroepark </div>
+                      <div className='text-gray-500 text-sm   dark:text-white/80'>
+                        {' '}
+                        @Monroepark{' '}
+                      </div>
                     </div>
                     <div className='mt-3.5'>
                       <Link
                         href='profile.html'
-                        className='inline-block rounded-lg px-4 py-1.5 text-sm font-semibold bg-hover-1'>
+                        className='inline-block rounded-lg px-4 py-1.5 text-sm font-semibold bg-foreground-2'
+                      >
                         View profile
                       </Link>
                     </div>
@@ -123,13 +140,24 @@ const Message = () => {
                   <div className='text-sm font-medium space-y-6'>
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
-                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'> Hi, I’m John </div>
+                      <img
+                        src='images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='w-9 h-9 rounded-full shadow'
+                      />
+                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
+                        {' '}
+                        Hi, I’m John{' '}
+                      </div>
                     </div>
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
+                      <img
+                        src='images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='w-5 h-5 rounded-full shadow'
+                      />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         I’m Lisa. welcome John
                       </div>
@@ -144,16 +172,24 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
-                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
-                        I’m selling a photo of a sunset. It’s a print on canvas, signed by the photographer.
-                        Do you like it? 😊
+                      <img
+                        src='images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='w-9 h-9 rounded-full shadow'
+                      />
+                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
+                        I’m selling a photo of a sunset. It’s a print on canvas,
+                        signed by the photographer. Do you like it? 😊
                       </div>
                     </div>
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-4 h-4 rounded-full shadow' />
+                      <img
+                        src='images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='w-4 h-4 rounded-full shadow'
+                      />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         Wow, it’s beautiful. How much ? 😍
                       </div>
@@ -161,12 +197,22 @@ const Message = () => {
 
                     {/* <!-- sent media--> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-4 h-4 rounded-full shadow' />
+                      <img
+                        src='images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='w-4 h-4 rounded-full shadow'
+                      />
 
-                      <Link className='block rounded-[18px] border overflow-hidden' href='#'>
+                      <Link
+                        className='block rounded-[18px] border overflow-hidden'
+                        href='#'
+                      >
                         <div className='max-w-md'>
                           <div className='max-w-full relative w-72'>
-                            <div className='relative' style={{ paddingBottom: '57.4286%' }}>
+                            <div
+                              className='relative'
+                              style={{ paddingBottom: '57.4286%' }}
+                            >
                               <div className='w-full h-full absolute inset-0'>
                                 <img
                                   src='images/product/product-2.jpg'
@@ -189,15 +235,23 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
-                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
+                      <img
+                        src='images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='w-9 h-9 rounded-full shadow'
+                      />
+                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
                         I’m glad you like it. I’m asking for $200 🤑
                       </div>
                     </div>
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
+                      <img
+                        src='images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='w-5 h-5 rounded-full shadow'
+                      />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         $200? Too steep. Can you lower the price a bit? 😕
                       </div>
@@ -205,16 +259,24 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
-                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
-                        Well, I can’t go too low because I paid a lot. But I’m willing to negotiate. What’s
-                        your offer? 🤔
+                      <img
+                        src='images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='w-9 h-9 rounded-full shadow'
+                      />
+                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
+                        Well, I can’t go too low because I paid a lot. But I’m
+                        willing to negotiate. What’s your offer? 🤔
                       </div>
                     </div>
 
                     {/* <!-- sent -->  */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
+                      <img
+                        src='images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='w-5 h-5 rounded-full shadow'
+                      />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         Sorry, can’t pay more than $150. 😅
                       </div>
@@ -229,15 +291,23 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
-                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
+                      <img
+                        src='images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='w-9 h-9 rounded-full shadow'
+                      />
+                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
                         $150? Too low. Photo worth more. 😬
                       </div>
                     </div>
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
+                      <img
+                        src='images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='w-5 h-5 rounded-full shadow'
+                      />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
                         Too high. I Can’t . How about $160? Final offer. 😬
                       </div>
@@ -245,17 +315,27 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img src='images/avatars/avatar-2.jpg' alt='' className='w-9 h-9 rounded-full shadow' />
-                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-hover-1'>
-                        Fine, fine. You’re hard to please. I’ll take $160, but only because I like you. 😍
+                      <img
+                        src='images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='w-9 h-9 rounded-full shadow'
+                      />
+                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
+                        Fine, fine. You’re hard to please. I’ll take $160, but
+                        only because I like you. 😍
                       </div>
                     </div>
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img src='images/avatars/avatar-3.jpg' alt='' className='w-5 h-5 rounded-full shadow' />
+                      <img
+                        src='images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='w-5 h-5 rounded-full shadow'
+                      />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
-                        Great, thank you. I appreciate it. I love this photo and can’t wait to hang it. 😩
+                        Great, thank you. I appreciate it. I love this photo and
+                        can’t wait to hang it. 😩
                       </div>
                     </div>
                   </div>

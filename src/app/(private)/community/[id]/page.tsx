@@ -63,7 +63,7 @@ export default function Community(props: ICommunityProps) {
                   className='size-8'
                 />
               </div>
-              <button className='px-6 py-2 bg-hover-1 hover:bg-hover-2 duration-300 rounded-lg flex-start'>
+              <button className='px-6 py-2 bg-foreground-2 hover:bg-hover-2 duration-300 rounded-lg flex-start'>
                 <FiPlus className='me-2 size-5' /> <span>Join</span>
               </button>
               <button>

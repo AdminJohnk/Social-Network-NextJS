@@ -24,7 +24,7 @@ export default function SuggestMemberItem({
           {follow_number + ' Followers'}
         </span>
       </div>
-      <button className='mt-4 px-10 py-2 base-bold bg-hover-1 hover:bg-hover-2 rounded-lg duration-300'>
+      <button className='mt-4 px-10 py-2 base-bold bg-foreground-2 hover:bg-hover-2 rounded-lg duration-300'>
         Follow
       </button>
     </div>
