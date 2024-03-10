@@ -5,20 +5,20 @@ import { IoVolumeMuteOutline, IoShareOutline } from 'react-icons/io5';
 const ChooseList = [
   {
     name: 'Add To Favorite',
-    icon: <CiBookmark />,
+    icon: <CiBookmark />
   },
   {
     name: 'Mute Notification',
-    icon: <IoVolumeMuteOutline />,
+    icon: <IoVolumeMuteOutline />
   },
   {
     name: 'Report This Post',
-    icon: <CiFlag1></CiFlag1>,
+    icon: <CiFlag1></CiFlag1>
   },
   {
     name: 'Share Your Profile',
-    icon: <IoShareOutline></IoShareOutline>,
-  },
+    icon: <IoShareOutline></IoShareOutline>
+  }
 ];
 
 export interface IPostMoreChooseProps {}

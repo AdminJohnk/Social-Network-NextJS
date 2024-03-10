@@ -110,7 +110,8 @@ export default function Notification(props: INotificationProps) {
           {NewNotification.map((item, index) => (
             <div
               key={index}
-              className='notification-item flex-between gap-3 px-3 py-2 mb-1 hover:bg-hover-1 hover:cursor-pointer rounded-lg duration-300'>
+              className='notification-item flex-between gap-3 px-3 py-2 mb-1 hover:bg-hover-1 hover:cursor-pointer rounded-lg duration-300'
+            >
               <div className='left flex-start'>
                 <div className='avatar me-3'>
                   <Avatar src={item.user.avatar} className='size-12' />
@@ -120,7 +121,9 @@ export default function Notification(props: INotificationProps) {
                     <span className='base-bold me-2'>{item.user.name}</span>
                     <span>{item.content}</span>
                   </div>
-                  <div className='text-text-2 small-regular mt-1'>{item.time}</div>
+                  <div className='text-text-2 small-regular mt-1'>
+                    {item.time}
+                  </div>
                 </div>
               </div>
               {/* <div className='right'>
@@ -137,7 +140,8 @@ export default function Notification(props: INotificationProps) {
           {ThisWeekNotification.map((item, index) => (
             <div
               key={index}
-              className='notification-item flex-between gap-3 px-3 py-2 mb-1 hover:bg-hover-1 hover:cursor-pointer rounded-lg duration-300'>
+              className='notification-item flex-between gap-3 px-3 py-2 mb-1 hover:bg-hover-1 hover:cursor-pointer rounded-lg duration-300'
+            >
               <div className='left flex-start'>
                 <div className='avatar me-3'>
                   <Avatar src={item.user.avatar} className='size-12' />
@@ -147,7 +151,9 @@ export default function Notification(props: INotificationProps) {
                     <span className='base-bold me-2'>{item.user.name}</span>
                     <span>{item.content}</span>
                   </div>
-                  <div className='text-text-2 small-regular mt-1'>{item.time}</div>
+                  <div className='text-text-2 small-regular mt-1'>
+                    {item.time}
+                  </div>
                 </div>
               </div>
               {/* <div className='right'>

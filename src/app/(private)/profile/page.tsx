@@ -48,7 +48,8 @@ const Profile = (props: IProfileProps) => {
                   </div>
                   <button
                     type='button'
-                    className='absolute -bottom-2 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
+                    className='absolute -bottom-2 left-1/2 -translate-x-1/2 bg-foreground-2 shadow p-1.5 rounded-full sm:flex hidden'
+                  >
                     <IoCamera className='text-2xl' />
                   </button>
                 </div>
@@ -57,15 +58,21 @@ const Profile = (props: IProfileProps) => {
                     Monroe Parker
                   </h3>
 
-                  <p className='sm:text-sm text-blue-600 mt-1 font-normal text-xs'>@Monroepak</p>
-
-                  <p className='text-sm mt-2 md:font-normal font-light'>
-                    I love beauty and emotion. 🥰 I’m passionate about photography and learning. 📚 I explore
-                    genres and styles. 🌈 I think photography is storytelling. 📖 I hope you like and feel my
-                    photos. 😊
+                  <p className='sm:text-sm text-blue-600 mt-1 font-normal text-xs'>
+                    @Monroepak
                   </p>
 
-                  <p className='mt-2 space-x-2 text-gray-500 text-sm hidden' style={{ marginTop: '11px' }}>
+                  <p className='text-sm mt-2 md:font-normal font-light'>
+                    I love beauty and emotion. 🥰 I’m passionate about
+                    photography and learning. 📚 I explore genres and styles. 🌈
+                    I think photography is storytelling. 📖 I hope you like and
+                    feel my photos. 😊
+                  </p>
+
+                  <p
+                    className='mt-2 space-x-2 text-gray-500 text-sm hidden'
+                    style={{ marginTop: '11px' }}
+                  >
                     <Link href='#' className='inline-block'>
                       Travel
                     </Link>
@@ -101,43 +108,55 @@ const Profile = (props: IProfileProps) => {
                       </div>
                     </div>
                     <div className='flex items-center gap-3 text-sm'>
-                      <button type='submit' className='button text-gray-600 bg-slate-200 hidden'>
+                      <button
+                        type='submit'
+                        className='button text-gray-600 bg-slate-200 hidden'
+                      >
                         Follow
                       </button>
                       <button
                         type='button'
-                        className='button bg-pink-100 text-pink-600 border border-pink-200'>
+                        className='button bg-pink-100 text-pink-600 border border-pink-200'
+                      >
                         Unfallow
                       </button>
-                      <button type='submit' className='button bg-pink-600 text-white'>
+                      <button
+                        type='submit'
+                        className='button bg-pink-600 text-white'
+                      >
                         Message
                       </button>
                       <div>
                         <button
                           type='submit'
-                          className='rounded-lg bg-slate-200/60 flex px-2 py-1.5 dark:bg-background-2'>
+                          className='rounded-lg bg-slate-200/60 flex px-2 py-1.5 dark:bg-background-2'
+                        >
                           <IoEllipsisHorizontal className='text-xl' />
                         </button>
                         <div
                           className='w-[240px] !bg-background-2'
-                          data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                          data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
+                        >
                           <nav>
-                            <Link href='#' className='hover:!bg-hover-1'>
-                              <IoPricetagsOutline className=' text-xl' /> Unfollow
+                            <Link href='#' className='hover:!bg-foreground-2'>
+                              <IoPricetagsOutline className=' text-xl' />{' '}
+                              Unfollow
                             </Link>
-                            <Link href='#' className='hover:!bg-hover-1'>
+                            <Link href='#' className='hover:!bg-foreground-2'>
                               <IoTimeOutline className=' text-xl' /> Mute story
                             </Link>
-                            <Link href='#' className='hover:!bg-hover-1'>
+                            <Link href='#' className='hover:!bg-foreground-2'>
                               <IoFlagOutline className=' text-xl' /> Report
                             </Link>
-                            <Link href='#' className='hover:!bg-hover-1'>
-                              <IoShareOutline className=' text-xl' /> Share profile
+                            <Link href='#' className='hover:!bg-foreground-2'>
+                              <IoShareOutline className=' text-xl' /> Share
+                              profile
                             </Link>
                             <hr />
                             <Link
                               href='#'
-                              className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
+                              className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                            >
                               <IoStopCircleOutline className='text-xl' /> Block
                             </Link>
                           </nav>
@@ -156,25 +175,29 @@ const Profile = (props: IProfileProps) => {
                 <nav className='text-sm text-center text-gray-500 capitalize font-semibold dark:text-white'>
                   <ul
                     className='flex gap-2 justify-center border-t dark:border-slate-700'
-                    data-uk-switcher='connect: #story_tab ; animation: uk-animation-fade, uk-animation-slide-left-medium'>
+                    data-uk-switcher='connect: #story_tab ; animation: uk-animation-fade, uk-animation-slide-left-medium'
+                  >
                     <li>
                       <Link
                         href='#'
-                        className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'>
+                        className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'
+                      >
                         <IoCameraOutline className='mr-2 text-2xl' /> Posts
                       </Link>
                     </li>
                     <li>
                       <Link
                         href='#'
-                        className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'>
+                        className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'
+                      >
                         <IoPlayOutline className='mr-2 text-2xl' /> Reels
                       </Link>
                     </li>
                     <li>
                       <Link
                         href='#'
-                        className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'>
+                        className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'
+                      >
                         <IoPricetagsOutline className='mr-2 text-2xl' /> Tagged
                       </Link>
                     </li>
@@ -194,9 +217,14 @@ const Profile = (props: IProfileProps) => {
                   <div className='mt-8'>
                     {/* <!-- post heading --> */}
                     <div className='flex items-center justify-between py-3'>
-                      <h1 className='text-xl font-bold text-black dark:text-white'>Posts</h1>
+                      <h1 className='text-xl font-bold text-black dark:text-white'>
+                        Posts
+                      </h1>
 
-                      <Link href='#' className='text-sm font-semibold flex items-center gap-2'>
+                      <Link
+                        href='#'
+                        className='text-sm font-semibold flex items-center gap-2'
+                      >
                         Show achieved <IoChevronForwardOutline />
                       </Link>
                     </div>
@@ -204,7 +232,8 @@ const Profile = (props: IProfileProps) => {
                     {/* <!-- Post list --> */}
                     <div
                       className='grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-6'
-                      data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 100'>
+                      data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 100'
+                    >
                       <Link href='#preview_modal' data-uk-toggle=''>
                         <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                           <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
@@ -221,7 +250,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -245,7 +275,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -269,7 +300,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -293,7 +325,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -317,7 +350,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -341,7 +375,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -365,7 +400,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -389,7 +425,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -413,7 +450,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -437,7 +475,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -461,7 +500,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -485,7 +525,8 @@ const Profile = (props: IProfileProps) => {
                                   <IoHeartCircle className='text-2xl' /> 152
                                 </div>
                                 <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
+                                  <IoChatbubbleEllipses className='text-2xl' />{' '}
+                                  290
                                 </div>
                               </div>
                             </div>
@@ -505,7 +546,8 @@ const Profile = (props: IProfileProps) => {
                   <div className='flex justify-center my-6'>
                     <button
                       type='button'
-                      className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-background-2'>
+                      className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-background-2'
+                    >
                       Load more...
                     </button>
                   </div>
@@ -515,12 +557,17 @@ const Profile = (props: IProfileProps) => {
                 <div className='pt-16'>
                   <div
                     className='grid gap-3 lg:gap-4 lg:grid-cols-4 md:grid-cols-5 sm:grid-cols-3 grid-cols-2'
-                    data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true'>
+                    data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true'
+                  >
                     {/* <!-- single reels --> */}
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-1.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-1.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -535,7 +582,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-2.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-2.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -550,7 +601,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-3.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-3.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -565,7 +620,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-4.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-4.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -580,7 +639,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-3.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-3.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -596,7 +659,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-4.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-4.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -611,7 +678,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-5.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-5.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -626,7 +697,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-1.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-1.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -641,7 +716,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-1.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-1.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -656,7 +735,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-2.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-2.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -671,7 +754,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-3.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-3.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -686,7 +773,11 @@ const Profile = (props: IProfileProps) => {
                     <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                       <Link href='#'>
                         <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-4.jpg' alt='' />
+                          <img
+                            className='object-cover w-full h-full'
+                            src='images/reels/reels-4.jpg'
+                            alt=''
+                          />
 
                           <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
                             <div className='flex items-center gap-2.5 text-white p-3'>
@@ -708,7 +799,8 @@ const Profile = (props: IProfileProps) => {
                   <div className='flex justify-center my-6'>
                     <button
                       type='button'
-                      className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-background-2'>
+                      className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-background-2'
+                    >
                       Load more...
                     </button>
                   </div>
@@ -718,16 +810,24 @@ const Profile = (props: IProfileProps) => {
                 <div className='pt-16'>
                   <div
                     className='grid lg:grid-cols-3 grid-cols-2 gap-4'
-                    data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true'>
+                    data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true'
+                  >
                     <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
                       {/* <!-- heading --> */}
                       <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
                         <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-5.jpg' alt='' className='w-6 h-6 rounded-full' />
+                          <img
+                            src='images/avatars/avatar-5.jpg'
+                            alt=''
+                            className='w-6 h-6 rounded-full'
+                          />
                         </Link>
                         <div className='flex-1'>
                           <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Monroe Parker </h4>
+                            <h4 className='text-black dark:text-white'>
+                              {' '}
+                              Monroe Parker{' '}
+                            </h4>
                           </Link>
                         </div>
 
@@ -738,22 +838,28 @@ const Profile = (props: IProfileProps) => {
                           </button>
                           <div
                             className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
+                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'
+                          >
                             <nav>
                               <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
+                                <IoBookmarkOutline className='text-xl shrink-0' />{' '}
+                                Add favorites
                               </Link>
                               <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
+                                <IoFlagOutline className='text-xl shrink-0' />{' '}
+                                Report
                               </Link>
                               <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
+                                <IoShareOutline className='text-xl shrink-0' />{' '}
+                                Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
+                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                              >
+                                <IoStopCircleOutline className='text-xl shrink-0' />{' '}
+                                Remove
                               </Link>
                             </nav>
                           </div>
@@ -789,11 +895,18 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- heading --> */}
                       <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
                         <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-2.jpg' alt='' className='w-6 h-6 rounded-full' />
+                          <img
+                            src='images/avatars/avatar-2.jpg'
+                            alt=''
+                            className='w-6 h-6 rounded-full'
+                          />
                         </Link>
                         <div className='flex-1'>
                           <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Jesse Steeve </h4>
+                            <h4 className='text-black dark:text-white'>
+                              {' '}
+                              Jesse Steeve{' '}
+                            </h4>
                           </Link>
                         </div>
 
@@ -804,22 +917,28 @@ const Profile = (props: IProfileProps) => {
                           </button>
                           <div
                             className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
+                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'
+                          >
                             <nav>
                               <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
+                                <IoBookmarkOutline className='text-xl shrink-0' />{' '}
+                                Add favorites
                               </Link>
                               <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
+                                <IoFlagOutline className='text-xl shrink-0' />{' '}
+                                Report
                               </Link>
                               <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
+                                <IoShareOutline className='text-xl shrink-0' />{' '}
+                                Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
+                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                              >
+                                <IoStopCircleOutline className='text-xl shrink-0' />{' '}
+                                Remove
                               </Link>
                             </nav>
                           </div>
@@ -855,11 +974,18 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- heading --> */}
                       <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
                         <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-3.jpg' alt='' className='w-6 h-6 rounded-full' />
+                          <img
+                            src='images/avatars/avatar-3.jpg'
+                            alt=''
+                            className='w-6 h-6 rounded-full'
+                          />
                         </Link>
                         <div className='flex-1'>
                           <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Martin Gray </h4>
+                            <h4 className='text-black dark:text-white'>
+                              {' '}
+                              Martin Gray{' '}
+                            </h4>
                           </Link>
                         </div>
 
@@ -870,22 +996,28 @@ const Profile = (props: IProfileProps) => {
                           </button>
                           <div
                             className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
+                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'
+                          >
                             <nav>
                               <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
+                                <IoBookmarkOutline className='text-xl shrink-0' />{' '}
+                                Add favorites
                               </Link>
                               <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
+                                <IoFlagOutline className='text-xl shrink-0' />{' '}
+                                Report
                               </Link>
                               <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
+                                <IoShareOutline className='text-xl shrink-0' />{' '}
+                                Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
+                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                              >
+                                <IoStopCircleOutline className='text-xl shrink-0' />{' '}
+                                Remove
                               </Link>
                             </nav>
                           </div>
@@ -921,11 +1053,18 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- heading --> */}
                       <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
                         <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-4.jpg' alt='' className='w-6 h-6 rounded-full' />
+                          <img
+                            src='images/avatars/avatar-4.jpg'
+                            alt=''
+                            className='w-6 h-6 rounded-full'
+                          />
                         </Link>
                         <div className='flex-1'>
                           <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> John Michael </h4>
+                            <h4 className='text-black dark:text-white'>
+                              {' '}
+                              John Michael{' '}
+                            </h4>
                           </Link>
                         </div>
 
@@ -936,22 +1075,28 @@ const Profile = (props: IProfileProps) => {
                           </button>
                           <div
                             className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
+                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'
+                          >
                             <nav>
                               <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
+                                <IoBookmarkOutline className='text-xl shrink-0' />{' '}
+                                Add favorites
                               </Link>
                               <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
+                                <IoFlagOutline className='text-xl shrink-0' />{' '}
+                                Report
                               </Link>
                               <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
+                                <IoShareOutline className='text-xl shrink-0' />{' '}
+                                Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
+                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                              >
+                                <IoStopCircleOutline className='text-xl shrink-0' />{' '}
+                                Remove
                               </Link>
                             </nav>
                           </div>
@@ -987,11 +1132,18 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- heading --> */}
                       <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
                         <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-7.jpg' alt='' className='w-6 h-6 rounded-full' />
+                          <img
+                            src='images/avatars/avatar-7.jpg'
+                            alt=''
+                            className='w-6 h-6 rounded-full'
+                          />
                         </Link>
                         <div className='flex-1'>
                           <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Alexa stella </h4>
+                            <h4 className='text-black dark:text-white'>
+                              {' '}
+                              Alexa stella{' '}
+                            </h4>
                           </Link>
                         </div>
 
@@ -1002,22 +1154,28 @@ const Profile = (props: IProfileProps) => {
                           </button>
                           <div
                             className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
+                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'
+                          >
                             <nav>
                               <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
+                                <IoBookmarkOutline className='text-xl shrink-0' />{' '}
+                                Add favorites
                               </Link>
                               <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
+                                <IoFlagOutline className='text-xl shrink-0' />{' '}
+                                Report
                               </Link>
                               <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
+                                <IoShareOutline className='text-xl shrink-0' />{' '}
+                                Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
+                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                              >
+                                <IoStopCircleOutline className='text-xl shrink-0' />{' '}
+                                Remove
                               </Link>
                             </nav>
                           </div>
@@ -1053,11 +1211,18 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- heading --> */}
                       <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
                         <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-5.jpg' alt='' className='w-6 h-6 rounded-full' />
+                          <img
+                            src='images/avatars/avatar-5.jpg'
+                            alt=''
+                            className='w-6 h-6 rounded-full'
+                          />
                         </Link>
                         <div className='flex-1'>
                           <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Monroe Parker </h4>
+                            <h4 className='text-black dark:text-white'>
+                              {' '}
+                              Monroe Parker{' '}
+                            </h4>
                           </Link>
                         </div>
 
@@ -1068,22 +1233,28 @@ const Profile = (props: IProfileProps) => {
                           </button>
                           <div
                             className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
+                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'
+                          >
                             <nav>
                               <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
+                                <IoBookmarkOutline className='text-xl shrink-0' />{' '}
+                                Add favorites
                               </Link>
                               <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
+                                <IoFlagOutline className='text-xl shrink-0' />{' '}
+                                Report
                               </Link>
                               <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
+                                <IoShareOutline className='text-xl shrink-0' />{' '}
+                                Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
+                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                              >
+                                <IoStopCircleOutline className='text-xl shrink-0' />{' '}
+                                Remove
                               </Link>
                             </nav>
                           </div>
@@ -1119,11 +1290,18 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- heading --> */}
                       <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
                         <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-2.jpg' alt='' className='w-6 h-6 rounded-full' />
+                          <img
+                            src='images/avatars/avatar-2.jpg'
+                            alt=''
+                            className='w-6 h-6 rounded-full'
+                          />
                         </Link>
                         <div className='flex-1'>
                           <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Jesse Steeve </h4>
+                            <h4 className='text-black dark:text-white'>
+                              {' '}
+                              Jesse Steeve{' '}
+                            </h4>
                           </Link>
                         </div>
 
@@ -1134,22 +1312,28 @@ const Profile = (props: IProfileProps) => {
                           </button>
                           <div
                             className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
+                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'
+                          >
                             <nav>
                               <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
+                                <IoBookmarkOutline className='text-xl shrink-0' />{' '}
+                                Add favorites
                               </Link>
                               <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
+                                <IoFlagOutline className='text-xl shrink-0' />{' '}
+                                Report
                               </Link>
                               <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
+                                <IoShareOutline className='text-xl shrink-0' />{' '}
+                                Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
+                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                              >
+                                <IoStopCircleOutline className='text-xl shrink-0' />{' '}
+                                Remove
                               </Link>
                             </nav>
                           </div>
@@ -1185,11 +1369,18 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- heading --> */}
                       <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
                         <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-3.jpg' alt='' className='w-6 h-6 rounded-full' />
+                          <img
+                            src='images/avatars/avatar-3.jpg'
+                            alt=''
+                            className='w-6 h-6 rounded-full'
+                          />
                         </Link>
                         <div className='flex-1'>
                           <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Martin Gray </h4>
+                            <h4 className='text-black dark:text-white'>
+                              {' '}
+                              Martin Gray{' '}
+                            </h4>
                           </Link>
                         </div>
 
@@ -1200,22 +1391,28 @@ const Profile = (props: IProfileProps) => {
                           </button>
                           <div
                             className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
+                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'
+                          >
                             <nav>
                               <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
+                                <IoBookmarkOutline className='text-xl shrink-0' />{' '}
+                                Add favorites
                               </Link>
                               <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
+                                <IoFlagOutline className='text-xl shrink-0' />{' '}
+                                Report
                               </Link>
                               <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
+                                <IoShareOutline className='text-xl shrink-0' />{' '}
+                                Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
+                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                              >
+                                <IoStopCircleOutline className='text-xl shrink-0' />{' '}
+                                Remove
                               </Link>
                             </nav>
                           </div>
@@ -1251,11 +1448,18 @@ const Profile = (props: IProfileProps) => {
                       {/* <!-- heading --> */}
                       <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
                         <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-4.jpg' alt='' className='w-6 h-6 rounded-full' />
+                          <img
+                            src='images/avatars/avatar-4.jpg'
+                            alt=''
+                            className='w-6 h-6 rounded-full'
+                          />
                         </Link>
                         <div className='flex-1'>
                           <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> John Michael </h4>
+                            <h4 className='text-black dark:text-white'>
+                              {' '}
+                              John Michael{' '}
+                            </h4>
                           </Link>
                         </div>
 
@@ -1266,22 +1470,28 @@ const Profile = (props: IProfileProps) => {
                           </button>
                           <div
                             className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
+                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'
+                          >
                             <nav>
                               <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
+                                <IoBookmarkOutline className='text-xl shrink-0' />{' '}
+                                Add favorites
                               </Link>
                               <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
+                                <IoFlagOutline className='text-xl shrink-0' />{' '}
+                                Report
                               </Link>
                               <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
+                                <IoShareOutline className='text-xl shrink-0' />{' '}
+                                Share
                               </Link>
                               <hr />
                               <Link
                                 href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
+                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                              >
+                                <IoStopCircleOutline className='text-xl shrink-0' />{' '}
+                                Remove
                               </Link>
                             </nav>
                           </div>
@@ -1323,7 +1533,8 @@ const Profile = (props: IProfileProps) => {
                   <div className='flex justify-center my-6'>
                     <button
                       type='button'
-                      className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-background-2'>
+                      className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-background-2'
+                    >
                       Load more...
                     </button>
                   </div>
@@ -1335,26 +1546,40 @@ const Profile = (props: IProfileProps) => {
       </div>
 
       {/* <!-- post preview modal --> */}
-      <div className='hidden max-lg:!items-start lg:p-20' id='preview_modal' data-uk-modal=''>
+      <div
+        className='hidden max-lg:!items-start lg:p-20'
+        id='preview_modal'
+        data-uk-modal=''
+      >
         <div className='uk-modal-dialog tt ax-w-[86rem] relative mx-auto w-full items-center overflow-hidden rounded-lg shadow-xl lg:flex lg:h-[80vh]'>
           {/* <!-- image previewer --> */}
           <div className='relative flex h-96 w-full items-center justify-center lg:h-full lg:w-[calc(100vw-400px)]'>
             <div className='relative z-10 h-full w-full'>
-              <img src='images/post/post-1.jpg' alt='' className='absolute h-full w-full object-cover' />
+              <img
+                src='images/post/post-1.jpg'
+                alt=''
+                className='absolute h-full w-full object-cover'
+              />
             </div>
 
             {/* <!-- close button --> */}
             <button
               type='button'
-              className='uk-animation-slide-right-medium uk-modal-close absolute right-0 top-0 z-10 m-3 rounded-full bg-white p-2 dark:bg-slate-600'>
+              className='uk-animation-slide-right-medium uk-modal-close absolute right-0 top-0 z-10 m-3 rounded-full bg-white p-2 dark:bg-slate-600'
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
                 strokeWidth='1.5'
                 stroke='currentColor'
-                className='h-6 w-6'>
-                <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                className='h-6 w-6'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M6 18L18 6M6 6l12 12'
+                />
               </svg>
             </button>
           </div>
@@ -1364,10 +1589,18 @@ const Profile = (props: IProfileProps) => {
             <div className='p-5 pb-0'>
               {/* <!-- story heading --> */}
               <div className='flex gap-3 text-sm font-medium'>
-                <img src='images/avatars/avatar-5.jpg' alt='' className='h-9 w-9 rounded-full' />
+                <img
+                  src='images/avatars/avatar-5.jpg'
+                  alt=''
+                  className='h-9 w-9 rounded-full'
+                />
                 <div className='flex-1'>
-                  <h4 className='font-medium text-black dark:text-white'>Steeve</h4>
-                  <div className='text-xs text-gray-500 dark:text-white/80'>2 hours ago</div>
+                  <h4 className='font-medium text-black dark:text-white'>
+                    Steeve
+                  </h4>
+                  <div className='text-xs text-gray-500 dark:text-white/80'>
+                    2 hours ago
+                  </div>
                 </div>
 
                 {/* <!-- dropdown --> */}
@@ -1377,23 +1610,30 @@ const Profile = (props: IProfileProps) => {
                   </button>
                   <div
                     className='w-[253px]'
-                    data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true'>
+                    data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true'
+                  >
                     <nav>
-                      <Link href='#' className='hover:!bg-hover-1 my-1'>
-                        <IoBookmarkOutline className='shrink-0 text-xl' /> Add to favorites
+                      <Link href='#' className='hover:!bg-foreground-2 my-1'>
+                        <IoBookmarkOutline className='shrink-0 text-xl' /> Add
+                        to favorites
                       </Link>
-                      <Link href='#' className='hover:!bg-hover-1 my-1'>
+                      <Link href='#' className='hover:!bg-foreground-2 my-1'>
                         <IoNotificationsOffOutline className='shrink-0 text-xl' />
                         Mute Notification
                       </Link>
-                      <Link href='#' className='hover:!bg-hover-1 my-1'>
-                        <IoFlagOutline className='shrink-0 text-xl' /> Report this post
+                      <Link href='#' className='hover:!bg-foreground-2 my-1'>
+                        <IoFlagOutline className='shrink-0 text-xl' /> Report
+                        this post
                       </Link>
-                      <Link href='#' className='hover:!bg-hover-1 my-1'>
-                        <IoShareOutline className='shrink-0 text-xl' /> Share your profile
+                      <Link href='#' className='hover:!bg-foreground-2 my-1'>
+                        <IoShareOutline className='shrink-0 text-xl' /> Share
+                        your profile
                       </Link>
                       <hr />
-                      <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
+                      <Link
+                        href='#'
+                        className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                      >
                         <IoStopCircleOutline className='shrink-0 text-xl' />
                         Unfollow
                       </Link>
@@ -1403,20 +1643,26 @@ const Profile = (props: IProfileProps) => {
               </div>
 
               <p className='mt-4 text-sm font-normal leading-6'>
-                Photography is the art of capturing light with a camera. it can be fun, challenging. It can
-                also be a hobby, a passion. 📷
+                Photography is the art of capturing light with a camera. it can
+                be fun, challenging. It can also be a hobby, a passion. 📷
               </p>
 
               <div className='relative -mx-5 mt-3 px-5 py-3 shadow'>
                 <div className='flex items-center gap-4 text-xs font-semibold'>
                   <div className='flex items-center gap-2.5'>
-                    <button type='button' className='button__ico bg-red-100 text-red-500 dark:bg-slate-700'>
+                    <button
+                      type='button'
+                      className='button__ico bg-red-100 text-red-500 dark:bg-slate-700'
+                    >
                       <FaHeart className='text-lg' />
                     </button>
                     <Link href='#'>1,300</Link>
                   </div>
                   <div className='flex items-center gap-3'>
-                    <button type='button' className='button__ico bg-slate-100 dark:bg-slate-700'>
+                    <button
+                      type='button'
+                      className='button__ico bg-slate-100 dark:bg-slate-700'
+                    >
                       <IoChatbubbleEllipses className='text-lg' />
                     </button>
                     <span>260</span>
@@ -1435,108 +1681,192 @@ const Profile = (props: IProfileProps) => {
               {/* <!-- comment list --> */}
               <div className='relative space-y-5 text-sm font-medium'>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-2.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-2.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Steeve
                     </Link>
                     <p className='mt-0.5'>What a beautiful, I love it. 😍 </p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-3.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-3.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Monroe
                     </Link>
                     <p className='mt-0.5'> You captured the moment.😎 </p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-7.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-7.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Alexia
                     </Link>
                     <p className='mt-0.5'> This photo is amazing! </p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-4.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-4.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       John
                     </Link>
                     <p className='mt-0.5'> Wow, You are so talented 😍 </p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-5.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-5.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Michael
                     </Link>
                     <p className='mt-0.5'> I love taking photos 🌳🐶</p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-3.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-3.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Monroe
                     </Link>
                     <p className='mt-0.5'> Awesome. 😊😢 </p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-5.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-5.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Jesse
                     </Link>
                     <p className='mt-0.5'> Well done 🎨📸 </p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-2.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-2.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Steeve
                     </Link>
                     <p className='mt-0.5'>What a beautiful, I love it. 😍 </p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-7.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-7.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Alexia
                     </Link>
                     <p className='mt-0.5'> This photo is amazing! </p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-4.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-4.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       John
                     </Link>
                     <p className='mt-0.5'> Wow, You are so talented 😍 </p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-5.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-5.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Michael
                     </Link>
                     <p className='mt-0.5'> I love taking photos 🌳🐶</p>
                   </div>
                 </div>
                 <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-3.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
+                  <img
+                    src='images/avatars/avatar-3.jpg'
+                    alt=''
+                    className='mt-1 h-6 w-6 rounded-full'
+                  />
                   <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
+                    <Link
+                      href='#'
+                      className='inline-block font-medium text-black dark:text-white'
+                    >
                       Monroe
                     </Link>
                     <p className='mt-0.5'> Awesome. 😊😢 </p>
@@ -1546,13 +1876,18 @@ const Profile = (props: IProfileProps) => {
             </div>
 
             <div className='flex items-center gap-2 bg-white p-3 text-sm font-medium bg-background-2'>
-              <img src='images/avatars/avatar-2.jpg' alt='' className='h-6 w-6 rounded-full' />
+              <img
+                src='images/avatars/avatar-2.jpg'
+                alt=''
+                className='h-6 w-6 rounded-full'
+              />
 
               <div className='relative flex-1 overflow-hidden '>
                 <textarea
                   placeholder='Add Comment....'
                   rows={1}
-                  className='resize- w-full rounded-lg bg-hover-1 resize-y px-4 py-2 focus:!border-transparent focus:!ring-transparent'></textarea>
+                  className='resize- w-full rounded-lg bg-foreground-2 resize-y px-4 py-2 focus:!border-transparent focus:!ring-transparent'
+                ></textarea>
 
                 <div className='absolute bottom-0.5 right-0 m-3 flex items-center gap-2'>
                   <FaImage className='flex text-xl text-blue-700' />
@@ -1562,7 +1897,8 @@ const Profile = (props: IProfileProps) => {
 
               <button
                 type='submit'
-                className='bg-hover-1 hidden rounded-full px-4 py-1.5 text-sm font-semibold'>
+                className='bg-foreground-2 hidden rounded-full px-4 py-1.5 text-sm font-semibold'
+              >
                 Replay
               </button>
             </div>
