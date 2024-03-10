@@ -19,14 +19,14 @@ import Post from '@/components/Post/Post';
 import PostSkeleton from '@/components/Post/PostSkeleton';
 import { Fa500Px, FaCheckCircle, FaPhoneAlt, FaVideo } from 'react-icons/fa';
 
-export interface IProfileProps { }
+export interface IProfileProps {}
 
 export default function Profile(props: IProfileProps) {
   return (
-    <main className='ms-60 max-lg:ms-0'>
+    <main className='ms-60 mt-16 max-lg:ms-0'>
       {/* <main id="site__main" className="2xl:ml-[--w-side]  xl:ml-[--w-side-sm] p-2.5 h-[calc(100vh-var(--m-top))] mt-[--m-top]"> */}
 
-      <div className='max-w-[1065px] mx-auto max-lg:-m-2.5'>
+      <div className='max-w-[1065px] mx-auto'>
         {/* <!-- cover  --> */}
         <div className='bg-foreground-1 shadow lg:rounded-b-2xl lg:-mt-10'>
           {/* <!-- cover --> */}
@@ -37,7 +37,7 @@ export default function Profile(props: IProfileProps) {
               className='h-full w-full object-cover inset-0'
             />
 
-            {/* <!-- overly --> */}
+            {/* <!-- overlay --> */}
             <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10'></div>
 
             <div className='absolute bottom-0 right-0 m-4 z-20'>
@@ -66,7 +66,6 @@ export default function Profile(props: IProfileProps) {
                 <button
                   type='button'
                   className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
-
                   <IoCamera className='text-2xl md hydrated' aria-label='camera' />
                 </button>
               </div>
@@ -74,16 +73,13 @@ export default function Profile(props: IProfileProps) {
               <h3 className='md:text-3xl text-base font-bold text-text-1'> Monroe Parker </h3>
 
               <p className='mt-2 text-gray-500 dark:text-white/80'>
-
                 Family , Food , Fashion , Forever
                 <Link href='#' className='text-blue-500 ml-4 inline-block'>
-
                   Edit
                 </Link>
               </p>
 
               <p className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'>
-
                 I love beauty and emotion. 🥰 I’m passionate about photography and learning. 📚 I explore
                 genres and styles. 🌈 I think photography is storytelling. 😊
               </p>
@@ -104,9 +100,7 @@ export default function Profile(props: IProfileProps) {
                 <span className='text-sm'> Friend </span>
               </button>
 
-              <button
-                type='submit'
-                className='rounded-lg bg-foreground-1 flex px-2.5 py-2 hover:bg-hover-1'>
+              <button type='submit' className='rounded-lg bg-foreground-1 flex px-2.5 py-2 hover:bg-hover-1'>
                 <IoSearch className='text-xl' />
               </button>
 
@@ -119,23 +113,19 @@ export default function Profile(props: IProfileProps) {
                   data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                   <nav>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
                       <FaPhoneAlt className='text-xl' /> Voice Call
                     </Link>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
                       <FaVideo className='text-xl' /> Video Call
                     </Link>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
                       <IoFlagOutline className='text-xl' /> Report
                     </Link>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
                       <IoShareOutline className='text-xl' /> Share profile
                     </Link>
                     <hr />
                     <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-
                       <IoStopCircleOutline className='text-xl' /> Block
                     </Link>
                   </nav>
@@ -149,34 +139,22 @@ export default function Profile(props: IProfileProps) {
                 className='hover:bg-hover-1 hover:rounded-sm inline-block  py-3 leading-8 px-3.5 border-b-2 border-blue-600 text-blue-600'>
                 Timeline
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Friend <span className='text-xs pl-2 font-normal lg:inline-block hidden'>2,680</span>
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Photo
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Photo
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Photo
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Video
               </Link>
-              <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
                 Group
               </Link>
 
@@ -312,7 +290,6 @@ export default function Profile(props: IProfileProps) {
                       />
                     </svg>
                     <div>
-
                       Live In <span className='font-semibold text-text-1'> Cairo , Egypt </span>
                     </div>
                   </li>
@@ -331,11 +308,7 @@ export default function Profile(props: IProfileProps) {
                       />
                     </svg>
                     <div>
-
-                      Studied at <span className='font-semibold text-text-1'>
-
-                        University of Turkey
-                      </span>
+                      Studied at <span className='font-semibold text-text-1'>University of Turkey</span>
                     </div>
                   </li>
                   <li className='flex items-center gap-3'>
@@ -354,7 +327,6 @@ export default function Profile(props: IProfileProps) {
                     </svg>
 
                     <div>
-
                       Works at <span className='font-semibold text-text-1'> Envanto Martket </span>
                     </div>
                   </li>
@@ -373,7 +345,6 @@ export default function Profile(props: IProfileProps) {
                       />
                     </svg>
                     <div>
-
                       In <span className='font-semibold text-text-1'> Relationship </span>
                     </div>
                   </li>
@@ -392,7 +363,6 @@ export default function Profile(props: IProfileProps) {
                       />
                     </svg>
                     <div>
-
                       Flowwed By <span className='font-semibold text-text-1'> 3,240 People </span>
                     </div>
                   </li>
@@ -449,10 +419,8 @@ export default function Profile(props: IProfileProps) {
               <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
                 <div className='flex items-ce justify-between text-text-1'>
                   <h3 className='font-bold text-lg'>
-
                     Friends
                     <span className='block text-sm text-gray-500 mt-0. font-normal dark:text-white'>
-
                       3489 Friends
                     </span>
                   </h3>
