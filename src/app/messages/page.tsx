@@ -2,28 +2,14 @@
 'use client';
 
 import {
-  IoAddCircleOutline,
   IoCheckmarkCircleOutline,
   IoCheckmarkOutline,
-  IoChevronBackOutline,
   IoChevronDownOutline,
-  IoClose,
-  IoDocumentText,
-  IoFlagOutline,
-  IoHappyOutline,
-  IoHeartOutline,
-  IoImage,
-  IoImages,
-  IoNotificationsOffOutline,
   IoNotificationsOutline,
-  IoSendOutline,
   IoSettingsOutline,
-  IoStopCircleOutline,
-  IoTrashOutline,
   IoVolumeMuteOutline
 } from 'react-icons/io5';
-import { FaGift, FaSearch } from 'react-icons/fa';
-import { Dropdown } from 'flowbite-react';
+import { FaSearch } from 'react-icons/fa';
 import Link from 'next/link';
 
 import ConversationList from '@/components/Chat/ConversationList';
