@@ -4,10 +4,12 @@ import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 import { cn } from '@/lib/utils';
 
 interface ITabsProps {
+  id: string;
   rootClassName?: string;
   navClassName?: string;
   ulClassName?: string;
-  chevronClassName?: string;
+  backChevronClassName?: string;
+  forwardChevronClassName?: string;
   children?: React.ReactNode;
   disableChevron?: boolean;
 }
@@ -24,7 +26,7 @@ function Tabs(props: ITabsProps) {
             'uk-slider-items w-[calc(100%+10px)] capitalize font-semibold text-gray-500 text-sm dark:text-white',
             props.ulClassName
           )}
-          data-uk-switcher='connect: #setting_tab ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
+          data-uk-switcher={`connect: #${props.id} ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium`}>
           {props.children}
         </ul>
       </nav>
@@ -35,7 +37,7 @@ function Tabs(props: ITabsProps) {
             href='#'
             className={cn(
               'absolute -translate-y-1/2 top-1/2 left-0 flex items-center w-20 h-full p-2.5 justify-start rounded-xl bg-gradient-to-r from-white via-white dark:from-dark-1 dark:via-dark-1',
-              props.chevronClassName
+              props.backChevronClassName
             )}
             data-uk-slider-item='previous'>
             <IoChevronBack className='text-2xl ml-1' />
@@ -44,7 +46,7 @@ function Tabs(props: ITabsProps) {
             href='#'
             className={cn(
               'absolute right-0 -translate-y-1/2 top-1/2 flex items-center w-20 h-full p-2.5 justify-end rounded-xl bg-gradient-to-l from-white via-white dark:from-dark-1 dark:via-dark-1',
-              props.chevronClassName
+              props.forwardChevronClassName
             )}
             data-uk-slider-item='next'>
             <IoChevronForward className='text-2xl mr-1' />
@@ -56,6 +58,7 @@ function Tabs(props: ITabsProps) {
 }
 
 interface ITabContentProps {
+  id: string;
   className?: string;
   children?: React.ReactNode;
 }
@@ -63,7 +66,7 @@ interface ITabContentProps {
 function TabsContent(props: ITabContentProps) {
   return (
     <div
-      id='setting_tab'
+      id={props.id}
       className={cn(
         'uk-switcher overflow-hidden rounded-xl border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-dark-1 md:px-20 md:py-12',
         props.className

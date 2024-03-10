@@ -1,8 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import Link from 'next/link';
-import { IoArrowBack /* , IoChevronBack, IoChevronForward */ } from 'react-icons/io5';
+import { IoArrowBack } from 'react-icons/io5';
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { Avatar } from '@mui/material';
 import { useSession } from 'next-auth/react';
@@ -61,7 +60,7 @@ export default function EditProfile(props: IEditProfileProps) {
 
         <hr className='m-0 border-t border-gray-100 dark:border-slate-700' />
 
-        <Tabs disableChevron>
+        <Tabs id='setting_tab' disableChevron>
           <TabTitle>General</TabTitle>
           <TabTitle>Social links</TabTitle>
           <TabTitle>Expertise</TabTitle>
@@ -72,7 +71,7 @@ export default function EditProfile(props: IEditProfileProps) {
       </div>
 
       <div className='mb-20 mt-6 text-sm font-medium text-gray-600 dark:text-white/80'>
-        <TabsContent>
+        <TabsContent id='setting_tab'>
           <div>
             <div className='space-y-6'>
               <div className='md:flex items-center gap-10'>
