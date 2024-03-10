@@ -30,7 +30,7 @@ export default function Event(props: IEventProps) {
 
                 </div>
 
-                {/* <!-- event feautred --> */}
+                {/* <!-- event featured --> */}
                 <div className="relative" tabIndex={-1} data-uk-slider="finite:true">
 
                     <div className="uk-slider-container pb-1">

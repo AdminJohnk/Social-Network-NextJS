@@ -1,1576 +1,647 @@
+/* eslint-disable jsx-a11y/role-supports-aria-props */
 /* eslint-disable @next/next/no-img-element */
-'use client';
-
-import {
-  IoCameraOutline,
-  IoPlayOutline,
-  IoPricetagsOutline,
-  IoHappy,
-  IoTimeOutline,
-  IoNotificationsOffOutline,
-  IoHeartOutline,
-  IoHeartCircle,
-  IoChatbubbleEllipsesOutline,
-  IoChatbubbleEllipses,
-  IoStopCircleOutline,
-  IoShareOutline,
-  IoFlagOutline,
-  IoEllipsisHorizontal,
-  IoBookmarkOutline,
-  IoChevronForwardOutline,
-  IoCamera
-} from 'react-icons/io5';
-import { FaImage, FaHeart } from 'react-icons/fa';
+import * as React from 'react';
 import Link from 'next/link';
+import {
+  IoAddCircle,
+  IoCamera,
+  IoChevronDown,
+  IoEllipsisHorizontal,
+  IoFlagOutline,
+  IoPricetagOutline,
+  IoSearch,
+  IoShareOutline,
+  IoStopCircleOutline,
+  IoTimeOutline
+} from 'react-icons/io5';
 
-import SliderPost from '@/components/SliderPost';
+import Post from '@/components/Post/Post';
+import PostSkeleton from '@/components/Post/PostSkeleton';
+import { Fa500Px, FaCheckCircle, FaPhoneAlt, FaVideo } from 'react-icons/fa';
 
-export interface IProfileProps {}
+export interface IProfileProps { }
 
-const Profile = (props: IProfileProps) => {
+export default function Profile(props: IProfileProps) {
   return (
-    <div>
-      <div id='wrapper'>
-        {/* <!-- main contents --> */}
-        {/* <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]"> */}
-        <main>
-          <div className='main__inner mt-16'>
-            {/* <!-- profile  --> */}
-            <div className='py-6 relative'>
-              <div className='flex md:gap-16 gap-4 max-md:flex-col'>
-                <div className='relative md:p-1 rounded-full h-full max-md:w-16 bg-gradient-to-tr from-pink-400 to-pink-600 shadow-md hover:scale-110 duration-500 uk-animation-scale-up'>
-                  <div className='relative md:w-40 md:h-40 h-16 w-16 rounded-full overflow-hidden md:border-[6px] border-gray-100 shrink-0 dark:border-slate-900'>
-                    <img
-                      src='images/avatars/avatar-6.jpg'
-                      alt=''
-                      className='w-full h-full absolute object-cover'
-                    />
-                  </div>
-                  <button
-                    type='button'
-                    className='absolute -bottom-2 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
-                    <IoCamera className='text-2xl' />
-                  </button>
-                </div>
-                <div className='max-w-2x flex-1'>
-                  <h3 className='md:text-xl text-base font-semibold text-black dark:text-white'>
-                    Monroe Parker
-                  </h3>
-
-                  <p className='sm:text-sm text-blue-600 mt-1 font-normal text-xs'>@Monroepak</p>
-
-                  <p className='text-sm mt-2 md:font-normal font-light'>
-                    I love beauty and emotion. 🥰 I’m passionate about photography and learning. 📚 I explore
-                    genres and styles. 🌈 I think photography is storytelling. 📖 I hope you like and feel my
-                    photos. 😊
-                  </p>
-
-                  <p className='mt-2 space-x-2 text-gray-500 text-sm hidden' style={{ marginTop: '11px' }}>
-                    <Link href='#' className='inline-block'>
-                      Travel
-                    </Link>
-                    .
-                    <Link href='#' className='inline-block'>
-                      Business
-                    </Link>
-                    .
-                    <Link href='#' className='inline-block'>
-                      Technology
-                    </Link>
-                  </p>
-
-                  <div className='flex md:items-end justify-between md:mt-8 mt-4 max-md:flex-col gap-4'>
-                    <div className='flex sm:gap-10 gap-6 sm:text-sm text-xs max-sm:absolute max-sm:top-10 max-sm:left-36'>
-                      <div>
-                        <p>Posts</p>
-                        <h3 className='sm:text-xl sm:font-bold mt-1 text-black dark:text-white text-base font-normal'>
-                          162
-                        </h3>
-                      </div>
-                      <div>
-                        <p>Following</p>
-                        <h3 className='sm:text-xl sm:font-bold mt-1 text-black dark:text-white text-base font-normal'>
-                          14,260
-                        </h3>
-                      </div>
-                      <div>
-                        <p>Followers</p>
-                        <h3 className='sm:text-xl sm:font-bold mt-1 text-black dark:text-white text-base font-normal'>
-                          8,542
-                        </h3>
-                      </div>
-                    </div>
-                    <div className='flex items-center gap-3 text-sm'>
-                      <button type='submit' className='button text-gray-600 bg-slate-200 hidden'>
-                        Follow
-                      </button>
-                      <button
-                        type='button'
-                        className='button bg-pink-100 text-pink-600 border border-pink-200'>
-                        Unfallow
-                      </button>
-                      <button type='submit' className='button bg-pink-600 text-white'>
-                        Message
-                      </button>
-                      <div>
-                        <button
-                          type='submit'
-                          className='rounded-lg bg-slate-200/60 flex px-2 py-1.5 dark:bg-background-2'>
-                          <IoEllipsisHorizontal className='text-xl' />
-                        </button>
-                        <div
-                          className='w-[240px] !bg-background-2'
-                          data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                          <nav>
-                            <Link href='#' className='hover:!bg-hover-1'>
-                              <IoPricetagsOutline className=' text-xl' /> Unfollow
-                            </Link>
-                            <Link href='#' className='hover:!bg-hover-1'>
-                              <IoTimeOutline className=' text-xl' /> Mute story
-                            </Link>
-                            <Link href='#' className='hover:!bg-hover-1'>
-                              <IoFlagOutline className=' text-xl' /> Report
-                            </Link>
-                            <Link href='#' className='hover:!bg-hover-1'>
-                              <IoShareOutline className=' text-xl' /> Share profile
-                            </Link>
-                            <hr />
-                            <Link
-                              href='#'
-                              className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                              <IoStopCircleOutline className='text-xl' /> Block
-                            </Link>
-                          </nav>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className='mt-10'>
-              {/* <!-- sticky tabs --> */}
-
-              <div data-uk-sticky='cls-active: bg-slate-100/60 z-30 backdrop-blur-lg px-4 dark:bg-slate-800/60; start: 500; animation: uk-animation-slide-top'>
-                <nav className='text-sm text-center text-gray-500 capitalize font-semibold dark:text-white'>
-                  <ul
-                    className='flex gap-2 justify-center border-t dark:border-slate-700'
-                    data-uk-switcher='connect: #story_tab ; animation: uk-animation-fade, uk-animation-slide-left-medium'>
-                    <li>
-                      <Link
-                        href='#'
-                        className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                        <IoCameraOutline className='mr-2 text-2xl' /> Posts
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href='#'
-                        className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                        <IoPlayOutline className='mr-2 text-2xl' /> Reels
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href='#'
-                        className='flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:dark:text-white aria-expanded:dark:border-white aria-selected:border-blue-500 aria-selected:text-blue-500'>
-                        <IoPricetagsOutline className='mr-2 text-2xl' /> Tagged
-                      </Link>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-
-              <div id='story_tab' className='uk-switcher'>
-                {/* <!-- Post list --> */}
-                <div>
-                  {/* <!-- hightlets slider post --> */}
-
-                  <SliderPost />
-
-                  {/* <!-- post list  --> */}
-
-                  <div className='mt-8'>
-                    {/* <!-- post heading --> */}
-                    <div className='flex items-center justify-between py-3'>
-                      <h1 className='text-xl font-bold text-black dark:text-white'>Posts</h1>
-
-                      <Link href='#' className='text-sm font-semibold flex items-center gap-2'>
-                        Show achieved <IoChevronForwardOutline />
-                      </Link>
-                    </div>
-
-                    {/* <!-- Post list --> */}
-                    <div
-                      className='grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-6'
-                      data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 100'>
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-1.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-2.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-3.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-4.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-5.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-4.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-1.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-3.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-1.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-3.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-2.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                          <div className='relative overflow-hidden rounded-lg uk-transition-toggle'>
-                            <div className='relative w-full lg:h-60 h-full aspect-[3/3]'>
-                              <img
-                                src='images/post/post-4.jpg'
-                                alt=''
-                                className='object-cover w-full h-full'
-                              />
-                            </div>
-                            <div className='absolute inset-0 bg-white/5 backdrop-blur-sm uk-transition-fade'>
-                              <div className='flex items-center justify-center gap-4 text-white w-full h-full'>
-                                <div className='flex items-center gap-2'>
-                                  <IoHeartCircle className='text-2xl' /> 152
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                  <IoChatbubbleEllipses className='text-2xl' /> 290
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      {/* <!-- placeholders --> */}
-                      <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                      <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                      <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                      <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                    </div>
-                  </div>
-
-                  {/* <!-- load more --> */}
-                  <div className='flex justify-center my-6'>
-                    <button
-                      type='button'
-                      className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-background-2'>
-                      Load more...
-                    </button>
-                  </div>
-                </div>
-
-                {/* <!-- Reels  list --> */}
-                <div className='pt-16'>
-                  <div
-                    className='grid gap-3 lg:gap-4 lg:grid-cols-4 md:grid-cols-5 sm:grid-cols-3 grid-cols-2'
-                    data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true'>
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-1.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 14
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-2.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 24
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-3.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 32
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-4.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 46
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-3.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' />
-                              16
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-4.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 24
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-5.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 38
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-1.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 33
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-1.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 62
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-2.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 42
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-3.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 18
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- single reels --> */}
-                    <div className='lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
-                      <Link href='#'>
-                        <div className='relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0'>
-                          <img className='object-cover w-full h-full' src='images/reels/reels-4.jpg' alt='' />
-
-                          <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20'>
-                            <div className='flex items-center gap-2.5 text-white p-3'>
-                              <IoPlayOutline className='text-2xl' /> 29
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-
-                    {/* <!-- placeholders --> */}
-                    <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                    <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                    <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                    <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                  </div>
-
-                  {/* <!-- load more --> */}
-                  <div className='flex justify-center my-6'>
-                    <button
-                      type='button'
-                      className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-background-2'>
-                      Load more...
-                    </button>
-                  </div>
-                </div>
-
-                {/* <!-- short list --> */}
-                <div className='pt-16'>
-                  <div
-                    className='grid lg:grid-cols-3 grid-cols-2 gap-4'
-                    data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true'>
-                    <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
-                      {/* <!-- heading --> */}
-                      <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
-                        <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-5.jpg' alt='' className='w-6 h-6 rounded-full' />
-                        </Link>
-                        <div className='flex-1'>
-                          <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Monroe Parker </h4>
-                          </Link>
-                        </div>
-
-                        {/* <!-- dropdown options --> */}
-                        <div className='absolute top-0.5 right-0 md:m-2.5 m-1'>
-                          <button type='button' className='button__ico w-8 h-8'>
-                            <IoEllipsisHorizontal className='text-xl' />
-                          </button>
-                          <div
-                            className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
-                            <nav>
-                              <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
-                              </Link>
-                              <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
-                              </Link>
-                              <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
-                              </Link>
-                              <hr />
-                              <Link
-                                href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
-                              </Link>
-                            </nav>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- post image --> */}
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='relative w-full h-48'>
-                          <img
-                            src='images/post/post-1.jpg'
-                            alt=''
-                            className='w-full h-full object-cover inset-0'
-                          />
-                        </div>
-                      </Link>
-
-                      {/* <!-- post icons --> */}
-                      <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
-                        <button type='button' className='button__ico'>
-                          <IoHeartOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico'>
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico ml-auto'>
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
-                      {/* <!-- heading --> */}
-                      <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
-                        <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-2.jpg' alt='' className='w-6 h-6 rounded-full' />
-                        </Link>
-                        <div className='flex-1'>
-                          <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Jesse Steeve </h4>
-                          </Link>
-                        </div>
-
-                        {/* <!-- dropdown options --> */}
-                        <div className='absolute top-0.5 right-0 m-2.5'>
-                          <button type='button' className='button__ico w-8 h-8'>
-                            <IoEllipsisHorizontal className='text-xl' />
-                          </button>
-                          <div
-                            className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
-                            <nav>
-                              <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
-                              </Link>
-                              <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
-                              </Link>
-                              <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
-                              </Link>
-                              <hr />
-                              <Link
-                                href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
-                              </Link>
-                            </nav>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- post image --> */}
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='relative w-full h-48'>
-                          <img
-                            src='images/post/post-2.jpg'
-                            alt=''
-                            className='w-full h-full object-cover inset-0'
-                          />
-                        </div>
-                      </Link>
-
-                      {/* <!-- post icons --> */}
-                      <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
-                        <button type='button' className='button__ico'>
-                          <IoHeartOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico'>
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico ml-auto'>
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
-                      {/* <!-- heading --> */}
-                      <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
-                        <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-3.jpg' alt='' className='w-6 h-6 rounded-full' />
-                        </Link>
-                        <div className='flex-1'>
-                          <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Martin Gray </h4>
-                          </Link>
-                        </div>
-
-                        {/* <!-- dropdown options --> */}
-                        <div className='absolute top-0.5 right-0 m-2.5'>
-                          <button type='button' className='button__ico w-8 h-8'>
-                            <IoEllipsisHorizontal className='text-xl' />
-                          </button>
-                          <div
-                            className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
-                            <nav>
-                              <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
-                              </Link>
-                              <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
-                              </Link>
-                              <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
-                              </Link>
-                              <hr />
-                              <Link
-                                href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
-                              </Link>
-                            </nav>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- post image --> */}
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='relative w-full h-48'>
-                          <img
-                            src='images/post/post-3.jpg'
-                            alt=''
-                            className='w-full h-full object-cover inset-0'
-                          />
-                        </div>
-                      </Link>
-
-                      {/* <!-- post icons --> */}
-                      <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
-                        <button type='button' className='button__ico'>
-                          <IoHeartOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico'>
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico ml-auto'>
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
-                      {/* <!-- heading --> */}
-                      <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
-                        <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-4.jpg' alt='' className='w-6 h-6 rounded-full' />
-                        </Link>
-                        <div className='flex-1'>
-                          <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> John Michael </h4>
-                          </Link>
-                        </div>
-
-                        {/* <!-- dropdown options --> */}
-                        <div className='absolute top-0.5 right-0 m-2.5'>
-                          <button type='button' className='button__ico w-8 h-8'>
-                            <IoEllipsisHorizontal className='text-xl' />
-                          </button>
-                          <div
-                            className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
-                            <nav>
-                              <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
-                              </Link>
-                              <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
-                              </Link>
-                              <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
-                              </Link>
-                              <hr />
-                              <Link
-                                href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
-                              </Link>
-                            </nav>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- post image --> */}
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='relative w-full h-48'>
-                          <img
-                            src='images/post/post-4.jpg'
-                            alt=''
-                            className='w-full h-full object-cover inset-0'
-                          />
-                        </div>
-                      </Link>
-
-                      {/* <!-- post icons --> */}
-                      <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
-                        <button type='button' className='button__ico'>
-                          <IoHeartOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico'>
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico ml-auto'>
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
-                      {/* <!-- heading --> */}
-                      <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
-                        <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-7.jpg' alt='' className='w-6 h-6 rounded-full' />
-                        </Link>
-                        <div className='flex-1'>
-                          <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Alexa stella </h4>
-                          </Link>
-                        </div>
-
-                        {/* <!-- dropdown options --> */}
-                        <div className='absolute top-0.5 right-0 m-2.5'>
-                          <button type='button' className='button__ico w-8 h-8'>
-                            <IoEllipsisHorizontal className='text-xl' />
-                          </button>
-                          <div
-                            className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
-                            <nav>
-                              <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
-                              </Link>
-                              <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
-                              </Link>
-                              <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
-                              </Link>
-                              <hr />
-                              <Link
-                                href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
-                              </Link>
-                            </nav>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- post image --> */}
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='relative w-full h-48'>
-                          <img
-                            src='images/post/post-5.jpg'
-                            alt=''
-                            className='w-full h-full object-cover inset-0'
-                          />
-                        </div>
-                      </Link>
-
-                      {/* <!-- post icons --> */}
-                      <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
-                        <button type='button' className='button__ico'>
-                          <IoHeartOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico'>
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico ml-auto'>
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
-                      {/* <!-- heading --> */}
-                      <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
-                        <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-5.jpg' alt='' className='w-6 h-6 rounded-full' />
-                        </Link>
-                        <div className='flex-1'>
-                          <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Monroe Parker </h4>
-                          </Link>
-                        </div>
-
-                        {/* <!-- dropdown options --> */}
-                        <div className='absolute top-0.5 right-0 m-2.5'>
-                          <button type='button' className='button__ico w-8 h-8'>
-                            <IoEllipsisHorizontal className='text-xl' />
-                          </button>
-                          <div
-                            className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
-                            <nav>
-                              <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
-                              </Link>
-                              <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
-                              </Link>
-                              <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
-                              </Link>
-                              <hr />
-                              <Link
-                                href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
-                              </Link>
-                            </nav>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- post image --> */}
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='relative w-full h-48'>
-                          <img
-                            src='images/post/post-1.jpg'
-                            alt=''
-                            className='w-full h-full object-cover inset-0'
-                          />
-                        </div>
-                      </Link>
-
-                      {/* <!-- post icons --> */}
-                      <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
-                        <button type='button' className='button__ico'>
-                          <IoHeartOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico'>
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico ml-auto'>
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
-                      {/* <!-- heading --> */}
-                      <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
-                        <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-2.jpg' alt='' className='w-6 h-6 rounded-full' />
-                        </Link>
-                        <div className='flex-1'>
-                          <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Jesse Steeve </h4>
-                          </Link>
-                        </div>
-
-                        {/* <!-- dropdown options --> */}
-                        <div className='absolute top-0.5 right-0 m-2.5'>
-                          <button type='button' className='button__ico w-8 h-8'>
-                            <IoEllipsisHorizontal className='text-xl' />
-                          </button>
-                          <div
-                            className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
-                            <nav>
-                              <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
-                              </Link>
-                              <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
-                              </Link>
-                              <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
-                              </Link>
-                              <hr />
-                              <Link
-                                href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
-                              </Link>
-                            </nav>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- post image --> */}
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='relative w-full h-48'>
-                          <img
-                            src='images/post/post-2.jpg'
-                            alt=''
-                            className='w-full h-full object-cover inset-0'
-                          />
-                        </div>
-                      </Link>
-
-                      {/* <!-- post icons --> */}
-                      <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
-                        <button type='button' className='button__ico'>
-                          <IoHeartOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico'>
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico ml-auto'>
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
-                      {/* <!-- heading --> */}
-                      <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
-                        <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-3.jpg' alt='' className='w-6 h-6 rounded-full' />
-                        </Link>
-                        <div className='flex-1'>
-                          <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> Martin Gray </h4>
-                          </Link>
-                        </div>
-
-                        {/* <!-- dropdown options --> */}
-                        <div className='absolute top-0.5 right-0 m-2.5'>
-                          <button type='button' className='button__ico w-8 h-8'>
-                            <IoEllipsisHorizontal className='text-xl' />
-                          </button>
-                          <div
-                            className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
-                            <nav>
-                              <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
-                              </Link>
-                              <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
-                              </Link>
-                              <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
-                              </Link>
-                              <hr />
-                              <Link
-                                href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
-                              </Link>
-                            </nav>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- post image --> */}
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='relative w-full h-48'>
-                          <img
-                            src='images/post/post-3.jpg'
-                            alt=''
-                            className='w-full h-full object-cover inset-0'
-                          />
-                        </div>
-                      </Link>
-
-                      {/* <!-- post icons --> */}
-                      <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
-                        <button type='button' className='button__ico'>
-                          <IoHeartOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico'>
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico ml-auto'>
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className='relative lg:rounded-xl rounded-md overflow-hidden shadow bg-white dark:bg-background-2'>
-                      {/* <!-- heading --> */}
-                      <div className='flex items-center gap-3 sm:px-4 py-3 p-2 text-sm font-normal'>
-                        <Link href='profile.html' className='max-md:hidden'>
-                          <img src='images/avatars/avatar-4.jpg' alt='' className='w-6 h-6 rounded-full' />
-                        </Link>
-                        <div className='flex-1'>
-                          <Link href='profile.html'>
-                            <h4 className='text-black dark:text-white'> John Michael </h4>
-                          </Link>
-                        </div>
-
-                        {/* <!-- dropdown options --> */}
-                        <div className='absolute top-0.5 right-0 m-2.5'>
-                          <button type='button' className='button__ico w-8 h-8'>
-                            <IoEllipsisHorizontal className='text-xl' />
-                          </button>
-                          <div
-                            className='w-[232px]'
-                            data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
-                            <nav>
-                              <Link href='#'>
-                                <IoBookmarkOutline className='text-xl shrink-0' /> Add favorites
-                              </Link>
-                              <Link href='#'>
-                                <IoFlagOutline className='text-xl shrink-0' /> Report
-                              </Link>
-                              <Link href='#'>
-                                <IoShareOutline className='text-xl shrink-0' /> Share
-                              </Link>
-                              <hr />
-                              <Link
-                                href='#'
-                                className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                                <IoStopCircleOutline className='text-xl shrink-0' /> Remove
-                              </Link>
-                            </nav>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- post image --> */}
-                      <Link href='#preview_modal' data-uk-toggle=''>
-                        <div className='relative w-full h-48'>
-                          <img
-                            src='images/post/post-4.jpg'
-                            alt=''
-                            className='w-full h-full object-cover inset-0'
-                          />
-                        </div>
-                      </Link>
-
-                      {/* <!-- post icons --> */}
-                      <div className='flex items-center md:gap-3 gap-1 md:py-2.5 md:px-3 p-1.5'>
-                        <button type='button' className='button__ico'>
-                          <IoHeartOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico'>
-                          <IoChatbubbleEllipsesOutline className='md:text-2xl text-lg' />
-                        </button>
-                        <button type='button' className='button__ico ml-auto'>
-                          <IoBookmarkOutline className='md:text-2xl text-lg' />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* <!-- placeholders --> */}
-                    <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                    <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                    <div className='w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-background-2 animate-pulse'></div>
-                  </div>
-
-                  {/* <!-- load more --> */}
-                  <div className='flex justify-center my-6'>
-                    <button
-                      type='button'
-                      className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-background-2'>
-                      Load more...
-                    </button>
-                  </div>
-                </div>
+    <main className='ms-60 max-lg:ms-0'>
+      {/* <main id="site__main" className="2xl:ml-[--w-side]  xl:ml-[--w-side-sm] p-2.5 h-[calc(100vh-var(--m-top))] mt-[--m-top]"> */}
+
+      <div className='max-w-[1065px] mx-auto max-lg:-m-2.5'>
+        {/* <!-- cover  --> */}
+        <div className='bg-foreground-1 shadow lg:rounded-b-2xl lg:-mt-10'>
+          {/* <!-- cover --> */}
+          <div className='relative overflow-hidden w-full lg:h-72 h-48'>
+            <img
+              src='/images/avatars/profile-cover.jpg'
+              alt=''
+              className='h-full w-full object-cover inset-0'
+            />
+
+            {/* <!-- overly --> */}
+            <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10'></div>
+
+            <div className='absolute bottom-0 right-0 m-4 z-20'>
+              <div className='flex items-center gap-3'>
+                <button className='button bg-white/20 text-white flex items-center gap-2 backdrop-blur-sm'>
+                  Crop
+                </button>
+                <button className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
+                  Edit
+                </button>
               </div>
             </div>
           </div>
-        </main>
-      </div>
 
-      {/* <!-- post preview modal --> */}
-      <div className='hidden max-lg:!items-start lg:p-20' id='preview_modal' data-uk-modal=''>
-        <div className='uk-modal-dialog tt ax-w-[86rem] relative mx-auto w-full items-center overflow-hidden rounded-lg shadow-xl lg:flex lg:h-[80vh]'>
-          {/* <!-- image previewer --> */}
-          <div className='relative flex h-96 w-full items-center justify-center lg:h-full lg:w-[calc(100vw-400px)]'>
-            <div className='relative z-10 h-full w-full'>
-              <img src='images/post/post-1.jpg' alt='' className='absolute h-full w-full object-cover' />
-            </div>
-
-            {/* <!-- close button --> */}
-            <button
-              type='button'
-              className='uk-animation-slide-right-medium uk-modal-close absolute right-0 top-0 z-10 m-3 rounded-full bg-white p-2 dark:bg-slate-600'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth='1.5'
-                stroke='currentColor'
-                className='h-6 w-6'>
-                <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
-              </svg>
-            </button>
-          </div>
-
-          {/* <!-- right sidebar --> */}
-          <div className='dark:bg-background-2 relative flex h-full w-full  flex-col justify-between overflow-y-auto bg-white shadow-xl lg:w-[400px]'>
-            <div className='p-5 pb-0'>
-              {/* <!-- story heading --> */}
-              <div className='flex gap-3 text-sm font-medium'>
-                <img src='images/avatars/avatar-5.jpg' alt='' className='h-9 w-9 rounded-full' />
-                <div className='flex-1'>
-                  <h4 className='font-medium text-black dark:text-white'>Steeve</h4>
-                  <div className='text-xs text-gray-500 dark:text-white/80'>2 hours ago</div>
+          {/* <!-- user info --> */}
+          <div className='p-3'>
+            <div className='flex flex-col justify-center md:items-center lg:-mt-48 -mt-28'>
+              <div className='relative lg:h-48 lg:w-48 w-28 h-28 mb-4 z-10'>
+                <div className='relative overflow-hidden rounded-full md:border-[6px] border-gray-100 shrink-0 dark:border-slate-900 shadow'>
+                  <img
+                    src='/images/avatars/avatar-6.jpg'
+                    alt=''
+                    className='h-full w-full object-cover inset-0'
+                  />
                 </div>
+                <button
+                  type='button'
+                  className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
 
-                {/* <!-- dropdown --> */}
-                <div className='-m-1'>
-                  <button type='button' className='button__ico h-8 w-8'>
-                    <IoEllipsisHorizontal className='text-xl' />
-                  </button>
-                  <div
-                    className='w-[253px]'
-                    data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true'>
-                    <nav>
-                      <Link href='#' className='hover:!bg-hover-1 my-1'>
-                        <IoBookmarkOutline className='shrink-0 text-xl' /> Add to favorites
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 my-1'>
-                        <IoNotificationsOffOutline className='shrink-0 text-xl' />
-                        Mute Notification
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 my-1'>
-                        <IoFlagOutline className='shrink-0 text-xl' /> Report this post
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 my-1'>
-                        <IoShareOutline className='shrink-0 text-xl' /> Share your profile
-                      </Link>
-                      <hr />
-                      <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                        <IoStopCircleOutline className='shrink-0 text-xl' />
-                        Unfollow
-                      </Link>
-                    </nav>
-                  </div>
-                </div>
+                  <IoCamera className='text-2xl md hydrated' aria-label='camera' />
+                </button>
               </div>
 
-              <p className='mt-4 text-sm font-normal leading-6'>
-                Photography is the art of capturing light with a camera. it can be fun, challenging. It can
-                also be a hobby, a passion. 📷
+              <h3 className='md:text-3xl text-base font-bold text-text-1'> Monroe Parker </h3>
+
+              <p className='mt-2 text-gray-500 dark:text-white/80'>
+
+                Family , Food , Fashion , Forever
+                <Link href='#' className='text-blue-500 ml-4 inline-block'>
+
+                  Edit
+                </Link>
               </p>
 
-              <div className='relative -mx-5 mt-3 px-5 py-3 shadow'>
-                <div className='flex items-center gap-4 text-xs font-semibold'>
-                  <div className='flex items-center gap-2.5'>
-                    <button type='button' className='button__ico bg-red-100 text-red-500 dark:bg-slate-700'>
-                      <FaHeart className='text-lg' />
-                    </button>
-                    <Link href='#'>1,300</Link>
-                  </div>
-                  <div className='flex items-center gap-3'>
-                    <button type='button' className='button__ico bg-slate-100 dark:bg-slate-700'>
-                      <IoChatbubbleEllipses className='text-lg' />
-                    </button>
-                    <span>260</span>
-                  </div>
-                  <button type='button' className='button__ico ml-auto'>
-                    <IoShareOutline className='text-xl' />
-                  </button>
-                  <button type='button' className='button__ico'>
-                    <IoBookmarkOutline className='text-xl' />
-                  </button>
-                </div>
-              </div>
+              <p className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'>
+
+                I love beauty and emotion. 🥰 I’m passionate about photography and learning. 📚 I explore
+                genres and styles. 🌈 I think photography is storytelling. 😊
+              </p>
             </div>
+          </div>
 
-            <div className='h-full flex-1 overflow-y-auto p-5 custom-scrollbar-fg'>
-              {/* <!-- comment list --> */}
-              <div className='relative space-y-5 text-sm font-medium'>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-2.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Steeve
-                    </Link>
-                    <p className='mt-0.5'>What a beautiful, I love it. 😍 </p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-3.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Monroe
-                    </Link>
-                    <p className='mt-0.5'> You captured the moment.😎 </p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-7.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Alexia
-                    </Link>
-                    <p className='mt-0.5'> This photo is amazing! </p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-4.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      John
-                    </Link>
-                    <p className='mt-0.5'> Wow, You are so talented 😍 </p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-5.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Michael
-                    </Link>
-                    <p className='mt-0.5'> I love taking photos 🌳🐶</p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-3.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Monroe
-                    </Link>
-                    <p className='mt-0.5'> Awesome. 😊😢 </p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-5.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Jesse
-                    </Link>
-                    <p className='mt-0.5'> Well done 🎨📸 </p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-2.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Steeve
-                    </Link>
-                    <p className='mt-0.5'>What a beautiful, I love it. 😍 </p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-7.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Alexia
-                    </Link>
-                    <p className='mt-0.5'> This photo is amazing! </p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-4.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      John
-                    </Link>
-                    <p className='mt-0.5'> Wow, You are so talented 😍 </p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-5.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Michael
-                    </Link>
-                    <p className='mt-0.5'> I love taking photos 🌳🐶</p>
-                  </div>
-                </div>
-                <div className='relative flex items-start gap-3'>
-                  <img src='images/avatars/avatar-3.jpg' alt='' className='mt-1 h-6 w-6 rounded-full' />
-                  <div className='flex-1'>
-                    <Link href='#' className='inline-block font-medium text-black dark:text-white'>
-                      Monroe
-                    </Link>
-                    <p className='mt-0.5'> Awesome. 😊😢 </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className='flex items-center gap-2 bg-white p-3 text-sm font-medium bg-background-2'>
-              <img src='images/avatars/avatar-2.jpg' alt='' className='h-6 w-6 rounded-full' />
-
-              <div className='relative flex-1 overflow-hidden '>
-                <textarea
-                  placeholder='Add Comment....'
-                  rows={1}
-                  className='resize- w-full rounded-lg bg-hover-1 resize-y px-4 py-2 focus:!border-transparent focus:!ring-transparent'></textarea>
-
-                <div className='absolute bottom-0.5 right-0 m-3 flex items-center gap-2'>
-                  <FaImage className='flex text-xl text-blue-700' />
-                  <IoHappy className='flex text-xl text-yellow-500' />
-                </div>
-              </div>
+          {/* <!-- navigation --> */}
+          <div
+            className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'
+            data-uk-sticky='offset:64; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl  animation:uk-animation-slide-top ; media: 992'>
+            <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
+              <button className='button bg-blue-1 hover:bg-blue-2 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
+                <IoAddCircle className='text-xl' />
+                <span className='text-sm'> Add Friend </span>
+              </button>
+              <button className='button bg-foreground-2 hover:bg-hover-1 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
+                <FaCheckCircle className='text-xl' />
+                <span className='text-sm'> Friend </span>
+              </button>
 
               <button
                 type='submit'
-                className='bg-hover-1 hidden rounded-full px-4 py-1.5 text-sm font-semibold'>
-                Replay
+                className='rounded-lg bg-foreground-1 flex px-2.5 py-2 hover:bg-hover-1'>
+                <IoSearch className='text-xl' />
               </button>
+
+              <div>
+                <button type='submit' className='rounded-lg bg-foreground-2 flex px-2.5 py-2'>
+                  <IoEllipsisHorizontal className='text-xl' />
+                </button>
+                <div
+                  className='w-[240px] !bg-foreground-1'
+                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                  <nav>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+
+                      <FaPhoneAlt className='text-xl' /> Voice Call
+                    </Link>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      <FaVideo className='text-xl' /> Video Call
+                    </Link>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+
+                      <IoFlagOutline className='text-xl' /> Report
+                    </Link>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+
+                      <IoShareOutline className='text-xl' /> Share profile
+                    </Link>
+                    <hr />
+                    <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
+
+                      <IoStopCircleOutline className='text-xl' /> Block
+                    </Link>
+                  </nav>
+                </div>
+              </div>
+            </div>
+
+            <nav className='flex gap-0.5 rounded-xl -mb-px text-gray-600 font-medium text-[15px]  dark:text-white max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
+              <Link
+                href='#'
+                className='hover:bg-hover-1 hover:rounded-sm inline-block  py-3 leading-8 px-3.5 border-b-2 border-blue-600 text-blue-600'>
+                Timeline
+              </Link>
+              <Link
+                href='#'
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                Friend <span className='text-xs pl-2 font-normal lg:inline-block hidden'>2,680</span>
+              </Link>
+              <Link
+                href='#'
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                Photo
+              </Link>
+              <Link
+                href='#'
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                Photo
+              </Link>
+              <Link
+                href='#'
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                Photo
+              </Link>
+              <Link
+                href='#'
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                Video
+              </Link>
+              <Link
+                href='#'
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                Group
+              </Link>
+
+              {/* <!-- dropdown --> */}
+              <div>
+                <Link
+                  href='#'
+                  className='hover:bg-hover-1 hover:rounded-sm inline-flex items-center gap-2 py-3 leading-8 px-3'>
+                  More
+                  <IoChevronDown />
+                </Link>
+                <div
+                  className='md:w-[240px] w-screen !bg-foreground-1'
+                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:-4'>
+                  <nav className='text-[15px]'>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      Likes
+                    </Link>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      Music
+                    </Link>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      Events
+                    </Link>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      Books
+                    </Link>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      Reviews given
+                    </Link>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      Groups
+                    </Link>
+                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      Manage Sections
+                    </Link>
+                  </nav>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+
+        <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='js-oversized'>
+          {/* <!-- feed story --> */}
+
+          <div className='flex-1 xl:space-y-6 space-y-3'>
+            {/* <!-- add story --> */}
+            <div className='bg-foreground-1 rounded-xl shadow-sm p-4 space-y-4 text-sm font-medium'>
+              <div className='flex items-center gap-3'>
+                <div
+                  className='flex-1 bg-foreground-2 hover:bg-opacity-80 transition-all rounded-lg cursor-pointer'
+                  data-uk-toggle='target: #create-status'>
+                  <div className='py-2.5 text-center dark:text-white'> What do you have in mind? </div>
+                </div>
+                <div
+                  className='cursor-pointer hover:bg-opacity-80 p-1 px-1.5 rounded-lg transition-all bg-pink-100/60 hover:bg-pink-100'
+                  data-uk-toggle='target: #create-status'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='w-8 h-8 stroke-pink-600 fill-pink-200/70'
+                    viewBox='0 0 24 24'
+                    strokeWidth='1.5'
+                    stroke='#2c3e50'
+                    fill='none'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'>
+                    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                    <path d='M15 8h.01' />
+                    <path d='M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z' />
+                    <path d='M3.5 15.5l4.5 -4.5c.928 -.893 2.072 -.893 3 0l5 5' />
+                    <path d='M14 14l1 -1c.928 -.893 2.072 -.893 3 0l2.5 2.5' />
+                  </svg>
+                </div>
+                <div
+                  className='cursor-pointer hover:bg-opacity-80 p-1 px-1.5 rounded-lg transition-all bg-sky-100/60 hover:bg-sky-100'
+                  data-uk-toggle='target: #create-status'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='w-8 h-8 stroke-sky-600 fill-sky-200/70 '
+                    viewBox='0 0 24 24'
+                    strokeWidth='1.5'
+                    stroke='#2c3e50'
+                    fill='none'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'>
+                    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                    <path d='M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z' />
+                    <path d='M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z' />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <Post />
+            <Post />
+            <Post />
+            <PostSkeleton />
+          </div>
+
+          {/* <!-- sidebar --> */}
+
+          <div className='lg:w-[400px]'>
+            <div
+              className='lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
+              data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
+              <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
+                <div className='flex items-ce justify-between text-text-1'>
+                  <h3 className='font-bold text-lg'> Intro </h3>
+                  <Link href='#' className='text-sm text-blue-500'>
+                    Edit
+                  </Link>
+                </div>
+
+                <ul className='text-text-2 space-y-4 mt-4 text-sm '>
+                  <li className='flex items-center gap-3'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth='1.5'
+                      stroke='currentColor'
+                      className='w-6 h-6'>
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z'
+                      />
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
+                      />
+                    </svg>
+                    <div>
+
+                      Live In <span className='font-semibold text-text-1'> Cairo , Egypt </span>
+                    </div>
+                  </li>
+                  <li className='flex items-center gap-3'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth='1.5'
+                      stroke='currentColor'
+                      className='w-6 h-6'>
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5'
+                      />
+                    </svg>
+                    <div>
+
+                      Studied at <span className='font-semibold text-text-1'>
+
+                        University of Turkey
+                      </span>
+                    </div>
+                  </li>
+                  <li className='flex items-center gap-3'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth='1.5'
+                      stroke='currentColor'
+                      className='w-6 h-6'>
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z'
+                      />
+                    </svg>
+
+                    <div>
+
+                      Works at <span className='font-semibold text-text-1'> Envanto Martket </span>
+                    </div>
+                  </li>
+                  <li className='flex items-center gap-3'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth='1.5'
+                      stroke='currentColor'
+                      className='w-6 h-6'>
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z'
+                      />
+                    </svg>
+                    <div>
+
+                      In <span className='font-semibold text-text-1'> Relationship </span>
+                    </div>
+                  </li>
+                  <li className='flex items-center gap-3'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth='1.5'
+                      stroke='currentColor'
+                      className='w-6 h-6'>
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M12.75 19.5v-.75a7.5 7.5 0 00-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
+                      />
+                    </svg>
+                    <div>
+
+                      Flowwed By <span className='font-semibold text-text-1'> 3,240 People </span>
+                    </div>
+                  </li>
+                </ul>
+
+                {/* <!-- Hobbies --> */}
+                <div className='flex flex-wrap gap-1 text-sm mt-4 font-semibold capitalize'>
+                  <div className='inline-flex items-center gap-2 py-0.5 px-2.5 border shadow rounded-full border-gray-100'>
+                    Shopping
+                  </div>
+                  <div className='inline-flex items-center gap-2 py-0.5 px-2.5 border shadow rounded-full border-gray-100'>
+                    code
+                  </div>
+                  <div className='inline-flex items-center gap-2 py-0.5 px-2.5 border shadow rounded-full border-gray-100'>
+                    art
+                  </div>
+                  <div className='inline-flex items-center gap-2 py-0.5 px-2.5 border shadow rounded-full border-gray-100'>
+                    design
+                  </div>
+                </div>
+
+                <div className='grid grid-cols-2 gap-1 text-center text-sm mt-4 mb-2 rounded-lg overflow-hidden'>
+                  <div className='relative w-full aspect-[4/3]'>
+                    <img
+                      src='/images/avatars/avatar-5.jpg'
+                      alt=''
+                      className='object-cover w-full h-full inset-0'
+                    />
+                  </div>
+                  <div className='relative w-full aspect-[4/3]'>
+                    <img
+                      src='/images/avatars/avatar-7.jpg'
+                      alt=''
+                      className='object-cover w-full h-full inset-0'
+                    />
+                  </div>
+                  <div className='relative w-full aspect-[4/3]'>
+                    <img
+                      src='/images/avatars/avatar-4.jpg'
+                      alt=''
+                      className='object-cover w-full h-full inset-0'
+                    />
+                  </div>
+                  <div className='relative w-full aspect-[4/3]'>
+                    <img
+                      src='/images/avatars/avatar-6.jpg'
+                      alt=''
+                      className='object-cover w-full h-full inset-0'
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
+                <div className='flex items-ce justify-between text-text-1'>
+                  <h3 className='font-bold text-lg'>
+
+                    Friends
+                    <span className='block text-sm text-gray-500 mt-0. font-normal dark:text-white'>
+
+                      3489 Friends
+                    </span>
+                  </h3>
+                  <Link href='#' className='text-sm text-blue-500'>
+                    Find Friend
+                  </Link>
+                </div>
+
+                <div className='grid grid-cols-3 gap-2 gap-y-5 text-center text-sm mt-4 mb-2'>
+                  <div>
+                    <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
+                      <img
+                        src='/images/avatars/avatar-7.jpg'
+                        alt=''
+                        className='object-cover w-full h-full inset-0'
+                      />
+                    </div>
+                    <div className='mt-2 line-clamp-1'> Jesse Steeve </div>
+                  </div>
+                  <div>
+                    <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
+                      <img
+                        src='/images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='object-cover w-full h-full inset-0'
+                      />
+                    </div>
+                    <div className='mt-2 line-clamp-1'> John Michael </div>
+                  </div>
+                  <div>
+                    <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
+                      <img
+                        src='/images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='object-cover w-full h-full inset-0'
+                      />
+                    </div>
+                    <div className='mt-2 line-clamp-1'> Monroe Parker </div>
+                  </div>
+                  <div>
+                    <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
+                      <img
+                        src='/images/avatars/avatar-4.jpg'
+                        alt=''
+                        className='object-cover w-full h-full inset-0'
+                      />
+                    </div>
+                    <div className='mt-2 line-clamp-1'> Martin Gray </div>
+                  </div>
+                  <div>
+                    <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
+                      <img
+                        src='/images/avatars/avatar-5.jpg'
+                        alt=''
+                        className='object-cover w-full h-full inset-0'
+                      />
+                    </div>
+                    <div className='mt-2 line-clamp-1'> James Lewis </div>
+                  </div>
+                  <div>
+                    <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
+                      <img
+                        src='/images/avatars/avatar-6.jpg'
+                        alt=''
+                        className='object-cover w-full h-full inset-0'
+                      />
+                    </div>
+                    <div className='mt-2 line-clamp-1'> Alex stella </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* <!-- Groups You Manage  --> */}
+              <div className='bg-foreground-1 rounded-xl shadow p-5 px-6 border1'>
+                <div className='flex items-baseline justify-between text-text-1'>
+                  <h3 className='font-bold text-base'> Suggested Manage </h3>
+                  <Link href='#' className='text-sm text-blue-500'>
+                    See all
+                  </Link>
+                </div>
+
+                <div className='mt-5'>
+                  <div className='flex items-center space-x-3 my-3'>
+                    <Link href='timeline-group.html'>
+                      <img src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-full' />
+                    </Link>
+                    <div className='flex-1'>
+                      <Link href='timeline-group.html'>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
+                      </Link>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 6 day ago </div>
+                    </div>
+                    <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                  </div>
+                  <div className='flex items-center space-x-3 my-3'>
+                    <Link href='timeline-group.html'>
+                      <img src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-full' />
+                    </Link>
+                    <div className='flex-1'>
+                      <Link href='timeline-group.html'>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
+                      </Link>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 month ago </div>
+                    </div>
+                    <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                  </div>
+                  <div className='flex items-center space-x-3 my-3'>
+                    <Link href='timeline-group.html'>
+                      <img src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-full' />
+                    </Link>
+                    <div className='flex-1'>
+                      <Link href='timeline-group.html'>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
+                      </Link>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 1 week ago </div>
+                    </div>
+                    <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                  </div>
+                  <div className='flex items-center space-x-3 my-3'>
+                    <Link href='timeline-group.html'>
+                      <img src='/images/avatars/avatar-1.jpg' alt='' className='h-10 w-10 rounded-full' />
+                    </Link>
+                    <div className='flex-1'>
+                      <Link href='timeline-group.html'>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'> Jesse Steeve</h4>
+                      </Link>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 day ago </div>
+                    </div>
+                    <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                  </div>
+                </div>
+
+                <button className='bg-foreground-2 w-full text-text-1 py-1.5 font-medium px-3.5 rounded-md text-sm mt-2'>
+                  See all
+                </button>
+              </div>
+
+              {/* <!-- Groups You Manage  --> */}
+              <div className='bg-white rounded-xl shadow p-5 px-6 border1 dark:bg-background-2'>
+                <div className='flex items-baseline justify-between text-text-1'>
+                  <h3 className='font-bold text-base'> Suggested Manage </h3>
+                  <Link href='#' className='text-sm text-blue-500'>
+                    See all
+                  </Link>
+                </div>
+
+                <div className='mt-5'>
+                  <div className='flex items-center space-x-3 my-3'>
+                    <Link href='timeline-group.html'>
+                      <img src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-md' />
+                    </Link>
+                    <div className='flex-1'>
+                      <Link href='timeline-group.html'>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
+                      </Link>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 1 week ago </div>
+                    </div>
+                    <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
+                  </div>
+                  <div className='flex items-center space-x-3 my-3'>
+                    <Link href='timeline-group.html'>
+                      <img src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-md' />
+                    </Link>
+                    <div className='flex-1'>
+                      <Link href='timeline-group.html'>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
+                      </Link>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 4 week ago </div>
+                    </div>
+                    <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
+                  </div>
+                  <div className='flex items-center space-x-3 my-3'>
+                    <Link href='timeline-group.html'>
+                      <img src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-md' />
+                    </Link>
+                    <div className='flex-1'>
+                      <Link href='timeline-group.html'>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
+                      </Link>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 month ago </div>
+                    </div>
+                    <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
-};
-
-export default Profile;
+}
