@@ -2,36 +2,43 @@
 /* eslint-disable @next/next/no-img-element */
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   IoAddCircle,
   IoCamera,
   IoChevronDown,
   IoEllipsisHorizontal,
   IoFlagOutline,
-  IoPricetagOutline,
   IoSearch,
   IoShareOutline,
   IoStopCircleOutline,
-  IoTimeOutline
 } from 'react-icons/io5';
+import { FaCheckCircle, FaPencilAlt, FaPhoneAlt, FaVideo } from 'react-icons/fa';
 
 import Post from '@/components/Post/Post';
 import PostSkeleton from '@/components/Post/PostSkeleton';
-import { Fa500Px, FaCheckCircle, FaPhoneAlt, FaVideo } from 'react-icons/fa';
+import NewPost from '@/components/NewPost/NewPost';
 
 export interface IProfileProps { }
 
-export default function Profile(props: IProfileProps) {
+export default function Profile({ params }: { params: { slug: string } }, props: IProfileProps) {
+
+  const isFriend = params.slug === 'friend';
+  const isMe = params.slug === 'me';
+  const friendName = params.slug === 'friend' ? 'Monroe Parker' : '';
+
   return (
-    <main className='ms-60 max-lg:ms-0'>
+    <main className='ms-60 max-lg:ms-0 mt-16'>
       {/* <main id="site__main" className="2xl:ml-[--w-side]  xl:ml-[--w-side-sm] p-2.5 h-[calc(100vh-var(--m-top))] mt-[--m-top]"> */}
 
-      <div className='max-w-[1065px] mx-auto max-lg:-m-2.5'>
+      <div className='max-w-[1065px] mx-auto'>
         {/* <!-- cover  --> */}
-        <div className='bg-foreground-1 shadow lg:rounded-b-2xl lg:-mt-10'>
+        <div className='bg-foreground-1 shadow lg:rounded-b-2xl'>
           {/* <!-- cover --> */}
           <div className='relative overflow-hidden w-full lg:h-72 h-48'>
-            <img
+            <Image
+              width={1000}
+              height={1000}
               src='/images/avatars/profile-cover.jpg'
               alt=''
               className='h-full w-full object-cover inset-0'
@@ -40,16 +47,18 @@ export default function Profile(props: IProfileProps) {
             {/* <!-- overly --> */}
             <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10'></div>
 
-            <div className='absolute bottom-0 right-0 m-4 z-20'>
-              <div className='flex items-center gap-3'>
-                <button className='button bg-white/20 text-white flex items-center gap-2 backdrop-blur-sm'>
-                  Crop
-                </button>
-                <button className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
-                  Edit
-                </button>
+            {isMe && (
+              <div className='absolute bottom-0 right-0 m-4 z-20'>
+                <div className='flex items-center gap-3'>
+                  <button className='button bg-white/20 text-white flex items-center gap-2 backdrop-blur-sm'>
+                    Crop
+                  </button>
+                  <button className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
+                    Edit
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* <!-- user info --> */}
@@ -57,7 +66,9 @@ export default function Profile(props: IProfileProps) {
             <div className='flex flex-col justify-center md:items-center lg:-mt-48 -mt-28'>
               <div className='relative lg:h-48 lg:w-48 w-28 h-28 mb-4 z-10'>
                 <div className='relative overflow-hidden rounded-full md:border-[6px] border-gray-100 shrink-0 dark:border-slate-900 shadow'>
-                  <img
+                  <Image
+                    width={500}
+                    height={500}
                     src='/images/avatars/avatar-6.jpg'
                     alt=''
                     className='h-full w-full object-cover inset-0'
@@ -66,24 +77,19 @@ export default function Profile(props: IProfileProps) {
                 <button
                   type='button'
                   className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
-
                   <IoCamera className='text-2xl md hydrated' aria-label='camera' />
                 </button>
               </div>
-
               <h3 className='md:text-3xl text-base font-bold text-text-1'> Monroe Parker </h3>
-
               <p className='mt-2 text-gray-500 dark:text-white/80'>
-
                 Family , Food , Fashion , Forever
-                <Link href='#' className='text-blue-500 ml-4 inline-block'>
-
-                  Edit
-                </Link>
+                {isMe && (
+                  <Link href='#' className='text-blue-500 ml-4 inline-block'>
+                    Edit
+                  </Link>
+                )}
               </p>
-
               <p className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'>
-
                 I love beauty and emotion. 🥰 I’m passionate about photography and learning. 📚 I explore
                 genres and styles. 🌈 I think photography is storytelling. 😊
               </p>
@@ -95,14 +101,51 @@ export default function Profile(props: IProfileProps) {
             className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'
             data-uk-sticky='offset:64; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl  animation:uk-animation-slide-top ; media: 992'>
             <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
-              <button className='button bg-blue-1 hover:bg-blue-2 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
-                <IoAddCircle className='text-xl' />
-                <span className='text-sm'> Add Friend </span>
-              </button>
-              <button className='button bg-foreground-2 hover:bg-hover-1 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
-                <FaCheckCircle className='text-xl' />
-                <span className='text-sm'> Friend </span>
-              </button>
+
+              {isMe && (
+                <button className='button bg-foreground-2 hover:bg-hover-1 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
+                  <FaPencilAlt className='text-lg' />
+                  <span className='text-sm'> Edit Profile </span>
+                </button>
+              )}
+              {!isFriend && !isMe && (
+                <button className='button bg-blue-1 hover:bg-blue-2 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
+                  <IoAddCircle className='text-xl' />
+                  <span className='text-sm'> Add Friend </span>
+                </button>
+              )}
+              {isFriend && (
+                <div>
+                  <button className='button bg-foreground-2 hover:bg-hover-1 flex items-center gap-2 text-text-1 py-2 px-3.5 max-md:flex-1'>
+                    <FaCheckCircle className='text-xl' />
+                    <span className='text-sm text-text-1'> Friend </span>
+                  </button>
+                  <div
+                    className='w-[240px] !bg-foreground-1'
+                    data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                    <nav>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Unfriend
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Add to Close Friends
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Add to Acquaintances
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Add to another list
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Suggest Friends
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Report
+                      </Link>
+                    </nav>
+                  </div>
+                </div>
+              )}
 
               <button
                 type='submit'
@@ -117,28 +160,59 @@ export default function Profile(props: IProfileProps) {
                 <div
                   className='w-[240px] !bg-foreground-1'
                   data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                  <nav>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
-                      <FaPhoneAlt className='text-xl' /> Voice Call
-                    </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                      <FaVideo className='text-xl' /> Video Call
-                    </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
-                      <IoFlagOutline className='text-xl' /> Report
-                    </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
-                      <IoShareOutline className='text-xl' /> Share profile
-                    </Link>
-                    <hr />
-                    <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-
-                      <IoStopCircleOutline className='text-xl' /> Block
-                    </Link>
-                  </nav>
+                  {isMe ? (
+                    <nav>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Edit Profile
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Activity Log
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Archive
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Your Profile
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        More
+                      </Link>
+                      <hr />
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Settings & Privacy
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Help & Support
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Display & Accessibility
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        Dark Mode
+                      </Link>
+                    </nav>
+                  ) : (
+                    <nav>
+                      {isFriend && (
+                        <>
+                          <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                            <FaPhoneAlt className='text-xl' /> Voice Call
+                          </Link>
+                          <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                            <FaVideo className='text-xl' /> Video Call
+                          </Link>
+                        </>)}
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        <IoFlagOutline className='text-xl' /> Report
+                      </Link>
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        <IoShareOutline className='text-xl' /> Share profile
+                      </Link>
+                      <hr />
+                      <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
+                        <IoStopCircleOutline className='text-xl' /> Block
+                      </Link>
+                    </nav>)}
                 </div>
               </div>
             </div>
@@ -225,51 +299,7 @@ export default function Profile(props: IProfileProps) {
 
           <div className='flex-1 xl:space-y-6 space-y-3'>
             {/* <!-- add story --> */}
-            <div className='bg-foreground-1 rounded-xl shadow-sm p-4 space-y-4 text-sm font-medium'>
-              <div className='flex items-center gap-3'>
-                <div
-                  className='flex-1 bg-foreground-2 hover:bg-opacity-80 transition-all rounded-lg cursor-pointer'
-                  data-uk-toggle='target: #create-status'>
-                  <div className='py-2.5 text-center dark:text-white'> What do you have in mind? </div>
-                </div>
-                <div
-                  className='cursor-pointer hover:bg-opacity-80 p-1 px-1.5 rounded-lg transition-all bg-pink-100/60 hover:bg-pink-100'
-                  data-uk-toggle='target: #create-status'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='w-8 h-8 stroke-pink-600 fill-pink-200/70'
-                    viewBox='0 0 24 24'
-                    strokeWidth='1.5'
-                    stroke='#2c3e50'
-                    fill='none'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'>
-                    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                    <path d='M15 8h.01' />
-                    <path d='M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z' />
-                    <path d='M3.5 15.5l4.5 -4.5c.928 -.893 2.072 -.893 3 0l5 5' />
-                    <path d='M14 14l1 -1c.928 -.893 2.072 -.893 3 0l2.5 2.5' />
-                  </svg>
-                </div>
-                <div
-                  className='cursor-pointer hover:bg-opacity-80 p-1 px-1.5 rounded-lg transition-all bg-sky-100/60 hover:bg-sky-100'
-                  data-uk-toggle='target: #create-status'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='w-8 h-8 stroke-sky-600 fill-sky-200/70 '
-                    viewBox='0 0 24 24'
-                    strokeWidth='1.5'
-                    stroke='#2c3e50'
-                    fill='none'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'>
-                    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                    <path d='M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z' />
-                    <path d='M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z' />
-                  </svg>
-                </div>
-              </div>
-            </div>
+            <NewPost title={'Write some thing for ' + friendName + '...'} />
 
             <Post />
             <Post />
@@ -286,9 +316,11 @@ export default function Profile(props: IProfileProps) {
               <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
                 <div className='flex items-ce justify-between text-text-1'>
                   <h3 className='font-bold text-lg'> Intro </h3>
-                  <Link href='#' className='text-sm text-blue-500'>
-                    Edit
-                  </Link>
+                  {isMe && (
+                    <Link href='#' className='text-sm text-blue-500'>
+                      Edit
+                    </Link>
+                  )}
                 </div>
 
                 <ul className='text-text-2 space-y-4 mt-4 text-sm '>
@@ -393,7 +425,7 @@ export default function Profile(props: IProfileProps) {
                     </svg>
                     <div>
 
-                      Flowwed By <span className='font-semibold text-text-1'> 3,240 People </span>
+                      Followed By <span className='font-semibold text-text-1'> 3,240 People </span>
                     </div>
                   </li>
                 </ul>
@@ -416,28 +448,36 @@ export default function Profile(props: IProfileProps) {
 
                 <div className='grid grid-cols-2 gap-1 text-center text-sm mt-4 mb-2 rounded-lg overflow-hidden'>
                   <div className='relative w-full aspect-[4/3]'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-5.jpg'
                       alt=''
                       className='object-cover w-full h-full inset-0'
                     />
                   </div>
                   <div className='relative w-full aspect-[4/3]'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-7.jpg'
                       alt=''
                       className='object-cover w-full h-full inset-0'
                     />
                   </div>
                   <div className='relative w-full aspect-[4/3]'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-4.jpg'
                       alt=''
                       className='object-cover w-full h-full inset-0'
                     />
                   </div>
                   <div className='relative w-full aspect-[4/3]'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-6.jpg'
                       alt=''
                       className='object-cover w-full h-full inset-0'
@@ -464,7 +504,9 @@ export default function Profile(props: IProfileProps) {
                 <div className='grid grid-cols-3 gap-2 gap-y-5 text-center text-sm mt-4 mb-2'>
                   <div>
                     <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-7.jpg'
                         alt=''
                         className='object-cover w-full h-full inset-0'
@@ -474,7 +516,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div>
                     <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-2.jpg'
                         alt=''
                         className='object-cover w-full h-full inset-0'
@@ -484,7 +528,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div>
                     <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
                         className='object-cover w-full h-full inset-0'
@@ -494,7 +540,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div>
                     <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-4.jpg'
                         alt=''
                         className='object-cover w-full h-full inset-0'
@@ -504,7 +552,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div>
                     <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-5.jpg'
                         alt=''
                         className='object-cover w-full h-full inset-0'
@@ -514,7 +564,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div>
                     <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-6.jpg'
                         alt=''
                         className='object-cover w-full h-full inset-0'
@@ -537,7 +589,9 @@ export default function Profile(props: IProfileProps) {
                 <div className='mt-5'>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-full' />
+                      <Image
+                        width={500}
+                        height={500} src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-full' />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -549,7 +603,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-full' />
+                      <Image
+                        width={500}
+                        height={500} src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-full' />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -561,7 +617,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-full' />
+                      <Image
+                        width={500}
+                        height={500} src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-full' />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -573,7 +631,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-1.jpg' alt='' className='h-10 w-10 rounded-full' />
+                      <Image
+                        width={500}
+                        height={500} src='/images/avatars/avatar-1.jpg' alt='' className='h-10 w-10 rounded-full' />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -602,7 +662,9 @@ export default function Profile(props: IProfileProps) {
                 <div className='mt-5'>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-md' />
+                      <Image
+                        width={500}
+                        height={500} src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-md' />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -614,7 +676,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-md' />
+                      <Image
+                        width={500}
+                        height={500} src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-md' />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
@@ -626,7 +690,9 @@ export default function Profile(props: IProfileProps) {
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-md' />
+                      <Image
+                        width={500}
+                        height={500} src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-md' />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>

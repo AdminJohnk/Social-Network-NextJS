@@ -9,7 +9,7 @@ const generateItems = () => {
         <div className='flex-start space-x-3'>
           <Image
             className='size-10 rounded-lg'
-            src={`/assets/images/avatars/avatar-${i + 1}.jpg`}
+            src={`/images/avatars/avatar-${i + 1}.jpg`}
             width={100}
             height={100}
             alt='Group avatar'
@@ -28,7 +28,7 @@ const generateItems = () => {
   return items;
 };
 
-export interface ISuggestGroupProps {}
+export interface ISuggestGroupProps { }
 
 export default function SuggestGroup(props: ISuggestGroupProps) {
   return (

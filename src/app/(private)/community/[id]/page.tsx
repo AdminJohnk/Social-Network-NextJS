@@ -11,7 +11,7 @@ import { FiPlus } from 'react-icons/fi';
 
 import SuggestGroup from '../../../../components/pages/Community/SuggestGroup';
 
-export interface ICommunityProps {}
+export interface ICommunityProps { }
 
 export default function Community(props: ICommunityProps) {
   return (
@@ -28,7 +28,7 @@ export default function Community(props: ICommunityProps) {
         <div className='cover'>
           <Image
             className='w-full h-[300px] object-cover object-center'
-            src='/assets/images/group-cover.jpg'
+            src='/images/group-cover.jpg'
             width={1000}
             height={500}
             alt='cover'
@@ -43,23 +43,23 @@ export default function Community(props: ICommunityProps) {
             <div className='flex items-center space-x-4'>
               <div className='flex -space-x-1'>
                 <Avatar
-                  src='/assets/images/avatars/avatar-1.jpg'
+                  src='/images/avatars/avatar-1.jpg'
                   className='size-8'
                 />
                 <Avatar
-                  src='/assets/images/avatars/avatar-2.jpg'
+                  src='/images/avatars/avatar-2.jpg'
                   className='size-8'
                 />
                 <Avatar
-                  src='/assets/images/avatars/avatar-3.jpg'
+                  src='/images/avatars/avatar-3.jpg'
                   className='size-8'
                 />
                 <Avatar
-                  src='/assets/images/avatars/avatar-4.jpg'
+                  src='/images/avatars/avatar-4.jpg'
                   className='size-8'
                 />
                 <Avatar
-                  src='/assets/images/avatars/avatar-5.jpg'
+                  src='/images/avatars/avatar-5.jpg'
                   className='size-8'
                 />
               </div>

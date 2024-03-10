@@ -16,14 +16,14 @@ const SearchList = [
     type: 'user',
     id: '1',
     name: 'John smith',
-    avatar: '/assets/images/avatars/avatar-1.jpg',
+    avatar: '/images/avatars/avatar-1.jpg',
     feature: 'Suggested For You'
   },
   {
     type: 'user',
     id: '2',
     name: 'James Lewis',
-    avatar: '/assets/images/avatars/avatar-2.jpg',
+    avatar: '/images/avatars/avatar-2.jpg',
     feature: 'Follow By Johnson'
   },
   {
@@ -35,21 +35,21 @@ const SearchList = [
     type: 'user',
     id: '3',
     name: 'Monroe Parker',
-    avatar: '/assets/images/avatars/avatar-3.jpg',
+    avatar: '/images/avatars/avatar-3.jpg',
     feature: 'Follow By Johnson'
   },
   {
     type: 'user',
     id: '4',
     name: 'James Lewis',
-    avatar: '/assets/images/avatars/avatar-4.jpg',
+    avatar: '/images/avatars/avatar-4.jpg',
     feature: 'Suggested For You'
   },
   {
     type: 'user',
     id: '5',
     name: 'Monroe Parker',
-    avatar: '/assets/images/avatars/avatar-5.jpg',
+    avatar: '/images/avatars/avatar-5.jpg',
     feature: 'Follow By Johnson'
   },
   {
@@ -66,19 +66,19 @@ const SearchList = [
     type: 'user',
     id: '4',
     name: 'James Lewis',
-    avatar: '/assets/images/avatars/avatar-6.jpg',
+    avatar: '/images/avatars/avatar-6.jpg',
     feature: 'Suggested For You'
   },
   {
     type: 'user',
     id: '1',
     name: 'John smith',
-    avatar: '/assets/images/avatars/avatar-7.jpg',
+    avatar: '/images/avatars/avatar-7.jpg',
     feature: 'Follow By Johnson'
   }
 ];
 
-export interface ISearchProps {}
+export interface ISearchProps { }
 
 export default function Search(props: ISearchProps) {
   return (
