@@ -10,8 +10,8 @@ export default function SideBar() {
   return (
     <div
       id='site_sidebar'
-      className='fixed top-0 left-0 z-[99] pt-[--m-top] overflow-hidden transition-transform xl:duration-500 max-xl:w-full max-xl:-translate-x-full'>
-      <div className='p-2 max-xl:bg-white shadow-sm 2xl:w-72 sm:w-64 w-[80%] h-[calc(100vh-64px)] relative z-30 max-lg:border-r dark:max-xl:!bg-slate-700 dark:border-slate-700'>
+      className='fixed top-0 left-0 z-[99] pt-[--m-top] overflow-hidden transition-transform xl:duration-500 max-lg:w-full max-lg:-translate-x-full'>
+      <div className='p-2 max-lg:bg-background-1 shadow-sm 2xl:w-72 sm:w-64 w-[80%] h-[calc(100vh-64px)] relative z-30 max-lg:border-r dark:border-border-1'>
         <SimpleBar className='pr-4'>
           <nav id='side'>
             <ul>
@@ -24,19 +24,19 @@ export default function SideBar() {
               <li>
                 <Link href='messages'>
                   <Image src='/images/home/message.png' alt='messages' width={20} height={20} />
-                  <span> messages </span>
+                  <span> Messages </span>
                 </Link>
               </li>
               <li>
                 <Link href=''>
                   <Image src='/images/home/video.png' alt='messages' width={24} height={24} />
-                  <span> video </span>
+                  <span> Video </span>
                 </Link>
               </li>
               <li>
-                <Link href=''>
+                <Link href='events'>
                   <Image src='/images/home/event.png' alt='messages' width={24} height={24} />
-                  <span> event </span>
+                  <span> Event </span>
                 </Link>
               </li>
               <li>
@@ -46,7 +46,7 @@ export default function SideBar() {
                 </Link>
               </li>
               <li>
-                <Link href=''>
+                <Link href='community/123'>
                   <Image src='/images/home/group.png' alt='groups' width={24} height={24} />
                   <span> Groups </span>
                 </Link>

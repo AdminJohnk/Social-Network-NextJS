@@ -7,6 +7,8 @@
 @layer base {
   :root {
     --m-top: 4rem;
+    --w-side: 18rem;
+    --w-side-sm: 16rem;
 
     --tw-bg-opacity: 1;
     --tw-text-opacity: 1;
