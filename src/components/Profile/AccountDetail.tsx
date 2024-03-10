@@ -21,12 +21,17 @@ export default function AccountDetail(props: IAccountDetailProps) {
   return (
     <>
       <div className='ps-3'>
-        <Avatar className='mb-3 size-7' src={getImageURL(session?.user.image!)} />
+        <Avatar
+          className='mb-3 size-7'
+          src={getImageURL(session?.user.image!)}
+        />
         <div>
           <span className='h5-bold mb-2'>{session?.user.name}</span>
         </div>
         <div>
-          <span className='small-regular mb-4 text-text-2'>@{session?.user.name}</span>
+          <span className='small-regular mb-4 text-text-2'>
+            @{session?.user.name}
+          </span>
         </div>
         <div className='*:small-bold'>
           <span className='me-2'>620K</span>
@@ -36,7 +41,7 @@ export default function AccountDetail(props: IAccountDetailProps) {
         </div>
       </div>
       <Divider className='my-3 bg-text-1' />
-      <div className='*:cursor-pointer *:rounded-lg *:px-3 *:py-2.5 hover:*:bg-hover-1'>
+      <div className='*:cursor-pointer *:rounded-lg *:px-3 *:py-2.5 hover:*:bg-foreground-2'>
         <div className='flex' onClick={() => router.push('/profile')}>
           <span className='me-3 text-xl'>
             <CiUser />

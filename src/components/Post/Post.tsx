@@ -24,7 +24,8 @@ export default function Post(props: IPostProps) {
             <span className='base-bold'>Monroe Parker</span>
             <Link
               href='/posts/657f06489c29b021b905b804'
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
+            >
               2 hours ago
             </Link>
           </div>
@@ -52,13 +53,13 @@ export default function Post(props: IPostProps) {
       <div className='react flex-between mt-4'>
         <div className='left flex gap-5'>
           <div className='flex gap-3'>
-            <span className='p-1 bg-hover-1 rounded-full'>
+            <span className='p-1 bg-foreground-2 rounded-full'>
               <IoHeart className='size-4 text-red-600 cursor-pointer' />
             </span>
             <span>1.380</span>
           </div>
           <div className='flex gap-3'>
-            <span className='p-1 bg-hover-1 rounded-full'>
+            <span className='p-1 bg-foreground-2 rounded-full'>
               <FaCommentDots className='size-4 cursor-pointer' />
             </span>
             <span>260</span>

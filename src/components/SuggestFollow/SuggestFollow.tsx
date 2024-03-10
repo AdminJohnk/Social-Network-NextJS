@@ -49,10 +49,12 @@ export default function SuggestFollow(props: ISuggestFollowProps) {
                 <Avatar src={item.avatar} className='size-10' />
                 <div className='flex flex-col ms-3'>
                   <span className='base-bold'>{item.name}</span>
-                  <span className='small-regular text-text-2'>{item.feature}</span>
+                  <span className='small-regular text-text-2'>
+                    {item.feature}
+                  </span>
                 </div>
               </div>
-              <button className='base-bold bg-hover-1 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl'>
+              <button className='base-bold bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl'>
                 Follow
               </button>
             </div>

@@ -12,9 +12,10 @@ function SampleNextArrow(props: any) {
   return (
     <span
       className={cn(
-        'text-text-1 text-xl absolute -right-3 top-10 rounded-full bg-hover-1 cursor-pointer p-2'
+        'text-text-1 text-xl absolute -right-3 top-10 rounded-full bg-foreground-2 cursor-pointer p-2'
       )}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       <IoIosArrowForward />
     </span>
   );
@@ -24,8 +25,11 @@ function SamplePrevArrow(props: any) {
   const { onClick } = props;
   return (
     <span
-      className={cn('text-text-1 text-xl absolute -left-4 top-10 rounded-full bg-hover-1 cursor-pointer p-2')}
-      onClick={onClick}>
+      className={cn(
+        'text-text-1 text-xl absolute -left-4 top-10 rounded-full bg-foreground-2 cursor-pointer p-2'
+      )}
+      onClick={onClick}
+    >
       <IoIosArrowBack />
     </span>
   );

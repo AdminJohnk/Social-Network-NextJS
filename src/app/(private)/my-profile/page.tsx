@@ -18,7 +18,7 @@ import {
 import Post from '@/components/Post/Post';
 import PostSkeleton from '@/components/Post/PostSkeleton';
 
-export interface IMyProfileProps { }
+export interface IMyProfileProps {}
 
 export default function MyProfile(props: IMyProfileProps) {
   return (
@@ -64,27 +64,31 @@ export default function MyProfile(props: IMyProfileProps) {
                 </div>
                 <button
                   type='button'
-                  className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
-
-                  <IoCamera className='text-2xl md hydrated' aria-label='camera' />
+                  className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-foreground-2 shadow p-1.5 rounded-full sm:flex hidden'
+                >
+                  <IoCamera
+                    className='text-2xl md hydrated'
+                    aria-label='camera'
+                  />
                 </button>
               </div>
 
-              <h3 className='md:text-3xl text-base font-bold text-text-1'> Monroe Parker </h3>
+              <h3 className='md:text-3xl text-base font-bold text-text-1'>
+                {' '}
+                Monroe Parker{' '}
+              </h3>
 
               <p className='mt-2 text-gray-500 dark:text-white/80'>
-
                 Family , Food , Fashion , Fourever
                 <Link href='#' className='text-blue-500 ml-4 inline-block'>
-
                   Edit
                 </Link>
               </p>
 
               <p className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'>
-
-                I love beauty and emotion. 🥰 I’m passionate about photography and learning. 📚 I explore
-                genres and styles. 🌈 I think photography is storytelling. 😊
+                I love beauty and emotion. 🥰 I’m passionate about photography
+                and learning. 📚 I explore genres and styles. 🌈 I think
+                photography is storytelling. 😊
               </p>
             </div>
           </div>
@@ -92,7 +96,8 @@ export default function MyProfile(props: IMyProfileProps) {
           {/* <!-- navigations --> */}
           <div
             className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'
-            data-uk-sticky='offset:50; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl  animation:uk-animation-slide-top ; media: 992'>
+            data-uk-sticky='offset:50; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl  animation:uk-animation-slide-top ; media: 992'
+          >
             <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
               <button className='button bg-blue-1 hover:bg-blue-2 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
                 <IoAddCircle className='text-xl' />
@@ -101,37 +106,52 @@ export default function MyProfile(props: IMyProfileProps) {
 
               <button
                 type='submit'
-                className='rounded-lg bg-foreground-1 flex px-2.5 py-2 hover:bg-hover-1'>
+                className='rounded-lg bg-foreground-1 flex px-2.5 py-2 hover:bg-hover-1'
+              >
                 <IoSearch className='text-xl' />
               </button>
 
               <div>
-                <button type='submit' className='rounded-lg bg-foreground-2 flex px-2.5 py-2'>
+                <button
+                  type='submit'
+                  className='rounded-lg bg-foreground-2 flex px-2.5 py-2'
+                >
                   <IoEllipsisHorizontal className='text-xl' />
                 </button>
                 <div
                   className='w-[240px] !bg-foreground-1'
-                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
+                >
                   <nav>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       <IoPricetagOutline className='text-xl' /> Unfollow
                     </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       <IoTimeOutline className='text-xl' /> Mute story
                     </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       <IoFlagOutline className='text-xl' /> Report
                     </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       <IoShareOutline className='text-xl' /> Share profile
                     </Link>
                     <hr />
-                    <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-
+                    <Link
+                      href='#'
+                      className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                    >
                       <IoStopCircleOutline className='text-xl' /> Block
                     </Link>
                   </nav>
@@ -142,37 +162,47 @@ export default function MyProfile(props: IMyProfileProps) {
             <nav className='flex gap-0.5 rounded-xl -mb-px text-gray-600 font-medium text-[15px]  dark:text-white max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
               <Link
                 href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block  py-3 leading-8 px-3.5 border-b-2 border-blue-600 text-blue-600'>
+                className='hover:bg-hover-1 hover:rounded-sm inline-block  py-3 leading-8 px-3.5 border-b-2 border-blue-600 text-blue-600'
+              >
                 Timeline
               </Link>
               <Link
                 href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Friend <span className='text-xs pl-2 font-normal lg:inline-block hidden'>2,680</span>
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'
+              >
+                Friend{' '}
+                <span className='text-xs pl-2 font-normal lg:inline-block hidden'>
+                  2,680
+                </span>
               </Link>
               <Link
                 href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'
+              >
                 Photo
               </Link>
               <Link
                 href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'
+              >
                 Photo
               </Link>
               <Link
                 href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'
+              >
                 Photo
               </Link>
               <Link
                 href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'
+              >
                 Video
               </Link>
               <Link
                 href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
+                className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'
+              >
                 Group
               </Link>
 
@@ -180,33 +210,56 @@ export default function MyProfile(props: IMyProfileProps) {
               <div>
                 <Link
                   href='#'
-                  className='hover:bg-hover-1 hover:rounded-sm inline-flex items-center gap-2 py-3 leading-8 px-3'>
+                  className='hover:bg-hover-1 hover:rounded-sm inline-flex items-center gap-2 py-3 leading-8 px-3'
+                >
                   More
                   <IoChevronDown />
                 </Link>
                 <div
                   className='md:w-[240px] w-screen !bg-foreground-1'
-                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:-4'>
+                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:-4'
+                >
                   <nav className='text-[15px]'>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       Likes
                     </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       Music
                     </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       Events
                     </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       Books
                     </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       Reviews given
                     </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       Groups
                     </Link>
-                    <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link
+                      href='#'
+                      className='hover:!bg-foreground-2 text-black/90 dark:text-white/90'
+                    >
                       Manage Sections
                     </Link>
                   </nav>
@@ -216,7 +269,10 @@ export default function MyProfile(props: IMyProfileProps) {
           </div>
         </div>
 
-        <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='js-oversized'>
+        <div
+          className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse'
+          id='js-oversized'
+        >
           {/* <!-- feed story --> */}
 
           <div className='flex-1 xl:space-y-6 space-y-3'>
@@ -225,12 +281,17 @@ export default function MyProfile(props: IMyProfileProps) {
               <div className='flex items-center gap-3'>
                 <div
                   className='flex-1 bg-foreground-2 hover:bg-opacity-80 transition-all rounded-lg cursor-pointer'
-                  data-uk-toggle='target: #create-status'>
-                  <div className='py-2.5 text-center dark:text-white'> What do you have in mind? </div>
+                  data-uk-toggle='target: #create-status'
+                >
+                  <div className='py-2.5 text-center dark:text-white'>
+                    {' '}
+                    What do you have in mind?{' '}
+                  </div>
                 </div>
                 <div
                   className='cursor-pointer hover:bg-opacity-80 p-1 px-1.5 rounded-lg transition-all bg-pink-100/60 hover:bg-pink-100'
-                  data-uk-toggle='target: #create-status'>
+                  data-uk-toggle='target: #create-status'
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='w-8 h-8 stroke-pink-600 fill-pink-200/70'
@@ -239,7 +300,8 @@ export default function MyProfile(props: IMyProfileProps) {
                     stroke='#2c3e50'
                     fill='none'
                     strokeLinecap='round'
-                    strokeLinejoin='round'>
+                    strokeLinejoin='round'
+                  >
                     <path stroke='none' d='M0 0h24v24H0z' fill='none' />
                     <path d='M15 8h.01' />
                     <path d='M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z' />
@@ -249,7 +311,8 @@ export default function MyProfile(props: IMyProfileProps) {
                 </div>
                 <div
                   className='cursor-pointer hover:bg-opacity-80 p-1 px-1.5 rounded-lg transition-all bg-sky-100/60 hover:bg-sky-100'
-                  data-uk-toggle='target: #create-status'>
+                  data-uk-toggle='target: #create-status'
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='w-8 h-8 stroke-sky-600 fill-sky-200/70 '
@@ -258,7 +321,8 @@ export default function MyProfile(props: IMyProfileProps) {
                     stroke='#2c3e50'
                     fill='none'
                     strokeLinecap='round'
-                    strokeLinejoin='round'>
+                    strokeLinejoin='round'
+                  >
                     <path stroke='none' d='M0 0h24v24H0z' fill='none' />
                     <path d='M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z' />
                     <path d='M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z' />
@@ -278,7 +342,8 @@ export default function MyProfile(props: IMyProfileProps) {
           <div className='lg:w-[400px]'>
             <div
               className='lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-              data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
+              data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'
+            >
               <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
                 <div className='flex items-ce justify-between text-text-1'>
                   <h3 className='font-bold text-lg'> Intro </h3>
@@ -295,7 +360,8 @@ export default function MyProfile(props: IMyProfileProps) {
                       viewBox='0 0 24 24'
                       strokeWidth='1.5'
                       stroke='currentColor'
-                      className='w-6 h-6'>
+                      className='w-6 h-6'
+                    >
                       <path
                         strokeLinecap='round'
                         strokeLinejoin='round'
@@ -308,8 +374,11 @@ export default function MyProfile(props: IMyProfileProps) {
                       />
                     </svg>
                     <div>
-
-                      Live In <span className='font-semibold text-text-1'> Cairo , Eygept </span>
+                      Live In{' '}
+                      <span className='font-semibold text-text-1'>
+                        {' '}
+                        Cairo , Eygept{' '}
+                      </span>
                     </div>
                   </li>
                   <li className='flex items-center gap-3'>
@@ -319,7 +388,8 @@ export default function MyProfile(props: IMyProfileProps) {
                       viewBox='0 0 24 24'
                       strokeWidth='1.5'
                       stroke='currentColor'
-                      className='w-6 h-6'>
+                      className='w-6 h-6'
+                    >
                       <path
                         strokeLinecap='round'
                         strokeLinejoin='round'
@@ -327,9 +397,8 @@ export default function MyProfile(props: IMyProfileProps) {
                       />
                     </svg>
                     <div>
-
-                      Studied at <span className='font-semibold text-text-1'>
-
+                      Studied at{' '}
+                      <span className='font-semibold text-text-1'>
                         University of Turkey
                       </span>
                     </div>
@@ -341,7 +410,8 @@ export default function MyProfile(props: IMyProfileProps) {
                       viewBox='0 0 24 24'
                       strokeWidth='1.5'
                       stroke='currentColor'
-                      className='w-6 h-6'>
+                      className='w-6 h-6'
+                    >
                       <path
                         strokeLinecap='round'
                         strokeLinejoin='round'
@@ -350,8 +420,11 @@ export default function MyProfile(props: IMyProfileProps) {
                     </svg>
 
                     <div>
-
-                      Works at <span className='font-semibold text-text-1'> Envanto Martket </span>
+                      Works at{' '}
+                      <span className='font-semibold text-text-1'>
+                        {' '}
+                        Envanto Martket{' '}
+                      </span>
                     </div>
                   </li>
                   <li className='flex items-center gap-3'>
@@ -361,7 +434,8 @@ export default function MyProfile(props: IMyProfileProps) {
                       viewBox='0 0 24 24'
                       strokeWidth='1.5'
                       stroke='currentColor'
-                      className='w-6 h-6'>
+                      className='w-6 h-6'
+                    >
                       <path
                         strokeLinecap='round'
                         strokeLinejoin='round'
@@ -369,8 +443,11 @@ export default function MyProfile(props: IMyProfileProps) {
                       />
                     </svg>
                     <div>
-
-                      In <span className='font-semibold text-text-1'> Relationship </span>
+                      In{' '}
+                      <span className='font-semibold text-text-1'>
+                        {' '}
+                        Relationship{' '}
+                      </span>
                     </div>
                   </li>
                   <li className='flex items-center gap-3'>
@@ -380,7 +457,8 @@ export default function MyProfile(props: IMyProfileProps) {
                       viewBox='0 0 24 24'
                       strokeWidth='1.5'
                       stroke='currentColor'
-                      className='w-6 h-6'>
+                      className='w-6 h-6'
+                    >
                       <path
                         strokeLinecap='round'
                         strokeLinejoin='round'
@@ -388,8 +466,11 @@ export default function MyProfile(props: IMyProfileProps) {
                       />
                     </svg>
                     <div>
-
-                      Flowwed By <span className='font-semibold text-text-1'> 3,240 People </span>
+                      Flowwed By{' '}
+                      <span className='font-semibold text-text-1'>
+                        {' '}
+                        3,240 People{' '}
+                      </span>
                     </div>
                   </li>
                 </ul>
@@ -445,10 +526,8 @@ export default function MyProfile(props: IMyProfileProps) {
               <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
                 <div className='flex items-ce justify-between text-text-1'>
                   <h3 className='font-bold text-lg'>
-
                     Friends
                     <span className='block text-sm text-gray-500 mt-0. font-normal dark:text-white'>
-
                       3489 Friends
                     </span>
                   </h3>
@@ -533,51 +612,99 @@ export default function MyProfile(props: IMyProfileProps) {
                 <div className='mt-5'>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-full' />
+                      <img
+                        src='/images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-full'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
-                        <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'>
+                          {' '}
+                          John Michael
+                        </h4>
                       </Link>
-                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 6 day ago </div>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'>
+                        {' '}
+                        Updated 6 day ago{' '}
+                      </div>
                     </div>
-                    <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                    <button className='button bg-foreground-2 dark:text-white'>
+                      Like
+                    </button>
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-full' />
+                      <img
+                        src='/images/avatars/avatar-4.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-full'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
-                        <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'>
+                          {' '}
+                          Martin Gray
+                        </h4>
                       </Link>
-                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 month ago </div>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'>
+                        {' '}
+                        Updated 2 month ago{' '}
+                      </div>
                     </div>
-                    <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                    <button className='button bg-foreground-2 dark:text-white'>
+                      Like
+                    </button>
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-full' />
+                      <img
+                        src='/images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-full'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
-                        <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'>
+                          {' '}
+                          Monroe Parker
+                        </h4>
                       </Link>
-                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 1 week ago </div>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'>
+                        {' '}
+                        Updated 1 week ago{' '}
+                      </div>
                     </div>
-                    <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                    <button className='button bg-foreground-2 dark:text-white'>
+                      Like
+                    </button>
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-1.jpg' alt='' className='h-10 w-10 rounded-full' />
+                      <img
+                        src='/images/avatars/avatar-1.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-full'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
-                        <h4 className='text-sm leading-5 font-bold text-text-1'> Jesse Steeve</h4>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'>
+                          {' '}
+                          Jesse Steeve
+                        </h4>
                       </Link>
-                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 day ago </div>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'>
+                        {' '}
+                        Updated 2 day ago{' '}
+                      </div>
                     </div>
-                    <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                    <button className='button bg-foreground-2 dark:text-white'>
+                      Like
+                    </button>
                   </div>
                 </div>
 
@@ -598,39 +725,75 @@ export default function MyProfile(props: IMyProfileProps) {
                 <div className='mt-5'>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-2.jpg' alt='' className='h-10 w-10 rounded-md' />
+                      <img
+                        src='/images/avatars/avatar-2.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-md'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
-                        <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'>
+                          {' '}
+                          John Michael
+                        </h4>
                       </Link>
-                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 1 week ago </div>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'>
+                        {' '}
+                        Updated 1 week ago{' '}
+                      </div>
                     </div>
-                    <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
+                    <button className='button bg-blue-1 hover:bg-blue-2 text-white'>
+                      Like
+                    </button>
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-4.jpg' alt='' className='h-10 w-10 rounded-md' />
+                      <img
+                        src='/images/avatars/avatar-4.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-md'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
-                        <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'>
+                          {' '}
+                          Martin Gray
+                        </h4>
                       </Link>
-                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 4 week ago </div>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'>
+                        {' '}
+                        Updated 4 week ago{' '}
+                      </div>
                     </div>
-                    <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
+                    <button className='button bg-blue-1 hover:bg-blue-2 text-white'>
+                      Like
+                    </button>
                   </div>
                   <div className='flex items-center space-x-3 my-3'>
                     <Link href='timeline-group.html'>
-                      <img src='/images/avatars/avatar-3.jpg' alt='' className='h-10 w-10 rounded-md' />
+                      <img
+                        src='/images/avatars/avatar-3.jpg'
+                        alt=''
+                        className='h-10 w-10 rounded-md'
+                      />
                     </Link>
                     <div className='flex-1'>
                       <Link href='timeline-group.html'>
-                        <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
+                        <h4 className='text-sm leading-5 font-bold text-text-1'>
+                          {' '}
+                          Monroe Parker
+                        </h4>
                       </Link>
-                      <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 month ago </div>
+                      <div className='mt-0.5 text-xs leading-4 text-text-2'>
+                        {' '}
+                        Updated 2 month ago{' '}
+                      </div>
                     </div>
-                    <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
+                    <button className='button bg-blue-1 hover:bg-blue-2 text-white'>
+                      Like
+                    </button>
                   </div>
                 </div>
               </div>
