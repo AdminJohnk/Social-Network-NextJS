@@ -38,7 +38,7 @@ export default function MessagesHeader() {
           <IoSearchOutline className='dark:text-white absolute left-7 -translate-y-1/2 top-1/2' />
         </div>
 
-        <div className='h-80 overflow-y-auto pr-2'>
+        <div className='h-80 overflow-y-auto pr-2 custom-scrollbar-fg'>
           <div className='p-2 pt-0 pr-1 dark:text-white/80'>
             <Link
               href='#'
