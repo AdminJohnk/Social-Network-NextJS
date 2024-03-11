@@ -26,7 +26,7 @@ export default function EditProfile() {
           <div className='flex-start gap-4 p-8'>
             <div className='relative md:w-20 md:h-20 w-12 h-12 shrink-0'>
               <label htmlFor='file' className='cursor-pointer'>
-                <Avatar sx={{width: 80, height: 80}} src={getImageURL(session?.user.image!)} />
+                <Avatar sx={{ width: 80, height: 80 }} src={getImageURL(session?.user.image!)} />
                 <input type='file' id='file' className='hidden' />
               </label>
 

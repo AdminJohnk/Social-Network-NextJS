@@ -20,7 +20,7 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Events'
   },
   {
-    href: 'community/123',
+    href: '/community/123',
     image: '/images/home/page.png',
     label: 'Pages'
   },
@@ -35,7 +35,7 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Market'
   },
   {
-    href: 'blogs',
+    href: '/blogs',
     image: '/images/home/blog.png',
     label: 'Blog'
   },

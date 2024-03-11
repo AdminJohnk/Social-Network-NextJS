@@ -8,7 +8,7 @@ export default function LogoHeader() {
       <div className='flex items-center gap-1'>
         <button
           data-uk-toggle='target: #site_sidebar ; cls :!-translate-x-0'
-          className='flex items-center justify-center w-8 h-8 text-xl rounded-full hover:bg-gray-100 xl:hidden dark:hover:bg-slate-600 group'>
+          className='flex items-center justify-center w-8 h-8 text-xl rounded-full hover:bg-gray-100 lg:hidden dark:hover:bg-slate-600 group'>
           <IoMenuOutline className='text-2xl group-aria-expanded:hidden' />
           <IoCloseOutline className='hidden text-2xl group-aria-expanded:block' />
         </button>

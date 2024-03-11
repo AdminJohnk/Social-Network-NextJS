@@ -5,11 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
-import {
-  IoSettingsOutline,
-  IoMoonOutline,
-  IoLogOutOutline
-} from 'react-icons/io5';
+import { IoSettingsOutline, IoMoonOutline, IoLogOutOutline } from 'react-icons/io5';
 
 export default function ProfileHeader() {
   const { toggleMode, mode } = useThemeMode();
@@ -31,9 +27,8 @@ export default function ProfileHeader() {
         />
       </div>
       <div
-        className='hidden bg-foreground-1 rounded-lg drop-shadow-xl w-64 border2'
-        data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '
-      >
+        className='hidden bg-foreground-2 rounded-lg drop-shadow-xl w-64 border2'
+        data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
         <Link href=''>
           <div className='p-4 py-5 flex items-center gap-4'>
             <Image
@@ -45,9 +40,7 @@ export default function ProfileHeader() {
             />
             <div className='flex-1'>
               <h4 className='text-sm font-medium text-text-1'>Stell johnson</h4>
-              <div className='text-sm mt-1 text-blue-600 font-light dark:text-white/70'>
-                @mohnson
-              </div>
+              <div className='text-sm mt-1 text-blue-600 font-light dark:text-white/70'>@mohnson</div>
             </div>
           </div>
         </Link>
@@ -56,34 +49,30 @@ export default function ProfileHeader() {
 
         <nav className='p-2 text-sm text-black font-normal dark:text-white'>
           <Link href=''>
-            <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
+            <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
               <CgProfile className='size-6' />
               My Profile
             </div>
           </Link>
           <Link href=''>
-            <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
+            <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
               <IoSettingsOutline className='size-6' />
               Account Settings
             </div>
           </Link>
           <button type='button' className='w-full'>
-            <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
+            <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
               <IoMoonOutline className='size-6' />
               Night mode
               <label className='switch cursor-pointer ml-auto'>
-                <input
-                  type='checkbox'
-                  checked={modeTheme === 'dark' ? true : false}
-                  onChange={toggleMode}
-                />
+                <input type='checkbox' checked={modeTheme === 'dark' ? true : false} onChange={toggleMode} />
                 <span className='switch-button !relative'></span>
               </label>
             </div>
           </button>
           <hr className='-mx-2 my-2 border-border-1' />
           <Link href=''>
-            <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
+            <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
               <IoLogOutOutline className='size-6' />
               Log Out
             </div>

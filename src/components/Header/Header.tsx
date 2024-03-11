@@ -13,7 +13,7 @@ export default function Header() {
         <div className='flex-1 relative'>
           <div className='max-w-[1220px] mx-auto flex items-center'>
             <SearchHeader />
-            <div className='flex items-center sm:gap-4 gap-2 absolute right-5 top-1/2 -translate-y-1/2 text-black'>
+            <div className='flex items-center sm:gap-4 gap-2 absolute right-5 top-1/2 -translate-y-1/2 text-text-1'>
               <CreateHeader />
               <NotificationsHeader />
               <MessagesHeader />

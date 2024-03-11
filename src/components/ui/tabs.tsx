@@ -20,7 +20,7 @@ function Tabs(props: ITabsProps) {
       className={cn('relative -mb-px px-2', props.rootClassName)}
       data-uk-slider='finite: true'
       tabIndex={-1}>
-      <nav className={cn('overflow-hidden rounded-xl uk-slider-container pt-2', props.navClassName)}>
+      <nav className={cn('overflow-hidden uk-slider-container pt-2', props.navClassName)}>
         <ul
           className={cn(
             'uk-slider-items w-[calc(100%+10px)] capitalize font-semibold text-text-1',
@@ -87,7 +87,7 @@ function TabTitle(props: ITabTitleProps) {
       <Link
         href='#'
         className={cn(
-          'inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 transition-colors duration-300 ease-in-out aria-expanded:border-blue-500 aria-expanded:text-blue-500',
+          'inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 transition-colors duration-300 ease-in-out aria-expanded:border-blue-500 aria-expanded:text-blue-500',
           props.className
         )}>
         {props.children}
