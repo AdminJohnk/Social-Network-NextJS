@@ -66,7 +66,7 @@ export default function Community(props: ICommunityProps) {
                       <Image width={500} height={500} src="/images/avatars/avatar-4.jpg" alt="" className="w-10 rounded-full border-4 border-white dark:border-slate-800" />
                       <Image width={500} height={500} src="/images/avatars/avatar-5.jpg" alt="" className="w-10 rounded-full border-4 border-white dark:border-slate-800" />
                     </div>
-                    <button className="button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 text-white py-2 px-3.5 shadow ml-auto">
+                    <button className="button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto">
                       <IoAddOutline className="text-xl" />
                       <span className="text-sm"> Join  </span>
                     </button>
