@@ -26,7 +26,7 @@ export default function RootLayout({
         <ThemeModeScript />
       </head>
 
-      <Script src='https://cdn.jsdelivr.net/npm/uikit@3.15.14/dist/js/uikit.min.js' defer />
+      <Script src='/js/uikit.min.js' defer />
 
       <body className={cn(font.className, 'h-dvh custom-scrollbar-fg')}>
         <QueryProvider>

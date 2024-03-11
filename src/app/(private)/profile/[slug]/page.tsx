@@ -218,30 +218,6 @@ export default function Profile({ params }: { params: { slug: string } }, props:
             </div>
 
             <nav className='flex gap-0.5 rounded-xl -mb-px text-gray-600 font-medium text-[15px]  dark:text-white max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
-              {/* <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block  py-3 leading-8 px-3.5 border-b-2 border-blue-600 text-blue-600'>
-                Timeline
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Friend <span className='text-xs pl-2 font-normal lg:inline-block hidden'>2,680</span>
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Photo
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Photo
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Photo
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Video
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Group
-              </Link> */}
-
               <Tabs id='tabs-profile'>
                 <TabTitle>Timeline</TabTitle>
                 <TabTitle>Friends</TabTitle>
@@ -382,7 +358,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       </svg>
 
                       <div>
-                        Works at <span className='font-semibold text-text-1'> Envanto Martket </span>
+                        Works at <span className='font-semibold text-text-1'> Enfant Market </span>
                       </div>
                     </li>
                     <li className='flex items-center gap-3'>

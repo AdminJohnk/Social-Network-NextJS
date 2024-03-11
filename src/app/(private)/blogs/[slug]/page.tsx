@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { IoArrowRedo, IoChevronBack, IoChevronDown, IoSync } from 'react-icons/io5';
 
 export interface IBlogDetailProps { }
@@ -93,7 +94,7 @@ export default function BlogDetail(props: IBlogDetailProps) {
 
                 <div className=' font-normal space-y-4 relative mt-4'>
                   <div className='flex items-start gap-3 relative'>
-                    <a href='timeline.html'>
+                    <Link href='timeline.html'>
                       <Image
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
@@ -101,16 +102,16 @@ export default function BlogDetail(props: IBlogDetailProps) {
                         width={50}
                         height={50}
                       />
-                    </a>
+                    </Link>
                     <div className='flex-1'>
-                      <a href='timeline.html' className='font-medium inline-block'>
+                      <Link href='timeline.html' className='font-medium inline-block'>
                         Monroe Parker
-                      </a>
+                      </Link>
                       <p className='mt-0.5'>What a beautiful photo! I love it. 😍</p>
                     </div>
                   </div>
                   <div className='flex items-start gap-3 relative'>
-                    <a href='timeline.html'>
+                    <Link href='timeline.html'>
                       <Image
                         src='/images/avatars/avatar-2.jpg'
                         alt=''
@@ -118,16 +119,16 @@ export default function BlogDetail(props: IBlogDetailProps) {
                         width={50}
                         height={50}
                       />
-                    </a>
+                    </Link>
                     <div className='flex-1'>
-                      <a href='timeline.html' className='font-medium inline-block'>
+                      <Link href='timeline.html' className='font-medium inline-block'>
                         John Michael
-                      </a>
+                      </Link>
                       <p className='mt-0.5'> You captured the moment.😎 </p>
                     </div>
                   </div>
                   <div className='flex items-start gap-3 relative'>
-                    <a href='timeline.html'>
+                    <Link href='timeline.html'>
                       <Image
                         src='/images/avatars/avatar-5.jpg'
                         alt=''
@@ -135,16 +136,16 @@ export default function BlogDetail(props: IBlogDetailProps) {
                         width={50}
                         height={50}
                       />
-                    </a>
+                    </Link>
                     <div className='flex-1'>
-                      <a href='timeline.html' className='font-medium inline-block'>
+                      <Link href='timeline.html' className='font-medium inline-block'>
                         James Lewis
-                      </a>
+                      </Link>
                       <p className='mt-0.5'>What a beautiful photo! I love it. 😍</p>
                     </div>
                   </div>
                   <div className='flex items-start gap-3 relative'>
-                    <a href='timeline.html'>
+                    <Link href='timeline.html'>
                       <Image
                         src='/images/avatars/avatar-4.jpg'
                         alt=''
@@ -152,11 +153,11 @@ export default function BlogDetail(props: IBlogDetailProps) {
                         width={50}
                         height={50}
                       />
-                    </a>
+                    </Link>
                     <div className='flex-1'>
-                      <a href='timeline.html' className='font-medium inline-block'>
+                      <Link href='timeline.html' className='font-medium inline-block'>
                         Martin
-                      </a>
+                      </Link>
                       <p className='mt-0.5'> You captured the moment.😎 </p>
                     </div>
                   </div>
@@ -229,18 +230,18 @@ export default function BlogDetail(props: IBlogDetailProps) {
                 <div className='box p-5 px-6 bg-foreground-1'>
                   <div className='flex items-baseline justify-between'>
                     <h3 className='font-bold text-base'> Trending Articles</h3>
-                    <a href='#' className='text-blue-500'>
+                    <Link href='#' className='text-blue-500'>
                       See all
-                    </a>
+                    </Link>
                   </div>
 
                   <div className='mt-4 space-y-4'>
                     <div>
-                      <a href='blog-read.html'>
+                      <Link href='blog-read.html'>
                         <h4 className='font-normal duration-300 hover:opacity-80'>
                           Interesting javaScript and CSS libraries you should be learn
                         </h4>
-                      </a>
+                      </Link>
                       <div className='small-regular mt-2 flex items-center gap-2 text-text-2'>
                         <div> 10 Jun 2022 </div>
                         <div className='md:block hidden'>·</div>
@@ -248,11 +249,11 @@ export default function BlogDetail(props: IBlogDetailProps) {
                       </div>
                     </div>
                     <div>
-                      <a href='blog-read.html'>
+                      <Link href='blog-read.html'>
                         <h4 className='font-normal duration-300 hover:opacity-80'>
                           Interesting javaScript and CSS libraries you should be learn
                         </h4>
-                      </a>
+                      </Link>
                       <div className='small-regular mt-2 flex items-center gap-2 text-text-2'>
                         <div> 10 Jun 2022 </div>
                         <div className='md:block hidden'>·</div>
@@ -260,11 +261,11 @@ export default function BlogDetail(props: IBlogDetailProps) {
                       </div>
                     </div>
                     <div>
-                      <a href='blog-read.html'>
+                      <Link href='blog-read.html'>
                         <h4 className='font-normal duration-300 hover:opacity-80'>
                           Interesting JavaScript and CSS libraries should Know About
                         </h4>
-                      </a>
+                      </Link>
                       <div className='small-regular mt-2 flex items-center gap-2 text-text-2'>
                         <div> 10 Jun 2022 </div>
                         <div className='md:block hidden'>·</div>
@@ -272,11 +273,11 @@ export default function BlogDetail(props: IBlogDetailProps) {
                       </div>
                     </div>
                     <div>
-                      <a href='blog-read.html'>
+                      <Link href='blog-read.html'>
                         <h4 className='font-normal duration-300 hover:opacity-80'>
                           Top amazing web demos and experiments should know about
                         </h4>
-                      </a>
+                      </Link>
                       <div className='small-regular mt-2 flex items-center gap-2 text-text-2'>
                         <div> 10 Jun 2022 </div>
                         <div className='md:block hidden'>·</div>
@@ -296,7 +297,7 @@ export default function BlogDetail(props: IBlogDetailProps) {
 
                   <div className='space-y-4 capitalize text-xs font-normal mt-5 mb-2'>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-7.jpg'
                           alt=''
@@ -304,11 +305,11 @@ export default function BlogDetail(props: IBlogDetailProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='base-semibold'>Johnson smith</h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5 text-text-2'> Suggested For You </div>
                       </div>
                       <button
@@ -318,7 +319,7 @@ export default function BlogDetail(props: IBlogDetailProps) {
                       </button>
                     </div>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-5.jpg'
                           alt=''
@@ -326,11 +327,11 @@ export default function BlogDetail(props: IBlogDetailProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='base-semibold'>James Lewis</h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5'> Followed by Johnson </div>
                       </div>
                       <button
@@ -340,7 +341,7 @@ export default function BlogDetail(props: IBlogDetailProps) {
                       </button>
                     </div>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-2.jpg'
                           alt=''
@@ -348,11 +349,11 @@ export default function BlogDetail(props: IBlogDetailProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='base-semibold'>John Michael</h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5'> Followed by Monroe </div>
                       </div>
                       <button
@@ -362,7 +363,7 @@ export default function BlogDetail(props: IBlogDetailProps) {
                       </button>
                     </div>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-3.jpg'
                           alt=''
@@ -370,11 +371,11 @@ export default function BlogDetail(props: IBlogDetailProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='base-semibold'>Monroe Parker</h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5 text-text-2'> Suggested For You </div>
                       </div>
                       <button
@@ -384,7 +385,7 @@ export default function BlogDetail(props: IBlogDetailProps) {
                       </button>
                     </div>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-4.jpg'
                           alt=''
@@ -392,11 +393,11 @@ export default function BlogDetail(props: IBlogDetailProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='base-semibold'>Martin </h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5 text-text-2'> Suggested For You </div>
                       </div>
                       <button
