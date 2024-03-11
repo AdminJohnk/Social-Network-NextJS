@@ -226,7 +226,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
               </div>
             </div>
 
-            <nav className='flex rounded-xl -mb-px text-gray-600 font-medium text-[15px]  dark:text-white max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
+            <nav className='flex rounded-xl -mb-px text-gray-600 font-medium text-[15px] max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
               <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>Timeline</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>Friends</TabTitle>
@@ -276,7 +276,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
         </div>
 
         <TabsContent id='tabs-profile' className='!border-none'>
-          <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col' id='js-oversized'>
+          <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='js-oversized'>
             {/* <!-- feed story --> */}
 
             <div className='flex-1 xl:space-y-6 space-y-3'>
@@ -564,7 +564,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
 
                   <div className='mt-5'>
                     <div className='flex items-center space-x-3 my-3'>
-                      <Link href='timeline-group.html'>
+                      <Link href='#'>
                         <Image
                           width={500}
                           height={500}
@@ -574,15 +574,15 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline-group.html'>
+                        <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 6 day ago </div>
                       </div>
-                      <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>Like</button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
-                      <Link href='timeline-group.html'>
+                      <Link href='#'>
                         <Image
                           width={500}
                           height={500}
@@ -592,15 +592,15 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline-group.html'>
+                        <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 month ago </div>
                       </div>
-                      <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>Like</button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
-                      <Link href='timeline-group.html'>
+                      <Link href='#'>
                         <Image
                           width={500}
                           height={500}
@@ -610,15 +610,15 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline-group.html'>
+                        <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 1 week ago </div>
                       </div>
-                      <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>Like</button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
-                      <Link href='timeline-group.html'>
+                      <Link href='#'>
                         <Image
                           width={500}
                           height={500}
@@ -628,16 +628,16 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline-group.html'>
+                        <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Jesse Steeve</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 day ago </div>
                       </div>
-                      <button className='button bg-foreground-2 dark:text-white'>Like</button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>Like</button>
                     </div>
                   </div>
 
-                  <button className='bg-foreground-2 w-full text-text-1 py-1.5 font-medium px-3.5 rounded-md text-sm mt-2'>
+                  <button className='bg-foreground-2 hover:bg-hover-2 w-full text-text-1 py-1.5 font-medium px-3.5 rounded-md text-sm mt-2'>
                     See all
                   </button>
                 </div>
@@ -653,7 +653,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
 
                   <div className='mt-5'>
                     <div className='flex items-center space-x-3 my-3'>
-                      <Link href='timeline-group.html'>
+                      <Link href='#'>
                         <Image
                           width={500}
                           height={500}
@@ -663,7 +663,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline-group.html'>
+                        <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 1 week ago </div>
@@ -671,7 +671,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
-                      <Link href='timeline-group.html'>
+                      <Link href='#'>
                         <Image
                           width={500}
                           height={500}
@@ -681,7 +681,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline-group.html'>
+                        <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 4 week ago </div>
@@ -689,7 +689,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
-                      <Link href='timeline-group.html'>
+                      <Link href='#'>
                         <Image
                           width={500}
                           height={500}
@@ -699,7 +699,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline-group.html'>
+                        <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 month ago </div>
