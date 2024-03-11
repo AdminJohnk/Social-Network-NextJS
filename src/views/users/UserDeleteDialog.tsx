@@ -37,7 +37,7 @@ function UserDeleteDialog({ data, open, onClose, onDeleted }: Props) {
       {loading && <LinearProgress />}
       <DialogContent>
         <DialogContentText>
-          Are you sure to delete{' '}
+          Are you sure to delete
           <strong>
             {data.first_name} {data.last_name}
           </strong>

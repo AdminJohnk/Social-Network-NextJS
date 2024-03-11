@@ -78,7 +78,7 @@ export default function InputChat(props: IInputChatProps) {
             </div>
 
             <div className="relative flex-1">
-                <textarea placeholder="Write your message" rows={1} className="w-full resize-none bg-secondery rounded-full px-4 p-2"></textarea>
+                <textarea placeholder="Write your message" rows={1} className="w-full resize-none bg-foreground-1 rounded-full px-4 p-2"></textarea>
 
                 <button type="button" className="text-white shrink-0 p-2 absolute right-0.5 top-0">
                     <IoSendOutline className="text-xl flex" />

@@ -8,7 +8,7 @@ const variants = [
   'caption'
 ] as readonly TypographyProps['variant'][];
 
-export interface IPostSkeletonProps {}
+export interface IPostSkeletonProps { }
 
 export default function PostSkeleton(props: IPostSkeletonProps) {
   return (
@@ -54,7 +54,7 @@ export default function PostSkeleton(props: IPostSkeletonProps) {
             className='bg-foreground-2 w-16 me-3'
             variant='text'
             sx={{ fontSize: '1.5rem' }}
-          />{' '}
+          />
           <Skeleton
             className='bg-foreground-2 w-16'
             variant='text'

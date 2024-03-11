@@ -1,5 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
+'use client';
 
+import Link from 'next/link';
+import Image from 'next/image';
 import {
   IoCheckmarkCircleOutline,
   IoCheckmarkOutline,
@@ -9,14 +11,15 @@ import {
   IoVolumeMuteOutline
 } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
-import Link from 'next/link';
 
 import ConversationList from '@/components/Chat/ConversationList';
 import InputChat from '@/components/Chat/InputChat';
 import ChatInfo from '@/components/Chat/ChatInfo';
 import ChatHeading from '@/components/Chat/ChatHeading';
 
-const Message = () => {
+export interface IMessageProps { }
+
+const Message = (props: IMessageProps) => {
   return (
     <>
       <div id='wrapper'>
@@ -76,7 +79,7 @@ const Message = () => {
                       <div className='absolute left-3 bottom-1/2 translate-y-1/2 flex'>
                         <FaSearch className='text-xl' />
                       </div>
-                      <input type='text' placeholder='Search' className='w-full !pl-10 !py-2 !rounded-lg' />
+                      <input type='text' placeholder='Search' className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1' />
                     </div>
                   </div>
 
@@ -99,7 +102,9 @@ const Message = () => {
                 {/* <!-- chats bubble --> */}
                 <div className='w-full p-5 py-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg'>
                   <div className='py-10 text-center text-sm lg:pt-8'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-6.jpg'
                       className='w-24 h-24 rounded-full mx-auto mb-3'
                       alt=''
@@ -122,7 +127,9 @@ const Message = () => {
                   <div className='text-sm font-medium space-y-6'>
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-2.jpg'
                         alt=''
                         className='w-9 h-9 rounded-full shadow'
@@ -132,7 +139,9 @@ const Message = () => {
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
                         className='w-5 h-5 rounded-full shadow'
@@ -151,7 +160,9 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-2.jpg'
                         alt=''
                         className='w-9 h-9 rounded-full shadow'
@@ -164,7 +175,9 @@ const Message = () => {
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
                         className='w-4 h-4 rounded-full shadow'
@@ -176,7 +189,9 @@ const Message = () => {
 
                     {/* <!-- sent media--> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
                         className='w-4 h-4 rounded-full shadow'
@@ -187,7 +202,9 @@ const Message = () => {
                           <div className='max-w-full relative w-72'>
                             <div className='relative' style={{ paddingBottom: '57.4286%' }}>
                               <div className='w-full h-full absolute inset-0'>
-                                <img
+                                <Image
+                                  width={500}
+                                  height={500}
                                   src='/images/product/product-2.jpg'
                                   alt=''
                                   className='block max-w-full max-h-52 w-full h-full object-cover'
@@ -208,7 +225,9 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-2.jpg'
                         alt=''
                         className='w-9 h-9 rounded-full shadow'
@@ -220,7 +239,9 @@ const Message = () => {
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
                         className='w-5 h-5 rounded-full shadow'
@@ -232,7 +253,9 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-2.jpg'
                         alt=''
                         className='w-9 h-9 rounded-full shadow'
@@ -245,7 +268,9 @@ const Message = () => {
 
                     {/* <!-- sent -->  */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
                         className='w-5 h-5 rounded-full shadow'
@@ -264,7 +289,9 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-2.jpg'
                         alt=''
                         className='w-9 h-9 rounded-full shadow'
@@ -276,7 +303,9 @@ const Message = () => {
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
                         className='w-5 h-5 rounded-full shadow'
@@ -288,7 +317,9 @@ const Message = () => {
 
                     {/* <!-- received --> */}
                     <div className='flex gap-3'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-2.jpg'
                         alt=''
                         className='w-9 h-9 rounded-full shadow'
@@ -300,7 +331,9 @@ const Message = () => {
 
                     {/* <!-- sent --> */}
                     <div className='flex gap-2 flex-row-reverse items-end'>
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
                         className='w-5 h-5 rounded-full shadow'

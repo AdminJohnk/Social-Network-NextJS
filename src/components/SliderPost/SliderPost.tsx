@@ -3,7 +3,7 @@ import Link from 'next/link';
 import * as React from 'react';
 import { IoAddCircle, IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
-export interface ISliderPostProps {}
+export interface ISliderPostProps { }
 
 export default function SliderPost(props: ISliderPostProps) {
   return (
@@ -118,15 +118,15 @@ export default function SliderPost(props: ISliderPostProps) {
           type='button'
           className='absolute -translate-y-1/2 bg-foreground-2 rounded-full top-1/2 -left-4 grid w-9 h-9 place-items-center shadow  dark:bg-dark3'
           data-uk-slider-item='previous'>
-          {' '}
-          <IoChevronBack className='text-2xl' />{' '}
+
+          <IoChevronBack className='text-2xl' />
         </button>
         <button
           type='button'
           className='absolute -right-4 -translate-y-1/2 bg-foreground-2 rounded-full top-1/2 grid w-9 h-9 place-items-center shadow  dark:bg-dark3'
           data-uk-slider-item='next'>
-          {' '}
-          <IoChevronForward className='text-2xl' />{' '}
+
+          <IoChevronForward className='text-2xl' />
         </button>
       </div>
     </div>

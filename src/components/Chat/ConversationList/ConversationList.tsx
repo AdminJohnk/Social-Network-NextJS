@@ -1,8 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
-export interface IConversationListProps {}
+export interface IConversationListProps { }
 
 function ConversationList(props: IConversationListProps) {
   return (
@@ -11,7 +11,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-5.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
@@ -32,7 +34,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-2.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
@@ -53,7 +57,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-3.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
@@ -74,7 +80,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-4.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
@@ -86,8 +94,8 @@ function ConversationList(props: IConversationListProps) {
             <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-            {' '}
-            Want to buy landscape photo? 🌄{' '}
+
+            Want to buy landscape photo? 🌄
           </div>
         </div>
       </Link>
@@ -96,7 +104,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-5.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
@@ -109,7 +119,7 @@ function ConversationList(props: IConversationListProps) {
             <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-            Headshot needed. Resume. Do it? 👩‍💼
+            Headset needed. Resume. Do it? 👩‍💼
           </div>
         </div>
       </Link>
@@ -117,7 +127,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-2.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
@@ -138,7 +150,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-3.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
@@ -158,7 +172,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-4.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
@@ -170,8 +186,7 @@ function ConversationList(props: IConversationListProps) {
             <div className='text-xs font-light text-gray-500 dark:text-white/70'>01:10PM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-            {' '}
-            Product photographer wanted? 📷{' '}
+            Product photographer wanted? 📷
           </div>
         </div>
       </Link>
@@ -179,7 +194,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-5.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'
@@ -200,7 +217,9 @@ function ConversationList(props: IConversationListProps) {
         href='#'
         className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
         <div className='relative w-14 h-14 shrink-0'>
-          <img
+          <Image
+            width={500}
+            height={500}
             src='/images/avatars/avatar-2.jpg'
             alt=''
             className='object-cover w-full h-full rounded-full'

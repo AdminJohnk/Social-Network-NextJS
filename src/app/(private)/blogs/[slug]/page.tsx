@@ -10,7 +10,7 @@ import {
   IoChevronDown
 } from 'react-icons/io5';
 
-export interface IBlogDetailProps {}
+export interface IBlogDetailProps { }
 
 export default function BlogDetail(props: IBlogDetailProps) {
   return (
@@ -347,8 +347,8 @@ export default function BlogDetail(props: IBlogDetailProps) {
                           <h4 className='base-semibold'>Johnson smith</h4>
                         </a>
                         <div className='mt-0.5 text-text-2'>
-                          {' '}
-                          Suggested For You{' '}
+
+                          Suggested For You
                         </div>
                       </div>
                       <button
@@ -413,8 +413,8 @@ export default function BlogDetail(props: IBlogDetailProps) {
                           <h4 className='base-semibold'>Monroe Parker</h4>
                         </a>
                         <div className='mt-0.5 text-text-2'>
-                          {' '}
-                          Suggested For You{' '}
+
+                          Suggested For You
                         </div>
                       </div>
                       <button
@@ -437,8 +437,8 @@ export default function BlogDetail(props: IBlogDetailProps) {
                           <h4 className='base-semibold'>Martin </h4>
                         </a>
                         <div className='mt-0.5 text-text-2'>
-                          {' '}
-                          Suggested For You{' '}
+
+                          Suggested For You
                         </div>
                       </div>
                       <button
