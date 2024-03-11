@@ -13,10 +13,10 @@ export default function NewPost(props: INewPostProps) {
       <div className='text-center py-2 bg-foreground-2 basis-9/12 rounded-lg hover:bg-hover-2 cursor-pointer'>
        {props.title ? (<span>{props.title}</span>) : (<span> What do you have in mind? </span>)}
       </div>
-      <div className='basis-1/12 bg-blue-2 hover:bg-blue-3 flex-center py-2 rounded-lg duration-300 cursor-pointer'>
+      <div className='basis-1/12 bg-blue-3 hover:bg-blue-4 flex-center py-2 rounded-lg duration-300 cursor-pointer'>
         <FaImages className='size-5 text-blue-1' />
       </div>
-      <div className='basis-1/12 bg-pink-2 hover:bg-pink-3 flex-center py-2 rounded-lg duration-300 cursor-pointer'>
+      <div className='basis-1/12 bg-pink-3 hover:bg-pink-4 flex-center py-2 rounded-lg duration-300 cursor-pointer'>
         <RiLiveFill className='size-5 text-pink-1' />
       </div>
     </div>

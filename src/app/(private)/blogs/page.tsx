@@ -29,7 +29,7 @@ export default function Blog(props: IBlogProps) {
 
                 <nav className='nav__underline'>
                   <ul
-                    uk-tab
+                    data-uk-tab
                     className='group'
                     uk-switcher='connect: #ttabs ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'
                   >
@@ -597,7 +597,10 @@ export default function Blog(props: IBlogProps) {
                             Johnson smith
                           </h4>
                         </a>
-                        <div className='mt-0.5 text-text-2'> Suggested For You </div>
+                        <div className='mt-0.5 text-text-2'>
+                          {' '}
+                          Suggested For You{' '}
+                        </div>
                       </div>
                       <button
                         type='button'
@@ -616,11 +619,12 @@ export default function Blog(props: IBlogProps) {
                       </a>
                       <div className='flex-1'>
                         <a href='timeline.html'>
-                          <h4 className='font-semibold text-sm'>
-                            James Lewis
-                          </h4>
+                          <h4 className='font-semibold text-sm'>James Lewis</h4>
                         </a>
-                        <div className='mt-0.5 text-text-2'> Followed by Johnson </div>
+                        <div className='mt-0.5 text-text-2'>
+                          {' '}
+                          Followed by Johnson{' '}
+                        </div>
                       </div>
                       <button
                         type='button'
@@ -643,7 +647,10 @@ export default function Blog(props: IBlogProps) {
                             John Michael
                           </h4>
                         </a>
-                        <div className='mt-0.5 text-text-2'> Followed by Monroe </div>
+                        <div className='mt-0.5 text-text-2'>
+                          {' '}
+                          Followed by Monroe{' '}
+                        </div>
                       </div>
                       <button
                         type='button'
@@ -666,7 +673,10 @@ export default function Blog(props: IBlogProps) {
                             Monroe Parker
                           </h4>
                         </a>
-                        <div className='mt-0.5 text-text-2'> Suggested For You </div>
+                        <div className='mt-0.5 text-text-2'>
+                          {' '}
+                          Suggested For You{' '}
+                        </div>
                       </div>
                       <button
                         type='button'
@@ -685,11 +695,12 @@ export default function Blog(props: IBlogProps) {
                       </a>
                       <div className='flex-1'>
                         <a href='timeline.html'>
-                          <h4 className='font-semibold text-sm'>
-                            Martin Gray
-                          </h4>
+                          <h4 className='font-semibold text-sm'>Martin Gray</h4>
                         </a>
-                        <div className='mt-0.5 text-text-2'> Suggested For You </div>
+                        <div className='mt-0.5 text-text-2'>
+                          {' '}
+                          Suggested For You{' '}
+                        </div>
                       </div>
                       <button
                         type='button'
