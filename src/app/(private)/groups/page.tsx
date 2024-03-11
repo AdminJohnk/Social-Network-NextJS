@@ -7,17 +7,9 @@ export interface IGroupProps {}
 
 export default function Group(props: IGroupProps) {
   return (
-    <div
-      className='ms-60 mt-16 max-lg/2:ms-20 @container/pri'
-      style={{
-        zIndex: 1
-      }}
-    >
-      <div className='groups px-5 py-5'>
-        <main
-          id='site__main'
-          className=''
-        >
+    <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
+      <div className='groups px-10 py-5'>
+        <main id='site__main' className=''>
           <div className='2xl:max-w-[1220px]'>
             <div className='page-heading'>
               <h1 className='page-title'> Groups </h1>
@@ -53,7 +45,7 @@ export default function Group(props: IGroupProps) {
                     <img
                       src='images/avatars/avatar-4.jpg'
                       alt=''
-                      className='w-10 rounded-full mb-2 shadow -mt-8 relative border-2 border-white dark:border-slate-800'
+                      className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
                     />
                     <a href='timeline-group.html'>
                       <h4 className='card-title'> Delicious Foods </h4>
@@ -66,7 +58,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
                       >
                         Join
                       </button>
@@ -90,7 +82,7 @@ export default function Group(props: IGroupProps) {
                     <img
                       src='images/avatars/avatar-3.jpg'
                       alt=''
-                      className='w-10 rounded-full mb-2 shadow -mt-8 relative border-2 border-white dark:border-slate-800'
+                      className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
                     />
                     <a href='timeline-group.html'>
                       <h4 className='card-title'> Abstract minimal </h4>
@@ -103,7 +95,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
                       >
                         Join
                       </button>
@@ -127,7 +119,7 @@ export default function Group(props: IGroupProps) {
                     <img
                       src='images/avatars/avatar-2.jpg'
                       alt=''
-                      className='w-10 rounded-full mb-2 shadow -mt-8 relative border-2 border-white dark:border-slate-800'
+                      className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
                     />
                     <a href='timeline-group.html'>
                       <h4 className='card-title'> Delicious Foods </h4>
@@ -140,7 +132,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
                       >
                         Join
                       </button>
@@ -164,7 +156,7 @@ export default function Group(props: IGroupProps) {
                     <img
                       src='images/avatars/avatar-2.jpg'
                       alt=''
-                      className='w-10 rounded-full mb-2 shadow -mt-8 relative border-2 border-white dark:border-slate-800'
+                      className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
                     />
                     <a href='timeline-group.html'>
                       <h4 className='card-title'> Graphic Design </h4>
@@ -177,7 +169,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
                       >
                         Join
                       </button>
@@ -215,17 +207,17 @@ export default function Group(props: IGroupProps) {
                           <img
                             src='images/avatars/avatar-2.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                           <img
                             src='images/avatars/avatar-3.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                           <img
                             src='images/avatars/avatar-7.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                         </div>
                         <p className='card-text'> 6 friend are members </p>
@@ -234,7 +226,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
                       >
                         Join
                       </button>
@@ -269,17 +261,17 @@ export default function Group(props: IGroupProps) {
                           <img
                             src='images/avatars/avatar-2.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                           <img
                             src='images/avatars/avatar-3.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                           <img
                             src='images/avatars/avatar-7.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                         </div>
                         <p className='card-text'> 8 friend are members </p>
@@ -288,7 +280,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
                       >
                         Join
                       </button>
@@ -323,17 +315,17 @@ export default function Group(props: IGroupProps) {
                           <img
                             src='images/avatars/avatar-4.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                           <img
                             src='images/avatars/avatar-3.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                           <img
                             src='images/avatars/avatar-7.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                         </div>
                         <p className='card-text'> 12 friend are members </p>
@@ -342,7 +334,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
                       >
                         Join
                       </button>
@@ -377,17 +369,17 @@ export default function Group(props: IGroupProps) {
                           <img
                             src='images/avatars/avatar-2.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                           <img
                             src='images/avatars/avatar-3.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                           <img
                             src='images/avatars/avatar-7.jpg'
                             alt=''
-                            className='w-6 rounded-full border-2 border-white dark:border-slate-800'
+                            className='w-6 rounded-full border-border-1'
                           />
                         </div>
                         <p className='card-text'> 3 friend are members </p>
@@ -396,7 +388,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
                       >
                         Join
                       </button>
@@ -431,7 +423,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-primary-500-soft text-primary dark:text-white flex-1'
+                        className='button bg-primary-500-soft text-primary flex-1'
                       >
                         Join
                       </button>
@@ -463,7 +455,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-primary-500-soft text-primary dark:text-white flex-1'
+                        className='button bg-primary-500-soft text-primary flex-1'
                       >
                         Join
                       </button>
@@ -495,7 +487,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-primary-500-soft text-primary dark:text-white flex-1'
+                        className='button bg-primary-500-soft text-primary flex-1'
                       >
                         Join
                       </button>
@@ -527,7 +519,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-primary-500-soft text-primary dark:text-white flex-1'
+                        className='button bg-primary-500-soft text-primary flex-1'
                       >
                         Join
                       </button>
@@ -545,10 +537,8 @@ export default function Group(props: IGroupProps) {
 
             <div className='sm:my-6 my-3 flex items-center justify-between'>
               <div>
-                <h2 className='md:text-lg text-base font-semibold text-black'>
-                  Categories
-                </h2>
-                <p className='font-normal text-sm text-gray-500 leading-6'>
+                <h2 className='h5-semibold'>Categories</h2>
+                <p className='base-regular text-text-2 first-line:leading-6'>
                   Find a group by browsing top categories.
                 </p>
               </div>
@@ -569,7 +559,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='text-white p-5 text-lg leading-3'>
+                          <div className='p-5 text-lg leading-3'>
                             Shopping
                           </div>
                         </div>
@@ -585,7 +575,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='text-white p-5 text-lg leading-3'>
+                          <div className='p-5 text-lg leading-3'>
                             health
                           </div>
                         </div>
@@ -601,7 +591,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='text-white p-5 text-lg leading-3'>
+                          <div className='p-5 text-lg leading-3'>
                             science
                           </div>
                         </div>
@@ -617,7 +607,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='text-white p-5 text-lg leading-3'>
+                          <div className='p-5 text-lg leading-3'>
                             Travel
                           </div>
                         </div>
@@ -633,7 +623,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='text-white p-5 text-lg leading-3'>
+                          <div className='p-5 text-lg leading-3'>
                             business
                           </div>
                         </div>
@@ -649,7 +639,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='text-white p-5 text-lg leading-3'>
+                          <div className='p-5 text-lg leading-3'>
                             Shopping
                           </div>
                         </div>
@@ -669,10 +659,8 @@ export default function Group(props: IGroupProps) {
 
             <div className='sm:my-6 my-3 flex items-center justify-between lg:mt-10'>
               <div>
-                <h2 className='md:text-lg text-base font-semibold text-black'>
-                  Suggestions
-                </h2>
-                <p className='font-normal text-sm text-gray-500 leading-6'>
+                <h2 className='h5-semibold'>Suggestions</h2>
+                <p className='base-regular text-text-2 leading-6'>
                   Find a groups You Might Be Interested In.
                 </p>
               </div>
@@ -681,7 +669,7 @@ export default function Group(props: IGroupProps) {
               </a>
             </div>
 
-            <div className='grid md:grid-cols-2 md:gap-2 gap-3'>
+            <div className='grid md:grid-cols-2 md:gap-2 gap-3 *:bg-foreground-1'>
               <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
                 <div className='sm:w-20 w-14 sm:h-20 h-14 flex-shrink-0 rounded-lg relative'>
                   <img
@@ -693,7 +681,7 @@ export default function Group(props: IGroupProps) {
                 <div className='flex-1'>
                   <a
                     href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize text-black dark:text-white'
+                    className='md:text-lg text-base font-semibold capitalize'
                   >
                     Delicious Foods
                   </a>
@@ -705,24 +693,24 @@ export default function Group(props: IGroupProps) {
                   <div className='flex items-center mt-2'>
                     <img
                       src='images/avatars/avatar-2.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200 -mr-2'
+                      className='w-6 rounded-full border-border-1 mr-2'
                       alt=''
                     />
                     <img
                       src='images/avatars/avatar-4.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200'
+                      className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm text-gray-500 ml-2'>
+                    <div className='text-sm ml-2'>
                       14 friends are members
                     </div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button bg-primary-500-soft text-primary dark:text-white gap-1 max-md:hidden'
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
                 >
-                  <IoIosAddCircle /> Join
+                  <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
               <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -736,7 +724,7 @@ export default function Group(props: IGroupProps) {
                 <div className='flex-1'>
                   <a
                     href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize text-black dark:text-white'
+                    className='md:text-lg text-base font-semibold capitalize'
                   >
                     Abstract minimal
                   </a>
@@ -748,24 +736,24 @@ export default function Group(props: IGroupProps) {
                   <div className='flex items-center mt-2'>
                     <img
                       src='images/avatars/avatar-2.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200 -mr-2'
+                      className='w-6 rounded-full border-border-1 -mr-2'
                       alt=''
                     />
                     <img
                       src='images/avatars/avatar-4.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200'
+                      className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm text-gray-500 ml-2'>
+                    <div className='text-sm ml-2'>
                       24 friends are members
                     </div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button bg-primary-500-soft text-primary dark:text-white gap-1 max-md:hidden'
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
                 >
-                  <IoIosAddCircle /> Join
+                  <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
               <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -779,7 +767,7 @@ export default function Group(props: IGroupProps) {
                 <div className='flex-1'>
                   <a
                     href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize text-black dark:text-white'
+                    className='md:text-lg text-base font-semibold capitalize'
                   >
                     Delicious Foods
                   </a>
@@ -791,24 +779,24 @@ export default function Group(props: IGroupProps) {
                   <div className='flex items-center mt-2'>
                     <img
                       src='images/avatars/avatar-2.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200 -mr-2'
+                      className='w-6 rounded-full border-border-1 -mr-2'
                       alt=''
                     />
                     <img
                       src='images/avatars/avatar-4.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200'
+                      className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm text-gray-500 ml-2'>
+                    <div className='text-sm ml-2'>
                       16 friends are members
                     </div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button bg-primary-500-soft text-primary dark:text-white gap-1 max-md:hidden'
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
                 >
-                  <IoIosAddCircle /> Join
+                  <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
               <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -822,7 +810,7 @@ export default function Group(props: IGroupProps) {
                 <div className='flex-1'>
                   <a
                     href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize text-black dark:text-white'
+                    className='md:text-lg text-base font-semibold capitalize'
                   >
                     Graphic Design
                   </a>
@@ -834,24 +822,24 @@ export default function Group(props: IGroupProps) {
                   <div className='flex items-center mt-2'>
                     <img
                       src='images/avatars/avatar-2.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200 -mr-2'
+                      className='w-6 rounded-full border-border-1 -mr-2'
                       alt=''
                     />
                     <img
                       src='images/avatars/avatar-4.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200'
+                      className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm text-gray-500 ml-2'>
+                    <div className='text-sm ml-2'>
                       14 friends are members
                     </div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button bg-primary-500-soft text-primary dark:text-white gap-1 max-md:hidden'
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
                 >
-                  <IoIosAddCircle /> Join
+                  <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
               <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -865,7 +853,7 @@ export default function Group(props: IGroupProps) {
                 <div className='flex-1'>
                   <a
                     href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize text-black dark:text-white'
+                    className='md:text-lg text-base font-semibold capitalize'
                   >
                     Abstract minimal
                   </a>
@@ -877,24 +865,24 @@ export default function Group(props: IGroupProps) {
                   <div className='flex items-center mt-2'>
                     <img
                       src='images/avatars/avatar-2.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200 -mr-2'
+                      className='w-6 rounded-full border-border-1 -mr-2'
                       alt=''
                     />
                     <img
                       src='images/avatars/avatar-4.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200'
+                      className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm text-gray-500 ml-2'>
+                    <div className='text-sm ml-2'>
                       24 friends are members
                     </div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button bg-primary-500-soft text-primary dark:text-white gap-1 max-md:hidden'
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
                 >
-                  <IoIosAddCircle /> Join
+                  <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
               <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -908,7 +896,7 @@ export default function Group(props: IGroupProps) {
                 <div className='flex-1'>
                   <a
                     href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize text-black dark:text-white'
+                    className='md:text-lg text-base font-semibold capitalize'
                   >
                     Delicious Foods
                   </a>
@@ -920,24 +908,24 @@ export default function Group(props: IGroupProps) {
                   <div className='flex items-center mt-2'>
                     <img
                       src='images/avatars/avatar-2.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200 -mr-2'
+                      className='w-6 rounded-full border-border-1 -mr-2'
                       alt=''
                     />
                     <img
                       src='images/avatars/avatar-4.jpg'
-                      className='w-6 rounded-full border-2 border-gray-200'
+                      className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm text-gray-500 ml-2'>
+                    <div className='text-sm ml-2'>
                       14 friends are members
                     </div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button bg-primary-500-soft text-primary dark:text-white gap-1 max-md:hidden'
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
                 >
-                  <IoIosAddCircle /> Join
+                  <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
             </div>
@@ -945,7 +933,7 @@ export default function Group(props: IGroupProps) {
             <div className='flex justify-center my-6'>
               <button
                 type='button'
-                className='bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-dark2'
+                className='bg-foreground-2 hover:bg-hover-2 duration-300 py-2 px-5 rounded-full shadow-md font-semibold text-sm '
               >
                 Load more...
               </button>
