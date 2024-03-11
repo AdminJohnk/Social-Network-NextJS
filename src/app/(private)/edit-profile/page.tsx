@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { IoArrowBack } from 'react-icons/io5';
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { Avatar } from '@mui/material';
@@ -8,12 +7,10 @@ import { useSession } from 'next-auth/react';
 
 import { Button } from '@/components/ui/button';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
-import getImageURL, { cn } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import descArrays from '@/lib/Descriptions/Tags';
 
-export interface IEditProfileProps {}
-
-export default function EditProfile(props: IEditProfileProps) {
+export default function EditProfile() {
   const { data: session } = useSession();
 
   return (

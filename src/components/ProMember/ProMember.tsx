@@ -1,7 +1,5 @@
 'use client';
 
-import * as React from 'react';
-import { FiRefreshCw } from 'react-icons/fi';
 import Slider from 'react-slick';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { cn } from '@/lib/utils';
@@ -14,8 +12,7 @@ function SampleNextArrow(props: any) {
       className={cn(
         'text-text-1 text-xl absolute -right-3 top-10 rounded-full bg-foreground-2 cursor-pointer p-2'
       )}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       <IoIosArrowForward />
     </span>
   );
@@ -28,8 +25,7 @@ function SamplePrevArrow(props: any) {
       className={cn(
         'text-text-1 text-xl absolute -left-4 top-10 rounded-full bg-foreground-2 cursor-pointer p-2'
       )}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       <IoIosArrowBack />
     </span>
   );
@@ -84,9 +80,9 @@ const MemberList = [
   }
 ];
 
-export interface IOnlineFriendProps {}
+export interface IProMemberProps {}
 
-export default function OnlineFriend(props: IOnlineFriendProps) {
+export default function ProMember(props: IProMemberProps) {
   return (
     <div className='online-friend px-5 py-4 bg-foreground-1 rounded-lg'>
       <div className='flex-between'>

@@ -371,7 +371,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     </svg>
 
                     <div>
-                      Works at <span className='font-semibold text-text-1'> Envanto Martket </span>
+                      Works at <span className='font-semibold text-text-1'> Envanto Market </span>
                     </div>
                   </li>
                   <li className='flex items-center gap-3'>

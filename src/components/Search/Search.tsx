@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { Avatar, Divider, FormControl, Input, InputAdornment, InputLabel } from '@mui/material';
+import { Avatar, Divider } from '@mui/material';
 import * as React from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { CiHashtag } from 'react-icons/ci';

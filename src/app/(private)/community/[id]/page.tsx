@@ -4,12 +4,12 @@ import PostSkeleton from '@/components/Post/PostSkeleton';
 import { Avatar } from '@mui/material';
 import Image from 'next/image';
 import * as React from 'react';
-import About from '../../../../components/pages/Community/About';
-import RecentMedia from '../../../../components/pages/Community/RecentMedia';
 import { IoIosMore } from 'react-icons/io';
 import { FiPlus } from 'react-icons/fi';
 
-import SuggestGroup from '../../../../components/pages/Community/SuggestGroup';
+import About from '@/components/pages/Community/About';
+import RecentMedia from '@/components/pages/Community/RecentMedia';
+import SuggestGroup from '@/components/pages/Community/SuggestGroup';
 
 export interface ICommunityProps { }
 

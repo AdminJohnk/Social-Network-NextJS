@@ -19,7 +19,7 @@ export default function ProfileHeader() {
         />
       </div>
       <div
-        className='hidden bg-white rounded-lg drop-shadow-xl dark:bg-slate-700 w-64 border2'
+        className='hidden bg-foreground-1 rounded-lg drop-shadow-xl w-64 border2'
         data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
         <Link href=''>
           <div className='p-4 py-5 flex items-center gap-4'>
@@ -37,10 +37,10 @@ export default function ProfileHeader() {
           </div>
         </Link>
 
-        <hr />
+        <hr className='border-border-1' />
 
         <nav className='p-2 text-sm text-black font-normal dark:text-white'>
-          <Link href=''>
+          {/* <Link href=''>
             <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md text-blue-600'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -56,7 +56,7 @@ export default function ProfileHeader() {
               </svg>
               Upgrade To Premium
             </div>
-          </Link>
+          </Link> */}
           <Link href=''>
             <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
               <svg
@@ -71,10 +71,10 @@ export default function ProfileHeader() {
                   strokeLinejoin='round'
                   d='M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z'></path>
               </svg>
-              My Billing
+              My Profile
             </div>
           </Link>
-          <Link href=''>
+          {/* <Link href=''>
             <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -90,7 +90,7 @@ export default function ProfileHeader() {
               </svg>
               Advancing
             </div>
-          </Link>
+          </Link> */}
           <Link href=''>
             <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
               <svg
@@ -109,10 +109,10 @@ export default function ProfileHeader() {
                   strokeLinejoin='round'
                   d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'></path>
               </svg>
-              My Account
+              Account Settings
             </div>
           </Link>
-          <button type='button' className='w-full'>
+          <button type='button' className='w-full' onClick={toggleMode}>
             <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -133,7 +133,7 @@ export default function ProfileHeader() {
               </label>
             </div>
           </button>
-          <hr className='-mx-2 my-2/60' />
+          <hr className='-mx-2 my-2 border-border-1' />
           <Link href=''>
             <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
               <svg

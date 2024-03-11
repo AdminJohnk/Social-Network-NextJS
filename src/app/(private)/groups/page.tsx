@@ -8,7 +8,7 @@ export interface IGroupProps {}
 export default function Group(props: IGroupProps) {
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
-      <div className='groups px-10 py-5'>
+      <div className='groups px-40 py-5'>
         <main id='site__main' className=''>
           <div className='2xl:max-w-[1220px]'>
             <div className='page-heading'>

@@ -21,9 +21,7 @@ const ImageURL = (src: string, option: option) => {
   return `https://ik.imagekit.io/admintck/${src}${query}`;
 };
 
-const getImageURL = (src?: string, option: option = 'default') => {
+export const getImageURL = (src?: string, option: option = 'default') => {
   if (!src) return;
   return ImageURL(src, option);
 };
-
-export default getImageURL;

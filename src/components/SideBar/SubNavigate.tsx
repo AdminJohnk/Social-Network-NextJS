@@ -3,11 +3,9 @@ import { IoChevronDown } from 'react-icons/io5';
 
 export default function SubNavigate() {
   return (
-    <nav
-      id='side'
-      className='font-medium text-sm text-black border-t pt-3 mt-2 dark:text-white dark:border-slate-800'>
+    <nav id='side' className='font-medium text-sm text-text-1 border-t pt-3 mt-2  dark:border-slate-800'>
       <div className='px-3 pb-2 text-sm font-medium'>
-        <div className='text-black dark:text-white'>Pages</div>
+        <div className='text-text-1'>Pages</div>
       </div>
 
       <ul className='mt-2 -space-y-2' data-uk-nav='multiple: true'>
