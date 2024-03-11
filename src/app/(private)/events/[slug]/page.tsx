@@ -75,7 +75,7 @@ export default function GroupManager(props: IGroupManagerProps) {
 
                     <div>
                       <div
-                        uk-countdown='date: 2024-03-12T08:36:57+00:00'
+                        data-uk-countdown='date: 2024-03-12T08:36:57+00:00'
                         className='flex gap-3 text-2xl font-semibold text-primary max-lg:justify-center'>
                         <div className='bg-primary-soft/40 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
                           <span className='uk-countdown-days'></span>
@@ -127,7 +127,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                     </button>
                     <div
                       className='w-[240px]'
-                      uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                      data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                       <nav>
                         <Link href='#'>
                           <IoBookmarkOutline className='size-5' /> Save
@@ -278,7 +278,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                       <div className='!top-2 pr-2' data-uk-drop='pos: bottom-right; mode: click'>
                         <div
                           className='flex items-center gap-2'
-                          uk-scrollspy='target: > svg; cls: uk-animation-slide-right-small; delay: 100 ;repeat: true'>
+                          data-uk-scrollspy='target: > svg; cls: uk-animation-slide-right-small; delay: 100 ;repeat: true'>
                           <svg
                             xmlns='http://www.w3.org/2000/svg'
                             viewBox='0 0 24 24'
@@ -313,7 +313,7 @@ export default function GroupManager(props: IGroupManagerProps) {
               <div className='lg:w-[400px]'>
                 <div
                   className='lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                  uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
+                  data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
                   <div className='box p-5 px-6 pr-0 bg-foreground-1 rounded-md'>
                     <h3 className='h5-semibold'>Status</h3>
 

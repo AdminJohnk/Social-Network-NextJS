@@ -27,11 +27,11 @@ export default function GroupManager(props: IGroupManagerProps) {
                       See all
                     </Link>
                   </div>
-                  <div className='relative mt-2' tabIndex={-1} uk-slider>
+                  <div className='relative mt-2' tabIndex={-1} data-uk-slider>
                     <div className='overflow-hidden uk-slider-container'>
                       <ul
                         className='-ml-2 uk-slider-items w-[calc(100%+0.5rem)] pt-3 text-center'
-                        uk-scrollspy='target: > li; cls: uk-animation-scale-up; delay: 20 ;repeat: true'
+                        data-uk-scrollspy='target: > li; cls: uk-animation-scale-up; delay: 20 ;repeat: true'
                       >
                         <li className='md:w-[14.28%] w-32 pr-3 pt-3'>
                           <Link href='timeline-group.html'>
@@ -163,14 +163,14 @@ export default function GroupManager(props: IGroupManagerProps) {
                     <Link
                       className='nav-prev !top-12'
                       href='#'
-                      uk-slider-item='previous'
+                      data-uk-slider-item='previous'
                     >
                       <IoChevronBack />
                     </Link>
                     <Link
                       className='nav-next !top-12'
                       href='#'
-                      uk-slider-item='next'
+                      data-uk-slider-item='next'
                     >
                       <IoChevronForward />
                     </Link>
@@ -180,7 +180,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                 <nav className='mt-8 border-border-1 mb-6'>
                   <ul
                     className='flex gap-2 text-xs text-center capitalize font-semibold/80'
-                    uk-switcher='connect: #tabs2 ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'
+                    data-uk-switcher='connect: #tabs2 ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'
                   >
                     <li>
                       <Link
@@ -205,7 +205,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                   <div>
                     <div
                       className='grid md:grid-cols-3 grid-cols-2 gap-2.5'
-                      uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 20 ;repeat: true'
+                      data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 20 ;repeat: true'
                     >
                       <div className='card'>
                         <Link href='timeline-group.html'>
@@ -484,7 +484,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                   <div>
                     <div
                       className='grid md:grid-cols-3 grid-cols-2 gap-2.5'
-                      uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 20 ;repeat: true'
+                      data-uk-scrollspy='target: > div; cls: uk-animation-scale-up; delay: 20 ;repeat: true'
                     >
                       <div className='card'>
                         <Link href='timeline-group.html'>
@@ -702,7 +702,7 @@ export default function GroupManager(props: IGroupManagerProps) {
             <div className='2xl:w-[380px] lg:w-[330px] w-full'>
               <div
                 className='lg:space-y-6 space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                uk-sticky='media: 1024; end: #js-oversized; offset: 80'
+                data-sticky='media: 1024; end: #js-oversized; offset: 80'
               >
                 <div className='box p-5 px-6 bg-foreground-1'>
                   <div className='flex items-baseline justify-between'>

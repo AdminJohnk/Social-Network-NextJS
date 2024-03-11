@@ -22,7 +22,7 @@ export default function MessagesHeader() {
         <IoChatboxEllipsesOutline className='sm:hidden text-2xl' />
       </button>
       <div
-        className='hidden bg-foreground-1 pr-1.5 rounded-lg drop-shadow-xl md:w-[360px] w-screen border-border-1'
+        className='hidden bg-foreground-2 pr-1.5 rounded-lg drop-shadow-xl md:w-[360px] w-screen border-border-1'
         data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
         <div className='flex items-center justify-between gap-2 p-4 pb-1'>
           <h3 className='font-bold text-xl text-text-1'>Chats</h3>
@@ -42,7 +42,7 @@ export default function MessagesHeader() {
           <div className='p-2 pt-0 pr-1 dark:text-white/80'>
             <Link
               href='#'
-              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-1'>
+              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-2'>
               <div className='relative w-10 h-10 shrink-0'>
                 <Image
                   src='/images/home/avatar-2.jpg'
@@ -65,7 +65,7 @@ export default function MessagesHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-1'>
+              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-2'>
               <div className='relative w-10 h-10 shrink-0'>
                 <Image
                   src='/images/home/avatar-4.jpg'
@@ -87,7 +87,7 @@ export default function MessagesHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-1'>
+              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-2'>
               <div className='relative w-10 h-10 shrink-0'>
                 <Image
                   src='/images/home/avatar-5.jpg'
@@ -109,7 +109,7 @@ export default function MessagesHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-1'>
+              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-2'>
               <div className='relative w-10 h-10 shrink-0'>
                 <Image
                   src='/images/home/avatar-3.jpg'
@@ -132,7 +132,7 @@ export default function MessagesHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-1'>
+              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-2'>
               <div className='relative w-10 h-10 shrink-0'>
                 <Image
                   src='/images/home/avatar-7.jpg'
@@ -154,7 +154,7 @@ export default function MessagesHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-1'>
+              className='relative flex items-center gap-4 p-2 py-3 duration-200 rounded-lg hover:bg-hover-2'>
               <div className='relative w-10 h-10 shrink-0'>
                 <Image
                   src='/images/home/avatar-4.jpg'
@@ -183,7 +183,7 @@ export default function MessagesHeader() {
           </div>
         </Link>
 
-        <div className='w-3 h-3 absolute -top-1.5 right-3 border-l border-t rotate-45 max-md:hidden bg-foreground-1 dark:border-transparent' />
+        <div className='w-3 h-3 absolute -top-1.5 right-3 border-l border-t rotate-45 max-md:hidden bg-foreground-2 dark:border-transparent' />
       </div>
     </>
   );

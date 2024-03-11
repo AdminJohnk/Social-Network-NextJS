@@ -546,7 +546,7 @@ export default function Group(props: IGroupProps) {
               </Link>
             </div>
 
-            <div tabIndex={-1} uk-slider='finite:true'>
+            <div tabIndex={-1} data-uk-slider='finite:true'>
               <div className='uk-slider-container pb-1'>
                 <ul className='uk-slider-items grid-small'>
                   <li className='md:w-1/5 sm:w-1/3 w-1/2'>
@@ -648,10 +648,10 @@ export default function Group(props: IGroupProps) {
                 </ul>
               </div>
 
-              <Link className='nav-prev' href='#' uk-slider-item='previous'>
+              <Link className='nav-prev' href='#' data-uk-slider-item='previous'>
                 <IoChevronBack />
               </Link>
-              <Link className='nav-next' href='#' uk-slider-item='next'>
+              <Link className='nav-next' href='#' data-uk-slider-item='next'>
                 <IoChevronForward />
               </Link>
             </div>

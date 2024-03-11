@@ -2,11 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IoArrowRedo, IoChevronBack, IoChevronDown, IoSync } from 'react-icons/io5';
 
-export interface IBlogDetailProps { }
+export interface IBlogDetailProps {}
 
 export default function BlogDetail(props: IBlogDetailProps) {
   return (
-    <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
+    <div className='ms-60 mt-16 max-lg/2:ms-20 z-[1]'>
       <div className='groups px-10 py-5'>
         <main id='site__main'>
           <div className='flex 2xl:gap-12 max-lg:flex-col gap-10' id='js-oversized'>
@@ -187,7 +187,7 @@ export default function BlogDetail(props: IBlogDetailProps) {
                       className='w-full resize-none !bg-transparent px-4 py-2 !border-transparent !ring-transparent placeholder:text-text-1 placeholder:base-regular'
                       aria-haspopup='true'
                       aria-expanded='false'></textarea>
-                    <div className='!top-2 pr-2 uk-drop' uk-drop='pos: bottom-right; mode: click'>
+                    <div className='!top-2 pr-2 uk-drop' data-uk-drop='pos: bottom-right; mode: click'>
                       <div
                         className='flex items-center gap-2'
                         data-uk-scrollspy='target: > svg; cls: uk-animation-slide-right-small; delay: 100 ;repeat: true'>
@@ -226,7 +226,7 @@ export default function BlogDetail(props: IBlogDetailProps) {
             <div className='2xl:w-[380px] lg:w-[330px] w-full'>
               <div
                 className='lg:space-y-6 space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
+                data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
                 <div className='box p-5 px-6 bg-foreground-1'>
                   <div className='flex items-baseline justify-between'>
                     <h3 className='font-bold text-base'> Trending Articles</h3>

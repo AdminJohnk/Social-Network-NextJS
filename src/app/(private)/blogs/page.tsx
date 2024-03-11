@@ -13,8 +13,9 @@ import {
 import { CiHeart } from 'react-icons/ci';
 import Image from 'next/image';
 import Link from 'next/link';
+import { TabTitle, Tabs } from '@/components/ui/tabs';
 
-export interface IBlogProps { }
+export interface IBlogProps {}
 
 export default function Blog(props: IBlogProps) {
   return (
@@ -26,21 +27,11 @@ export default function Blog(props: IBlogProps) {
               <div className='page-heading'>
                 <h1 className='page-title'> Articles </h1>
 
-                <nav className='nav__underline'>
-                  <ul
-                    className='group'
-                    data-uk-switcher='connect: #ttabs ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
-                    <li>
-                      <Link href='#'> Suggestions </Link>
-                    </li>
-                    <li>
-                      <Link href='#'> Popular </Link>
-                    </li>
-                    <li>
-                      <Link href='#'> My article </Link>
-                    </li>
-                  </ul>
-                </nav>
+                <Tabs id='ttabs' disableChevron>
+                  <TabTitle>Suggestions</TabTitle>
+                  <TabTitle>Popular</TabTitle>
+                  <TabTitle>My article</TabTitle>
+                </Tabs>
               </div>
 
               <div tabIndex={-1} data-uk-slider='finite:true'>
@@ -563,10 +554,7 @@ export default function Blog(props: IBlogProps) {
                         <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>Johnson smith</h4>
                         </Link>
-                        <div className='mt-0.5 text-text-2'>
-                          {' '}
-                          Suggested For You{' '}
-                        </div>
+                        <div className='mt-0.5 text-text-2'> Suggested For You </div>
                       </div>
                       <button
                         type='button'
@@ -610,10 +598,7 @@ export default function Blog(props: IBlogProps) {
                         <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>John Michael</h4>
                         </Link>
-                        <div className='mt-0.5 text-text-2'>
-                          {' '}
-                          Followed by Monroe{' '}
-                        </div>
+                        <div className='mt-0.5 text-text-2'> Followed by Monroe </div>
                       </div>
                       <button
                         type='button'
@@ -635,10 +620,7 @@ export default function Blog(props: IBlogProps) {
                         <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>Monroe Parker</h4>
                         </Link>
-                        <div className='mt-0.5 text-text-2'>
-                          {' '}
-                          Suggested For You{' '}
-                        </div>
+                        <div className='mt-0.5 text-text-2'> Suggested For You </div>
                       </div>
                       <button
                         type='button'

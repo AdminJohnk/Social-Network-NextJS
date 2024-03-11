@@ -32,7 +32,7 @@ export default function NotificationsHeader() {
         <IoNotificationsOutline className='sm:hidden text-2xl' />
       </button>
       <div
-        className='hidden bg-foreground-1 pr-1.5 rounded-lg drop-shadow-xl md:w-[365px] w-screen border-border-1'
+        className='hidden bg-foreground-2 pr-1.5 rounded-lg drop-shadow-xl md:w-[365px] w-screen border-border-1'
         data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
         <div className='flex items-center justify-between gap-2 p-4 pb-2'>
           <h3 className='font-bold text-xl text-text-1'>Notifications</h3>
@@ -66,7 +66,7 @@ export default function NotificationsHeader() {
           <div className='pl-2 p-1 text-sm font-normal'>
             <Link
               href='#'
-              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-1 bg-teal-500/5'>
+              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2 bg-teal-500/5'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
                   src='/images/home/avatar-3.jpg'
@@ -87,7 +87,7 @@ export default function NotificationsHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-1'>
+              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
                   src='/images/home/avatar-7.jpg'
@@ -107,7 +107,7 @@ export default function NotificationsHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-1'>
+              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
                   src='/images/home/avatar-6.jpg'
@@ -127,7 +127,7 @@ export default function NotificationsHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-1'>
+              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
                   src='/images/home/avatar-2.jpg'
@@ -147,7 +147,7 @@ export default function NotificationsHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-1 bg-teal-500/5'>
+              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2 bg-teal-500/5'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
                   src='/images/home/avatar-3.jpg'
@@ -168,7 +168,7 @@ export default function NotificationsHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-1'>
+              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
                   src='/images/home/avatar-4.jpg'
@@ -188,7 +188,7 @@ export default function NotificationsHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-1'>
+              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
                   src='/images/home/avatar-2.jpg'
@@ -208,7 +208,7 @@ export default function NotificationsHeader() {
             </Link>
             <Link
               href='#'
-              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-1'>
+              className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
                   src='/images/home/avatar-7.jpg'
@@ -234,7 +234,7 @@ export default function NotificationsHeader() {
           </div>
         </Link>
 
-        <div className='w-3 h-3 absolute -top-1.5 right-3 bg-foreground-1 border-l border-t rotate-45 max-md:hidden dark:border-transparent'></div>
+        <div className='w-3 h-3 absolute -top-1.5 right-3 bg-foreground-2 border-l border-t rotate-45 max-md:hidden dark:border-transparent'></div>
       </div>
     </>
   );
