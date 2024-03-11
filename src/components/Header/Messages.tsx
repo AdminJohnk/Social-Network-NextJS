@@ -7,7 +7,7 @@ export default function MessagesHeader() {
     <>
       <button
         type='button'
-        className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1 dark:text-white'
+        className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1'
         data-uk-tooltip='title: Messages; pos: bottom; offset:6'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -183,7 +183,7 @@ export default function MessagesHeader() {
           </div>
         </Link>
 
-        <div className='w-3 h-3 absolute -top-1.5 right-3 border-l border-t rotate-45 max-md:hidden bg-background-1 dark:border-transparent' />
+        <div className='w-3 h-3 absolute -top-1.5 right-3 border-l border-t rotate-45 max-md:hidden bg-foreground-1 dark:border-transparent' />
       </div>
     </>
   );

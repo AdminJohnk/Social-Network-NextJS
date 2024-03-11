@@ -32,7 +32,7 @@ export default function NotificationsHeader() {
         <IoNotificationsOutline className='sm:hidden text-2xl' />
       </button>
       <div
-        className='hidden bg-foreground-1 pr-1.5 rounded-lg drop-shadow-xl md:w-[365px] w-screen border2'
+        className='hidden bg-foreground-1 pr-1.5 rounded-lg drop-shadow-xl md:w-[365px] w-screen border-border-1'
         data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
         <div className='flex items-center justify-between gap-2 p-4 pb-2'>
           <h3 className='font-bold text-xl text-text-1'>Notifications</h3>

@@ -16,7 +16,7 @@ export default function CreateHeader() {
     <>
       <button
         type='button'
-        className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1 dark:text-white'
+        className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1'
         data-uk-tooltip='title: Create; pos: bottom; offset:6'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -29,8 +29,9 @@ export default function CreateHeader() {
         </svg>
         <IoAddCircleOutline className='sm:hidden text-2xl' />
       </button>
+
       <div
-        className='hidden bg-foreground-1 p-4 rounded-lg overflow-hidden drop-shadow-xl md:w-[324px] w-screen border2'
+        className='hidden bg-foreground-1 p-4 rounded-lg drop-shadow-xl md:w-[324px] w-screen border-border-1'
         data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
         <h3 className='font-bold text-xl text-text-1'>Create</h3>
 
@@ -143,6 +144,8 @@ export default function CreateHeader() {
             </div>
           </li>
         </ul>
+
+        <div className='w-3 h-3 absolute -top-1.5 right-3 border-l border-t rotate-45 max-md:hidden bg-foreground-1 dark:border-transparent' />
       </div>
     </>
   );
