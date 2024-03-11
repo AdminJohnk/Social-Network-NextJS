@@ -38,11 +38,11 @@ export default function Community(props: ICommunityProps) {
             </div>
             <div className='flex items-center space-x-4'>
               <div className='flex -space-x-1'>
-                <Avatar src='/images/avatars/avatar-1.jpg' className='size-8' />
-                <Avatar src='/images/avatars/avatar-2.jpg' className='size-8' />
-                <Avatar src='/images/avatars/avatar-3.jpg' className='size-8' />
-                <Avatar src='/images/avatars/avatar-4.jpg' className='size-8' />
-                <Avatar src='/images/avatars/avatar-5.jpg' className='size-8' />
+                <Avatar src='/images/avatars/avatar-1.jpg' sx={{width: 32, height: 32}} />
+                <Avatar src='/images/avatars/avatar-2.jpg' sx={{width: 32, height: 32}} />
+                <Avatar src='/images/avatars/avatar-3.jpg' sx={{width: 32, height: 32}} />
+                <Avatar src='/images/avatars/avatar-4.jpg' sx={{width: 32, height: 32}} />
+                <Avatar src='/images/avatars/avatar-5.jpg' sx={{width: 32, height: 32}} />
               </div>
               <button className='px-6 py-2 bg-foreground-2 hover:bg-hover-2 duration-300 rounded-lg flex-start'>
                 <FiPlus className='me-2 size-5' /> <span>Join</span>

@@ -108,7 +108,7 @@ export default function Search(props: ISearchProps) {
                   key={index}
                   className='flex-start align-center px-3 py-2 mb-2.5 hover:bg-hover-1 rounded-lg cursor-pointer'>
                   <div className='avatar'>
-                    <Avatar src={item.avatar} className='size-10' />
+                    <Avatar src={item.avatar} sx={{width: 40, height: 40}} />
                   </div>
                   <div className='ps-3'>
                     <div className='h6-bold'>{item.name}</div>

@@ -114,7 +114,7 @@ export default function Notification(props: INotificationProps) {
             >
               <div className='left flex-start'>
                 <div className='avatar me-3'>
-                  <Avatar src={item.user.avatar} className='size-12' />
+                  <Avatar src={item.user.avatar} sx={{width: 48, height: 48}} />
                 </div>
                 <div className='content'>
                   <div>
@@ -144,7 +144,7 @@ export default function Notification(props: INotificationProps) {
             >
               <div className='left flex-start'>
                 <div className='avatar me-3'>
-                  <Avatar src={item.user.avatar} className='size-12' />
+                  <Avatar src={item.user.avatar} sx={{width: 48, height: 48}} />
                 </div>
                 <div className='content'>
                   <div>
