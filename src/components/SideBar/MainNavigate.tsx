@@ -10,7 +10,7 @@ export default function MainNavigate() {
       <ul>
         {Sidebar.map((item, index) => (
           <li key={index} id={cn(item.showMore && 'show_more')} className={cn(item.showMore && '!hidden')}>
-            <Link href={item.href}>
+            <Link href={item.href} className='duration-300'>
               <Image src={item.image} alt={item.label} width={24} height={24} />
               <span> {item.label} </span>
             </Link>

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  IoAddCircleOutline,
+  IoAdd,
   IoBook,
   IoCamera,
   IoChevronBack,
@@ -16,55 +16,53 @@ export default function CreateHeader() {
     <>
       <button
         type='button'
-        className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1 dark:text-white'
-        data-uk-tooltip='title: Create; pos: bottom; offset:6'>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth='1.5'
-          stroke='currentColor'
-          className='w-5 h-5 max-sm:hidden'>
-          <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15'></path>
-        </svg>
-        <IoAddCircleOutline className='sm:hidden text-2xl' />
+        className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1'
+        data-uk-tooltip='title: Create; pos: bottom; offset:6'
+      >
+        <IoAdd className='text-2xl text-text-1' />
       </button>
       <div
-        className='hidden bg-foreground-1 p-4 rounded-lg overflow-hidden drop-shadow-xl md:w-[324px] w-screen border2'
-        data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
+        className='hidden bg-foreground-2 p-4 rounded-lg overflow-hidden drop-shadow-xl md:w-[324px] w-screen'
+        data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'
+      >
         <h3 className='font-bold text-xl text-text-1'>Create</h3>
 
-        <div className='mt-4' tabIndex={-1} data-uk-slider='finite:true;sets: true'>
+        <div
+          className='mt-4'
+          tabIndex={-1}
+          data-uk-slider='finite:true;sets: true'
+        >
           <div className='uk-slider-container pb-1'>
             <ul
               className='uk-slider-items grid-small'
-              data-uk-scrollspy='target: > li; cls: uk-animation-scale-up , uk-animation-slide-right-small; delay: 20 ;repeat: true'>
+              data-uk-scrollspy='target: > li; cls: uk-animation-scale-up , uk-animation-slide-right-small; delay: 20 ;repeat: true'
+            >
               <li className='w-28' data-uk-scrollspy-class='uk-animation-fade'>
-                <div className='p-3 px-4 rounded-lg bg-teal-100/60 text-teal-600 dark:text-white dark:bg-dark-1'>
+                <div className='p-3 px-4 rounded-lg text-teal-600 bg-foreground-1'>
                   <IoBook className='text-2xl drop-shadow-md' />
                   <div className='mt-1.5 text-sm font-medium'>Story</div>
                 </div>
               </li>
               <li className='w-28'>
-                <div className='p-3 px-4 rounded-lg bg-sky-100/60 text-sky-600 dark:text-white dark:bg-dark-1'>
+                <div className='p-3 px-4 rounded-lg text-sky-600 bg-foreground-1'>
                   <IoCamera className='text-2xl drop-shadow-md' />
                   <div className='mt-1.5 text-sm font-medium'>Post</div>
                 </div>
               </li>
               <li className='w-28'>
-                <div className='p-3 px-4 rounded-lg bg-purple-100/60 text-purple-600 dark:text-white dark:bg-dark-1'>
+                <div className='p-3 px-4 rounded-lg text-purple-600 bg-foreground-1'>
                   <IoVideocam className='text-2xl drop-shadow-md' />
                   <div className='mt-1.5 text-sm font-medium'>Reel</div>
                 </div>
               </li>
               <li className='w-28'>
-                <div className='p-3 px-4 rounded-lg bg-pink-100/60 text-pink-600 dark:text-white dark:bg-dark-1'>
+                <div className='p-3 px-4 rounded-lg text-pink-600 bg-foreground-1'>
                   <IoLocation className='text-2xl drop-shadow-md' />
                   <div className='mt-1.5 text-sm font-medium'>location</div>
                 </div>
               </li>
               <li className='w-28'>
-                <div className='p-3 px-4 rounded-lg bg-sky-100/70 text-sky-600 dark:text-white dark:bg-dark-1'>
+                <div className='p-3 px-4 rounded-lg text-sky-600 bg-foreground-1'>
                   <IoHappy className='text-2xl drop-shadow-md' />
                   <div className='mt-1.5 text-sm font-medium'>Status</div>
                 </div>
@@ -76,14 +74,16 @@ export default function CreateHeader() {
             <Link
               className='absolute -translate-y-1/2 top-1/2 -left-4 flex items-center w-8 h-full px-1.5 justify-start bg-gradient-to-r from-white via-white dark:from-transparent dark:via-transparent'
               href='#'
-              data-uk-slider-item='previous'>
-              <IoChevronBack className='text-xl dark:text-white' />
+              data-uk-slider-item='previous'
+            >
+              <IoChevronBack className='text-xl' />
             </Link>
             <Link
               className='absolute -translate-y-1/2 top-1/2 -right-4 flex items-center w-8 h-full px-1.5 justify-end bg-gradient-to-l from-white via-white dark:from-transparent dark:via-transparent'
               href='#'
-              data-uk-slider-item='next'>
-              <IoChevronForward className='text-xl dark:text-white' />
+              data-uk-slider-item='next'
+            >
+              <IoChevronForward className='text-xl' />
             </Link>
           </div>
 
@@ -93,51 +93,82 @@ export default function CreateHeader() {
         </div>
 
         <ul
-          className='-m-1 mt-4 pb-1 text-xs text-gray-500 dark:text-white'
-          data-uk-scrollspy='target: > li; cls: uk-animation-scale-up , uk-animation-slide-bottom-small ;repeat: true'>
+          className='-m-1 mt-4 pb-1 text-xs hover:*:bg-hover-2 *:duration-300'
+          data-uk-scrollspy='target: > li; cls: uk-animation-scale-up , uk-animation-slide-bottom-small ;repeat: true'
+        >
           <li className='flex items-center gap-4 hover:bg-hover-1 rounded-md p-1.5 cursor-pointer'>
-            <Image src='/images/home/group.png' alt='' className='w-7' width={50} height={50} />
-            <div className='flex-1'>
+            <Image
+              src='/images/home/group.png'
+              alt=''
+              className='w-7'
+              width={50}
+              height={50}
+            />
+            <div className='flex-1 text-text-1'>
               <Link href=''>
-                <h4 className='font-medium text-sm text-black dark:text-white'>Groups</h4>
+                <h4 className='font-medium text-sm'>Groups</h4>
               </Link>
-              <div className='mt-1 text-xs text-gray-500 dark:text-white'>
+              <div className='mt-1 text-xs'>
                 Meet people with similar interests.
               </div>
             </div>
           </li>
           <li className='flex items-center gap-4 hover:bg-hover-1 rounded-md p-1.5 cursor-pointer'>
-            <Image src='/images/home/page.png' alt='' className='w-7' width={50} height={50} />
-            <div className='flex-1'>
+            <Image
+              src='/images/home/page.png'
+              alt=''
+              className='w-7'
+              width={50}
+              height={50}
+            />
+            <div className='flex-1 text-text-1'>
               <Link href=''>
-                <h4 className='font-medium text-sm text-black dark:text-white'>Pages</h4>
+                <h4 className='font-medium text-sm'>Pages</h4>
               </Link>
               <div className='mt-1'>Find and connect with businesses.</div>
             </div>
           </li>
           <li className='flex items-center gap-4 hover:bg-hover-1 rounded-md p-1.5 cursor-pointer'>
-            <Image src='/images/home/event.png' className='w-7' alt='' width={50} height={50} />
-            <div className='flex-1'>
+            <Image
+              src='/images/home/event.png'
+              className='w-7'
+              alt=''
+              width={50}
+              height={50}
+            />
+            <div className='flex-1 text-text-1'>
               <Link href=''>
-                <h4 className='font-medium text-sm text-black dark:text-white'>Event</h4>
+                <h4 className='font-medium text-sm'>Event</h4>
               </Link>
               <div className='mt-1'>Discover fun activities near you .</div>
             </div>
           </li>
           <li className='flex items-center gap-4 hover:bg-hover-1 rounded-md p-1.5 cursor-pointer'>
-            <Image src='/images/home/market.png' className='w-8 -ml-1' alt='' width={50} height={50} />
-            <div className='flex-1'>
+            <Image
+              src='/images/home/market.png'
+              className='w-8 -ml-1'
+              alt=''
+              width={50}
+              height={50}
+            />
+            <div className='flex-1 text-text-1'>
               <Link href=''>
-                <h4 className='font-medium text-sm text-black dark:text-white'>Event</h4>
+                <h4 className='font-medium text-sm'>Event</h4>
               </Link>
               <div className='mt-1'>Find local buyers and sellers .</div>
             </div>
           </li>
           <li className='flex items-center gap-4 hover:bg-hover-1 rounded-md p-1.5 cursor-pointer'>
-            <Image src='/images/home/game.png' alt='' className='w-7' width={50} height={50} />
-            <div className='flex-1'>
+            <Image
+              src='/images/home/game.png'
+              alt=''
+              className='w-7'
+              width={50}
+              height={50}
+            />
+            <div className='flex-1 text-text-1'>
               <Link href=''>
-                <h4 className='font-medium text-sm text-black dark:text-white'>Games</h4>
+                <h4 className='font-medium text-sm'>Games</h4>
               </Link>
               <div className='mt-1'>play game with friends have fun.</div>
             </div>
