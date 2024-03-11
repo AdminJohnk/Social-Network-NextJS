@@ -9,11 +9,7 @@ export default function MainNavigate() {
     <nav id='side'>
       <ul>
         {Sidebar.map((item, index) => (
-          <li
-            key={index}
-            id={cn(item.showMore && 'show_more')}
-            className={cn(item.showMore && '!hidden')}
-            data-uk-toggle='target: #site_sidebar ; cls :!-translate-x-0'>
+          <li key={index} id={cn(item.showMore && 'show_more')} className={cn(item.showMore && '!hidden')}>
             <Link href={item.href}>
               <Image src={item.image} alt={item.label} width={24} height={24} />
               <span> {item.label} </span>
