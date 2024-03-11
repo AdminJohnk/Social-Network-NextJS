@@ -20,7 +20,7 @@ export default function MainNavigate() {
 
       <button
         type='button'
-        className='flex items-center gap-4 py-2 px-4 w-full font-medium text-sm text-black dark:text-white'
+        className='flex items-center gap-4 py-2 px-4 w-full font-medium text-sm text-text-1'
         data-uk-toggle='target: #show_more; cls: !hidden uk-animation-fade'>
         <svg
           id='show_more'

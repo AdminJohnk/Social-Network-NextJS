@@ -3,12 +3,12 @@ import Link from 'next/link';
 
 export default function Shortcuts() {
   return (
-    <div className='font-medium text-sm text-black border-t pt-3 mt-2 dark:text-white dark:border-slate-800'>
+    <div className='font-medium text-sm text-text-1 border-t pt-3 mt-2 dark:border-slate-800'>
       <div className='px-3 pb-2 text-sm font-medium'>
-        <div className='text-black dark:text-white'>Shortcut</div>
+        <div className='text-text-1'>Shortcut</div>
       </div>
       <Link href='#'>
-        <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-secondery'>
+        <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-hover-1'>
           <Image
             src='/images/home/avatar-2.jpg'
             alt=''
@@ -20,7 +20,7 @@ export default function Shortcuts() {
         </div>
       </Link>
       <Link href='#'>
-        <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-secondery'>
+        <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-hover-1'>
           <Image
             src='/images/home/avatar-7.jpg'
             alt=''
@@ -32,7 +32,7 @@ export default function Shortcuts() {
         </div>
       </Link>
       <Link href='#'>
-        <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-secondery'>
+        <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-hover-1'>
           <Image
             src='/images/home/avatar-3.jpg'
             alt=''

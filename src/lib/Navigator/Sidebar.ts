@@ -7,7 +7,7 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
   {
     href: '/messages',
     image: '/images/home/message.png',
-    label: 'Friends'
+    label: 'Messages'
   },
   {
     href: '',
@@ -20,7 +20,7 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Events'
   },
   {
-    href: '',
+    href: 'community/123',
     image: '/images/home/page.png',
     label: 'Pages'
   },
@@ -35,7 +35,7 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Market'
   },
   {
-    href: '',
+    href: 'blogs',
     image: '/images/home/blog.png',
     label: 'Blog'
   },

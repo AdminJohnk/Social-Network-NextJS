@@ -15,8 +15,7 @@ function SampleNextArrow(props: any) {
       className={cn(
         'text-text-1 text-xl absolute -right-5 top-5 rounded-full bg-foreground-2 cursor-pointer p-1'
       )}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       <IoIosArrowForward />
     </span>
   );
@@ -29,8 +28,7 @@ function SamplePrevArrow(props: any) {
       className={cn(
         'text-text-1 text-xl absolute -left-10 top-5 rounded-full bg-foreground-2 cursor-pointer p-1'
       )}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       <IoIosArrowBack />
     </span>
   );
@@ -163,9 +161,9 @@ export default function Story(props: IStoryProps) {
     <div className='story'>
       <div className='mb-5 h3-bold'>Stories</div>
       <Slider {...settings} className='relative'>
-        {storyList.map(story => (
+        {storyList.map((story) => (
           <div key={story.id}>
-            <Avatar src={story.image} className='size-16' />
+            <Avatar src={story.image} sx={{ width: 64, height: 64 }} />
           </div>
         ))}
       </Slider>

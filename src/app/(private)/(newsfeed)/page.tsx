@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import NewPost from '@/components/NewPost/NewPost';
 import OnlineFriend from '@/components/OnlineFriend/OnlineFriend';
 import Post from '@/components/Post/Post';
@@ -6,7 +8,6 @@ import ProMember from '@/components/ProMember/ProMember';
 import Story from '@/components/Story/Story';
 import SuggestFollow from '@/components/SuggestFollow/SuggestFollow';
 import TrendForYou from '@/components/TrendForYou/TrendForYou';
-import * as React from 'react';
 
 export interface INewFeedProps {}
 
