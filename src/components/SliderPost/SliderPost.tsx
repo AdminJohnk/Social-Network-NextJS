@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { IoAddCircle, IoChevronBack, IoChevronForward } from 'react-icons/io5';
@@ -47,7 +47,9 @@ export default function SliderPost(props: ISliderPostProps) {
               <Link href='images/avatars/avatar-lg-1.jpg' data-caption='Caption'>
                 <div className=' lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                   <div className='w-full lg:h-64 aspect-[2.5/4] relative'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-lg-1.jpg'
                       className='rounded-lg w-full h-full object-cover inset-0'
                       alt=''
@@ -60,7 +62,9 @@ export default function SliderPost(props: ISliderPostProps) {
               <Link href='images/avatars/avatar-lg-2.jpg' data-caption='Caption'>
                 <div className=' lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                   <div className='w-full lg:h-64 aspect-[2.5/4] relative'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-lg-2.jpg'
                       className='rounded-lg w-full h-full object-cover inset-0'
                       alt=''
@@ -73,7 +77,9 @@ export default function SliderPost(props: ISliderPostProps) {
               <Link href='images/avatars/avatar-lg-3.jpg' data-caption='Caption'>
                 <div className=' lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                   <div className='w-full lg:h-64 aspect-[2.5/4] relative'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-lg-3.jpg'
                       className='rounded-lg w-full h-full object-cover inset-0'
                       alt=''
@@ -86,7 +92,9 @@ export default function SliderPost(props: ISliderPostProps) {
               <Link href='images/avatars/avatar-lg-4.jpg' data-caption='Caption'>
                 <div className=' lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                   <div className='w-full lg:h-64 aspect-[2.5/4] relative'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-lg-4.jpg'
                       className='rounded-lg w-full h-full object-cover inset-0'
                       alt=''
@@ -99,7 +107,9 @@ export default function SliderPost(props: ISliderPostProps) {
               <Link href='images/avatars/avatar-lg-5.jpg' data-caption='Caption'>
                 <div className=' lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100'>
                   <div className='w-full lg:h-64 aspect-[2.5/4] relative'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-lg-5.jpg'
                       className='rounded-lg w-full h-full object-cover inset-0'
                       alt=''

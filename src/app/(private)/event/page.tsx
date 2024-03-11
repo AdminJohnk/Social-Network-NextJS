@@ -1,9 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { IoArrowRedo, IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
-export interface IEventProps {}
+export interface IEventProps { }
 
 export default function Event(props: IEventProps) {
   return (
@@ -50,7 +50,9 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <img src='images/events/img-3.jpg' alt='' />
+                          <Image
+                            width={500}
+                            height={500} src='/images/events/img-3.jpg' alt='' />
                           <div className='card-overly'></div>
                         </div>
                       </Link>
@@ -67,7 +69,7 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> Dubai </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 26 Intersted</div>
+                          <div> 26 Interested</div>
                           <div className='md:block hidden'>·</div>
                           <div> 8 Going</div>
                         </div>
@@ -76,7 +78,7 @@ export default function Event(props: IEventProps) {
                             type='button'
                             className='button bg-primary text-white flex-1'
                           >
-                            Intersted
+                            Interested
                           </button>
                           <button
                             type='button'
@@ -92,7 +94,9 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <img src='images/events/img-2.jpg' alt='' />
+                          <Image
+                            width={500}
+                            height={500} src='/images/events/img-2.jpg' alt='' />
                           <div className='card-overly'></div>
                         </div>
                       </Link>
@@ -109,7 +113,7 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> Turkey </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 20 Intersted</div>
+                          <div> 20 Interested</div>
                           <div className='md:block hidden'>·</div>
                           <div> 16 Going</div>
                         </div>
@@ -118,7 +122,7 @@ export default function Event(props: IEventProps) {
                             type='button'
                             className='button bg-primary text-white flex-1'
                           >
-                            Intersted
+                            Interested
                           </button>
                           <button
                             type='button'
@@ -134,7 +138,9 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <img src='images/events/img-1.jpg' alt='' />
+                          <Image
+                            width={500}
+                            height={500} src='/images/events/img-1.jpg' alt='' />
                           <div className='card-overly'></div>
                         </div>
                       </Link>
@@ -151,7 +157,7 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> Japan </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 15 Intersted</div>
+                          <div> 15 Interested</div>
                           <div className='md:block hidden'>·</div>
                           <div> 2 Going</div>
                         </div>
@@ -160,7 +166,7 @@ export default function Event(props: IEventProps) {
                             type='button'
                             className='button bg-primary text-white flex-1'
                           >
-                            Intersted
+                            Interested
                           </button>
                           <button
                             type='button'
@@ -176,7 +182,9 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <img src='images/events/img-4.jpg' alt='' />
+                          <Image
+                            width={500}
+                            height={500} src='/images/events/img-4.jpg' alt='' />
                           <div className='card-overly'></div>
                         </div>
                       </Link>
@@ -193,7 +201,7 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> London </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 20 Intersted</div>
+                          <div> 20 Interested</div>
                           <div className='md:block hidden'>·</div>
                           <div> 16 Going</div>
                         </div>
@@ -202,7 +210,7 @@ export default function Event(props: IEventProps) {
                             type='button'
                             className='button bg-primary text-white flex-1'
                           >
-                            Intersted
+                            Interested
                           </button>
                           <button
                             type='button'
@@ -218,7 +226,9 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <img src='images/events/img-3.jpg' alt='' />
+                          <Image
+                            width={500}
+                            height={500} src='/images/events/img-3.jpg' alt='' />
                           <div className='card-overly'></div>
                         </div>
                       </Link>
@@ -235,7 +245,7 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> Dubai </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 26 Intersted</div>
+                          <div> 26 Interested</div>
                           <div className='md:block hidden'>·</div>
                           <div> 8 Going</div>
                         </div>
@@ -244,7 +254,7 @@ export default function Event(props: IEventProps) {
                             type='button'
                             className='button bg-primary text-white flex-1'
                           >
-                            Intersted
+                            Interested
                           </button>
                           <button
                             type='button'
@@ -299,8 +309,10 @@ export default function Event(props: IEventProps) {
                   <li className='md:w-1/5 sm:w-1/3 w-1/2'>
                     <Link href='#'>
                       <div className='relative rounded-lg overflow-hidden'>
-                        <img
-                          src='images/events/listing-1.jpg'
+                        <Image
+                          width={500}
+                          height={500}
+                          src='/images/events/listing-1.jpg'
                           alt=''
                           className='h-36 w-full object-cover'
                         />
@@ -318,8 +330,10 @@ export default function Event(props: IEventProps) {
                   <li className='md:w-1/5 sm:w-1/3 w-1/2'>
                     <Link href='#'>
                       <div className='relative rounded-lg overflow-hidden'>
-                        <img
-                          src='images/events/listing-2.jpg'
+                        <Image
+                          width={500}
+                          height={500}
+                          src='/images/events/listing-2.jpg'
                           alt=''
                           className='h-36 w-full object-cover'
                         />
@@ -337,8 +351,10 @@ export default function Event(props: IEventProps) {
                   <li className='md:w-1/5 sm:w-1/3 w-1/2'>
                     <Link href='#'>
                       <div className='relative rounded-lg overflow-hidden'>
-                        <img
-                          src='images/events/listing-3.jpg'
+                        <Image
+                          width={500}
+                          height={500}
+                          src='/images/events/listing-3.jpg'
                           alt=''
                           className='h-36 w-full object-cover'
                         />
@@ -356,8 +372,10 @@ export default function Event(props: IEventProps) {
                   <li className='md:w-1/5 sm:w-1/3 w-1/2'>
                     <Link href='#'>
                       <div className='relative rounded-lg overflow-hidden'>
-                        <img
-                          src='images/events/listing-4.jpg'
+                        <Image
+                          width={500}
+                          height={500}
+                          src='/images/events/listing-4.jpg'
                           alt=''
                           className='h-36 w-full object-cover'
                         />
@@ -375,8 +393,10 @@ export default function Event(props: IEventProps) {
                   <li className='md:w-1/5 sm:w-1/3 w-1/2'>
                     <Link href='#'>
                       <div className='relative rounded-lg overflow-hidden'>
-                        <img
-                          src='images/events/listing-5.jpg'
+                        <Image
+                          width={500}
+                          height={500}
+                          src='/images/events/listing-5.jpg'
                           alt=''
                           className='h-36 w-full object-cover'
                         />
@@ -384,7 +404,7 @@ export default function Event(props: IEventProps) {
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Turkey </div>
                             <div className='text-lg leading-3 mt-1.5'>
-                              Resturent
+                              Resurgent
                             </div>
                           </div>
                         </div>
@@ -394,8 +414,10 @@ export default function Event(props: IEventProps) {
                   <li className='md:w-1/5 sm:w-1/3 w-1/2'>
                     <Link href='#'>
                       <div className='relative rounded-lg overflow-hidden'>
-                        <img
-                          src='images/events/listing-1.jpg'
+                        <Image
+                          width={500}
+                          height={500}
+                          src='/images/events/listing-1.jpg'
                           alt=''
                           className='h-36 w-full object-cover'
                         />
@@ -427,7 +449,7 @@ export default function Event(props: IEventProps) {
             </div>
 
             <div className='flex items-center justify-between text-black dark:text-white py-3 mt-6'>
-              <h3 className='text-xl font-semibold'> Upcomming Events </h3>
+              <h3 className='text-xl font-semibold'> Upcoming Events </h3>
               <Link href='#' className='text-sm text-blue-500'>
                 See all
               </Link>
@@ -438,7 +460,9 @@ export default function Event(props: IEventProps) {
               <div className='card'>
                 <Link href='timeline-event.html'>
                   <div className='card-media h-32'>
-                    <img src='images/events/img-1.jpg' alt='' />
+                    <Image
+                      width={500}
+                      height={500} src='/images/events/img-1.jpg' alt='' />
                     <div className='card-overly'></div>
                   </div>
                 </Link>
@@ -453,7 +477,7 @@ export default function Event(props: IEventProps) {
                     <p className='card-text text-black mt-2'> Japan </p>
                   </Link>
                   <div className='card-list-info text-xs mt-1'>
-                    <div> 15 Intersted</div>
+                    <div> 15 Interested</div>
                     <div className='md:block hidden'>·</div>
                     <div> 2 Going</div>
                   </div>
@@ -462,7 +486,7 @@ export default function Event(props: IEventProps) {
                       type='button'
                       className='button bg-primary text-white flex-1'
                     >
-                      Intersted
+                      Interested
                     </button>
                     <button
                       type='button'
@@ -477,7 +501,9 @@ export default function Event(props: IEventProps) {
               <div className='card'>
                 <Link href='timeline-event.html'>
                   <div className='card-media h-32'>
-                    <img src='images/events/img-2.jpg' alt='' />
+                    <Image
+                      width={500}
+                      height={500} src='/images/events/img-2.jpg' alt='' />
                     <div className='card-overly'></div>
                   </div>
                 </Link>
@@ -492,7 +518,7 @@ export default function Event(props: IEventProps) {
                     <p className='card-text text-black mt-2'> Turkey </p>
                   </Link>
                   <div className='card-list-info text-xs mt-1'>
-                    <div> 20 Intersted</div>
+                    <div> 20 Interested</div>
                     <div className='md:block hidden'>·</div>
                     <div> 16 Going</div>
                   </div>
@@ -501,7 +527,7 @@ export default function Event(props: IEventProps) {
                       type='button'
                       className='button bg-primary text-white flex-1'
                     >
-                      Intersted
+                      Interested
                     </button>
                     <button
                       type='button'
@@ -516,7 +542,9 @@ export default function Event(props: IEventProps) {
               <div className='card'>
                 <Link href='timeline-event.html'>
                   <div className='card-media h-32'>
-                    <img src='images/events/img-3.jpg' alt='' />
+                    <Image
+                      width={500}
+                      height={500} src='/images/events/img-3.jpg' alt='' />
                     <div className='card-overly'></div>
                   </div>
                 </Link>
@@ -533,7 +561,7 @@ export default function Event(props: IEventProps) {
                     <p className='card-text text-black mt-2'> Dubai </p>
                   </Link>
                   <div className='card-list-info text-xs mt-1'>
-                    <div> 26 Intersted</div>
+                    <div> 26 Interested</div>
                     <div className='md:block hidden'>·</div>
                     <div> 8 Going</div>
                   </div>
@@ -542,7 +570,7 @@ export default function Event(props: IEventProps) {
                       type='button'
                       className='button bg-primary text-white flex-1'
                     >
-                      Intersted
+                      Interested
                     </button>
                     <button
                       type='button'
@@ -557,7 +585,9 @@ export default function Event(props: IEventProps) {
               <div className='card'>
                 <Link href='timeline-event.html'>
                   <div className='card-media h-32'>
-                    <img src='images/events/img-4.jpg' alt='' />
+                    <Image
+                      width={500}
+                      height={500} src='/images/events/img-4.jpg' alt='' />
                     <div className='card-overly'></div>
                   </div>
                 </Link>
@@ -574,7 +604,7 @@ export default function Event(props: IEventProps) {
                     <p className='card-text text-black mt-2'> London </p>
                   </Link>
                   <div className='card-list-info text-xs mt-1'>
-                    <div> 20 Intersted</div>
+                    <div> 20 Interested</div>
                     <div className='md:block hidden'>·</div>
                     <div> 16 Going</div>
                   </div>
@@ -583,7 +613,7 @@ export default function Event(props: IEventProps) {
                       type='button'
                       className='button bg-primary text-white flex-1'
                     >
-                      Intersted
+                      Interested
                     </button>
                     <button
                       type='button'

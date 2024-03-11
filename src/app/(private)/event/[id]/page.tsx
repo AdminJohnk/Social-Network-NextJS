@@ -1,4 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
+import Link from 'next/link';
 import * as React from 'react';
 import {
   IoArrowRedo,
@@ -15,7 +16,7 @@ import {
   IoLeafOutline
 } from 'react-icons/io5';
 
-export interface IGroupManagerProps {}
+export interface IGroupManagerProps { }
 
 export default function GroupManager(props: IGroupManagerProps) {
   return (
@@ -25,7 +26,9 @@ export default function GroupManager(props: IGroupManagerProps) {
           <div className=''>
             <div className='bg-foreground-1 shadow lg:rounded-b-2xl lg:-mt-10 '>
               <div className='relative overflow-hidden lg:h-72 h-36 w-full'>
-                <img
+                <Image
+                  width={500}
+                  height={500}
                   src='/images/group/group-cover-4.jpg'
                   alt=''
                   className='h-full w-full object-cover inset-0'
@@ -131,38 +134,38 @@ export default function GroupManager(props: IGroupManagerProps) {
                       uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
                     >
                       <nav>
-                        <a href='#'>
+                        <Link href='#'>
                           <IoBookmarkOutline className='size-5' /> Save
-                        </a>
-                        <a href='#'>
+                        </Link>
+                        <Link href='#'>
                           <IoFlagOutline className='size-5' /> Add to page
-                        </a>
-                        <a href='#'>
+                        </Link>
+                        <Link href='#'>
                           <IoCalendarNumberOutline className='size-5' /> Add to
                           calender
-                        </a>
-                        <a href='#'>
+                        </Link>
+                        <Link href='#'>
                           <IoShareOutline className='size-5' /> Share profile
-                        </a>
-                        <a href='#'>
+                        </Link>
+                        <Link href='#'>
                           <IoInformationCircleOutline className='size-5' />
                           Report Event
-                        </a>
+                        </Link>
                       </nav>
                     </div>
                   </div>
                 </div>
 
                 <nav className='flex gap-0.5 rounded-xl overflow-hidden -mb-px font-medium text-sm overflow-x-auto text-text-2'>
-                  <a
+                  <Link
                     href='#'
                     className='inline-block py-3 leading-8 px-3.5 border-b-2 border-blue-600 text-blue-600'
                   >
                     About
-                  </a>
-                  <a href='#' className='inline-block py-3 leading-8 px-3.5'>
+                  </Link>
+                  <Link href='#' className='inline-block py-3 leading-8 px-3.5'>
                     Discussion
-                  </a>
+                  </Link>
                 </nav>
               </div>
             </div>
@@ -198,78 +201,86 @@ export default function GroupManager(props: IGroupManagerProps) {
 
                   <div className=' text-sm font-normal space-y-4 relative mt-4'>
                     <div className='flex items-start gap-3 relative'>
-                      <a href='timeline.html'>
-                        <img
+                      <Link href='timeline.html'>
+                        <Image
+                          width={500}
+                          height={500}
                           src='/images/avatars/avatar-3.jpg'
                           alt=''
                           className='w-6 h-6 mt-1 rounded-full'
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a
+                        <Link
                           href='timeline.html'
                           className='font-medium inline-block '
                         >
                           Monroe Parker
-                        </a>
+                        </Link>
                         <p className='mt-0.5'>
                           What a beautiful photo! I love it. 😍
                         </p>
                       </div>
                     </div>
                     <div className='flex items-start gap-3 relative'>
-                      <a href='timeline.html'>
-                        <img
+                      <Link href='timeline.html'>
+                        <Image
+                          width={500}
+                          height={500}
                           src='/images/avatars/avatar-2.jpg'
                           alt=''
                           className='w-6 h-6 mt-1 rounded-full'
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a
+                        <Link
                           href='timeline.html'
                           className='font-medium inline-block '
                         >
                           John Michael
-                        </a>
+                        </Link>
                         <p className='mt-0.5'> You captured the moment.😎 </p>
                       </div>
                     </div>
                     <div className='flex items-start gap-3 relative'>
-                      <a href='timeline.html'>
-                        <img
+                      <Link href='timeline.html'>
+                        <Image
+                          width={500}
+                          height={500}
                           src='/images/avatars/avatar-5.jpg'
                           alt=''
                           className='w-6 h-6 mt-1 rounded-full'
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a
+                        <Link
                           href='timeline.html'
                           className='font-medium inline-block '
                         >
                           James Lewis
-                        </a>
+                        </Link>
                         <p className='mt-0.5'>
                           What a beautiful photo! I love it. 😍
                         </p>
                       </div>
                     </div>
                     <div className='flex items-start gap-3 relative'>
-                      <a href='timeline.html'>
-                        <img
+                      <Link href='timeline.html'>
+                        <Image
+                          width={500}
+                          height={500}
                           src='/images/avatars/avatar-4.jpg'
                           alt=''
                           className='w-6 h-6 mt-1 rounded-full'
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a
+                        <Link
                           href='timeline.html'
                           className='font-medium inline-block '
                         >
                           Martin Gray
-                        </a>
+                        </Link>
                         <p className='mt-0.5'> You captured the moment.😎 </p>
                       </div>
                     </div>
@@ -285,7 +296,9 @@ export default function GroupManager(props: IGroupManagerProps) {
                   </div>
 
                   <div className='sm:px-4 sm:py-3 p-2.5 border-t flex items-center gap-1 -m-6 mt-0 bg-foreground-2 border-border-1'>
-                    <img
+                    <Image
+                      width={500}
+                      height={500}
                       src='/images/avatars/avatar-7.jpg'
                       alt=''
                       className='w-6 h-6 rounded-full'
@@ -419,24 +432,26 @@ export default function GroupManager(props: IGroupManagerProps) {
                   <div className='box p-5 px-6 bg-foreground-1 rounded-md'>
                     <div className='flex items-baseline justify-between'>
                       <h3 className='base-bold'> Invite friends </h3>
-                      <a href='#' className='text-sm text-blue-500'>
+                      <Link href='#' className='text-sm text-blue-500'>
                         See all
-                      </a>
+                      </Link>
                     </div>
 
                     <div className='side-list'>
                       <div className='side-list-item'>
-                        <a href='timeline.html'>
-                          <img
+                        <Link href='timeline.html'>
+                          <Image
+                            width={500}
+                            height={500}
                             src='/images/avatars/avatar-3.jpg'
                             alt=''
                             className='side-list-image rounded-full'
                           />
-                        </a>
+                        </Link>
                         <div className='flex-1'>
-                          <a href='timeline.html'>
+                          <Link href='timeline.html'>
                             <h4 className='side-list-title'> Monroe Parker </h4>
-                          </a>
+                          </Link>
                           <div className='side-list-info'> Turkey</div>
                         </div>
                         <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>
@@ -445,17 +460,19 @@ export default function GroupManager(props: IGroupManagerProps) {
                       </div>
 
                       <div className='side-list-item'>
-                        <a href='timeline.html'>
-                          <img
+                        <Link href='timeline.html'>
+                          <Image
+                            width={500}
+                            height={500}
                             src='/images/avatars/avatar-4.jpg'
                             alt=''
                             className='side-list-image rounded-full'
                           />
-                        </a>
+                        </Link>
                         <div className='flex-1'>
-                          <a href='timeline.html'>
+                          <Link href='timeline.html'>
                             <h4 className='side-list-title'> Martin Gray </h4>
-                          </a>
+                          </Link>
                           <div className='side-list-info'> Dubai</div>
                         </div>
                         <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>
@@ -464,17 +481,19 @@ export default function GroupManager(props: IGroupManagerProps) {
                       </div>
 
                       <div className='side-list-item'>
-                        <a href='timeline.html'>
-                          <img
+                        <Link href='timeline.html'>
+                          <Image
+                            width={500}
+                            height={500}
                             src='/images/avatars/avatar-5.jpg'
                             alt=''
                             className='side-list-image rounded-full'
                           />
-                        </a>
+                        </Link>
                         <div className='flex-1'>
-                          <a href='timeline.html'>
+                          <Link href='timeline.html'>
                             <h4 className='side-list-title'> James Lewis </h4>
-                          </a>
+                          </Link>
                           <div className='side-list-info'> London</div>
                         </div>
                         <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>
@@ -488,25 +507,27 @@ export default function GroupManager(props: IGroupManagerProps) {
                     <h3 className='base-bold'>Created by</h3>
 
                     <div className='side-list-item'>
-                      <a href='timeline.html'>
-                        <img
+                      <Link href='timeline.html'>
+                        <Image
+                          width={500}
+                          height={500}
                           src='/images/avatars/avatar-4.jpg'
                           alt=''
                           className='side-list-image rounded-full'
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='side-list-title'> Maria Gray</h4>
-                        </a>
+                        </Link>
                         <div className='side-list-info'>Turkey </div>
                       </div>
-                      <a
+                      <Link
                         href='timeline.html'
                         className='button rounded-full bg-foreground-2 hover:bg-hover-2 duration-300'
                       >
                         Profile
-                      </a>
+                      </Link>
                     </div>
 
                     <ul className='space-y-4 text-sm '>

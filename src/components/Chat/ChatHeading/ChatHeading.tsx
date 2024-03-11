@@ -1,8 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
 import * as React from 'react';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
-export interface IChatHeadingProps {}
+export interface IChatHeadingProps { }
 
 export default function ChatHeading(props: IChatHeadingProps) {
   return (
@@ -17,7 +17,9 @@ export default function ChatHeading(props: IChatHeadingProps) {
         </button>
 
         <div className='relative cursor-pointer max-md:hidden' data-uk-toggle='target: .right ; cls: hidden'>
-          <img src='/images/avatars/avatar-6.jpg' alt='' className='w-8 h-8 rounded-full shadow' />
+          <Image
+            width={500}
+            height={500} src='/images/avatars/avatar-6.jpg' alt='' className='w-8 h-8 rounded-full shadow' />
           <div className='w-3 h-3 bg-teal-500 rounded-full absolute -right-1 -bottom-0.5 m-px'></div>
         </div>
         <div className='cursor-pointer' data-uk-toggle='target: .right ; cls: hidden'>

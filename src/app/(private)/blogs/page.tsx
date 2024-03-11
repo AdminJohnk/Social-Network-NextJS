@@ -12,8 +12,9 @@ import {
 } from 'react-icons/io5';
 import { CiHeart } from 'react-icons/ci';
 import Image from 'next/image';
+import Link from 'next/link';
 
-export interface IBlogProps {}
+export interface IBlogProps { }
 
 export default function Blog(props: IBlogProps) {
   return (
@@ -30,13 +31,13 @@ export default function Blog(props: IBlogProps) {
                     className='group'
                     data-uk-switcher='connect: #ttabs ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
                     <li>
-                      <a href='#'> Suggestions </a>
+                      <Link href='#'> Suggestions </Link>
                     </li>
                     <li>
-                      <a href='#'> Popular </a>
+                      <Link href='#'> Popular </Link>
                     </li>
                     <li>
-                      <a href='#'> My article </a>
+                      <Link href='#'> My article </Link>
                     </li>
                   </ul>
                 </nav>
@@ -47,20 +48,20 @@ export default function Blog(props: IBlogProps) {
                   <ul className='uk-slider-items grid-small'>
                     <li className='sm:w-1/3 w-1/2'>
                       <div className='card'>
-                        <a href='blog-read.html'>
+                        <Link href='blog-read.html'>
                           <div className='card-media h-32'>
                             <Image src='/images/blog/img-1.jpg' alt='' width={1000} height={1000} />
                             <div className='card-overly'></div>
                           </div>
-                        </a>
+                        </Link>
                         <div className='card-body'>
-                          <a href='blog-read.html'>
+                          <Link href='blog-read.html'>
                             <h4 className='card-title text-sm line-clamp-2'>
                               Top amazing web demos and experiments in 2024 should know about
                             </h4>
-                          </a>
+                          </Link>
                           <p className='card-text text-xs mt-1.5'>
-                            <a href='#'> Jesse Steeve </a>
+                            <Link href='#'> Jesse Steeve </Link>
                           </p>
                           <div className='card-list-info mt-1 text-xs'>
                             <div> 10 Jun 2022 </div>
@@ -72,20 +73,20 @@ export default function Blog(props: IBlogProps) {
                     </li>
                     <li className='sm:w-1/3 w-1/2'>
                       <div className='card'>
-                        <a href='blog-read.html'>
+                        <Link href='blog-read.html'>
                           <div className='card-media h-32'>
                             <Image src='/images/blog/img-2.jpg' alt='' width={1000} height={1000} />
                             <div className='card-overly'></div>
                           </div>
-                        </a>
+                        </Link>
                         <div className='card-body'>
-                          <a href='blog-read.html'>
+                          <Link href='blog-read.html'>
                             <h4 className='card-title text-sm line-clamp-2'>
                               Awesome web dev tools and resources for 2024 in 30 minutes
                             </h4>
-                          </a>
+                          </Link>
                           <p className='card-text text-xs mt-1.5'>
-                            <a href='#'> John Michael</a>
+                            <Link href='#'> John Michael</Link>
                           </p>
                           <div className='card-list-info mt-1 text-xs'>
                             <div> 10 Jun 2022 </div>
@@ -97,20 +98,20 @@ export default function Blog(props: IBlogProps) {
                     </li>
                     <li className='sm:w-1/3 w-1/2'>
                       <div className='card'>
-                        <a href='blog-read.html'>
+                        <Link href='blog-read.html'>
                           <div className='card-media h-32'>
                             <Image src='/images/blog/img-3.jpg' alt='' width={1000} height={1000} />
                             <div className='card-overly'></div>
                           </div>
-                        </a>
+                        </Link>
                         <div className='card-body'>
-                          <a href='blog-read.html'>
+                          <Link href='blog-read.html'>
                             <h4 className='card-title text-sm line-clamp-2'>
                               Interesting JavaScript and CSS libraries should Know About
                             </h4>
-                          </a>
+                          </Link>
                           <p className='card-text text-xs mt-1.5'>
-                            <a href='#'> Monroe Parker </a>
+                            <Link href='#'> Monroe Parker </Link>
                           </p>
                           <div className='card-list-info mt-1 text-xs'>
                             <div> 10 Jun 2022 </div>
@@ -122,20 +123,20 @@ export default function Blog(props: IBlogProps) {
                     </li>
                     <li className='sm:w-1/3 w-1/2'>
                       <div className='card'>
-                        <a href='blog-read.html'>
+                        <Link href='blog-read.html'>
                           <div className='card-media h-32'>
                             <Image src='/images/blog/img-4.jpg' alt='' width={1000} height={1000} />
                             <div className='card-overly'></div>
                           </div>
-                        </a>
+                        </Link>
                         <div className='card-body'>
-                          <a href='blog-read.html'>
+                          <Link href='blog-read.html'>
                             <h4 className='card-title text-sm line-clamp-2'>
                               Interesting javaScript and CSS libraries you should be learn
                             </h4>
-                          </a>
+                          </Link>
                           <p className='card-text text-xs mt-1.5'>
-                            <a href='#'> Martin Gray </a>
+                            <Link href='#'> Martin Gray </Link>
                           </p>
                           <div className='card-list-info mt-1 text-xs'>
                             <div> 10 Jun 2022 </div>
@@ -148,12 +149,12 @@ export default function Blog(props: IBlogProps) {
                   </ul>
                 </div>
 
-                <a className='nav-prev !top-24' href='#' data-uk-slider-item='previous'>
+                <Link className='nav-prev !top-24' href='#' data-uk-slider-item='previous'>
                   <IoChevronBack />
-                </a>
-                <a className='nav-next !top-24' href='#' data-uk-slider-item='next'>
+                </Link>
+                <Link className='nav-next !top-24' href='#' data-uk-slider-item='next'>
                   <IoChevronForward />
-                </a>
+                </Link>
               </div>
 
               <div className='card mt-8'>
@@ -163,7 +164,7 @@ export default function Blog(props: IBlogProps) {
                 </div>
                 <div className='card-body p-5 w-full z-10 absolute bg-gradient-to-t bottom-0 from-black/60'>
                   <p className='card-text'>
-                    <a href='#'> Denise Marie </a>
+                    <Link href='#'> Denise Marie </Link>
                   </p>
                   <h4 className='card-title text-xl mt-1.5'>Exploring an Abandoned Water Park in China</h4>
 
@@ -181,14 +182,14 @@ export default function Blog(props: IBlogProps) {
               <div className='bg-foreground-1 p-6 rounded-md mt-8 shadow'>
                 <div className='flex items-center justify-between'>
                   <h3 className='text-lg font-semibold'>Recommended Writers for you</h3>
-                  <a href='#' className='text-sm text-blue-500 flex items-center gap-2'>
+                  <Link href='#' className='text-sm text-blue-500 flex items-center gap-2'>
                     See all <IoChevronForward />
-                  </a>
+                  </Link>
                 </div>
 
                 <div className='grid sm:grid-cols-2 gap-3 mt-4'>
                   <div className='side-list-item p-4 box bg-foreground-2 rounded-lg'>
-                    <a href='timeline.html'>
+                    <Link href='timeline.html'>
                       <Image
                         src='/images/avatars/avatar-5.jpg'
                         alt=''
@@ -196,11 +197,11 @@ export default function Blog(props: IBlogProps) {
                         width={50}
                         height={50}
                       />
-                    </a>
+                    </Link>
                     <div className='flex-1'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <h4 className='side-list-title'> James Lewis</h4>
-                      </a>
+                      </Link>
                       <div className='side-list-info'> 42 articles </div>
                     </div>
                     <button type='button' className='button-icon bg-primary-soft text-primary'>
@@ -208,7 +209,7 @@ export default function Blog(props: IBlogProps) {
                     </button>
                   </div>
                   <div className='side-list-item p-4 box bg-foreground-2 rounded-lg'>
-                    <a href='timeline.html'>
+                    <Link href='timeline.html'>
                       <Image
                         src='/images/avatars/avatar-4.jpg'
                         alt=''
@@ -216,11 +217,11 @@ export default function Blog(props: IBlogProps) {
                         width={50}
                         height={50}
                       />
-                    </a>
+                    </Link>
                     <div className='flex-1'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <h4 className='side-list-title'> Martin Gray</h4>
-                      </a>
+                      </Link>
                       <div className='side-list-info'> 25 articles </div>
                     </div>
                     <button type='button' className='button-icon bg-primary-soft text-primary'>
@@ -228,7 +229,7 @@ export default function Blog(props: IBlogProps) {
                     </button>
                   </div>
                   <div className='side-list-item p-4 box bg-foreground-2 rounded-lg'>
-                    <a href='timeline.html'>
+                    <Link href='timeline.html'>
                       <Image
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
@@ -236,11 +237,11 @@ export default function Blog(props: IBlogProps) {
                         width={50}
                         height={50}
                       />
-                    </a>
+                    </Link>
                     <div className='flex-1'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <h4 className='side-list-title'> Monroe Parker</h4>
-                      </a>
+                      </Link>
                       <div className='side-list-info'> 15 articles </div>
                     </div>
                     <button type='button' className='button-icon bg-primary-soft text-primary'>
@@ -248,7 +249,7 @@ export default function Blog(props: IBlogProps) {
                     </button>
                   </div>
                   <div className='side-list-item p-4 box bg-foreground-2 rounded-lg'>
-                    <a href='timeline.html'>
+                    <Link href='timeline.html'>
                       <Image
                         src='/images/avatars/avatar-7.jpg'
                         alt=''
@@ -256,11 +257,11 @@ export default function Blog(props: IBlogProps) {
                         width={50}
                         height={50}
                       />
-                    </a>
+                    </Link>
                     <div className='flex-1'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <h4 className='side-list-title'> Jesse Steeve</h4>
-                      </a>
+                      </Link>
                       <div className='side-list-info'> 36 articles </div>
                     </div>
                     <button type='button' className='button-icon bg-primary-soft text-primary'>
@@ -272,31 +273,31 @@ export default function Blog(props: IBlogProps) {
 
               <div className='flex items-center justify-between py-3 mt-8'>
                 <h3 className='text-xl font-semibold'> Articles for you </h3>
-                <a href='#' className='text-sm text-blue-500'>
+                <Link href='#' className='text-sm text-blue-500'>
                   See all
-                </a>
+                </Link>
               </div>
 
               <div className='box p-5 mt-4'>
                 <div className='card-list'>
-                  <a href='blog-read.html' className='lg:order-1'>
+                  <Link href='blog-read.html' className='lg:order-1'>
                     <div className='card-list-media h-32'>
                       <Image src='/images/blog/img-2.jpg' alt='' width={1000} height={1000} />
                     </div>
-                  </a>
+                  </Link>
                   <div className='card-list-body'>
-                    <a href='blog-read.html'>
+                    <Link href='blog-read.html'>
                       <h3 className='card-list-title'>
                         Top amazing web demos and experiments in 2024 should know about
                       </h3>
-                    </a>
+                    </Link>
                     <p className='card-list-text'>
                       consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt ut laoreet dolore
                       magna aliquam erat volutpat. Ut wiis enim ad minim veniam,
                     </p>
-                    <a href='#'>
+                    <Link href='#'>
                       <div className='card-list-link'> Jesse Steeve </div>
-                    </a>
+                    </Link>
                     <div className='card-list-info'>
                       <div className='flex items-center gap-2'>
                         <CiHeart className='size-5' />
@@ -312,24 +313,24 @@ export default function Blog(props: IBlogProps) {
                 </div>
                 <hr className='card-list-divider' />
                 <div className='card-list'>
-                  <a href='blog-read.html' className='lg:order-1'>
+                  <Link href='blog-read.html' className='lg:order-1'>
                     <div className='card-list-media h-32'>
                       <Image src='/images/blog/img-3.jpg' alt='' width={1000} height={1000} />
                     </div>
-                  </a>
+                  </Link>
                   <div className='card-list-body'>
-                    <a href='blog-read.html'>
+                    <Link href='blog-read.html'>
                       <h3 className='card-list-title'>
                         Interesting JavaScript and CSS libraries should Know About
                       </h3>
-                    </a>
+                    </Link>
                     <p className='card-list-text'>
                       consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt ut laoreet dolore
                       magna aliquam erat volutpat. Ut wiis enim ad minim veniam,
                     </p>
-                    <a href='#'>
+                    <Link href='#'>
                       <div className='card-list-link'> Monroe Parker </div>
-                    </a>
+                    </Link>
                     <div className='card-list-info'>
                       <div className='flex items-center gap-2'>
                         <CiHeart className='size-5' />
@@ -345,24 +346,24 @@ export default function Blog(props: IBlogProps) {
                 </div>
                 <hr className='card-list-divider' />
                 <div className='card-list'>
-                  <a href='blog-read.html' className='lg:order-1'>
+                  <Link href='blog-read.html' className='lg:order-1'>
                     <div className='card-list-media h-32'>
                       <Image src='/images/blog/img-4.jpg' alt='' width={1000} height={1000} />
                     </div>
-                  </a>
+                  </Link>
                   <div className='card-list-body'>
-                    <a href='blog-read.html'>
+                    <Link href='blog-read.html'>
                       <h3 className='card-list-title'>
                         Interesting javaScript and CSS libraries you should be learn
                       </h3>
-                    </a>
+                    </Link>
                     <p className='card-list-text'>
                       consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt ut laoreet dolore
                       magna aliquam erat volutpat. Ut wiis enim ad minim veniam,
                     </p>
-                    <a href='#'>
+                    <Link href='#'>
                       <div className='card-list-link'> Martin Gray </div>
-                    </a>
+                    </Link>
                     <div className='card-list-info'>
                       <div className='flex items-center gap-2'>
                         <CiHeart className='size-5' />
@@ -406,11 +407,11 @@ export default function Blog(props: IBlogProps) {
                       />
                       <div className='absolute bottom-0 w-full uk-transition-slide-bottom-small'>
                         <div className='bg-black/10 p-4 m-2 rounded-md backdrop-blur-lg mb-8'>
-                          <a href='timeline.html'>
+                          <Link href='timeline.html'>
                             <h4 className='text-sm font-medium'>
                               Interesting JavaScript and CSS libraries should Know About
                             </h4>
-                          </a>
+                          </Link>
                           <div className='text-xs mt-2 flex items-center gap-2'>
                             <div> 10 Jun 2022 </div>
                             <div className='md:block hidden'>·</div>
@@ -429,11 +430,11 @@ export default function Blog(props: IBlogProps) {
                       />
                       <div className='absolute bottom-0 w-full uk-transition-slide-bottom-small'>
                         <div className='bg-black/10 p-4 m-2 rounded-md backdrop-blur-lg mb-8'>
-                          <a href='timeline.html'>
+                          <Link href='timeline.html'>
                             <h4 className='text-sm font-medium'>
                               Awesome web dev tools and resources for 2024 in 30 minutes
                             </h4>
-                          </a>
+                          </Link>
                           <div className='text-xs mt-2 flex items-center gap-2'>
                             <div> 10 Jun 2022 </div>
                             <div className='md:block hidden'>·</div>
@@ -452,11 +453,11 @@ export default function Blog(props: IBlogProps) {
                       />
                       <div className='absolute bottom-0 w-full uk-transition-slide-bottom-small'>
                         <div className='bg-black/10 p-4 m-2 rounded-md backdrop-blur-lg mb-8'>
-                          <a href='timeline.html'>
+                          <Link href='timeline.html'>
                             <h4 className='text-sm font-medium'>
                               Interesting javaScript and CSS libraries you should be learn
                             </h4>
-                          </a>
+                          </Link>
                           <div className='text-xs mt-2 flex items-center gap-2'>
                             <div> 10 Jun 2022 </div>
                             <div className='md:block hidden'>·</div>
@@ -471,29 +472,29 @@ export default function Blog(props: IBlogProps) {
                     <ul className='inline-flex flex-wrap justify-center  absolute bottom-3 gap-1.5 uk-dotnav uk-slideshow-nav'></ul>
                   </div>
 
-                  <a className='nav-prev' href='#' data-uk-slideshow-item='previous'>
+                  <Link className='nav-prev' href='#' data-uk-slideshow-item='previous'>
                     <IoChevronBack />
-                  </a>
-                  <a className='nav-next' href='#' data-uk-slideshow-item='next'>
+                  </Link>
+                  <Link className='nav-next' href='#' data-uk-slideshow-item='next'>
                     <IoChevronForward />
-                  </a>
+                  </Link>
                 </div>
 
                 <div className='box p-5 px-6 bg-foreground-1'>
                   <div className='flex items-baseline justify-between'>
                     <h3 className='font-bold text-base'> Trending Articles</h3>
-                    <a href='#' className='text-sm text-blue-500'>
+                    <Link href='#' className='text-sm text-blue-500'>
                       See all
-                    </a>
+                    </Link>
                   </div>
 
                   <div className='mt-4 space-y-4'>
                     <div>
-                      <a href='blog-read.html'>
+                      <Link href='blog-read.html'>
                         <h4 className='duration-200 hover:opacity-80'>
                           Interesting javaScript and CSS libraries you should be learn
                         </h4>
-                      </a>
+                      </Link>
                       <div className='text-xs text-text-2 mt-2 flex items-center gap-2'>
                         <div> 10 Jun 2022 </div>
                         <div className='md:block hidden'>·</div>
@@ -501,11 +502,11 @@ export default function Blog(props: IBlogProps) {
                       </div>
                     </div>
                     <div>
-                      <a href='blog-read.html'>
+                      <Link href='blog-read.html'>
                         <h4 className='duration-200 hover:opacity-80'>
                           Interesting javaScript and CSS libraries you should be learn
                         </h4>
-                      </a>
+                      </Link>
                       <div className='text-xs text-text-2 mt-2 flex items-center gap-2'>
                         <div> 10 Jun 2022 </div>
                         <div className='md:block hidden'>·</div>
@@ -513,11 +514,11 @@ export default function Blog(props: IBlogProps) {
                       </div>
                     </div>
                     <div>
-                      <a href='blog-read.html'>
+                      <Link href='blog-read.html'>
                         <h4 className='duration-200 hover:opacity-80'>
                           Interesting JavaScript and CSS libraries should Know About
                         </h4>
-                      </a>
+                      </Link>
                       <div className='text-xs text-text-2 mt-2 flex items-center gap-2'>
                         <div> 10 Jun 2022 </div>
                         <div className='md:block hidden'>·</div>
@@ -525,11 +526,11 @@ export default function Blog(props: IBlogProps) {
                       </div>
                     </div>
                     <div>
-                      <a href='blog-read.html'>
+                      <Link href='blog-read.html'>
                         <h4 className='duration-200 hover:opacity-80'>
                           Top amazing web demos and experiments should know about
                         </h4>
-                      </a>
+                      </Link>
                       <div className='text-xs text-text-2 mt-2 flex items-center gap-2'>
                         <div> 10 Jun 2022 </div>
                         <div className='md:block hidden'>·</div>
@@ -549,7 +550,7 @@ export default function Blog(props: IBlogProps) {
 
                   <div className='space-y-4 capitalize text-xs font-normal mt-5 mb-2'>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-7.jpg'
                           alt=''
@@ -557,11 +558,11 @@ export default function Blog(props: IBlogProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>Johnson smith</h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5 text-text-2'> Suggested For You </div>
                       </div>
                       <button
@@ -571,7 +572,7 @@ export default function Blog(props: IBlogProps) {
                       </button>
                     </div>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-5.jpg'
                           alt=''
@@ -579,11 +580,11 @@ export default function Blog(props: IBlogProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>James Lewis</h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5 text-text-2'> Followed by Johnson </div>
                       </div>
                       <button
@@ -593,7 +594,7 @@ export default function Blog(props: IBlogProps) {
                       </button>
                     </div>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-2.jpg'
                           alt=''
@@ -601,11 +602,11 @@ export default function Blog(props: IBlogProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>John Michael</h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5 text-text-2'> Followed by Monroe </div>
                       </div>
                       <button
@@ -615,7 +616,7 @@ export default function Blog(props: IBlogProps) {
                       </button>
                     </div>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-3.jpg'
                           alt=''
@@ -623,11 +624,11 @@ export default function Blog(props: IBlogProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>Monroe Parker</h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5 text-text-2'> Suggested For You </div>
                       </div>
                       <button
@@ -637,7 +638,7 @@ export default function Blog(props: IBlogProps) {
                       </button>
                     </div>
                     <div className='flex items-center gap-3'>
-                      <a href='timeline.html'>
+                      <Link href='timeline.html'>
                         <Image
                           src='/images/avatars/avatar-4.jpg'
                           alt=''
@@ -645,11 +646,11 @@ export default function Blog(props: IBlogProps) {
                           width={50}
                           height={50}
                         />
-                      </a>
+                      </Link>
                       <div className='flex-1'>
-                        <a href='timeline.html'>
+                        <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>Martin Gray</h4>
-                        </a>
+                        </Link>
                         <div className='mt-0.5 text-text-2'> Suggested For You </div>
                       </div>
                       <button

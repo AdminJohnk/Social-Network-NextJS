@@ -20,8 +20,7 @@ import PostSkeleton from '@/components/Post/PostSkeleton';
 import NewPost from '@/components/NewPost/NewPost';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 
-
-export interface IProfileProps { }
+export interface IProfileProps {}
 
 export default function Profile({ params }: { params: { slug: string } }, props: IProfileProps) {
   const isFriend = params.slug === 'friend';
@@ -218,30 +217,6 @@ export default function Profile({ params }: { params: { slug: string } }, props:
             </div>
 
             <nav className='flex gap-0.5 rounded-xl -mb-px text-gray-600 font-medium text-[15px]  dark:text-white max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
-              {/* <Link
-                href='#'
-                className='hover:bg-hover-1 hover:rounded-sm inline-block  py-3 leading-8 px-3.5 border-b-2 border-blue-600 text-blue-600'>
-                Timeline
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Friend <span className='text-xs pl-2 font-normal lg:inline-block hidden'>2,680</span>
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Photo
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Photo
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Photo
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Video
-              </Link>
-              <Link href='#' className='hover:bg-hover-1 hover:rounded-sm inline-block py-3 leading-8 px-3.5'>
-                Group
-              </Link> */}
-
               <Tabs id='tabs-profile'>
                 <TabTitle>Timeline</TabTitle>
                 <TabTitle>Friends</TabTitle>
