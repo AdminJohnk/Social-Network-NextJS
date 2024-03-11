@@ -8,6 +8,8 @@ import {
   IoSettingsOutline
 } from 'react-icons/io5';
 
+import { Button } from '@/components/ui/button';
+
 export default function NotificationsHeader() {
   return (
     <>
@@ -141,9 +143,7 @@ export default function NotificationsHeader() {
                 </p>
                 <div className='text-xs text-gray-500 mt-1.5 dark:text-white/80'>2 hours ago</div>
               </div>
-              <button type='button' className='button text-white bg-primary'>
-                fallow
-              </button>
+              <Button type='button'>Follow</Button>
             </Link>
             <Link
               href='#'
