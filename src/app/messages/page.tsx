@@ -12,10 +12,10 @@ import {
 } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
 
-import ConversationList from '@/components/Chat/ConversationList';
-import InputChat from '@/components/Chat/InputChat';
-import ChatInfo from '@/components/Chat/ChatInfo';
-import ChatHeading from '@/components/Chat/ChatHeading';
+import ConversationList from '@/components/pages/Chat/ConversationList';
+import InputChat from '@/components/pages/Chat/InputChat';
+import ChatInfo from '@/components/pages/Chat/ChatInfo';
+import ChatHeading from '@/components/pages/Chat/ChatHeading';
 
 export interface IMessageProps { }
 

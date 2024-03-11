@@ -4,7 +4,7 @@ import * as React from 'react';
 import { IoIosAddCircle } from 'react-icons/io';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
-export interface IGroupProps { }
+export interface IGroupProps {}
 
 export default function Group(props: IGroupProps) {
   return (
@@ -37,9 +37,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/group/group-cover-4.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/group/group-cover-4.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -62,8 +60,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'>
                         Join
                       </button>
                       <Link
@@ -77,9 +74,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/group/group-cover-3.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/group/group-cover-3.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -102,8 +97,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'>
                         Join
                       </button>
                       <Link
@@ -117,9 +111,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/group/group-cover-2.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/group/group-cover-2.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -142,8 +134,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'>
                         Join
                       </button>
                       <Link
@@ -157,9 +148,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/group/group-cover-1.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/group/group-cover-1.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -182,8 +171,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'>
                         Join
                       </button>
                       <Link
@@ -200,9 +188,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/product/product-1.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/product/product-1.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -246,8 +232,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'>
                         Join
                       </button>
                       <Link
@@ -261,9 +246,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/product/product-2.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/product/product-2.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -307,8 +290,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'>
                         Join
                       </button>
                       <Link
@@ -322,9 +304,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/product/product-4.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/product/product-4.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -368,8 +348,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'>
                         Join
                       </button>
                       <Link
@@ -383,9 +362,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/product/product-3.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/product/product-3.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -429,8 +406,7 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-blue-1 hover:bg-blue-2 duration-300 flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'>
                         Join
                       </button>
                       <Link
@@ -447,9 +423,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/group/group-cover-2.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/group/group-cover-2.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -465,11 +439,12 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-primary-500-soft text-primary flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                         Join
                       </button>
-                      <button type='button' className='button bg-secondery flex-1'>
+                      <button
+                        type='button'
+                        className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'>
                         Edit
                       </button>
                     </div>
@@ -478,9 +453,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/group/group-cover-1.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/group/group-cover-1.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -496,11 +469,12 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-primary-500-soft text-primary flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                         Join
                       </button>
-                      <button type='button' className='button bg-secondery flex-1'>
+                      <button
+                        type='button'
+                        className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'>
                         Edit
                       </button>
                     </div>
@@ -509,9 +483,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/group/group-cover-3.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/group/group-cover-3.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -527,11 +499,12 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-primary-500-soft text-primary flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                         Join
                       </button>
-                      <button type='button' className='button bg-secondery flex-1'>
+                      <button
+                        type='button'
+                        className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'>
                         Edit
                       </button>
                     </div>
@@ -540,9 +513,7 @@ export default function Group(props: IGroupProps) {
                 <div className='card'>
                   <Link href='timeline-group.html'>
                     <div className='card-media h-24'>
-                      <Image
-                        width={500}
-                        height={500} src='/images/group/group-cover-4.jpg' alt='' />
+                      <Image width={500} height={500} src='/images/group/group-cover-4.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
@@ -558,11 +529,12 @@ export default function Group(props: IGroupProps) {
                     <div className='flex gap-2'>
                       <button
                         type='button'
-                        className='button bg-primary-500-soft text-primary flex-1'
-                      >
+                        className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                         Join
                       </button>
-                      <button type='button' className='button bg-secondery flex-1'>
+                      <button
+                        type='button'
+                        className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'>
                         Edit
                       </button>
                     </div>
@@ -597,9 +569,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='p-5 text-lg leading-3'>
-                            Shopping
-                          </div>
+                          <div className='p-5 text-lg leading-3'>Shopping</div>
                         </div>
                       </div>
                     </Link>
@@ -609,11 +579,13 @@ export default function Group(props: IGroupProps) {
                       <div className='relative rounded-lg overflow-hidden'>
                         <Image
                           width={500}
-                          height={500} src='/images/category/health.jpg' alt='' className='h-36 w-full object-cover' />
+                          height={500}
+                          src='/images/category/health.jpg'
+                          alt=''
+                          className='h-36 w-full object-cover'
+                        />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='p-5 text-lg leading-3'>
-                            health
-                          </div>
+                          <div className='p-5 text-lg leading-3'>health</div>
                         </div>
                       </div>
                     </Link>
@@ -629,9 +601,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='p-5 text-lg leading-3'>
-                            science
-                          </div>
+                          <div className='p-5 text-lg leading-3'>science</div>
                         </div>
                       </div>
                     </Link>
@@ -641,11 +611,13 @@ export default function Group(props: IGroupProps) {
                       <div className='relative rounded-lg overflow-hidden'>
                         <Image
                           width={500}
-                          height={500} src='/images/category/travel.jpg' alt='' className='h-36 w-full object-cover' />
+                          height={500}
+                          src='/images/category/travel.jpg'
+                          alt=''
+                          className='h-36 w-full object-cover'
+                        />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='p-5 text-lg leading-3'>
-                            Travel
-                          </div>
+                          <div className='p-5 text-lg leading-3'>Travel</div>
                         </div>
                       </div>
                     </Link>
@@ -661,9 +633,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='p-5 text-lg leading-3'>
-                            business
-                          </div>
+                          <div className='p-5 text-lg leading-3'>business</div>
                         </div>
                       </div>
                     </Link>
@@ -679,9 +649,7 @@ export default function Group(props: IGroupProps) {
                           className='h-36 w-full object-cover'
                         />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                          <div className='p-5 text-lg leading-3'>
-                            Shopping
-                          </div>
+                          <div className='p-5 text-lg leading-3'>Shopping</div>
                         </div>
                       </div>
                     </Link>
@@ -721,10 +689,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link
-                    href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize'
-                  >
+                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
                     Delicious Foods
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -747,15 +712,12 @@ export default function Group(props: IGroupProps) {
                       className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm ml-2'>
-                      14 friends are members
-                    </div>
+                    <div className='text-sm ml-2'>14 friends are members</div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
-                >
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -770,10 +732,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link
-                    href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize'
-                  >
+                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
                     Abstract minimal
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -796,15 +755,12 @@ export default function Group(props: IGroupProps) {
                       className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm ml-2'>
-                      24 friends are members
-                    </div>
+                    <div className='text-sm ml-2'>24 friends are members</div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
-                >
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -819,10 +775,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link
-                    href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize'
-                  >
+                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
                     Delicious Foods
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -845,15 +798,12 @@ export default function Group(props: IGroupProps) {
                       className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm ml-2'>
-                      16 friends are members
-                    </div>
+                    <div className='text-sm ml-2'>16 friends are members</div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
-                >
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -868,10 +818,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link
-                    href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize'
-                  >
+                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
                     Graphic Design
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -894,15 +841,12 @@ export default function Group(props: IGroupProps) {
                       className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm ml-2'>
-                      14 friends are members
-                    </div>
+                    <div className='text-sm ml-2'>14 friends are members</div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
-                >
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -917,10 +861,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link
-                    href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize'
-                  >
+                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
                     Abstract minimal
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -943,15 +884,12 @@ export default function Group(props: IGroupProps) {
                       className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm ml-2'>
-                      24 friends are members
-                    </div>
+                    <div className='text-sm ml-2'>24 friends are members</div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
-                >
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -966,10 +904,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link
-                    href='timeline-group.html'
-                    className='md:text-lg text-base font-semibold capitalize'
-                  >
+                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
                     Delicious Foods
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -992,15 +927,12 @@ export default function Group(props: IGroupProps) {
                       className='w-6 rounded-full border-border-1'
                       alt=''
                     />
-                    <div className='text-sm ml-2'>
-                      14 friends are members
-                    </div>
+                    <div className='text-sm ml-2'>14 friends are members</div>
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'
-                >
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -1009,8 +941,7 @@ export default function Group(props: IGroupProps) {
             <div className='flex justify-center my-6'>
               <button
                 type='button'
-                className='bg-foreground-2 hover:bg-hover-2 duration-300 py-2 px-5 rounded-full shadow-md font-semibold text-sm '
-              >
+                className='bg-foreground-2 hover:bg-hover-2 duration-300 py-2 px-5 rounded-full shadow-md font-semibold text-sm '>
                 Load more...
               </button>
             </div>

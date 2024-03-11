@@ -1,9 +1,10 @@
+import { TabTitle, Tabs } from '@/components/ui/tabs';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { IoArrowRedo, IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
-export interface IEventProps { }
+export interface IEventProps {}
 
 export default function Event(props: IEventProps) {
   return (
@@ -14,22 +15,17 @@ export default function Event(props: IEventProps) {
             <div className='page-heading'>
               <h1 className='page-title'> Events </h1>
 
-              <nav className='nav__underline'>
-                <ul
-                  data-uk-tab
-                  className='group'
-                  data-uk-switcher='connect: #tabs ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
-                  <li>
-                    <Link href='#'> Suggestions </Link>
-                  </li>
-                  <li>
-                    <Link href='#'> Popular </Link>
-                  </li>
-                  <li>
-                    <Link href='#'> My events </Link>
-                  </li>
-                </ul>
-              </nav>
+              <Tabs id='event-tabs'>
+                <TabTitle className='aria-expanded:border-black aria-expanded:dark:border-slate-500 aria-expanded:text-text-1'>
+                  Suggestions
+                </TabTitle>
+                <TabTitle className='aria-expanded:border-black aria-expanded:dark:border-slate-500 aria-expanded:text-text-1'>
+                  Popular
+                </TabTitle>
+                <TabTitle className='aria-expanded:border-black aria-expanded:dark:border-slate-500 aria-expanded:text-text-1'>
+                  My events
+                </TabTitle>
+              </Tabs>
             </div>
 
             {/* <!-- event featured --> */}
@@ -40,10 +36,7 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <Image
-                            width={500}
-                            height={500}
-                            src='/images/events/img-3.jpg' alt='' />
+                          <Image width={500} height={500} src='/images/events/img-3.jpg' alt='' />
                           <div className='card-overlay'></div>
                         </div>
                       </Link>
@@ -61,10 +54,14 @@ export default function Event(props: IEventProps) {
                           <div> 8 Going</div>
                         </div>
                         <div className='flex gap-2'>
-                          <button type='button' className='button bg-primary text-white flex-1'>
+                          <button
+                            type='button'
+                            className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                             Interested
                           </button>
-                          <button type='button' className='button bg-secondery !w-auto'>
+                          <button
+                            type='button'
+                            className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                             <IoArrowRedo className='text-lg' />
                           </button>
                         </div>
@@ -75,9 +72,7 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <Image
-                            width={500}
-                            height={500} src='/images/events/img-2.jpg' alt='' />
+                          <Image width={500} height={500} src='/images/events/img-2.jpg' alt='' />
                           <div className='card-overlay'></div>
                         </div>
                       </Link>
@@ -95,10 +90,14 @@ export default function Event(props: IEventProps) {
                           <div> 16 Going</div>
                         </div>
                         <div className='flex gap-2'>
-                          <button type='button' className='button bg-primary text-white flex-1'>
+                          <button
+                            type='button'
+                            className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                             Interested
                           </button>
-                          <button type='button' className='button bg-secondery !w-auto'>
+                          <button
+                            type='button'
+                            className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                             <IoArrowRedo className='text-lg' />
                           </button>
                         </div>
@@ -109,9 +108,7 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <Image
-                            width={500}
-                            height={500} src='/images/events/img-1.jpg' alt='' />
+                          <Image width={500} height={500} src='/images/events/img-1.jpg' alt='' />
                           <div className='card-overlay'></div>
                         </div>
                       </Link>
@@ -129,10 +126,14 @@ export default function Event(props: IEventProps) {
                           <div> 2 Going</div>
                         </div>
                         <div className='flex gap-2'>
-                          <button type='button' className='button bg-primary text-white flex-1'>
+                          <button
+                            type='button'
+                            className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                             Interested
                           </button>
-                          <button type='button' className='button bg-secondery !w-auto'>
+                          <button
+                            type='button'
+                            className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                             <IoArrowRedo className='text-lg' />
                           </button>
                         </div>
@@ -143,9 +144,7 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <Image
-                            width={500}
-                            height={500} src='/images/events/img-4.jpg' alt='' />
+                          <Image width={500} height={500} src='/images/events/img-4.jpg' alt='' />
                           <div className='card-overlay'></div>
                         </div>
                       </Link>
@@ -163,10 +162,14 @@ export default function Event(props: IEventProps) {
                           <div> 16 Going</div>
                         </div>
                         <div className='flex gap-2'>
-                          <button type='button' className='button bg-primary text-white flex-1'>
+                          <button
+                            type='button'
+                            className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                             Interested
                           </button>
-                          <button type='button' className='button bg-secondery !w-auto'>
+                          <button
+                            type='button'
+                            className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                             <IoArrowRedo className='text-lg' />
                           </button>
                         </div>
@@ -177,9 +180,7 @@ export default function Event(props: IEventProps) {
                     <div className='card'>
                       <Link href='timeline-event.html'>
                         <div className='card-media h-32'>
-                          <Image
-                            width={500}
-                            height={500} src='/images/events/img-3.jpg' alt='' />
+                          <Image width={500} height={500} src='/images/events/img-3.jpg' alt='' />
                           <div className='card-overlay'></div>
                         </div>
                       </Link>
@@ -197,10 +198,14 @@ export default function Event(props: IEventProps) {
                           <div> 8 Going</div>
                         </div>
                         <div className='flex gap-2'>
-                          <button type='button' className='button bg-primary text-white flex-1'>
+                          <button
+                            type='button'
+                            className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                             Interested
                           </button>
-                          <button type='button' className='button bg-secondery !w-auto'>
+                          <button
+                            type='button'
+                            className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                             <IoArrowRedo className='text-lg' />
                           </button>
                         </div>
@@ -240,7 +245,11 @@ export default function Event(props: IEventProps) {
                       <div className='relative rounded-lg overflow-hidden'>
                         <Image
                           width={500}
-                          height={500} src='/images/events/listing-1.jpg' alt='' className='h-36 w-full object-cover' />
+                          height={500}
+                          src='/images/events/listing-1.jpg'
+                          alt=''
+                          className='h-36 w-full object-cover'
+                        />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Miami </div>
@@ -255,7 +264,11 @@ export default function Event(props: IEventProps) {
                       <div className='relative rounded-lg overflow-hidden'>
                         <Image
                           width={500}
-                          height={500} src='/images/events/listing-2.jpg' alt='' className='h-36 w-full object-cover' />
+                          height={500}
+                          src='/images/events/listing-2.jpg'
+                          alt=''
+                          className='h-36 w-full object-cover'
+                        />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Florida </div>
@@ -270,7 +283,11 @@ export default function Event(props: IEventProps) {
                       <div className='relative rounded-lg overflow-hidden'>
                         <Image
                           width={500}
-                          height={500} src='/images/events/listing-3.jpg' alt='' className='h-36 w-full object-cover' />
+                          height={500}
+                          src='/images/events/listing-3.jpg'
+                          alt=''
+                          className='h-36 w-full object-cover'
+                        />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> London </div>
@@ -285,7 +302,11 @@ export default function Event(props: IEventProps) {
                       <div className='relative rounded-lg overflow-hidden'>
                         <Image
                           width={500}
-                          height={500} src='/images/events/listing-4.jpg' alt='' className='h-36 w-full object-cover' />
+                          height={500}
+                          src='/images/events/listing-4.jpg'
+                          alt=''
+                          className='h-36 w-full object-cover'
+                        />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Dubai </div>
@@ -300,7 +321,11 @@ export default function Event(props: IEventProps) {
                       <div className='relative rounded-lg overflow-hidden'>
                         <Image
                           width={500}
-                          height={500} src='/images/events/listing-5.jpg' alt='' className='h-36 w-full object-cover' />
+                          height={500}
+                          src='/images/events/listing-5.jpg'
+                          alt=''
+                          className='h-36 w-full object-cover'
+                        />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Turkey </div>
@@ -315,7 +340,11 @@ export default function Event(props: IEventProps) {
                       <div className='relative rounded-lg overflow-hidden'>
                         <Image
                           width={500}
-                          height={500} src='/images/events/listing-1.jpg' alt='' className='h-36 w-full object-cover' />
+                          height={500}
+                          src='/images/events/listing-1.jpg'
+                          alt=''
+                          className='h-36 w-full object-cover'
+                        />
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Miami </div>
@@ -349,9 +378,7 @@ export default function Event(props: IEventProps) {
               <div className='card'>
                 <Link href='timeline-event.html'>
                   <div className='card-media h-32'>
-                    <Image
-                      width={500}
-                      height={500} src='/images/events/img-1.jpg' alt='' />
+                    <Image width={500} height={500} src='/images/events/img-1.jpg' alt='' />
                     <div className='card-overlay'></div>
                   </div>
                 </Link>
@@ -371,10 +398,14 @@ export default function Event(props: IEventProps) {
                     <div> 2 Going</div>
                   </div>
                   <div className='flex gap-2'>
-                    <button type='button' className='button bg-primary text-white flex-1'>
+                    <button
+                      type='button'
+                      className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                       Interested
                     </button>
-                    <button type='button' className='button bg-secondery !w-auto'>
+                    <button
+                      type='button'
+                      className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                       <IoArrowRedo className='text-lg' />
                     </button>
                   </div>
@@ -384,9 +415,7 @@ export default function Event(props: IEventProps) {
               <div className='card'>
                 <Link href='timeline-event.html'>
                   <div className='card-media h-32'>
-                    <Image
-                      width={500}
-                      height={500} src='/images/events/img-2.jpg' alt='' />
+                    <Image width={500} height={500} src='/images/events/img-2.jpg' alt='' />
                     <div className='card-overlay'></div>
                   </div>
                 </Link>
@@ -404,10 +433,14 @@ export default function Event(props: IEventProps) {
                     <div> 16 Going</div>
                   </div>
                   <div className='flex gap-2'>
-                    <button type='button' className='button bg-primary text-white flex-1'>
+                    <button
+                      type='button'
+                      className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                       Interested
                     </button>
-                    <button type='button' className='button bg-secondery !w-auto'>
+                    <button
+                      type='button'
+                      className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                       <IoArrowRedo className='text-lg' />
                     </button>
                   </div>
@@ -417,9 +450,7 @@ export default function Event(props: IEventProps) {
               <div className='card'>
                 <Link href='timeline-event.html'>
                   <div className='card-media h-32'>
-                    <Image
-                      width={500}
-                      height={500} src='/images/events/img-3.jpg' alt='' />
+                    <Image width={500} height={500} src='/images/events/img-3.jpg' alt='' />
                     <div className='card-overlay'></div>
                   </div>
                 </Link>
@@ -439,10 +470,14 @@ export default function Event(props: IEventProps) {
                     <div> 8 Going</div>
                   </div>
                   <div className='flex gap-2'>
-                    <button type='button' className='button bg-primary text-white flex-1'>
+                    <button
+                      type='button'
+                      className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                       Interested
                     </button>
-                    <button type='button' className='button bg-secondery !w-auto'>
+                    <button
+                      type='button'
+                      className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                       <IoArrowRedo className='text-lg' />
                     </button>
                   </div>
@@ -452,9 +487,7 @@ export default function Event(props: IEventProps) {
               <div className='card'>
                 <Link href='timeline-event.html'>
                   <div className='card-media h-32'>
-                    <Image
-                      width={500}
-                      height={500} src='/images/events/img-4.jpg' alt='' />
+                    <Image width={500} height={500} src='/images/events/img-4.jpg' alt='' />
                     <div className='card-overlay'></div>
                   </div>
                 </Link>
@@ -472,10 +505,14 @@ export default function Event(props: IEventProps) {
                     <div> 16 Going</div>
                   </div>
                   <div className='flex gap-2'>
-                    <button type='button' className='button bg-primary text-white flex-1'>
+                    <button
+                      type='button'
+                      className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
                       Interested
                     </button>
-                    <button type='button' className='button bg-secondery !w-auto'>
+                    <button
+                      type='button'
+                      className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                       <IoArrowRedo className='text-lg' />
                     </button>
                   </div>
