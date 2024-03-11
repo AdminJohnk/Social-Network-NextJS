@@ -13,7 +13,7 @@ export default function SideBar() {
     <div
       id='site_sidebar'
       className='fixed top-0 left-0 z-[99] pt-[--m-top] overflow-hidden transition-transform lg:duration-500 max-lg:w-full max-lg:-translate-x-full'>
-      <div className='p-2 max-lg:bg-background-1 shadow-sm 2xl:w-72 sm:w-64 w-[80%] h-[calc(100vh-64px)] relative z-30 max-lg:border-r dark:border-border-1'>
+      <div className='p-2 max-lg:bg-background-1 shadow-sm sm:w-64 w-[80%] h-[calc(100vh-64px)] relative z-30 max-lg:border-r dark:border-border-1'>
         <SimpleBar className='pr-4'>
           <MainNavigate />
           <Shortcuts />
