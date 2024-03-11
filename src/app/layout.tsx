@@ -7,6 +7,7 @@ import { QueryProvider, SessionProvider } from './provider';
 import { cn } from '@/lib/utils';
 import './uk.css';
 import './globals.css';
+import FloatTool from '@/components/FloatTool/FloatTool';
 
 const font = Inter({ subsets: ['latin'] });
 
@@ -26,12 +27,18 @@ export default function RootLayout({
         <ThemeModeScript />
       </head>
 
-      <Script src='https://cdn.jsdelivr.net/npm/uikit@3.15.14/dist/js/uikit.min.js' defer />
+      <Script
+        src='https://cdn.jsdelivr.net/npm/uikit@3.15.14/dist/js/uikit.min.js'
+        defer
+      />
 
       <body className={cn(font.className, 'h-dvh custom-scrollbar-fg')}>
         <QueryProvider>
           <SessionProvider>
-            <Flowbite>{children}</Flowbite>
+            <Flowbite>
+              <FloatTool />
+              {children}
+            </Flowbite>
           </SessionProvider>
         </QueryProvider>
       </body>
