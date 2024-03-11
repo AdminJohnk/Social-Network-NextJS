@@ -563,7 +563,10 @@ export default function Blog(props: IBlogProps) {
                         <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>Johnson smith</h4>
                         </Link>
-                        <div className='mt-0.5 text-text-2'> Suggested For You </div>
+                        <div className='mt-0.5 text-text-2'>
+                          {' '}
+                          Suggested For You{' '}
+                        </div>
                       </div>
                       <button
                         type='button'
@@ -607,7 +610,10 @@ export default function Blog(props: IBlogProps) {
                         <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>John Michael</h4>
                         </Link>
-                        <div className='mt-0.5 text-text-2'> Followed by Monroe </div>
+                        <div className='mt-0.5 text-text-2'>
+                          {' '}
+                          Followed by Monroe{' '}
+                        </div>
                       </div>
                       <button
                         type='button'
@@ -629,7 +635,10 @@ export default function Blog(props: IBlogProps) {
                         <Link href='timeline.html'>
                           <h4 className='font-semibold text-sm'>Monroe Parker</h4>
                         </Link>
-                        <div className='mt-0.5 text-text-2'> Suggested For You </div>
+                        <div className='mt-0.5 text-text-2'>
+                          {' '}
+                          Suggested For You{' '}
+                        </div>
                       </div>
                       <button
                         type='button'
