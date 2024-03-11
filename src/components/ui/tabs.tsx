@@ -87,7 +87,7 @@ function TabTitle(props: ITabTitleProps) {
       <Link
         href='#'
         className={cn(
-          'inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 pt-2 transition-colors duration-300 ease-in-out aria-expanded:border-blue-500 aria-expanded:text-blue-500',
+          'inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 transition-colors duration-300 ease-in-out aria-expanded:border-blue-500 aria-expanded:text-blue-500',
           props.className
         )}>
         {props.children}

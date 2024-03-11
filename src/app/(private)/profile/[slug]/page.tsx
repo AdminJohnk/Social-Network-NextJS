@@ -6,21 +6,24 @@ import Image from 'next/image';
 import {
   IoAddCircle,
   IoCamera,
+  IoChatboxEllipsesOutline,
   IoChevronDown,
   IoEllipsisHorizontal,
   IoFlagOutline,
   IoSearch,
   IoShareOutline,
-  IoStopCircleOutline
+  IoStopCircleOutline,
+  IoVideocamOutline
 } from 'react-icons/io5';
-import { FaCheckCircle, FaPencilAlt, FaPhoneAlt, FaVideo } from 'react-icons/fa';
+import { FaCheckCircle, FaPencilAlt } from 'react-icons/fa';
+import { FiPhone } from "react-icons/fi";
 
 import Post from '@/components/Post/Post';
 import PostSkeleton from '@/components/Post/PostSkeleton';
 import NewPost from '@/components/NewPost/NewPost';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 
-export interface IProfileProps {}
+export interface IProfileProps { }
 
 export default function Profile({ params }: { params: { slug: string } }, props: IProfileProps) {
   const isFriend = params.slug === 'friend';
@@ -74,11 +77,13 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                     className='h-full w-full object-cover inset-0'
                   />
                 </div>
-                <button
-                  type='button'
-                  className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
-                  <IoCamera className='text-2xl md hydrated' aria-label='camera' />
-                </button>
+                {isMe && (
+                  <button
+                    type='button'
+                    className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
+                    <IoCamera className='text-2xl md hydrated' aria-label='camera' />
+                  </button>
+                )}
               </div>
               <h3 className='md:text-3xl text-base font-bold text-text-1'> Monroe Parker </h3>
               <p className='mt-2 text-gray-500 dark:text-white/80'>
@@ -102,7 +107,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
             data-uk-sticky='offset:50; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl  animation:uk-animation-slide-top ; media: 992'>
             <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
               {isMe && (
-                <button className='button bg-foreground-2 hover:bg-hover-1 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
+                <button className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
                   <FaPencilAlt className='text-lg' />
                   <span className='text-sm'> Edit Profile </span>
                 </button>
@@ -115,7 +120,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
               )}
               {isFriend && (
                 <div>
-                  <button className='button bg-foreground-2 hover:bg-hover-1 flex items-center gap-2 text-text-1 py-2 px-3.5 max-md:flex-1'>
+                  <button className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-2 text-text-1 py-2 px-3.5 max-md:flex-1'>
                     <FaCheckCircle className='text-xl' />
                     <span className='text-sm text-text-1'> Friend </span>
                   </button>
@@ -146,12 +151,12 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                 </div>
               )}
 
-              <button type='submit' className='rounded-lg bg-foreground-1 flex px-2.5 py-2 hover:bg-hover-1'>
+              <button type='submit' className='rounded-lg bg-foreground-2 flex px-2.5 py-2 hover:bg-hover-2'>
                 <IoSearch className='text-xl' />
               </button>
 
               <div>
-                <button type='submit' className='rounded-lg bg-foreground-2 flex px-2.5 py-2'>
+                <button type='submit' className='rounded-lg bg-foreground-2 hover:bg-hover-2 flex px-2.5 py-2'>
                   <IoEllipsisHorizontal className='text-xl' />
                 </button>
                 <div
@@ -193,13 +198,16 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       {isFriend && (
                         <>
                           <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                            <FaPhoneAlt className='text-xl' /> Voice Call
+                            <FiPhone className='text-xl' /> Voice Call
                           </Link>
                           <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                            <FaVideo className='text-xl' /> Video Call
+                            <IoVideocamOutline className='text-xl' /> Video Call
                           </Link>
                         </>
                       )}
+                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                        <IoChatboxEllipsesOutline className='text-xl' /> Message
+                      </Link>
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
                         <IoFlagOutline className='text-xl' /> Report
                       </Link>
@@ -216,20 +224,20 @@ export default function Profile({ params }: { params: { slug: string } }, props:
               </div>
             </div>
 
-            <nav className='flex gap-0.5 rounded-xl -mb-px text-gray-600 font-medium text-[15px]  dark:text-white max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
-              <Tabs id='tabs-profile'>
-                <TabTitle>Timeline</TabTitle>
-                <TabTitle>Friends</TabTitle>
-                <TabTitle>Photos</TabTitle>
-                <TabTitle>Videos</TabTitle>
-                <TabTitle>Groups</TabTitle>
+            <nav className='flex rounded-xl -mb-px text-gray-600 font-medium text-[15px]  dark:text-white max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
+              <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm'>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Timeline</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Friends</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Photos</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Videos</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Groups</TabTitle>
               </Tabs>
 
               {/* <!-- dropdown --> */}
               <div>
                 <Link
                   href='#'
-                  className='hover:bg-hover-1 hover:rounded-sm inline-flex items-center gap-2 py-3 leading-8 px-3'>
+                  className='hover:bg-hover-1 hover:text-blue-400 hover:rounded-sm inline-flex items-center gap-2 p-3 leading-8 -ml-2 select-none'>
                   More
                   <IoChevronDown />
                 </Link>
@@ -271,7 +279,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
 
             <div className='flex-1 xl:space-y-6 space-y-3'>
               {/* <!-- add story --> */}
-              <NewPost title={'Write some thing for ' + friendName + '...'} />
+              <NewPost title={isMe ? '' : 'Write some thing for ' + friendName + '...'} />
 
               <Post />
               <Post />
