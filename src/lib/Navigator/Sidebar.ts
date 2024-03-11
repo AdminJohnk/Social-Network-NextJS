@@ -35,7 +35,7 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Market'
   },
   {
-    href: 'blogs',
+    href: '/blogs',
     image: '/images/home/blog.png',
     label: 'Blog'
   },
