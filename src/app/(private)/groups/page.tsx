@@ -1,3 +1,4 @@
+import { TabTitle, Tabs } from '@/components/ui/tabs';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
@@ -15,21 +16,11 @@ export default function Group(props: IGroupProps) {
             <div className='page-heading'>
               <h1 className='page-title'> Groups </h1>
 
-              <nav className='nav__underline'>
-                <ul
-                  className='group'
-                  uk-switcher='connect: #group-tabs ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
-                  <li>
-                    <Link href='#'> Suggestions </Link>
-                  </li>
-                  <li>
-                    <Link href='#'> Popular </Link>
-                  </li>
-                  <li>
-                    <Link href='#'> My groups </Link>
-                  </li>
-                </ul>
-              </nav>
+              <Tabs id='group-tabs' disableChevron>
+                <TabTitle>Suggestions</TabTitle>
+                <TabTitle>Popular</TabTitle>
+                <TabTitle>My groups</TabTitle>
+              </Tabs>
             </div>
 
             <div className='uk-switcher' id='group-tabs'>

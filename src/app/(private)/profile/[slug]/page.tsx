@@ -16,14 +16,14 @@ import {
   IoVideocamOutline
 } from 'react-icons/io5';
 import { FaCheckCircle, FaPencilAlt } from 'react-icons/fa';
-import { FiPhone } from "react-icons/fi";
+import { FiPhone } from 'react-icons/fi';
 
 import Post from '@/components/Post/Post';
 import PostSkeleton from '@/components/Post/PostSkeleton';
 import NewPost from '@/components/NewPost/NewPost';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 
-export interface IProfileProps { }
+export interface IProfileProps {}
 
 export default function Profile({ params }: { params: { slug: string } }, props: IProfileProps) {
   const isFriend = params.slug === 'friend';
@@ -156,7 +156,9 @@ export default function Profile({ params }: { params: { slug: string } }, props:
               </button>
 
               <div>
-                <button type='submit' className='rounded-lg bg-foreground-2 hover:bg-hover-2 flex px-2.5 py-2'>
+                <button
+                  type='submit'
+                  className='rounded-lg bg-foreground-2 hover:bg-hover-2 flex px-2.5 py-2'>
                   <IoEllipsisHorizontal className='text-xl' />
                 </button>
                 <div
@@ -225,7 +227,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
             </div>
 
             <nav className='flex rounded-xl -mb-px text-gray-600 font-medium text-[15px]  dark:text-white max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
-              <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm'>
+              <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>Timeline</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>Friends</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>Photos</TabTitle>

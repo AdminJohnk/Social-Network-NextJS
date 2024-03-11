@@ -15,16 +15,10 @@ export default function Event(props: IEventProps) {
             <div className='page-heading'>
               <h1 className='page-title'> Events </h1>
 
-              <Tabs id='event-tabs'>
-                <TabTitle className='aria-expanded:border-black aria-expanded:dark:border-slate-500 aria-expanded:text-text-1'>
-                  Suggestions
-                </TabTitle>
-                <TabTitle className='aria-expanded:border-black aria-expanded:dark:border-slate-500 aria-expanded:text-text-1'>
-                  Popular
-                </TabTitle>
-                <TabTitle className='aria-expanded:border-black aria-expanded:dark:border-slate-500 aria-expanded:text-text-1'>
-                  My events
-                </TabTitle>
+              <Tabs id='events-tabs' disableChevron>
+                <TabTitle>Suggestions</TabTitle>
+                <TabTitle>Popular</TabTitle>
+                <TabTitle>My events</TabTitle>
               </Tabs>
             </div>
 
