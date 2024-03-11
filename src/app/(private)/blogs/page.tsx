@@ -17,9 +17,9 @@ export interface IBlogProps {}
 
 export default function Blog(props: IBlogProps) {
   return (
-    <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
+    <div className='ms-60 mt-16 max-lg/2:ms-20'>
       <div className='groups px-10 py-5'>
-        <main id='site__main' className=''>
+        <main id='site__main'>
           <div className='flex max-lg:flex-col 2xl:gap-12 gap-10' id='js-oversized'>
             <div className='flex-1'>
               <div className='page-heading'>
@@ -27,9 +27,8 @@ export default function Blog(props: IBlogProps) {
 
                 <nav className='nav__underline'>
                   <ul
-                    uk-tab
                     className='group'
-                    uk-switcher='connect: #ttabs ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
+                    data-uk-switcher='connect: #ttabs ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
                     <li>
                       <a href='#'> Suggestions </a>
                     </li>
@@ -43,7 +42,7 @@ export default function Blog(props: IBlogProps) {
                 </nav>
               </div>
 
-              <div tabIndex={-1} uk-slider='finite:true'>
+              <div tabIndex={-1} data-uk-slider='finite:true'>
                 <div className='uk-slider-container pb-1'>
                   <ul className='uk-slider-items grid-small'>
                     <li className='sm:w-1/3 w-1/2'>
@@ -149,10 +148,10 @@ export default function Blog(props: IBlogProps) {
                   </ul>
                 </div>
 
-                <a className='nav-prev !top-24' href='#' uk-slider-item='previous'>
+                <a className='nav-prev !top-24' href='#' data-uk-slider-item='previous'>
                   <IoChevronBack />
                 </a>
-                <a className='nav-next !top-24' href='#' uk-slider-item='next'>
+                <a className='nav-next !top-24' href='#' data-uk-slider-item='next'>
                   <IoChevronForward />
                 </a>
               </div>
@@ -391,11 +390,11 @@ export default function Blog(props: IBlogProps) {
             <div className='2xl:w-[380px] lg:w-[330px] w-full'>
               <div
                 className='lg:space-y-6 space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
+                data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
                 <div
                   className='relative uk-visible-toggle'
                   tabIndex={-1}
-                  uk-slideshow='finite: true ; min-height: 300; max-height: 500'>
+                  data-uk-slideshow='finite: true ; min-height: 300; max-height: 500'>
                   <ul className='uk-slideshow-items'>
                     <li className='w-full overflow-hidden rounded-xl'>
                       <Image
@@ -472,10 +471,10 @@ export default function Blog(props: IBlogProps) {
                     <ul className='inline-flex flex-wrap justify-center  absolute bottom-3 gap-1.5 uk-dotnav uk-slideshow-nav'></ul>
                   </div>
 
-                  <a className='nav-prev' href='#' uk-slideshow-item='previous'>
+                  <a className='nav-prev' href='#' data-uk-slideshow-item='previous'>
                     <IoChevronBack />
                   </a>
-                  <a className='nav-next' href='#' uk-slideshow-item='next'>
+                  <a className='nav-next' href='#' data-uk-slideshow-item='next'>
                     <IoChevronForward />
                   </a>
                 </div>

@@ -26,7 +26,7 @@ const Message = (props: IMessageProps) => {
         {/* <!-- main contents --> */}
         {/* <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]"> */}
         <main>
-          <div className='2xl:max-w-6xl mx-auto h-screen relative shadow-lg overflow-hidden border-border-1'>
+          <div className='mx-auto h-screen relative shadow-lg overflow-hidden border-border-1'>
             <div className='flex bg-white dark:bg-background-2'>
               {/* <!-- sidebar --> */}
               <div className='md:w-[360px] relative border-r dark:border-slate-700'>

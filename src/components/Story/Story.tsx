@@ -50,8 +50,8 @@ export default function Story(props: IStoryProps) {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 8,
-          slidesToScroll: 8
+          slidesToShow: 7,
+          slidesToScroll: 7
         }
       },
       {
@@ -158,7 +158,7 @@ export default function Story(props: IStoryProps) {
   ];
 
   return (
-    <div className='story'>
+    <div className='story px-10'>
       <div className='mb-5 h3-bold'>Stories</div>
       <Slider {...settings} className='relative'>
         {storyList.map((story) => (
