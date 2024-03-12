@@ -8,25 +8,25 @@ export default function ToTop() {
 
   useEffect(() => {
     const backToTop = topRef.current;
+    // hide back to top button if at top of page
+    const top = window.scrollY;
+    if (top < 700 && backToTop) {
+      backToTop.style.display = 'none';
+    }
 
     const handleScrollTop = () => {
       if (backToTop) {
-        backToTop.style.transition = 'opacity 500ms';
+        backToTop.style.transition = 'all 500ms';
         backToTop.style.display = 'none';
-
-        const hideBackToTop = setTimeout(() => {
-          backToTop.style.display = 'none';
-        }, 500);
 
         if (document.documentElement.scrollTop > 700) {
           // fade in 500ms
-          clearTimeout(hideBackToTop);
           backToTop.style.display = 'block';
           backToTop.style.opacity = '1';
         } else {
           // fade out 500ms
           backToTop.style.opacity = '0';
-          hideBackToTop;
+          backToTop.style.display = 'none';
         }
       }
     };
@@ -44,8 +44,7 @@ export default function ToTop() {
       className='fixed bottom-4 right-4 z-50 cursor-pointer bg-foreground-1 rounded-full drop-shadow-xl'
       onClick={() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }}
-    >
+      }}>
       <IoArrowUpCircleOutline className='size-12 text-green-1 bg-foreground-1 hover:bg-hover-3 duration-300 rounded-full p-2' />
     </div>
   );

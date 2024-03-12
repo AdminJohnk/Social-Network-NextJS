@@ -724,9 +724,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                         </Link>
                         <div className='side-list-info'>Updated 6 day ago</div>
                       </div>
-                      <button className='button bg-primary-soft text-primary bg-foreground-2 hover:bg-hover-2 duration-300 '>
-                        Like
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>Like</button>
                     </div>
                     <div className='side-list-item'>
                       <Link href='/groups'>
@@ -744,9 +742,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                         </Link>
                         <div className='side-list-info'>Updated 2 month ago</div>
                       </div>
-                      <button className='button bg-primary-soft text-primary bg-foreground-2 hover:bg-hover-2 duration-300 '>
-                        Like
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>Like</button>
                     </div>
                     <div className='side-list-item'>
                       <Link href='/groups'>
@@ -764,9 +760,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                         </Link>
                         <div className='side-list-info'>Updated 1 week ago</div>
                       </div>
-                      <button className='button bg-primary-soft text-primary bg-foreground-2 hover:bg-hover-2 duration-300 '>
-                        Like
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>Like</button>
                     </div>
                     <div className='side-list-item'>
                       <Link href='/groups'>
@@ -784,9 +778,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                         </Link>
                         <div className='side-list-info'>Updated 2 day ago</div>
                       </div>
-                      <button className='button bg-primary-soft text-primary bg-foreground-2 hover:bg-hover-2 duration-300 '>
-                        Like
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>Like</button>
                     </div>
                   </div>
 

@@ -5,11 +5,11 @@ import Script from 'next/script';
 
 import { QueryProvider, SessionProvider } from './provider';
 import ToTop from '@/components/ToTop';
+import FloatTool from '@/components/FloatTool/FloatTool';
 import { cn } from '@/lib/utils';
 import './uk.css';
 import './globals.css';
 import './animate.css';
-import FloatTool from '@/components/FloatTool/FloatTool';
 
 const font = Inter({ subsets: ['latin'] });
 
