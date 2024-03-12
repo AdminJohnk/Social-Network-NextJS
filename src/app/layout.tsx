@@ -8,6 +8,7 @@ import ToTop from '@/components/ToTop';
 import { cn } from '@/lib/utils';
 import './uk.css';
 import './globals.css';
+import './animate.css';
 import FloatTool from '@/components/FloatTool/FloatTool';
 
 const font = Inter({ subsets: ['latin'] });
