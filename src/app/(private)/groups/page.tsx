@@ -707,7 +707,7 @@ export default function Group(props: IGroupProps) {
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -750,7 +750,7 @@ export default function Group(props: IGroupProps) {
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -793,7 +793,7 @@ export default function Group(props: IGroupProps) {
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -836,7 +836,7 @@ export default function Group(props: IGroupProps) {
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -879,7 +879,7 @@ export default function Group(props: IGroupProps) {
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>
@@ -922,7 +922,7 @@ export default function Group(props: IGroupProps) {
                 </div>
                 <button
                   type='button'
-                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 text-primary gap-1 max-md:hidden'>
+                  className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
                   <IoIosAddCircle className='size-5' /> <span>Join</span>
                 </button>
               </div>

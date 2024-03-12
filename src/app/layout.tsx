@@ -5,11 +5,11 @@ import Script from 'next/script';
 
 import { QueryProvider, SessionProvider } from './provider';
 import ToTop from '@/components/ToTop';
+import FloatTool from '@/components/FloatTool/FloatTool';
 import { cn } from '@/lib/utils';
 import './uk.css';
 import './globals.css';
 import './animate.css';
-import FloatTool from '@/components/FloatTool/FloatTool';
 
 const font = Inter({ subsets: ['latin'] });
 
@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <head>
         <ThemeModeScript />
-        <link rel='icon' href='/icon?png' type='image/png' sizes='png' />
+        <link rel='icon' href='/icon.png' type='image/png' sizes='png' />
       </head>
 
       <Script src='/js/uikit.min.js' defer />

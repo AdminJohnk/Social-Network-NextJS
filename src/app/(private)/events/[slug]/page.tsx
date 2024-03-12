@@ -75,20 +75,20 @@ export default function GroupManager(props: IGroupManagerProps) {
                     <div>
                       <div
                         data-uk-countdown='date: 2024-03-12T08:36:57+00:00'
-                        className='flex gap-3 text-2xl font-semibold text-primary max-lg:justify-center'>
-                        <div className='bg-primary-soft/40 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
+                        className='flex gap-3 text-2xl font-semibold text-text-1 max-lg:justify-center'>
+                        <div className='bg-foreground-1 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
                           <span className='uk-countdown-days'></span>
                           <span className='inline-block text-xs'>Days</span>
                         </div>
-                        <div className='bg-primary-soft/40 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
+                        <div className='bg-foreground-1 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
                           <div className='uk-countdown-hours'></div>
                           <span className='inline-block text-xs'>Hours</span>
                         </div>
-                        <div className='bg-primary-soft/40 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
+                        <div className='bg-foreground-1 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
                           <div className='uk-countdown-minutes'></div>
                           <span className='inline-block text-xs'>min </span>
                         </div>
-                        <div className='bg-primary-soft/40 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
+                        <div className='bg-foreground-1 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
                           <div className='uk-countdown-seconds'></div>
                           <span className='inline-block text-xs'>sec </span>
                         </div>

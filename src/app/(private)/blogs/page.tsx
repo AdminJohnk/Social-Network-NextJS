@@ -192,7 +192,7 @@ export default function Blog(props: IBlogProps) {
                       </Link>
                       <div className='side-list-info'> 42 articles </div>
                     </div>
-                    <button type='button' className='button-icon bg-primary-soft text-primary'>
+                    <button type='button' className='button-icon bg-foreground-2'>
                       <IoPersonAddOutline className='size-5' />
                     </button>
                   </div>
@@ -212,7 +212,7 @@ export default function Blog(props: IBlogProps) {
                       </Link>
                       <div className='side-list-info'> 25 articles </div>
                     </div>
-                    <button type='button' className='button-icon bg-primary-soft text-primary'>
+                    <button type='button' className='button-icon bg-foreground-2'>
                       <IoPersonAddOutline className='size-5' />
                     </button>
                   </div>
@@ -232,7 +232,7 @@ export default function Blog(props: IBlogProps) {
                       </Link>
                       <div className='side-list-info'> 15 articles </div>
                     </div>
-                    <button type='button' className='button-icon bg-primary-soft text-primary'>
+                    <button type='button' className='button-icon bg-foreground-2'>
                       <IoPersonAddOutline className='size-5' />
                     </button>
                   </div>
@@ -252,7 +252,7 @@ export default function Blog(props: IBlogProps) {
                       </Link>
                       <div className='side-list-info'> 36 articles </div>
                     </div>
-                    <button type='button' className='button-icon bg-primary-soft text-primary'>
+                    <button type='button' className='button-icon bg-foreground-2'>
                       <IoPersonAddOutline className='size-5' />
                     </button>
                   </div>
