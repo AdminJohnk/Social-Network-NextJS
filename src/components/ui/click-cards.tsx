@@ -2,22 +2,14 @@
 
 import * as React from 'react';
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { IoIosMore } from 'react-icons/io';
 
 interface IPostMoreChooseProps {
   Content: React.ReactNode;
   HoverContent: React.ReactNode;
 }
 
-export default function PopOverclick({
-  Content,
-  HoverContent,
-}: IPostMoreChooseProps) {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null,
-  );
+export default function PopOverClick({ Content, HoverContent }: IPostMoreChooseProps) {
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -37,7 +29,7 @@ export default function PopOverclick({
       </button>
       <Popover
         classes={{
-          paper: 'bg-transparent',
+          paper: 'bg-transparent'
         }}
         id={id}
         open={open}
@@ -45,9 +37,8 @@ export default function PopOverclick({
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'center',
-          horizontal: 'left',
-        }}
-      >
+          horizontal: 'left'
+        }}>
         {HoverContent}
       </Popover>
     </div>

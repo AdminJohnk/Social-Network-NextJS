@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { StyledBadge } from './StyledBadge';
 import { Avatar } from '@mui/material';
 

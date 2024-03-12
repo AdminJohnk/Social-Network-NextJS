@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/role-supports-aria-props */
-/* eslint-disable @next/next/no-img-element */
-import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -579,7 +576,9 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 6 day ago </div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>Like</button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
+                        Like
+                      </button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
                       <Link href='#'>
@@ -597,7 +596,9 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 month ago </div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>Like</button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
+                        Like
+                      </button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
                       <Link href='#'>
@@ -615,7 +616,9 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 1 week ago </div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>Like</button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
+                        Like
+                      </button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
                       <Link href='#'>
@@ -633,7 +636,9 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 day ago </div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>Like</button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
+                        Like
+                      </button>
                     </div>
                   </div>
 

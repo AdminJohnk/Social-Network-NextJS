@@ -1,6 +1,5 @@
 import { Avatar } from '@mui/material';
 import Image from 'next/image';
-import * as React from 'react';
 import { IoIosMore } from 'react-icons/io';
 import { FiSend } from 'react-icons/fi';
 import { GoShare } from 'react-icons/go';
@@ -9,7 +8,7 @@ import { FaCommentDots } from 'react-icons/fa';
 import CommentList from '../CommentList/CommentList';
 import InputComment from '../InputComment/InputComment';
 import PostMoreChoose from './PostMoreChoose';
-import PopOverclick from '../ui/click-cards';
+import PopOverClick from '../ui/click-cards';
 import Link from 'next/link';
 
 export interface IPostProps {}
@@ -30,7 +29,7 @@ export default function Post(props: IPostProps) {
           </div>
         </div>
         <div className='popover'>
-          <PopOverclick
+          <PopOverClick
             Content={
               <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
                 <IoIosMore className='size-6' />

@@ -1,5 +1,4 @@
 import { Avatar } from '@mui/material';
-import * as React from 'react';
 import { FiRefreshCw } from 'react-icons/fi';
 
 const FollowList = [

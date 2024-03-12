@@ -1,7 +1,6 @@
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import Image from 'next/image';
 import Link from 'next/link';
-import * as React from 'react';
 import {
   IoArrowRedo,
   IoStarOutline,

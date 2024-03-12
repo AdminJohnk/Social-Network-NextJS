@@ -3,7 +3,7 @@
 import Slider from 'react-slick';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { cn } from '@/lib/utils';
-import SuggestMemberItem from '../SuggestMemberItem/SuggestMemberItem';
+import SuggestMemberItem from './SuggestMemberItem';
 
 function SampleNextArrow(props: any) {
   const { onClick } = props;

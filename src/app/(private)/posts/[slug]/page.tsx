@@ -1,5 +1,4 @@
 import Post from '@/components/Post/Post';
-import * as React from 'react';
 
 export interface IPostDetailProps {}
 
