@@ -34,6 +34,7 @@ export default function RootLayout({
         <QueryProvider>
           <SessionProvider>
             <Flowbite>
+              <FloatTool />
               {children}
               <ToTop />
             </Flowbite>
