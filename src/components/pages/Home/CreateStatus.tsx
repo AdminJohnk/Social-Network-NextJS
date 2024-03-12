@@ -33,9 +33,10 @@ export default function CreateStatus(props: ICreateStoryProps) {
 
         <div className='space-y-5 mt-3 p-2'>
           <textarea
-            className='w-full !text-text-1 placeholder:!text-text-1 !bg-background-1 !border-transparent focus:!border-transparent focus:!ring-transparent !font-normal !text-xl'
+            className='w-full resize-none !text-text-1 placeholder:!text-text-2 !bg-background-1 !border-transparent focus:!border-transparent focus:!ring-transparent !font-normal !text-xl'
             rows={6}
-            placeholder='What do you have in mind?'></textarea>
+            placeholder='What do you have in mind?'
+          />
         </div>
 
         <div className='flex items-center gap-2 text-sm py-2 px-4 font-medium flex-wrap'>
@@ -63,7 +64,9 @@ export default function CreateStatus(props: ICreateStoryProps) {
             <IoLocation className='text-base' />
             Check in
           </button>
-          <button type='button' className='grid place-items-center w-8 h-8 text-xl rounded-full bg-secondery'>
+          <button
+            type='button'
+            className='grid place-items-center w-8 h-8 text-xl rounded-full hover:bg-hover-1'>
             <IoEllipsisHorizontal />
           </button>
         </div>

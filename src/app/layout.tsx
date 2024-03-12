@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <head>
         <ThemeModeScript />
-        <link rel='icon' href='/icon?png' type='image/png' sizes='png' />
+        <link rel='icon' href='/icon.png' type='image/png' sizes='png' />
       </head>
 
       <Script src='/js/uikit.min.js' defer />
