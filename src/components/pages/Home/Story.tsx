@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Avatar } from '@mui/material';
 import { cn } from '@/lib/utils';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { IoCamera } from 'react-icons/io5';
 
 function SampleNextArrow(props: any) {
   const { onClick } = props;
@@ -34,7 +35,7 @@ function SamplePrevArrow(props: any) {
   );
 }
 
-export interface IStoryProps { }
+export interface IStoryProps {}
 
 export default function Story(props: IStoryProps) {
   var settings: Settings = {
@@ -161,6 +162,13 @@ export default function Story(props: IStoryProps) {
     <div className='story px-10'>
       <div className='mb-5 h3-bold'>Stories</div>
       <Slider {...settings} className='relative'>
+        <div
+          className='md:!size-16 !size-12 rounded-full border-2 
+        border-dashed !grid place-items-center cursor-pointer
+        bg-foreground-2 border-border-1 shrink-0'
+          data-uk-toggle='target: #create-story'>
+          <IoCamera className='text-2xl' />
+        </div>
         {storyList.map((story) => (
           <div key={story.id}>
             <Avatar src={story.image} sx={{ width: 64, height: 64 }} />

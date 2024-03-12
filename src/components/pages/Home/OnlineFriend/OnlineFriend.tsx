@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { FiRefreshCw } from 'react-icons/fi';
 import Slider from 'react-slick';
 import OnlineItem from './OnlineItem';

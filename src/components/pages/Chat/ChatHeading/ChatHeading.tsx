@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import * as React from 'react';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
 export interface IChatHeadingProps { }

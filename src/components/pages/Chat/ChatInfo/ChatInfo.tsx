@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -10,7 +9,7 @@ import {
   IoTrashOutline
 } from 'react-icons/io5';
 
-export interface IChatInfoProps { }
+export interface IChatInfoProps {}
 
 export default function ChatInfo(props: IChatInfoProps) {
   return (
@@ -21,7 +20,11 @@ export default function ChatInfo(props: IChatInfoProps) {
         <div className='py-10 text-center text-sm pt-20'>
           <Image
             width={500}
-            height={500} src='/images/avatars/avatar-3.jpg' className='w-24 h-24 rounded-full mx-auto mb-3' alt='' />
+            height={500}
+            src='/images/avatars/avatar-3.jpg'
+            className='w-24 h-24 rounded-full mx-auto mb-3'
+            alt=''
+          />
           <div className='mt-8'>
             <div className='md:text-xl text-base font-medium text-black dark:text-white'> Monroe Parker </div>
             <div className='text-gray-500 text-sm mt-1 dark:text-white/80'>@Monroepark</div>

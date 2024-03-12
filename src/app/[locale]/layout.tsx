@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 export interface ILocaleLayoutProps {

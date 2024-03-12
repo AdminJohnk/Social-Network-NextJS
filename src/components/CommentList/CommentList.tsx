@@ -1,4 +1,3 @@
-import * as React from 'react';
 import CommentItem from './CommentItem';
 import { IoIosArrowDown } from 'react-icons/io';
 

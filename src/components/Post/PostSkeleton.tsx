@@ -1,5 +1,4 @@
 import { Skeleton, Typography, TypographyProps } from '@mui/material';
-import * as React from 'react';
 
 const variants = [
   'h1',

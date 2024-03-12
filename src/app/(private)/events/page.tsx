@@ -1,7 +1,6 @@
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import Image from 'next/image';
 import Link from 'next/link';
-import * as React from 'react';
 import { IoArrowRedo, IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
 export interface IEventProps {}
@@ -28,7 +27,7 @@ export default function Event(props: IEventProps) {
                 <ul className='uk-slider-items grid-small'>
                   <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
                     <div className='card'>
-                      <Link href='timeline-event.html'>
+                      <Link href='/events/123'>
                         <div className='card-media h-32'>
                           <Image width={500} height={500} src='/images/events/img-3.jpg' alt='' />
                           <div className='card-overlay'></div>
@@ -36,7 +35,7 @@ export default function Event(props: IEventProps) {
                       </Link>
                       <div className='card-body'>
                         <p className='text-xs font-medium text-blue-600 mb-1'> Next week </p>
-                        <Link href='timeline-event.html'>
+                        <Link href='/events/123'>
                           <h4 className='card-title text-sm'> About Safety and Flight </h4>
                         </Link>
                         <Link href='#'>
@@ -64,7 +63,7 @@ export default function Event(props: IEventProps) {
                   </li>
                   <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
                     <div className='card'>
-                      <Link href='timeline-event.html'>
+                      <Link href='/events/123'>
                         <div className='card-media h-32'>
                           <Image width={500} height={500} src='/images/events/img-2.jpg' alt='' />
                           <div className='card-overlay'></div>
@@ -72,7 +71,7 @@ export default function Event(props: IEventProps) {
                       </Link>
                       <div className='card-body'>
                         <p className='text-xs font-semibold text-teal-600 mb-1'>Opening</p>
-                        <Link href='timeline-event.html'>
+                        <Link href='/events/123'>
                           <h4 className='card-title text-sm'> Wedding trend Ideas </h4>
                         </Link>
                         <Link href='#'>
@@ -100,7 +99,7 @@ export default function Event(props: IEventProps) {
                   </li>
                   <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
                     <div className='card'>
-                      <Link href='timeline-event.html'>
+                      <Link href='/events/123'>
                         <div className='card-media h-32'>
                           <Image width={500} height={500} src='/images/events/img-1.jpg' alt='' />
                           <div className='card-overlay'></div>
@@ -108,7 +107,7 @@ export default function Event(props: IEventProps) {
                       </Link>
                       <div className='card-body'>
                         <p className='text-xs font-medium text-red-600 mb-1'> WED JUL 10,2024 AT 10PM </p>
-                        <Link href='timeline-event.html'>
+                        <Link href='/events/123'>
                           <h4 className='card-title text-sm'> The global creative </h4>
                         </Link>
                         <Link href='#'>
@@ -136,7 +135,7 @@ export default function Event(props: IEventProps) {
                   </li>
                   <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
                     <div className='card'>
-                      <Link href='timeline-event.html'>
+                      <Link href='/events/123'>
                         <div className='card-media h-32'>
                           <Image width={500} height={500} src='/images/events/img-4.jpg' alt='' />
                           <div className='card-overlay'></div>
@@ -144,7 +143,7 @@ export default function Event(props: IEventProps) {
                       </Link>
                       <div className='card-body'>
                         <p className='text-xs font-semibold text-teal-600 mb-1'>Opening</p>
-                        <Link href='timeline-event.html'>
+                        <Link href='/events/123'>
                           <h4 className='card-title text-sm'> Perspective is everything </h4>
                         </Link>
                         <Link href='#'>
@@ -172,7 +171,7 @@ export default function Event(props: IEventProps) {
                   </li>
                   <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
                     <div className='card'>
-                      <Link href='timeline-event.html'>
+                      <Link href='/events/123'>
                         <div className='card-media h-32'>
                           <Image width={500} height={500} src='/images/events/img-3.jpg' alt='' />
                           <div className='card-overlay'></div>
@@ -180,7 +179,7 @@ export default function Event(props: IEventProps) {
                       </Link>
                       <div className='card-body'>
                         <p className='text-xs font-medium text-blue-600 mb-1'> Next week </p>
-                        <Link href='timeline-event.html'>
+                        <Link href='/events/123'>
                           <h4 className='card-title text-sm'> About Safety and Flight </h4>
                         </Link>
                         <Link href='#'>
@@ -370,7 +369,7 @@ export default function Event(props: IEventProps) {
             {/* <!-- event grid --> */}
             <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-2.5 mt-4'>
               <div className='card'>
-                <Link href='timeline-event.html'>
+                <Link href='/events/123'>
                   <div className='card-media h-32'>
                     <Image width={500} height={500} src='/images/events/img-1.jpg' alt='' />
                     <div className='card-overlay'></div>
@@ -380,7 +379,7 @@ export default function Event(props: IEventProps) {
                   <p className='text-xs font-medium text-black dark:text-red-600 mb-1'>
                     WED JUL 10,2024 AT 10PM
                   </p>
-                  <Link href='timeline-event.html'>
+                  <Link href='/events/123'>
                     <h4 className='card-title text-sm'> The global creative </h4>
                   </Link>
                   <Link href='#'>
@@ -407,7 +406,7 @@ export default function Event(props: IEventProps) {
               </div>
 
               <div className='card'>
-                <Link href='timeline-event.html'>
+                <Link href='/events/123'>
                   <div className='card-media h-32'>
                     <Image width={500} height={500} src='/images/events/img-2.jpg' alt='' />
                     <div className='card-overlay'></div>
@@ -415,7 +414,7 @@ export default function Event(props: IEventProps) {
                 </Link>
                 <div className='card-body'>
                   <p className='text-xs font-semibold text-teal-600 mb-1'>Opening</p>
-                  <Link href='timeline-event.html'>
+                  <Link href='/events/123'>
                     <h4 className='card-title text-sm'> Wedding trend Ideas </h4>
                   </Link>
                   <Link href='#'>
@@ -442,7 +441,7 @@ export default function Event(props: IEventProps) {
               </div>
 
               <div className='card'>
-                <Link href='timeline-event.html'>
+                <Link href='/events/123'>
                   <div className='card-media h-32'>
                     <Image width={500} height={500} src='/images/events/img-3.jpg' alt='' />
                     <div className='card-overlay'></div>
@@ -452,7 +451,7 @@ export default function Event(props: IEventProps) {
                   <p className='text-xs font-medium text-black dark:text-red-600 mb-1'>
                     WED JUL 10,2024 AT 10PM
                   </p>
-                  <Link href='timeline-event.html'>
+                  <Link href='/events/123'>
                     <h4 className='card-title text-sm'> About Safety and Flight </h4>
                   </Link>
                   <Link href='#'>
@@ -479,7 +478,7 @@ export default function Event(props: IEventProps) {
               </div>
 
               <div className='card'>
-                <Link href='timeline-event.html'>
+                <Link href='/events/123'>
                   <div className='card-media h-32'>
                     <Image width={500} height={500} src='/images/events/img-4.jpg' alt='' />
                     <div className='card-overlay'></div>
@@ -487,7 +486,7 @@ export default function Event(props: IEventProps) {
                 </Link>
                 <div className='card-body'>
                   <p className='text-xs font-semibold text-teal-600 mb-1'>Opening</p>
-                  <Link href='timeline-event.html'>
+                  <Link href='/events/123'>
                     <h4 className='card-title text-sm'> Perspective is everything </h4>
                   </Link>
                   <Link href='#'>

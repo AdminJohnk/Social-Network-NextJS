@@ -1,7 +1,6 @@
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import Image from 'next/image';
 import Link from 'next/link';
-import * as React from 'react';
 import { IoIosAddCircle } from 'react-icons/io';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
@@ -26,7 +25,7 @@ export default function Group(props: IGroupProps) {
             <div className='uk-switcher' id='group-tabs'>
               <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2.5'>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/group/group-cover-4.jpg' alt='' />
                       <div className='card-overlay'></div>
@@ -40,7 +39,7 @@ export default function Group(props: IGroupProps) {
                       alt=''
                       className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
                     />
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Delicious Foods </h4>
                     </Link>
                     <div className='card-list-info font-normal mt-1'>
@@ -55,7 +54,7 @@ export default function Group(props: IGroupProps) {
                         Join
                       </button>
                       <Link
-                        href='timeline-group.html'
+                        href='/group-manager'
                         className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                         View
                       </Link>
@@ -63,7 +62,7 @@ export default function Group(props: IGroupProps) {
                   </div>
                 </div>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/group/group-cover-3.jpg' alt='' />
                       <div className='card-overlay'></div>
@@ -77,7 +76,7 @@ export default function Group(props: IGroupProps) {
                       alt=''
                       className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
                     />
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Abstract minimal </h4>
                     </Link>
                     <div className='card-list-info font-normal mt-1'>
@@ -92,7 +91,7 @@ export default function Group(props: IGroupProps) {
                         Join
                       </button>
                       <Link
-                        href='timeline-group.html'
+                        href='/group-manager'
                         className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                         View
                       </Link>
@@ -100,7 +99,7 @@ export default function Group(props: IGroupProps) {
                   </div>
                 </div>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/group/group-cover-2.jpg' alt='' />
                       <div className='card-overlay'></div>
@@ -114,7 +113,7 @@ export default function Group(props: IGroupProps) {
                       alt=''
                       className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
                     />
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Delicious Foods </h4>
                     </Link>
                     <div className='card-list-info font-normal mt-1'>
@@ -129,7 +128,7 @@ export default function Group(props: IGroupProps) {
                         Join
                       </button>
                       <Link
-                        href='timeline-group.html'
+                        href='/group-manager'
                         className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                         View
                       </Link>
@@ -137,7 +136,7 @@ export default function Group(props: IGroupProps) {
                   </div>
                 </div>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/group/group-cover-1.jpg' alt='' />
                       <div className='card-overlay'></div>
@@ -151,7 +150,7 @@ export default function Group(props: IGroupProps) {
                       alt=''
                       className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
                     />
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Graphic Design </h4>
                     </Link>
                     <div className='card-list-info font-normal mt-1'>
@@ -166,7 +165,7 @@ export default function Group(props: IGroupProps) {
                         Join
                       </button>
                       <Link
-                        href='timeline-group.html'
+                        href='/group-manager'
                         className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                         View
                       </Link>
@@ -177,14 +176,14 @@ export default function Group(props: IGroupProps) {
 
               <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2.5'>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/product/product-1.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
                   <div className='card-body'>
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Graphic Design </h4>
                     </Link>
                     <div className='card-text'>
@@ -227,7 +226,7 @@ export default function Group(props: IGroupProps) {
                         Join
                       </button>
                       <Link
-                        href='timeline-group.html'
+                        href='/group-manager'
                         className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                         View
                       </Link>
@@ -235,14 +234,14 @@ export default function Group(props: IGroupProps) {
                   </div>
                 </div>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/product/product-2.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
                   <div className='card-body'>
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Delicious Foods </h4>
                     </Link>
                     <div className='card-text'>
@@ -285,7 +284,7 @@ export default function Group(props: IGroupProps) {
                         Join
                       </button>
                       <Link
-                        href='timeline-group.html'
+                        href='/group-manager'
                         className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                         View
                       </Link>
@@ -293,14 +292,14 @@ export default function Group(props: IGroupProps) {
                   </div>
                 </div>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/product/product-4.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
                   <div className='card-body'>
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Delicious Foods </h4>
                     </Link>
                     <div className='card-text'>
@@ -343,7 +342,7 @@ export default function Group(props: IGroupProps) {
                         Join
                       </button>
                       <Link
-                        href='timeline-group.html'
+                        href='/group-manager'
                         className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                         View
                       </Link>
@@ -351,14 +350,14 @@ export default function Group(props: IGroupProps) {
                   </div>
                 </div>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/product/product-3.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
                   <div className='card-body'>
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Abstract minimal </h4>
                     </Link>
                     <div className='card-text'>
@@ -401,7 +400,7 @@ export default function Group(props: IGroupProps) {
                         Join
                       </button>
                       <Link
-                        href='timeline-group.html'
+                        href='/group-manager'
                         className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
                         View
                       </Link>
@@ -412,14 +411,14 @@ export default function Group(props: IGroupProps) {
 
               <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2.5'>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/group/group-cover-2.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
                   <div className='card-body'>
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Delicious Foods </h4>
                     </Link>
                     <div className='card-list-info font-normal mt-1'>
@@ -442,14 +441,14 @@ export default function Group(props: IGroupProps) {
                   </div>
                 </div>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/group/group-cover-1.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
                   <div className='card-body'>
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Graphic Design </h4>
                     </Link>
                     <div className='card-list-info font-normal mt-1'>
@@ -472,14 +471,14 @@ export default function Group(props: IGroupProps) {
                   </div>
                 </div>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/group/group-cover-3.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
                   <div className='card-body'>
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Abstract minimal </h4>
                     </Link>
                     <div className='card-list-info font-normal mt-1'>
@@ -502,14 +501,14 @@ export default function Group(props: IGroupProps) {
                   </div>
                 </div>
                 <div className='card'>
-                  <Link href='timeline-group.html'>
+                  <Link href='/group-manager'>
                     <div className='card-media h-24'>
                       <Image width={500} height={500} src='/images/group/group-cover-4.jpg' alt='' />
                       <div className='card-overlay'></div>
                     </div>
                   </Link>
                   <div className='card-body'>
-                    <Link href='timeline-group.html'>
+                    <Link href='/group-manager'>
                       <h4 className='card-title'> Delicious Foods </h4>
                     </Link>
                     <div className='card-list-info font-normal mt-1'>
@@ -680,7 +679,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
+                  <Link href='/group-manager' className='md:text-lg text-base font-semibold capitalize'>
                     Delicious Foods
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -723,7 +722,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
+                  <Link href='/group-manager' className='md:text-lg text-base font-semibold capitalize'>
                     Abstract minimal
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -766,7 +765,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
+                  <Link href='/group-manager' className='md:text-lg text-base font-semibold capitalize'>
                     Delicious Foods
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -809,7 +808,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
+                  <Link href='/group-manager' className='md:text-lg text-base font-semibold capitalize'>
                     Graphic Design
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -852,7 +851,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
+                  <Link href='/group-manager' className='md:text-lg text-base font-semibold capitalize'>
                     Abstract minimal
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -895,7 +894,7 @@ export default function Group(props: IGroupProps) {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Link href='timeline-group.html' className='md:text-lg text-base font-semibold capitalize'>
+                  <Link href='/group-manager' className='md:text-lg text-base font-semibold capitalize'>
                     Delicious Foods
                   </Link>
                   <div className='flex space-x-2 items-center text-sm font-normal'>

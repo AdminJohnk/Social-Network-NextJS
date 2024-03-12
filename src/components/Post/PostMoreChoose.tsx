@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { CiBookmark, CiFlag1 } from 'react-icons/ci';
 import { IoVolumeMuteOutline, IoShareOutline } from 'react-icons/io5';
 

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { IoAddCircleOutline, IoDocumentText, IoHappyOutline, IoHeart, IoHeartOutline, IoImage, IoImages, IoSendOutline } from 'react-icons/io5';
 import { FaGift } from 'react-icons/fa';
 

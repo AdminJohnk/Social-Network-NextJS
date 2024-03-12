@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { FiRefreshCw } from 'react-icons/fi';
 import { FaHashtag } from 'react-icons/fa';
 

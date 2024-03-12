@@ -794,6 +794,9 @@
 .uk-modal {
   visibility: hidden;
   position: fixed;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
   top: 0px;
   right: 0px;
   bottom: 0px;
@@ -809,7 +812,7 @@
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
     var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert)
     var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-  transition-property: transform;
+  transition-property: visibility, transform, opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -831,8 +834,8 @@
 }
 
 .uk-modal-dialog {
-  --tw-scale-x: 0.75;
-  --tw-scale-y: 0.75;
+  --tw-scale-x: 0.7;
+  --tw-scale-y: 0.7;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate))
     skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   opacity: 1;
