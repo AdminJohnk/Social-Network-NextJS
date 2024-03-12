@@ -37,7 +37,8 @@ const config: Config = {
         },
         hover: {
           1: 'var(--hover1)',
-          2: 'var(--hover2)'
+          2: 'var(--hover2)',
+          3: 'var(--hover3)'
         },
         background: {
           1: 'var(--background1)',

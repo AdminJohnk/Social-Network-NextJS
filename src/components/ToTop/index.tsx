@@ -41,11 +41,12 @@ export default function ToTop() {
   return (
     <div
       ref={topRef}
-      className='fixed bottom-2 right-4 z-50 cursor-pointer bg-foreground-1 rounded-full drop-shadow-xl'
+      className='fixed bottom-4 right-4 z-50 cursor-pointer bg-foreground-1 rounded-full drop-shadow-xl'
       onClick={() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }}>
-      <IoArrowUpCircleOutline className='w-12 h-12 bg-background-2 rounded-full p-2' />
+      }}
+    >
+      <IoArrowUpCircleOutline className='size-12 text-green-1 bg-foreground-1 hover:bg-hover-3 duration-300 rounded-full p-2' />
     </div>
   );
 }
