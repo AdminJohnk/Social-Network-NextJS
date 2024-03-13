@@ -249,9 +249,6 @@ export default function EditProfile() {
             </div>
           </div>
 
-          <div></div>
-          <div></div>
-
           <div>
             <div className='space-y-6'>
               <div className='md:flex items-center gap-16 justify-between max-md:space-y-3'>

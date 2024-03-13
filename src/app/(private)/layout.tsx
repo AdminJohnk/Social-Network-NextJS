@@ -1,7 +1,11 @@
-import Header from '@/components/Header';
-import SideBar from '@/components/SideBar';
+import Header from '@/components/shared/Header';
+import SideBar from '@/components/shared/SideBar';
 
-export default function PrivateLayout({ children }: { children: React.ReactNode }) {
+export default function PrivateLayout({
+  children
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <main className='w-full overflow-hidden'>
       <Header />
