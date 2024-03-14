@@ -159,7 +159,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                   <IoEllipsisHorizontal className='text-xl' />
                 </button>
                 <div
-                  className='w-[240px] !bg-foreground-1'
+                  className='w-[240px] !bg-foreground-1 hidden'
                   data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                   {isMe ? (
                     <nav>
@@ -241,7 +241,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                   <IoChevronDown />
                 </Link>
                 <div
-                  className='md:w-[240px] w-screen !bg-foreground-1'
+                  className='md:w-[240px] w-screen !bg-foreground-1 hidden'
                   data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:-4'>
                   <nav className='text-[15px]'>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>

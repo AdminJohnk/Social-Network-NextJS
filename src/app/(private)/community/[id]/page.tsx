@@ -64,13 +64,11 @@ export default function Community(props: ICommunityProps) {
                     <span className='max-lg:hidden'> Public group </span>
                     <span className='max-lg:hidden'> • </span>
                     <span>
-                      {' '}
-                      <b className='font-medium text-text-1'>1.2K</b> likes{' '}
+                      <b className='font-medium text-text-1'>1.2K</b> likes
                     </span>
                     <span className='max-lg:hidden'> • </span>
                     <span>
-                      {' '}
-                      <b className='font-medium text-text-1'>1.4K</b> followers{' '}
+                      <b className='font-medium text-text-1'>1.4K</b> followers
                     </span>
                   </p>
                 </div>
@@ -83,35 +81,35 @@ export default function Community(props: ICommunityProps) {
                         height={500}
                         src='/images/avatars/avatar-2.jpg'
                         alt=''
-                        className='w-10 rounded-full border-4 border-white dark:border-slate-800'
+                        className='w-10 rounded-full border-4 border-border-1'
                       />
                       <Image
                         width={500}
                         height={500}
                         src='/images/avatars/avatar-3.jpg'
                         alt=''
-                        className='w-10 rounded-full border-4 border-white dark:border-slate-800'
+                        className='w-10 rounded-full border-4 border-border-1'
                       />
                       <Image
                         width={500}
                         height={500}
                         src='/images/avatars/avatar-7.jpg'
                         alt=''
-                        className='w-10 rounded-full border-4 border-white dark:border-slate-800'
+                        className='w-10 rounded-full border-4 border-border-1'
                       />
                       <Image
                         width={500}
                         height={500}
                         src='/images/avatars/avatar-4.jpg'
                         alt=''
-                        className='w-10 rounded-full border-4 border-white dark:border-slate-800'
+                        className='w-10 rounded-full border-4 border-border-1'
                       />
                       <Image
                         width={500}
                         height={500}
                         src='/images/avatars/avatar-5.jpg'
                         alt=''
-                        className='w-10 rounded-full border-4 border-white dark:border-slate-800'
+                        className='w-10 rounded-full border-4 border-border-1'
                       />
                     </div>
                     <button className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
@@ -125,33 +123,27 @@ export default function Community(props: ICommunityProps) {
                         <IoEllipsisHorizontal className='text-xl' />
                       </button>
                       <div
-                        className='w-[240px]'
+                        className='w-[240px] hidden'
                         data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                         <nav>
                           <Link href='#' className='hover:!bg-hover-1'>
-                            {' '}
-                            <IoPricetagOutline className='text-xl' /> Unfollow{' '}
+                            <IoPricetagOutline className='text-xl' /> Unfollow
                           </Link>
                           <Link href='#' className='hover:!bg-hover-1'>
-                            {' '}
-                            <IoShareOutline className='text-xl' /> Share{' '}
+                            <IoShareOutline className='text-xl' /> Share
                           </Link>
                           <Link href='#' className='hover:!bg-hover-1'>
-                            {' '}
-                            <IoLinkOutline className='text-xl' /> Copy link{' '}
+                            <IoLinkOutline className='text-xl' /> Copy link
                           </Link>
                           <Link href='#' className='hover:!bg-hover-1'>
-                            {' '}
-                            <IoChatbubbleEllipsesOutline className='text-xl' /> Sort comments{' '}
+                            <IoChatbubbleEllipsesOutline className='text-xl' /> Sort comments
                           </Link>
                           <Link href='#' className='hover:!bg-hover-1'>
-                            {' '}
                             <IoFlagOutline className='text-xl' /> Report group
                           </Link>
                           <hr />
                           <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                            {' '}
-                            <IoStopCircleOutline className='text-xl' /> Block{' '}
+                            <IoStopCircleOutline className='text-xl' /> Block
                           </Link>
                         </nav>
                       </div>
@@ -163,7 +155,7 @@ export default function Community(props: ICommunityProps) {
           </div>
           <div className='flex items-center justify-between  border-t border-gray-100 px-2 dark:border-slate-700'>
             <nav className='flex gap-0.5 rounded-xl overflow-hidden -mb-px text-gray-500 font-medium text-sm overflow-x-auto dark:text-white'>
-              <Tabs id='tabs-community' navClassName='!pt-0'>
+              <Tabs id='tabs-community' navClassName='!pt-0' disableChevron>
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>Discussion</TabTitle>
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>Files</TabTitle>
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>Photos</TabTitle>
