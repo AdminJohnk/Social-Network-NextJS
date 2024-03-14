@@ -8,7 +8,7 @@ import { FaCommentDots } from 'react-icons/fa';
 import CommentList from '../CommentList/CommentList';
 import InputComment from '../InputComment/InputComment';
 import PostMoreChoose from './PostMoreChoose';
-import PopOverClick from '../ui/click-cards';
+import PopOverClick from '../../ui/click-cards';
 import Link from 'next/link';
 
 export interface IPostProps {}
@@ -23,7 +23,8 @@ export default function Post(props: IPostProps) {
             <span className='base-bold'>Monroe Parker</span>
             <Link
               href='/posts/657f06489c29b021b905b804'
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
+            >
               2 hours ago
             </Link>
           </div>

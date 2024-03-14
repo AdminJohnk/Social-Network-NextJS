@@ -4,8 +4,8 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 
 import { QueryProvider, SessionProvider } from './provider';
-import ToTop from '@/components/ToTop';
-import FloatTool from '@/components/FloatTool/FloatTool';
+import ToTop from '@/components/shared/ToTop';
+import FloatTool from '@/components/shared/FloatTool/FloatTool';
 import { cn } from '@/lib/utils';
 import './uk.css';
 import './globals.css';

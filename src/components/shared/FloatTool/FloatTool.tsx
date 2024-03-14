@@ -12,7 +12,7 @@ export default function FloatTool(props: IFloatToolProps) {
   const ListToolRef = React.useRef<HTMLDivElement>(null);
   return (
     <div
-      className='fixed bottom-20 right-4 group/list-tool bg-transparent cursor-pointer z-[1000]'
+      className='fixed bottom-20 right-4 group/list-tool bg-transparent z-[1000]'
       onMouseEnter={() => {
         ListToolRef.current!.classList.add('animate-fade-up-in');
         ListToolRef.current!.classList.remove('animate-fade-up-out');

@@ -15,9 +15,9 @@ import {
 import { FaCheckCircle, FaPencilAlt } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 
-import Post from '@/components/Post/Post';
-import PostSkeleton from '@/components/Post/PostSkeleton';
-import NewPost from '@/components/NewPost/NewPost';
+import Post from '@/components/shared/Post/Post';
+import PostSkeleton from '@/components/shared/Post/PostSkeleton';
+import NewPost from '@/components/shared/NewPost/NewPost';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 
 export interface IProfileProps {}

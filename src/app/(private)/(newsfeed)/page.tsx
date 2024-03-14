@@ -1,10 +1,10 @@
-import NewPost from '@/components/NewPost/NewPost';
+import NewPost from '@/components/shared/NewPost/NewPost';
 import OnlineFriend from '@/components/pages/Home/OnlineFriend';
-import Post from '@/components/Post/Post';
-import PostSkeleton from '@/components/Post/PostSkeleton';
+import Post from '@/components/shared/Post/Post';
+import PostSkeleton from '@/components/shared/Post/PostSkeleton';
 import ProMember from '@/components/pages/Home/ProMember';
 import Story from '@/components/pages/Home/Story';
-import SuggestFollow from '@/components/pages/Home/SuggestFollow';
+import SuggestFollow from '@/components/shared/SuggestFollow/SuggestFollow';
 import TrendForYou from '@/components/pages/Home/TrendForYou';
 import CreateStatus from '@/components/pages/Home/CreateStatus';
 import CreateStory from '@/components/pages/Home/CreateStory';
@@ -19,7 +19,10 @@ export default function NewFeed(props: INewFeedProps) {
           <Story />
           <CreateStory />
         </div>
-        <div className='newsfeed-content mt-14 max-md:mt-0 flex w-full' id='newsfeed'>
+        <div
+          className='newsfeed-content mt-14 max-md:mt-0 flex w-full'
+          id='newsfeed'
+        >
           <div className='post w-3/5 max-lg:w-full px-9'>
             <div className='new-post mb-8'>
               <CreateStatus />
