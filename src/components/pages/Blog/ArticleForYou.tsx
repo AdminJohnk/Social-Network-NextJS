@@ -18,26 +18,20 @@ export default function ArticleForYou(props: IArticleForYouProps) {
 
       <div className='box p-5 mt-4'>
         <div className='card-list'>
-          <Link href='blog-read.html' className='lg:order-1'>
+          <Link href='/blogs/123' className='lg:order-1'>
             <div className='card-list-media h-32'>
-              <Image
-                src='/images/blog/img-2.jpg'
-                alt=''
-                width={1000}
-                height={1000}
-              />
+              <Image src='/images/blog/img-2.jpg' alt='' width={1000} height={1000} />
             </div>
           </Link>
           <div className='card-list-body'>
-            <Link href='blog-read.html'>
+            <Link href='/blogs/123'>
               <h3 className='card-list-title'>
                 Top amazing web demos and experiments in 2024 should know about
               </h3>
             </Link>
             <p className='card-list-text'>
-              consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt
-              ut laoreet dolore magna aliquam erat volutpat. Ut wiis enim ad
-              minim veniam,
+              consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt ut laoreet dolore magna
+              aliquam erat volutpat. Ut wiis enim ad minim veniam,
             </p>
             <Link href='#'>
               <div className='card-list-link'> Jesse Steeve </div>
@@ -57,26 +51,18 @@ export default function ArticleForYou(props: IArticleForYouProps) {
         </div>
         <hr className='card-list-divider' />
         <div className='card-list'>
-          <Link href='blog-read.html' className='lg:order-1'>
+          <Link href='/blogs/123' className='lg:order-1'>
             <div className='card-list-media h-32'>
-              <Image
-                src='/images/blog/img-3.jpg'
-                alt=''
-                width={1000}
-                height={1000}
-              />
+              <Image src='/images/blog/img-3.jpg' alt='' width={1000} height={1000} />
             </div>
           </Link>
           <div className='card-list-body'>
-            <Link href='blog-read.html'>
-              <h3 className='card-list-title'>
-                Interesting JavaScript and CSS libraries should Know About
-              </h3>
+            <Link href='/blogs/123'>
+              <h3 className='card-list-title'>Interesting JavaScript and CSS libraries should Know About</h3>
             </Link>
             <p className='card-list-text'>
-              consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt
-              ut laoreet dolore magna aliquam erat volutpat. Ut wiis enim ad
-              minim veniam,
+              consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt ut laoreet dolore magna
+              aliquam erat volutpat. Ut wiis enim ad minim veniam,
             </p>
             <Link href='#'>
               <div className='card-list-link'> Monroe Parker </div>
@@ -96,26 +82,20 @@ export default function ArticleForYou(props: IArticleForYouProps) {
         </div>
         <hr className='card-list-divider' />
         <div className='card-list'>
-          <Link href='blog-read.html' className='lg:order-1'>
+          <Link href='/blogs/123' className='lg:order-1'>
             <div className='card-list-media h-32'>
-              <Image
-                src='/images/blog/img-4.jpg'
-                alt=''
-                width={1000}
-                height={1000}
-              />
+              <Image src='/images/blog/img-4.jpg' alt='' width={1000} height={1000} />
             </div>
           </Link>
           <div className='card-list-body'>
-            <Link href='blog-read.html'>
+            <Link href='/blogs/123'>
               <h3 className='card-list-title'>
                 Interesting javaScript and CSS libraries you should be learn
               </h3>
             </Link>
             <p className='card-list-text'>
-              consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt
-              ut laoreet dolore magna aliquam erat volutpat. Ut wiis enim ad
-              minim veniam,
+              consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt ut laoreet dolore magna
+              aliquam erat volutpat. Ut wiis enim ad minim veniam,
             </p>
             <Link href='#'>
               <div className='card-list-link'> Martin Gray </div>

@@ -10,8 +10,7 @@ export default function BlogSlideThumbnail(props: IBlogSlideThumbnailProps) {
     <div
       className='relative uk-visible-toggle'
       tabIndex={-1}
-      data-uk-slideshow='finite: true ; min-height: 300; max-height: 500'
-    >
+      data-uk-slideshow='finite: true ; min-height: 300; max-height: 500'>
       <ul className='uk-slideshow-items'>
         <li className='w-full overflow-hidden rounded-xl'>
           <Image
@@ -23,7 +22,7 @@ export default function BlogSlideThumbnail(props: IBlogSlideThumbnailProps) {
           />
           <div className='absolute bottom-0 w-full uk-transition-slide-bottom-small'>
             <div className='bg-black/10 p-4 m-2 rounded-md backdrop-blur-lg mb-8'>
-              <Link href='timeline.html'>
+              <Link href='/profile/friend'>
                 <h4 className='text-sm font-medium'>
                   Interesting JavaScript and CSS libraries should Know About
                 </h4>
@@ -46,7 +45,7 @@ export default function BlogSlideThumbnail(props: IBlogSlideThumbnailProps) {
           />
           <div className='absolute bottom-0 w-full uk-transition-slide-bottom-small'>
             <div className='bg-black/10 p-4 m-2 rounded-md backdrop-blur-lg mb-8'>
-              <Link href='timeline.html'>
+              <Link href='/profile/friend'>
                 <h4 className='text-sm font-medium'>
                   Awesome web dev tools and resources for 2024 in 30 minutes
                 </h4>
@@ -69,7 +68,7 @@ export default function BlogSlideThumbnail(props: IBlogSlideThumbnailProps) {
           />
           <div className='absolute bottom-0 w-full uk-transition-slide-bottom-small'>
             <div className='bg-black/10 p-4 m-2 rounded-md backdrop-blur-lg mb-8'>
-              <Link href='timeline.html'>
+              <Link href='/profile/friend'>
                 <h4 className='text-sm font-medium'>
                   Interesting javaScript and CSS libraries you should be learn
                 </h4>

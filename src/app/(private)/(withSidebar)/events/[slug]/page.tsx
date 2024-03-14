@@ -182,7 +182,7 @@ export default function GroupManager(props: IGroupManagerProps) {
 
                   <div className=' text-sm font-normal space-y-4 relative mt-4'>
                     <div className='flex items-start gap-3 relative'>
-                      <Link href='timeline.html'>
+                      <Link href='/profile/friend'>
                         <Image
                           width={500}
                           height={500}
@@ -192,14 +192,14 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline.html' className='font-medium inline-block '>
+                        <Link href='/profile/friend' className='font-medium inline-block '>
                           Monroe Parker
                         </Link>
                         <p className='mt-0.5'>What a beautiful photo! I love it. 😍</p>
                       </div>
                     </div>
                     <div className='flex items-start gap-3 relative'>
-                      <Link href='timeline.html'>
+                      <Link href='/profile/friend'>
                         <Image
                           width={500}
                           height={500}
@@ -209,14 +209,14 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline.html' className='font-medium inline-block '>
+                        <Link href='/profile/friend' className='font-medium inline-block '>
                           John Michael
                         </Link>
                         <p className='mt-0.5'> You captured the moment.😎 </p>
                       </div>
                     </div>
                     <div className='flex items-start gap-3 relative'>
-                      <Link href='timeline.html'>
+                      <Link href='/profile/friend'>
                         <Image
                           width={500}
                           height={500}
@@ -226,14 +226,14 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline.html' className='font-medium inline-block '>
+                        <Link href='/profile/friend' className='font-medium inline-block '>
                           James Lewis
                         </Link>
                         <p className='mt-0.5'>What a beautiful photo! I love it. 😍</p>
                       </div>
                     </div>
                     <div className='flex items-start gap-3 relative'>
-                      <Link href='timeline.html'>
+                      <Link href='/profile/friend'>
                         <Image
                           width={500}
                           height={500}
@@ -243,7 +243,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline.html' className='font-medium inline-block '>
+                        <Link href='/profile/friend' className='font-medium inline-block '>
                           Martin Gray
                         </Link>
                         <p className='mt-0.5'> You captured the moment.😎 </p>
@@ -386,7 +386,7 @@ export default function GroupManager(props: IGroupManagerProps) {
 
                     <div className='side-list'>
                       <div className='side-list-item'>
-                        <Link href='timeline.html'>
+                        <Link href='/profile/friend'>
                           <Image
                             width={500}
                             height={500}
@@ -396,7 +396,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                           />
                         </Link>
                         <div className='flex-1'>
-                          <Link href='timeline.html'>
+                          <Link href='/profile/friend'>
                             <h4 className='side-list-title'> Monroe Parker </h4>
                           </Link>
                           <div className='side-list-info'> Turkey</div>
@@ -407,7 +407,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                       </div>
 
                       <div className='side-list-item'>
-                        <Link href='timeline.html'>
+                        <Link href='/profile/friend'>
                           <Image
                             width={500}
                             height={500}
@@ -417,7 +417,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                           />
                         </Link>
                         <div className='flex-1'>
-                          <Link href='timeline.html'>
+                          <Link href='/profile/friend'>
                             <h4 className='side-list-title'> Martin Gray </h4>
                           </Link>
                           <div className='side-list-info'> Dubai</div>
@@ -428,7 +428,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                       </div>
 
                       <div className='side-list-item'>
-                        <Link href='timeline.html'>
+                        <Link href='/profile/friend'>
                           <Image
                             width={500}
                             height={500}
@@ -438,7 +438,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                           />
                         </Link>
                         <div className='flex-1'>
-                          <Link href='timeline.html'>
+                          <Link href='/profile/friend'>
                             <h4 className='side-list-title'> James Lewis </h4>
                           </Link>
                           <div className='side-list-info'> London</div>
@@ -454,7 +454,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                     <h3 className='base-bold'>Created by</h3>
 
                     <div className='side-list-item'>
-                      <Link href='timeline.html'>
+                      <Link href='/profile/friend'>
                         <Image
                           width={500}
                           height={500}
@@ -464,13 +464,13 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='timeline.html'>
+                        <Link href='/profile/friend'>
                           <h4 className='side-list-title'> Maria Gray</h4>
                         </Link>
                         <div className='side-list-info'>Turkey </div>
                       </div>
                       <Link
-                        href='timeline.html'
+                        href='/profile/friend'
                         className='button rounded-full bg-foreground-2 hover:bg-hover-2 duration-300'>
                         Profile
                       </Link>

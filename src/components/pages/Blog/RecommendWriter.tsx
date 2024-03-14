@@ -10,17 +10,14 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
     <div className='bg-foreground-1 p-6 rounded-md mt-8 shadow'>
       <div className='flex items-center justify-between'>
         <h3 className='text-lg font-semibold'>Recommended Writers for you</h3>
-        <Link
-          href='#'
-          className='text-sm text-blue-500 flex items-center gap-2'
-        >
+        <Link href='#' className='text-sm text-blue-500 flex items-center gap-2'>
           See all <IoChevronForward />
         </Link>
       </div>
 
       <div className='grid sm:grid-cols-2 gap-3 mt-4'>
         <div className='side-list-item p-4 box bg-foreground-2 rounded-lg'>
-          <Link href='timeline.html'>
+          <Link href='/profile/friend'>
             <Image
               src='/images/avatars/avatar-5.jpg'
               alt=''
@@ -30,7 +27,7 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='timeline.html'>
+            <Link href='/profile/friend'>
               <h4 className='side-list-title'> James Lewis</h4>
             </Link>
             <div className='side-list-info'> 42 articles </div>
@@ -40,7 +37,7 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
           </button>
         </div>
         <div className='side-list-item p-4 box bg-foreground-2 rounded-lg'>
-          <Link href='timeline.html'>
+          <Link href='/profile/friend'>
             <Image
               src='/images/avatars/avatar-4.jpg'
               alt=''
@@ -50,7 +47,7 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='timeline.html'>
+            <Link href='/profile/friend'>
               <h4 className='side-list-title'> Martin Gray</h4>
             </Link>
             <div className='side-list-info'> 25 articles </div>
@@ -60,7 +57,7 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
           </button>
         </div>
         <div className='side-list-item p-4 box bg-foreground-2 rounded-lg'>
-          <Link href='timeline.html'>
+          <Link href='/profile/friend'>
             <Image
               src='/images/avatars/avatar-3.jpg'
               alt=''
@@ -70,7 +67,7 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='timeline.html'>
+            <Link href='/profile/friend'>
               <h4 className='side-list-title'> Monroe Parker</h4>
             </Link>
             <div className='side-list-info'> 15 articles </div>
@@ -80,7 +77,7 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
           </button>
         </div>
         <div className='side-list-item p-4 box bg-foreground-2 rounded-lg'>
-          <Link href='timeline.html'>
+          <Link href='/profile/friend'>
             <Image
               src='/images/avatars/avatar-7.jpg'
               alt=''
@@ -90,7 +87,7 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='timeline.html'>
+            <Link href='/profile/friend'>
               <h4 className='side-list-title'> Jesse Steeve</h4>
             </Link>
             <div className='side-list-info'> 36 articles </div>

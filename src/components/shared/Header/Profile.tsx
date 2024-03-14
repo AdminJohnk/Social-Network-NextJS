@@ -1,6 +1,7 @@
 'use client';
 
 import { useThemeMode } from 'flowbite-react';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -29,7 +30,7 @@ export default function ProfileHeader() {
       <div
         className='hidden bg-foreground-2 rounded-lg drop-shadow-xl w-64 border2'
         data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
-        <Link href=''>
+        <Link href='/profile/me'>
           <div className='p-4 py-5 flex items-center gap-4'>
             <Image
               src='/images/home/avatar-2.jpg'
@@ -48,13 +49,13 @@ export default function ProfileHeader() {
         <hr className='border-border-1' />
 
         <nav className='p-2 text-sm text-black font-normal dark:text-white'>
-          <Link href=''>
+          <Link href='/profile/me'>
             <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
               <CgProfile className='size-6' />
               My Profile
             </div>
           </Link>
-          <Link href=''>
+          <Link href='/edit-profile'>
             <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
               <IoSettingsOutline className='size-6' />
               Account Settings
@@ -71,12 +72,12 @@ export default function ProfileHeader() {
             </div>
           </button>
           <hr className='-mx-2 my-2 border-border-1' />
-          <Link href=''>
+          <button type='button' className='w-full' onClick={async () => await signOut()}>
             <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
               <IoLogOutOutline className='size-6' />
               Log Out
             </div>
-          </Link>
+          </button>
         </nav>
       </div>
     </>

@@ -12,10 +12,7 @@ export default function GroupManager(props: IGroupManagerProps) {
     <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
       <div className='groups px-10 py-5'>
         <main id='site__main'>
-          <div
-            className='flex max-lg:flex-col 2xl:gap-12 gap-10 '
-            id='js-oversized'
-          >
+          <div className='flex max-lg:flex-col 2xl:gap-12 gap-10 ' id='js-oversized'>
             <div className='flex-1'>
               <div className='max-w-[680px] w-full mx-auto'>
                 <div className='page-heading'>
@@ -27,21 +24,18 @@ export default function GroupManager(props: IGroupManagerProps) {
                 <nav className='mt-8 border-border-1 mb-6'>
                   <ul
                     className='flex gap-2 text-xs text-center capitalize font-semibold/80'
-                    data-uk-switcher='connect: #tabs2 ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'
-                  >
+                    data-uk-switcher='connect: #tabs2 ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
                     <li>
                       <Link
                         href='#'
-                        className='inline-flex items-center gap-2 py-2.5 px-4 rounded-full bg-foreground-1 hover:bg-hover-1 duration-300'
-                      >
+                        className='inline-flex items-center gap-2 py-2.5 px-4 rounded-full bg-foreground-1 hover:bg-hover-1 duration-300'>
                         Suggestions
                       </Link>
                     </li>
                     <li>
                       <Link
                         href='#'
-                        className='inline-flex items-center gap-2 py-2.5 px-4 rounded-full bg-foreground-1 hover:bg-hover-1 duration-300'
-                      >
+                        className='inline-flex items-center gap-2 py-2.5 px-4 rounded-full bg-foreground-1 hover:bg-hover-1 duration-300'>
                         Popular
                       </Link>
                     </li>
@@ -58,8 +52,7 @@ export default function GroupManager(props: IGroupManagerProps) {
             <div className='2xl:w-[380px] lg:w-[330px] w-full'>
               <div
                 className='lg:space-y-6 space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                data-sticky='media: 1024; end: #js-oversized; offset: 80'
-              >
+                data-sticky='media: 1024; end: #js-oversized; offset: 80'>
                 <div className='box p-5 px-6 bg-foreground-1'>
                   <div className='flex items-baseline justify-between'>
                     <h3 className='font-bold text-base'> Pages You Manage </h3>
@@ -70,7 +63,7 @@ export default function GroupManager(props: IGroupManagerProps) {
 
                   <div className='side-list'>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -80,17 +73,15 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> John Michael</h4>
                         </Link>
                         <div className='side-list-info'>Updated 2 day ago</div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>
-                        Edit
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>Edit</button>
                     </div>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -100,17 +91,15 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> Martin Gray</h4>
                         </Link>
                         <div className='side-list-info'>Updated 4 day ago</div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>
-                        Edit
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>Edit</button>
                     </div>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -120,17 +109,15 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> Monroe Parker</h4>
                         </Link>
                         <div className='side-list-info'>Updated 3 week ago</div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>
-                        Edit
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>Edit</button>
                     </div>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -140,16 +127,12 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> Jesse Steeve</h4>
                         </Link>
-                        <div className='side-list-info'>
-                          Updated 2 month ago
-                        </div>
+                        <div className='side-list-info'>Updated 2 month ago</div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>
-                        Edit
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300'>Edit</button>
                     </div>
                   </div>
                 </div>
@@ -164,7 +147,7 @@ export default function GroupManager(props: IGroupManagerProps) {
 
                   <div className='side-list'>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -174,17 +157,15 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> John Michael</h4>
                         </Link>
                         <div className='side-list-info'>Updated 6 day ago</div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>
-                        Like
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>Like</button>
                     </div>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -194,19 +175,15 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> Martin Gray</h4>
                         </Link>
-                        <div className='side-list-info'>
-                          Updated 2 month ago
-                        </div>
+                        <div className='side-list-info'>Updated 2 month ago</div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>
-                        Like
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>Like</button>
                     </div>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -216,17 +193,15 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> Monroe Parker</h4>
                         </Link>
                         <div className='side-list-info'>Updated 1 week ago</div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>
-                        Like
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>Like</button>
                     </div>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -236,14 +211,12 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> Jesse Steeve</h4>
                         </Link>
                         <div className='side-list-info'>Updated 2 day ago</div>
                       </div>
-                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>
-                        Like
-                      </button>
+                      <button className='button bg-foreground-2 hover:bg-hover-2 duration-300 '>Like</button>
                     </div>
                   </div>
 
@@ -262,7 +235,7 @@ export default function GroupManager(props: IGroupManagerProps) {
 
                   <div className='side-list'>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -272,7 +245,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> John Michael</h4>
                         </Link>
                         <div className='side-list-info'>Updated 1 week ago</div>
@@ -282,7 +255,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                       </button>
                     </div>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -292,7 +265,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> Martin Gray</h4>
                         </Link>
                         <div className='side-list-info'>Updated 4 week ago</div>
@@ -302,7 +275,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                       </button>
                     </div>
                     <div className='side-list-item'>
-                      <Link href='/groups'>
+                      <Link href='/community'>
                         <Image
                           width={500}
                           height={500}
@@ -312,12 +285,10 @@ export default function GroupManager(props: IGroupManagerProps) {
                         />
                       </Link>
                       <div className='flex-1'>
-                        <Link href='/groups'>
+                        <Link href='/community'>
                           <h4 className='side-list-title'> Monroe Parker</h4>
                         </Link>
-                        <div className='side-list-info'>
-                          Updated 2 month ago
-                        </div>
+                        <div className='side-list-info'>Updated 2 month ago</div>
                       </div>
                       <button className='button text-white bg-blue-1 hover:bg-blue-2 duration-300'>
                         Like

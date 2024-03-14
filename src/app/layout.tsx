@@ -4,8 +4,6 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 
 import { QueryProvider, SessionProvider } from './provider';
-import ToTop from '@/components/shared/ToTop';
-import FloatTool from '@/components/shared/FloatTool/FloatTool';
 import { cn } from '@/lib/utils';
 import './uk.css';
 import './globals.css';
@@ -32,14 +30,10 @@ export default function RootLayout({
 
       <Script src='/js/uikit.min.js' defer />
 
-      <body className={cn(font.className, 'h-dvh custom-scrollbar-fg')}>
+      <body className={cn(font.className, 'h-dvh custom-scrollbar-bg')}>
         <QueryProvider>
           <SessionProvider>
-            <Flowbite>
-              <FloatTool />
-              {children}
-              <ToTop />
-            </Flowbite>
+            <Flowbite>{children}</Flowbite>
           </SessionProvider>
         </QueryProvider>
       </body>

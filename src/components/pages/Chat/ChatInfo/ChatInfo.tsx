@@ -31,7 +31,7 @@ export default function ChatInfo(props: IChatInfoProps) {
           </div>
           <div className='mt-5'>
             <Link
-              href='profile.html'
+              href='/profile/me'
               className='inline-block rounded-full px-4 py-1.5 text-sm font-semibold bg-foreground-2'>
               View profile
             </Link>

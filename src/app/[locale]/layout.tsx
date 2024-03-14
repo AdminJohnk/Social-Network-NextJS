@@ -7,20 +7,13 @@ export interface ILocaleLayoutProps {
   };
 }
 
-export default function LocaleLayout({
-  children,
-  params: { locale }
-}: ILocaleLayoutProps) {
+export default function LocaleLayout({ children, params: { locale } }: ILocaleLayoutProps) {
   unstable_setRequestLocale(locale);
-  return (
-    <html lang={locale}>
-      <body>{children}</body>
-    </html>
-  );
+  return <>{children}</>;
 }
 
 const locales = ['en', 'vi'];
 
 export function generateStaticParams() {
-  return locales.map(locale => ({ locale }));
+  return locales.map((locale) => ({ locale }));
 }
