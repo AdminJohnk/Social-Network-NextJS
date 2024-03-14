@@ -25,7 +25,7 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Pages'
   },
   {
-    href: '/groups',
+    href: '/community',
     image: '/images/home/group.png',
     label: 'Groups'
   },

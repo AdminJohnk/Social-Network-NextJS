@@ -15,7 +15,7 @@ export default function TrendingArticle(props: ITrendingArticleProps) {
 
       <div className='mt-4 space-y-4'>
         <div>
-          <Link href='blog-read.html'>
+          <Link href='/blogs/123'>
             <h4 className='duration-200 hover:opacity-80'>
               Interesting javaScript and CSS libraries you should be learn
             </h4>
@@ -27,7 +27,7 @@ export default function TrendingArticle(props: ITrendingArticleProps) {
           </div>
         </div>
         <div>
-          <Link href='blog-read.html'>
+          <Link href='/blogs/123'>
             <h4 className='duration-200 hover:opacity-80'>
               Interesting javaScript and CSS libraries you should be learn
             </h4>
@@ -39,7 +39,7 @@ export default function TrendingArticle(props: ITrendingArticleProps) {
           </div>
         </div>
         <div>
-          <Link href='blog-read.html'>
+          <Link href='/blogs/123'>
             <h4 className='duration-200 hover:opacity-80'>
               Interesting JavaScript and CSS libraries should Know About
             </h4>
@@ -51,7 +51,7 @@ export default function TrendingArticle(props: ITrendingArticleProps) {
           </div>
         </div>
         <div>
-          <Link href='blog-read.html'>
+          <Link href='/blogs/123'>
             <h4 className='duration-200 hover:opacity-80'>
               Top amazing web demos and experiments should know about
             </h4>

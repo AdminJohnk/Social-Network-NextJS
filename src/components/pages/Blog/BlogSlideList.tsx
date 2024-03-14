@@ -11,22 +11,16 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
         <ul className='uk-slider-items grid-small'>
           <li className='sm:w-1/3 w-1/2'>
             <div className='card'>
-              <Link href='blog-read.html'>
+              <Link href='/blogs/123'>
                 <div className='card-media h-32'>
-                  <Image
-                    src='/images/blog/img-1.jpg'
-                    alt=''
-                    width={1000}
-                    height={1000}
-                  />
+                  <Image src='/images/blog/img-1.jpg' alt='' width={1000} height={1000} />
                   <div className='card-overly'></div>
                 </div>
               </Link>
               <div className='card-body'>
-                <Link href='blog-read.html'>
+                <Link href='/blogs/123'>
                   <h4 className='card-title text-sm line-clamp-2'>
-                    Top amazing web demos and experiments in 2024 should know
-                    about
+                    Top amazing web demos and experiments in 2024 should know about
                   </h4>
                 </Link>
                 <p className='card-text text-xs mt-1.5'>
@@ -42,19 +36,14 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
           </li>
           <li className='sm:w-1/3 w-1/2'>
             <div className='card'>
-              <Link href='blog-read.html'>
+              <Link href='/blogs/123'>
                 <div className='card-media h-32'>
-                  <Image
-                    src='/images/blog/img-2.jpg'
-                    alt=''
-                    width={1000}
-                    height={1000}
-                  />
+                  <Image src='/images/blog/img-2.jpg' alt='' width={1000} height={1000} />
                   <div className='card-overly'></div>
                 </div>
               </Link>
               <div className='card-body'>
-                <Link href='blog-read.html'>
+                <Link href='/blogs/123'>
                   <h4 className='card-title text-sm line-clamp-2'>
                     Awesome web dev tools and resources for 2024 in 30 minutes
                   </h4>
@@ -72,19 +61,14 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
           </li>
           <li className='sm:w-1/3 w-1/2'>
             <div className='card'>
-              <Link href='blog-read.html'>
+              <Link href='/blogs/123'>
                 <div className='card-media h-32'>
-                  <Image
-                    src='/images/blog/img-3.jpg'
-                    alt=''
-                    width={1000}
-                    height={1000}
-                  />
+                  <Image src='/images/blog/img-3.jpg' alt='' width={1000} height={1000} />
                   <div className='card-overly'></div>
                 </div>
               </Link>
               <div className='card-body'>
-                <Link href='blog-read.html'>
+                <Link href='/blogs/123'>
                   <h4 className='card-title text-sm line-clamp-2'>
                     Interesting JavaScript and CSS libraries should Know About
                   </h4>
@@ -102,19 +86,14 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
           </li>
           <li className='sm:w-1/3 w-1/2'>
             <div className='card'>
-              <Link href='blog-read.html'>
+              <Link href='/blogs/123'>
                 <div className='card-media h-32'>
-                  <Image
-                    src='/images/blog/img-4.jpg'
-                    alt=''
-                    width={1000}
-                    height={1000}
-                  />
+                  <Image src='/images/blog/img-4.jpg' alt='' width={1000} height={1000} />
                   <div className='card-overly'></div>
                 </div>
               </Link>
               <div className='card-body'>
-                <Link href='blog-read.html'>
+                <Link href='/blogs/123'>
                   <h4 className='card-title text-sm line-clamp-2'>
                     Interesting javaScript and CSS libraries you should be learn
                   </h4>
@@ -133,11 +112,7 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
         </ul>
       </div>
 
-      <Link
-        className='nav-prev !top-24'
-        href='#'
-        data-uk-slider-item='previous'
-      >
+      <Link className='nav-prev !top-24' href='#' data-uk-slider-item='previous'>
         <IoChevronBack />
       </Link>
       <Link className='nav-next !top-24' href='#' data-uk-slider-item='next'>

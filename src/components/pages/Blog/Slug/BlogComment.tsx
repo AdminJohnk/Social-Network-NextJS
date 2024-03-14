@@ -13,7 +13,7 @@ export default function BlogComment(props: IBlogCommentProps) {
 
       <div className=' font-normal space-y-4 relative mt-4'>
         <div className='flex items-start gap-3 relative'>
-          <Link href='timeline.html'>
+          <Link href='/profile/friend'>
             <Image
               src='/images/avatars/avatar-3.jpg'
               alt=''
@@ -23,14 +23,14 @@ export default function BlogComment(props: IBlogCommentProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='timeline.html' className='font-medium inline-block'>
+            <Link href='/profile/friend' className='font-medium inline-block'>
               Monroe Parker
             </Link>
             <p className='mt-0.5'>What a beautiful photo! I love it. 😍</p>
           </div>
         </div>
         <div className='flex items-start gap-3 relative'>
-          <Link href='timeline.html'>
+          <Link href='/profile/friend'>
             <Image
               src='/images/avatars/avatar-2.jpg'
               alt=''
@@ -40,14 +40,14 @@ export default function BlogComment(props: IBlogCommentProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='timeline.html' className='font-medium inline-block'>
+            <Link href='/profile/friend' className='font-medium inline-block'>
               John Michael
             </Link>
             <p className='mt-0.5'> You captured the moment.😎 </p>
           </div>
         </div>
         <div className='flex items-start gap-3 relative'>
-          <Link href='timeline.html'>
+          <Link href='/profile/friend'>
             <Image
               src='/images/avatars/avatar-5.jpg'
               alt=''
@@ -57,14 +57,14 @@ export default function BlogComment(props: IBlogCommentProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='timeline.html' className='font-medium inline-block'>
+            <Link href='/profile/friend' className='font-medium inline-block'>
               James Lewis
             </Link>
             <p className='mt-0.5'>What a beautiful photo! I love it. 😍</p>
           </div>
         </div>
         <div className='flex items-start gap-3 relative'>
-          <Link href='timeline.html'>
+          <Link href='/profile/friend'>
             <Image
               src='/images/avatars/avatar-4.jpg'
               alt=''
@@ -74,17 +74,14 @@ export default function BlogComment(props: IBlogCommentProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='timeline.html' className='font-medium inline-block'>
+            <Link href='/profile/friend' className='font-medium inline-block'>
               Martin
             </Link>
             <p className='mt-0.5'> You captured the moment.😎 </p>
           </div>
         </div>
         <div>
-          <button
-            type='button'
-            className='flex items-center gap-1.5 text-blue-500 hover:text-blue-500 my-5'
-          >
+          <button type='button' className='flex items-center gap-1.5 text-blue-500 hover:text-blue-500 my-5'>
             <IoChevronDown />
             More Comment
           </button>

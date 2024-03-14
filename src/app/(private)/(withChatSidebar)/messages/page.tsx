@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -17,7 +15,7 @@ import InputChat from '@/components/pages/Chat/InputChat';
 import ChatInfo from '@/components/pages/Chat/ChatInfo';
 import ChatHeading from '@/components/pages/Chat/ChatHeading';
 
-export interface IMessageProps { }
+export interface IMessageProps {}
 
 const Message = (props: IMessageProps) => {
   return (
@@ -44,7 +42,7 @@ const Message = (props: IMessageProps) => {
                           <IoSettingsOutline className='text-2xl flex group-aria-expanded:rotate-180' />
                         </button>
                         <div
-                          className='md:w-[270px] w-full'
+                          className='md:w-[270px] w-full hidden'
                           data-uk-dropdown='pos: bottom-left; offset:10; animation: uk-animation-slide-bottom-small'>
                           <nav>
                             <Link href='#' className='hover:!bg-foreground-2'>
@@ -79,7 +77,11 @@ const Message = (props: IMessageProps) => {
                       <div className='absolute left-3 bottom-1/2 translate-y-1/2 flex'>
                         <FaSearch className='text-xl' />
                       </div>
-                      <input type='text' placeholder='Search' className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1' />
+                      <input
+                        type='text'
+                        placeholder='Search'
+                        className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
+                      />
                     </div>
                   </div>
 
@@ -117,7 +119,7 @@ const Message = (props: IMessageProps) => {
                     </div>
                     <div className='mt-3.5'>
                       <Link
-                        href='profile.html'
+                        href='/profile/me'
                         className='inline-block rounded-lg px-4 py-1.5 text-sm font-semibold bg-foreground-2'>
                         View profile
                       </Link>
