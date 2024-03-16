@@ -14,18 +14,23 @@ import {
 } from 'react-icons/io5';
 import { FaCheckCircle, FaPencilAlt } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
+import { useTranslations } from 'next-intl';
 
 import Post from '@/components/shared/Post/Post';
 import PostSkeleton from '@/components/shared/Post/PostSkeleton';
 import NewPost from '@/components/shared/NewPost/NewPost';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
-export interface IProfileProps {}
+export interface IProfileProps { params: { slug: string, locale: string } }
 
-export default function Profile({ params }: { params: { slug: string } }, props: IProfileProps) {
-  const isFriend = params.slug === 'friend';
-  const isMe = params.slug === 'me';
-  const friendName = params.slug === 'friend' ? 'Monroe Parker' : '';
+export default function Profile({ params: { slug, locale } }: IProfileProps) {
+  unstable_setRequestLocale(locale);
+  const t = useTranslations();
+
+  const isFriend = slug === 'friend';
+  const isMe = slug === 'me';
+  const friendName = slug === 'friend' ? 'Monroe Parker' : '';
 
   return (
     <main className='ms-60 max-lg:ms-0 mt-16'>
@@ -51,10 +56,10 @@ export default function Profile({ params }: { params: { slug: string } }, props:
               <div className='absolute bottom-0 right-0 m-4 z-20'>
                 <div className='flex items-center gap-3'>
                   <button className='button bg-white/20 text-white flex items-center gap-2 backdrop-blur-sm'>
-                    Crop
+                    {t('Crop')}
                   </button>
                   <button className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
-                    Edit
+                    {t('Edit')}
                   </button>
                 </div>
               </div>
@@ -87,7 +92,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                 Family , Food , Fashion , Forever
                 {isMe && (
                   <Link href='#' className='text-blue-500 ml-4 inline-block'>
-                    Edit
+                    {t('Edit')}
                   </Link>
                 )}
               </p>
@@ -106,42 +111,27 @@ export default function Profile({ params }: { params: { slug: string } }, props:
               {isMe && (
                 <button className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
                   <FaPencilAlt className='text-lg' />
-                  <span className='text-sm'> Edit Profile </span>
+                  <span className='text-sm'> {t('Edit Profile')} </span>
                 </button>
               )}
               {!isFriend && !isMe && (
                 <button className='button bg-blue-1 hover:bg-blue-2 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
                   <IoAddCircle className='text-xl' />
-                  <span className='text-sm'> Add Friend </span>
+                  <span className='text-sm'> {t('Add Friend')} </span>
                 </button>
               )}
               {isFriend && (
                 <div>
                   <button className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-2 text-text-1 py-2 px-3.5 max-md:flex-1'>
                     <FaCheckCircle className='text-xl' />
-                    <span className='text-sm text-text-1'> Friend </span>
+                    <span className='text-sm text-text-1'> {t('Friend')} </span>
                   </button>
                   <div
                     className='w-[240px] !bg-foreground-1'
                     data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                     <nav>
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Unfriend
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Add to Close Friends
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Add to Acquaintances
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Add to another list
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Suggest Friends
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Report
+                        {t('Unfriend')}
                       </Link>
                     </nav>
                   </div>
@@ -164,32 +154,20 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                   {isMe ? (
                     <nav>
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Edit Profile
+                        {t('Activity Log')}
                       </Link>
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Activity Log
+                        {t('Archive')}
                       </Link>
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Archive
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Your Profile
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        More
+                        {t('More')}
                       </Link>
                       <hr />
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Settings & Privacy
+                        {t('Settings & Privacy')}
                       </Link>
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Help & Support
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Display & Accessibility
-                      </Link>
-                      <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        Dark Mode
+                        {t('Help & Support')}
                       </Link>
                     </nav>
                   ) : (
@@ -197,25 +175,25 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       {isFriend && (
                         <>
                           <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                            <FiPhone className='text-xl' /> Voice Call
+                            <FiPhone className='text-xl' /> {t('Voice Call')}
                           </Link>
                           <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                            <IoVideocamOutline className='text-xl' /> Video Call
+                            <IoVideocamOutline className='text-xl' /> {t('Video Call')}
                           </Link>
                         </>
                       )}
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        <IoChatboxEllipsesOutline className='text-xl' /> Message
+                        <IoChatboxEllipsesOutline className='text-xl' /> {t('Message')}
                       </Link>
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        <IoFlagOutline className='text-xl' /> Report
+                        <IoFlagOutline className='text-xl' /> {t('Report')}
                       </Link>
                       <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                        <IoShareOutline className='text-xl' /> Share profile
+                        <IoShareOutline className='text-xl' /> {t('Share profile')}
                       </Link>
                       <hr />
                       <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                        <IoStopCircleOutline className='text-xl' /> Block
+                        <IoStopCircleOutline className='text-xl' /> {t('Block')}
                       </Link>
                     </nav>
                   )}
@@ -225,11 +203,11 @@ export default function Profile({ params }: { params: { slug: string } }, props:
 
             <nav className='flex rounded-xl -mb-px text-gray-600 font-medium text-[15px] max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
               <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Timeline</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Friends</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Photos</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Videos</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>Groups</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Timeline')}</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Friends')}</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Photos')}</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Videos')}</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Groups')}</TabTitle>
               </Tabs>
 
               {/* <!-- dropdown --> */}
@@ -237,7 +215,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                 <Link
                   href='#'
                   className='hover:bg-hover-1 hover:text-blue-400 hover:rounded-sm inline-flex items-center gap-2 p-3 leading-8 -ml-2 select-none'>
-                  More
+                  {t('More')}
                   <IoChevronDown />
                 </Link>
                 <div
@@ -245,25 +223,25 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                   data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:-4'>
                   <nav className='text-[15px]'>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                      Likes
+                      {t('Likes')}
                     </Link>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                      Music
+                      {t('Music')}
                     </Link>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                      Events
+                      {t('Events')}
                     </Link>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                      Books
+                      {t('Books')}
                     </Link>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                      Reviews given
+                      {t('Reviews given')}
                     </Link>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                      Groups
+                      {t('Groups')}
                     </Link>
                     <Link href='#' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
-                      Manage Sections
+                      {t('Manage Sections')}
                     </Link>
                   </nav>
                 </div>
@@ -298,10 +276,10 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                 data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
                 <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
                   <div className='flex items-center justify-between text-text-1'>
-                    <h3 className='font-bold text-lg'> Intro </h3>
+                    <h3 className='font-bold text-lg'> {t('Intro')} </h3>
                     {isMe && (
                       <Link href='#' className='text-sm text-blue-500'>
-                        Edit
+                        {t('Edit')}
                       </Link>
                     )}
                   </div>
@@ -327,7 +305,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </svg>
                       <div>
-                        Live In <span className='font-semibold text-text-1'> Cairo , Egypt </span>
+                        {t('Live In')} <span className='font-semibold text-text-1'> Cairo , Egypt </span>
                       </div>
                     </li>
                     <li className='flex items-center gap-3'>
@@ -345,7 +323,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </svg>
                       <div>
-                        Studied at <span className='font-semibold text-text-1'>University of Turkey</span>
+                        {t('Studied at')} <span className='font-semibold text-text-1'>University of Turkey</span>
                       </div>
                     </li>
                     <li className='flex items-center gap-3'>
@@ -364,7 +342,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                       </svg>
 
                       <div>
-                        Works at <span className='font-semibold text-text-1'> Envanto Market </span>
+                        {t('Works at')} <span className='font-semibold text-text-1'> Envanto Market </span>
                       </div>
                     </li>
                     <li className='flex items-center gap-3'>
@@ -382,7 +360,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </svg>
                       <div>
-                        In <span className='font-semibold text-text-1'> Relationship </span>
+                        {t('In')} <span className='font-semibold text-text-1'> {t('Relationship')} </span>
                       </div>
                     </li>
                     <li className='flex items-center gap-3'>
@@ -400,7 +378,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         />
                       </svg>
                       <div>
-                        Followed By <span className='font-semibold text-text-1'> 3,240 People </span>
+                        {t('Followed By', { count: 3020 })} <span className='font-semibold text-text-1'> People</span>
                       </div>
                     </li>
                   </ul>
@@ -408,16 +386,16 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                   {/* <!-- Hobbies --> */}
                   <div className='flex flex-wrap gap-1 text-sm mt-4 font-semibold capitalize'>
                     <div className='inline-flex items-center gap-2 py-0.5 px-2.5 border shadow rounded-full border-gray-100'>
-                      Shopping
+                      {t('Shopping')}
                     </div>
                     <div className='inline-flex items-center gap-2 py-0.5 px-2.5 border shadow rounded-full border-gray-100'>
-                      code
+                      {t('code')}
                     </div>
                     <div className='inline-flex items-center gap-2 py-0.5 px-2.5 border shadow rounded-full border-gray-100'>
-                      art
+                      {t('art')}
                     </div>
                     <div className='inline-flex items-center gap-2 py-0.5 px-2.5 border shadow rounded-full border-gray-100'>
-                      design
+                      {t('design')}
                     </div>
                   </div>
 
@@ -464,13 +442,13 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                 <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
                   <div className='flex items-ce justify-between text-text-1'>
                     <h3 className='font-bold text-lg'>
-                      Friends
+                      {t('Friends')}
                       <span className='block text-sm text-gray-500 mt-0. font-normal dark:text-white'>
-                        3489 Friends
+                        {t('Num Friends', { count: 3489 })}
                       </span>
                     </h3>
                     <Link href='#' className='text-sm text-blue-500'>
-                      Find Friend
+                      {t('Find Friend')}
                     </Link>
                   </div>
 
@@ -553,9 +531,9 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                 {/* <!-- Groups You Manage  --> */}
                 <div className='bg-foreground-1 rounded-xl shadow p-5 px-6 border1'>
                   <div className='flex items-baseline justify-between text-text-1'>
-                    <h3 className='font-bold text-base'> Suggested Manage </h3>
+                    <h3 className='font-bold text-base'> {t('Suggested Manage')} </h3>
                     <Link href='#' className='text-sm text-blue-500'>
-                      See all
+                      {t('See all')}
                     </Link>
                   </div>
 
@@ -574,10 +552,10 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
                         </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 6 day ago </div>
+                        <div className='mt-0.5 text-xs leading-4 text-text-2'> {t('Updated xx day ago', { count: 6 })} </div>
                       </div>
                       <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
-                        Like
+                        {t('Like')}
                       </button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
@@ -594,10 +572,10 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
                         </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 month ago </div>
+                        <div className='mt-0.5 text-xs leading-4 text-text-2'> {t('Updated xx month ago', { count: 2 })} </div>
                       </div>
                       <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
-                        Like
+                        {t('Like')}
                       </button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
@@ -614,7 +592,7 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
                         </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 1 week ago </div>
+                        <div className='mt-0.5 text-xs leading-4 text-text-2'> {t('Updated xx week ago', { count: 1 })} </div>
                       </div>
                       <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
                         Like
@@ -634,25 +612,25 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Jesse Steeve</h4>
                         </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 day ago </div>
+                        <div className='mt-0.5 text-xs leading-4 text-text-2'> {t('Updated xx day ago', { count: 2 })} </div>
                       </div>
                       <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
-                        Like
+                        {t('Like')}
                       </button>
                     </div>
                   </div>
 
                   <button className='bg-foreground-2 hover:bg-hover-2 w-full text-text-1 py-1.5 font-medium px-3.5 rounded-md text-sm mt-2'>
-                    See all
+                    {t('See all')}
                   </button>
                 </div>
 
                 {/* <!-- Groups You Manage  --> */}
                 <div className='bg-white rounded-xl shadow p-5 px-6 border1 dark:bg-background-2'>
                   <div className='flex items-baseline justify-between text-text-1'>
-                    <h3 className='font-bold text-base'> Suggested Manage </h3>
+                    <h3 className='font-bold text-base'> {t('Suggested Manage')} </h3>
                     <Link href='#' className='text-sm text-blue-500'>
-                      See all
+                      {t('See all')}
                     </Link>
                   </div>
 
@@ -671,9 +649,9 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
                         </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 1 week ago </div>
+                        <div className='mt-0.5 text-xs leading-4 text-text-2'> {t('Updated xx week ago', { count: 7 })} </div>
                       </div>
-                      <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
+                      <button className='button bg-blue-1 hover:bg-blue-2 text-white'>{t('Like')}</button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
                       <Link href='#'>
@@ -689,9 +667,9 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
                         </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 4 week ago </div>
+                        <div className='mt-0.5 text-xs leading-4 text-text-2'> {t('Updated xx week ago', { count: 4 })} </div>
                       </div>
-                      <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
+                      <button className='button bg-blue-1 hover:bg-blue-2 text-white'>{t('Like')}</button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
                       <Link href='#'>
@@ -707,9 +685,9 @@ export default function Profile({ params }: { params: { slug: string } }, props:
                         <Link href='#'>
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
                         </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'> Updated 2 month ago </div>
+                        <div className='mt-0.5 text-xs leading-4 text-text-2'> {t('Updated xx month ago', { count: 2 })} </div>
                       </div>
-                      <button className='button bg-blue-1 hover:bg-blue-2 text-white'>Like</button>
+                      <button className='button bg-blue-1 hover:bg-blue-2 text-white'>{t('Like')}</button>
                     </div>
                   </div>
                 </div>

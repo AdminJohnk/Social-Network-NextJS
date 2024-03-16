@@ -1,23 +1,33 @@
 import { TabTitle, Tabs } from '@/components/ui/tabs';
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoArrowRedo, IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
-export interface IEventProps {}
+export interface IEventProps {
+  params: {
+    locale: string;
+  };
+}
 
-export default function Event(props: IEventProps) {
+export default function Event({ params: { locale } }: IEventProps) {
+  unstable_setRequestLocale(locale);
+  const t = useTranslations();
+
+
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
       <div className='newsfeed px-5 py-5'>
         <main className='max-lg:ms-0'>
           <div className=''>
             <div className='page-heading'>
-              <h1 className='page-title'> Events </h1>
+              <h1 className='page-title'> {t('Events')} </h1>
 
               <Tabs id='events-tabs' disableChevron>
-                <TabTitle>Suggestions</TabTitle>
-                <TabTitle>Popular</TabTitle>
-                <TabTitle>My events</TabTitle>
+                <TabTitle>{t('Suggestions')}</TabTitle>
+                <TabTitle>{t('Popular')}</TabTitle>
+                <TabTitle>{t('My events')}</TabTitle>
               </Tabs>
             </div>
 
@@ -34,7 +44,7 @@ export default function Event(props: IEventProps) {
                         </div>
                       </Link>
                       <div className='card-body'>
-                        <p className='text-xs font-medium text-blue-600 mb-1'> Next week </p>
+                        <p className='text-xs font-medium text-blue-600 mb-1'> {t('Next week')} </p>
                         <Link href='/events/123'>
                           <h4 className='card-title text-sm'> About Safety and Flight </h4>
                         </Link>
@@ -42,15 +52,15 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> Dubai </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 26 Interested</div>
+                          <div> 26 {t('Interested')}</div>
                           <div className='md:block hidden'>·</div>
-                          <div> 8 Going</div>
+                          <div> 8 {t('Going')}</div>
                         </div>
                         <div className='flex gap-2'>
                           <button
                             type='button'
                             className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
-                            Interested
+                            {t('Interested')}
                           </button>
                           <button
                             type='button'
@@ -70,7 +80,7 @@ export default function Event(props: IEventProps) {
                         </div>
                       </Link>
                       <div className='card-body'>
-                        <p className='text-xs font-semibold text-teal-600 mb-1'>Opening</p>
+                        <p className='text-xs font-semibold text-teal-600 mb-1'>{t('Opening')}</p>
                         <Link href='/events/123'>
                           <h4 className='card-title text-sm'> Wedding trend Ideas </h4>
                         </Link>
@@ -78,15 +88,15 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> Turkey </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 20 Interested</div>
+                          <div> 20 {t('Interested')}</div>
                           <div className='md:block hidden'>·</div>
-                          <div> 16 Going</div>
+                          <div> 16 {t('Going')}</div>
                         </div>
                         <div className='flex gap-2'>
                           <button
                             type='button'
                             className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
-                            Interested
+                            {t('Interested')}
                           </button>
                           <button
                             type='button'
@@ -114,15 +124,15 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> Japan </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 15 Interested</div>
+                          <div> 15 {t('Interested')}</div>
                           <div className='md:block hidden'>·</div>
-                          <div> 2 Going</div>
+                          <div> 2 {t('Going')}</div>
                         </div>
                         <div className='flex gap-2'>
                           <button
                             type='button'
                             className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
-                            Interested
+                            {t('Interested')}
                           </button>
                           <button
                             type='button'
@@ -142,7 +152,7 @@ export default function Event(props: IEventProps) {
                         </div>
                       </Link>
                       <div className='card-body'>
-                        <p className='text-xs font-semibold text-teal-600 mb-1'>Opening</p>
+                        <p className='text-xs font-semibold text-teal-600 mb-1'>{t('Opening')}</p>
                         <Link href='/events/123'>
                           <h4 className='card-title text-sm'> Perspective is everything </h4>
                         </Link>
@@ -150,15 +160,15 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> London </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 20 Interested</div>
+                          <div> 20 {t('Interested')}</div>
                           <div className='md:block hidden'>·</div>
-                          <div> 16 Going</div>
+                          <div> 16 {t('Going')}</div>
                         </div>
                         <div className='flex gap-2'>
                           <button
                             type='button'
                             className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
-                            Interested
+                            {t('Interested')}
                           </button>
                           <button
                             type='button'
@@ -178,7 +188,7 @@ export default function Event(props: IEventProps) {
                         </div>
                       </Link>
                       <div className='card-body'>
-                        <p className='text-xs font-medium text-blue-600 mb-1'> Next week </p>
+                        <p className='text-xs font-medium text-blue-600 mb-1'> {t('Next week')} </p>
                         <Link href='/events/123'>
                           <h4 className='card-title text-sm'> About Safety and Flight </h4>
                         </Link>
@@ -186,15 +196,15 @@ export default function Event(props: IEventProps) {
                           <p className='card-text text-black mt-2'> Dubai </p>
                         </Link>
                         <div className='card-list-info text-xs mt-1'>
-                          <div> 26 Interested</div>
+                          <div> 26 {t('Interested')}</div>
                           <div className='md:block hidden'>·</div>
-                          <div> 8 Going</div>
+                          <div> 8 {t('Going')}</div>
                         </div>
                         <div className='flex gap-2'>
                           <button
                             type='button'
                             className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
-                            Interested
+                            {t('Interested')}
                           </button>
                           <button
                             type='button'
@@ -219,13 +229,13 @@ export default function Event(props: IEventProps) {
 
             <div className='sm:my-6 my-3 flex items-center justify-between md:mt-10'>
               <div>
-                <h2 className='text-xl font-semibold'> Lists You May Like </h2>
+                <h2 className='text-xl font-semibold'> {t('Lists You May Like')} </h2>
                 <p className='font-normal text-sm text-gray-500 leading-6'>
-                  Find a group by browsing top categories.
+                  {t('Find a group by browsing top categories')}.
                 </p>
               </div>
               <Link href='#' className='text-blue-500 sm:block hidden text-sm'>
-                See all
+                {t('See all')}
               </Link>
             </div>
 
@@ -246,7 +256,7 @@ export default function Event(props: IEventProps) {
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Miami </div>
-                            <div className='text-lg leading-3 mt-1.5'> Hotels </div>
+                            <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
                           </div>
                         </div>
                       </div>
@@ -265,7 +275,7 @@ export default function Event(props: IEventProps) {
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Florida </div>
-                            <div className='text-lg leading-3 mt-1.5'> Hotels </div>
+                            <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
                           </div>
                         </div>
                       </div>
@@ -284,7 +294,7 @@ export default function Event(props: IEventProps) {
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> London </div>
-                            <div className='text-lg leading-3 mt-1.5'> Hotels </div>
+                            <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
                           </div>
                         </div>
                       </div>
@@ -303,7 +313,7 @@ export default function Event(props: IEventProps) {
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Dubai </div>
-                            <div className='text-lg leading-3 mt-1.5'> Hotels </div>
+                            <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
                           </div>
                         </div>
                       </div>
@@ -322,7 +332,7 @@ export default function Event(props: IEventProps) {
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Turkey </div>
-                            <div className='text-lg leading-3 mt-1.5'> Restaurant </div>
+                            <div className='text-lg leading-3 mt-1.5'> {t('Restaurant')} </div>
                           </div>
                         </div>
                       </div>
@@ -341,7 +351,7 @@ export default function Event(props: IEventProps) {
                         <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
                           <div className='text-white p-5'>
                             <div className='text-sm font-light'> Miami </div>
-                            <div className='text-lg leading-3 mt-1.5'> Hotels </div>
+                            <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
                           </div>
                         </div>
                       </div>
@@ -360,9 +370,9 @@ export default function Event(props: IEventProps) {
             </div>
 
             <div className='flex items-center justify-between text-black dark:text-white py-3 mt-6'>
-              <h3 className='text-xl font-semibold'> Upcoming Events </h3>
+              <h3 className='text-xl font-semibold'> {t('Upcoming Events')} </h3>
               <Link href='#' className='text-sm text-blue-500'>
-                See all
+                {t('See all')}
               </Link>
             </div>
 
@@ -386,15 +396,15 @@ export default function Event(props: IEventProps) {
                     <p className='card-text text-black mt-2'> Japan </p>
                   </Link>
                   <div className='card-list-info text-xs mt-1'>
-                    <div> 15 Interested</div>
+                    <div> 15 {t('Interested')}</div>
                     <div className='md:block hidden'>·</div>
-                    <div> 2 Going</div>
+                    <div> 2 {t('Going')}</div>
                   </div>
                   <div className='flex gap-2'>
                     <button
                       type='button'
                       className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
-                      Interested
+                      {t('Interested')}
                     </button>
                     <button
                       type='button'
@@ -413,7 +423,7 @@ export default function Event(props: IEventProps) {
                   </div>
                 </Link>
                 <div className='card-body'>
-                  <p className='text-xs font-semibold text-teal-600 mb-1'>Opening</p>
+                  <p className='text-xs font-semibold text-teal-600 mb-1'>{t('Opening')}</p>
                   <Link href='/events/123'>
                     <h4 className='card-title text-sm'> Wedding trend Ideas </h4>
                   </Link>
@@ -421,15 +431,15 @@ export default function Event(props: IEventProps) {
                     <p className='card-text text-black mt-2'> Turkey </p>
                   </Link>
                   <div className='card-list-info text-xs mt-1'>
-                    <div> 20 Interested</div>
+                    <div> 20 {t('Interested')}</div>
                     <div className='md:block hidden'>·</div>
-                    <div> 16 Going</div>
+                    <div> 16 {t('Going')}</div>
                   </div>
                   <div className='flex gap-2'>
                     <button
                       type='button'
                       className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
-                      Interested
+                      {t('Interested')}
                     </button>
                     <button
                       type='button'
@@ -458,15 +468,15 @@ export default function Event(props: IEventProps) {
                     <p className='card-text text-black mt-2'> Dubai </p>
                   </Link>
                   <div className='card-list-info text-xs mt-1'>
-                    <div> 26 Interested</div>
+                    <div> 26 {t('Interested')}</div>
                     <div className='md:block hidden'>·</div>
-                    <div> 8 Going</div>
+                    <div> 8 {t('Going')}</div>
                   </div>
                   <div className='flex gap-2'>
                     <button
                       type='button'
                       className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
-                      Interested
+                      {t('Interested')}
                     </button>
                     <button
                       type='button'
@@ -485,7 +495,7 @@ export default function Event(props: IEventProps) {
                   </div>
                 </Link>
                 <div className='card-body'>
-                  <p className='text-xs font-semibold text-teal-600 mb-1'>Opening</p>
+                  <p className='text-xs font-semibold text-teal-600 mb-1'>{t('Opening')}</p>
                   <Link href='/events/123'>
                     <h4 className='card-title text-sm'> Perspective is everything </h4>
                   </Link>
@@ -493,15 +503,15 @@ export default function Event(props: IEventProps) {
                     <p className='card-text text-black mt-2'> London </p>
                   </Link>
                   <div className='card-list-info text-xs mt-1'>
-                    <div> 20 Interested</div>
+                    <div> 20 {t('Interested')}</div>
                     <div className='md:block hidden'>·</div>
-                    <div> 16 Going</div>
+                    <div> 16 {t('Going')}</div>
                   </div>
                   <div className='flex gap-2'>
                     <button
                       type='button'
                       className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
-                      Interested
+                      {t('Interested')}
                     </button>
                     <button
                       type='button'

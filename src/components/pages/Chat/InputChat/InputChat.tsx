@@ -8,10 +8,13 @@ import {
   IoSendOutline
 } from 'react-icons/io5';
 import { FaGift } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 
-export interface IInputChatProps {}
+export interface IInputChatProps { }
 
 export default function InputChat(props: IInputChatProps) {
+  const t = useTranslations();
+
   return (
     <div className='flex items-center md:gap-4 gap-2 md:p-3 p-2 overflow-hidden'>
       <div id='message__wrap' className='flex items-center gap-2 h-full dark:text-white -mt-1.5'>
@@ -54,7 +57,7 @@ export default function InputChat(props: IInputChatProps) {
           className='dropbar p-2'
           data-uk-drop='stretch: x; target: #message__wrap ;animation: uk-animation-scale-up uk-transform-origin-bottom-left ;animate-out: true; pos: top-left ; offset:2; mode: click ; duration: 200 '>
           <div className='sm:w-60 bg-foreground-1 shadow-lg border rounded-xl pr-0 border-border-1'>
-            <h4 className='text-sm font-semibold p-3 pb-0'>Send Icon</h4>
+            <h4 className='text-sm font-semibold p-3 pb-0'>{t('Send Icon')}</h4>
 
             <div className='grid grid-cols-5 overflow-y-auto max-h-44 p-3 text-center text-xl'>
               <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
@@ -124,7 +127,7 @@ export default function InputChat(props: IInputChatProps) {
 
       <div className='relative flex-1'>
         <textarea
-          placeholder='Write your message'
+          placeholder={t('Write your message')}
           rows={1}
           className='w-full resize-none bg-foreground-1 rounded-full px-4 p-2'></textarea>
 

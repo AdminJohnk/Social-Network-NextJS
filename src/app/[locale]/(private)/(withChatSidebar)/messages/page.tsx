@@ -1,5 +1,3 @@
-'use client';
-
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import {
@@ -11,13 +9,13 @@ import {
   IoVolumeMuteOutline
 } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
 import ConversationList from '@/components/pages/Chat/ConversationList';
 import InputChat from '@/components/pages/Chat/InputChat';
 import ChatInfo from '@/components/pages/Chat/ChatInfo';
 import ChatHeading from '@/components/pages/Chat/ChatHeading';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import { useTranslations } from 'next-intl';
 
 export interface IMessageProps {
   params: {
@@ -26,8 +24,10 @@ export interface IMessageProps {
 }
 
 const Message = ({ params: { locale } }: IMessageProps) => {
-  // unstable_setRequestLocale(locale);
+  unstable_setRequestLocale(locale)
+
   const t = useTranslations();
+
   return (
     <>
       <div id='wrapper'>
@@ -44,7 +44,7 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                   {/* <!-- heading title --> */}
                   <div className='p-4 border-b dark:border-slate-700'>
                     <div className='flex mt-2 items-center justify-between'>
-                      <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'>{t('title')}</h2>
+                      <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'> {t('Chats')} </h2>
 
                       {/* <!-- right action buttons --> */}
                       <div className='flex items-center gap-2.5'>
@@ -56,16 +56,13 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                           data-uk-dropdown='pos: bottom-left; offset:10; animation: uk-animation-slide-bottom-small'>
                           <nav>
                             <Link href='#' className='hover:!bg-foreground-2'>
-                              <IoCheckmarkOutline className='text-2xl shrink-0 -ml-1' />
-                              Mark all as read
+                              <IoCheckmarkOutline className='text-2xl shrink-0 -ml-1' /> {t('Mark all as read')}
                             </Link>
                             <Link href='#' className='hover:!bg-foreground-2'>
-                              <IoNotificationsOutline className='text-2xl shrink-0 -ml-1' />
-                              notifications setting
+                              <IoNotificationsOutline className='text-2xl shrink-0 -ml-1' /> {t('Notifications setting')}
                             </Link>
                             <Link href='#' className='hover:!bg-foreground-2'>
-                              <IoVolumeMuteOutline className='text-2xl shrink-0 -ml-1' />
-                              Mute notifications
+                              <IoVolumeMuteOutline className='text-2xl shrink-0 -ml-1' /> {t('Mute notifications')}
                             </Link>
                           </nav>
                         </div>
@@ -91,7 +88,7 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                       </div>
                       <input
                         type='text'
-                        placeholder='Search'
+                        placeholder={t('Search')}
                         className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
                       />
                     </div>
@@ -133,7 +130,7 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                       <Link
                         href='/profile/me'
                         className='inline-block rounded-lg px-4 py-1.5 text-sm font-semibold bg-foreground-2'>
-                        View profile
+                        {t('View profile')}
                       </Link>
                     </div>
                   </div>
