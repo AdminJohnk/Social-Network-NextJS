@@ -34,10 +34,11 @@ export interface ISuggestFollowProps {}
 
 export default function SuggestFollow(props: ISuggestFollowProps) {
   const t = useTranslations();
+
   return (
     <div className='suggest-follow px-5 py-4 bg-foreground-1 rounded-lg'>
       <div className='flex-between'>
-        <span className='h5-bold'>People You might know</span>
+        <span className='h5-bold'>{t('People you might know')}</span>
         <span>
           <FiRefreshCw className='size-4 cursor-pointer' />
         </span>

@@ -6,17 +6,18 @@ import { FiSend } from 'react-icons/fi';
 import { GoShare } from 'react-icons/go';
 import { IoHeart } from 'react-icons/io5';
 import { FaCommentDots } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 
 import CommentList from '@/components/shared/CommentList/CommentList';
 import InputComment from '@/components/shared/InputComment/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
-import { useTranslations } from 'next-intl';
 
 export interface IPostProps {}
 
 export default function Post(props: IPostProps) {
   const t = useTranslations();
+
   return (
     <div className='post bg-foreground-1 rounded-lg p-4'>
       <div className='flex-between'>
@@ -26,9 +27,8 @@ export default function Post(props: IPostProps) {
             <span className='base-bold'>Monroe Parker</span>
             <Link
               href='/posts/657f06489c29b021b905b804'
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
-            >
-              2 {t('hours ago')}
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
+              {t('hours ago', { count: 2 })}
             </Link>
           </div>
         </div>

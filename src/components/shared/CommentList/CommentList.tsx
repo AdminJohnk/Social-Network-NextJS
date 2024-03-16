@@ -1,11 +1,13 @@
 import { useTranslations } from 'next-intl';
-import CommentItem from './CommentItem';
 import { IoIosArrowDown } from 'react-icons/io';
+
+import CommentItem from './CommentItem';
 
 export interface ICommentListProps {}
 
 export default function CommentList(props: ICommentListProps) {
   const t = useTranslations();
+
   return (
     <div>
       <div className='*:mb-3'>

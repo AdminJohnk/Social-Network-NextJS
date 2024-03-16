@@ -2,8 +2,10 @@
 
 import { FiRefreshCw } from 'react-icons/fi';
 import Slider from 'react-slick';
-import OnlineItem from './OnlineItem';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { useTranslations } from 'next-intl';
+
+import OnlineItem from './OnlineItem';
 import { cn } from '@/lib/utils';
 
 function SampleNextArrow(props: any) {
@@ -62,10 +64,12 @@ const FriendList = [
 export interface IOnlineFriendProps {}
 
 export default function OnlineFriend(props: IOnlineFriendProps) {
+  const t = useTranslations();
+
   return (
     <div className='online-friend px-5 py-4 bg-foreground-1 rounded-lg'>
       <div className='flex-between'>
-        <span className='h5-bold'>People You might know</span>
+        <span className='h5-bold'>{t('Online friends')}</span>
         <span>
           <FiRefreshCw className='size-4 cursor-pointer' />
         </span>
