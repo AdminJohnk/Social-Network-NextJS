@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -12,16 +10,24 @@ import {
 } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
 import ConversationList from '@/components/pages/Chat/ConversationList';
 import InputChat from '@/components/pages/Chat/InputChat';
 import ChatInfo from '@/components/pages/Chat/ChatInfo';
 import ChatHeading from '@/components/pages/Chat/ChatHeading';
 
-export interface IMessageProps { }
+export interface IMessageProps {
+  params: {
+    locale: string;
+  };
+}
 
-const Message = (props: IMessageProps) => {
+const Message = ({ params: { locale } }: IMessageProps) => {
+  unstable_setRequestLocale(locale)
+
   const t = useTranslations();
+
   return (
     <>
       <div id='wrapper'>
