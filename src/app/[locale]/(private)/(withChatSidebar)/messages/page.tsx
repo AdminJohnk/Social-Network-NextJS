@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -14,10 +16,18 @@ import ConversationList from '@/components/pages/Chat/ConversationList';
 import InputChat from '@/components/pages/Chat/InputChat';
 import ChatInfo from '@/components/pages/Chat/ChatInfo';
 import ChatHeading from '@/components/pages/Chat/ChatHeading';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
-export interface IMessageProps {}
+export interface IMessageProps {
+  params: {
+    locale: string;
+  };
+}
 
-const Message = (props: IMessageProps) => {
+const Message = ({ params: { locale } }: IMessageProps) => {
+  // unstable_setRequestLocale(locale);
+  const t = useTranslations('Index');
   return (
     <>
       <div id='wrapper'>
@@ -34,7 +44,7 @@ const Message = (props: IMessageProps) => {
                   {/* <!-- heading title --> */}
                   <div className='p-4 border-b dark:border-slate-700'>
                     <div className='flex mt-2 items-center justify-between'>
-                      <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'> Chats </h2>
+                      <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'> {t('title')} </h2>
 
                       {/* <!-- right action buttons --> */}
                       <div className='flex items-center gap-2.5'>
