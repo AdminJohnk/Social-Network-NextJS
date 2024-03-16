@@ -1,14 +1,13 @@
-'use client';
-
 import Link from 'next/link';
-import SimpleBar from 'simplebar-react';
-import 'simplebar-react/dist/simplebar.min.css';
+import { useTranslations } from 'next-intl';
 
 import MainNavigate from './MainNavigate';
 import Shortcuts from './Shortcuts';
 import SubNavigate from './SubNavigate';
 
 export default function SideBar() {
+  const t = useTranslations();
+
   return (
     <div
       id='site_sidebar'
@@ -21,22 +20,22 @@ export default function SideBar() {
 
           <div className='text-xs font-medium flex flex-wrap gap-2 gap-y-0.5 p-2 mt-2'>
             <Link href='#' className='hover:underline'>
-              About
+              {t('About')}
             </Link>
             <Link href='#' className='hover:underline'>
-              Blog
+              {t('Blog')}
             </Link>
             <Link href='#' className='hover:underline'>
-              Careers
+              {t('Careers')}
             </Link>
             <Link href='#' className='hover:underline'>
-              Support
+              {t('Support')}
             </Link>
             <Link href='#' className='hover:underline'>
-              Contact Us
+              {t('Contact Us')}
             </Link>
             <Link href='#' className='hover:underline'>
-              Developer
+              {t('Developer')}
             </Link>
           </div>
         </div>

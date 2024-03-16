@@ -1,3 +1,5 @@
+import { unstable_setRequestLocale } from 'next-intl/server';
+
 import NewPost from '@/components/shared/NewPost/NewPost';
 import OnlineFriend from '@/components/pages/Home/OnlineFriend';
 import Post from '@/components/shared/Post/Post';
@@ -9,9 +11,15 @@ import TrendForYou from '@/components/pages/Home/TrendForYou';
 import CreateStatus from '@/components/pages/Home/CreateStatus';
 import CreateStory from '@/components/pages/Home/CreateStory';
 
-export interface INewFeedProps {}
+export interface INewFeedProps {
+  params: {
+    locale: string;
+  };
+}
 
-export default function NewFeed(props: INewFeedProps) {
+export default function NewFeed({ params: { locale } }: INewFeedProps) {
+  unstable_setRequestLocale(locale);
+
   return (
     <div className='ms-60 mt-16 max-lg:ms-0'>
       <div className='newsfeed px-2 py-10 2xl:px-32 xl:px-24 lg:px-14'>
@@ -19,14 +27,11 @@ export default function NewFeed(props: INewFeedProps) {
           <Story />
           <CreateStory />
         </div>
-        <div
-          className='newsfeed-content mt-14 max-md:mt-0 flex w-full'
-          id='newsfeed'
-        >
+        <div className='newsfeed-content mt-14 max-md:mt-0 flex w-full' id='newsfeed'>
           <div className='post w-3/5 max-lg:w-full px-9'>
             <div className='new-post mb-8'>
-              <CreateStatus />
               <NewPost />
+              <CreateStatus />
             </div>
             <div className='post *:mb-6'>
               <Post />

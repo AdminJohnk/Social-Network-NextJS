@@ -1,4 +1,5 @@
 import { Avatar } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { FiRefreshCw } from 'react-icons/fi';
 
 const FollowList = [
@@ -32,10 +33,12 @@ const FollowList = [
 export interface ISuggestFollowProps {}
 
 export default function SuggestFollow(props: ISuggestFollowProps) {
+  const t = useTranslations();
+
   return (
     <div className='suggest-follow px-5 py-4 bg-foreground-1 rounded-lg'>
       <div className='flex-between'>
-        <span className='h5-bold'>People You might know</span>
+        <span className='h5-bold'>{t('People you might know')}</span>
         <span>
           <FiRefreshCw className='size-4 cursor-pointer' />
         </span>
@@ -45,16 +48,14 @@ export default function SuggestFollow(props: ISuggestFollowProps) {
           return (
             <div key={index} className='flex-between mb-5'>
               <div className='flex-start'>
-                <Avatar src={item.avatar} sx={{width: 40, height: 40}} />
+                <Avatar src={item.avatar} sx={{ width: 40, height: 40 }} />
                 <div className='flex flex-col ms-3'>
                   <span className='base-bold'>{item.name}</span>
-                  <span className='small-regular text-text-2'>
-                    {item.feature}
-                  </span>
+                  <span className='small-regular text-text-2'>{item.feature}</span>
                 </div>
               </div>
               <button className='base-bold bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl'>
-                Follow
+                {t('Follow')}
               </button>
             </div>
           );
