@@ -258,7 +258,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
 
             <div className='flex-1 xl:space-y-6 space-y-3'>
               {/* <!-- add story --> */}
-              <NewPost title={isMe ? '' : 'Write some thing for ' + friendName + '...'} />
+              <NewPost title={isMe ? '' : t('Write some thing for') + ' ' + friendName + '...'} />
 
               <Post />
               <Post />
@@ -326,7 +326,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                       </svg>
                       <div>
                         {t('Studied at')}
-                        <span className='font-semibold text-text-1'>University of Turkey</span>
+                        <span className='font-semibold text-text-1'> University of Turkey </span>
                       </div>
                     </li>
                     <li className='flex items-center gap-3'>
@@ -605,7 +605,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                         </div>
                       </div>
                       <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
-                        Like
+                        {t('Like')}
                       </button>
                     </div>
                     <div className='flex items-center space-x-3 my-3'>
