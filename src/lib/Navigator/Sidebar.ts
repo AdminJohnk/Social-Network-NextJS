@@ -10,11 +10,6 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Messages'
   },
   {
-    href: '',
-    image: '/images/home/video.png',
-    label: 'Videos'
-  },
-  {
     href: '/events',
     image: '/images/home/event.png',
     label: 'Events'
@@ -28,11 +23,6 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     href: '/community',
     image: '/images/home/group.png',
     label: 'Groups'
-  },
-  {
-    href: '',
-    image: '/images/home/market.png',
-    label: 'Market'
   },
   {
     href: '/blogs',

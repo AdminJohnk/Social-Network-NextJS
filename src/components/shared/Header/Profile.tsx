@@ -38,7 +38,7 @@ export default function ProfileHeader() {
             />
           </div>
           <div
-            className='hidden bg-foreground-2 rounded-lg drop-shadow-xl w-64 border2'
+            className='hidden bg-foreground-2 rounded-lg drop-shadow-xl w-64 border-border-1'
             data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
             <Link href='/profile/me'>
               <div className='p-4 py-5 flex items-center gap-4'>

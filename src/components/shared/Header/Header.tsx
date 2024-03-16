@@ -4,6 +4,7 @@ import CreateHeader from './Create';
 import NotificationsHeader from './Notifications';
 import MessagesHeader from './Messages';
 import ProfileHeader from './Profile';
+import Language from './Language';
 
 export default function Header() {
   return (
@@ -17,6 +18,7 @@ export default function Header() {
               <CreateHeader />
               <NotificationsHeader />
               <MessagesHeader />
+              <Language />
               <ProfileHeader />
             </div>
           </div>
