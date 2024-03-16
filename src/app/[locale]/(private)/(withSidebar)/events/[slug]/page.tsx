@@ -15,10 +15,18 @@ import {
   IoHeartSharp,
   IoLeafOutline
 } from 'react-icons/io5';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
-export interface IGroupManagerProps {}
+export interface IGroupManagerProps {
+  params: {
+    locale: string;
+  };
+}
 
-export default function GroupManager(props: IGroupManagerProps) {
+export default function GroupManager({ params: { locale } }: IGroupManagerProps) {
+  unstable_setRequestLocale(locale);
+  const t = useTranslations();
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
       <div className='groups px-10 pt-5'>
@@ -158,7 +166,7 @@ export default function GroupManager(props: IGroupManagerProps) {
 
             <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col' id='js-oversized'>
               <div className='flex-1 space-y-4'>
-                <div className='box p-5 px-6 relative bg-foreground-1 rounded-md'>
+                <div className='p-5 px-6 relative bg-foreground-1 rounded-md'>
                   <h3 className='font-semibold text-lg'>About</h3>
 
                   <div className='space-y-4 leading-7 tracking-wide mt-4 text-sm '>
@@ -176,8 +184,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                     </p>
                   </div>
                 </div>
-
-                <div className='box p-5 px-6 relative bg-foreground-1 rounded-md'>
+                <div className='p-5 px-6 relative bg-foreground-1 rounded-md'>
                   <h3 className='font-semibold text-lg'>Discussions</h3>
 
                   <div className=' text-sm font-normal space-y-4 relative mt-4'>
@@ -313,7 +320,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                 <div
                   className='lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
                   data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
-                  <div className='box p-5 px-6 pr-0 bg-foreground-1 rounded-md'>
+                  <div className='p-5 px-6 pr-0 bg-foreground-1 rounded-md'>
                     <h3 className='h5-semibold'>Status</h3>
 
                     <div className='grid grid-cols-2 gap-2 text-sm mt-4'>
@@ -376,7 +383,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                     </ul>
                   </div>
 
-                  <div className='box p-5 px-6 bg-foreground-1 rounded-md'>
+                  <div className='p-5 px-6 bg-foreground-1 rounded-md'>
                     <div className='flex items-baseline justify-between'>
                       <h3 className='base-bold'> Invite friends </h3>
                       <Link href='#' className='text-sm text-blue-500'>
@@ -450,7 +457,7 @@ export default function GroupManager(props: IGroupManagerProps) {
                     </div>
                   </div>
 
-                  <div className='box p-5 px-6 space-y-4 bg-foreground-1 rounded-md'>
+                  <div className='p-5 px-6 space-y-4 bg-foreground-1 rounded-md'>
                     <h3 className='base-bold'>Created by</h3>
 
                     <div className='side-list-item'>

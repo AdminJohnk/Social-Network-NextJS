@@ -25,7 +25,7 @@
   "Next week": "Tuần tới",
   "Interested": "Quan tâm",
   "Going": "Tham gia",
-  "Opening": "Mở cửa",
+  "Opening": "Đang diễn ra",
   "Lists You May Like": "Các danh sách bạn có thể thích",
   "Find a group by browsing top categories": "Tìm nhóm bằng cách duyệt qua các danh mục hàng đầu",
   "Hotels": "Khách sạn",
@@ -34,7 +34,7 @@
   "Crop": "Cắt",
   "Edit Profile": "Chỉnh sửa trang cá nhân",
   "Add Friend": "Thêm bạn",
-  "Friend": "Bạn",
+  "Friend": "Bạn bè",
   "Unfriend": "Hủy kết bạn",
   "Activity Log": "Nhật ký hoạt động",
   "Archive": "Lưu trữ",
@@ -61,7 +61,7 @@
   "Live In": "Sống tại",
   "Studied at": "Học tại",
   "Works at": "Làm việc tại",
-  "In": "Tại",
+  "In": "Trong",
   "Relationship": "Mối quan hệ",
   "Followed By": "{count, plural, other {Được theo dõi bởi # }}",
   "people": "người",
@@ -183,5 +183,6 @@
   "Fundraiser": "Quyên góp",
   "Blog 2": "Blog 2",
   "Event 2": "Sự kiện 2",
-  "Group 2": "Nhóm 2"
+  "Group 2": "Nhóm 2",
+  "Write some thing for": "Viết gì đó cho"
 }
