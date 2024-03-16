@@ -1,3 +1,4 @@
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 export interface ILocaleLayoutProps {
@@ -9,7 +10,9 @@ export interface ILocaleLayoutProps {
 
 export default function LocaleLayout({ children, params: { locale } }: ILocaleLayoutProps) {
   unstable_setRequestLocale(locale);
-  return <>{children}</>;
+  const message = useMessages();
+
+  return <NextIntlClientProvider messages={message}>{children}</NextIntlClientProvider>;
 }
 
 const locales = ['en', 'vi'];
