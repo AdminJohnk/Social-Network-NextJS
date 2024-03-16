@@ -20,8 +20,6 @@ export default function ProfileHeader() {
     setModeTheme(mode);
   }, [mode]);
 
-  console.log('session', session?.user?.id);
-
   return (
     <>
       {!session ? (

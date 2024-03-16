@@ -1,10 +1,14 @@
+'use client';
+
 import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export interface IComSuggestionListProps {}
 
 export default function ComSuggestionList(props: IComSuggestionListProps) {
+  const t = useTranslations('Index');
   return (
     <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2.5'>
       <div className='card'>
@@ -28,7 +32,7 @@ export default function ComSuggestionList(props: IComSuggestionListProps) {
             className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
           />
           <Link href='/community/123'>
-            <h4 className='card-title'> Delicious Foods </h4>
+            <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
             <Link href='#'> Travel </Link>
