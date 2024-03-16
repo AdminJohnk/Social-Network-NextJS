@@ -1,11 +1,14 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Shortcuts() {
+  const t = useTranslations();
+
   return (
     <div className='font-medium text-sm text-text-1 border-t pt-3 mt-2 dark:border-slate-800'>
       <div className='px-3 pb-2 text-sm font-medium'>
-        <div className='text-text-1'>Shortcut</div>
+        <div className='text-text-1'>{t('Shortcut')}</div>
       </div>
       <Link href='#'>
         <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-hover-1'>

@@ -12,7 +12,6 @@ import CommentList from '@/components/shared/CommentList/CommentList';
 import InputComment from '@/components/shared/InputComment/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
-import { count } from 'console';
 
 export interface IPostProps {}
 
