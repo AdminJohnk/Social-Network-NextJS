@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -9,9 +10,11 @@ import {
   IoTrashOutline
 } from 'react-icons/io5';
 
-export interface IChatInfoProps {}
+export interface IChatInfoProps { }
 
 export default function ChatInfo(props: IChatInfoProps) {
+  const t = useTranslations();
+
   return (
     <div className='right w-full h-full absolute top-0 right-0 z-10 hidden transition-transform'>
       <div className='w-[360px] border-l shadow-lg h-screen bg-white absolute right-0 top-0 uk-animation-slide-right-medium delay-200 z-50 dark:bg-background-2 dark:border-slate-700'>
@@ -33,7 +36,7 @@ export default function ChatInfo(props: IChatInfoProps) {
             <Link
               href='/profile/me'
               className='inline-block rounded-full px-4 py-1.5 text-sm font-semibold bg-foreground-2'>
-              View profile
+              {t('View profile')}
             </Link>
           </div>
         </div>
@@ -44,7 +47,7 @@ export default function ChatInfo(props: IChatInfoProps) {
           <li>
             <div className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
               <IoNotificationsOffOutline className='text-2xl' />
-              Mute Notification
+              {t('Mute Notification')}
               <label className='switch cursor-pointer ml-auto'>
                 <input type='checkbox' defaultChecked />
                 <span className='switch-button !relative'></span>
@@ -53,24 +56,24 @@ export default function ChatInfo(props: IChatInfoProps) {
           </li>
           <li>
             <button type='button' className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-              <IoFlagOutline className='text-2xl' /> Report
+              <IoFlagOutline className='text-2xl' /> {t('Report')}
             </button>
           </li>
           <li>
             <button type='button' className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-              <IoSettingsOutline className='text-2xl' /> Ignore messages
+              <IoSettingsOutline className='text-2xl' /> {t('Ignore messages')}
             </button>
           </li>
           <li>
             <button type='button' className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-              <IoStopCircleOutline className='text-2xl' /> Block
+              <IoStopCircleOutline className='text-2xl' /> {t('Block')}
             </button>
           </li>
           <li>
             <button
               type='button'
               className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-red-50 text-red-500'>
-              <IoTrashOutline className='text-2xl' /> Delete Chat
+              <IoTrashOutline className='text-2xl' /> {t('Delete Chat')}
             </button>
           </li>
         </ul>

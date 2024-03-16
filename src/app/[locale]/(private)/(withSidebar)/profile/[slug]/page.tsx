@@ -14,15 +14,18 @@ import {
 } from 'react-icons/io5';
 import { FaCheckCircle, FaPencilAlt } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
+import { useTranslations } from 'next-intl';
 
 import Post from '@/components/shared/Post/Post';
 import PostSkeleton from '@/components/shared/Post/PostSkeleton';
 import NewPost from '@/components/shared/NewPost/NewPost';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 
-export interface IProfileProps {}
+export interface IProfileProps { }
 
 export default function Profile({ params }: { params: { slug: string } }, props: IProfileProps) {
+  // const t = useTranslations();
+
   const isFriend = params.slug === 'friend';
   const isMe = params.slug === 'me';
   const friendName = params.slug === 'friend' ? 'Monroe Parker' : '';

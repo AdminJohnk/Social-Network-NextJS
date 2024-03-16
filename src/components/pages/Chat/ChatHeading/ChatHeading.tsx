@@ -1,9 +1,12 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
 export interface IChatHeadingProps { }
 
 export default function ChatHeading(props: IChatHeadingProps) {
+  const t = useTranslations();
+
   return (
     <div className='flex items-center justify-between gap-2 w- px-6 py-3.5 z-10 border-b dark:border-slate-700 uk-animation-slide-top-medium'>
       <div className='flex items-center sm:gap-4 gap-2'>
@@ -23,7 +26,7 @@ export default function ChatHeading(props: IChatHeadingProps) {
         </div>
         <div className='cursor-pointer' data-uk-toggle='target: .right ; cls: hidden'>
           <div className='text-base font-bold'> Monroe Parker</div>
-          <div className='text-xs text-green-500 font-semibold'> Online</div>
+          <div className='text-xs text-green-500 font-semibold'> {t('Online')}</div>
         </div>
       </div>
 
