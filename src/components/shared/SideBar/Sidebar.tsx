@@ -1,4 +1,8 @@
+'use client';
+
 import Link from 'next/link';
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
 
 import MainNavigate from './MainNavigate';
 import Shortcuts from './Shortcuts';

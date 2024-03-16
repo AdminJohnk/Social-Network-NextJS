@@ -8,7 +8,7 @@ export interface User {
 
 export interface UserLogin {
   user: {
-    id: string;
+    _id: string;
     email: string;
     name: string;
     user_image: string;

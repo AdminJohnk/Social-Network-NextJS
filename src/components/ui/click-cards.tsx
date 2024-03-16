@@ -4,11 +4,11 @@ import * as React from 'react';
 import Popover from '@mui/material/Popover';
 
 interface IPostMoreChooseProps {
-  Content: React.ReactNode;
-  HoverContent: React.ReactNode;
+  content: React.ReactNode;
+  hoverContent: React.ReactNode;
 }
 
-export default function PopOverClick({ Content, HoverContent }: IPostMoreChooseProps) {
+export default function PopoverClick({ content, hoverContent }: IPostMoreChooseProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -25,7 +25,7 @@ export default function PopOverClick({ Content, HoverContent }: IPostMoreChooseP
   return (
     <div>
       <button aria-describedby={id} onClick={handleClick}>
-        {Content}
+        {content}
       </button>
       <Popover
         classes={{
@@ -39,7 +39,7 @@ export default function PopOverClick({ Content, HoverContent }: IPostMoreChooseP
           vertical: 'center',
           horizontal: 'left'
         }}>
-        {HoverContent}
+        {hoverContent}
       </Popover>
     </div>
   );

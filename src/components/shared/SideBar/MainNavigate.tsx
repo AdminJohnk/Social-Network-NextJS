@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Sidebar } from '@/lib/Navigator/Sidebar';
+import { Sidebar } from '@/lib/navigator/Sidebar';
 import { cn } from '@/lib/utils';
 
 export default function MainNavigate() {

@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 import { cn, getImageURL } from '@/lib/utils';
-import descArrays from '@/lib/Descriptions/Tags';
+import descArrays from '@/lib/descriptions/Tags';
 
 export default function EditProfile() {
   const { data: session } = useSession();

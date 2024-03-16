@@ -8,6 +8,7 @@ import GithubProvider from 'next-auth/providers/github';
 
 import { IResponse } from '@/types/common.type';
 import { UserLogin } from '@/types/users.type';
+import { authService } from '@/services/AuthService';
 
 // async function refreshAccessToken(token: any) {
 //   try {
@@ -48,12 +49,10 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         if (credentials) {
-          const data: IResponse<UserLogin> = await axios
-            .post(process.env.NEXT_PUBLIC_API_BASE + '/auth/login', {
-              email: credentials.email,
-              password: credentials.password
-            })
-            .then((res) => res.data);
+          const { data }: { data: IResponse<UserLogin> } = await authService.login({
+            email: credentials.email,
+            password: credentials.password
+          });
 
           // If no error and we have user data, return it
           if (data.status !== 200) {
@@ -67,7 +66,7 @@ const handler = NextAuth({
           // res.status === 200
           if (data) {
             return {
-              id: data.metadata.user.id,
+              id: data.metadata.user._id,
               name: data.metadata.user.name,
               email: data.metadata.user.email,
               image: data.metadata.user.user_image,
@@ -84,24 +83,55 @@ const handler = NextAuth({
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ''
-      // profile: (profile, tokens) => {
-      //   if (profile) {
-      //     return {
-      //       id: profile.sub,
-      //       name: profile.firstName,
-      //       lastName: profile.family_name,
-      //       firstName: profile.given_name,
-      //       image: profile.picture
-      //     };
-      //   } else {
-      //     throw new Error('Login Failed');
-      //   }
-      // }
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+      profile: async (profile) => {
+        if (profile) {
+          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGoogle({
+            email: profile.email
+          });
+
+          if (data) {
+            return {
+              id: data.metadata.user._id,
+              name: data.metadata.user.name,
+              email: data.metadata.user.email,
+              image: data.metadata.user.user_image,
+              access_token: data.metadata.accessToken,
+              refresh_token: data.metadata.refreshToken
+            };
+          } else {
+            throw new Error('Internal Server Error!');
+          }
+        } else {
+          throw new Error('No profile provided');
+        }
+      }
     }),
     GithubProvider({
       clientId: process.env.GITHUB_ID ?? '',
-      clientSecret: process.env.GITHUB_SECRET ?? ''
+      clientSecret: process.env.GITHUB_SECRET ?? '',
+      profile: async (profile) => {
+        if (profile) {
+          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub({
+            email: profile.email
+          });
+
+          if (data) {
+            return {
+              id: data.metadata.user._id,
+              name: data.metadata.user.name,
+              email: data.metadata.user.email,
+              image: data.metadata.user.user_image,
+              access_token: data.metadata.accessToken,
+              refresh_token: data.metadata.refreshToken
+            };
+          } else {
+            throw new Error('Internal Server Error!');
+          }
+        } else {
+          throw new Error('No profile provided');
+        }
+      }
     })
   ],
   callbacks: {

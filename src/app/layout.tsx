@@ -5,9 +5,9 @@ import Script from 'next/script';
 
 import { QueryProvider, SessionProvider } from './provider';
 import { cn } from '@/lib/utils';
+import './animate.css';
 import './uk.css';
 import './globals.css';
-import './animate.css';
 
 const font = Inter({ subsets: ['latin'] });
 

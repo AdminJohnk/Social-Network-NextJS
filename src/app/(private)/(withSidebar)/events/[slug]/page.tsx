@@ -74,7 +74,7 @@ export default function GroupManager(props: IGroupManagerProps) {
 
                     <div>
                       <div
-                        data-uk-countdown='date: 2024-03-12T08:36:57+00:00'
+                        data-uk-countdown='date: 2024-03-15T08:36:57+00:00'
                         className='flex gap-3 text-2xl font-semibold text-text-1 max-lg:justify-center'>
                         <div className='bg-foreground-1 flex flex-col items-center justify-center rounded-lg w-16 h-16 lg:border-4 border-foreground-2 md:shadow'>
                           <span className='uk-countdown-days'></span>
