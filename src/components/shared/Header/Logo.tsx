@@ -20,6 +20,7 @@ export default function LogoHeader() {
               className='w-28 md:block hidden dark:!hidden'
               width={200}
               height={100}
+              priority
             />
             <Image
               src='/images/home/logo-light.png'
@@ -27,6 +28,7 @@ export default function LogoHeader() {
               className='dark:md:block hidden w-28'
               width={200}
               height={100}
+              priority
             />
             <Image
               src='/images/home/logo-mobile.png'
@@ -34,6 +36,7 @@ export default function LogoHeader() {
               alt=''
               width={200}
               height={100}
+              priority
             />
             <Image
               src='/images/home/logo-mobile-light.png'
@@ -41,6 +44,7 @@ export default function LogoHeader() {
               alt=''
               width={200}
               height={100}
+              priority
             />
           </Link>
         </div>
