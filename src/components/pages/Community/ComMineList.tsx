@@ -1,10 +1,12 @@
 import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export interface IComMineListProps {}
 
 export default function ComMineList(props: IComMineListProps) {
+  const t = useTranslations();
   return (
     <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2.5'>
       <div className='card'>
@@ -21,25 +23,25 @@ export default function ComMineList(props: IComMineListProps) {
         </Link>
         <div className='card-body'>
           <Link href='/community/123'>
-            <h4 className='card-title'> Delicious Foods </h4>
+            <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> Health </Link>
+            <Link href='#'> {t('Health ')} </Link>
             <div className='md:block hidden'>·</div>
-            <div>42k members </div>
+            <div>42k {t('members')} </div>
           </div>
           <div className='flex gap-2'>
             <button
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <button
               type='button'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'
             >
-              Edit
+              {t('Edit')}
             </button>
           </div>
         </div>
@@ -58,25 +60,25 @@ export default function ComMineList(props: IComMineListProps) {
         </Link>
         <div className='card-body'>
           <Link href='/community/123'>
-            <h4 className='card-title'> Graphic Design </h4>
+            <h4 className='card-title'> {t('Graphic Design')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> Health </Link>
+            <Link href='#'> {t('Health ')} </Link>
             <div className='md:block hidden'>·</div>
-            <div>42k members </div>
+            <div>42k {t('members')} </div>
           </div>
           <div className='flex gap-2'>
             <button
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <button
               type='button'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'
             >
-              Edit
+              {t('Edit')}
             </button>
           </div>
         </div>
@@ -95,25 +97,25 @@ export default function ComMineList(props: IComMineListProps) {
         </Link>
         <div className='card-body'>
           <Link href='/community/123'>
-            <h4 className='card-title'> Abstract minimal </h4>
+            <h4 className='card-title'> {t('Abstract minimal')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> Delicious Foods </Link>
+            <Link href='#'> {t('Delicious Foods')} </Link>
             <div className='md:block hidden'>·</div>
-            <div>232k members </div>
+            <div>232k {t('members')} </div>
           </div>
           <div className='flex gap-2'>
             <button
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <button
               type='button'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'
             >
-              Edit
+              {t('Edit')}
             </button>
           </div>
         </div>
@@ -132,25 +134,25 @@ export default function ComMineList(props: IComMineListProps) {
         </Link>
         <div className='card-body'>
           <Link href='/community/123'>
-            <h4 className='card-title'> Delicious Foods </h4>
+            <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> Travel </Link>
+            <Link href='#'> {t('Travel')} </Link>
             <div className='md:block hidden'>·</div>
-            <div>620k members </div>
+            <div>620k {t('members')} </div>
           </div>
           <div className='flex gap-2'>
             <button
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <button
               type='button'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'
             >
-              Edit
+              {t('Edit')}
             </button>
           </div>
         </div>

@@ -18,12 +18,14 @@ export default function NewPost(props: INewPostProps) {
       </div>
       <div
         className='basis-1/12 bg-blue-3 hover:bg-blue-4 flex-center py-2 rounded-lg duration-300 cursor-pointer'
-        data-uk-toggle='target: #create-status'>
+        data-uk-toggle='target: #create-status'
+      >
         <FaImages className='size-5 text-blue-1' />
       </div>
       <div
         className='basis-1/12 bg-pink-3 hover:bg-pink-4 flex-center py-2 rounded-lg duration-300 cursor-pointer'
-        data-uk-toggle='target: #create-status'>
+        data-uk-toggle='target: #create-status'
+      >
         <RiLiveFill className='size-5 text-pink-1' />
       </div>
     </div>

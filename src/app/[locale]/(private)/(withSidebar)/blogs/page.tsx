@@ -6,23 +6,34 @@ import ArticleForYou from '@/components/pages/Blog/ArticleForYou';
 import BlogSlideThumbnail from '@/components/pages/Blog/BlogSlideThumbnail';
 import TrendingArticle from '@/components/pages/Blog/TrendingArticle';
 import SuggestFollow from '@/components/shared/SuggestFollow/SuggestFollow';
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
-export interface IBlogProps {}
+export interface IBlogProps {
+  params: {
+    locale: string;
+  };
+}
 
-const LoadMoreButton = () => {
-  return (
-    <div className='flex justify-center my-6'>
-      <button
-        type='button'
-        className='py-2 px-5 rounded-full shadow-md font-semibold text-sm bg-foreground-1 hover:bg-hover-1 duration-300 '
-      >
-        Load more...
-      </button>
-    </div>
-  );
-};
+export default function Blog({ params: { locale } }: IBlogProps) {
+  unstable_setRequestLocale(locale);
+  const t = useTranslations();
 
-export default function Blog(props: IBlogProps) {
+  const LoadMoreButton = () => {
+    return (
+      <div className='flex justify-center my-6'>
+        <button
+          type='button'
+          className='py-2 px-5 rounded-full shadow-md font-semibold text-sm bg-foreground-1 hover:bg-hover-1 duration-300 '
+        >
+          {t('Load more')}...
+        </button>
+      </div>
+    );
+  };
+
+  unstable_setRequestLocale(locale);
+
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-20'>
       <div className='groups px-10 py-5'>
@@ -36,9 +47,9 @@ export default function Blog(props: IBlogProps) {
                 <h1 className='page-title'> Articles </h1>
 
                 <Tabs id='ttabs' disableChevron>
-                  <TabTitle>Suggestions</TabTitle>
-                  <TabTitle>Popular</TabTitle>
-                  <TabTitle>My article</TabTitle>
+                  <TabTitle>{t('Suggestions')}</TabTitle>
+                  <TabTitle>{t('Popular')}</TabTitle>
+                  <TabTitle>{t('My article')}</TabTitle>
                 </Tabs>
               </div>
 

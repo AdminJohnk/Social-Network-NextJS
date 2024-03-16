@@ -7,10 +7,16 @@ import SuggestGroup from '@/components/pages/Community/Id/SuggestGroup';
 
 import { TabsContent } from '@/components/ui/tabs';
 import ComCover from '@/components/pages/Community/Id/ComCover';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
-export interface ICommunityProps {}
+export interface ICommunityProps {
+  params: {
+    locale: string;
+  };
+}
 
-export default function Community(props: ICommunityProps) {
+export default function Community({ params: { locale } }: ICommunityProps) {
+  unstable_setRequestLocale(locale);
   return (
     <main className='ms-60 max-lg:ms-0 mt-16'>
       <div className='max-w-[1065px] mx-auto'>

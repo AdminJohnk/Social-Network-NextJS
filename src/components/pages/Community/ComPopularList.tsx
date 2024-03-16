@@ -1,10 +1,12 @@
 import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export interface IComPopularListProps {}
 
 export default function ComPopularList(props: IComPopularListProps) {
+  const t = useTranslations();
   return (
     <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2.5'>
       <div className='card'>
@@ -21,13 +23,13 @@ export default function ComPopularList(props: IComPopularListProps) {
         </Link>
         <div className='card-body'>
           <Link href='/community/123'>
-            <h4 className='card-title'> Graphic Design </h4>
+            <h4 className='card-title'> {t('Graphic Design')} </h4>
           </Link>
           <div className='card-text'>
             <div className='card-list-info font-normal mt-1'>
-              <div>232k members </div>
+              <div>232k {t(' members')} </div>
               <div className='md:block hidden'>·</div>
-              <Link href='#'> Education </Link>
+              <Link href='#'> {t('Education')} </Link>
             </div>
             <div className='flex items-center gap-3 mt-3'>
               <div className='flex -space-x-2'>
@@ -53,7 +55,7 @@ export default function ComPopularList(props: IComPopularListProps) {
                   className='w-6 rounded-full border-border-1'
                 />
               </div>
-              <p className='card-text'> 6 friend are members </p>
+              <p className='card-text'> 6 {t(' friend are members')} </p>
             </div>
           </div>
           <div className='flex gap-2'>
@@ -61,13 +63,13 @@ export default function ComPopularList(props: IComPopularListProps) {
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <Link
               href='/community/123'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'
             >
-              View
+              {t('View')}
             </Link>
           </div>
         </div>
@@ -86,13 +88,13 @@ export default function ComPopularList(props: IComPopularListProps) {
         </Link>
         <div className='card-body'>
           <Link href='/community/123'>
-            <h4 className='card-title'> Delicious Foods </h4>
+            <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-text'>
             <div className='card-list-info font-normal mt-1'>
-              <div>232k members </div>
+              <div>232k {t(' members')} </div>
               <div className='md:block hidden'>·</div>
-              <Link href='#'> Education </Link>
+              <Link href='#'> {t('Education')} </Link>
             </div>
             <div className='flex items-center gap-3 mt-3'>
               <div className='flex -space-x-2'>
@@ -118,7 +120,7 @@ export default function ComPopularList(props: IComPopularListProps) {
                   className='w-6 rounded-full border-border-1'
                 />
               </div>
-              <p className='card-text'> 8 friend are members </p>
+              <p className='card-text'> 8 {t('friend are members')} </p>
             </div>
           </div>
           <div className='flex gap-2'>
@@ -126,13 +128,13 @@ export default function ComPopularList(props: IComPopularListProps) {
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <Link
               href='/community/123'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'
             >
-              View
+              {t('View')}
             </Link>
           </div>
         </div>
@@ -151,13 +153,13 @@ export default function ComPopularList(props: IComPopularListProps) {
         </Link>
         <div className='card-body'>
           <Link href='/community/123'>
-            <h4 className='card-title'> Delicious Foods </h4>
+            <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-text'>
             <div className='card-list-info font-normal mt-1'>
-              <div>232k members </div>
+              <div>232k {t(' members')} </div>
               <div className='md:block hidden'>·</div>
-              <Link href='#'> Education </Link>
+              <Link href='#'> {t('Education')} </Link>
             </div>
             <div className='flex items-center gap-3 mt-3'>
               <div className='flex -space-x-2'>
@@ -183,7 +185,7 @@ export default function ComPopularList(props: IComPopularListProps) {
                   className='w-6 rounded-full border-border-1'
                 />
               </div>
-              <p className='card-text'> 12 friend are members </p>
+              <p className='card-text'> 12 </p>
             </div>
           </div>
           <div className='flex gap-2'>
@@ -191,13 +193,13 @@ export default function ComPopularList(props: IComPopularListProps) {
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <Link
               href='/community/123'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'
             >
-              View
+              {t('View')}
             </Link>
           </div>
         </div>
@@ -216,13 +218,13 @@ export default function ComPopularList(props: IComPopularListProps) {
         </Link>
         <div className='card-body'>
           <Link href='/community/123'>
-            <h4 className='card-title'> Abstract minimal </h4>
+            <h4 className='card-title'> {t('Abstract minimal')} </h4>
           </Link>
           <div className='card-text'>
             <div className='card-list-info font-normal mt-1'>
-              <div>360k members </div>
+              <div>360k {t(' members')} </div>
               <div className='md:block hidden'>·</div>
-              <Link href='#'> Education </Link>
+              <Link href='#'> {t('Education')} </Link>
             </div>
             <div className='flex items-center gap-3 mt-3'>
               <div className='flex -space-x-2'>
@@ -248,7 +250,7 @@ export default function ComPopularList(props: IComPopularListProps) {
                   className='w-6 rounded-full border-border-1'
                 />
               </div>
-              <p className='card-text'> 3 friend are members </p>
+              <p className='card-text'> 3 {t('friend are members')} </p>
             </div>
           </div>
           <div className='flex gap-2'>
@@ -256,13 +258,13 @@ export default function ComPopularList(props: IComPopularListProps) {
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <Link
               href='/community/123'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'
             >
-              View
+              {t('View')}
             </Link>
           </div>
         </div>

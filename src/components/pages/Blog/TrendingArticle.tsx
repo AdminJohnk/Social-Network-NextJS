@@ -1,15 +1,17 @@
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import * as React from 'react';
 
 export interface ITrendingArticleProps {}
 
 export default function TrendingArticle(props: ITrendingArticleProps) {
+  const t = useTranslations();
   return (
     <div className='box p-5 px-6 bg-foreground-1'>
       <div className='flex items-baseline justify-between'>
         <h3 className='font-bold text-base'> Trending Articles</h3>
         <Link href='#' className='text-sm text-blue-500'>
-          See all
+          {t('See all')}
         </Link>
       </div>
 
@@ -23,7 +25,7 @@ export default function TrendingArticle(props: ITrendingArticleProps) {
           <div className='text-xs text-text-2 mt-2 flex items-center gap-2'>
             <div> 10 Jun 2022 </div>
             <div className='md:block hidden'>·</div>
-            <div> 156.9K views</div>
+            <div> 156.9K </div>
           </div>
         </div>
         <div>
@@ -35,7 +37,7 @@ export default function TrendingArticle(props: ITrendingArticleProps) {
           <div className='text-xs text-text-2 mt-2 flex items-center gap-2'>
             <div> 10 Jun 2022 </div>
             <div className='md:block hidden'>·</div>
-            <div> 156.9K views</div>
+            <div> 156.9K {t('views')}</div>
           </div>
         </div>
         <div>
@@ -47,7 +49,7 @@ export default function TrendingArticle(props: ITrendingArticleProps) {
           <div className='text-xs text-text-2 mt-2 flex items-center gap-2'>
             <div> 10 Jun 2022 </div>
             <div className='md:block hidden'>·</div>
-            <div> 156.9K views</div>
+            <div> 156.9K {t('views')}</div>
           </div>
         </div>
         <div>
@@ -59,7 +61,7 @@ export default function TrendingArticle(props: ITrendingArticleProps) {
           <div className='text-xs text-text-2 mt-2 flex items-center gap-2'>
             <div> 10 Jun 2022 </div>
             <div className='md:block hidden'>·</div>
-            <div> 156.9K views</div>
+            <div> 156.9K {t('views')}</div>
           </div>
         </div>
       </div>
