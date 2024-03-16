@@ -1,7 +1,7 @@
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import * as React from 'react';
 import { FaSearch } from 'react-icons/fa';
 import {
@@ -47,9 +47,7 @@ export default function ComCover(props: IComCoverProps) {
         <div className='flex flex-col justify-center'>
           <div className='flex lg:items-center justify-between max-md:flex-col'>
             <div className='flex-1'>
-              <h3 className='md:text-2xl text-base font-bold text-text-1'>
-                Friends Forever
-              </h3>
+              <h3 className='md:text-2xl text-base font-bold text-text-1'>Friends Forever</h3>
               <p className=' font-normal text-gray-500 mt-2 flex gap-2 flex-wrap dark:text-white/80'>
                 <span className='max-lg:hidden'> {t('Public group')} </span>
                 <span className='max-lg:hidden'> • </span>
@@ -109,14 +107,12 @@ export default function ComCover(props: IComCoverProps) {
                 <div>
                   <button
                     type='button'
-                    className='rounded-lg bg-foreground-2 hover:bg-hover-2 flex px-2.5 py-2'
-                  >
+                    className='rounded-lg bg-foreground-2 hover:bg-hover-2 flex px-2.5 py-2'>
                     <IoEllipsisHorizontal className='text-xl' />
                   </button>
                   <div
                     className='w-[240px]'
-                    data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
-                  >
+                    data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                     <nav>
                       <Link href='#' className='hover:!bg-hover-1'>
                         <IoPricetagOutline className='text-xl' />
@@ -137,10 +133,7 @@ export default function ComCover(props: IComCoverProps) {
                         {t('Report group')}
                       </Link>
                       <hr />
-                      <Link
-                        href='#'
-                        className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
-                      >
+                      <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
                         <IoStopCircleOutline className='text-xl' /> {t('Block')}
                       </Link>
                     </nav>
@@ -154,27 +147,13 @@ export default function ComCover(props: IComCoverProps) {
       <div className='flex items-center justify-between  border-t border-gray-100 px-2 dark:border-slate-700'>
         <nav className='flex gap-0.5 rounded-xl overflow-hidden -mb-px text-gray-500 font-medium text-sm overflow-x-auto dark:text-white'>
           <Tabs id='tabs-community' navClassName='!pt-0'>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
-              Discussion
-            </TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
-              {t('Files')}
-            </TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
-              {t('Photos')}
-            </TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
-              {t('Event')}
-            </TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
-              {t('Video')}
-            </TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
-              {t('Members')}
-            </TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
-              {t('Media')}
-            </TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>Discussion</TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Files')}</TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Photos')}</TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Event')}</TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Video')}</TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Members')}</TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Media')}</TabTitle>
           </Tabs>
         </nav>
         <div className='flex items-center gap-1 text-sm p-3 bg-foreground-2 py-2 mr-2 rounded-xl max-md:hidden'>

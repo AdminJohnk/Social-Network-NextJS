@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { IoIosAddCircle } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
 
@@ -13,9 +13,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
       <div className='sm:my-6 my-3 flex items-center justify-between lg:mt-10'>
         <div>
           <h2 className='h5-semibold'>{t('Suggestions')}</h2>
-          <p className='base-regular text-text-2 leading-6'>
-            Find a communities You Might Be Interested In.
-          </p>
+          <p className='base-regular text-text-2 leading-6'>Find a communities You Might Be Interested In.</p>
         </div>
         <Link href='#' className='text-blue-500 sm:block hidden text-sm'>
           {t('See all')}
@@ -34,10 +32,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
             />
           </div>
           <div className='flex-1'>
-            <Link
-              href='/community/123'
-              className='md:text-lg text-base font-semibold capitalize'
-            >
+            <Link href='/community/123' className='md:text-lg text-base font-semibold capitalize'>
               {t('Delicious Foods')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -65,8 +60,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
           </div>
           <button
             type='button'
-            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
-          >
+            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
             <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
@@ -81,10 +75,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
             />
           </div>
           <div className='flex-1'>
-            <Link
-              href='/community/123'
-              className='md:text-lg text-base font-semibold capitalize'
-            >
+            <Link href='/community/123' className='md:text-lg text-base font-semibold capitalize'>
               {t('Abstract minimal')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -112,8 +103,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
           </div>
           <button
             type='button'
-            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
-          >
+            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
             <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
@@ -128,10 +118,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
             />
           </div>
           <div className='flex-1'>
-            <Link
-              href='/community/123'
-              className='md:text-lg text-base font-semibold capitalize'
-            >
+            <Link href='/community/123' className='md:text-lg text-base font-semibold capitalize'>
               {t('Delicious Foods')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -159,8 +146,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
           </div>
           <button
             type='button'
-            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
-          >
+            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
             <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
@@ -175,10 +161,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
             />
           </div>
           <div className='flex-1'>
-            <Link
-              href='/community/123'
-              className='md:text-lg text-base font-semibold capitalize'
-            >
+            <Link href='/community/123' className='md:text-lg text-base font-semibold capitalize'>
               {t('Graphic Design')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -206,8 +189,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
           </div>
           <button
             type='button'
-            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
-          >
+            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
             <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
@@ -222,10 +204,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
             />
           </div>
           <div className='flex-1'>
-            <Link
-              href='/community/123'
-              className='md:text-lg text-base font-semibold capitalize'
-            >
+            <Link href='/community/123' className='md:text-lg text-base font-semibold capitalize'>
               {t('Abstract minimal')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -253,8 +232,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
           </div>
           <button
             type='button'
-            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
-          >
+            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
             <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
@@ -269,10 +247,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
             />
           </div>
           <div className='flex-1'>
-            <Link
-              href='/community/123'
-              className='md:text-lg text-base font-semibold capitalize'
-            >
+            <Link href='/community/123' className='md:text-lg text-base font-semibold capitalize'>
               {t('Delicious Foods')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
@@ -300,8 +275,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
           </div>
           <button
             type='button'
-            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
-          >
+            className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'>
             <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>

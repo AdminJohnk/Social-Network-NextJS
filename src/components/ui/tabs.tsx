@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
 import { cn } from '@/lib/utils';

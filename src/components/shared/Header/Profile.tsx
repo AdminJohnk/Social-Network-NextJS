@@ -3,7 +3,7 @@
 import { useThemeMode, ThemeMode } from 'flowbite-react';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { useEffect, useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { IoSettingsOutline, IoMoonOutline, IoLogOutOutline } from 'react-icons/io5';

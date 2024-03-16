@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { IoChevronDown } from 'react-icons/io5';
 
 export default function SubNavigate() {

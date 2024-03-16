@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import * as React from 'react';
 
 export interface ITrendingArticleProps {}

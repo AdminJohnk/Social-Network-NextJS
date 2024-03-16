@@ -1,6 +1,6 @@
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import {
   IoArrowRedo,
   IoStarOutline,

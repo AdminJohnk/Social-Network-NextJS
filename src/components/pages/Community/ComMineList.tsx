@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
 export interface IComMineListProps {}
@@ -12,12 +12,7 @@ export default function ComMineList(props: IComMineListProps) {
       <div className='card'>
         <Link href='/community/123'>
           <div className='card-media h-24'>
-            <Image
-              width={500}
-              height={500}
-              src='/images/group/group-cover-2.jpg'
-              alt=''
-            />
+            <Image width={500} height={500} src='/images/group/group-cover-2.jpg' alt='' />
             <div className='card-overlay'></div>
           </div>
         </Link>
@@ -31,16 +26,10 @@ export default function ComMineList(props: IComMineListProps) {
             <div>42k {t('members')} </div>
           </div>
           <div className='flex gap-2'>
-            <button
-              type='button'
-              className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
-            >
+            <button type='button' className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
               {t('Join')}
             </button>
-            <button
-              type='button'
-              className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'
-            >
+            <button type='button' className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'>
               {t('Edit')}
             </button>
           </div>
@@ -49,12 +38,7 @@ export default function ComMineList(props: IComMineListProps) {
       <div className='card'>
         <Link href='/community/123'>
           <div className='card-media h-24'>
-            <Image
-              width={500}
-              height={500}
-              src='/images/group/group-cover-1.jpg'
-              alt=''
-            />
+            <Image width={500} height={500} src='/images/group/group-cover-1.jpg' alt='' />
             <div className='card-overlay'></div>
           </div>
         </Link>
@@ -68,16 +52,10 @@ export default function ComMineList(props: IComMineListProps) {
             <div>42k {t('members')} </div>
           </div>
           <div className='flex gap-2'>
-            <button
-              type='button'
-              className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
-            >
+            <button type='button' className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
               {t('Join')}
             </button>
-            <button
-              type='button'
-              className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'
-            >
+            <button type='button' className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'>
               {t('Edit')}
             </button>
           </div>
@@ -86,12 +64,7 @@ export default function ComMineList(props: IComMineListProps) {
       <div className='card'>
         <Link href='/community/123'>
           <div className='card-media h-24'>
-            <Image
-              width={500}
-              height={500}
-              src='/images/group/group-cover-3.jpg'
-              alt=''
-            />
+            <Image width={500} height={500} src='/images/group/group-cover-3.jpg' alt='' />
             <div className='card-overlay'></div>
           </div>
         </Link>
@@ -105,16 +78,10 @@ export default function ComMineList(props: IComMineListProps) {
             <div>232k {t('members')} </div>
           </div>
           <div className='flex gap-2'>
-            <button
-              type='button'
-              className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
-            >
+            <button type='button' className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
               {t('Join')}
             </button>
-            <button
-              type='button'
-              className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'
-            >
+            <button type='button' className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'>
               {t('Edit')}
             </button>
           </div>
@@ -123,12 +90,7 @@ export default function ComMineList(props: IComMineListProps) {
       <div className='card'>
         <Link href='/community/123'>
           <div className='card-media h-24'>
-            <Image
-              width={500}
-              height={500}
-              src='/images/group/group-cover-4.jpg'
-              alt=''
-            />
+            <Image width={500} height={500} src='/images/group/group-cover-4.jpg' alt='' />
             <div className='card-overlay'></div>
           </div>
         </Link>
@@ -142,16 +104,10 @@ export default function ComMineList(props: IComMineListProps) {
             <div>620k {t('members')} </div>
           </div>
           <div className='flex gap-2'>
-            <button
-              type='button'
-              className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'
-            >
+            <button type='button' className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
               {t('Join')}
             </button>
-            <button
-              type='button'
-              className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'
-            >
+            <button type='button' className='button bg-foreground-2 hover:bg-hover-2 duration-300 flex-1'>
               {t('Edit')}
             </button>
           </div>

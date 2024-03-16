@@ -1,8 +1,8 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import Image from 'next/image';
 
-export interface IConversationListProps { }
+export interface IConversationListProps {}
 
 function ConversationList(props: IConversationListProps) {
   return (
@@ -94,7 +94,6 @@ function ConversationList(props: IConversationListProps) {
             <div className='text-xs font-light text-gray-500 dark:text-white/70'>09:40AM</div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-
             Want to buy landscape photo? 🌄
           </div>
         </div>

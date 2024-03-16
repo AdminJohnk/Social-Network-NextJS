@@ -17,6 +17,7 @@ export interface ICommunityProps {
 
 export default function Community({ params: { locale } }: ICommunityProps) {
   unstable_setRequestLocale(locale);
+  
   return (
     <main className='ms-60 max-lg:ms-0 mt-16'>
       <div className='max-w-[1065px] mx-auto'>

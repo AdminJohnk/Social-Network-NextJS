@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { IoClose, IoSearch, IoSearchOutline, IoTrash } from 'react-icons/io5';
 
 export default function SearchHeader() {

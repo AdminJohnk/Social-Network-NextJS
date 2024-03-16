@@ -1,10 +1,16 @@
 import RegisterForm from '@/components/Form/RegisterForm';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
-import React from 'react';
 
-export interface IRegisterProps {}
+export interface IRegisterProps {
+  params: {
+    locale: string;
+  };
+}
 
-export default function Register(props: IRegisterProps) {
+export default function Register({ params: { locale } }: IRegisterProps) {
+  unstable_setRequestLocale(locale);
+
   return (
     <div className='w-full h-dvh relative'>
       <div className='w-full h-full'>

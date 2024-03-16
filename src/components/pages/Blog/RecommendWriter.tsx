@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import * as React from 'react';
 import { IoChevronForward, IoPersonAddOutline } from 'react-icons/io5';
 
@@ -11,13 +11,8 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
   return (
     <div className='bg-foreground-1 p-6 rounded-md mt-8 shadow'>
       <div className='flex items-center justify-between'>
-        <h3 className='text-lg font-semibold'>
-          {t('Recommended Writers for you')}
-        </h3>
-        <Link
-          href='#'
-          className='text-sm text-blue-500 flex items-center gap-2'
-        >
+        <h3 className='text-lg font-semibold'>{t('Recommended Writers for you')}</h3>
+        <Link href='#' className='text-sm text-blue-500 flex items-center gap-2'>
           {t('See all')} <IoChevronForward />
         </Link>
       </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import Image from 'next/image';
 import {
   IoCheckmarkCircleOutline,
@@ -40,14 +40,11 @@ const Message = ({ params: { locale } }: IMessageProps) => {
               <div className='md:w-[360px] relative border-r dark:border-slate-700'>
                 <div
                   id='side-chat'
-                  className='top-0 left-0 max-md:fixed max-md:w-5/6 max-md:h-screen bg-white z-50 max-md:shadow max-md:-translate-x-full dark:bg-background-2'
-                >
+                  className='top-0 left-0 max-md:fixed max-md:w-5/6 max-md:h-screen bg-white z-50 max-md:shadow max-md:-translate-x-full dark:bg-background-2'>
                   {/* <!-- heading title --> */}
                   <div className='p-4 border-b dark:border-slate-700'>
                     <div className='flex mt-2 items-center justify-between'>
-                      <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'>
-                        {t('title')}
-                      </h2>
+                      <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'>{t('title')}</h2>
 
                       {/* <!-- right action buttons --> */}
                       <div className='flex items-center gap-2.5'>
@@ -56,8 +53,7 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                         </button>
                         <div
                           className='md:w-[270px] w-full hidden'
-                          data-uk-dropdown='pos: bottom-left; offset:10; animation: uk-animation-slide-bottom-small'
-                        >
+                          data-uk-dropdown='pos: bottom-left; offset:10; animation: uk-animation-slide-bottom-small'>
                           <nav>
                             <Link href='#' className='hover:!bg-foreground-2'>
                               <IoCheckmarkOutline className='text-2xl shrink-0 -ml-1' />
@@ -82,8 +78,7 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                         <button
                           type='button'
                           className='md:hidden'
-                          data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'
-                        >
+                          data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'>
                           <IoChevronDownOutline />
                         </button>
                       </div>
@@ -110,8 +105,7 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                 <div
                   id='side-chat'
                   className='bg-slate-100/40 backdrop-blur w-full h-full dark:bg-slate-800/40 z-40 fixed inset-0 max-md:-translate-x-full md:hidden'
-                  data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'
-                ></div>
+                  data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'></div>
               </div>
 
               {/* <!-- message center --> */}
@@ -133,15 +127,12 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                       <div className='md:text-xl text-base font-medium text-black dark:text-white'>
                         Monroe Parker
                       </div>
-                      <div className='text-gray-500 text-sm   dark:text-white/80'>
-                        @Monroepark
-                      </div>
+                      <div className='text-gray-500 text-sm   dark:text-white/80'>@Monroepark</div>
                     </div>
                     <div className='mt-3.5'>
                       <Link
                         href='/profile/me'
-                        className='inline-block rounded-lg px-4 py-1.5 text-sm font-semibold bg-foreground-2'
-                      >
+                        className='inline-block rounded-lg px-4 py-1.5 text-sm font-semibold bg-foreground-2'>
                         View profile
                       </Link>
                     </div>
@@ -157,9 +148,7 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                         alt=''
                         className='w-9 h-9 rounded-full shadow'
                       />
-                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
-                        Hi, I’m John
-                      </div>
+                      <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>Hi, I’m John</div>
                     </div>
 
                     {/* <!-- sent --> */}
@@ -193,8 +182,8 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                         className='w-9 h-9 rounded-full shadow'
                       />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
-                        I’m selling a photo of a sunset. It’s a print on canvas,
-                        signed by the photographer. Do you like it? 😊
+                        I’m selling a photo of a sunset. It’s a print on canvas, signed by the photographer.
+                        Do you like it? 😊
                       </div>
                     </div>
 
@@ -222,16 +211,10 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                         className='w-4 h-4 rounded-full shadow'
                       />
 
-                      <Link
-                        className='block rounded-[18px] border overflow-hidden'
-                        href='#'
-                      >
+                      <Link className='block rounded-[18px] border overflow-hidden' href='#'>
                         <div className='max-w-md'>
                           <div className='max-w-full relative w-72'>
-                            <div
-                              className='relative'
-                              style={{ paddingBottom: '57.4286%' }}
-                            >
+                            <div className='relative' style={{ paddingBottom: '57.4286%' }}>
                               <div className='w-full h-full absolute inset-0'>
                                 <Image
                                   width={500}
@@ -292,8 +275,8 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                         className='w-9 h-9 rounded-full shadow'
                       />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
-                        Well, I can’t go too low because I paid a lot. But I’m
-                        willing to negotiate. What’s your offer? 🤔
+                        Well, I can’t go too low because I paid a lot. But I’m willing to negotiate. What’s
+                        your offer? 🤔
                       </div>
                     </div>
 
@@ -356,8 +339,7 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                         className='w-9 h-9 rounded-full shadow'
                       />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>
-                        Fine, fine. You’re hard to please. I’ll take $160, but
-                        only because I like you. 😍
+                        Fine, fine. You’re hard to please. I’ll take $160, but only because I like you. 😍
                       </div>
                     </div>
 
@@ -371,8 +353,7 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                         className='w-5 h-5 rounded-full shadow'
                       />
                       <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
-                        Great, thank you. I appreciate it. I love this photo and
-                        can’t wait to hang it. 😩
+                        Great, thank you. I appreciate it. I love this photo and can’t wait to hang it. 😩
                       </div>
                     </div>
                   </div>
