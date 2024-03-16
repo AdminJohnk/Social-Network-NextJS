@@ -7,7 +7,7 @@ export default stackMiddlewares([withAuthentication, withIntl]);
 
 export const config = {
   matcher: [
-    '/:path*',
+    '/',
     '/(en|vi)/:path*',
     '/login',
     '/register',

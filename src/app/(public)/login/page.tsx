@@ -2,7 +2,14 @@ import LoginForm from '@/components/Form/LoginForm';
 import Image from 'next/image';
 import { Suspense } from 'react';
 
-export default function Login() {
+interface ILoginProps {
+  params: {};
+  searchParams: {
+    callbackUrl: string;
+  };
+}
+
+export default function Login({ searchParams: { callbackUrl } }: ILoginProps) {
   return (
     <div className='w-full h-dvh relative'>
       <div className='w-full h-full'>
@@ -17,9 +24,10 @@ export default function Login() {
       </div>
       <div className='w-full h-full absolute top-0 left-0 bg-gradient-to-r opacity-80 from-slate-200 via-slate-400 dark:from-[black] dark:via-[#131313]' />
       <div className='w-full h-full absolute top-0 left-0 flex-start'>
-        <Suspense fallback={<></>}>
-          <LoginForm className='w-[420px] px-[10%] box-content mt-4' />
-        </Suspense>
+        <LoginForm
+          className='w-[420px] px-[10%] box-content mt-4'
+          callbackUrl={callbackUrl}
+        />
       </div>
     </div>
   );

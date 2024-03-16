@@ -1,9 +1,5 @@
 {
-  "env": {
-    "node": true,
-    "es2021": true
-  },
-  "plugins": ["next", "@typescript-eslint"],
+  "plugins": ["next"],
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "rules": {
