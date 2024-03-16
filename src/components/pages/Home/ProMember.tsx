@@ -3,6 +3,8 @@
 import Slider from 'react-slick';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
+
 import SuggestMemberItem from './SuggestMemberItem';
 
 function SampleNextArrow(props: any) {
@@ -83,10 +85,12 @@ const MemberList = [
 export interface IProMemberProps {}
 
 export default function ProMember(props: IProMemberProps) {
+  const t = useTranslations();
+
   return (
     <div className='online-friend px-5 py-4 bg-foreground-1 rounded-lg'>
       <div className='flex-between'>
-        <span className='h5-bold'>Pro Members</span>
+        <span className='h5-bold'>{t('Pro Members')}</span>
       </div>
       <div className='mt-6'>
         <Slider {...settings} className='relative'>

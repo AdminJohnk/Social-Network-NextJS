@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 import { Sidebar } from '@/lib/navigator/Sidebar';
 import { cn } from '@/lib/utils';
 
 export default function MainNavigate() {
+  const t = useTranslations();
+
   return (
     <nav id='side'>
       <ul>

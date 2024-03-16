@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import {
   IoCheckmarkCircle,
   IoChevronDownOutline,
@@ -11,11 +13,13 @@ import {
 export interface ICreateStoryProps {}
 
 export default function CreateStatus(props: ICreateStoryProps) {
+  const t = useTranslations();
+
   return (
     <div className='hidden lg:p-20' id='create-status' data-uk-modal>
       <div className='uk-modal-dialog tt relative overflow-hidden mx-auto bg-background-1 shadow-xl rounded-lg md:w-[520px] w-full'>
         <div className='text-center py-4 border-b mb-0 border-border-1'>
-          <h2 className='text-sm font-medium text-text-1'> Create Status </h2>
+          <h2 className='text-sm font-medium text-text-1'> {t('Create Status')} </h2>
 
           {/* <!-- close button --> */}
           <button type='button' className='button-icon absolute top-0 right-0 m-2.5 uk-modal-close'>
@@ -35,7 +39,7 @@ export default function CreateStatus(props: ICreateStoryProps) {
           <textarea
             className='w-full resize-none !text-text-1 placeholder:!text-text-2 !bg-background-1 !border-transparent focus:!border-transparent focus:!ring-transparent !font-normal !text-xl'
             rows={6}
-            placeholder='What do you have in mind?'
+            placeholder={t('What do you have in mind?')}
           />
         </div>
 
@@ -44,25 +48,25 @@ export default function CreateStatus(props: ICreateStoryProps) {
             type='button'
             className='flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:border-sky-900'>
             <IoImage className='text-base' />
-            Image
+            {t('Image')}
           </button>
           <button
             type='button'
             className='flex items-center gap-1.5 bg-teal-50 text-teal-600 rounded-full py-1 px-2 border-2 border-teal-100 dark:bg-teal-950 dark:border-teal-900'>
             <IoVideocam className='text-base' />
-            Video
+            {t('Video')}
           </button>
           <button
             type='button'
             className='flex items-center gap-1.5 bg-orange-50 text-orange-600 rounded-full py-1 px-2 border-2 border-orange-100 dark:bg-yellow-950 dark:border-yellow-900'>
             <IoHappy className='text-base' />
-            Feeling
+            {t('Feeling')}
           </button>
           <button
             type='button'
             className='flex items-center gap-1.5 bg-red-50 text-red-600 rounded-full py-1 px-2 border-2 border-rose-100 dark:bg-rose-950 dark:border-rose-900'>
             <IoLocation className='text-base' />
-            Check in
+            {t('Check in')}
           </button>
           <button
             type='button'
@@ -76,7 +80,7 @@ export default function CreateStatus(props: ICreateStoryProps) {
             <button
               className='inline-flex items-center py-1 px-2.5 gap-1 font-medium text-sm rounded-full bg-foreground-1 border-2 border-border-1 group aria-expanded:bg-foreground-2'
               type='button'>
-              Everyone
+              {t('Everyone')}
               <IoChevronDownOutline className='text-base duration-500 group-aria-expanded:rotate-180' />
             </button>
 
@@ -93,7 +97,7 @@ export default function CreateStatus(props: ICreateStoryProps) {
                     defaultChecked
                   />
                   <div className='relative flex items-center justify-between cursor-pointer rounded-md p-2 px-3 hover:bg-hover-1 peer-checked:[&_.active]:block'>
-                    <div className='text-sm'> Everyone </div>
+                    <div className='text-sm'> {t('Everyone')} </div>
                     <IoCheckmarkCircle className='hidden active absolute -translate-y-1/2 right-2 text-2xl text-blue-600 uk-animation-scale-up' />
                   </div>
                 </label>
@@ -105,7 +109,7 @@ export default function CreateStatus(props: ICreateStoryProps) {
                     className='peer appearance-none hidden'
                   />
                   <div className='relative flex items-center justify-between cursor-pointer rounded-md p-2 px-3 hover:bg-hover-1 peer-checked:[&_.active]:block'>
-                    <div className='text-sm'> Friends </div>
+                    <div className='text-sm'> {t('Friends')} </div>
                     <IoCheckmarkCircle className='hidden active absolute -translate-y-1/2 right-2 text-2xl text-blue-600 uk-animation-scale-up' />
                   </div>
                 </label>
@@ -117,7 +121,7 @@ export default function CreateStatus(props: ICreateStoryProps) {
                     className='peer appearance-none hidden'
                   />
                   <div className='relative flex items-center justify-between cursor-pointer rounded-md p-2 px-3 hover:bg-hover-1 peer-checked:[&_.active]:block'>
-                    <div className='text-sm'> Only me </div>
+                    <div className='text-sm'> {t('Only me')} </div>
                     <IoCheckmarkCircle className='hidden active absolute -translate-y-1/2 right-2 text-2xl text-blue-600 uk-animation-scale-up' />
                   </div>
                 </label>
@@ -128,7 +132,7 @@ export default function CreateStatus(props: ICreateStoryProps) {
             <button
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white py-2 px-12 text-[14px]'>
-              Create
+              {t('Create')}
             </button>
           </div>
         </div>
