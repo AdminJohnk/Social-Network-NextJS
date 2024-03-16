@@ -6,7 +6,7 @@ import Post from '@/components/shared/Post/Post';
 import PostSkeleton from '@/components/shared/Post/PostSkeleton';
 import ProMember from '@/components/pages/Home/ProMember';
 import Story from '@/components/pages/Home/Story';
-import SuggestFollow from '@/components/shared/SuggestFollow/SuggestFollow';
+import SuggestFollow from '@/components/pages/Home/SuggestFollow';
 import TrendForYou from '@/components/pages/Home/TrendForYou';
 import CreateStatus from '@/components/pages/Home/CreateStatus';
 import CreateStory from '@/components/pages/Home/CreateStory';

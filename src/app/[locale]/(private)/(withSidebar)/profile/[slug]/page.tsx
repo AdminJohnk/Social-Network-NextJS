@@ -325,7 +325,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                         />
                       </svg>
                       <div>
-                        {t('Studied at')}{' '}
+                        {t('Studied at')}
                         <span className='font-semibold text-text-1'>University of Turkey</span>
                       </div>
                     </li>
@@ -381,8 +381,8 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                         />
                       </svg>
                       <div>
-                        {t('Followed By', { count: 3020 })}{' '}
-                        <span className='font-semibold text-text-1'> People</span>
+                        {t('Followed By', { count: 3020 })}
+                        <span className='font-semibold text-text-1'>{t('people')}</span>
                       </div>
                     </li>
                   </ul>
@@ -557,8 +557,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                           <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {' '}
-                          {t('Updated xx day ago', { count: 6 })}{' '}
+                          {t('Updated xx day ago', { count: 6 })}
                         </div>
                       </div>
                       <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
@@ -580,8 +579,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {' '}
-                          {t('Updated xx month ago', { count: 2 })}{' '}
+                          {t('Updated xx month ago', { count: 2 })}
                         </div>
                       </div>
                       <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
@@ -603,8 +601,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {' '}
-                          {t('Updated xx week ago', { count: 1 })}{' '}
+                          {t('Updated xx week ago', { count: 1 })}
                         </div>
                       </div>
                       <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
@@ -626,8 +623,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Jesse Steeve</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {' '}
-                          {t('Updated xx day ago', { count: 2 })}{' '}
+                          {t('Updated xx day ago', { count: 2 })}
                         </div>
                       </div>
                       <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>
@@ -666,8 +662,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                           <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {' '}
-                          {t('Updated xx week ago', { count: 7 })}{' '}
+                          {t('Updated xx week ago', { count: 7 })}
                         </div>
                       </div>
                       <button className='button bg-blue-1 hover:bg-blue-2 text-white'>{t('Like')}</button>
@@ -687,8 +682,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {' '}
-                          {t('Updated xx week ago', { count: 4 })}{' '}
+                          {t('Updated xx week ago', { count: 4 })}
                         </div>
                       </div>
                       <button className='button bg-blue-1 hover:bg-blue-2 text-white'>{t('Like')}</button>
@@ -708,8 +702,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                           <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
                         </Link>
                         <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {' '}
-                          {t('Updated xx month ago', { count: 2 })}{' '}
+                          {t('Updated xx month ago', { count: 2 })}
                         </div>
                       </div>
                       <button className='button bg-blue-1 hover:bg-blue-2 text-white'>{t('Like')}</button>

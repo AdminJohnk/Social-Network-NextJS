@@ -9,19 +9,19 @@ export default function TrendForYou(props: ITrendForYouProps) {
 
   const TrendList = [
     {
-      name: t('Artificial Intelligence'),
-      post_number: '1.245.62'
+      name: 'Artificial Intelligence',
+      post_number: '124562'
     },
     {
-      name: t('Web developers'),
-      post_number: '1.624'
+      name: 'Web developers',
+      post_number: '1624'
     },
     {
-      name: t('Ui Designers'),
+      name: 'Ui Designers',
       post_number: '820'
     },
     {
-      name: t('Affiliate Marketing '),
+      name: 'Affiliate Marketing',
       post_number: '480'
     }
   ];
