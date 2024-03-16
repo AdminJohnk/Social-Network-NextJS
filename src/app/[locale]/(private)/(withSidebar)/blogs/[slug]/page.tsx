@@ -2,10 +2,16 @@ import BlogComment from '@/components/pages/Blog/Slug/BlogComment';
 import BlogContent from '@/components/pages/Blog/Slug/BlogContent';
 import TrendingArticle from '@/components/pages/Blog/TrendingArticle';
 import SuggestFollow from '@/components/shared/SuggestFollow/SuggestFollow';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
-export interface IBlogDetailProps {}
+export interface IBlogDetailProps {
+  params: {
+    locale: string;
+  };
+}
 
-export default function BlogDetail(props: IBlogDetailProps) {
+export default function BlogDetail({params: { locale }}: IBlogDetailProps) {
+  unstable_setRequestLocale(locale);
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-20 z-[1]'>
       <div className='groups px-10 py-5'>

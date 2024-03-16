@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +6,7 @@ import { useTranslations } from 'next-intl';
 export interface IComSuggestionListProps {}
 
 export default function ComSuggestionList(props: IComSuggestionListProps) {
-  const t = useTranslations('Index');
+  const t = useTranslations();
   return (
     <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2.5'>
       <div className='card'>
@@ -35,22 +33,22 @@ export default function ComSuggestionList(props: IComSuggestionListProps) {
             <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> Travel </Link>
+            <Link href='#'> {t('Travel')} </Link>
             <div className='md:block hidden'>·</div>
-            <div> 232k members </div>
+            <div>232k {t(' members')} </div>
           </div>
           <div className='flex gap-2'>
             <button
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <Link
               href='/community-manager'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'
             >
-              View
+              {t('View')}
             </Link>
           </div>
         </div>
@@ -76,25 +74,25 @@ export default function ComSuggestionList(props: IComSuggestionListProps) {
             className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
           />
           <Link href='/community/123'>
-            <h4 className='card-title'> Abstract minimal </h4>
+            <h4 className='card-title'> {t('Abstract minimal')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> Technology </Link>
+            <Link href='#'> {t('Technology')} </Link>
             <div className='md:block hidden'>·</div>
-            <div> 328k members </div>
+            <div> 328k {t(' members')} </div>
           </div>
           <div className='flex gap-2'>
             <button
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <Link
               href='/community/123'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'
             >
-              View
+              {t('View')}
             </Link>
           </div>
         </div>
@@ -120,25 +118,25 @@ export default function ComSuggestionList(props: IComSuggestionListProps) {
             className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
           />
           <Link href='/community/123'>
-            <h4 className='card-title'> Delicious Foods </h4>
+            <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> Business </Link>
+            <Link href='#'> {t('Business')} </Link>
             <div className='md:block hidden'>·</div>
-            <div> 436k members </div>
+            <div> 436k {t(' members')} </div>
           </div>
           <div className='flex gap-2'>
             <button
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <Link
               href='/community/123'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'
             >
-              View
+              {t('View')}
             </Link>
           </div>
         </div>
@@ -164,25 +162,25 @@ export default function ComSuggestionList(props: IComSuggestionListProps) {
             className='w-10 rounded-full mb-2 shadow -mt-8 relative border-border-1'
           />
           <Link href='/community/123'>
-            <h4 className='card-title'> Graphic Design </h4>
+            <h4 className='card-title'> {t('Graphic Design')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> Design </Link>
+            <Link href='#'> {t('Design')} </Link>
             <div className='md:block hidden'>·</div>
-            <div> 420k members </div>
+            <div> {t('420k members')} </div>
           </div>
           <div className='flex gap-2'>
             <button
               type='button'
               className='button bg-blue-1 hover:bg-blue-2 text-white duration-300 flex-1'
             >
-              Join
+              {t('Join')}
             </button>
             <Link
               href='/community/123'
               className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'
             >
-              View
+              {t('View')}
             </Link>
           </div>
         </div>

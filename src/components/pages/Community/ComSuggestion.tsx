@@ -2,21 +2,23 @@ import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IoIosAddCircle } from 'react-icons/io';
+import { useTranslations } from 'next-intl';
 
 export interface IComSuggestionProps {}
 
 export default function ComSuggestion(props: IComSuggestionProps) {
+  const t = useTranslations();
   return (
     <div>
       <div className='sm:my-6 my-3 flex items-center justify-between lg:mt-10'>
         <div>
-          <h2 className='h5-semibold'>Suggestions</h2>
+          <h2 className='h5-semibold'>{t('Suggestions')}</h2>
           <p className='base-regular text-text-2 leading-6'>
             Find a communities You Might Be Interested In.
           </p>
         </div>
         <Link href='#' className='text-blue-500 sm:block hidden text-sm'>
-          See all
+          {t('See all')}
         </Link>
       </div>
 
@@ -36,12 +38,12 @@ export default function ComSuggestion(props: IComSuggestionProps) {
               href='/community/123'
               className='md:text-lg text-base font-semibold capitalize'
             >
-              Delicious Foods
+              {t('Delicious Foods')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
-              <div> 16K Members</div>
+              <div> 16K {t('Members')}</div>
               <div>·</div>
-              <div> 12 posts a week</div>
+              <div> 12 {t('posts a week')}</div>
             </div>
             <div className='flex items-center mt-2'>
               <Image
@@ -58,14 +60,14 @@ export default function ComSuggestion(props: IComSuggestionProps) {
                 className='w-6 rounded-full border-border-1'
                 alt=''
               />
-              <div className='text-sm ml-2'>14 friends are members</div>
+              <div className='text-sm ml-2'>14 {t('friends are members')}</div>
             </div>
           </div>
           <button
             type='button'
             className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
           >
-            <IoIosAddCircle className='size-5' /> <span>Join</span>
+            <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
         <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -83,12 +85,12 @@ export default function ComSuggestion(props: IComSuggestionProps) {
               href='/community/123'
               className='md:text-lg text-base font-semibold capitalize'
             >
-              Abstract minimal
+              {t('Abstract minimal')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
-              <div> 18K Members</div>
+              <div> 18K {t('Members')}</div>
               <div>·</div>
-              <div> 16 posts a week</div>
+              <div> 16 {t('posts a week')}</div>
             </div>
             <div className='flex items-center mt-2'>
               <Image
@@ -105,14 +107,14 @@ export default function ComSuggestion(props: IComSuggestionProps) {
                 className='w-6 rounded-full border-border-1'
                 alt=''
               />
-              <div className='text-sm ml-2'>24 friends are members</div>
+              <div className='text-sm ml-2'>24 {t('friends are members')}</div>
             </div>
           </div>
           <button
             type='button'
             className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
           >
-            <IoIosAddCircle className='size-5' /> <span>Join</span>
+            <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
         <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -130,12 +132,12 @@ export default function ComSuggestion(props: IComSuggestionProps) {
               href='/community/123'
               className='md:text-lg text-base font-semibold capitalize'
             >
-              Delicious Foods
+              {t('Delicious Foods')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
-              <div> 19K Members</div>
+              <div> 19K {t('Members')}</div>
               <div>·</div>
-              <div> 21 posts a week</div>
+              <div> 21 {t('posts a week')}</div>
             </div>
             <div className='flex items-center mt-2'>
               <Image
@@ -152,14 +154,14 @@ export default function ComSuggestion(props: IComSuggestionProps) {
                 className='w-6 rounded-full border-border-1'
                 alt=''
               />
-              <div className='text-sm ml-2'>16 friends are members</div>
+              <div className='text-sm ml-2'>16 {t('friends are members')}</div>
             </div>
           </div>
           <button
             type='button'
             className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
           >
-            <IoIosAddCircle className='size-5' /> <span>Join</span>
+            <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
         <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -177,12 +179,12 @@ export default function ComSuggestion(props: IComSuggestionProps) {
               href='/community/123'
               className='md:text-lg text-base font-semibold capitalize'
             >
-              Graphic Design
+              {t('Graphic Design')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
-              <div> 24K Members</div>
+              <div> 24K {t('Members')}</div>
               <div>·</div>
-              <div> 12 posts a week</div>
+              <div> 12 {t('posts a week')}</div>
             </div>
             <div className='flex items-center mt-2'>
               <Image
@@ -199,14 +201,14 @@ export default function ComSuggestion(props: IComSuggestionProps) {
                 className='w-6 rounded-full border-border-1'
                 alt=''
               />
-              <div className='text-sm ml-2'>14 friends are members</div>
+              <div className='text-sm ml-2'>14 {t('friends are members')}</div>
             </div>
           </div>
           <button
             type='button'
             className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
           >
-            <IoIosAddCircle className='size-5' /> <span>Join</span>
+            <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
         <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -224,12 +226,12 @@ export default function ComSuggestion(props: IComSuggestionProps) {
               href='/community/123'
               className='md:text-lg text-base font-semibold capitalize'
             >
-              Abstract minimal
+              {t('Abstract minimal')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
-              <div> 18K Members</div>
+              <div> 18K {t('Members')}</div>
               <div>·</div>
-              <div> 16 posts a week</div>
+              <div> 16 {t('posts a week')}</div>
             </div>
             <div className='flex items-center mt-2'>
               <Image
@@ -246,14 +248,14 @@ export default function ComSuggestion(props: IComSuggestionProps) {
                 className='w-6 rounded-full border-border-1'
                 alt=''
               />
-              <div className='text-sm ml-2'>24 friends are members</div>
+              <div className='text-sm ml-2'>24 {t('friends are members')}</div>
             </div>
           </div>
           <button
             type='button'
             className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
           >
-            <IoIosAddCircle className='size-5' /> <span>Join</span>
+            <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
         <div className='flex md:items-center space-x-4 p-4 rounded-md box'>
@@ -271,12 +273,12 @@ export default function ComSuggestion(props: IComSuggestionProps) {
               href='/community/123'
               className='md:text-lg text-base font-semibold capitalize'
             >
-              Delicious Foods
+              {t('Delicious Foods')}
             </Link>
             <div className='flex space-x-2 items-center text-sm font-normal'>
-              <div> 16K Members</div>
+              <div> 16K {t('Members')}</div>
               <div>·</div>
-              <div> 12 posts a week</div>
+              <div> 12 {t('posts a week')}</div>
             </div>
             <div className='flex items-center mt-2'>
               <Image
@@ -293,14 +295,14 @@ export default function ComSuggestion(props: IComSuggestionProps) {
                 className='w-6 rounded-full border-border-1'
                 alt=''
               />
-              <div className='text-sm ml-2'>14 friends are members</div>
+              <div className='text-sm ml-2'>14 {t('friends are members')}</div>
             </div>
           </div>
           <button
             type='button'
             className='button flex-start bg-foreground-2 hover:bg-hover-2 duration-300 gap-1 max-md:hidden'
           >
-            <IoIosAddCircle className='size-5' /> <span>Join</span>
+            <IoIosAddCircle className='size-5' /> <span>{t('Join')}</span>
           </button>
         </div>
       </div>

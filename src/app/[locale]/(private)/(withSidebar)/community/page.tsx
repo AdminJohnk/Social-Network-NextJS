@@ -5,9 +5,10 @@ import ComMineList from '@/components/pages/Community/ComMineList';
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import ComSuggestion from '@/components/pages/Community/ComSuggestion';
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
 const LoadMoreButton = () => {
-  const t = useTranslations('Index');
+  const t = useTranslations();
   return (
     <div className='flex justify-center my-6'>
       <button
@@ -20,10 +21,15 @@ const LoadMoreButton = () => {
   );
 };
 
-export interface ICommunityProps {}
+export interface ICommunityProps {
+  params: {
+    locale: string;
+  };
+}
 
-export default function Community(props: ICommunityProps) {
-  const t = useTranslations('Index');
+export default function Community({ params: { locale } }: ICommunityProps) {
+  unstable_setRequestLocale(locale);
+  const t = useTranslations();
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
       <div className='communities px-40 py-5'>

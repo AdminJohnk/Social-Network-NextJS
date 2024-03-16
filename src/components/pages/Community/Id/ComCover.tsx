@@ -1,4 +1,5 @@
 import { TabTitle, Tabs } from '@/components/ui/tabs';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
@@ -17,6 +18,7 @@ import {
 export interface IComCoverProps {}
 
 export default function ComCover(props: IComCoverProps) {
+  const t = useTranslations();
   return (
     <div className='bg-foreground-1 shadow lg:rounded-b-2xl lg:-mt-10 '>
       <div className='relative overflow-hidden w-full lg:h-72 h-36'>
@@ -33,10 +35,10 @@ export default function ComCover(props: IComCoverProps) {
         <div className='absolute bottom-0 right-0 m-4 z-20'>
           <div className='flex items-center gap-3'>
             <button className='button bg-white/20 text-white flex items-center gap-2 backdrop-blur-sm'>
-              Crop
+              {t('Crop')}
             </button>
             <button className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
-              Edit
+              {t('Edit')}
             </button>
           </div>
         </div>
@@ -49,14 +51,15 @@ export default function ComCover(props: IComCoverProps) {
                 Friends Forever
               </h3>
               <p className=' font-normal text-gray-500 mt-2 flex gap-2 flex-wrap dark:text-white/80'>
-                <span className='max-lg:hidden'> Public group </span>
+                <span className='max-lg:hidden'> {t('Public group')} </span>
                 <span className='max-lg:hidden'> • </span>
                 <span>
-                  <b className='font-medium text-text-1'>1.2K</b> likes
+                  <b className='font-medium text-text-1'>1.2K</b> {t('likes')}
                 </span>
                 <span className='max-lg:hidden'> • </span>
                 <span>
-                  <b className='font-medium text-text-1'>1.4K</b> followers
+                  <b className='font-medium text-text-1'>1.4K</b>
+                  {t('followers')}
                 </span>
               </p>
             </div>
@@ -101,7 +104,7 @@ export default function ComCover(props: IComCoverProps) {
                 </div>
                 <button className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
                   <IoAddOutline className='text-xl' />
-                  <span className='text-sm'> Join </span>
+                  <span className='text-sm'> {t('Join')} </span>
                 </button>
                 <div>
                   <button
@@ -116,27 +119,29 @@ export default function ComCover(props: IComCoverProps) {
                   >
                     <nav>
                       <Link href='#' className='hover:!bg-hover-1'>
-                        <IoPricetagOutline className='text-xl' /> Unfollow
+                        <IoPricetagOutline className='text-xl' />
+                        {t('Unfollow')}
                       </Link>
                       <Link href='#' className='hover:!bg-hover-1'>
-                        <IoShareOutline className='text-xl' /> Share
+                        <IoShareOutline className='text-xl' /> {t('Share')}
                       </Link>
                       <Link href='#' className='hover:!bg-hover-1'>
-                        <IoLinkOutline className='text-xl' /> Copy link
+                        <IoLinkOutline className='text-xl' /> {t('Copy link')}
                       </Link>
                       <Link href='#' className='hover:!bg-hover-1'>
                         <IoChatbubbleEllipsesOutline className='text-xl' />
-                        Sort comments
+                        {t('Sort comments')}
                       </Link>
                       <Link href='#' className='hover:!bg-hover-1'>
-                        <IoFlagOutline className='text-xl' /> Report group
+                        <IoFlagOutline className='text-xl' />
+                        {t('Report group')}
                       </Link>
                       <hr />
                       <Link
                         href='#'
                         className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
                       >
-                        <IoStopCircleOutline className='text-xl' /> Block
+                        <IoStopCircleOutline className='text-xl' /> {t('Block')}
                       </Link>
                     </nav>
                   </div>
@@ -152,14 +157,24 @@ export default function ComCover(props: IComCoverProps) {
             <TabTitle className='hover:!bg-hover-1 rounded-sm'>
               Discussion
             </TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>Files</TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>Photos</TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>Event</TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>Video</TabTitle>
             <TabTitle className='hover:!bg-hover-1 rounded-sm'>
-              Members
+              {t('Files')}
             </TabTitle>
-            <TabTitle className='hover:!bg-hover-1 rounded-sm'>Media</TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
+              {t('Photos')}
+            </TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
+              {t('Event')}
+            </TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
+              {t('Video')}
+            </TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
+              {t('Members')}
+            </TabTitle>
+            <TabTitle className='hover:!bg-hover-1 rounded-sm'>
+              {t('Media')}
+            </TabTitle>
           </Tabs>
         </nav>
         <div className='flex items-center gap-1 text-sm p-3 bg-foreground-2 py-2 mr-2 rounded-xl max-md:hidden'>
