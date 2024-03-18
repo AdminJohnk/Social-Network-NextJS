@@ -1,4 +1,3 @@
-import { TabTitle, Tabs } from '@/components/ui/tabs';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import {
@@ -17,6 +16,8 @@ import {
 } from 'react-icons/io5';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+
+import { TabTitle, Tabs } from '@/components/ui/tabs';
 
 export interface IGroupManagerProps {
   params: {

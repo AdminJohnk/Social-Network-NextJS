@@ -1,8 +1,11 @@
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoClose, IoSearch, IoSearchOutline, IoTrash } from 'react-icons/io5';
+import { useTranslations } from 'next-intl';
 
 export default function SearchHeader() {
+  const t = useTranslations();
+
   return (
     <>
       <div
@@ -11,7 +14,7 @@ export default function SearchHeader() {
         <IoSearch className='absolute left-4 top-1/2 -translate-y-1/2' />
         <input
           type='text'
-          placeholder='Search Friends, videos ..'
+          placeholder={`${t('Search Friends, videos')} ..`}
           className='w-full !pl-10 !font-normal !bg-transparent h-12 !text-sm border-none'
         />
       </div>
@@ -20,9 +23,9 @@ export default function SearchHeader() {
         data-uk-drop='pos: bottom-center ; animation: uk-animation-slide-bottom-small; mode:click'>
         <div className='xl:w-[694px] sm:w-96 lg:w-[574px] bg-hover-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
           <div className='flex justify-between px-2 py-2.5 text-sm font-medium'>
-            <div className='text-black dark:text-white'>Recent</div>
+            <div className='text-black dark:text-white'>{t('Recent')}</div>
             <button type='button' className='text-blue-500'>
-              Clear
+              {t('Clear')}
             </button>
           </div>
           <nav className='text-sm font-medium'>
@@ -38,7 +41,7 @@ export default function SearchHeader() {
               />
               <div>
                 <div>Jesse Steeve</div>
-                <div className='text-xs text-blue-500 font-medium mt-0.5'>Friend</div>
+                <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
               </div>
               <IoClose className='text-base absolute right-3 top-1/2 -translate-y-1/2' />
             </Link>
@@ -54,7 +57,7 @@ export default function SearchHeader() {
               />
               <div>
                 <div>Martin Gray</div>
-                <div className='text-xs text-blue-500 font-medium mt-0.5'>Friend</div>
+                <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
               </div>
               <IoClose className='text-base absolute right-3 top-1/2 -translate-y-1/2' />
             </Link>
@@ -70,7 +73,7 @@ export default function SearchHeader() {
               />
               <div>
                 <div>Delicious Foods</div>
-                <div className='text-xs text-rose-500 font-medium mt-0.5'>Group</div>
+                <div className='text-xs text-rose-500 font-medium mt-0.5'>{t('Group')}</div>
               </div>
               <IoClose className='text-base absolute right-3 top-1/2 -translate-y-1/2' />
             </Link>
@@ -86,7 +89,7 @@ export default function SearchHeader() {
               />
               <div>
                 <div>Delicious Foods</div>
-                <div className='text-xs text-yellow-500 font-medium mt-0.5'>Page</div>
+                <div className='text-xs text-yellow-500 font-medium mt-0.5'>{t('Page')}</div>
               </div>
               <IoClose className='text-base absolute right-3 top-1/2 -translate-y-1/2' />
             </Link>
@@ -102,7 +105,7 @@ export default function SearchHeader() {
               />
               <div>
                 <div>John Welim</div>
-                <div className='text-xs text-blue-500 font-medium mt-0.5'>Friend</div>
+                <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
               </div>
               <IoClose className='text-base absolute right-3 top-1/2 -translate-y-1/2' />
             </Link>
@@ -121,7 +124,7 @@ export default function SearchHeader() {
           <div className='flex justify-end pr-2 text-sm font-medium text-red-500'>
             <Link href='#' className='flex hover:bg-red-50 dark:hover:bg-slate-800 p-1.5 rounded'>
               <IoTrash className='mr-2 text-lg' />
-              Clear your history
+              {t('Clear your history')}
             </Link>
           </div>
         </div>

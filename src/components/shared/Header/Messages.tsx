@@ -1,14 +1,17 @@
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoChatboxEllipsesOutline, IoCreateOutline, IoExpandOutline, IoSearchOutline } from 'react-icons/io5';
+import { useTranslations } from 'next-intl';
 
 export default function MessagesHeader() {
+  const t = useTranslations();
+
   return (
     <>
       <button
         type='button'
         className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1'
-        data-uk-tooltip='title: Messages; pos: bottom; offset:6'>
+        data-uk-tooltip={`title: ${t('Messages')}; pos: bottom; offset:6`}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
@@ -25,7 +28,7 @@ export default function MessagesHeader() {
         className='hidden bg-foreground-2 pr-1.5 rounded-lg drop-shadow-xl md:w-[360px] w-screen border-border-1'
         data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
         <div className='flex items-center justify-between gap-2 p-4 pb-1'>
-          <h3 className='font-bold text-xl text-text-1'>Chats</h3>
+          <h3 className='font-bold text-xl text-text-1'>{t("Messages")}</h3>
 
           <div className='flex gap-2.5 text-lg text-slate-900 dark:text-white'>
             <IoExpandOutline />
@@ -179,7 +182,7 @@ export default function MessagesHeader() {
 
         <Link href='#'>
           <div className='text-center py-4 border-t border-border-1 text-sm font-medium text-blue-600 dark:text-white'>
-            See all Messages
+            {t('See all messages')}
           </div>
         </Link>
 

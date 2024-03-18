@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { IoSettingsOutline, IoMoonOutline, IoLogOutOutline } from 'react-icons/io5';
 import { Skeleton } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 import { getImageURL } from '@/lib/utils';
 
@@ -15,6 +16,7 @@ export default function ProfileHeader() {
   const { toggleMode, mode } = useThemeMode();
   const [modeTheme, setModeTheme] = useState<ThemeMode>('dark');
   const { data: session } = useSession();
+  const t = useTranslations();
 
   useEffect(() => {
     setModeTheme(mode);
@@ -28,7 +30,9 @@ export default function ProfileHeader() {
         </>
       ) : (
         <>
-          <div className='rounded-full relative bg-foreground-1 cursor-pointer shrink-0'>
+          <div
+            className='rounded-full relative bg-foreground-1 cursor-pointer shrink-0'
+            data-uk-tooltip={`title: ${t('Account')}; pos: bottom; offset:6`}>
             <Image
               src={getImageURL(session?.user?.image) || '/images/home/avatar-2.jpg'}
               alt=''
@@ -64,19 +68,19 @@ export default function ProfileHeader() {
               <Link href='/profile/me'>
                 <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
                   <CgProfile className='size-6' />
-                  My Profile
+                  {t('My Profile')}
                 </div>
               </Link>
               <Link href='/edit-profile'>
                 <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
                   <IoSettingsOutline className='size-6' />
-                  Account Settings
+                  {t('Account Settings')}
                 </div>
               </Link>
               <button type='button' className='w-full'>
                 <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
                   <IoMoonOutline className='size-6' />
-                  Night mode
+                  {t('Night Mode')}
                   <label className='switch cursor-pointer ml-auto'>
                     <input
                       type='checkbox'
@@ -88,10 +92,10 @@ export default function ProfileHeader() {
                 </div>
               </button>
               <hr className='-mx-2 my-2 border-border-1' />
-              <button type='button' className='w-full' onClick={async () => await signOut()}>
+              <button type='button' className='w-full' onClick={() => signOut()}>
                 <div className='flex items-center gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'>
                   <IoLogOutOutline className='size-6' />
-                  Log Out
+                  {t('Log Out')}
                 </div>
               </button>
             </nav>

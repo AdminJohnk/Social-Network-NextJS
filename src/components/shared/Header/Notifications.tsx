@@ -7,16 +7,19 @@ import {
   IoNotificationsOutline,
   IoSettingsOutline
 } from 'react-icons/io5';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 
 export default function NotificationsHeader() {
+  const t = useTranslations();
+
   return (
     <>
       <button
         type='button'
         className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1'
-        data-uk-tooltip='title: Notifications; pos: bottom; offset:6'>
+        data-uk-tooltip={`title: ${t('Notifications')}; pos: bottom; offset:6`}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
@@ -35,7 +38,7 @@ export default function NotificationsHeader() {
         className='hidden bg-foreground-2 pr-1.5 rounded-lg drop-shadow-xl md:w-[365px] w-screen border-border-1'
         data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
         <div className='flex items-center justify-between gap-2 p-4 pb-2'>
-          <h3 className='font-bold text-xl text-text-1'>Notifications</h3>
+          <h3 className='font-bold text-xl text-text-1'>{t('Notifications')}</h3>
 
           <div className='flex gap-2.5'>
             <button type='button' className='p-1 flex rounded-full focus:bg-foreground-1 '>
@@ -47,15 +50,15 @@ export default function NotificationsHeader() {
               <nav className='text-sm'>
                 <Link href='#'>
                   <IoCheckmarkCircleOutline className='text-xl shrink-0' />
-                  Mark all as read
+                  {t('Mark all as read')}
                 </Link>
                 <Link href='#'>
                   <IoSettingsOutline className='text-xl shrink-0' />
-                  Notification setting
+                  {t('Notification setting')}
                 </Link>
                 <Link href='#'>
                   <IoNotificationsOffOutline className='text-xl shrink-0' />
-                  Mute Notification
+                  {t('Mute Notification')}
                 </Link>
               </nav>
             </div>
@@ -81,7 +84,7 @@ export default function NotificationsHeader() {
                   <b className='font-bold mr-1'> Alexa Gray</b> started following you. Welcome him to your
                   profile. 👋
                 </p>
-                <div className='text-xs text-gray-500 mt-1.5 /80'>4 hours ago</div>
+                <div className='text-xs text-gray-500 mt-1.5 /80'>{t('hours ago', { count: 4 })}</div>
                 <div className='w-2.5 h-2.5 bg-teal-600 rounded-full absolute right-3 top-5'></div>
               </div>
             </Link>
@@ -102,7 +105,7 @@ export default function NotificationsHeader() {
                   <b className='font-bold mr-1'>Jesse Steeve</b> mentioned you in a story. Check it out and
                   reply. 📣
                 </p>
-                <div className='text-xs text-gray-500 mt-1.5 /80'>8 hours ago</div>
+                <div className='text-xs text-gray-500 mt-1.5 /80'>{t('hours ago', { count: 8 })}</div>
               </div>
             </Link>
             <Link
@@ -122,7 +125,7 @@ export default function NotificationsHeader() {
                   <b className='font-bold mr-1'> Alexa stella</b> commented on your photo “Wow, stunning
                   shot!” 💬
                 </p>
-                <div className='text-xs text-gray-500 mt-1.5 /80'>8 hours ago</div>
+                <div className='text-xs text-gray-500 mt-1.5 /80'>{t('hours ago', { count: 8 })}</div>
               </div>
             </Link>
             <Link
@@ -141,9 +144,9 @@ export default function NotificationsHeader() {
                 <p>
                   <b className='font-bold mr-1'> John Michael</b> who you might know, is on socialite.
                 </p>
-                <div className='text-xs text-gray-500 mt-1.5 /80'>2 hours ago</div>
+                <div className='text-xs text-gray-500 mt-1.5 /80'>{t('hours ago', { count: 2 })}</div>
               </div>
-              <Button type='button'>Follow</Button>
+              <Button type='button'>{t('Follow')}</Button>
             </Link>
             <Link
               href='#'
@@ -162,7 +165,7 @@ export default function NotificationsHeader() {
                   <b className='font-bold mr-1'> Sarah Gray</b> sent you a message. He wants to chat with you.
                   💖
                 </p>
-                <div className='text-xs text-gray-500 mt-1.5 /80'>4 hours ago</div>
+                <div className='text-xs text-gray-500 mt-1.5 /80'>{t('hours ago', { count: 4 })}</div>
                 <div className='w-2.5 h-2.5 bg-teal-600 rounded-full absolute right-3 top-5'></div>
               </div>
             </Link>
@@ -183,7 +186,7 @@ export default function NotificationsHeader() {
                   <b className='font-bold mr-1'> Jesse Steeve</b> sarah tagged you <br />
                   in a photo of your birthday party. 📸
                 </p>
-                <div className='text-xs text-gray-500 mt-1.5 /80'>8 hours ago</div>
+                <div className='text-xs text-gray-500 mt-1.5 /80'>{t('hours ago', { count: 8 })}</div>
               </div>
             </Link>
             <Link
@@ -203,7 +206,7 @@ export default function NotificationsHeader() {
                   <b className='font-bold mr-1'> Lewis Lewis</b> mentioned you in a story. Check it out and
                   reply. 📣
                 </p>
-                <div className='text-xs text-gray-500 mt-1.5 /80'>8 hours ago</div>
+                <div className='text-xs text-gray-500 mt-1.5 /80'>{t('hours ago', { count: 8 })}</div>
               </div>
             </Link>
             <Link
@@ -222,7 +225,7 @@ export default function NotificationsHeader() {
                 <p>
                   <b className='font-bold mr-1'> Martin Gray</b> liked your photo of the Eiffel Tower. 😍
                 </p>
-                <div className='text-xs text-gray-500 mt-1.5 /80'>8 hours ago</div>
+                <div className='text-xs text-gray-500 mt-1.5 /80'>{t('hours ago', { count: 8 })}</div>
               </div>
             </Link>
           </div>
@@ -230,7 +233,7 @@ export default function NotificationsHeader() {
 
         <Link href='#'>
           <div className='text-center py-4 border-t border-border-1 text-sm font-medium text-blue-600 '>
-            View Notifications
+            {t('View Notifications')}
           </div>
         </Link>
 

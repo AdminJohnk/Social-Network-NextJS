@@ -40,7 +40,7 @@ export default function LocaleLayout({ children, params: { locale } }: ILocaleLa
       <Script src='/js/uikit.min.js' defer />
 
       <body className={cn(font.className, 'h-dvh custom-scrollbar-bg')}>
-        <NextIntlClientProvider messages={message}>
+        <NextIntlClientProvider messages={message} locale={locale}>
           <QueryProvider>
             <SessionProvider>
               <Flowbite>{children}</Flowbite>
