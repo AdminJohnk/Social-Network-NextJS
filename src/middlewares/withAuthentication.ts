@@ -14,6 +14,8 @@ export const withAuthentication: MiddlewareFactory = next => {
         req.nextUrl.pathname.startsWith('/' + locale + '/login') ||
         req.nextUrl.pathname.startsWith('/' + locale + '/register');
 
+        console.log('middleware withAuth', isAuth);
+
       if (isAuthPage) {
         if (isAuth) {
           return NextResponse.redirect(new URL('/' + locale, req.url));
