@@ -17,7 +17,7 @@ export default function Event({ params: { locale } }: IEventProps) {
 
 
   return (
-    <div className='ms-60 mt-16 max-lg/2:ms-20'>
+    <div className='ms-60 mt-16 max-lg/2:ms-0'>
       <div className='newsfeed px-5 py-5'>
         <main className='max-lg:ms-0'>
           <div className=''>

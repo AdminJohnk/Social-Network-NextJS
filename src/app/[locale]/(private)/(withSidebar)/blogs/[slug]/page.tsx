@@ -13,7 +13,7 @@ export interface IBlogDetailProps {
 export default function BlogDetail({ params: { locale } }: IBlogDetailProps) {
   unstable_setRequestLocale(locale);
   return (
-    <div className='ms-60 mt-16 max-lg/2:ms-20 z-[1]'>
+    <div className='ms-60 mt-16 max-lg/2:ms-0 z-[1]'>
       <div className='groups px-10 py-5'>
         <main id='site__main'>
           <div className='flex 2xl:gap-12 max-lg:flex-col gap-10' id='blogDetail-side'>

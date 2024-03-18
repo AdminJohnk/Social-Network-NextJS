@@ -1,16 +1,23 @@
 import Post from '@/components/shared/Post/Post';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
-export interface IPostDetailProps {}
+export interface IPostDetailProps {
+  params: {
+    locale: string;
+  }
+}
 
-export default function PostDetail(props: IPostDetailProps) {
+export default function PostDetail({ params: { locale } }: IPostDetailProps) {
+  unstable_setRequestLocale(locale);
+
   return (
     <div
-      className='ms-60 max-lg/2:ms-20 @container/pri'
+      className='ms-60 max-lg/2:ms-0'
       style={{
         zIndex: 1
       }}
     >
-      <div className='newsfeed mt-16 px-40 py-10 @6xl/pri:px-32 @5xl/pri:px-24 @xl/pri:px-14 @sm/pri:px-2'>
+      <div className='newsfeed mt-16 3xl:px-40 py-10 px-2 sm:px-14 xl:px-24 2xl:px-32'>
         <Post />
       </div>
     </div>

@@ -18,7 +18,7 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
   const t = useTranslations();
 
   return (
-    <div className='ms-60 mt-16 max-lg/2:ms-20'>
+    <div className='ms-60 mt-16 max-lg/2:ms-0'>
       <div className='groups px-10 py-5'>
         <main id='site__main'>
           <div className='flex max-lg:flex-col 2xl:gap-12 gap-10 ' id='groupManager-side'>

@@ -18,7 +18,7 @@ export default function Community({ params: { locale } }: ICommunityProps) {
   const t = useTranslations();
 
   return (
-    <div className='ms-60 mt-16 max-lg/2:ms-20'>
+    <div className='ms-60 mt-16 max-lg/2:ms-0'>
       <div className='communities px-40 py-5'>
         <main id='site__main' className=''>
           <div className='2xl:max-w-[1220px]'>
