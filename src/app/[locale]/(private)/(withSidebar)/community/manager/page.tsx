@@ -4,7 +4,7 @@ import ComYouManage from '@/components/pages/Community/Manager/ComYouManage';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
-import {Link} from '@/navigation';
+import { Link } from '@/navigation';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
 export interface IGroupManagerProps {
@@ -18,7 +18,7 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
   const t = useTranslations();
 
   return (
-    <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
+    <div className='ms-60 mt-16 max-lg/2:ms-0 @container/pri z-[1]'>
       <div className='groups px-10 py-5'>
         <main id='site__main'>
           <div className='flex max-lg:flex-col 2xl:gap-12 gap-10 ' id='js-oversized'>

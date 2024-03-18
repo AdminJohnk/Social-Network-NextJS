@@ -29,7 +29,7 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
   unstable_setRequestLocale(locale);
   const t = useTranslations();
   return (
-    <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
+    <div className='ms-60 mt-16 max-lg/2:ms-0 @container/pri z-[1]'>
       <div className='groups px-10 pt-5'>
         <main id='site__main'>
           <div className=''>

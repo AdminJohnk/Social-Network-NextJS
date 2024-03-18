@@ -64,7 +64,7 @@ export default function Friends(props: IFriendsProps) {
                 width={500}
                 height={500}
                 src={friend.avatar}
-                alt=''
+                alt={friend.name}
                 className='object-cover w-full h-full inset-0'
               />
             </div>

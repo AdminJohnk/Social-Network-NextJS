@@ -13,7 +13,7 @@ import InputComment from '@/components/shared/InputComment/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
 
-export interface IPostProps {}
+export interface IPostProps { }
 
 export default function Post(props: IPostProps) {
   const t = useTranslations();
@@ -45,10 +45,10 @@ export default function Post(props: IPostProps) {
       </div>
       <div className='mt-4'>
         <Image
-          className='rounded-lg'
+          className='rounded-lg w-full h-full object-cover'
           src='/images/reels/reels-1.jpg'
-          width={1000}
-          height={1000}
+          width={1500}
+          height={1500}
           alt='image'
         />
       </div>

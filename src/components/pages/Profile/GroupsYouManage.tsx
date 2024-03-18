@@ -11,13 +11,7 @@ export default function GroupsYouManage(props: IGroupsYouManageProps) {
 
     return (
         <div className='bg-foreground-1 rounded-xl shadow p-5 px-6 border1'>
-            <div className='flex items-baseline justify-between text-text-1'>
-                <h3 className='font-bold text-base'> {t('Suggested Manage')} </h3>
-                <Link href='#' className='text-sm text-blue-500'>
-                    {t('See all')}
-                </Link>
-            </div>
-
+            <h3 className='font-bold text-base'> {t('Suggested Manage')} </h3>
             <div className='mt-5'>
                 <div className='flex items-center space-x-3 my-3'>
                     <Link href='#'>

@@ -20,6 +20,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import Post from '@/components/shared/Post/Post';
 import PostSkeleton from '@/components/shared/Post/PostSkeleton';
 import NewPost from '@/components/shared/NewPost/NewPost';
+import CreateStatus from '@/components/pages/Home/CreateStatus';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 import Intro from '@/components/pages/Profile/Intro';
 import Friends from '@/components/pages/Profile/Friends';
@@ -38,7 +39,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
   const friendName = slug === 'friend' ? 'Monroe Parker' : '';
 
   return (
-    <main className='ms-60 max-lg:ms-0 mt-16'>
+    <div className='ms-60 max-lg:ms-0 mt-16'>
       {/* <main id="site__main" className="2xl:ml-[--w-side]  xl:ml-[--w-side-sm] p-2.5 h-[calc(100vh-var(--m-top))] mt-[--m-top]"> */}
 
       <div className='max-w-[1065px] mx-auto'>
@@ -263,7 +264,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
             <div className='flex-1 xl:space-y-6 space-y-3'>
               {/* <!-- add story --> */}
               <NewPost title={isMe ? '' : t('Write some thing for') + ' ' + friendName + '...'} />
-
+              <CreateStatus />
               <Post />
               <Post />
               <Post />
@@ -286,79 +287,6 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
 
                 {/* <!-- Groups You Manage  --> */}
                 <GroupsYouManage />
-
-                {/* <!-- Groups You Manage  --> */}
-                <div className='bg-white rounded-xl shadow p-5 px-6 border1 dark:bg-background-2'>
-                  <div className='flex items-baseline justify-between text-text-1'>
-                    <h3 className='font-bold text-base'> {t('Suggested Manage')} </h3>
-                    <Link href='#' className='text-sm text-blue-500'>
-                      {t('See all')}
-                    </Link>
-                  </div>
-
-                  <div className='mt-5'>
-                    <div className='flex items-center space-x-3 my-3'>
-                      <Link href='#'>
-                        <Image
-                          width={500}
-                          height={500}
-                          src='/images/avatars/avatar-2.jpg'
-                          alt=''
-                          className='h-10 w-10 rounded-md'
-                        />
-                      </Link>
-                      <div className='flex-1'>
-                        <Link href='#'>
-                          <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
-                        </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {t('Updated xx week ago', { count: 7 })}
-                        </div>
-                      </div>
-                      <button className='button bg-blue-1 hover:bg-blue-2 text-white'>{t('Like')}</button>
-                    </div>
-                    <div className='flex items-center space-x-3 my-3'>
-                      <Link href='#'>
-                        <Image
-                          width={500}
-                          height={500}
-                          src='/images/avatars/avatar-4.jpg'
-                          alt=''
-                          className='h-10 w-10 rounded-md'
-                        />
-                      </Link>
-                      <div className='flex-1'>
-                        <Link href='#'>
-                          <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
-                        </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {t('Updated xx week ago', { count: 4 })}
-                        </div>
-                      </div>
-                      <button className='button bg-blue-1 hover:bg-blue-2 text-white'>{t('Like')}</button>
-                    </div>
-                    <div className='flex items-center space-x-3 my-3'>
-                      <Link href='#'>
-                        <Image
-                          width={500}
-                          height={500}
-                          src='/images/avatars/avatar-3.jpg'
-                          alt=''
-                          className='h-10 w-10 rounded-md'
-                        />
-                      </Link>
-                      <div className='flex-1'>
-                        <Link href='#'>
-                          <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
-                        </Link>
-                        <div className='mt-0.5 text-xs leading-4 text-text-2'>
-                          {t('Updated xx month ago', { count: 2 })}
-                        </div>
-                      </div>
-                      <button className='button bg-blue-1 hover:bg-blue-2 text-white'>{t('Like')}</button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -376,6 +304,6 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
           <div></div>
         </TabsContent>
       </div>
-    </main>
+    </div>
   );
 }
