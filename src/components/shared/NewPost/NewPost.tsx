@@ -6,7 +6,7 @@ export interface INewPostProps {
   title?: string;
 }
 
-export default function NewPost(props: INewPostProps) {
+export default function NewPost({ title }: INewPostProps) {
   const t = useTranslations();
 
   return (
@@ -14,7 +14,7 @@ export default function NewPost(props: INewPostProps) {
       <div
         className='text-center py-2 bg-foreground-2 basis-9/12 rounded-lg hover:bg-hover-2 cursor-pointer'
         data-uk-toggle='target: #create-status'>
-        {props.title ? <span>{props.title}</span> : <span> {t('What do you have in mind?')} </span>}
+        {title ? <span>{title}</span> : <span> {t('What do you have in mind?')} </span>}
       </div>
       <div
         className='basis-1/12 bg-blue-3 hover:bg-blue-4 flex-center py-2 rounded-lg duration-300 cursor-pointer'

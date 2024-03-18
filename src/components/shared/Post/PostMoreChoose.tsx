@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { CiBookmark, CiFlag1 } from 'react-icons/ci';
 import { IoVolumeMuteOutline, IoShareOutline } from 'react-icons/io5';
 
-export interface IPostMoreChooseProps {}
+export interface IPostMoreChooseProps { }
 
 export default function PostMoreChoose(props: IPostMoreChooseProps) {
   const t = useTranslations();
@@ -18,11 +18,11 @@ export default function PostMoreChoose(props: IPostMoreChooseProps) {
     },
     {
       name: t('Report This Post'),
-      icon: <CiFlag1></CiFlag1>
+      icon: <CiFlag1 />
     },
     {
       name: t('Share Your Profile'),
-      icon: <IoShareOutline></IoShareOutline>
+      icon: <IoShareOutline />
     }
   ];
 

@@ -4,7 +4,7 @@ import ComYouManage from '@/components/pages/Community/Manager/ComYouManage';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
-import {Link} from '@/navigation';
+import { Link } from '@/navigation';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
 export interface IGroupManagerProps {
@@ -18,10 +18,10 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
   const t = useTranslations();
 
   return (
-    <div className='ms-60 mt-16 max-lg/2:ms-20 @container/pri z-[1]'>
+    <div className='ms-60 mt-16 max-lg/2:ms-0'>
       <div className='groups px-10 py-5'>
         <main id='site__main'>
-          <div className='flex max-lg:flex-col 2xl:gap-12 gap-10 ' id='js-oversized'>
+          <div className='flex max-lg:flex-col 2xl:gap-12 gap-10 ' id='groupManager-side'>
             <div className='flex-1'>
               <div className='max-w-[680px] w-full mx-auto'>
                 <div className='page-heading'>
@@ -61,7 +61,7 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
             <div className='2xl:w-[380px] lg:w-[330px] w-full'>
               <div
                 className='lg:space-y-6 space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                data-sticky='media: 1024; end: #js-oversized; offset: 80'>
+                data-sticky='media: 1024; end: #groupManager-side; offset: 80'>
                 <div className='box p-5 px-6 bg-foreground-1'>
                   <div className='flex items-baseline justify-between'>
                     <h3 className='font-bold text-base'>{t('Pages You Manage')}</h3>

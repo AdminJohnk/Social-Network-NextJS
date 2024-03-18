@@ -6,5 +6,12 @@ export default stackMiddlewares([withAuthentication, withIntl]);
 // export default function middleware() {}
 
 export const config = {
-  matcher: ['/', '/(en|vi)/:path*', '/login', '/register']
+  matcher: [
+    '/',
+    '/(en|vi|cn)/:path*',
+    '/login',
+    '/register',
+    '/((?!api|_next|_vercel|.*\\..*).*)',
+    '/([\\w-]+)?/(.+)'
+  ]
 };
