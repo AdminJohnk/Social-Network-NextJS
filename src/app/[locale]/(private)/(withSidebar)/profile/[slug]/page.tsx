@@ -253,7 +253,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
         </div>
 
         <TabsContent id='tabs-profile' className='!border-none'>
-          <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='js-oversized'>
+          <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='profile-side'>
             {/* <!-- feed story --> */}
 
             <div className='flex-1 xl:space-y-6 space-y-3'>
@@ -275,7 +275,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
             <div className='lg:w-[400px]'>
               <div
                 className='lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
+                data-uk-sticky='media: 1024; end: #profile-side; offset: 80'>
                 <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
                   <div className='flex items-center justify-between text-text-1'>
                     <h3 className='font-bold text-lg'> {t('Intro')} </h3>

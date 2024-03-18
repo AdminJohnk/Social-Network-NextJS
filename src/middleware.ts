@@ -8,8 +8,10 @@ export default stackMiddlewares([withAuthentication, withIntl]);
 export const config = {
   matcher: [
     '/',
-    '/(en|vi)/:path*',
+    '/(en|vi|cn)/:path*',
     '/login',
     '/register',
+    '/((?!api|_next|_vercel|.*\\..*).*)',
+    '/([\\w-]+)?/(.+)'
   ]
 };

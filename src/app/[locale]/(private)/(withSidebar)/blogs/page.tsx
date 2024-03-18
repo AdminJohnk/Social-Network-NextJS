@@ -37,7 +37,7 @@ export default function Blog({ params: { locale } }: IBlogProps) {
     <div className='ms-60 mt-16 max-lg/2:ms-20'>
       <div className='groups px-10 py-5'>
         <main id='site__main'>
-          <div className='flex max-lg:flex-col 2xl:gap-12 gap-10' id='js-oversized'>
+          <div className='flex max-lg:flex-col 2xl:gap-12 gap-10' id='blog-side'>
             <div className='flex-1'>
               <div className='page-heading'>
                 <h1 className='page-title'> Articles </h1>
@@ -63,7 +63,7 @@ export default function Blog({ params: { locale } }: IBlogProps) {
             <div className='2xl:w-[380px] lg:w-[330px] w-full'>
               <div
                 className='lg:space-y-6 space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                data-uk-sticky='media: 1024; end: #js-oversized; offset: 80'>
+                data-uk-sticky='media: 1024; end: #blog-side; offset: 80'>
                 <BlogSlideThumbnail />
 
                 <TrendingArticle />
