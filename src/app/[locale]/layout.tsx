@@ -8,9 +8,6 @@ import Script from 'next/script';
 import { QueryProvider, SessionProvider } from '@/app/provider';
 import { locales } from '@/i18n';
 import { cn } from '@/lib/utils';
-import '@/app/animate.css';
-import '@/app/uk.css';
-import '@/app/globals.css';
 
 export interface ILocaleLayoutProps {
   children: React.ReactNode;
@@ -31,22 +28,22 @@ export default function LocaleLayout({ children, params: { locale } }: ILocaleLa
   const message = useMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale}>
       <head>
         <ThemeModeScript />
         <link rel='icon' href='/icon.png' type='image/png' sizes='png' />
       </head>
 
-      <Script src='/js/uikit.min.js' defer />
+      <Script src='/js/uikit.min.js' />
 
       <body className={cn(font.className, 'h-dvh custom-scrollbar-bg')}>
-        <NextIntlClientProvider messages={message}>
-          <QueryProvider>
-            <SessionProvider>
+        <QueryProvider>
+          <SessionProvider>
+            <NextIntlClientProvider messages={message} locale={locale}>
               <Flowbite>{children}</Flowbite>
-            </SessionProvider>
-          </QueryProvider>
-        </NextIntlClientProvider>
+            </NextIntlClientProvider>
+          </SessionProvider>
+        </QueryProvider>
       </body>
     </html>
   );

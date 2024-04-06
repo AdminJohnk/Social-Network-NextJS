@@ -6,7 +6,7 @@ export default function SubNavigate() {
   const t = useTranslations();
 
   return (
-    <nav id='side' className='font-medium text-sm text-text-1 border-t pt-3 mt-2  dark:border-slate-800'>
+    <nav id='side' className='font-medium text-sm text-text-1 border-t pt-3 mt-2 dark:border-slate-800'>
       <div className='px-3 pb-2 text-sm font-medium'>
         <div className='text-text-1'>{t('Pages')}</div>
       </div>

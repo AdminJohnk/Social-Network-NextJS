@@ -3,18 +3,19 @@ import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 import { MiddlewareFactory } from './types';
 
-export const withAuthentication: MiddlewareFactory = (next) => {
-  return withAuth(
+export const withAuthentication: MiddlewareFactory = (next) =>
+  withAuth(
     async function middleware(req) {
       const token = await getToken({ req });
 
       const isAuth = !!token;
-      const locale = req.nextUrl.pathname.split('/')[1] || 'en';
+
+      const path = req.nextUrl.pathname.split('/')[1];
+      const locale = path !== 'en' ? 'en' : path;
+
       const isAuthPage =
         req.nextUrl.pathname.startsWith('/' + locale + '/login') ||
         req.nextUrl.pathname.startsWith('/' + locale + '/register');
-
-      // console.log('middleware withAuth', isAuth);
 
       if (isAuthPage) {
         if (isAuth) {
@@ -43,7 +44,6 @@ export const withAuthentication: MiddlewareFactory = (next) => {
       }
     }
   );
-};
 
 // export default withAuth(
 //   async function middleware(req) {

@@ -1,6 +1,7 @@
 import { NextMiddlewareWithAuth } from 'next-auth/middleware';
-import { NextMiddleware } from 'next/server';
+import { NextMiddleware, NextRequest } from 'next/server';
 
 export type MiddlewareFactory = (
-  middleware: NextMiddleware | NextMiddlewareWithAuth
+  middleware: NextMiddleware | NextMiddlewareWithAuth,
+  request?: NextRequest
 ) => NextMiddleware | NextMiddlewareWithAuth;
