@@ -6,13 +6,13 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
 
-import { IResponse } from '@/types/common.type';
 import { UserLogin } from '@/types/users.type';
 import { authService } from '@/services/AuthService';
+import { IResponse } from '@/types';
 
 // async function refreshAccessToken(token: any) {
 //   try {
-//     // Get a new set of tokens with a refreshToken
+//     // Get a new set of tokens with a.tokens refreshToken
 //     const token_response = await axios.post(
 //       'http://localhost:3336/auth/refresh',
 //       {},
@@ -70,8 +70,8 @@ const handler = NextAuth({
               name: data.metadata.user.name,
               email: data.metadata.user.email,
               image: data.metadata.user.user_image,
-              access_token: data.metadata.accessToken,
-              refresh_token: data.metadata.refreshToken
+              access_token: data.metadata.tokens.accessToken,
+              refresh_token: data.metadata.tokens.refreshToken
             };
           } else {
             throw new Error('Internal Server Error!');
@@ -96,8 +96,8 @@ const handler = NextAuth({
               name: data.metadata.user.name,
               email: data.metadata.user.email,
               image: data.metadata.user.user_image,
-              access_token: data.metadata.accessToken,
-              refresh_token: data.metadata.refreshToken
+              access_token: data.metadata.tokens.accessToken,
+              refresh_token: data.metadata.tokens.refreshToken
             };
           } else {
             throw new Error('Internal Server Error!');
@@ -122,8 +122,8 @@ const handler = NextAuth({
               name: data.metadata.user.name,
               email: data.metadata.user.email,
               image: data.metadata.user.user_image,
-              access_token: data.metadata.accessToken,
-              refresh_token: data.metadata.refreshToken
+              access_token: data.metadata.tokens.accessToken,
+              refresh_token: data.metadata.tokens.refreshToken
             };
           } else {
             throw new Error('Internal Server Error!');
@@ -140,21 +140,11 @@ const handler = NextAuth({
         if (account) {
           switch (account.provider) {
             case 'github': {
-              let res;
-              if (AppConfig.enableApiMockup) {
-                res = {
-                  status: 200,
-                  data: {
-                    access_token: 'mock_access_token',
-                    refresh_token: 'mock_refresh_token'
-                  }
-                };
-              } else {
-                res = await axios.post(`${AppConfig.apiBase}/github-authentication`, {
-                  access_token: account.access_token,
-                  token_type: account.token_type
-                });
-              }
+              const res = await axios.post(`${AppConfig.apiBase}/github-authentication`, {
+                access_token: account.access_token,
+                token_type: account.token_type
+              });
+
               token.access_token = res.data.access_token;
               token.refresh_token = res.data.refresh_token;
 
@@ -203,7 +193,7 @@ const handler = NextAuth({
       //     image: token.image
       //   },
       //   expires: session.expires,
-      //   accessToken: token.token
+      //  .tokens accessToken: token.token
       // };
 
       // return sessionInfo as Session;

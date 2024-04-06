@@ -22,7 +22,7 @@ const ImageURL = (src: string, option: option) => {
 };
 
 export const getImageURL = (src?: string | null, option: option = 'default') => {
-  if (!src) return;
+  if (!src) return '';
   return ImageURL(src, option);
 };
 
