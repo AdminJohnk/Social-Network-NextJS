@@ -32,7 +32,8 @@ export const queryCache = new QueryCache();
  * - `isFetchingCurrentUserInfo` is a boolean that indicates whether the query is currently fetching.
  */
 export const useCurrentUserInfo = () => {
-  const userID = useSession().data?.user?.id!;
+  // const userID = useSession().data?.user?.id!;
+  const userID = "657e980ca4725f72485282c7";
 
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['currentUserInfo'],
