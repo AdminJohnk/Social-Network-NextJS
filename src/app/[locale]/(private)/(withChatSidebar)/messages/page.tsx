@@ -1,3 +1,5 @@
+'use client';
+
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import {
@@ -10,12 +12,13 @@ import {
 } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { useParams } from 'next/navigation';
 
 import ConversationList from '@/components/pages/Chat/ConversationList';
 import InputChat from '@/components/pages/Chat/InputChat';
 import ChatInfo from '@/components/pages/Chat/ChatInfo';
 import ChatHeading from '@/components/pages/Chat/ChatHeading';
+import { useConversationsData, useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
 
 export interface IMessageProps {
   params: {
@@ -24,9 +27,11 @@ export interface IMessageProps {
 }
 
 const Message = ({ params: { locale } }: IMessageProps) => {
-  unstable_setRequestLocale(locale)
-
   const t = useTranslations();
+
+  const { isLoadingCurrentUserInfo, currentUserInfo } = useCurrentUserInfo();
+  const { conversations, isLoadingConversations } = useConversationsData();
+
 
   return (
     <>
@@ -95,7 +100,9 @@ const Message = ({ params: { locale } }: IMessageProps) => {
                   </div>
 
                   {/* <!-- users list --> */}
-                  <ConversationList />
+                  {isLoadingConversations ?
+                    <div className='text-center py-10'>Loading...</div> :
+                    <ConversationList conversations={conversations} />}
                 </div>
 
                 {/* <!-- overlay --> */}
