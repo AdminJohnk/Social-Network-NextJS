@@ -3,7 +3,7 @@ import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 import { MiddlewareFactory } from './types';
 
-export const withAuthentication: MiddlewareFactory = next => {
+export const withAuthentication: MiddlewareFactory = (next) => {
   return withAuth(
     async function middleware(req) {
       const token = await getToken({ req });
@@ -14,7 +14,7 @@ export const withAuthentication: MiddlewareFactory = next => {
         req.nextUrl.pathname.startsWith('/' + locale + '/login') ||
         req.nextUrl.pathname.startsWith('/' + locale + '/register');
 
-        console.log('middleware withAuth', isAuth);
+      // console.log('middleware withAuth', isAuth);
 
       if (isAuthPage) {
         if (isAuth) {
@@ -31,10 +31,7 @@ export const withAuthentication: MiddlewareFactory = next => {
         }
 
         return NextResponse.redirect(
-          new URL(
-            `/${locale}/login?callbackUrl=${encodeURIComponent(from)}`,
-            req.url
-          )
+          new URL(`/${locale}/login?callbackUrl=${encodeURIComponent(from)}`, req.url)
         );
       }
     },

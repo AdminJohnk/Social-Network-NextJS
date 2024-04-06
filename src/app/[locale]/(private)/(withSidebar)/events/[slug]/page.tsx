@@ -178,12 +178,6 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
                         quis nostrud xeric talion ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
                         consequat
                       </p>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nodum nibh euismod
-                        tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wiis enim ad minim veniam,
-                        quis nostrud xeric talion ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-                        consequat
-                      </p>
                     </div>
                   </div>
                   <div className='p-5 px-6 relative bg-foreground-1 rounded-md'>
