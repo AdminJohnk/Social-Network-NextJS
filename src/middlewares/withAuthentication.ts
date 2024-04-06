@@ -2,6 +2,7 @@ import { getToken } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 import { MiddlewareFactory } from './types';
+import { LIST_LANGUAGE } from '@/lib/constants/SettingSystem';
 
 export const withAuthentication: MiddlewareFactory = next => {
   return withAuth(
@@ -9,27 +10,28 @@ export const withAuthentication: MiddlewareFactory = next => {
       const token = await getToken({ req });
 
       const isAuth = !!token;
-      const locale = req.nextUrl.pathname.split('/')[1] || 'en';
+      let locale = req.nextUrl.pathname.split('/')[1];
+      if (!LIST_LANGUAGE.includes(locale)) {
+        locale = 'en';
+      }
+
       const isAuthPage =
         req.nextUrl.pathname.startsWith('/' + locale + '/login') ||
         req.nextUrl.pathname.startsWith('/' + locale + '/register');
 
-        console.log('middleware withAuth', isAuth);
-
       if (isAuthPage) {
         if (isAuth) {
-          return NextResponse.redirect(new URL('/' + locale, req.url));
+          // return NextResponse.redirect(new URL('/' + locale, req.url));
         }
-
         return null;
       }
 
       if (!isAuth) {
         let from = req.nextUrl.pathname;
+
         if (req.nextUrl.search) {
           from += req.nextUrl.search;
         }
-
         return NextResponse.redirect(
           new URL(
             `/${locale}/login?callbackUrl=${encodeURIComponent(from)}`,

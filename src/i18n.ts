@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
+import { LIST_LANGUAGE } from './lib/constants/SettingSystem';
 
-export const locales = ['en', 'vi'];
+export const locales = LIST_LANGUAGE;
 
 export default getRequestConfig(async ({ locale }) => {
   if (!locales.includes(locale as any)) notFound();
