@@ -4,8 +4,8 @@ import { NextResponse } from 'next/server';
 import { MiddlewareFactory } from './types';
 import { LIST_LANGUAGE } from '@/lib/constants/SettingSystem';
 
-export const withAuthentication: MiddlewareFactory = next => {
-  return withAuth(
+export const withAuthentication: MiddlewareFactory = (next) =>
+  withAuth(
     async function middleware(req) {
       const token = await getToken({ req });
 
@@ -33,10 +33,7 @@ export const withAuthentication: MiddlewareFactory = next => {
           from += req.nextUrl.search;
         }
         return NextResponse.redirect(
-          new URL(
-            `/${locale}/login?callbackUrl=${encodeURIComponent(from)}`,
-            req.url
-          )
+          new URL(`/${locale}/login?callbackUrl=${encodeURIComponent(from)}`, req.url)
         );
       }
     },
@@ -48,7 +45,6 @@ export const withAuthentication: MiddlewareFactory = next => {
       }
     }
   );
-};
 
 // export default withAuth(
 //   async function middleware(req) {

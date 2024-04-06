@@ -1,3 +1,7 @@
+import '@/app/animate.css';
+import '@/app/uk.css';
+import '@/app/globals.css';
+
 interface Props {
   children: React.ReactNode;
 }

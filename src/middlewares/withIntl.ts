@@ -1,6 +1,7 @@
 import createMiddleware from 'next-intl/middleware';
 
 import { localePrefix } from '@/navigation';
+import { locales } from '@/i18n';
 import { MiddlewareFactory } from './types';
 import { DEFAULT_LANGUAGE, LIST_LANGUAGE } from '@/lib/constants/SettingSystem';
 
