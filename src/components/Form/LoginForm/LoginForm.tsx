@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { signIn } from 'next-auth/react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { userAuthSchema } from '@/lib/schema/auth';
@@ -27,8 +27,6 @@ const classStyleInput: ClassValue =
 export default function LoginForm({ callbackUrl, className }: IRegisterFormProps) {
   const t = useTranslations();
 
-  const locale = useLocale();
-
   const {
     register,
     handleSubmit,
@@ -46,7 +44,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
     const signInResult = await signIn('credentials', {
       email: data.email,
       password: data.password,
-      callbackUrl: callbackUrl || '/' + locale
+      callbackUrl: callbackUrl || '/'
     });
 
     setIsLoading(false);

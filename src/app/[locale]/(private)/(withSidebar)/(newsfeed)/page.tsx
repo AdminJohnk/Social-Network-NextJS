@@ -1,4 +1,4 @@
-import { unstable_setRequestLocale } from 'next-intl/server';
+'use client';
 
 import NewPost from '@/components/shared/NewPost/NewPost';
 import OnlineFriend from '@/components/pages/Home/OnlineFriend';
@@ -10,6 +10,7 @@ import SuggestFollow from '@/components/pages/Home/SuggestFollow';
 import TrendForYou from '@/components/pages/Home/TrendForYou';
 import CreateStatus from '@/components/pages/Home/CreateStatus';
 import CreateStory from '@/components/pages/Home/CreateStory';
+import { useAllNewsfeedPostsData } from '@/hooks/query';
 
 export interface INewFeedProps {
   params: {
@@ -18,7 +19,13 @@ export interface INewFeedProps {
 }
 
 export default function NewFeed({ params: { locale } }: INewFeedProps) {
-  unstable_setRequestLocale(locale);
+  const {
+    allNewsfeedPosts: posts,
+    isFetchingNextNewsfeedPosts: isFetchingNextPosts,
+    fetchNextNewsfeedPosts: fetchNextPosts,
+    hasNextNewsfeedPosts: hasNextPosts,
+    isLoadingAllNewsfeedPosts: isLoading
+  } = useAllNewsfeedPostsData();
 
   return (
     <div className='ms-60 mt-16 max-lg:ms-0'>
@@ -33,31 +40,39 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
               <NewPost />
               <CreateStatus />
             </div>
-            <div className='post *:mb-6'>
-              <Post />
-              <Post />
-              <Post />
-            </div>
-            <div className='post-skeleton *:mb-6'>
-              <PostSkeleton />
-            </div>
+            {isLoading ? (
+              <div className='post-skeleton *:mb-6'>
+                <PostSkeleton />
+              </div>
+            ) : (
+              <div className='post *:mb-6'>
+                {posts ? (
+                  posts.map((post) => {
+                    if (post.type === 'Post') return <Post key={post._id} post={post} />;
+                  })
+                ) : (
+                  <div className='flex-center'>
+                    <span className='text-text-2'>No posts</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-          <div className='more-info w-2/5 max-lg:hidden'>
-            <div data-uk-sticky='media: 1024; end: #newsfeed; offset: 80'>
-              <div>
+          {isLoading ? (
+            <></>
+          ) : (
+            <div className='more-info w-2/5 max-lg:hidden'>
+              <div className='space-y-6' data-uk-sticky='media: 1024; end: #newsfeed; offset: 80'>
                 <SuggestFollow />
-              </div>
-              <div className='mt-6'>
+
                 <OnlineFriend />
-              </div>
-              <div className='mt-6'>
+
                 <ProMember />
-              </div>
-              <div className='mt-6'>
+
                 <TrendForYou />
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

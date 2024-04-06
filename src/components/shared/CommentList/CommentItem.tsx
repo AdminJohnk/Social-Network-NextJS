@@ -1,14 +1,19 @@
 import { Avatar } from '@mui/material';
 
-export interface ICommentItemProps {}
+import { ICommentPost } from '@/types';
+import { getImageURL } from '@/lib/utils';
 
-export default function CommentItem(props: ICommentItemProps) {
+export interface ICommentItemProps {
+  comment: ICommentPost;
+}
+
+export default function CommentItem({ comment }: ICommentItemProps) {
   return (
     <div className='flex-start'>
-      <Avatar src='/images/avatars/avatar-3.jpg' sx={{width: 24, height: 24}} />
+      <Avatar src={getImageURL(comment.user.user_image)} sx={{ width: 24, height: 24 }} />
       <div className='flex flex-col ms-3'>
-        <span className='base-bold'>Steeve</span>
-        <span>What a beautiful photo! I love it. 😍</span>
+        <span className='base-bold'>{comment.user.name}</span>
+        <span>{comment.content}</span>
       </div>
     </div>
   );

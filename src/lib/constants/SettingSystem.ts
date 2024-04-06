@@ -22,6 +22,9 @@ export const STATUS_CODE = {
   SERVER_ERROR: 500
 };
 
+export const DEFAULT_LANGUAGE = 'en';
+export const LIST_LANGUAGE = ['en', 'vi', 'cn'];
+
 export const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike', 'blockquote'],
   [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],

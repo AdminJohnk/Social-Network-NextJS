@@ -6,7 +6,7 @@ import {
   QueryCache,
   infiniteQueryOptions
 } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 
 import { IMessage } from '@/types';
 import { userService } from '@/services/UserService';
@@ -38,6 +38,7 @@ export const useCurrentUserInfo = () => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['currentUserInfo'],
     queryFn: async () => {
+      const userID = await getSession().then((session) => session?.user!.id!);
       const [{ data: Friends }, { data: RequestSent }, { data: requestReceived }, { data: userInfo }] =
         await Promise.all([
           userService.getFriends(userID),
@@ -155,8 +156,7 @@ export const useAllNewsfeedPostsData = () => {
         return data.pages.flat();
       },
       maxPages: 3,
-      staleTime: Infinity,
-      enabled: window.location.pathname === '/'
+      staleTime: Infinity
     });
 
   return {
