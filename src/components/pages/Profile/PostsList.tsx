@@ -1,12 +1,23 @@
 'use client';
 
-import Post from '@/components/shared/Post/Post';
-import PostSkeleton from '@/components/shared/Post/PostSkeleton';
-import { useAllNewsfeedPostsData, useUserPostsData } from '@/hooks/query';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
-export default function PostsList() {
+import {
+  useCurrentUserInfo,
+  useOtherUserInfo,
+  useUserPostsData
+} from '@/hooks/query';
+import PostSkeleton from '@/components/shared/Post/PostSkeleton';
+import Post from '@/components/shared/Post/Post';
+
+interface PostsListProps {
+  profileID: string;
+}
+
+export default function PostsList({ profileID }: PostsListProps) {
   const { data: session } = useSession();
+
+  const userID = session?.id || '';
 
   const {
     isLoadingUserPosts,
@@ -14,27 +25,18 @@ export default function PostsList() {
     isFetchingNextUserPosts,
     hasNextUserPosts,
     fetchNextUserPosts
-  } = useUserPostsData(session?.id || '');
+  } = useUserPostsData(profileID);
 
+  const { currentUserInfo } = useCurrentUserInfo(userID);
+  const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
   return (
     <>
       {isLoadingUserPosts ? (
-        <div className='post-skeleton *:mb-6'>
-          <PostSkeleton />
-        </div>
+        <PostSkeleton />
+      ) : userPosts.length === 0 ? (
+        <>No Post</>
       ) : (
-        <div className='post *:mb-6'>
-          {userPosts?.length === 0 ? (
-            <>No Post</>
-          ) : (
-            userPosts?.map((item, index) => (
-              <Post
-                key={item._id}
-                post={item}
-              ></Post>
-            ))
-          )}
-        </div>
+        userPosts.map(post => <Post key={post._id} post={post}></Post>)
       )}
     </>
   );

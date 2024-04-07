@@ -1,3 +1,5 @@
+'use client';
+
 import {
   type InfiniteData,
   useInfiniteQuery,
@@ -31,30 +33,24 @@ export const queryCache = new QueryCache();
  * - `currentUserInfo` is an object that contains information about the current user.
  * - `isFetchingCurrentUserInfo` is a boolean that indicates whether the query is currently fetching.
  */
-export const useCurrentUserInfo = () => {
+export const useCurrentUserInfo = (userID: string) => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['currentUserInfo'],
     queryFn: async () => {
-      const session = await getSession();
-      const userID = session!.id;
-      const [
-        { data: Friends },
-        { data: RequestSent },
-        { data: requestReceived },
-        { data: userInfo }
-      ] = await Promise.all([
-        userService.getFriends(userID),
-        userService.getRequestSent(userID),
-        userService.getRequestReceived(userID),
-        userService.getUserInfoByID(userID)
-      ]);
+      const [{ data: Friends }, { data: RequestSent }, { data: requestReceived }, { data: userInfo }] =
+        await Promise.all([
+          userService.getFriends(userID),
+          userService.getRequestSent(userID),
+          userService.getRequestReceived(userID),
+          userService.getUserInfoByID(userID)
+        ]);
       userInfo.metadata.friends = Friends.metadata;
       userInfo.metadata.requestSent = RequestSent.metadata;
       userInfo.metadata.requestReceived = requestReceived.metadata;
       return ApplyDefaults(userInfo.metadata);
     },
-    staleTime: Infinity
-    // enabled: window.location.pathname !== '/login' && window.location.pathname !== '/register'
+    staleTime: Infinity,
+    enabled: !!userID
   });
 
   return {
@@ -88,7 +84,8 @@ export const useOtherUserInfo = (userID: string) => {
       userInfo.metadata.friends = Friends.metadata;
       return ApplyDefaults(userInfo.metadata);
     },
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: !!userID
   });
 
   return {

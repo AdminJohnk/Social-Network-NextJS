@@ -9,9 +9,12 @@ import { Button } from '@/components/ui/button';
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 import { cn, getImageURL } from '@/lib/utils';
 import descArrays from '@/lib/descriptions/Tags';
+import { useCurrentUserInfo } from '@/hooks/query';
 
 export default function EditProfile() {
   const { data: session } = useSession();
+
+  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
 
   return (
     <div className='flex flex-1 mt-16 *:w-full *:max-w-2xl flex-col items-center gap-10 px-5 py-10 md:p-14 custom-scrollbar-bg overflow-scroll'>
@@ -26,7 +29,7 @@ export default function EditProfile() {
           <div className='flex-start gap-4 p-8'>
             <div className='relative md:w-20 md:h-20 w-12 h-12 shrink-0'>
               <label htmlFor='file' className='cursor-pointer'>
-                <Avatar sx={{ width: 80, height: 80 }} src={getImageURL(session?.picture!)} />
+                <Avatar sx={{ width: 80, height: 80 }} src={getImageURL(currentUserInfo?.user_image)} />
                 <input type='file' id='file' className='hidden' />
               </label>
 
@@ -49,8 +52,8 @@ export default function EditProfile() {
               </label>
             </div>
             <div className='flex flex-col'>
-              <span className='h5-bold mb-2'>{session?.name}</span>
-              <span className='small-regular text-text-2'>@{session?.name}</span>
+              <span className='h5-bold mb-2'>{currentUserInfo?.name}</span>
+              <span className='small-regular text-text-2'>@{currentUserInfo?.name}</span>
             </div>
           </div>
         </div>
@@ -81,7 +84,7 @@ export default function EditProfile() {
                     type='text'
                     placeholder='Monroe'
                     className='w-full rounded-lg bg-foreground-2 border-none'
-                    defaultValue={session?.name}
+                    defaultValue={currentUserInfo?.name}
                   />
                 </div>
               </div>
@@ -96,7 +99,7 @@ export default function EditProfile() {
                     type='text'
                     placeholder='@monroe'
                     className='w-full rounded-lg bg-foreground-2 border-none'
-                    defaultValue={session?.name}
+                    defaultValue={currentUserInfo?.name}
                   />
                 </div>
               </div>

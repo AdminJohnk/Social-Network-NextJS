@@ -15,7 +15,7 @@ export default function NewsfeedSide() {
         <></>
       ) : (
         <div className='more-info w-2/5 max-lg:hidden'>
-          <div className='space-y-6' data-uk-sticky='media: 1024; end: #newsfeed; offset: 80'>
+          <div className='space-y-6 pb-8' data-uk-sticky='media: 1024; end: #newsfeed; offset: 80'>
             <SuggestFollow />
 
             <OnlineFriend />
