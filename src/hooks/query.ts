@@ -1,3 +1,5 @@
+'use client';
+
 import {
   type InfiniteData,
   useInfiniteQuery,
@@ -6,7 +8,6 @@ import {
   QueryCache,
   infiniteQueryOptions
 } from '@tanstack/react-query';
-import { getSession } from 'next-auth/react';
 
 import { IMessage } from '@/types';
 import { userService } from '@/services/UserService';
@@ -31,12 +32,10 @@ export const queryCache = new QueryCache();
  * - `currentUserInfo` is an object that contains information about the current user.
  * - `isFetchingCurrentUserInfo` is a boolean that indicates whether the query is currently fetching.
  */
-export const useCurrentUserInfo = () => {
+export const useCurrentUserInfo = (userID: string) => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['currentUserInfo'],
     queryFn: async () => {
-      const session = await getSession();
-      const userID = session!.id;
       const [{ data: Friends }, { data: RequestSent }, { data: requestReceived }, { data: userInfo }] =
         await Promise.all([
           userService.getFriends(userID),
@@ -49,8 +48,8 @@ export const useCurrentUserInfo = () => {
       userInfo.metadata.requestReceived = requestReceived.metadata;
       return ApplyDefaults(userInfo.metadata);
     },
-    staleTime: Infinity
-    // enabled: window.location.pathname !== '/login' && window.location.pathname !== '/register'
+    staleTime: Infinity,
+    enabled: !!userID
   });
 
   return {
@@ -84,7 +83,8 @@ export const useOtherUserInfo = (userID: string) => {
       userInfo.metadata.friends = Friends.metadata;
       return ApplyDefaults(userInfo.metadata);
     },
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: !!userID
   });
 
   return {
