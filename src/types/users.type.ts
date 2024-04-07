@@ -13,8 +13,10 @@ export interface UserLogin {
     name: string;
     user_image: string;
   };
-  accessToken: string;
-  refreshToken: string;
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
 }
 
 export interface UserGetParams {

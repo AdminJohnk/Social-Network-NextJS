@@ -13,6 +13,8 @@ import InputComment from '@/components/shared/InputComment/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
 import { IPost, IUserInfo } from '@/types';
+import { IPost } from '@/types';
+import { getImageURL } from '@/lib/utils';
 
 export interface IPostProps {
   type: string;
@@ -22,20 +24,19 @@ export interface IPostProps {
   currentUser: IUserInfo;
 }
 
-export default function Post(props: IPostProps) {
+export default function Post({ post }: IPostProps) {
   const t = useTranslations();
 
   return (
     <div className='post bg-foreground-1 rounded-lg p-4'>
       <div className='flex-between'>
         <div className='flex-start'>
-          <Avatar src='/images/avatars/avatar-3.jpg' />
+          <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
           <div className='flex flex-col ms-3'>
-            <span className='base-bold'>Monroe Parker</span>
+            <span className='base-bold'>{post.post_attributes.user.name}</span>
             <Link
-              href='/posts/657f06489c29b021b905b804'
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
-            >
+              href={`/posts/${post._id}`}
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
               {t('hours ago', { count: 2 })}
             </Link>
           </div>
@@ -51,14 +52,17 @@ export default function Post(props: IPostProps) {
           />
         </div>
       </div>
-      <div className='mt-4'>
-        <Image
-          className='rounded-lg w-full h-full object-cover'
-          src='/images/reels/reels-1.jpg'
-          width={1500}
-          height={1500}
-          alt='image'
-        />
+      <div className='mt-4 space-y-3'>
+        <div dangerouslySetInnerHTML={{ __html: post.post_attributes.content }} />
+        {post.post_attributes.images.length !== 0 && (
+          <Image
+            className='rounded-lg w-full h-full object-cover'
+            src={getImageURL(post.post_attributes.images[0])}
+            width={1500}
+            height={1500}
+            alt='image'
+          />
+        )}
       </div>
       <div className='react flex-between mt-4'>
         <div className='left flex gap-5'>
@@ -66,13 +70,13 @@ export default function Post(props: IPostProps) {
             <span className='p-1 bg-foreground-2 rounded-full'>
               <IoHeart className='size-4 text-red-600 cursor-pointer' />
             </span>
-            <span>1.380</span>
+            <span>{post.post_attributes.like_number}</span>
           </div>
           <div className='flex gap-3'>
             <span className='p-1 bg-foreground-2 rounded-full'>
               <FaCommentDots className='size-4 cursor-pointer' />
             </span>
-            <span>260</span>
+            <span>{post.post_attributes.comment_number}</span>
           </div>
         </div>
         <div className='right flex-start gap-5'>
@@ -85,10 +89,10 @@ export default function Post(props: IPostProps) {
         </div>
       </div>
       <div className='comment-list mt-7'>
-        <CommentList />
+        <CommentList postID={post._id} />
       </div>
       <div className='mt-8'>
-        <InputComment />
+        <InputComment postID={post._id} />
       </div>
     </div>
   );
