@@ -2,9 +2,11 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
-export interface IChatHeadingProps { }
+export interface IChatHeadingProps {
+  conversationID: string;
+}
 
-export default function ChatHeading(props: IChatHeadingProps) {
+export default function ChatHeading({ conversationID }: IChatHeadingProps) {
   const t = useTranslations();
 
   return (

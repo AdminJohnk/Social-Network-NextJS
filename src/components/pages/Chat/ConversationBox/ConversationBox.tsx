@@ -4,11 +4,10 @@ import { useMemo } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { getDateTimeToNow } from '@/lib/descriptions/formatDateTime';
 import { IConversation } from '@/types';
-import Image from 'next/image';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import AvatarGroup from '../Avatar/AvatarGroup';
 import AvatarMessage from '../Avatar/AvatarMessage';
+import { Link } from '@/navigation';
 
 export interface IConversationBoxProps {
     conversation: IConversation;
@@ -135,7 +134,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
     return (
         <Link
-            href='#'
+            href={`/messages/${conversation._id}`}
             className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
             <div className='relative w-14 h-14 shrink-0'>
                 {conversation.type === 'group' ? (

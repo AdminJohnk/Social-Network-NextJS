@@ -10,9 +10,11 @@ import {
   IoTrashOutline
 } from 'react-icons/io5';
 
-export interface IChatInfoProps { }
+export interface IChatInfoProps {
+  conversationID: string[] | undefined;
+}
 
-export default function ChatInfo(props: IChatInfoProps) {
+export default function ChatInfo({ conversationID }: IChatInfoProps) {
   const t = useTranslations();
 
   return (
