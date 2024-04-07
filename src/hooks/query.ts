@@ -1,3 +1,5 @@
+'use client';
+
 import {
   type InfiniteData,
   useInfiniteQuery,
@@ -33,12 +35,12 @@ export const queryCache = new QueryCache();
  */
 export const useCurrentUserInfo = () => {
   // const userID = useSession().data?.user?.id!;
-  const userID = "657e980ca4725f72485282c7";
+  const userID = "657f06489c29b021b905b804";
 
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['currentUserInfo'],
     queryFn: async () => {
-      const userID = await getSession().then((session) => session?.user!.id!);
+      // const userID = await getSession().then((session) => session?.user!.id!);
       const [{ data: Friends }, { data: RequestSent }, { data: requestReceived }, { data: userInfo }] =
         await Promise.all([
           userService.getFriends(userID),
@@ -53,7 +55,7 @@ export const useCurrentUserInfo = () => {
       return ApplyDefaults(userInfo.metadata);
     },
     staleTime: Infinity,
-    enabled: window.location.pathname !== '/login' && window.location.pathname !== '/register'
+    // enabled: window.location.pathname !== '/login' && window.location.pathname !== '/register'
   });
 
   return {

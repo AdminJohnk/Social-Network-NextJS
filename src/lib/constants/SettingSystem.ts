@@ -1,4 +1,4 @@
-export const DOMAIN_NAME = process.env.SERVER_ENDPOINT;
+export const DOMAIN_NAME = process.env.NEXT_PUBLIC_API_BASE;
 
 export const USER_LOGIN = 'user_login';
 export const ID_USER = '_id';

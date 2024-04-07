@@ -1,8 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
-
 import Post from '@/components/shared/Post/Post';
 import PostSkeleton from '@/components/shared/Post/PostSkeleton';
 import NewPost from '@/components/shared/NewPost/NewPost';
@@ -12,13 +10,19 @@ import Intro from '@/components/pages/Profile/Intro';
 import Friends from '@/components/pages/Profile/Friends';
 import GroupsYouManage from '@/components/pages/Profile/GroupsYouManage';
 import Cover from '@/components/pages/Profile/Cover';
-import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
+import {
+  useCurrentUserInfo,
+  useOtherUserInfo,
+  useUserPostsData
+} from '@/hooks/query';
+import { useSession } from 'next-auth/react';
 
 export interface IProfileProps {
   params: { slug: string; locale: string };
 }
 
 export default function Profile({ params: { slug, locale } }: IProfileProps) {
+  const userID = '657f06489c29b021b905b804';
   const t = useTranslations();
   const {
     isLoadingUserPosts,
@@ -26,9 +30,11 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
     isFetchingNextUserPosts,
     hasNextUserPosts,
     fetchNextUserPosts
-  } = useUserPostsData('userID');
-  const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo('userID');
+  } = useUserPostsData(userID);
+  const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(userID);
   const { currentUserInfo } = useCurrentUserInfo();
+  const { data: session } = useSession();
+  // console.log('data:: ', session.);
 
   const isFriend = slug === 'friend';
   const isMe = slug === 'me';
@@ -38,7 +44,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
     <div className='ms-60 max-lg:ms-0 mt-16'>
       <div className='max-w-[1065px] mx-auto'>
         <div className='bg-foreground-1 shadow lg:rounded-b-2xl'>
-          <Cover isFriend={isFriend} isMe={isMe} />
+          {/* <Cover isFriend={isFriend} isMe={isMe} /> */}
         </div>
 
         <TabsContent id='tabs-profile' className='!border-none'>
@@ -55,7 +61,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                 }
               />
               <CreateStatus />
-              {userPosts?.length === 0 ? (
+              {/* {userPosts?.length === 0 ? (
                 <>No Post</>
               ) : (
                 userPosts?.map((item, index) => (
@@ -67,7 +73,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                     currentUser={currentUserInfo}
                   ></Post>
                 ))
-              )}
+              )} */}
               <PostSkeleton />
             </div>
 
