@@ -1,4 +1,4 @@
-import NextAuth, { Session } from 'next-auth';
+import NextAuth, { type Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
@@ -108,13 +108,13 @@ const handler = NextAuth({
     })
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) {
         return { ...token, ...user };
       }
       return token;
     },
-    async session({ session, token, user }) {
+    async session({ token }) {
       return token as unknown as Session;
     }
   },
