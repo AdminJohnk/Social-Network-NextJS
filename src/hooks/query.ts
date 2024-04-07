@@ -31,22 +31,18 @@ export const queryCache = new QueryCache();
  * - `isFetchingCurrentUserInfo` is a boolean that indicates whether the query is currently fetching.
  */
 export const useCurrentUserInfo = () => {
-
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['currentUserInfo'],
     queryFn: async () => {
-      const [
-        { data: Friends },
-        { data: RequestSent },
-        { data: requestReceived },
-        { data: userInfo }
-      ] = await Promise.all([
-        userService.getFriends(userID),
-        userService.getRequestSent(userID),
-        userService.getRequestReceived(userID),
-        userService.getUserInfoByID(userID)
-      ]);
-
+      const session = await getSession();
+      const userID = session!.user.id;
+      const [{ data: Friends }, { data: RequestSent }, { data: requestReceived }, { data: userInfo }] =
+        await Promise.all([
+          userService.getFriends(userID),
+          userService.getRequestSent(userID),
+          userService.getRequestReceived(userID),
+          userService.getUserInfoByID(userID)
+        ]);
       userInfo.metadata.friends = Friends.metadata;
       userInfo.metadata.requestSent = RequestSent.metadata;
       userInfo.metadata.requestReceived = requestReceived.metadata;
