@@ -11,6 +11,7 @@ import TrendForYou from '@/components/pages/Home/TrendForYou';
 import CreateStatus from '@/components/pages/Home/CreateStatus';
 import CreateStory from '@/components/pages/Home/CreateStory';
 import { useAllNewsfeedPostsData } from '@/hooks/query';
+import { useSession } from 'next-auth/react';
 
 export interface INewFeedProps {
   params: {
@@ -27,6 +28,8 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
     isLoadingAllNewsfeedPosts: isLoading
   } = useAllNewsfeedPostsData();
 
+  const { data: session } = useSession();
+
   return (
     <div className='ms-60 mt-16 max-lg:ms-0'>
       <div className='newsfeed px-2 py-10 2xl:px-32 xl:px-24 lg:px-14'>
@@ -34,7 +37,10 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
           <Story />
           <CreateStory />
         </div>
-        <div className='newsfeed-content mt-14 max-md:mt-0 flex w-full' id='newsfeed'>
+        <div
+          className='newsfeed-content mt-14 max-md:mt-0 flex w-full'
+          id='newsfeed'
+        >
           <div className='post w-3/5 max-lg:w-full px-9'>
             <div className='new-post mb-8'>
               <NewPost />
@@ -47,7 +53,7 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
             ) : (
               <div className='post *:mb-6'>
                 {posts ? (
-                  posts.map((post) => {
+                  posts.map(post => {
                     if (post.type === 'Post') return <Post key={post._id} post={post} />;
                   })
                 ) : (
@@ -62,7 +68,10 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
             <></>
           ) : (
             <div className='more-info w-2/5 max-lg:hidden'>
-              <div className='space-y-6' data-uk-sticky='media: 1024; end: #newsfeed; offset: 80'>
+              <div
+                className='space-y-6'
+                data-uk-sticky='media: 1024; end: #newsfeed; offset: 80'
+              >
                 <SuggestFollow />
 
                 <OnlineFriend />

@@ -12,7 +12,7 @@ import CommentList from '@/components/shared/CommentList/CommentList';
 import InputComment from '@/components/shared/InputComment/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
-import { IPost } from '@/types';
+import { IPost, IUserInfo } from '@/types';
 import { getImageURL } from '@/lib/utils';
 
 export interface IPostProps {
@@ -31,7 +31,8 @@ export default function Post({ post }: IPostProps) {
             <span className='base-bold'>{post.post_attributes.user.name}</span>
             <Link
               href={`/posts/${post._id}`}
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
+            >
               {t('hours ago', { count: 2 })}
             </Link>
           </div>
@@ -48,7 +49,9 @@ export default function Post({ post }: IPostProps) {
         </div>
       </div>
       <div className='mt-4 space-y-3'>
-        <div dangerouslySetInnerHTML={{ __html: post.post_attributes.content }} />
+        <div
+          dangerouslySetInnerHTML={{ __html: post.post_attributes.content }}
+        />
         {post.post_attributes.images.length !== 0 && (
           <Image
             className='rounded-lg w-full h-full object-cover'

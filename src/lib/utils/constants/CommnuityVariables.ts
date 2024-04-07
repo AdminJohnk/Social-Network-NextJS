@@ -1,0 +1,5 @@
+export enum COMMUNITY_ROLE {
+  ADMIN,
+  MEMBER,
+  NOMEMBER
+}
