@@ -16,6 +16,7 @@ import { communityService } from '@/services/CommunityService';
 import { searchLogService } from '@/services/SearchLogService';
 import { GITHUB_TOKEN } from '@/lib/constants/SettingSystem';
 import ApplyDefaults from '@/lib/utils';
+import { getSession } from 'next-auth/react';
 
 export const queryCache = new QueryCache();
 
@@ -36,13 +37,17 @@ export const useCurrentUserInfo = () => {
     queryFn: async () => {
       const session = await getSession();
       const userID = session!.id;
-      const [{ data: Friends }, { data: RequestSent }, { data: requestReceived }, { data: userInfo }] =
-        await Promise.all([
-          userService.getFriends(userID),
-          userService.getRequestSent(userID),
-          userService.getRequestReceived(userID),
-          userService.getUserInfoByID(userID)
-        ]);
+      const [
+        { data: Friends },
+        { data: RequestSent },
+        { data: requestReceived },
+        { data: userInfo }
+      ] = await Promise.all([
+        userService.getFriends(userID),
+        userService.getRequestSent(userID),
+        userService.getRequestReceived(userID),
+        userService.getUserInfoByID(userID)
+      ]);
       userInfo.metadata.friends = Friends.metadata;
       userInfo.metadata.requestSent = RequestSent.metadata;
       userInfo.metadata.requestReceived = requestReceived.metadata;
@@ -239,7 +244,8 @@ export const useUserPostsData = (userID: string) => {
     select: data => {
       return data.pages.flat();
     },
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: !!userID
   });
 
   return {

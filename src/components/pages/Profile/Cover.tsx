@@ -28,11 +28,10 @@ export interface ICoverProps {
 
 export default function Cover({ isMe, isFriend }: ICoverProps) {
   const t = useTranslations();
-  const { currentUserInfo } = useCurrentUserInfo();
-
+  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo();
   return (
     <>
-      {!currentUserInfo ? (
+      {isLoadingCurrentUserInfo ? (
         <></>
       ) : (
         <div>

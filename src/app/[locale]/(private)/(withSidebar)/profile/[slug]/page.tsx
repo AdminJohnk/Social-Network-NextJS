@@ -10,30 +10,14 @@ import Intro from '@/components/pages/Profile/Intro';
 import Friends from '@/components/pages/Profile/Friends';
 import GroupsYouManage from '@/components/pages/Profile/GroupsYouManage';
 import Cover from '@/components/pages/Profile/Cover';
-import {
-  useCurrentUserInfo,
-  useOtherUserInfo,
-  useUserPostsData
-} from '@/hooks/query';
-import { useSession } from 'next-auth/react';
+import PostsList from '@/components/pages/Profile/PostsList';
 
 export interface IProfileProps {
-  params: { slug: string; locale: string };
+  params: { slug: string };
 }
 
-export default function Profile({ params: { slug, locale } }: IProfileProps) {
-  const userID = '657f06489c29b021b905b804';
+export default function Profile({ params: { slug } }: IProfileProps) {
   const t = useTranslations();
-  const {
-    isLoadingUserPosts,
-    userPosts,
-    isFetchingNextUserPosts,
-    hasNextUserPosts,
-    fetchNextUserPosts
-  } = useUserPostsData(userID);
-  const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(userID);
-  const { currentUserInfo } = useCurrentUserInfo();
-  const { data: session } = useSession();
 
   const isFriend = slug === 'friend';
   const isMe = slug === 'me';
@@ -43,7 +27,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
     <div className='ms-60 max-lg:ms-0 mt-16'>
       <div className='max-w-[1065px] mx-auto'>
         <div className='bg-foreground-1 shadow lg:rounded-b-2xl'>
-          {/* <Cover isFriend={isFriend} isMe={isMe} /> */}
+          <Cover isFriend={isFriend} isMe={isMe} />
         </div>
 
         <TabsContent id='tabs-profile' className='!border-none'>
@@ -60,19 +44,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
                 }
               />
               <CreateStatus />
-              {/* {userPosts?.length === 0 ? (
-                <>No Post</>
-              ) : (
-                userPosts?.map((item, index) => (
-                  <Post
-                    type={item.type}
-                    post={item}
-                    postAuthor={otherUserInfo}
-                    postSharer={item.post_attributes.owner_post!}
-                    currentUser={currentUserInfo}
-                  ></Post>
-                ))
-              )} */}
+              <PostsList />
               <PostSkeleton />
             </div>
 
