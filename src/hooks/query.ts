@@ -1,5 +1,3 @@
-'use client';
-
 import {
   type InfiniteData,
   useInfiniteQuery,
@@ -34,13 +32,11 @@ export const queryCache = new QueryCache();
  * - `isFetchingCurrentUserInfo` is a boolean that indicates whether the query is currently fetching.
  */
 export const useCurrentUserInfo = () => {
-  // const userID = useSession().data?.user?.id!;
-  const userID = "657f06489c29b021b905b804";
-
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['currentUserInfo'],
     queryFn: async () => {
-      // const userID = await getSession().then((session) => session?.user!.id!);
+      const session = await getSession();
+      const userID = session!.user.id;
       const [{ data: Friends }, { data: RequestSent }, { data: requestReceived }, { data: userInfo }] =
         await Promise.all([
           userService.getFriends(userID),
@@ -48,13 +44,12 @@ export const useCurrentUserInfo = () => {
           userService.getRequestReceived(userID),
           userService.getUserInfoByID(userID)
         ]);
-
       userInfo.metadata.friends = Friends.metadata;
       userInfo.metadata.requestSent = RequestSent.metadata;
       userInfo.metadata.requestReceived = requestReceived.metadata;
       return ApplyDefaults(userInfo.metadata);
     },
-    staleTime: Infinity,
+    staleTime: Infinity
     // enabled: window.location.pathname !== '/login' && window.location.pathname !== '/register'
   });
 
