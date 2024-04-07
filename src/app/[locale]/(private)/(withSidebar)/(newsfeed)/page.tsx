@@ -29,7 +29,6 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
   } = useAllNewsfeedPostsData();
 
   const { data: session } = useSession();
-  console.log('session:: ', session);
 
   return (
     <div className='ms-60 mt-16 max-lg:ms-0'>

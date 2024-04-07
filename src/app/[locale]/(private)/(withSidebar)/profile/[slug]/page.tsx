@@ -34,7 +34,6 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(userID);
   const { currentUserInfo } = useCurrentUserInfo();
   const { data: session } = useSession();
-  // console.log('data:: ', session.);
 
   const isFriend = slug === 'friend';
   const isMe = slug === 'me';

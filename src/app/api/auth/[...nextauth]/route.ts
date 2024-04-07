@@ -1,6 +1,3 @@
-import { AppConfig } from '@/configs/app.config';
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
 import NextAuth, { Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
