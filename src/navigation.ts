@@ -3,7 +3,7 @@ import { locales } from './i18n';
 
 export const localePrefix = 'as-needed'; // Default
 
-export const { Link, redirect, usePathname, useRouter } = createSharedPathnamesNavigation({
+export const { Link, redirect, usePathname, useRouter, permanentRedirect } = createSharedPathnamesNavigation({
   locales,
   localePrefix
 });
