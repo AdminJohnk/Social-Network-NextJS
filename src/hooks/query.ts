@@ -36,7 +36,7 @@ export const useCurrentUserInfo = () => {
     queryKey: ['currentUserInfo'],
     queryFn: async () => {
       const session = await getSession();
-      const userID = session!.user.id;
+      const userID = session!.id;
       const [{ data: Friends }, { data: RequestSent }, { data: requestReceived }, { data: userInfo }] =
         await Promise.all([
           userService.getFriends(userID),

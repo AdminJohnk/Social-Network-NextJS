@@ -26,7 +26,7 @@ export default function EditProfile() {
           <div className='flex-start gap-4 p-8'>
             <div className='relative md:w-20 md:h-20 w-12 h-12 shrink-0'>
               <label htmlFor='file' className='cursor-pointer'>
-                <Avatar sx={{ width: 80, height: 80 }} src={getImageURL(session?.user.image!)} />
+                <Avatar sx={{ width: 80, height: 80 }} src={getImageURL(session?.picture!)} />
                 <input type='file' id='file' className='hidden' />
               </label>
 
@@ -49,8 +49,8 @@ export default function EditProfile() {
               </label>
             </div>
             <div className='flex flex-col'>
-              <span className='h5-bold mb-2'>{session?.user.name}</span>
-              <span className='small-regular text-text-2'>@{session?.user.name}</span>
+              <span className='h5-bold mb-2'>{session?.name}</span>
+              <span className='small-regular text-text-2'>@{session?.name}</span>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function EditProfile() {
                     type='text'
                     placeholder='Monroe'
                     className='w-full rounded-lg bg-foreground-2 border-none'
-                    defaultValue={session?.user.name}
+                    defaultValue={session?.name}
                   />
                 </div>
               </div>
@@ -96,7 +96,7 @@ export default function EditProfile() {
                     type='text'
                     placeholder='@monroe'
                     className='w-full rounded-lg bg-foreground-2 border-none'
-                    defaultValue={session?.user.name}
+                    defaultValue={session?.name}
                   />
                 </div>
               </div>

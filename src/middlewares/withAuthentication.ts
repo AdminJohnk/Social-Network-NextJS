@@ -1,11 +1,11 @@
 import { getToken } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
-import { NextFetchEvent, NextResponse } from 'next/server';
+import { NextFetchEvent, NextResponse, NextRequest } from 'next/server';
 import { MiddlewareFactory } from './types';
 
-export const withAuthentication: MiddlewareFactory = (next) => (req: any, _next: NextFetchEvent) => {
-  return (
-    withAuth(
+export const withAuthentication: MiddlewareFactory =
+  (next) => async (req: NextRequest, _next: NextFetchEvent) => {
+    return withAuth(
       async function middleware(req) {
         const token = await getToken({ req });
         const isAuth = !!token;
@@ -17,7 +17,7 @@ export const withAuthentication: MiddlewareFactory = (next) => (req: any, _next:
           if (isAuth) {
             return NextResponse.redirect(new URL('/', req.url));
           }
-          
+
           return next(req, _next);
         }
 
@@ -40,6 +40,5 @@ export const withAuthentication: MiddlewareFactory = (next) => (req: any, _next:
           }
         }
       }
-    ) as any
-  )(req);
-};
+    )(req as any, _next);
+  };

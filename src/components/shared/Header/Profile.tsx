@@ -34,7 +34,7 @@ export default function ProfileHeader() {
             className='rounded-full relative bg-foreground-1 cursor-pointer shrink-0'
             data-uk-tooltip={`title: ${t('Account')}; pos: bottom; offset:6`}>
             <Image
-              src={getImageURL(session?.user?.image) || '/images/home/avatar-2.jpg'}
+              src={getImageURL(session?.image) || '/images/home/avatar-2.jpg'}
               alt=''
               className='sm:w-9 sm:h-9 w-7 h-7 rounded-full shadow shrink-0 object-cover'
               width={50}
@@ -47,16 +47,16 @@ export default function ProfileHeader() {
             <Link href='/profile/me'>
               <div className='p-4 py-5 flex items-center gap-4'>
                 <Image
-                  src={getImageURL(session?.user?.image) || '/images/home/avatar-2.jpg'}
+                  src={getImageURL(session?.image) || '/images/home/avatar-2.jpg'}
                   alt=''
                   className='w-10 h-10 rounded-full shadow object-cover'
                   width={50}
                   height={50}
                 />
                 <div className='flex-1'>
-                  <h4 className='text-sm font-medium text-text-1'>{session?.user?.name || 'User Name'}</h4>
+                  <h4 className='text-sm font-medium text-text-1'>{session?.name || 'User Name'}</h4>
                   <div className='text-sm mt-1 text-blue-600 font-light dark:text-white/70'>
-                    {session?.user?.email || '@username'}
+                    {session?.email || '@username'}
                   </div>
                 </div>
               </div>
