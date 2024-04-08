@@ -9,11 +9,20 @@ import {
 } from 'react-icons/io5';
 import { FaGift } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
+import { IUserInfo } from '@/types';
+import { useCurrentUserInfo } from '@/hooks/query';
 
-export interface IInputChatProps { }
+export interface IInputChatProps {
+  conversationID: string[] | undefined;
+  members: IUserInfo[];
+}
 
-export default function InputChat(props: IInputChatProps) {
+export default function InputChat({ conversationID, members }: IInputChatProps) {
   const t = useTranslations();
+
+  const { currentUserInfo } = useCurrentUserInfo();
+  // const { mutateSendMessage } = useSendMessage();
+
 
   return (
     <div className='flex items-center md:gap-4 gap-2 md:p-3 p-2 overflow-hidden'>

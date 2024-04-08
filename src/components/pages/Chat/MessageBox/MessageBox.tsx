@@ -1,9 +1,10 @@
 import { forwardRef } from 'react';
 import { getDateTime } from '@/lib/descriptions/formatDateTime';
-import { getImageURL } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
 import { IMessage, IUserInfo, TypeofConversation } from '@/types';
 import Image from 'next/image';
+import { useCurrentUserInfo } from '@/hooks/query';
 
 export interface IMessageBoxProps {
   message: IMessage;
@@ -18,7 +19,7 @@ export interface IMessageBoxProps {
   typeCalled?: string;
 }
 
-export const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
+const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
   (
     {
       message,
@@ -34,15 +35,26 @@ export const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     ref
   ) => {
 
-    console.log('message', message)
-    console.log('seen', seen)
-    console.log('isLastMes', isLastMes)
-    console.log('isNextMesGroup', isNextMesGroup)
-    console.log('isPrevMesGroup', isPrevMesGroup)
-    console.log('isMoreThan10Min', isMoreThan10Min)
-    console.log('isAdmin', isAdmin)
-    console.log('type', type)
-    console.log('isCreator', isCreator)
+    const { currentUserInfo } = useCurrentUserInfo();
+    const isOwn = currentUserInfo._id === message.sender._id;
+
+    const roundedCornerStyle = (isOwn: boolean, isNextMesGroup: boolean, isPrevMesGroup: boolean) => {
+      if (isOwn) {
+        if (isNextMesGroup && isPrevMesGroup) return 'rounded-s-[1.5rem] rounded-e-[0.75rem]';
+        if (isNextMesGroup && !isPrevMesGroup)
+          return 'rounded-t-[1.5rem] rounded-bl-[1.5rem] rounded-br-[0.75rem]';
+        if (!isNextMesGroup && isPrevMesGroup)
+          return 'rounded-b-[1.5rem] rounded-tl-[1.5rem] rounded-tr-[0.75rem]';
+        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem] my-1';
+      } else {
+        if (isNextMesGroup && isPrevMesGroup) return 'rounded-e-[1.5rem] rounded-s-[0.75rem]';
+        if (isNextMesGroup && !isPrevMesGroup)
+          return 'rounded-t-[1.5rem] rounded-br-[1.5rem] rounded-bl-[0.75rem]';
+        if (!isNextMesGroup && isPrevMesGroup)
+          return 'rounded-b-[1.5rem] rounded-tr-[1.5rem] rounded-tl-[0.75rem]';
+        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem] my-1';
+      }
+    };
 
     const receivedMessage = (content: string) => {
       return <>
@@ -50,11 +62,11 @@ export const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <Image
             width={500}
             height={500}
-            src='/images/avatars/avatar-2.jpg'
+            src={getImageURL(message.sender.user_image, 'avatar_mini')!}
             alt=''
             className='w-9 h-9 rounded-full shadow'
           />
-          <div className='px-4 py-2 rounded-[20px] max-w-sm bg-foreground-2'>{content}</div>
+          <div className={cn('px-4 py-2 max-w-sm bg-foreground-2', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>{content}</div>
         </div>
       </>
     }
@@ -62,14 +74,7 @@ export const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     const sentMessage = (content: string) => {
       return <>
         <div className='flex gap-2 flex-row-reverse items-end'>
-          <Image
-            width={500}
-            height={500}
-            src='/images/avatars/avatar-3.jpg'
-            alt=''
-            className='w-4 h-4 rounded-full shadow'
-          />
-          <div className='px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'>
+          <div className={cn('px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>
             {content}
           </div>
         </div>
@@ -85,14 +90,6 @@ export const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     const sentMedia = (content: string[]) => {
       return <>
         <div className='flex gap-2 flex-row-reverse items-end'>
-          <Image
-            width={500}
-            height={500}
-            src='/images/avatars/avatar-3.jpg'
-            alt=''
-            className='w-4 h-4 rounded-full shadow'
-          />
-
           <Link className='block rounded-[18px] border overflow-hidden' href='#'>
             <div className='max-w-md'>
               <div className='max-w-full relative w-72'>
@@ -116,7 +113,7 @@ export const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
 
     const time = (time: string) => {
       return <>
-        <div className='flex justify-center '>
+        <div className='flex justify-center my-4'>
           <div className='font-medium text-gray-500 text-sm dark:text-white/70'>
             {getDateTime(time)}
           </div>
@@ -124,9 +121,31 @@ export const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       </>
     }
 
-    return (
-      <div>
-
-      </div>
-    );
+    if (message.type === 'text') {
+      if (isAdmin) {
+        return <>
+          {isMoreThan10Min && time(message.createdAt)}
+          {receivedMessage(message.content)}
+        </>
+      } else {
+        return <>
+          {isMoreThan10Min && time(message.createdAt)}
+          {sentMessage(message.content)}
+        </>
+      }
+    } else if (message.type === 'image') {
+      if (isAdmin) {
+        return <>
+          {isMoreThan10Min && time(message.createdAt)}
+          {receivedMedia(message.images!)}
+        </>
+      } else {
+        return <>
+          {isMoreThan10Min && time(message.createdAt)}
+          {sentMedia(message.images!)}
+        </>
+      }
+    }
   })
+
+export default MessageBox;  
