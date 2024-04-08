@@ -7,6 +7,7 @@ import ChatsBubble from '@/components/pages/Chat/ChatsBubble';
 import RightActionButtons from '@/components/pages/Chat/RightActionButtons';
 import SearchChat from '@/components/pages/Chat/SearchChat';
 import HeadingTitle from '@/components/pages/Chat/HeadingTitle';
+import SideBar from '@/components/shared/SideBar';
 
 export interface IMessageProps {
   params: {
@@ -21,9 +22,9 @@ const Message = ({ params: { locale, conversationID } }: IMessageProps) => {
   return (
     <>
       <div id='wrapper'>
+        <SideBar />
         {/* <!-- main contents --> */}
-        {/* <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]"> */}
-        <main>
+        <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]">
           <div className='mx-auto h-screen relative shadow-lg overflow-hidden border-border-1'>
             <div className='flex bg-white dark:bg-background-2'>
               {/* <!-- sidebar --> */}

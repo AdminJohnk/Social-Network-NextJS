@@ -1,4 +1,8 @@
-import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  InfiniteData,
+  useMutation,
+  useQueryClient
+} from '@tanstack/react-query';
 
 // import { closeDrawer, setLoading } from '@/redux/Slice/DrawerHOCSlice';
 import { postService } from '@/services/PostService';
@@ -557,7 +561,10 @@ export const useSendMessage = () => {
  * represents the ID of the conversation for which the message is being received. If provided, it is
  * used to determine whether to play a sound notification or not.
  */
-export const useReceiveMessage = (currentUserID: string, conversationID?: string) => {
+export const useReceiveMessage = (
+  currentUserID: string,
+  conversationID?: string
+) => {
   const NotiMessage = new Audio('/sounds/sound-noti-message.wav');
   const PopMessage = new Audio('/sounds/bubble-popping-short.mp3');
   NotiMessage.volume = 0.3;
@@ -876,48 +883,48 @@ export const useReceiveSeenConversation = () => {
  * The `useReceiveLeaveGroup` function is a custom hook that handles the mutation for updating
  * conversation data when a user leaves a group.
  */
-export const useReceiveLeaveGroup = () => {
-  const queryClient = useQueryClient();
+// export const useReceiveLeaveGroup = () => {
+//   const queryClient = useQueryClient();
 
-  const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
-    mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
-    onSuccess(conversation) {
-      queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-        if (!oldData) return;
+//   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
+//     mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
+//     onSuccess(conversation) {
+//       queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+//         if (!oldData) return;
 
-        const newData = [...oldData];
+//         const newData = [...oldData];
 
-        const index = newData.findIndex((item) => item._id === conversation._id);
+//         const index = newData.findIndex((item) => item._id === conversation._id);
 
-        if (index !== -1) {
-          newData[index] = {
-            ...newData[index],
-            members: conversation.members
-          };
-        }
+//         if (index !== -1) {
+//           newData[index] = {
+//             ...newData[index],
+//             members: conversation.members
+//           };
+//         }
 
-        return newData;
-      });
+//         return newData;
+//       });
 
-      queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
-        if (!oldData) return;
+//       queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
+//         if (!oldData) return;
 
-        return {
-          ...oldData,
-          members: conversation.members
-        };
-      });
-    }
-  });
+//         return {
+//           ...oldData,
+//           members: conversation.members
+//         };
+//       });
+//     }
+//   });
 
-  return {
-    mutateReceiveLeaveGroup: mutateAsync,
-    isLoadingReceiveLeaveGroup: isPending,
-    isErrorReceiveLeaveGroup: isError,
-    isSuccessReceiveLeaveGroup: isSuccess,
-    conversation: variables
-  };
-};
+//   return {
+//     mutateReceiveLeaveGroup: mutateAsync,
+//     isLoadingReceiveLeaveGroup: isPending,
+//     isErrorReceiveLeaveGroup: isError,
+//     isSuccessReceiveLeaveGroup: isSuccess,
+//     conversation: variables
+//   };
+// };
 
 /**
  * The `useMutateMessageCall` function is a custom hook in TypeScript that handles mutation for a
@@ -928,7 +935,10 @@ export const useReceiveLeaveGroup = () => {
  * @param {string} type - The `type` parameter is a string that represents the type of message call. It
  * could be any value that you want to use to differentiate between different types of message calls.
  */
-export const useMutateMessageCall = (conversation_id: string | undefined, type: string) => {
+export const useMutateMessageCall = (
+  conversation_id: string | undefined,
+  type: string
+) => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({

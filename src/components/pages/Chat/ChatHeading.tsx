@@ -92,8 +92,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
             </button>
 
             <div
-              className='relative cursor-pointer max-md:hidden'
-              data-uk-toggle='target: .right ; cls: hidden'>
+              className='relative cursor-pointer max-md:hidden'>
               {currentConversation.type === 'group' ? (
                 <AvatarGroup
                   key={currentConversation._id}
@@ -101,16 +100,13 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
                   image={currentConversation.image}
                 />
               ) : (
-                <Link href={`/user/${otherUser._id}`}>
+                <Link href={`/profile/${otherUser._id}`}>
                   <AvatarMessage key={otherUser._id} user={otherUser} />
                 </Link>
               )}
-              {/* <Image
-            width={500}
-            height={500} src={getImageURL(currentConversation?.image)} alt='' className='w-8 h-8 rounded-full shadow' /> */}
               <div className='w-3 h-3 bg-teal-500 rounded-full absolute -right-1 -bottom-0.5 m-px'></div>
             </div>
-            <div className='cursor-pointer' data-uk-toggle='target: .right ; cls: hidden'>
+            <div className='cursor-pointer'>
               <div className='text-base font-bold'> {currentConversation.name ?? otherUser.name}</div>
               <div className='text-xs text-green-500 font-semibold'> {t('Online')}</div>
             </div>

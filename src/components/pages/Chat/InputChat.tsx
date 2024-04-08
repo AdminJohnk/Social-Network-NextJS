@@ -13,11 +13,12 @@ import { useTranslations } from 'next-intl';
 import { IEmoji, IMessage, IUserInfo } from '@/types';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
-import { useSendMessage } from '@/hooks/mutation';
+// import { useSendMessage } from '@/hooks/mutation';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
-import { Popover } from '@mui/material';
 import Picker from '@emoji-mart/react';
+import { useThemeMode } from 'flowbite-react';
+
+import { cn } from '@/lib/utils';
 
 export interface IInputChatProps {
   conversationID: string[] | undefined;
@@ -26,11 +27,11 @@ export interface IInputChatProps {
 
 export default function InputChat({ conversationID, members }: IInputChatProps) {
   const t = useTranslations();
-
+  const { mode } = useThemeMode();
   const { data: session } = useSession();
 
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
-  const { mutateSendMessage } = useSendMessage();
+  // const { mutateSendMessage } = useSendMessage();
   const [id, setId] = useState(uuidv4().replace(/-/g, ''));
 
 
@@ -67,7 +68,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
         createdAt: new Date()
       };
       setId(uuidv4().replace(/-/g, ''));
-      mutateSendMessage(message as unknown as IMessage);
+      // mutateSendMessage(message as unknown as IMessage);
     }
 
     if (files.length > 0) {
@@ -145,7 +146,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
                 setCursor(cursor + emoji.native.length);
                 setMessage(messageContent.slice(0, cursor) + emoji.native + messageContent.slice(cursor));
               }}
-              theme={'light'}
+              theme={mode}
             />
           </div>
         </div>
