@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl';
 import { IEmoji, IMessage, IUserInfo } from '@/types';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
-import { useSendMessage } from '@/hooks/mutation';
+// import { useSendMessage } from '@/hooks/mutation';
 import { useState } from 'react';
 import Picker from '@emoji-mart/react';
 import { useThemeMode } from 'flowbite-react';
@@ -31,7 +31,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
   const { data: session } = useSession();
 
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
-  const { mutateSendMessage } = useSendMessage();
+  // const { mutateSendMessage } = useSendMessage();
   const [id, setId] = useState(uuidv4().replace(/-/g, ''));
 
 
@@ -68,7 +68,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
         createdAt: new Date()
       };
       setId(uuidv4().replace(/-/g, ''));
-      mutateSendMessage(message as unknown as IMessage);
+      // mutateSendMessage(message as unknown as IMessage);
     }
 
     if (files.length > 0) {
