@@ -1,16 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import { Link } from '@/navigation';
+import { Link, usePathname } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
 import { Sidebar } from '@/lib/navigator/Sidebar';
 import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
 
 export default function MainNavigate() {
   const t = useTranslations();
-  const pathName = usePathname().split('/')[1];
+  const pathName = usePathname();
 
   return (
     <nav id='side'>
@@ -20,21 +19,15 @@ export default function MainNavigate() {
             <li
               key={index}
               id={cn(item.showMore && 'show_more')}
-              className={cn(item.showMore && '!hidden', 'my-1')}
-            >
+              className={cn(item.showMore && '!hidden', 'my-1')}>
               <Link
                 href={item.href}
                 className={cn(
                   'duration-300',
-                  pathName === item.href.split('/')[1] && 'bg-foreground-1'
-                )}
-              >
-                <Image
-                  src={item.image}
-                  alt={item.label}
-                  width={24}
-                  height={24}
-                />
+                  (pathName === item.href || (pathName.startsWith(item.href) && item.href !== '/')) &&
+                    'bg-foreground-1'
+                )}>
+                <Image src={item.image} alt={item.label} width={24} height={24} />
                 <span> {t(item.label)} </span>
               </Link>
             </li>
