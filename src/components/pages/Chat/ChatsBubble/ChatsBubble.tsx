@@ -11,6 +11,7 @@ import MessageBox from '../MessageBox';
 import { IMessage } from '@/types';
 import AvatarGroup from '../Avatar/AvatarGroup';
 import AvatarMessage from '../Avatar/AvatarMessage';
+import { useSession } from 'next-auth/react';
 
 export interface IChatsBubbleProps {
     conversationID: string[] | undefined;
@@ -21,7 +22,9 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
 
     if (conversationID === undefined) return <></>
 
-    const { currentUserInfo } = useCurrentUserInfo();
+    const { data: session } = useSession();
+
+    const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
     const { currentConversation, isLoadingCurrentConversation, isFetchingCurrentConversation } = useCurrentConversationData(conversationID[0]);
     const otherUser = useMemo(() => {
