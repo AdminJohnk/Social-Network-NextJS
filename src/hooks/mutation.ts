@@ -1,6 +1,8 @@
-'use client';
-
-import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  InfiniteData,
+  useMutation,
+  useQueryClient
+} from '@tanstack/react-query';
 
 // import { closeDrawer, setLoading } from '@/redux/Slice/DrawerHOCSlice';
 import { postService } from '@/services/PostService';
@@ -20,8 +22,7 @@ import {
 } from '@/types';
 // import { useAppDispatch, useAppSelector } from './special';
 import { messageService } from '@/services/MessageService';
-import { Socket } from '@/lib/utils/constants/SettingSystem';
-import { useRouter } from 'next/navigation';
+// import { Socket } from '@/util/constants/SettingSystem';
 
 // ----------------------------- MUTATIONS -----------------------------
 
@@ -30,8 +31,7 @@ import { useRouter } from 'next/navigation';
  * making an API request and updating the query data for the user's posts and the newsfeed.
  */
 // export const useCreatePost = () => {
-//   const [auth] = useGlobalState('auth');
-//   const uid = auth.userID;
+//   const uid = useAppSelector(state => state.auth.userID);
 
 //   const queryClient = useQueryClient();
 
@@ -58,19 +58,19 @@ import { useRouter } from 'next/navigation';
  * The `useViewPost` function is a custom hook that handles the logic for viewing a post, including
  * making a mutation request to the server and updating the cache.
  */
-export const useViewPost = () => {
-  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-    mutationFn: async (postID: string) => {
-      await postService.viewPost(postID);
-    }
-  });
-  return {
-    mutateViewPost: mutateAsync,
-    isLoadingViewPost: isPending,
-    isErrorViewPost: isError,
-    isSuccessViewPost: isSuccess
-  };
-};
+// export const useViewPost = () => {
+//   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+//     mutationFn: async (postID: string) => {
+//       await postService.viewPost(postID);
+//     }
+//   });
+//   return {
+//     mutateViewPost: mutateAsync,
+//     isLoadingViewPost: isPending,
+//     isErrorViewPost: isError,
+//     isSuccessViewPost: isSuccess
+//   };
+// };
 
 /**
  * The `useUpdatePost` function is a custom hook that handles the mutation logic for updating a post,
@@ -114,8 +114,7 @@ export const useViewPost = () => {
 // export const useDeletePost = () => {
 //   const queryClient = useQueryClient();
 
-//   const [auth] = useGlobalState('auth');
-//   const uid = auth.userID;
+//   const uid = useAppSelector(state => state.auth.userID);
 
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (postID: string) => {
@@ -139,8 +138,8 @@ export const useViewPost = () => {
  * The `useLikePost` function is a custom hook that handles the logic for liking a post, including
  * making the API call and updating the cache.
  */
-export const useLikePost = () => {
-  const queryClient = useQueryClient();
+// export const useLikePost = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (post: ISharePost) => {
@@ -164,8 +163,8 @@ export const useLikePost = () => {
  * The `useSharePost` function is a custom hook that handles the mutation logic for sharing a post,
  * including invalidating the post query cache on success.
  */
-export const useSharePost = () => {
-  const queryClient = useQueryClient();
+// export const useSharePost = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (post: ISharePost) => {
@@ -217,8 +216,7 @@ export const useSavePost = () => {
 // export const useCommentPost = () => {
 //   const queryClient = useQueryClient();
 
-//   const [auth] = useGlobalState('auth');
-//   const uid = auth.userID;
+//   const uid = useAppSelector(state => state.auth.userID);
 
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (commentData: ICreateComment) => {
@@ -252,8 +250,8 @@ export const useSavePost = () => {
  * The `useLikeComment` function is a custom hook that handles the logic for liking a comment and
  * invalidating the cache for the comments associated with the post.
  */
-export const useLikeComment = () => {
-  const queryClient = useQueryClient();
+// export const useLikeComment = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (payload: ICreateLikeComment) => {
@@ -280,8 +278,8 @@ export const useLikeComment = () => {
  * The `useDislikeComment` function is a custom hook that handles the logic for disliking a comment,
  * including making the API request and updating the cache.
  */
-export const useDislikeComment = () => {
-  const queryClient = useQueryClient();
+// export const useDislikeComment = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (payload: ICreateLikeComment) => {
@@ -340,8 +338,8 @@ export const useDislikeComment = () => {
  * The `useFollowUser` function is a custom hook that handles following a user, including making the
  * API call, handling loading and error states, and invalidating relevant queries in the query cache.
  */
-export const useAddFriendUser = () => {
-  const queryClient = useQueryClient();
+// export const useAddFriendUser = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (userID: string) => {
@@ -366,8 +364,8 @@ export const useAddFriendUser = () => {
  * including making the API call, handling loading and error states, and invalidating relevant
  * queries in the query cache.
  */
-export const useAcceptFriendUser = () => {
-  const queryClient = useQueryClient();
+// export const useAcceptFriendUser = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (userID: string) => {
@@ -392,8 +390,8 @@ export const useAcceptFriendUser = () => {
  * including making the API call, handling loading and error states, and invalidating relevant
  * queries in the query cache.
  */
-export const useCancelFriendUser = () => {
-  const queryClient = useQueryClient();
+// export const useCancelFriendUser = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (userID: string) => {
@@ -418,8 +416,8 @@ export const useCancelFriendUser = () => {
  * including making the API call, handling loading and error states, and invalidating relevant
  * queries in the query cache.
  */
-export const useDeclineFriendUser = () => {
-  const queryClient = useQueryClient();
+// export const useDeclineFriendUser = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (userID: string) => {
@@ -444,8 +442,8 @@ export const useDeclineFriendUser = () => {
  * making the API call, handling loading and error states, and invalidating relevant queries in the
  * query cache.
  */
-export const useDeleteFriendUser = () => {
-  const queryClient = useQueryClient();
+// export const useDeleteFriendUser = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (userID: string) => {
@@ -469,8 +467,8 @@ export const useDeleteFriendUser = () => {
  * The `useSendMessage` function is a custom hook in TypeScript that handles sending a message and
  * updating the query data for conversations and messages.
  */
-export const useSendMessage = () => {
-  const queryClient = useQueryClient();
+// export const useSendMessage = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
     mutationFn: async (message: IMessage) => await Promise.resolve(message),
@@ -543,10 +541,13 @@ export const useSendMessage = () => {
  * represents the ID of the conversation for which the message is being received. If provided, it is
  * used to determine whether to play a sound notification or not.
  */
-export const useReceiveMessage = (currentUserID: string, conversationID?: string) => {
-  const NotiMessage = new Audio('/sounds/sound-noti-message.wav');
-  const PopMessage = new Audio('/sounds/bubble-popping-short.mp3');
-  NotiMessage.volume = 0.3;
+// export const useReceiveMessage = (
+//   currentUserID: string,
+//   conversationID?: string
+// ) => {
+//   const NotiMessage = new Audio('/sounds/sound-noti-message.wav');
+//   const PopMessage = new Audio('/sounds/bubble-popping-short.mp3');
+//   NotiMessage.volume = 0.3;
 
   const queryClient = useQueryClient();
 
@@ -643,8 +644,8 @@ export const useReceiveMessage = (currentUserID: string, conversationID?: string
  * The `useReceiveConversation` function is a custom hook that handles the mutation of a conversation
  * object and updates the query data for conversations.
  */
-export const useReceiveConversation = () => {
-  const queryClient = useQueryClient();
+// export const useReceiveConversation = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
     mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
@@ -687,8 +688,8 @@ export const useReceiveConversation = () => {
  * The `useReceiveSeenConversation` function is a custom hook in TypeScript that handles the mutation
  * of a conversation's "seen" status and updates the query data accordingly.
  */
-export const useReceiveSeenConversation = () => {
-  const queryClient = useQueryClient();
+// export const useReceiveSeenConversation = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
     mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
@@ -736,10 +737,9 @@ export const useReceiveSeenConversation = () => {
  */
 // export const useDissolveGroup = () => {
 //   const queryClient = useQueryClient();
-//   const router = useRouter();
+//   const navigate = useNavigate();
 
-//   const [socketIO] = useGlobalState('socketIO');
-//   const { chatSocket } = socketIO;
+//   const { chatSocket } = useAppSelector(state => state.socketIO);
 
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (conversationID: string) => {
@@ -748,8 +748,7 @@ export const useReceiveSeenConversation = () => {
 //     },
 //     onSuccess(conversation, conversationID) {
 //       if (window.location.pathname.includes(conversationID))
-//         // navigate('/message', { replace: true });
-//         router.push('/message');
+//         navigate('/message', { replace: true });
 //       queryClient.setQueryData<IConversation[]>(['conversations'], oldData => {
 //         if (!oldData) return;
 
@@ -775,19 +774,21 @@ export const useReceiveSeenConversation = () => {
  * The `useReceiveDissolveGroup` function is a custom hook that handles the mutation for updating
  * conversation data when a group is dissolved.
  */
-export const useReceiveDissolveGroup = () => {
-  const queryClient = useQueryClient();
+// export const useReceiveDissolveGroup = () => {
+//   const queryClient = useQueryClient();
+//   const navigate = useNavigate();
 
-  const router = useRouter();
-
-  const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
-    mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
-    onSuccess(conversation) {
-      if (window.location.pathname.includes(conversation._id))
-        // navigate('/message', { replace: true });
-        router.push('/message');
-      queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-        if (!oldData) return;
+//   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation(
+//     {
+//       mutationFn: async (conversation: IConversation) =>
+//         await Promise.resolve(conversation),
+//       onSuccess(conversation) {
+//         if (window.location.pathname.includes(conversation._id))
+//           navigate('/message', { replace: true });
+//         queryClient.setQueryData<IConversation[]>(
+//           ['conversations'],
+//           oldData => {
+//             if (!oldData) return;
 
         const newData = [...oldData];
 
@@ -815,10 +816,9 @@ export const useReceiveDissolveGroup = () => {
  */
 // export const useLeaveGroup = () => {
 //   const queryClient = useQueryClient();
-//   const router = useRouter();
+//   const navigate = useNavigate();
 
-//   const [socketIO] = useGlobalState('socketIO');
-//   const { chatSocket } = socketIO;
+//   const { chatSocket } = useAppSelector(state => state.socketIO);
 
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (conversationID: string) => {
@@ -827,8 +827,7 @@ export const useReceiveDissolveGroup = () => {
 //     },
 //     onSuccess(conversation, conversationID) {
 //       if (window.location.pathname.includes(conversationID))
-//         // navigate('/message', { replace: true });
-//         router.push('/message');
+//         navigate('/message', { replace: true });
 //       queryClient.setQueryData<IConversation[]>(['conversations'], oldData => {
 //         if (!oldData) return;
 
@@ -856,8 +855,8 @@ export const useReceiveDissolveGroup = () => {
  * The `useReceiveLeaveGroup` function is a custom hook that handles the mutation for updating
  * conversation data when a user leaves a group.
  */
-export const useReceiveLeaveGroup = () => {
-  const queryClient = useQueryClient();
+// export const useReceiveLeaveGroup = () => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
     mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
@@ -908,8 +907,11 @@ export const useReceiveLeaveGroup = () => {
  * @param {string} type - The `type` parameter is a string that represents the type of message call. It
  * could be any value that you want to use to differentiate between different types of message calls.
  */
-export const useMutateMessageCall = (conversation_id: string | undefined, type: string) => {
-  const queryClient = useQueryClient();
+// export const useMutateMessageCall = (
+//   conversation_id: string | undefined,
+//   type: string
+// ) => {
+//   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (data: ISocketCall) => await Promise.resolve(data),
@@ -934,9 +936,9 @@ export const useMutateMessageCall = (conversation_id: string | undefined, type: 
  * The `useMutateConversation` function is a custom hook in TypeScript that handles mutations for
  * updating conversation data and updating the query cache.
  */
-export const useMutateConversation = (currentUserID: string) => {
-  const queryClient = useQueryClient();
-  const router = useRouter();
+// export const useMutateConversation = (currentUserID: string) => {
+//   const queryClient = useQueryClient();
+//   const navigate = useNavigate();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (payload: IUpdateConversation) => await Promise.resolve(payload),
@@ -1060,21 +1062,24 @@ export const useMutateConversation = (currentUserID: string) => {
 
             const index = newData.findIndex((item) => item._id === conversation._id);
 
-            if (index !== -1) {
-              const isHavingMe = newData[index].members.some((item) => item._id === currentUserID);
-              const isHavingUser = conversation.members.some((item) => item._id === currentUserID);
-              if (isHavingMe && !isHavingUser) {
-                if (window.location.pathname.includes(conversation._id))
-                  // navigate('/message', { replace: true });
-                  router.push('/message');
-                newData.splice(index, 1);
-              } else {
-                newData[index] = {
-                  ...newData[index],
-                  members: conversation.members
-                };
-              }
-            }
+//               if (index !== -1) {
+//                 const isHavingMe = newData[index].members.some(
+//                   item => item._id === currentUserID
+//                 );
+//                 const isHavingUser = conversation.members.some(
+//                   item => item._id === currentUserID
+//                 );
+//                 if (isHavingMe && !isHavingUser) {
+//                   if (window.location.pathname.includes(conversation._id))
+//                     navigate('/message', { replace: true });
+//                   newData.splice(index, 1);
+//                 } else {
+//                   newData[index] = {
+//                     ...newData[index],
+//                     members: conversation.members
+//                   };
+//                 }
+//               }
 
             return newData;
           });

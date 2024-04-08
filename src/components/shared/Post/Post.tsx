@@ -1,3 +1,5 @@
+'use client';
+
 import { Avatar } from '@mui/material';
 import Image from 'next/image';
 import { Link } from '@/navigation';
@@ -8,19 +10,36 @@ import { IoHeart } from 'react-icons/io5';
 import { FaCommentDots } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
 
-import CommentList from '@/components/shared/CommentList/CommentList';
-import InputComment from '@/components/shared/InputComment/InputComment';
+import CommentList from '@/components/shared/CommentList';
+import InputComment from '@/components/shared/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
-import { IPost } from '@/types';
+import { IFeaturePost, IPost } from '@/types';
 import { getImageURL } from '@/lib/utils';
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 export interface IPostProps {
   post: IPost;
+  feature?: IFeaturePost;
 }
 
-export default function Post({ post }: IPostProps) {
+export default function Post({ post, feature }: IPostProps) {
   const t = useTranslations();
+  const content =
+    post.type === 'Post' ? post.post_attributes.content : post.post_attributes.post!.post_attributes.content;
+  const [contentQuill, setContent] = useState(content);
+  const isMoreThan500 = content.length > 500;
+  const [expanded, setExpanded] = useState(false);
+
+  const { data: session } = useSession();
+
+  const isMyPost = post.post_attributes.user._id === session?.id;
+
+  useEffect(() => {
+    if (isMoreThan500 && !expanded) setContent(content.slice(0, 500) + '...');
+    else setContent(content);
+  }, [expanded, content, isMoreThan500]);
 
   return (
     <div className='post bg-foreground-1 rounded-lg p-4'>
@@ -47,12 +66,19 @@ export default function Post({ post }: IPostProps) {
                 <IoIosMore className='size-6' />
               </div>
             }
-            hoverContent={<PostMoreChoose />}
+            hoverContent={<PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />}
           />
         </div>
       </div>
-      <div className='mt-4 space-y-3'>
-        <div dangerouslySetInnerHTML={{ __html: post.post_attributes.content }} />
+      <div className='mt-4'>
+        <div dangerouslySetInnerHTML={{ __html: contentQuill }} />
+        {isMoreThan500 && (
+          <div
+            className='clickMore my-3 cursor-pointer hover:text-text-2 duration-500'
+            onClick={() => setExpanded(!expanded)}>
+            {expanded ? 'Read less' : 'Read more'}
+          </div>
+        )}
         {post.post_attributes.images.length !== 0 && (
           <Image
             className='rounded-lg w-full h-full object-cover'

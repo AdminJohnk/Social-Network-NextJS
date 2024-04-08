@@ -1,6 +1,6 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import NewPost from '@/components/shared/NewPost/NewPost';
+import NewPost from '@/components/shared/NewPost';
 import CreateStatus from '@/components/pages/Home/CreateStatus';
 import { TabsContent } from '@/components/ui/tabs';
 import PostList from '@/components/pages/Profile/PostList';

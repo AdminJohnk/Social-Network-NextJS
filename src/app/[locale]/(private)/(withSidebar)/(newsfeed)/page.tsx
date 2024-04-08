@@ -1,6 +1,6 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import NewPost from '@/components/shared/NewPost/NewPost';
+import NewPost from '@/components/shared/NewPost';
 import Story from '@/components/pages/Home/Story';
 import CreateStatus from '@/components/pages/Home/CreateStatus';
 import CreateStory from '@/components/pages/Home/CreateStory';

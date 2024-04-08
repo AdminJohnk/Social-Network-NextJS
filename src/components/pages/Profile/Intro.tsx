@@ -54,14 +54,14 @@ export default function Intro({ profileID }: IIntroProps) {
                 </div>
               </li>
             )}
-            {user.experiences.length > 0 && (
+            {user?.experiences.length > 0 && (
               <li className='flex items-center gap-3'>
                 <MdOutlineHomeWork className='size-6' />
 
                 <div>
                   {t('Works at')}
                   <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>
-                    {user.experiences[0].company_name}
+                    {user?.experiences[0].company_name}
                   </span>
                 </div>
               </li>
@@ -73,7 +73,7 @@ export default function Intro({ profileID }: IIntroProps) {
                 <div>
                   {t('Position')}
                   <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>
-                    {user.experiences[0].position_name}
+                    {user?.experiences[0].position_name}
                   </span>
                 </div>
               </li>

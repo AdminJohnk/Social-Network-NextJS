@@ -30,33 +30,8 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Blog'
   },
   {
-    href: '',
-    image: '/images/home/game.png',
-    label: 'Games',
-    showMore: true
+    href: '/favorites',
+    image: '/images/home/event.png',
+    label: 'Favorites'
   },
-  {
-    href: '',
-    image: '/images/home/fund.png',
-    label: 'Fundraiser',
-    showMore: true
-  },
-  {
-    href: '',
-    image: '/images/home/blog-2.png',
-    label: 'Blog 2',
-    showMore: true
-  },
-  {
-    href: '',
-    image: '/images/home/event-2.png',
-    label: 'Event 2',
-    showMore: true
-  },
-  {
-    href: '',
-    image: '/images/home/group-2.png',
-    label: 'Group 2',
-    showMore: true
-  }
 ];
