@@ -21,10 +21,7 @@ export default function PostsList({ profileID }: PostsListProps) {
 
   const {
     isLoadingUserPosts,
-    userPosts,
-    isFetchingNextUserPosts,
-    hasNextUserPosts,
-    fetchNextUserPosts
+    userPosts
   } = useUserPostsData(profileID);
 
   const { currentUserInfo } = useCurrentUserInfo(userID);

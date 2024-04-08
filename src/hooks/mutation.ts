@@ -1,41 +1,37 @@
-// 'use client';
-
-// import {
-//   InfiniteData,
-//   useMutation,
-//   useQueryClient
-// } from '@tanstack/react-query';
+import {
+  InfiniteData,
+  useMutation,
+  useQueryClient
+} from '@tanstack/react-query';
 
 // import { closeDrawer, setLoading } from '@/redux/Slice/DrawerHOCSlice';
-// import { postService } from '@/services/PostService';
-// import { userService } from '@/services/UserService';
-// import {
-//   IConversation,
-//   ICreateComment,
-//   ICreateLikeComment,
-//   ICreatePost,
-//   IMessage,
-//   ISharePost,
-//   ISocketCall,
-//   IUpdateConversation,
-//   IUpdatePost,
-//   IUserInfo,
-//   IUserUpdate
-// } from '@/types';
+import { postService } from '@/services/PostService';
+import { userService } from '@/services/UserService';
+import {
+  IConversation,
+  ICreateComment,
+  ICreateLikeComment,
+  ICreatePost,
+  IMessage,
+  ISharePost,
+  ISocketCall,
+  IUpdateConversation,
+  IUpdatePost,
+  IUserInfo,
+  IUserUpdate
+} from '@/types';
 // import { useAppDispatch, useAppSelector } from './special';
-// import { messageService } from '@/services/MessageService';
-// import { Socket } from '@/lib/utils/constants/SettingSystem';
-// import { useRouter } from 'next/navigation';
+import { messageService } from '@/services/MessageService';
+// import { Socket } from '@/util/constants/SettingSystem';
 
-// // ----------------------------- MUTATIONS -----------------------------
+// ----------------------------- MUTATIONS -----------------------------
 
-// /**
-//  * The `useCreatePost` function is a custom hook that handles the creation of a new post, including
-//  * making an API request and updating the query data for the user's posts and the newsfeed.
-//  */
+/**
+ * The `useCreatePost` function is a custom hook that handles the creation of a new post, including
+ * making an API request and updating the query data for the user's posts and the newsfeed.
+ */
 // export const useCreatePost = () => {
-//   const [auth] = useGlobalState('auth');
-//   const uid = auth.userID;
+//   const uid = useAppSelector(state => state.auth.userID);
 
 //   const queryClient = useQueryClient();
 
@@ -58,10 +54,10 @@
 //   };
 // };
 
-// /**
-//  * The `useViewPost` function is a custom hook that handles the logic for viewing a post, including
-//  * making a mutation request to the server and updating the cache.
-//  */
+/**
+ * The `useViewPost` function is a custom hook that handles the logic for viewing a post, including
+ * making a mutation request to the server and updating the cache.
+ */
 // export const useViewPost = () => {
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (postID: string) => {
@@ -76,10 +72,10 @@
 //   };
 // };
 
-// /**
-//  * The `useUpdatePost` function is a custom hook that handles the mutation logic for updating a post,
-//  * including invalidating relevant query caches.
-//  */
+/**
+ * The `useUpdatePost` function is a custom hook that handles the mutation logic for updating a post,
+ * including invalidating relevant query caches.
+ */
 // export const useUpdatePost = () => {
 //   const queryClient = useQueryClient();
 
@@ -111,15 +107,14 @@
 //   };
 // };
 
-// /**
-//  * The `useDeletePost` function is a custom hook that handles the deletion of a post and invalidates
-//  * the relevant query caches upon success.
-//  */
+/**
+ * The `useDeletePost` function is a custom hook that handles the deletion of a post and invalidates
+ * the relevant query caches upon success.
+ */
 // export const useDeletePost = () => {
 //   const queryClient = useQueryClient();
 
-//   const [auth] = useGlobalState('auth');
-//   const uid = auth.userID;
+//   const uid = useAppSelector(state => state.auth.userID);
 
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (postID: string) => {
@@ -139,10 +134,10 @@
 //   };
 // };
 
-// /**
-//  * The `useLikePost` function is a custom hook that handles the logic for liking a post, including
-//  * making the API call and updating the cache.
-//  */
+/**
+ * The `useLikePost` function is a custom hook that handles the logic for liking a post, including
+ * making the API call and updating the cache.
+ */
 // export const useLikePost = () => {
 //   const queryClient = useQueryClient();
 
@@ -164,10 +159,10 @@
 //   };
 // };
 
-// /**
-//  * The `useSharePost` function is a custom hook that handles the mutation logic for sharing a post,
-//  * including invalidating the post query cache on success.
-//  */
+/**
+ * The `useSharePost` function is a custom hook that handles the mutation logic for sharing a post,
+ * including invalidating the post query cache on success.
+ */
 // export const useSharePost = () => {
 //   const queryClient = useQueryClient();
 
@@ -189,40 +184,39 @@
 //   };
 // };
 
-// /**
-//  * The `useSavePost` function is a custom hook that handles saving a post, invalidating the post query
-//  * cache on success.
-//  */
-// export const useSavePost = () => {
-//   const queryClient = useQueryClient();
+/**
+ * The `useSavePost` function is a custom hook that handles saving a post, invalidating the post query
+ * cache on success.
+ */
+export const useSavePost = () => {
+  const queryClient = useQueryClient();
 
-//   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-//     mutationFn: async (postID: string) => {
-//       await postService.savePost(postID);
-//     },
-//     onSuccess(_, postID) {
-//       queryClient.invalidateQueries({ queryKey: ['post', postID] });
-//       queryClient.invalidateQueries({ queryKey: ['posts'] });
-//       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
-//     }
-//   });
-//   return {
-//     mutateSavePost: mutateAsync,
-//     isLoadingSavePost: isPending,
-//     isErrorSavePost: isError,
-//     isSuccessSavePost: isSuccess
-//   };
-// };
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (postID: string) => {
+      await postService.savePost(postID);
+    },
+    onSuccess(_, postID) {
+      queryClient.invalidateQueries({ queryKey: ['post', postID] });
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
+    }
+  });
+  return {
+    mutateSavePost: mutateAsync,
+    isLoadingSavePost: isPending,
+    isErrorSavePost: isError,
+    isSuccessSavePost: isSuccess
+  };
+};
 
-// /**
-//  * The `useCommentPost` function is a custom hook that handles the creation of a new comment and
-//  * invalidates the comments query cache upon success.
-//  */
+/**
+ * The `useCommentPost` function is a custom hook that handles the creation of a new comment and
+ * invalidates the comments query cache upon success.
+ */
 // export const useCommentPost = () => {
 //   const queryClient = useQueryClient();
 
-//   const [auth] = useGlobalState('auth');
-//   const uid = auth.userID;
+//   const uid = useAppSelector(state => state.auth.userID);
 
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (commentData: ICreateComment) => {
@@ -252,10 +246,10 @@
 //   };
 // };
 
-// /**
-//  * The `useLikeComment` function is a custom hook that handles the logic for liking a comment and
-//  * invalidating the cache for the comments associated with the post.
-//  */
+/**
+ * The `useLikeComment` function is a custom hook that handles the logic for liking a comment and
+ * invalidating the cache for the comments associated with the post.
+ */
 // export const useLikeComment = () => {
 //   const queryClient = useQueryClient();
 
@@ -280,10 +274,10 @@
 //   };
 // };
 
-// /**
-//  * The `useDislikeComment` function is a custom hook that handles the logic for disliking a comment,
-//  * including making the API request and updating the cache.
-//  */
+/**
+ * The `useDislikeComment` function is a custom hook that handles the logic for disliking a comment,
+ * including making the API request and updating the cache.
+ */
 // export const useDislikeComment = () => {
 //   const queryClient = useQueryClient();
 
@@ -308,10 +302,10 @@
 //   };
 // };
 
-// /**
-//  * The `useUpdateUser` function is a custom hook that handles updating a user's information and
-//  * invalidating the 'currentUserInfo' query in the query cache upon success.
-//  */
+/**
+ * The `useUpdateUser` function is a custom hook that handles updating a user's information and
+ * invalidating the 'currentUserInfo' query in the query cache upon success.
+ */
 // export const useUpdateUser = () => {
 //   const queryClient = useQueryClient();
 
@@ -340,10 +334,10 @@
 //   };
 // };
 
-// /**
-//  * The `useFollowUser` function is a custom hook that handles following a user, including making the
-//  * API call, handling loading and error states, and invalidating relevant queries in the query cache.
-//  */
+/**
+ * The `useFollowUser` function is a custom hook that handles following a user, including making the
+ * API call, handling loading and error states, and invalidating relevant queries in the query cache.
+ */
 // export const useAddFriendUser = () => {
 //   const queryClient = useQueryClient();
 
@@ -365,11 +359,11 @@
 //   };
 // };
 
-// /**
-//  * The `useAcceptFriendUser` function is a custom hook that handles accepting a friend request,
-//  * including making the API call, handling loading and error states, and invalidating relevant
-//  * queries in the query cache.
-//  */
+/**
+ * The `useAcceptFriendUser` function is a custom hook that handles accepting a friend request,
+ * including making the API call, handling loading and error states, and invalidating relevant
+ * queries in the query cache.
+ */
 // export const useAcceptFriendUser = () => {
 //   const queryClient = useQueryClient();
 
@@ -391,11 +385,11 @@
 //   };
 // };
 
-// /**
-//  * The `useCancelFriendUser` function is a custom hook that handles canceling a friend request,
-//  * including making the API call, handling loading and error states, and invalidating relevant
-//  * queries in the query cache.
-//  */
+/**
+ * The `useCancelFriendUser` function is a custom hook that handles canceling a friend request,
+ * including making the API call, handling loading and error states, and invalidating relevant
+ * queries in the query cache.
+ */
 // export const useCancelFriendUser = () => {
 //   const queryClient = useQueryClient();
 
@@ -417,11 +411,11 @@
 //   };
 // };
 
-// /**
-//  * The `useDeclineFriendUser` function is a custom hook that handles declining a friend request,
-//  * including making the API call, handling loading and error states, and invalidating relevant
-//  * queries in the query cache.
-//  */
+/**
+ * The `useDeclineFriendUser` function is a custom hook that handles declining a friend request,
+ * including making the API call, handling loading and error states, and invalidating relevant
+ * queries in the query cache.
+ */
 // export const useDeclineFriendUser = () => {
 //   const queryClient = useQueryClient();
 
@@ -443,11 +437,11 @@
 //   };
 // };
 
-// /**
-//  * The `useDeleteFriendUser` function is a custom hook that handles deleting a friend, including
-//  * making the API call, handling loading and error states, and invalidating relevant queries in the
-//  * query cache.
-//  */
+/**
+ * The `useDeleteFriendUser` function is a custom hook that handles deleting a friend, including
+ * making the API call, handling loading and error states, and invalidating relevant queries in the
+ * query cache.
+ */
 // export const useDeleteFriendUser = () => {
 //   const queryClient = useQueryClient();
 
@@ -469,10 +463,10 @@
 //   };
 // };
 
-// /**
-//  * The `useSendMessage` function is a custom hook in TypeScript that handles sending a message and
-//  * updating the query data for conversations and messages.
-//  */
+/**
+ * The `useSendMessage` function is a custom hook in TypeScript that handles sending a message and
+ * updating the query data for conversations and messages.
+ */
 // export const useSendMessage = () => {
 //   const queryClient = useQueryClient();
 
@@ -550,13 +544,13 @@
 //   };
 // };
 
-// /**
-//  * The `useReceiveMessage` function is a custom hook in TypeScript that handles receiving and updating
-//  * messages in a conversation.
-//  * @param {string} [conversationID] - The `conversationID` parameter is an optional string that
-//  * represents the ID of the conversation for which the message is being received. If provided, it is
-//  * used to determine whether to play a sound notification or not.
-//  */
+/**
+ * The `useReceiveMessage` function is a custom hook in TypeScript that handles receiving and updating
+ * messages in a conversation.
+ * @param {string} [conversationID] - The `conversationID` parameter is an optional string that
+ * represents the ID of the conversation for which the message is being received. If provided, it is
+ * used to determine whether to play a sound notification or not.
+ */
 // export const useReceiveMessage = (
 //   currentUserID: string,
 //   conversationID?: string
@@ -669,10 +663,10 @@
 //   };
 // };
 
-// /**
-//  * The `useReceiveConversation` function is a custom hook that handles the mutation of a conversation
-//  * object and updates the query data for conversations.
-//  */
+/**
+ * The `useReceiveConversation` function is a custom hook that handles the mutation of a conversation
+ * object and updates the query data for conversations.
+ */
 // export const useReceiveConversation = () => {
 //   const queryClient = useQueryClient();
 
@@ -724,10 +718,10 @@
 //   };
 // };
 
-// /**
-//  * The `useReceiveSeenConversation` function is a custom hook in TypeScript that handles the mutation
-//  * of a conversation's "seen" status and updates the query data accordingly.
-//  */
+/**
+ * The `useReceiveSeenConversation` function is a custom hook in TypeScript that handles the mutation
+ * of a conversation's "seen" status and updates the query data accordingly.
+ */
 // export const useReceiveSeenConversation = () => {
 //   const queryClient = useQueryClient();
 
@@ -782,16 +776,15 @@
 //   };
 // };
 
-// /**
-//  * The `useDissolveGroup` function is a custom hook that handles the mutation for dissolving a group
-//  * conversation and updates the query data accordingly.
-//  */
+/**
+ * The `useDissolveGroup` function is a custom hook that handles the mutation for dissolving a group
+ * conversation and updates the query data accordingly.
+ */
 // export const useDissolveGroup = () => {
 //   const queryClient = useQueryClient();
-//   const router = useRouter();
+//   const navigate = useNavigate();
 
-//   const [socketIO] = useGlobalState('socketIO');
-//   const { chatSocket } = socketIO;
+//   const { chatSocket } = useAppSelector(state => state.socketIO);
 
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (conversationID: string) => {
@@ -800,8 +793,7 @@
 //     },
 //     onSuccess(conversation, conversationID) {
 //       if (window.location.pathname.includes(conversationID))
-//         // navigate('/message', { replace: true });
-//         router.push('/message');
+//         navigate('/message', { replace: true });
 //       queryClient.setQueryData<IConversation[]>(['conversations'], oldData => {
 //         if (!oldData) return;
 
@@ -823,14 +815,13 @@
 //   };
 // };
 
-// /**
-//  * The `useReceiveDissolveGroup` function is a custom hook that handles the mutation for updating
-//  * conversation data when a group is dissolved.
-//  */
+/**
+ * The `useReceiveDissolveGroup` function is a custom hook that handles the mutation for updating
+ * conversation data when a group is dissolved.
+ */
 // export const useReceiveDissolveGroup = () => {
 //   const queryClient = useQueryClient();
-
-//   const router = useRouter();
+//   const navigate = useNavigate();
 
 //   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation(
 //     {
@@ -838,8 +829,7 @@
 //         await Promise.resolve(conversation),
 //       onSuccess(conversation) {
 //         if (window.location.pathname.includes(conversation._id))
-//           // navigate('/message', { replace: true });
-//           router.push('/message');
+//           navigate('/message', { replace: true });
 //         queryClient.setQueryData<IConversation[]>(
 //           ['conversations'],
 //           oldData => {
@@ -867,16 +857,15 @@
 //   };
 // };
 
-// /**
-//  * The `useLeaveGroup` function is a custom hook in TypeScript that handles leaving a group
-//  * conversation, updating the conversation list, and emitting a socket event.
-//  */
+/**
+ * The `useLeaveGroup` function is a custom hook in TypeScript that handles leaving a group
+ * conversation, updating the conversation list, and emitting a socket event.
+ */
 // export const useLeaveGroup = () => {
 //   const queryClient = useQueryClient();
-//   const router = useRouter();
+//   const navigate = useNavigate();
 
-//   const [socketIO] = useGlobalState('socketIO');
-//   const { chatSocket } = socketIO;
+//   const { chatSocket } = useAppSelector(state => state.socketIO);
 
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (conversationID: string) => {
@@ -885,8 +874,7 @@
 //     },
 //     onSuccess(conversation, conversationID) {
 //       if (window.location.pathname.includes(conversationID))
-//         // navigate('/message', { replace: true });
-//         router.push('/message');
+//         navigate('/message', { replace: true });
 //       queryClient.setQueryData<IConversation[]>(['conversations'], oldData => {
 //         if (!oldData) return;
 
@@ -910,10 +898,10 @@
 //   };
 // };
 
-// /**
-//  * The `useReceiveLeaveGroup` function is a custom hook that handles the mutation for updating
-//  * conversation data when a user leaves a group.
-//  */
+/**
+ * The `useReceiveLeaveGroup` function is a custom hook that handles the mutation for updating
+ * conversation data when a user leaves a group.
+ */
 // export const useReceiveLeaveGroup = () => {
 //   const queryClient = useQueryClient();
 
@@ -968,15 +956,15 @@
 //   };
 // };
 
-// /**
-//  * The `useMutateMessageCall` function is a custom hook in TypeScript that handles mutation for a
-//  * message call in a conversation.
-//  * @param {string | undefined} conversation_id - The conversation_id parameter is a string that
-//  * represents the ID of a conversation. It is used to identify the specific conversation for which the
-//  * message call is being made.
-//  * @param {string} type - The `type` parameter is a string that represents the type of message call. It
-//  * could be any value that you want to use to differentiate between different types of message calls.
-//  */
+/**
+ * The `useMutateMessageCall` function is a custom hook in TypeScript that handles mutation for a
+ * message call in a conversation.
+ * @param {string | undefined} conversation_id - The conversation_id parameter is a string that
+ * represents the ID of a conversation. It is used to identify the specific conversation for which the
+ * message call is being made.
+ * @param {string} type - The `type` parameter is a string that represents the type of message call. It
+ * could be any value that you want to use to differentiate between different types of message calls.
+ */
 // export const useMutateMessageCall = (
 //   conversation_id: string | undefined,
 //   type: string
@@ -1005,13 +993,13 @@
 //   };
 // };
 
-// /**
-//  * The `useMutateConversation` function is a custom hook in TypeScript that handles mutations for
-//  * updating conversation data and updating the query cache.
-//  */
+/**
+ * The `useMutateConversation` function is a custom hook in TypeScript that handles mutations for
+ * updating conversation data and updating the query cache.
+ */
 // export const useMutateConversation = (currentUserID: string) => {
 //   const queryClient = useQueryClient();
-//   const router = useRouter();
+//   const navigate = useNavigate();
 
 //   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
 //     mutationFn: async (payload: IUpdateConversation) =>
@@ -1181,8 +1169,7 @@
 //                 );
 //                 if (isHavingMe && !isHavingUser) {
 //                   if (window.location.pathname.includes(conversation._id))
-//                     // navigate('/message', { replace: true });
-//                     router.push('/message');
+//                     navigate('/message', { replace: true });
 //                   newData.splice(index, 1);
 //                 } else {
 //                   newData[index] = {

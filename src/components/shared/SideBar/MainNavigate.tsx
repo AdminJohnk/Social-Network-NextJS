@@ -1,27 +1,48 @@
+'use client';
+
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
 import { Sidebar } from '@/lib/navigator/Sidebar';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 export default function MainNavigate() {
   const t = useTranslations();
+  const pathName = usePathname().split('/')[1];
 
   return (
     <nav id='side'>
       <ul>
-        {Sidebar.map((item, index) => (
-          <li key={index} id={cn(item.showMore && 'show_more')} className={cn(item.showMore && '!hidden')}>
-            <Link href={item.href} className='duration-300'>
-              <Image src={item.image} alt={item.label} width={24} height={24} />
-              <span> {t(item.label)} </span>
-            </Link>
-          </li>
-        ))}
+        {Sidebar.map((item, index) => {
+          return (
+            <li
+              key={index}
+              id={cn(item.showMore && 'show_more')}
+              className={cn(item.showMore && '!hidden', 'my-1')}
+            >
+              <Link
+                href={item.href}
+                className={cn(
+                  'duration-300',
+                  pathName === item.href.split('/')[1] && 'bg-foreground-1'
+                )}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.label}
+                  width={24}
+                  height={24}
+                />
+                <span> {t(item.label)} </span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
 
-      <button
+      {/* <button
         type='button'
         className='flex items-center gap-4 py-2 px-4 w-full font-medium text-sm text-text-1'
         data-uk-toggle='target: #show_more; cls: !hidden uk-animation-fade'>
@@ -51,7 +72,7 @@ export default function MainNavigate() {
         <span className='!hidden' id='show_more'>
           {t('See Less')}
         </span>
-      </button>
+      </button> */}
     </nav>
   );
 }

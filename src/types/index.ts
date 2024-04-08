@@ -389,3 +389,5 @@ export interface ISearchLog {
   recently_search_list: IUserInfo[];
   createdAt: string;
 }
+
+export type IFeaturePost = 'detail' | 'newfeeds' | 'modal' | 'profile' | 'favorite';
