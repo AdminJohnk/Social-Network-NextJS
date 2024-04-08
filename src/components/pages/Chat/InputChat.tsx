@@ -15,9 +15,10 @@ import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { useSendMessage } from '@/hooks/mutation';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
-import { Popover } from '@mui/material';
 import Picker from '@emoji-mart/react';
+import { useThemeMode } from 'flowbite-react';
+
+import { cn } from '@/lib/utils';
 
 export interface IInputChatProps {
   conversationID: string[] | undefined;
@@ -26,7 +27,7 @@ export interface IInputChatProps {
 
 export default function InputChat({ conversationID, members }: IInputChatProps) {
   const t = useTranslations();
-
+  const { mode } = useThemeMode();
   const { data: session } = useSession();
 
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
@@ -145,7 +146,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
                 setCursor(cursor + emoji.native.length);
                 setMessage(messageContent.slice(0, cursor) + emoji.native + messageContent.slice(cursor));
               }}
-              theme={'light'}
+              theme={mode}
             />
           </div>
         </div>

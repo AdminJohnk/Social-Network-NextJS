@@ -64,20 +64,24 @@ export default function MessageList({ conversationID, currentConversation }: IMe
   }, []);
 
   return (
-    <div className='text-sm font-medium'>
-      {messages?.map((message, index, messArr) => (
-        <MessageBox
-          key={conversationID + '|' + message._id}
-          isLastMes={index === messArr.length - 1}
-          message={message}
-          seen={currentConversation.seen}
-          isAdmin={isAdmin(message.sender._id)}
-          isCreator={isCreator(message.sender._id)}
-          isPrevMesGroup={isPrevMesGroup(message, index, messArr)}
-          isNextMesGroup={isNextMesGroup(message, index, messArr)}
-          isMoreThan10Min={isMoreThan10Min(message, index, messArr)}
-        />
-      ))}
-    </div>
+    <>
+      {isLoadingMessages ? (<div className='text-center'>Loading...</div>) : (
+        <div className='text-sm font-medium'>
+          {messages.map((message, index, messArr) => (
+            <MessageBox
+              key={conversationID + '|' + message._id}
+              isLastMes={index === messArr.length - 1}
+              message={message}
+              seen={currentConversation.seen}
+              isAdmin={isAdmin(message.sender._id)}
+              isCreator={isCreator(message.sender._id)}
+              isPrevMesGroup={isPrevMesGroup(message, index, messArr)}
+              isNextMesGroup={isNextMesGroup(message, index, messArr)}
+              isMoreThan10Min={isMoreThan10Min(message, index, messArr)}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
