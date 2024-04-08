@@ -4,7 +4,7 @@ import NewPost from '@/components/shared/NewPost/NewPost';
 import Story from '@/components/pages/Home/Story';
 import CreateStatus from '@/components/pages/Home/CreateStatus';
 import CreateStory from '@/components/pages/Home/CreateStory';
-import PostsList from '@/components/pages/Home/PostsList';
+import PostList from '@/components/pages/Home/PostList';
 import NewsfeedSide from '@/components/pages/Home/NewsfeedSide';
 
 export interface INewFeedProps {
@@ -29,7 +29,7 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
               <NewPost />
               <CreateStatus />
             </div>
-            <PostsList />
+            <PostList />
           </div>
           <NewsfeedSide />
         </div>

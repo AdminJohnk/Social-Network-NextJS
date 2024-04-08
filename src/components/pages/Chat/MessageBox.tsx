@@ -15,7 +15,6 @@ export interface IMessageBoxProps {
   isMoreThan10Min: boolean;
   isAdmin: boolean;
   isCreator: boolean;
-  type: TypeofConversation;
   typeCalled?: string;
 }
 
@@ -29,7 +28,6 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       isPrevMesGroup,
       isMoreThan10Min,
       isAdmin,
-      type,
       isCreator
     },
     ref

@@ -3,7 +3,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import NewPost from '@/components/shared/NewPost/NewPost';
 import CreateStatus from '@/components/pages/Home/CreateStatus';
 import { TabsContent } from '@/components/ui/tabs';
-import PostsList from '@/components/pages/Profile/PostsList';
+import PostList from '@/components/pages/Profile/PostList';
 import Cover from '@/components/pages/Profile/Cover';
 import ProfileSide from '@/components/pages/Profile/ProfileSide';
 
@@ -26,7 +26,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
             <div className='flex-1 xl:space-y-6 space-y-3'>
               <NewPost profileID={slug} />
               <CreateStatus />
-              <PostsList profileID={slug} />
+              <PostList profileID={slug} />
             </div>
 
             <ProfileSide profileID={slug} />

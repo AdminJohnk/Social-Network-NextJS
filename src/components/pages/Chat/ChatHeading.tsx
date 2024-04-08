@@ -1,14 +1,13 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
 import { useCurrentConversationData } from '@/hooks/query';
-import { getImageURL } from '@/lib/utils';
-import AvatarGroup from '../Avatar/AvatarGroup';
+import AvatarGroup from './Avatar/AvatarGroup';
 import { Link } from '@/navigation';
-import AvatarMessage from '../Avatar/AvatarMessage';
+import AvatarMessage from './Avatar/AvatarMessage';
 import { IUserInfo } from '@/types';
-import { userInfo } from 'os';
 import { Skeleton } from '@mui/material';
 export interface IChatHeadingProps {
   conversationID: string;
@@ -19,7 +18,6 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
   const t = useTranslations();
 
   const { currentConversation, isFetchingCurrentConversation } = useCurrentConversationData(conversationID);
-
 
   return (
     <>
@@ -34,27 +32,51 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
               <IoChevronBackOutline className='text-2xl -ml-4' />
             </button>
 
-            <div className='relative cursor-pointer max-md:hidden' data-uk-toggle='target: .right ; cls: hidden'>
-              <Skeleton variant="rectangular" width={40} height={40} className='w-8 h-8 rounded-full shadow' />
+            <div
+              className='relative cursor-pointer max-md:hidden'
+              data-uk-toggle='target: .right ; cls: hidden'>
+              <Skeleton
+                variant='rectangular'
+                width={40}
+                height={40}
+                className='w-8 h-8 rounded-full shadow'
+              />
               <div className='w-3 h-3 bg-teal-500 rounded-full absolute -right-1 -bottom-0.5 m-px'></div>
             </div>
             <div className='cursor-pointer' data-uk-toggle='target: .right ; cls: hidden'>
-              <div className='text-base font-bold'><Skeleton variant="text" width={90} sx={{ fontSize: '1rem' }} /></div>
-              <div className='text-xs text-green-500 font-semibold'> <Skeleton variant="text" width={90} sx={{ fontSize: '1rem' }} /></div>
+              <div className='text-base font-bold'>
+                <Skeleton variant='text' width={90} sx={{ fontSize: '1rem' }} />
+              </div>
+              <div className='text-xs text-green-500 font-semibold'>
+                <Skeleton variant='text' width={90} sx={{ fontSize: '1rem' }} />
+              </div>
             </div>
           </div>
 
           <div className='flex items-center gap-2'>
             <button type='button' className='hover:bg-hover-1 p-1.5 rounded-full'>
-              <Skeleton variant="rectangular" width={40} height={40} className='w-8 h-8 rounded-full shadow' />
+              <Skeleton
+                variant='rectangular'
+                width={40}
+                height={40}
+                className='w-8 h-8 rounded-full shadow'
+              />
             </button>
             <button type='button' className='hover:bg-hover-1 p-1.5 rounded-full'>
-              <Skeleton variant="rectangular" width={40} height={40} className='w-8 h-8 rounded-full shadow' />
+              <Skeleton
+                variant='rectangular'
+                width={40}
+                height={40}
+                className='w-8 h-8 rounded-full shadow'
+              />
             </button>
-            <button
-              type='button'
-              className='hover:bg-hover-1 p-1.5 rounded-full'>
-              <Skeleton variant="rectangular" width={40} height={40} className='w-8 h-8 rounded-full shadow' />
+            <button type='button' className='hover:bg-hover-1 p-1.5 rounded-full'>
+              <Skeleton
+                variant='rectangular'
+                width={40}
+                height={40}
+                className='w-8 h-8 rounded-full shadow'
+              />
             </button>
           </div>
         </div>
@@ -69,7 +91,9 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
               <IoChevronBackOutline className='text-2xl -ml-4' />
             </button>
 
-            <div className='relative cursor-pointer max-md:hidden' data-uk-toggle='target: .right ; cls: hidden'>
+            <div
+              className='relative cursor-pointer max-md:hidden'
+              data-uk-toggle='target: .right ; cls: hidden'>
               {currentConversation.type === 'group' ? (
                 <AvatarGroup
                   key={currentConversation._id}
@@ -94,7 +118,11 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
 
           <div className='flex items-center gap-2'>
             <button type='button' className='hover:bg-hover-1 p-1.5 rounded-full'>
-              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='w-6 h-6'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 20 20'
+                fill='currentColor'
+                className='w-6 h-6'>
                 <path
                   fillRule='evenodd'
                   d='M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z'
