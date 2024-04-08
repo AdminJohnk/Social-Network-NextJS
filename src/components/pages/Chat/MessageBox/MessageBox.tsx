@@ -5,6 +5,7 @@ import { Link } from '@/navigation';
 import { IMessage, IUserInfo, TypeofConversation } from '@/types';
 import Image from 'next/image';
 import { useCurrentUserInfo } from '@/hooks/query';
+import { useSession } from 'next-auth/react';
 
 export interface IMessageBoxProps {
   message: IMessage;
@@ -35,8 +36,11 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     ref
   ) => {
 
-    const { currentUserInfo } = useCurrentUserInfo();
-    const isOwn = currentUserInfo._id === message.sender._id;
+    const { data: session } = useSession();
+
+    const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+
+    const isOwn = currentUserInfo?._id === message.sender._id;
 
     const roundedCornerStyle = (isOwn: boolean, isNextMesGroup: boolean, isPrevMesGroup: boolean) => {
       if (isOwn) {

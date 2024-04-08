@@ -7,10 +7,17 @@ import {
   IoImages,
   IoSendOutline
 } from 'react-icons/io5';
+import { v4 as uuidv4 } from 'uuid';
 import { FaGift } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
-import { IUserInfo } from '@/types';
+import { IEmoji, IMessage, IUserInfo } from '@/types';
 import { useCurrentUserInfo } from '@/hooks/query';
+import { useSession } from 'next-auth/react';
+import { useSendMessage } from '@/hooks/mutation';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
+import { Popover } from '@mui/material';
+import Picker from '@emoji-mart/react';
 
 export interface IInputChatProps {
   conversationID: string[] | undefined;
@@ -20,9 +27,71 @@ export interface IInputChatProps {
 export default function InputChat({ conversationID, members }: IInputChatProps) {
   const t = useTranslations();
 
-  const { currentUserInfo } = useCurrentUserInfo();
-  // const { mutateSendMessage } = useSendMessage();
+  const { data: session } = useSession();
 
+  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { mutateSendMessage } = useSendMessage();
+  const [id, setId] = useState(uuidv4().replace(/-/g, ''));
+
+
+  const [messageContent, setMessage] = useState('');
+  const [cursor, setCursor] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
+
+  const [files, setFiles] = useState<File[]>([]);
+
+
+  const handleStopTyping = () => {
+    setTimeout(() => {
+      setIsTyping(false);
+    }, 3000);
+  };
+
+  const handleSubmit = async (content: string) => {
+    if (!conversationID) return;
+    if (!content && !files.length) return;
+
+    setMessage('');
+
+    if (content.trim() !== '' || content.trim().length !== 0) {
+      const message = {
+        _id: id,
+        conversation_id: conversationID,
+        sender: {
+          _id: currentUserInfo._id,
+          user_image: currentUserInfo.user_image,
+          name: currentUserInfo.name
+        },
+        isSending: true,
+        content: content,
+        createdAt: new Date()
+      };
+      setId(uuidv4().replace(/-/g, ''));
+      mutateSendMessage(message as unknown as IMessage);
+    }
+
+    if (files.length > 0) {
+      const newFiles = [...files];
+      setFiles([]);
+      // const result = await handleUploadImage(newFiles);
+      const result = 'file';
+      const newMessage = {
+        _id: id + 'image',
+        conversation_id: conversationID,
+        images: result,
+        sender: {
+          _id: currentUserInfo._id,
+          user_image: currentUserInfo.user_image,
+          name: currentUserInfo.name
+        },
+        type: 'image',
+        createdAt: new Date()
+      };
+    }
+  };
+
+  const checkEmpty =
+    (messageContent.trim() === '' || messageContent.trim().length === 0) && files.length === 0;
 
   return (
     <div className='flex items-center md:gap-4 gap-2 md:p-3 p-2 overflow-hidden'>
@@ -65,71 +134,19 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
         <div
           className='dropbar p-2'
           data-uk-drop='stretch: x; target: #message__wrap ;animation: uk-animation-scale-up uk-transform-origin-bottom-left ;animate-out: true; pos: top-left ; offset:2; mode: click ; duration: 200 '>
-          <div className='sm:w-60 bg-foreground-1 shadow-lg border rounded-xl pr-0 border-border-1'>
-            <h4 className='text-sm font-semibold p-3 pb-0'>{t('Send Icon')}</h4>
+          <div className='w-fit bg-foreground-1 shadow-lg border rounded-xl pr-0 border-border-1'>
+            <Picker
+              data={async () => {
+                const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
-            <div className='grid grid-cols-5 overflow-y-auto max-h-44 p-3 text-center text-xl'>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😊
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                🤩
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😎
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                🥳
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😂
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                🥰
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😡
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😊
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                🤩
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😎
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                🥳
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😂
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                🥰
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😡
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                🤔
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😊
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                🤩
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😎
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                🥳
-              </div>
-              <div className='hover:bg-hover-1 p-1.5 rounded-md hover:scale-125 cursor-pointer duration-200'>
-                😂
-              </div>
-            </div>
+                return response.json();
+              }}
+              onEmojiSelect={(emoji: IEmoji) => {
+                setCursor(cursor + emoji.native.length);
+                setMessage(messageContent.slice(0, cursor) + emoji.native + messageContent.slice(cursor));
+              }}
+              theme={'light'}
+            />
           </div>
         </div>
       </div>
@@ -138,9 +155,44 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
         <textarea
           placeholder={t('Write your message')}
           rows={1}
-          className='w-full resize-none bg-foreground-1 rounded-full px-4 p-2'></textarea>
+          className='w-full resize-none bg-foreground-1 rounded-full px-4 p-2'
+          value={messageContent}
+          onKeyUp={(e) => {
+            // get cursor position
+            const cursorPosition = e.currentTarget.selectionStart;
+            setCursor(cursorPosition ?? 0);
 
-        <button type='button' className='text-white shrink-0 p-2 absolute right-0.5 top-0'>
+            if (e.key === 'Enter') {
+              handleSubmit(messageContent);
+            }
+          }}
+          onClick={(e) => {
+            // get cursor position
+            const cursorPosition = e.currentTarget.selectionStart;
+            setCursor(cursorPosition ?? 0);
+          }}
+          onChange={(e) => {
+            setMessage(e.currentTarget.value);
+            handleStopTyping();
+            // get cursor position
+            const cursorPosition = e.currentTarget.selectionStart;
+            setCursor(cursorPosition ?? 0);
+          }}></textarea>
+        <span
+          className={cn(
+            'transition-colors duration-300',
+            checkEmpty
+              ? 'text-gray-400 cursor-not-allowed'
+              : 'text-blue-500 hover:text-blue-700 hover:scale-110 cursor-pointer'
+          )}
+          onClick={() => handleSubmit(messageContent)}>
+          {/* <FontAwesomeIcon icon={faPaperPlane} /> */}
+        </span>
+
+        <button type='button' className={cn('text-white shrink-0 p-2 absolute right-0.5 top-0',
+          checkEmpty
+            ? 'text-gray-400 cursor-not-allowed'
+            : 'text-blue-500 hover:text-blue-700 hover:scale-110 cursor-pointer')} onClick={() => handleSubmit(messageContent)}>
           <IoSendOutline className='text-xl flex' />
         </button>
       </div>

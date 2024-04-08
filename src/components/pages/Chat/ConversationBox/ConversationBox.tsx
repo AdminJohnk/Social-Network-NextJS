@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import AvatarGroup from '../Avatar/AvatarGroup';
 import AvatarMessage from '../Avatar/AvatarMessage';
 import { Link } from '@/navigation';
+import { useSession } from 'next-auth/react';
 
 export interface IConversationBoxProps {
     conversation: IConversation;
@@ -16,7 +17,9 @@ export interface IConversationBoxProps {
 export default function ConversationBox({ conversation }: IConversationBoxProps) {
     if (!conversation.lastMessage) return <></>;
 
-    const { currentUserInfo } = useCurrentUserInfo();
+    const { data: session } = useSession();
+
+    const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
     const isSeen = conversation.seen.some((user) => user._id === currentUserInfo?._id);
     const isGroup = conversation.type === 'group';

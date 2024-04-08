@@ -10,6 +10,7 @@
     "i18n:extract": "i18next-scanner"
   },
   "dependencies": {
+    "@emoji-mart/react": "^1.1.1",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
     "@emotion/server": "^11.11.0",
@@ -20,6 +21,7 @@
     "@mui/material-nextjs": "^5.15.11",
     "@radix-ui/react-hover-card": "^1.0.7",
     "@tanstack/react-query": "^5.29.0",
+    "@types/uuid": "^9.0.8",
     "axios": "^1.6.8",
     "axios-hooks": "^5.0.2",
     "class-variance-authority": "^0.7.0",
@@ -43,6 +45,7 @@
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.5",
     "tailwind-merge": "^2.2.2",
+    "uuid": "^9.0.1",
     "yup": "^1.4.0",
     "zod": "^3.22.4"
   },
