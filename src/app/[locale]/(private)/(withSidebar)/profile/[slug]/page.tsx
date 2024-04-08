@@ -8,7 +8,7 @@ import Cover from '@/components/pages/Profile/Cover';
 import ProfileSide from '@/components/pages/Profile/ProfileSide';
 
 export interface IProfileProps {
-  params: { slug: string };
+  params: { slug: string; locale: string };
 }
 
 export default function Profile({ params: { slug, locale } }: IProfileProps) {

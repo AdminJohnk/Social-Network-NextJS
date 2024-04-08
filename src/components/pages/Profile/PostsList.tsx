@@ -33,10 +33,10 @@ export default function PostsList({ profileID }: PostsListProps) {
     <>
       {isLoadingUserPosts ? (
         <PostSkeleton />
-      ) : userPosts.length === 0 ? (
+      ) : userPosts?.length === 0 ? (
         <>No Post</>
       ) : (
-        userPosts.map(post => <Post key={post._id} post={post}></Post>)
+        userPosts?.map(post => <Post key={post._id} post={post}></Post>)
       )}
     </>
   );

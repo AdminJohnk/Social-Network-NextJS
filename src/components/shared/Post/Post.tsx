@@ -12,7 +12,7 @@ import CommentList from '@/components/shared/CommentList/CommentList';
 import InputComment from '@/components/shared/InputComment/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
-import { IPost, IUserInfo } from '@/types';
+import { IPost } from '@/types';
 import { getImageURL } from '@/lib/utils';
 
 export interface IPostProps {

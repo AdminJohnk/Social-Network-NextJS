@@ -158,7 +158,6 @@
   "hours ago": "{count, plural, other {# giờ trước}}",
   "Add To Favorite": "Thêm vào mục yêu thích",
   "Report This Post": "Báo cáo bài đăng này",
-  "Share Your Profile": "Chia sẻ trang cá nhân của bạn",
   "See More": "Xem thêm",
   "See Less": "Xem ít hơn",
   "Shortcut": "Phím tắt",
@@ -211,5 +210,9 @@
   "Account Settings": "Cài đặt tài khoản",
   "Night Mode": "Chế độ tối",
   "Log Out": "Đăng xuất",
-  "Trending Articles": "Bài viết đang thịnh hành"
+  "Trending Articles": "Bài viết đang thịnh hành",
+  "Open Post In New Tab": "Mở bài viết trong tab mới",
+  "Edit Post": "Chỉnh sửa bài viết",
+  "Delete Post": "Xóa bài viết",
+  "Position": "Vị trí"
 }

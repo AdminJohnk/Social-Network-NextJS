@@ -72,7 +72,7 @@ export default function Cover({ profileID }: ICoverProps) {
                   <Image
                     width={500}
                     height={500}
-                    src={getImageURL(otherUserInfo.user_image) || '/images/avatars/avatar-6.jpg'}
+                    src={getImageURL(otherUserInfo?.user_image) || '/images/avatars/avatar-6.jpg'}
                     alt=''
                     className='lg:size-48 size-28 object-cover'
                   />
@@ -85,18 +85,18 @@ export default function Cover({ profileID }: ICoverProps) {
                   </button>
                 )}
               </div>
-              <h3 className='md:text-3xl text-base font-bold text-text-1'>{otherUserInfo.name}</h3>
-              <p className='mt-2 text-gray-500 dark:text-white/80'>
+              <h3 className='md:text-3xl text-base font-bold text-text-1'>{otherUserInfo?.name}</h3>
+              {/* <p className='mt-2 text-gray-500 dark:text-white/80'>
                 Family , Food , Fashion , Forever
                 {isMe && (
                   <Link href='#' className='text-blue-500 ml-4 inline-block'>
                     {t('Edit')}
                   </Link>
                 )}
-              </p>
+              </p> */}
               <p
                 className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'
-                dangerouslySetInnerHTML={{ __html: otherUserInfo.about }}></p>
+                dangerouslySetInnerHTML={{ __html: otherUserInfo?.about }}></p>
             </div>
           </div>
           <div

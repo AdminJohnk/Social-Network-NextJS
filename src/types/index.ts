@@ -88,6 +88,7 @@ export interface IUserInfo {
   repositories: IRepository[];
   contacts: IContact[];
   location: string;
+  education: string;
   createdAt: string;
   favorites: string[];
   communities: string[];
