@@ -8,12 +8,12 @@ import { IoHeart } from 'react-icons/io5';
 import { FaCommentDots } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
 
-import CommentList from '@/components/shared/CommentList/CommentList';
-import InputComment from '@/components/shared/InputComment/InputComment';
+import CommentList from '@/components/shared/CommentList';
+import InputComment from '@/components/shared/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
-import PostMoreChoose from './PostMoreChoose';
 import { IPost } from '@/types';
 import { getImageURL } from '@/lib/utils';
+import PostMoreChoose from './PostMoreChoose';
 
 export interface IPostProps {
   post: IPost;

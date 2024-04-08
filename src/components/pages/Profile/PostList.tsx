@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 
 import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
-import PostSkeleton from '@/components/shared/Post/PostSkeleton';
+import { PostSkeleton } from '@/components/shared/Post';
 import Post from '@/components/shared/Post/Post';
 
 interface PostListProps {

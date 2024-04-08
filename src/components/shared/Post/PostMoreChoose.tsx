@@ -1,17 +1,10 @@
 import { useTranslations } from 'next-intl';
 import { CiBookmark, CiFlag1 } from 'react-icons/ci';
-import {
-  IoVolumeMuteOutline,
-  IoShareOutline,
-  IoOpenOutline,
-  IoTrashOutline
-} from 'react-icons/io5';
+import { IoOpenOutline, IoTrashOutline } from 'react-icons/io5';
 import { FiEdit } from 'react-icons/fi';
 import { Link } from '@/navigation';
 
-export interface IPostMoreChooseProps {}
-
-export default function PostMoreChoose(props: IPostMoreChooseProps) {
+export default function PostMoreChoose() {
   const t = useTranslations();
 
   const ChooseList = [
@@ -39,8 +32,7 @@ export default function PostMoreChoose(props: IPostMoreChooseProps) {
         <Link
           href={'https://translate.google.com/'}
           className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'
-          target='__blank'
-        >
+          target='__blank'>
           <span className='text-2xl'>
             <IoOpenOutline />
           </span>
@@ -48,10 +40,7 @@ export default function PostMoreChoose(props: IPostMoreChooseProps) {
         </Link>
         {ChooseList.map((item, index) => {
           return (
-            <div
-              key={index}
-              className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'
-            >
+            <div key={index} className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'>
               <span className='text-2xl'>{item.icon}</span>
               <span>{item.name}</span>
             </div>

@@ -1,6 +1,6 @@
-import NewPost from '@/components/shared/NewPost/NewPost';
+import NewPost from '@/components/shared/NewPost';
 import Post from '@/components/shared/Post/Post';
-import PostSkeleton from '@/components/shared/Post/PostSkeleton';
+import { PostSkeleton } from '@/components/shared/Post';
 import About from '@/components/pages/Community/Id/About';
 import RecentMedia from '@/components/pages/Community/Id/RecentMedia';
 import SuggestGroup from '@/components/pages/Community/Id/SuggestGroup';
