@@ -1,6 +1,8 @@
 import { getToken } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
 import { NextFetchEvent, NextResponse, NextRequest } from 'next/server';
+
+import { LIST_LANGUAGE } from '@/lib/constants/SettingSystem';
 import { MiddlewareFactory } from './types';
 
 export const withAuthentication: MiddlewareFactory =
@@ -10,8 +12,12 @@ export const withAuthentication: MiddlewareFactory =
         const token = await getToken({ req });
         const isAuth = !!token;
 
-        const isAuthPage =
-          req.nextUrl.pathname.startsWith('/login') || req.nextUrl.pathname.startsWith('/register');
+        const locale = LIST_LANGUAGE.map((lang) => lang).join('|');
+
+        // const isAuthPage =
+        //   req.nextUrl.pathname.startsWith('/login') || req.nextUrl.pathname.startsWith('/register');
+
+        const isAuthPage = req.nextUrl.pathname.match(new RegExp(`\/((${locale})\/)?(login|register)`));
 
         if (isAuthPage) {
           if (isAuth) {
