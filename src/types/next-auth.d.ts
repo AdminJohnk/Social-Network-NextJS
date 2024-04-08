@@ -3,18 +3,12 @@ import NextAuth, { DefaultUser, DefaultSession, JWT as DefaultJWT } from 'next-a
 declare module 'next-auth' {
   interface Session extends DefaultSession {
     id: string;
-    name: string;
-    email: string;
-    image: string;
     picture: string;
     access_token: string;
     refresh_token: string;
   }
   interface User extends DefaultUser {
     id: string;
-    name: string;
-    email: string;
-    image: string;
     access_token: string;
     refresh_token: string;
   }

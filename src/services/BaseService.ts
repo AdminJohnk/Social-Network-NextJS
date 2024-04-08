@@ -7,7 +7,7 @@ class BaseService {
     const session = await getSession();
     const headers = {
       'x-api-key': API_KEY,
-      [CLIENT_ID]: session?.id,
+      [CLIENT_ID]: session?.id || '',
       AUTHORIZATION: session?.access_token
     };
     const requestHeaders = customHeaders ? { ...headers, ...customHeaders } : headers;

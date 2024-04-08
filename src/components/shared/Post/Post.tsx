@@ -12,7 +12,7 @@ import CommentList from '@/components/shared/CommentList/CommentList';
 import InputComment from '@/components/shared/InputComment/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
-import { IPost, IUserInfo } from '@/types';
+import { IPost } from '@/types';
 import { getImageURL } from '@/lib/utils';
 
 export interface IPostProps {
@@ -26,13 +26,16 @@ export default function Post({ post }: IPostProps) {
     <div className='post bg-foreground-1 rounded-lg p-4'>
       <div className='flex-between'>
         <div className='flex-start'>
-          <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
+          <Link href={`/profile/${post.post_attributes.user._id}`}>
+            <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
+          </Link>
           <div className='flex flex-col ms-3'>
-            <span className='base-bold'>{post.post_attributes.user.name}</span>
+            <Link href={`/profile/${post.post_attributes.user._id}`} className='base-bold'>
+              {post.post_attributes.user.name}
+            </Link>
             <Link
               href={`/posts/${post._id}`}
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
-            >
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
               {t('hours ago', { count: 2 })}
             </Link>
           </div>
@@ -49,9 +52,7 @@ export default function Post({ post }: IPostProps) {
         </div>
       </div>
       <div className='mt-4 space-y-3'>
-        <div
-          dangerouslySetInnerHTML={{ __html: post.post_attributes.content }}
-        />
+        <div dangerouslySetInnerHTML={{ __html: post.post_attributes.content }} />
         {post.post_attributes.images.length !== 0 && (
           <Image
             className='rounded-lg w-full h-full object-cover'

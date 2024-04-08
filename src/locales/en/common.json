@@ -160,7 +160,6 @@
   "hours ago": "{count, plural, =0 {recently} =1 {one hour ago} other {# hours ago}}",
   "Add To Favorite": "Add To Favorite",
   "Report This Post": "Report This Post",
-  "Share Your Profile": "Share Your Profile",
   "See More": "See More",
   "See Less": "See Less",
   "Shortcut": "Shortcut",
@@ -212,5 +211,9 @@
   "Account Settings": "Account Settings",
   "Night Mode": "Night Mode",
   "Log Out": "Log Out",
-  "Trending Articles": "Trending Articles"
+  "Trending Articles": "Trending Articles",
+  "Open Post In New Tab": "Open Post In New Tab",
+  "Edit Post": "Edit Post",
+  "Delete Post": "Delete Post",
+  "Position": "Position"
 }
