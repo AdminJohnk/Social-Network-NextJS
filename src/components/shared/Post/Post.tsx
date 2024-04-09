@@ -1,3 +1,5 @@
+'use client';
+
 import { Avatar } from '@mui/material';
 import Image from 'next/image';
 import { Link } from '@/navigation';
@@ -8,13 +10,13 @@ import { IoHeart } from 'react-icons/io5';
 import { FaCommentDots } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
 
-import CommentList from '@/components/shared/CommentList/CommentList';
-import InputComment from '@/components/shared/InputComment/InputComment';
+import CommentList from '@/components/shared/CommentList';
+import InputComment from '@/components/shared/InputComment';
 import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
 import { IFeaturePost, IPost } from '@/types';
 import { getImageURL } from '@/lib/utils';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 export interface IPostProps {
@@ -24,7 +26,8 @@ export interface IPostProps {
 
 export default function Post({ post, feature }: IPostProps) {
   const t = useTranslations();
-  const content = post.post_attributes.content;
+  const content =
+    post.type === 'Post' ? post.post_attributes.content : post.post_attributes.post!.post_attributes.content;
   const [contentQuill, setContent] = useState(content);
   const isMoreThan500 = content.length > 500;
   const [expanded, setExpanded] = useState(false);
@@ -46,16 +49,12 @@ export default function Post({ post, feature }: IPostProps) {
             <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
           </Link>
           <div className='flex flex-col ms-3'>
-            <Link
-              href={`/profile/${post.post_attributes.user._id}`}
-              className='base-bold'
-            >
+            <Link href={`/profile/${post.post_attributes.user._id}`} className='base-bold'>
               {post.post_attributes.user.name}
             </Link>
             <Link
               href={`/posts/${post._id}`}
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
-            >
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
               {t('hours ago', { count: 2 })}
             </Link>
           </div>
@@ -67,13 +66,7 @@ export default function Post({ post, feature }: IPostProps) {
                 <IoIosMore className='size-6' />
               </div>
             }
-            hoverContent={
-              <PostMoreChoose
-                feature={feature}
-                post={post}
-                isMyPost={isMyPost}
-              />
-            }
+            hoverContent={<PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />}
           />
         </div>
       </div>
@@ -82,8 +75,7 @@ export default function Post({ post, feature }: IPostProps) {
         {isMoreThan500 && (
           <div
             className='clickMore my-3 cursor-pointer hover:text-text-2 duration-500'
-            onClick={() => setExpanded(!expanded)}
-          >
+            onClick={() => setExpanded(!expanded)}>
             {expanded ? 'Read less' : 'Read more'}
           </div>
         )}

@@ -1,10 +1,10 @@
 'use client';
 
 import Post from '@/components/shared/Post/Post';
-import PostSkeleton from '@/components/shared/Post/PostSkeleton';
+import { PostSkeleton } from '@/components/shared/Post';
 import { useAllNewsfeedPostsData } from '@/hooks/query';
 
-export default function PostsList() {
+export default function PostList() {
   const {
     allNewsfeedPosts: posts,
     isFetchingNextNewsfeedPosts: isFetchingNextPosts,

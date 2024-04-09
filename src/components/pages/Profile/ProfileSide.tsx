@@ -4,6 +4,7 @@ import { useUserPostsData } from '@/hooks/query';
 import Friends from './Friends';
 import GroupsYouManage from './GroupsYouManage';
 import Intro from './Intro';
+import SideSkeleton from '@/components/shared/SideSkeleton';
 
 interface ProfileSideProps {
   profileID: string;
@@ -15,7 +16,7 @@ export default function ProfileSide({ profileID }: ProfileSideProps) {
   return (
     <>
       {isLoadingUserPosts ? (
-        <></>
+         <SideSkeleton />
       ) : (
         <div className='lg:w-[400px]'>
           <div

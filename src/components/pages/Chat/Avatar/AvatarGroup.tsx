@@ -1,6 +1,7 @@
 import { useCurrentUserInfo } from "@/hooks/query";
 import { cn, getImageURL } from "@/lib/utils";
 import { IUserInfo } from "@/types";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { FaEye } from "react-icons/fa";
 
@@ -17,13 +18,14 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
 
   // const { activeMembers: members } = useAppSelector((state) => state.socketIO);
   const activeMembers = true;
-  const { currentUserInfo } = useCurrentUserInfo();
+  const { data: session } = useSession();
+  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
   const slicedUsers = users.length > 3 ? users.slice(0, 4) : users.slice(0, 3);
   const isActive =
     users
       .map((user) => {
-        if (user._id === currentUserInfo._id) return;
+        if (user._id === currentUserInfo?._id) return;
         // return members.some((member) => member._id === user._id && member.is_online);
         return activeMembers;
       })

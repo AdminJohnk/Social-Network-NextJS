@@ -14,7 +14,7 @@ const AvatarMessage: React.FC<IAvatar> = ({ size = 36, user, preview = false }) 
   const isActive = true;
 
   return (
-    <div className='relative'>
+    <div className='relative' style={{ width: size, height: size }}>
       <div className='relative rounded-full overflow-hidden flex' style={{ width: size, height: size }}>
         <Image
           width={500}

@@ -6,7 +6,7 @@ import { getImageURL } from '@/lib/utils';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { FaCheckCircle, FaPencilAlt } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 import {

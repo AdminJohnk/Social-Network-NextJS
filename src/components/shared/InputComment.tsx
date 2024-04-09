@@ -1,7 +1,11 @@
-import { useCurrentUserInfo } from '@/hooks/query';
-import { getImageURL } from '@/lib/utils';
+'use client';
+
 import { Avatar } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { useSession } from 'next-auth/react';
+
+import { useCurrentUserInfo } from '@/hooks/query';
+import { getImageURL } from '@/lib/utils';
 
 export interface IInputCommentProps {
   postID: string;
@@ -10,7 +14,9 @@ export interface IInputCommentProps {
 export default function InputComment({ postID }: IInputCommentProps) {
   const t = useTranslations();
 
-  const { currentUserInfo } = useCurrentUserInfo();
+  const { data: session } = useSession();
+
+  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
 
   return (
     <div className='flex-between'>

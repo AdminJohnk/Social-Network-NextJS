@@ -14,11 +14,7 @@ export interface IPostMoreChooseProps {
   feature?: IFeaturePost;
 }
 
-export default function PostMoreChoose({
-  post,
-  isMyPost,
-  feature
-}: IPostMoreChooseProps) {
+export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreChooseProps) {
   const t = useTranslations();
   const { mutateSavePost } = useSavePost();
 
@@ -32,8 +28,7 @@ export default function PostMoreChoose({
           <Link
             href={'/posts/' + post._id}
             className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'
-            target='__blank'
-          >
+            target='__blank'>
             <span className='text-2xl'>
               <IoOpenOutline />
             </span>
@@ -45,8 +40,7 @@ export default function PostMoreChoose({
           className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'
           onClick={() => {
             mutateSavePost(post._id);
-          }}
-        >
+          }}>
           <span className='text-2xl'>
             <CiBookmark />
           </span>

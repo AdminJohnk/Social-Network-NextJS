@@ -1,4 +1,4 @@
-import PostDetailWrap from '@/components/shared/PostDetailWrap/PostDetailWrap';
+import PostDetailWrap from '@/components/shared/Post/PostDetailWrap';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 export interface IPostDetailProps {
@@ -8,9 +8,7 @@ export interface IPostDetailProps {
   };
 }
 
-export default function PostDetail({
-  params: { locale, slug }
-}: IPostDetailProps) {
+export default function PostDetail({ params: { locale, slug } }: IPostDetailProps) {
   unstable_setRequestLocale(locale);
 
   return (
@@ -18,8 +16,7 @@ export default function PostDetail({
       className='ms-60 max-lg/2:ms-0'
       style={{
         zIndex: 1
-      }}
-    >
+      }}>
       <div className='newsfeed mt-16 3xl:px-40 py-10 px-2 sm:px-14 xl:px-24 2xl:px-32'>
         <PostDetailWrap postID={slug} />
       </div>
