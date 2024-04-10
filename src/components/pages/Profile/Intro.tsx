@@ -50,7 +50,7 @@ export default function Intro({ profileID }: IIntroProps) {
 
                 <div>
                   {t('Studied at')}
-                  <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>{user.education}</span>
+                  <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>{user?.education}</span>
                 </div>
               </li>
             )}
@@ -66,7 +66,7 @@ export default function Intro({ profileID }: IIntroProps) {
                 </div>
               </li>
             )}
-            {user.experiences.length > 0 && (
+            {user?.experiences?.length > 0 && (
               <li className='flex items-center gap-3'>
                 <IoBriefcaseOutline className='size-6' />
 
@@ -82,7 +82,7 @@ export default function Intro({ profileID }: IIntroProps) {
               <IoPeopleOutline className='size-6' />
               <div>
                 {t('Friends')}
-                <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>{user.friend_number}</span>
+                <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>{user?.friend_number}</span>
               </div>
             </li>
           </ul>

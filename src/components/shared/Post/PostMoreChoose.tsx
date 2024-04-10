@@ -1,12 +1,17 @@
 import { useTranslations } from 'next-intl';
 import { CiBookmark, CiFlag1 } from 'react-icons/ci';
-import { IoOpenOutline, IoTrashOutline } from 'react-icons/io5';
+import {
+  IoOpenOutline,
+  IoTrashOutline,
+  IoBookmark,
+  IoBookmarkOutline
+} from 'react-icons/io5';
 import { FiEdit } from 'react-icons/fi';
 import { Link } from '@/navigation';
 import { IPost } from '@/types';
 import { IFeaturePost } from '@/types';
 import { useSavePost } from '@/hooks/mutation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface IPostMoreChooseProps {
   post: IPost;
@@ -14,9 +19,18 @@ export interface IPostMoreChooseProps {
   feature?: IFeaturePost;
 }
 
-export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreChooseProps) {
+export default function PostMoreChoose({
+  post,
+  isMyPost,
+  feature
+}: IPostMoreChooseProps) {
   const t = useTranslations();
   const { mutateSavePost } = useSavePost();
+  const [is_saved, setIsSaved] = useState(post.is_saved);
+
+  useEffect(() => {
+    setIsSaved(post.is_saved);
+  }, [post.is_saved]);
 
   return (
     <div className='post-more-choose w-56 bg-foreground-1 border border-border-1 text-text-1 p-2'>
@@ -25,29 +39,36 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
         {feature === 'detail' ? (
           <></>
         ) : (
-          <Link
-            href={'/posts/' + post._id}
-            className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'
-            target='__blank'>
+          <div
+            className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
+            onClick={e => {
+              e.preventDefault();
+              window.open('/posts/' + post._id, '_blank');
+            }}
+          >
             <span className='text-2xl'>
               <IoOpenOutline />
             </span>
             <span>{t('Open Post In New Tab')}</span>
-          </Link>
+          </div>
         )}
         {/* Add To Favorite */}
         <div
-          className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'
+          className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
           onClick={() => {
+            setIsSaved(!is_saved);
             mutateSavePost(post._id);
-          }}>
+          }}
+        >
           <span className='text-2xl'>
-            <CiBookmark />
+            {is_saved ? <IoBookmark /> : <IoBookmarkOutline />}
           </span>
-          <span>{t('Add To Favorite')}</span>
+          <span>
+            {is_saved ? t('Remove From Favorite') : t('Add To Favorite')}
+          </span>
         </div>
         {isMyPost && (
-          <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'>
+          <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'>
             <span className='text-2xl'>
               <FiEdit />
             </span>
@@ -55,7 +76,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
           </div>
         )}
         {/* Report This Post */}
-        <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'>
+        <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'>
           <span className='text-2xl'>
             <CiFlag1 />
           </span>
@@ -63,7 +84,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
         </div>
         {/* Delete Post */}
         {isMyPost && (
-          <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg'>
+          <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'>
             <span className='text-2xl'>
               <IoTrashOutline />
             </span>
