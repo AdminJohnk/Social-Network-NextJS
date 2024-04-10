@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { Link } from '@/navigation';
 import { useMemo } from 'react';
 import { useSession } from 'next-auth/react';

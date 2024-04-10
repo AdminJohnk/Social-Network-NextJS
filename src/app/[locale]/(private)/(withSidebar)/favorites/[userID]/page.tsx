@@ -1,4 +1,4 @@
-import PostsList from '@/components/pages/Favorite/PostsList';
+import PostsList from '@/components/pages/Favorite/PostList';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import * as React from 'react';
 
