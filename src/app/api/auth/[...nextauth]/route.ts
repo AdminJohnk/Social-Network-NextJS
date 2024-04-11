@@ -37,6 +37,7 @@ const handler = NextAuth({
             const user = data.metadata.user;
             return {
               id: user._id,
+              email: user.email,
               access_token: tokens.accessToken,
               refresh_token: tokens.refreshToken
             };
@@ -60,6 +61,7 @@ const handler = NextAuth({
           if (data) {
             return {
               id: data.metadata.user._id,
+              email: data.metadata.user.email,
               access_token: data.metadata.tokens.accessToken,
               refresh_token: data.metadata.tokens.refreshToken
             };
@@ -83,6 +85,7 @@ const handler = NextAuth({
           if (data) {
             return {
               id: data.metadata.user._id,
+              email: data.metadata.user.email,
               access_token: data.metadata.tokens.accessToken,
               refresh_token: data.metadata.tokens.refreshToken
             };

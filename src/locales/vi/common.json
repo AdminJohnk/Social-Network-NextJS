@@ -236,5 +236,9 @@
   "Invalid Twitter link": "Liên kết Twitter không hợp lệ",
   "Invalid Linkedin link": "Liên kết Linkedin không hợp lệ",
   "Invalid Github link": "Liên kết Github không hợp lệ",
-  "Invalid Instagram link": "Liên kết Instagram không hợp lệ"
+  "Invalid Instagram link": "Liên kết Instagram không hợp lệ",
+  "Current Password": "Mật khẩu hiện tại",
+  "New Password": "Mật khẩu mới",
+  "Confirm New Password": "Xác nhận mật khẩu mới",
+  "The old password is incorrect!": "Mật khẩu cũ không chính xác!"
 }

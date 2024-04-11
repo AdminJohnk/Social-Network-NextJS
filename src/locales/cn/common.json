@@ -236,5 +236,9 @@
   "Invalid Twitter link": "无效的Twitter链接",
   "Invalid Linkedin link": "无效的Linkedin链接",
   "Invalid Github link": "无效的Github链接",
-  "Invalid Instagram link": "无效的Instagram链接"
+  "Invalid Instagram link": "无效的Instagram链接",
+  "Current Password": "当前密码",
+  "New Password": "新密码",
+  "Confirm New Password": "确认新密码",
+  "The old password is incorrect!": "旧密码不正确!"
 }
