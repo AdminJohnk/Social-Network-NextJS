@@ -22,7 +22,7 @@ export default function ComCategory(props: IComCategoryProps) {
         </Link>
       </div>
 
-      <div tabIndex={-1} data-uk-slider='finite:true'>
+      <div data-uk-slider='finite:true'>
         <div className='uk-slider-container pb-1'>
           <ul className='uk-slider-items grid-small'>
             <li className='md:w-1/5 sm:w-1/3 w-1/2'>

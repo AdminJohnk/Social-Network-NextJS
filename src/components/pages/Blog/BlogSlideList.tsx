@@ -8,7 +8,7 @@ export interface IBlogSlideListProps {}
 export default function BlogSlideList(props: IBlogSlideListProps) {
   const t = useTranslations();
   return (
-    <div tabIndex={-1} data-uk-slider='finite:true'>
+    <div data-uk-slider='finite:true'>
       <div className='uk-slider-container pb-1'>
         <ul className='uk-slider-items grid-small'>
           <li className='sm:w-1/3 w-1/2'>

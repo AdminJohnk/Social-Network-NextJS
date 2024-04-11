@@ -9,7 +9,6 @@ export default function BlogSlideThumbnail(props: IBlogSlideThumbnailProps) {
   return (
     <div
       className='relative uk-visible-toggle'
-      tabIndex={-1}
       data-uk-slideshow='finite: true ; min-height: 300; max-height: 500'>
       <ul className='uk-slideshow-items'>
         <li className='w-full overflow-hidden rounded-xl'>

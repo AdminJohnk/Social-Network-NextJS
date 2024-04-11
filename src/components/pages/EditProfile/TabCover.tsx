@@ -1,13 +1,15 @@
 'use client';
 
-import * as React from 'react';
+import { useCallback, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { Avatar } from '@mui/material';
+import { useSearchParams } from 'next/navigation';
 
 import { useCurrentUserInfo } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
 import { Tabs, TabTitle } from '@/components/ui/tabs';
+import { usePathname, useRouter } from '@/navigation';
 
 export interface ITabCoverProps {}
 
@@ -15,6 +17,35 @@ export default function TabCover(props: ITabCoverProps) {
   const t = useTranslations();
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const tab = useMemo(() => {
+    const tabParam = searchParams.get('tab') || 'general';
+    switch (tabParam) {
+      case 'social-links':
+        return 1;
+      case 'expertise':
+        return 2;
+      case 'experience':
+        return 3;
+      case 'repository':
+        return 4;
+      case 'password':
+        return 5;
+      default:
+        return 0;
+    }
+  }, []);
+
+  const createQueryString = useCallback((name: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(name, value);
+
+    return params.toString();
+  }, []);
+
   return (
     <div className='rounded-xl border border-border-1 bg-foreground-1 shadow-sm'>
       <div className='flex relative space-y-4'>
@@ -52,13 +83,43 @@ export default function TabCover(props: ITabCoverProps) {
 
       <hr className='m-0 border-t border-gray-100 dark:border-slate-700' />
 
-      <Tabs id='setting_tab' disableChevron>
-        <TabTitle>{t('General')}</TabTitle>
-        <TabTitle>{t('Social links')}</TabTitle>
-        <TabTitle>{t('Expertise')}</TabTitle>
-        <TabTitle>{t('Experience')}</TabTitle>
-        <TabTitle>{t('Repository')}</TabTitle>
-        <TabTitle>{t('Password')}</TabTitle>
+      <Tabs id='setting_tab' disableChevron active={tab}>
+        <TabTitle
+          onClick={() => {
+            router.push(pathname + '?' + createQueryString('tab', 'general'));
+          }}>
+          {t('General')}
+        </TabTitle>
+        <TabTitle
+          onClick={() => {
+            router.push(pathname + '?' + createQueryString('tab', 'social-links'));
+          }}>
+          {t('Social links')}
+        </TabTitle>
+        <TabTitle
+          onClick={() => {
+            router.push(pathname + '?' + createQueryString('tab', 'expertise'));
+          }}>
+          {t('Expertise')}
+        </TabTitle>
+        <TabTitle
+          onClick={() => {
+            router.push(pathname + '?' + createQueryString('tab', 'experience'));
+          }}>
+          {t('Experience')}
+        </TabTitle>
+        <TabTitle
+          onClick={() => {
+            router.push(pathname + '?' + createQueryString('tab', 'repository'));
+          }}>
+          {t('Repository')}
+        </TabTitle>
+        <TabTitle
+          onClick={() => {
+            router.push(pathname + '?' + createQueryString('tab', 'password'));
+          }}>
+          {t('Password')}
+        </TabTitle>
       </Tabs>
     </div>
   );

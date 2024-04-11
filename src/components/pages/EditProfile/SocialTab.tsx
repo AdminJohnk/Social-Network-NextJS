@@ -4,14 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
-import {
-  FaFacebook,
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-  FaYoutube
-} from 'react-icons/fa';
+import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,21 +28,11 @@ export default function SocialTab(props: ISocialTabProps) {
   const { mutateUpdateUser } = useUpdateUser();
 
   useEffect(() => {
-    const facebook = currentUserInfo?.contacts?.find(
-      contact => contact.key === 'facebook'
-    )?.link;
-    const twitter = currentUserInfo?.contacts?.find(
-      contact => contact.key === 'twitter'
-    )?.link;
-    const instagram = currentUserInfo?.contacts?.find(
-      contact => contact.key === 'instagram'
-    )?.link;
-    const linkedin = currentUserInfo?.contacts?.find(
-      contact => contact.key === 'linkedin'
-    )?.link;
-    const github = currentUserInfo?.contacts?.find(
-      contact => contact.key === 'github'
-    )?.link;
+    const facebook = currentUserInfo?.contacts?.find((contact) => contact.key === 'facebook')?.link;
+    const twitter = currentUserInfo?.contacts?.find((contact) => contact.key === 'twitter')?.link;
+    const instagram = currentUserInfo?.contacts?.find((contact) => contact.key === 'instagram')?.link;
+    const linkedin = currentUserInfo?.contacts?.find((contact) => contact.key === 'linkedin')?.link;
+    const github = currentUserInfo?.contacts?.find((contact) => contact.key === 'github')?.link;
 
     setValue('facebook', facebook || '');
     setValue('twitter', twitter || '');
@@ -58,13 +41,7 @@ export default function SocialTab(props: ISocialTabProps) {
     setValue('github', github || '');
   }, [currentUserInfo]);
 
-  async function onSubmit({
-    facebook,
-    twitter,
-    instagram,
-    linkedin,
-    github
-  }: FormData) {
+  async function onSubmit({ facebook, twitter, instagram, linkedin, github }: FormData) {
     setIsLoading(true);
 
     const updateResult = await mutateUpdateUser({
@@ -115,11 +92,7 @@ export default function SocialTab(props: ISocialTabProps) {
                 placeholder='http://www.facebook.com/myname'
                 {...register('facebook')}
               />
-              {errors.facebook && (
-                <p className='p-1 text-xs text-red-600'>
-                  {errors.facebook.message}
-                </p>
-              )}
+              {errors.facebook && <p className='p-1 text-xs text-red-600'>{t(errors.facebook.message)}</p>}
             </div>
           </div>
           <div className='flex items-center gap-3'>
@@ -134,11 +107,7 @@ export default function SocialTab(props: ISocialTabProps) {
                 placeholder='https://www.instagram.com/myname'
                 {...register('instagram')}
               />
-              {errors.instagram && (
-                <p className='p-1 text-xs text-red-600'>
-                  {errors.instagram.message}
-                </p>
-              )}
+              {errors.instagram && <p className='p-1 text-xs text-red-600'>{t(errors.instagram.message)}</p>}
             </div>
           </div>
           <div className='flex items-center gap-3'>
@@ -153,11 +122,7 @@ export default function SocialTab(props: ISocialTabProps) {
                 placeholder='http://www.twitter.com/myname'
                 {...register('twitter')}
               />
-              {errors.twitter && (
-                <p className='p-1 text-xs text-red-600'>
-                  {errors.twitter.message}
-                </p>
-              )}
+              {errors.twitter && <p className='p-1 text-xs text-red-600'>{t(errors.twitter.message)}</p>}
             </div>
           </div>
           <div className='flex items-center gap-3'>
@@ -172,11 +137,7 @@ export default function SocialTab(props: ISocialTabProps) {
                 placeholder='http://www.github.com/myname'
                 {...register('github')}
               />
-              {errors.github && (
-                <p className='p-1 text-xs text-red-600'>
-                  {errors.github.message}
-                </p>
-              )}
+              {errors.github && <p className='p-1 text-xs text-red-600'>{t(errors.github.message)}</p>}
             </div>
           </div>
           <div className='flex items-center gap-3'>
@@ -191,29 +152,17 @@ export default function SocialTab(props: ISocialTabProps) {
                 placeholder='http://www.linkedin.com/myname'
                 {...register('linkedin')}
               />
-              {errors.linkedin && (
-                <p className='p-1 text-xs text-red-600'>
-                  {errors.linkedin.message}
-                </p>
-              )}
+              {errors.linkedin && <p className='p-1 text-xs text-red-600'>{t(errors.linkedin.message)}</p>}
             </div>
           </div>
         </div>
 
         <div className='flex items-center justify-center gap-4 mt-16'>
-          <Button
-            variant='destructive'
-            className='button lg:px-6 max-md:flex-1'
-          >
+          <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
             Cancel
           </Button>
-          <Button
-            type='submit'
-            className='button lg:px-6 text-white max-md:flex-1'
-          >
-            {isLoading && (
-              <CircularProgress size={20} className='text-text-1 mr-2' />
-            )}
+          <Button type='submit' className='button lg:px-6 text-white max-md:flex-1'>
+            {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
             Save <span className='ripple-overlay'></span>
           </Button>
         </div>

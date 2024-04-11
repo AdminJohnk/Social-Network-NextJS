@@ -70,69 +70,67 @@ export default function GeneralTab(props: IGeneralTabProps) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='space-y-6'>
-          <div className='md:flex items-center gap-10'>
-            <label htmlFor='name' className='md:w-16 text-right'>
-              {t('Name')}
-            </label>
-            <div className='flex-1 max-md:mt-4'>
-              <input
-                type='text'
-                placeholder='Monroe'
-                required
-                disabled={isLoading}
-                className='w-full rounded-lg bg-foreground-2 border-none'
-                {...register('name')}
-              />
-              {errors.name && <p className='p-1 text-xs text-red-600'>{errors.name.message}</p>}
-            </div>
-          </div>
-
-          <div className='md:flex items-center gap-10'>
-            <label htmlFor='alias' className='md:w-16 text-right'>
-              {t('Alias')}
-            </label>
-            <div className='flex-1 max-md:mt-4'>
-              <input
-                type='text'
-                placeholder='@monroe'
-                disabled={isLoading}
-                className='w-full rounded-lg bg-foreground-2 border-none'
-                {...register('alias')}
-              />
-              {errors.alias && <p className='p-1 text-xs text-red-600'>{errors.alias.message}</p>}
-            </div>
-          </div>
-
-          <div className='md:flex items-start gap-10'>
-            <label htmlFor='about' className='md:w-16 text-right'>
-              {t('About')}
-            </label>
-            <div className='flex-1 max-md:mt-4'>
-              <textarea
-                // defaultValue={currentUserInfo?.about}
-                className='w-full rounded-lg bg-foreground-2 border-none'
-                rows={5}
-                disabled={isLoading}
-                placeholder='Write something about yourself...'
-                {...register('about')}
-              />
-              {errors.about && <p className='p-1 text-xs text-red-600'>{errors.about.message}</p>}
-            </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className='space-y-6'>
+        <div className='md:flex items-center gap-10'>
+          <label htmlFor='name' className='md:w-16 text-right'>
+            {t('Name')}
+          </label>
+          <div className='flex-1 max-md:mt-4'>
+            <input
+              type='text'
+              placeholder='Monroe'
+              required
+              disabled={isLoading}
+              className='w-full rounded-lg bg-foreground-2 border-none'
+              {...register('name')}
+            />
+            {errors.name && <p className='p-1 text-xs text-red-600'>{t(errors.name.message)}</p>}
           </div>
         </div>
-        <div className='flex items-center justify-center gap-4 mt-16'>
-          <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
-            {t('Cancel')}
-          </Button>
-          <Button type='submit' className='button lg:px-6 text-white max-md:flex-1'>
-            {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
-            {t('Save')} <span className='ripple-overlay'></span>
-          </Button>
+
+        <div className='md:flex items-center gap-10'>
+          <label htmlFor='alias' className='md:w-16 text-right'>
+            {t('Alias')}
+          </label>
+          <div className='flex-1 max-md:mt-4'>
+            <input
+              type='text'
+              placeholder='@monroe'
+              disabled={isLoading}
+              className='w-full rounded-lg bg-foreground-2 border-none'
+              {...register('alias')}
+            />
+            {errors.alias && <p className='p-1 text-xs text-red-600'>{t(errors.alias.message)}</p>}
+          </div>
         </div>
-      </form>
-    </div>
+
+        <div className='md:flex items-start gap-10'>
+          <label htmlFor='about' className='md:w-16 text-right'>
+            {t('About')}
+          </label>
+          <div className='flex-1 max-md:mt-4'>
+            <textarea
+              // defaultValue={currentUserInfo?.about}
+              className='w-full rounded-lg bg-foreground-2 border-none'
+              rows={5}
+              disabled={isLoading}
+              placeholder='Write something about yourself...'
+              {...register('about')}
+            />
+            {errors.about && <p className='p-1 text-xs text-red-600'>{t(errors.about.message)}</p>}
+          </div>
+        </div>
+      </div>
+      <div className='flex items-center justify-center gap-4 mt-16'>
+        <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
+          {t('Cancel')}
+        </Button>
+        <Button type='submit' className='button lg:px-6 text-white max-md:flex-1'>
+          {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+          {t('Save')} <span className='ripple-overlay'></span>
+        </Button>
+      </div>
+    </form>
   );
 }

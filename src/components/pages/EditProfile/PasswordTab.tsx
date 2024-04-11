@@ -13,7 +13,7 @@ export default function PasswordTab(props: IPasswordTabProps) {
     <div>
       <div className='space-y-6'>
         <div className='md:flex items-center gap-16 justify-between max-md:space-y-3'>
-          <label className='md:w-40 text-right'> Current Password </label>
+          <label className='md:w-32 text-right'> Current Password </label>
           <div className='flex-1 max-md:mt-4'>
             <input
               type='password'
@@ -24,7 +24,7 @@ export default function PasswordTab(props: IPasswordTabProps) {
         </div>
 
         <div className='md:flex items-center gap-16 justify-between max-md:space-y-3'>
-          <label className='md:w-40 text-right'> New password </label>
+          <label className='md:w-32 text-right'> New password </label>
           <div className='flex-1 max-md:mt-4'>
             <input
               type='password'
@@ -35,7 +35,7 @@ export default function PasswordTab(props: IPasswordTabProps) {
         </div>
 
         <div className='md:flex items-center gap-16 justify-between max-md:space-y-3'>
-          <label className='md:w-40 text-right'> Repeat password </label>
+          <label className='md:w-32 text-right'> Repeat password </label>
           <div className='flex-1 max-md:mt-4'>
             <input
               type='password'
@@ -50,10 +50,7 @@ export default function PasswordTab(props: IPasswordTabProps) {
         <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
           Cancel
         </Button>
-        <Button
-          type='submit'
-          className='button lg:px-6 text-white max-md:flex-1'
-        >
+        <Button type='submit' className='button lg:px-6 text-white max-md:flex-1'>
           Save
         </Button>
       </div>

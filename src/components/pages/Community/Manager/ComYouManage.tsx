@@ -14,7 +14,7 @@ export default function ComYouManage(props: IComYouManageProps) {
           See all
         </Link>
       </div>
-      <div className='relative mt-2' tabIndex={-1} data-uk-slider>
+      <div className='relative mt-2' data-uk-slider>
         <div className='overflow-hidden uk-slider-container'>
           <ul
             className='-ml-2 uk-slider-items w-[calc(100%+0.5rem)] pt-3 text-center'
