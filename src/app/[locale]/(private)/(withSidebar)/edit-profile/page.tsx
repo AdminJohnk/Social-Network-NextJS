@@ -12,7 +12,7 @@ export interface IEditProfileProps {
 export default function EditProfile({ params: { locale } }: IEditProfileProps) {
   unstable_setRequestLocale(locale);
   return (
-    <div className='flex flex-1 mt-16 *:w-full *:max-w-2xl flex-col items-center gap-10 px-5 py-10 md:p-14 custom-scrollbar-bg overflow-scroll'>
+    <div className='flex flex-1 mt-16 *:w-full *:max-w-2xl flex-col items-center gap-3 px-5 py-10 md:p-14 custom-scrollbar-bg overflow-scroll'>
       <TabCover />
       <TabContent />
     </div>
