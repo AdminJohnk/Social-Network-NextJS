@@ -218,5 +218,13 @@
   "Position": "Position",
   "Favorites": "Favorites",
   "Back": "Back",
-  "Your profile has been updated successfully!": "Your profile has been updated successfully!"
+  "Your profile has been updated successfully!": "Your profile has been updated successfully!",
+  "Failed to update your profile!": "Failed to update your profile!",
+  "Save": "Save",
+  "Cancel": "Cancel",
+  "Repository": "Repository",
+  "Experience": "Experience",
+  "Social links": "Social links",
+  "General": "General",
+  "Expertise": "Expertise"
 }

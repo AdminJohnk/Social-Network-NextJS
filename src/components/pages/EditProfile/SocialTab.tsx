@@ -218,7 +218,6 @@ export default function SocialTab(props: ISocialTabProps) {
           </Button>
         </div>
       </div>
-      <ToastContainer />
     </form>
   );
 }

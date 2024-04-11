@@ -9,7 +9,7 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userGeneralTabSchema } from '@/lib/schema';
-import { ToastContainer, showSuccessToast } from '@/components/ui/toast';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
@@ -65,6 +65,7 @@ export default function GeneralTab(props: IGeneralTabProps) {
       // Show success notification
     } else {
       // Set error
+      showErrorToast(t('Failed to update your profile!'));
     }
   }
 
@@ -73,8 +74,8 @@ export default function GeneralTab(props: IGeneralTabProps) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='space-y-6'>
           <div className='md:flex items-center gap-10'>
-            <label htmlFor='name' className='md:w-32 text-right'>
-              Name
+            <label htmlFor='name' className='md:w-16 text-right'>
+              {t('Name')}
             </label>
             <div className='flex-1 max-md:mt-4'>
               <input
@@ -85,17 +86,13 @@ export default function GeneralTab(props: IGeneralTabProps) {
                 className='w-full rounded-lg bg-foreground-2 border-none'
                 {...register('name')}
               />
-              {errors.name && (
-                <p className='p-1 text-xs text-red-600'>
-                  {errors.name.message}
-                </p>
-              )}
+              {errors.name && <p className='p-1 text-xs text-red-600'>{errors.name.message}</p>}
             </div>
           </div>
 
           <div className='md:flex items-center gap-10'>
-            <label htmlFor='alias' className='md:w-32 text-right'>
-              Alias
+            <label htmlFor='alias' className='md:w-16 text-right'>
+              {t('Alias')}
             </label>
             <div className='flex-1 max-md:mt-4'>
               <input
@@ -105,17 +102,13 @@ export default function GeneralTab(props: IGeneralTabProps) {
                 className='w-full rounded-lg bg-foreground-2 border-none'
                 {...register('alias')}
               />
-              {errors.alias && (
-                <p className='p-1 text-xs text-red-600'>
-                  {errors.alias.message}
-                </p>
-              )}
+              {errors.alias && <p className='p-1 text-xs text-red-600'>{errors.alias.message}</p>}
             </div>
           </div>
 
           <div className='md:flex items-start gap-10'>
-            <label htmlFor='about' className='md:w-32 text-right'>
-              About
+            <label htmlFor='about' className='md:w-16 text-right'>
+              {t('About')}
             </label>
             <div className='flex-1 max-md:mt-4'>
               <textarea
@@ -126,33 +119,20 @@ export default function GeneralTab(props: IGeneralTabProps) {
                 placeholder='Write something about yourself...'
                 {...register('about')}
               />
-              {errors.about && (
-                <p className='p-1 text-xs text-red-600'>
-                  {errors.about.message}
-                </p>
-              )}
+              {errors.about && <p className='p-1 text-xs text-red-600'>{errors.about.message}</p>}
             </div>
           </div>
         </div>
         <div className='flex items-center justify-center gap-4 mt-16'>
-          <Button
-            variant='destructive'
-            className='button lg:px-6 max-md:flex-1'
-          >
-            Cancel
+          <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
+            {t('Cancel')}
           </Button>
-          <Button
-            type='submit'
-            className='button lg:px-6 text-white max-md:flex-1'
-          >
-            {isLoading && (
-              <CircularProgress size={20} className='text-text-1 mr-2' />
-            )}
-            Save <span className='ripple-overlay'></span>
+          <Button type='submit' className='button lg:px-6 text-white max-md:flex-1'>
+            {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+            {t('Save')} <span className='ripple-overlay'></span>
           </Button>
         </div>
       </form>
-      <ToastContainer />
     </div>
   );
 }

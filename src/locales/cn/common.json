@@ -219,5 +219,13 @@
   "Position": "位置",
   "Favorites": "收藏夹",
   "Back": "返回",
-  "Your profile has been updated successfully!": "您的个人资料已成功更新!"
+  "Your profile has been updated successfully!": "您的个人资料已成功更新!",
+  "Failed to update your profile!": "无法更新您的个人资料!",
+  "Save": "保存",
+  "Cancel": "取消",
+  "Repository": "存储库",
+  "Experience": "经验",
+  "Social links": "社交链接",
+  "General": "一般",
+  "Expertise": "专业知识"
 }

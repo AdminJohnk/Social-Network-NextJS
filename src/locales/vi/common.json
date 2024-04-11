@@ -219,5 +219,13 @@
   "Position": "Vị trí",
   "Favorites": "Yêu thích",
   "Back": "Quay lại",
-  "Your profile has been updated successfully!": "Trang cá nhân của bạn đã được cập nhật thành công!"
+  "Your profile has been updated successfully!": "Trang cá nhân của bạn đã được cập nhật thành công!",
+  "Failed to update your profile!": "Không thể cập nhật trang cá nhân của bạn!",
+  "Save": "Lưu",
+  "Cancel": "Hủy",
+  "Repository": "Kho lưu trữ",
+  "Experience": "Kinh nghiệm",
+  "Social links": "Mạng xã hội",
+  "General": "Chung",
+  "Expertise": "Chuyên môn"
 }
