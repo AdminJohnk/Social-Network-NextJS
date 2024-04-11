@@ -29,7 +29,7 @@ export default function LocaleLayout({ children, params: { locale } }: ILocaleLa
   const message = useMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <ThemeModeScript />
         <link rel='icon' href='/icon.png' type='image/png' sizes='png' />
