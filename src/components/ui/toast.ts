@@ -14,6 +14,7 @@ export const showSuccessToast = (mes: string) => {
     progress: undefined,
     theme: 'dark',
     transition: Bounce,
+    className: 'top-12'
   });
 };
 
@@ -28,6 +29,7 @@ export const showErrorToast = (mes: string) => {
     progress: undefined,
     theme: 'dark',
     transition: Bounce,
+    className: 'top-12'
   });
 };
 
