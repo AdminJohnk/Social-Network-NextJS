@@ -4,9 +4,9 @@ import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { useUpdateUser } from '@/hooks/mutation';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import * as z from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userGeneralTabSchema } from '@/lib/schema';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
@@ -15,9 +15,7 @@ import { useTranslations } from 'next-intl';
 
 type FormData = z.infer<typeof userGeneralTabSchema>;
 
-export interface IGeneralTabProps {}
-
-export default function GeneralTab(props: IGeneralTabProps) {
+export default function GeneralTab() {
   const t = useTranslations();
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
@@ -28,7 +26,7 @@ export default function GeneralTab(props: IGeneralTabProps) {
 
   const {
     register,
-    setValue,
+    control,
     handleSubmit,
     setError,
     formState: { errors }
@@ -41,11 +39,15 @@ export default function GeneralTab(props: IGeneralTabProps) {
     }
   });
 
-  useEffect(() => {
-    setValue('name', currentUserInfo?.name || '');
-    setValue('alias', currentUserInfo?.alias || '');
-    setValue('about', currentUserInfo?.about || '');
-  }, [currentUserInfo]);
+  const values = useWatch({ control });
+
+  const isChanged = useMemo(() => {
+    return (
+      values.name !== currentUserInfo?.name ||
+      values.alias !== currentUserInfo?.alias ||
+      values.about !== currentUserInfo?.about
+    );
+  }, [values, currentUserInfo]);
 
   async function onSubmit({ name, alias, about }: FormData) {
     setIsLoading(true);
@@ -111,7 +113,6 @@ export default function GeneralTab(props: IGeneralTabProps) {
           </label>
           <div className='flex-1 max-md:mt-4'>
             <textarea
-              // defaultValue={currentUserInfo?.about}
               className='w-full rounded-lg bg-foreground-2 border-none'
               rows={5}
               disabled={isLoading}
@@ -123,10 +124,10 @@ export default function GeneralTab(props: IGeneralTabProps) {
         </div>
       </div>
       <div className='flex items-center justify-center gap-4 mt-16'>
-        <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
-          {t('Cancel')}
-        </Button>
-        <Button type='submit' className='button lg:px-6 text-white max-md:flex-1'>
+        <Button
+          type='submit'
+          className='button lg:px-6 text-white max-md:flex-1'
+          disabled={!isChanged || isLoading}>
           {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
           {t('Save')} <span className='ripple-overlay'></span>
         </Button>
