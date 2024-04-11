@@ -15,7 +15,7 @@ export default function TabContent() {
   const { isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id || '');
 
   return (
-    <div className='bg-foreground-1 mb-20 mt-6 text-sm font-medium text-text-1'>
+    <div className='bg-foreground-1 mb-20 mt-6 text-sm font-medium rounded-xl text-text-1'>
       {isLoadingCurrentUserInfo ? (
         <div className='p-8'>Loading...</div>
       ) : (
