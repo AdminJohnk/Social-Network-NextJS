@@ -326,33 +326,29 @@ export const useDislikeComment = () => {
  * The `useUpdateUser` function is a custom hook that handles updating a user's information and
  * invalidating the 'currentUserInfo' query in the query cache upon success.
  */
-// export const useUpdateUser = () => {
-//   const queryClient = useQueryClient();
+export const useUpdateUser = () => {
+  const queryClient = useQueryClient();
 
-//   const dispatch = useAppDispatch();
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (user: IUserUpdate) => {
+      const { data } = await userService.updateUser(user);
+      return data.metadata;
+    },
+    onSuccess(updatedUser) {
+      queryClient.setQueryData<IUserInfo>(['currentUserInfo'], (oldData) => {
+        if (!oldData) return;
 
-//   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-//     mutationFn: async (user: IUserUpdate) => {
-//       const { data } = await userService.updateUser(user);
-//       return data.metadata;
-//     },
-//     onSuccess(updatedUser) {
-//       dispatch(setLoading(false));
-//       dispatch(closeDrawer());
-//       queryClient.setQueryData<IUserInfo>(['currentUserInfo'], (oldData) => {
-//         if (!oldData) return;
-
-//         return { ...oldData, ...updatedUser };
-//       });
-//     }
-//   });
-//   return {
-//     mutateUpdateUser: mutateAsync,
-//     isLoadingUpdateUser: isPending,
-//     isErrorUpdateUser: isError,
-//     isSuccessUpdateUser: isSuccess
-//   };
-// };
+        return { ...oldData, ...updatedUser };
+      });
+    }
+  });
+  return {
+    mutateUpdateUser: mutateAsync,
+    isLoadingUpdateUser: isPending,
+    isErrorUpdateUser: isError,
+    isSuccessUpdateUser: isSuccess
+  };
+};
 
 /**
  * The `useFollowUser` function is a custom hook that handles following a user, including making the

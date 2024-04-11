@@ -2,7 +2,11 @@
 
 import { useSession } from 'next-auth/react';
 
-import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
+import {
+  useCurrentUserInfo,
+  useOtherUserInfo,
+  useUserPostsData
+} from '@/hooks/query';
 import { PostSkeleton } from '@/components/shared/Post';
 import Post from '@/components/shared/Post/Post';
 
@@ -15,8 +19,13 @@ export default function PostList({ profileID }: PostListProps) {
 
   const userID = session?.id || '';
 
-  const { isLoadingUserPosts, userPosts, isFetchingNextUserPosts, hasNextUserPosts, fetchNextUserPosts } =
-    useUserPostsData(profileID);
+  const {
+    isLoadingUserPosts,
+    userPosts,
+    isFetchingNextUserPosts,
+    hasNextUserPosts,
+    fetchNextUserPosts
+  } = useUserPostsData(profileID);
 
   const { currentUserInfo } = useCurrentUserInfo(userID);
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
@@ -27,7 +36,7 @@ export default function PostList({ profileID }: PostListProps) {
       ) : userPosts?.length === 0 ? (
         <>No Post</>
       ) : (
-        userPosts?.map((post) => <Post key={post._id} post={post}></Post>)
+        userPosts?.map(post => <Post key={post._id} post={post}></Post>)
       )}
     </>
   );
