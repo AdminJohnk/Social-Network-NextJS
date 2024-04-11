@@ -20,10 +20,7 @@ export default function EditProfile({ params: { locale } }: IEditProfileProps) {
     <div className='flex flex-1 mt-16 *:w-full *:max-w-2xl flex-col items-center gap-10 px-5 py-10 md:p-14 custom-scrollbar-bg overflow-scroll'>
       <TabCover />
       <div className='mb-20 mt-6 text-sm font-medium text-text-1'>
-        <TabsContent
-          id='setting_tab'
-          className='bg-foreground-1 p-6 md:px-20 md:py-12'
-        >
+        <TabsContent id='setting_tab' className='bg-foreground-1 p-6 md:px-20 md:py-12'>
           <GeneralTab />
           <SocialTab />
           <ExpertiseTab />

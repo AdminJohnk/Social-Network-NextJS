@@ -218,5 +218,22 @@
   "Position": "Position",
   "Favorites": "Favorites",
   "Back": "Back",
-  "Your profile has been updated successfully!": "Your profile has been updated successfully!"
+  "Your profile has been updated successfully!": "Your profile has been updated successfully!",
+  "Failed to update your profile!": "Failed to update your profile!",
+  "Save": "Save",
+  "Cancel": "Cancel",
+  "Repository": "Repository",
+  "Experience": "Experience",
+  "Social links": "Social links",
+  "General": "General",
+  "Expertise": "Expertise",
+  "Name must be at least 3 characters": "Name must be at least 3 characters",
+  "Alias must be at least 5 characters": "Alias must be at least 5 characters",
+  "About must be at least 50 characters": "About must be at least 50 characters",
+  "About must be at most 200 characters": "About must be at most 200 characters",
+  "Invalid Facebook link": "Invalid Facebook link",
+  "Invalid Twitter link": "Invalid Twitter link",
+  "Invalid Linkedin link": "Invalid Linkedin link",
+  "Invalid Github link": "Invalid Github link",
+  "Invalid Instagram link": "Invalid Instagram link"
 }

@@ -219,5 +219,22 @@
   "Position": "Vị trí",
   "Favorites": "Yêu thích",
   "Back": "Quay lại",
-  "Your profile has been updated successfully!": "Trang cá nhân của bạn đã được cập nhật thành công!"
+  "Your profile has been updated successfully!": "Trang cá nhân của bạn đã được cập nhật thành công!",
+  "Failed to update your profile!": "Không thể cập nhật trang cá nhân của bạn!",
+  "Save": "Lưu",
+  "Cancel": "Hủy",
+  "Repository": "Kho lưu trữ",
+  "Experience": "Kinh nghiệm",
+  "Social links": "Mạng xã hội",
+  "General": "Chung",
+  "Expertise": "Chuyên môn",
+  "Name must be at least 3 characters": "Tên phải có ít nhất 3 ký tự",
+  "Alias must be at least 5 characters": "Biệt danh phải có ít nhất 5 ký tự",
+  "About must be at least 50 characters": "Giới thiệu phải có ít nhất 50 ký tự",
+  "About must be at most 200 characters": "Giới thiệu phải có tối đa 200 ký tự",
+  "Invalid Facebook link": "Liên kết Facebook không hợp lệ",
+  "Invalid Twitter link": "Liên kết Twitter không hợp lệ",
+  "Invalid Linkedin link": "Liên kết Linkedin không hợp lệ",
+  "Invalid Github link": "Liên kết Github không hợp lệ",
+  "Invalid Instagram link": "Liên kết Instagram không hợp lệ"
 }

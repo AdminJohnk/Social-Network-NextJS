@@ -3,6 +3,7 @@
 import { useTransition } from 'react';
 import { IoLanguage, IoLanguageOutline } from 'react-icons/io5';
 import { useTranslations, useLocale } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 
 import { usePathname, useRouter } from '@/navigation';
 import { cn } from '@/lib/utils';
@@ -11,12 +12,15 @@ export default function Language() {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations();
+  const searchParams = useSearchParams();
   const locale = useLocale();
   const [isPending, startTransition] = useTransition();
 
+  const params = new URLSearchParams(searchParams.toString()).toString();
+
   const onSelectChange = (nextLocale: string) => {
     startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
+      router.replace(`${pathname}?${params || ''}`, { locale: nextLocale });
     });
   };
 

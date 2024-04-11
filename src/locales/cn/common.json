@@ -219,5 +219,22 @@
   "Position": "位置",
   "Favorites": "收藏夹",
   "Back": "返回",
-  "Your profile has been updated successfully!": "您的个人资料已成功更新!"
+  "Your profile has been updated successfully!": "您的个人资料已成功更新!",
+  "Failed to update your profile!": "无法更新您的个人资料!",
+  "Save": "保存",
+  "Cancel": "取消",
+  "Repository": "存储库",
+  "Experience": "经验",
+  "Social links": "社交链接",
+  "General": "一般",
+  "Expertise": "专业知识",
+  "Name must be at least 3 characters": "名字必须至少3个字符",
+  "Alias must be at least 5 characters": "别名必须至少5个字符",
+  "About must be at least 50 characters": "关于必须至少50个字符",
+  "About must be at most 200 characters": "关于必须最多200个字符",
+  "Invalid Facebook link": "无效的Facebook链接",
+  "Invalid Twitter link": "无效的Twitter链接",
+  "Invalid Linkedin link": "无效的Linkedin链接",
+  "Invalid Github link": "无效的Github链接",
+  "Invalid Instagram link": "无效的Instagram链接"
 }

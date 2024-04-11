@@ -31,7 +31,7 @@ export default function CreateHeader() {
         data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
         <h3 className='font-bold text-xl text-text-1'>{t('Create')}</h3>
 
-        <div className='mt-4' tabIndex={-1} data-uk-slider='finite:true;sets: true'>
+        <div className='mt-4' data-uk-slider='finite:true;sets: true'>
           <div className='uk-slider-container pb-1'>
             <ul
               className='uk-slider-items grid-small'

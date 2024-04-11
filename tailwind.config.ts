@@ -1,12 +1,9 @@
 import type { Config } from 'tailwindcss';
+import flowbite from 'flowbite-react/tailwind';
 
 const config: Config = {
   darkMode: 'class',
-  content: [
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    'node_modules/flowbite-react/lib/esm/**/*.js'
-  ],
+  content: ['./src/**/**/*.{js,ts,jsx,tsx,mdx}', flowbite.content()],
   theme: {
     screens: {
       sm: '640px',
@@ -93,11 +90,6 @@ const config: Config = {
       }
     }
   },
-  plugins: [
-    require('flowbite/plugin'),
-    require('tailwindcss-animate'),
-    require('@tailwindcss/container-queries'),
-    require('tailwindcss-animated')
-  ]
+  plugins: [require('tailwindcss-animate'), require('tailwindcss-animated'), flowbite.plugin()]
 };
 export default config;

@@ -5,6 +5,7 @@ import { Flowbite, ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 
+import { ToastContainer } from '@/components/ui/toast';
 import { QueryProvider, SessionProvider } from '@/app/provider';
 import { locales } from '@/i18n';
 import { cn } from '@/lib/utils';
@@ -40,7 +41,10 @@ export default function LocaleLayout({ children, params: { locale } }: ILocaleLa
         <QueryProvider>
           <SessionProvider>
             <NextIntlClientProvider messages={message} locale={locale}>
-              <Flowbite>{children}</Flowbite>
+              <Flowbite>
+                {children}
+                <ToastContainer />
+              </Flowbite>
             </NextIntlClientProvider>
           </SessionProvider>
         </QueryProvider>

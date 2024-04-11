@@ -34,7 +34,7 @@ export default function Event({ params: { locale } }: IEventProps) {
             <TabsContent id='events-tabs' className='!border-none'>
               <div>
                 {/* <!-- event featured --> */}
-                <div className='relative' tabIndex={-1} data-uk-slider='finite:true'>
+                <div className='relative' data-uk-slider='finite:true'>
                   <div className='uk-slider-container pb-1'>
                     <ul className='uk-slider-items grid-small'>
                       <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
@@ -242,7 +242,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                 </div>
 
                 {/* <!-- listing  slider --> */}
-                <div className='relative mt-4' tabIndex={-1} data-uk-slider='finite:true'>
+                <div className='relative mt-4' data-uk-slider='finite:true'>
                   <div className='uk-slider-container pb-1'>
                     <ul className='uk-slider-items grid-small'>
                       <li className='md:w-1/5 sm:w-1/3 w-1/2'>
