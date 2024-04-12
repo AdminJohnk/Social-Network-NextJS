@@ -1,5 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 import { type ClassValue, clsx } from 'clsx';
+import { GitHub } from 'arctic';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,11 +29,12 @@ export const getImageURL = (src?: string | null, option: option = 'default') => 
 
 import { IPost, IUserInfo } from '@/types';
 
-const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(obj: T): T => {
+export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(obj: T): T => {
   const defaultValues: IUserInfo | IPost = {
     _id: '',
     id_incr: 0,
     email: '',
+    education: '',
     phone_number: '',
     user_image: '',
     cover_image: '',
@@ -70,6 +72,7 @@ const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(obj: T): T => {
         user_image: '',
         cover_image: '',
         last_online: '',
+        education: '',
         members: [],
         tags: [],
         alias: '',
@@ -120,4 +123,4 @@ const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(obj: T): T => {
   return { ...defaultValues, ...obj } as T;
 };
 
-export default ApplyDefaults;
+export const github = new GitHub(process.env.REPO_GITHUB_ID!, process.env.REPO_GITHUB_SECRET!);
