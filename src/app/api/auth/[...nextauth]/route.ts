@@ -17,10 +17,11 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         if (credentials) {
-          const { data }: { data: IResponse<UserLogin> } = await authService.login({
-            email: credentials.email,
-            password: credentials.password
-          });
+          const { data }: { data: IResponse<UserLogin> } =
+            await authService.login({
+              email: credentials.email,
+              password: credentials.password
+            });
 
           // If no error and we have user data, return it
           if (data.status !== 200) {
@@ -51,11 +52,12 @@ const handler = NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
-      profile: async (profile) => {
+      profile: async profile => {
         if (profile) {
-          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGoogle({
-            email: profile.email
-          });
+          const { data }: { data: IResponse<UserLogin> } =
+            await authService.loginWithGoogle({
+              email: profile.email
+            });
 
           if (data) {
             return {
@@ -70,19 +72,23 @@ const handler = NextAuth({
           throw new Error('No profile provided');
         }
       }
-    }),
+    },
+    ),
+
     GithubProvider({
       clientId: process.env.GITHUB_ID ?? '',
       clientSecret: process.env.GITHUB_SECRET ?? '',
       profile: async (profile) => {
         if (profile) {
-          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub({
-            email: profile.email
-          });
+          const { data }: { data: IResponse<UserLogin> } =
+            await authService.loginWithGithub({
+              email: profile.email
+            });
 
           if (data) {
             return {
               id: data.metadata.user._id,
+              access_token_github: data.metadata.tokens.accessTokenGithub,
               access_token: data.metadata.tokens.accessToken,
               refresh_token: data.metadata.tokens.refreshToken
             };
@@ -93,7 +99,9 @@ const handler = NextAuth({
           throw new Error('No profile provided');
         }
       }
-    })
+    },
+
+    )
   ],
   callbacks: {
     async jwt({ token, user }) {

@@ -9,13 +9,13 @@ import { RiGitRepositoryLine } from 'react-icons/ri';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 
-const RenderRepositoryIem = (item: IRepository, index: number) => {
+const Repository = (item: IRepository, index: number) => {
   const colorLanguage = GithubColors.get(item.languages).color;
 
   return (
     <Link
       key={index}
-      className='renderRepositoryIem mb-5 border-b border-border-1'
+      className='mb-5 border-b border-border-1'
       style={{
         width: '48%'
       }}
@@ -63,4 +63,4 @@ const RenderRepositoryIem = (item: IRepository, index: number) => {
   );
 };
 
-export default RenderRepositoryIem;
+export default Repository;

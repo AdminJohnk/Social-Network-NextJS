@@ -7,7 +7,7 @@ export default function CreateStory(props: ICreateStoryProps) {
   const t = useTranslations();
 
   return (
-    <div className='hidden lg:p-20' id='create-story' uk-modal=''>
+    <div className='hidden lg:p-20' id='create-story' data-uk-modal=''>
       <div className='uk-modal-dialog tt relative overflow-hidden mx-auto bg-background-1 p-7 shadow-xl rounded-lg md:w-[520px] w-full'>
         <div className='text-center py-3 border-b -m-7 mb-0 dark:border-slate-700'>
           <h2 className='text-sm font-medium'> {t('Create Story')} </h2>
