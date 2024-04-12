@@ -14,6 +14,7 @@ export default function AddNewRepository(props: IAddNewRepositoryProps) {
 
   useEffect(() => {
     if (!session?.access_token_github) {
+      signIn('github', {}, {type: 'repos11'});
     }
   }, [session]);
 

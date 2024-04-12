@@ -72,19 +72,17 @@ const handler = NextAuth({
           throw new Error('No profile provided');
         }
       }
-    },
-    ),
+    }),
 
     GithubProvider({
       clientId: process.env.GITHUB_ID ?? '',
       clientSecret: process.env.GITHUB_SECRET ?? '',
-      profile: async (profile) => {
+      profile: async profile => {
         if (profile) {
           const { data }: { data: IResponse<UserLogin> } =
             await authService.loginWithGithub({
               email: profile.email
             });
-
           if (data) {
             return {
               id: data.metadata.user._id,
@@ -99,11 +97,13 @@ const handler = NextAuth({
           throw new Error('No profile provided');
         }
       }
-    },
-
-    )
+    })
   ],
   callbacks: {
+    async signIn(params) {
+      console.log('params', params);
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         return { ...token, ...user };
