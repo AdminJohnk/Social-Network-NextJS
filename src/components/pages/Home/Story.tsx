@@ -8,6 +8,7 @@ import { Avatar } from '@mui/material';
 import { cn } from '@/lib/utils';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { IoCamera } from 'react-icons/io5';
+import { useTranslations } from 'next-intl';
 
 function SampleNextArrow(props: any) {
   const { onClick } = props;
@@ -158,9 +159,11 @@ export default function Story(props: IStoryProps) {
     }
   ];
 
+  const t = useTranslations();
+
   return (
     <div className='story px-10'>
-      <div className='mb-5 h3-bold'>Stories</div>
+      <div className='mb-5 h3-bold'>{t('Stories')}</div>
       <Slider {...settings} className='relative'>
         <div
           className='md:!size-16 !size-12 rounded-full border-2 
