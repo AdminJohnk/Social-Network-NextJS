@@ -7,12 +7,14 @@ declare module 'next-auth' {
     picture: string;
     access_token: string;
     refresh_token: string;
+    access_token_github?: string;
   }
   interface User extends DefaultUser {
     id: string;
     email: string;
     access_token: string;
     refresh_token: string;
+    access_token_github?: string;
   }
 }
 

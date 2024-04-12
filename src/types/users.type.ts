@@ -16,6 +16,7 @@ export interface UserLogin {
   tokens: {
     accessToken: string;
     refreshToken: string;
+    accessTokenGithub?: string;
   };
 }
 
