@@ -27,6 +27,9 @@ class AuthService extends BaseService {
   logout = () => {
     return this.post(`/auth/logout`);
   };
+  changePassword = (data: IResetPassword) => {
+    return this.post(`/auth/change-password`, data);
+  };
   forgotPassword = (email: string) => {
     return this.post(`/auth/forgot`, email);
   };

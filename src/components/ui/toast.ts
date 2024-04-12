@@ -1,6 +1,5 @@
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { theme } from 'flowbite-react';
 
 export const showSuccessToast = (mes: string) => {
 

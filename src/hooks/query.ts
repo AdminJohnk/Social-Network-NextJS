@@ -15,7 +15,7 @@ import { messageService } from '@/services/MessageService';
 import { communityService } from '@/services/CommunityService';
 import { searchLogService } from '@/services/SearchLogService';
 import { GITHUB_TOKEN } from '@/lib/constants/SettingSystem';
-import ApplyDefaults from '@/lib/utils';
+import { ApplyDefaults } from '@/lib/utils';
 
 export const queryCache = new QueryCache();
 

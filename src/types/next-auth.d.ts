@@ -3,16 +3,20 @@ import NextAuth, { DefaultUser, DefaultSession, JWT as DefaultJWT } from 'next-a
 declare module 'next-auth' {
   interface Session extends DefaultSession {
     id: string;
+    email: string;
     picture: string;
     access_token: string;
     refresh_token: string;
-    access_token_github?: string;
+    repos_url?: string;
+    user_github_name?: string;
   }
   interface User extends DefaultUser {
     id: string;
+    email: string;
     access_token: string;
     refresh_token: string;
-    access_token_github?: string;
+    repos_url?: string;
+    user_github_name?: string;
   }
 }
 

@@ -1,8 +1,4 @@
-import {
-  InfiniteData,
-  useMutation,
-  useQueryClient
-} from '@tanstack/react-query';
+import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
 
 // import { closeDrawer, setLoading } from '@/redux/Slice/DrawerHOCSlice';
 import { postService } from '@/services/PostService';
@@ -13,6 +9,7 @@ import {
   ICreateLikeComment,
   ICreatePost,
   IMessage,
+  IResetPassword,
   ISharePost,
   ISocketCall,
   IUpdateConversation,
@@ -22,9 +19,26 @@ import {
 } from '@/types';
 // import { useAppDispatch, useAppSelector } from './special';
 import { messageService } from '@/services/MessageService';
+import { authService } from '@/services/AuthService';
 // import { Socket } from '@/util/constants/SettingSystem';
 
 // ----------------------------- MUTATIONS -----------------------------
+
+export const useChangePassword = () => {
+  const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
+    mutationFn: async (data: IResetPassword) => {
+      const { data: res } = await authService.changePassword(data);
+      return res.metadata;
+    }
+  });
+  return {
+    mutateChangePassword: mutateAsync,
+    isLoadingChangePassword: isPending,
+    isErrorChangePassword: isError,
+    errorChangePassword: error,
+    isSuccessChangePassword: isSuccess
+  };
+};
 
 /**
  * The `useCreatePost` function is a custom hook that handles the creation of a new post, including
@@ -557,10 +571,7 @@ export const useSendMessage = () => {
  * represents the ID of the conversation for which the message is being received. If provided, it is
  * used to determine whether to play a sound notification or not.
  */
-export const useReceiveMessage = (
-  currentUserID: string,
-  conversationID?: string
-) => {
+export const useReceiveMessage = (currentUserID: string, conversationID?: string) => {
   const NotiMessage = new Audio('/sounds/sound-noti-message.wav');
   const PopMessage = new Audio('/sounds/bubble-popping-short.mp3');
   NotiMessage.volume = 0.3;
@@ -931,10 +942,7 @@ export const useReceiveSeenConversation = () => {
  * @param {string} type - The `type` parameter is a string that represents the type of message call. It
  * could be any value that you want to use to differentiate between different types of message calls.
  */
-export const useMutateMessageCall = (
-  conversation_id: string | undefined,
-  type: string
-) => {
+export const useMutateMessageCall = (conversation_id: string | undefined, type: string) => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({

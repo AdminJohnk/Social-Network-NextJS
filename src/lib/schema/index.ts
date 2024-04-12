@@ -1,12 +1,8 @@
 import { z } from 'zod';
 
 export const userAuthSchema = z.object({
-  email: z
-    .string()
-    .min(3, { message: 'Username must be at least 3 characters' }),
-  password: z
-    .string()
-    .min(6, { message: 'Password must be at least 6 characters' })
+  email: z.string().min(3, { message: 'Username must be at least 3 characters' }),
+  password: z.string().min(6, { message: 'Password must be at least 6 characters' })
 });
 
 export const userGeneralTabSchema = z.object({
@@ -22,47 +18,43 @@ export const userSocialTabSchema = z.object({
   facebook: z
     .string()
     .optional()
-    .refine(
-      link => (link && link.startsWith('https://www.facebook.com/')) || !link,
-      {
-        message: 'Invalid Facebook link'
-      }
-    ),
+    .refine((link) => (link && link.startsWith('https://www.facebook.com/')) || !link, {
+      message: 'Invalid Facebook link'
+    }),
   twitter: z
     .string()
     .optional()
-    .refine(
-      link => (link && link.startsWith('https://www.twitter.com/')) || !link,
-      {
-        message: 'Invalid Twitter link'
-      }
-    ),
+    .refine((link) => (link && link.startsWith('https://www.twitter.com/')) || !link, {
+      message: 'Invalid Twitter link'
+    }),
 
   instagram: z
     .string()
     .optional()
-    .refine(
-      link => (link && link.startsWith('https://www.instagram.com/')) || !link,
-      {
-        message: 'Invalid Instagram link'
-      }
-    ),
+    .refine((link) => (link && link.startsWith('https://www.instagram.com/')) || !link, {
+      message: 'Invalid Instagram link'
+    }),
   linkedin: z
     .string()
     .optional()
-    .refine(
-      link => (link && link.startsWith('https://www.linkedin.com/')) || !link,
-      {
-        message: 'Invalid Linkedin link'
-      }
-    ),
+    .refine((link) => (link && link.startsWith('https://www.linkedin.com/')) || !link, {
+      message: 'Invalid Linkedin link'
+    }),
   github: z
     .string()
     .optional()
-    .refine(
-      link => (link && link.startsWith('https://github.com/')) || !link,
-      {
-        message: 'Invalid Github link'
-      }
-    )
+    .refine((link) => (link && link.startsWith('https://github.com/')) || !link, {
+      message: 'Invalid Github link'
+    })
 });
+
+export const userPasswordTabSchema = z
+  .object({
+    oldPassword: z.string().min(6, { message: 'Password must be at least 6 characters' }),
+    repeatPassword: z.string(),
+    newPassword: z.string().min(6, { message: 'Password must be at least 6 characters' })
+  })
+  .refine((data) => data.newPassword === data.repeatPassword, {
+    message: 'Passwords do not match',
+    path: ['repeatPassword']
+  });

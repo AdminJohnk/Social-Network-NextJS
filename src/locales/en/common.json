@@ -186,6 +186,7 @@
   "Event 2": "Event 2",
   "Group 2": "Group 2",
   "Write some thing for": "Write some thing for",
+  "Stories": "Stories",
   "Change language": "Change language",
   "Notifications": "Notifications",
   "Account": "Account",
@@ -235,5 +236,9 @@
   "Invalid Twitter link": "Invalid Twitter link",
   "Invalid Linkedin link": "Invalid Linkedin link",
   "Invalid Github link": "Invalid Github link",
-  "Invalid Instagram link": "Invalid Instagram link"
+  "Invalid Instagram link": "Invalid Instagram link",
+  "Current Password": "Current Password",
+  "New Password": "New Password",
+  "Confirm New Password": "Confirm New Password",
+  "The old password is incorrect!": "The old password is incorrect!"
 }

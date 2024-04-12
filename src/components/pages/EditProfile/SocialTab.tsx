@@ -9,7 +9,7 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userSocialTabSchema } from '@/lib/schema';
-import { ToastContainer, showSuccessToast } from '@/components/ui/toast';
+import { showSuccessToast } from '@/components/ui/toast';
 import { CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useUpdateUser } from '@/hooks/mutation';
