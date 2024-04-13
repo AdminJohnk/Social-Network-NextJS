@@ -49,12 +49,13 @@ class BaseService {
     return this.request('delete', url, data);
   }
 
-  getGithub(url: string) {
-    return this.request('get', url, undefined, {
-      'x-github-token':
-        window !== undefined ? localStorage.getItem(GITHUB_TOKEN) : null
-    });
-  }
+  // getRepositoryByLink = (link: string): Promise<AxiosResponse<IResponse<IRepository[]>>> => {
+  //   return this.getGithub(link);
+  // };
+
+  getGithub = (link: string) => {
+    return axios.get(link);
+  };
 }
 
 export { BaseService };

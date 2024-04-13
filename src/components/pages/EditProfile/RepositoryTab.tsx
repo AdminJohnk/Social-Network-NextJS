@@ -9,8 +9,9 @@ import { useRouter } from '@/navigation';
 
 import { useUpdateUser } from '@/hooks/mutation';
 import { useCurrentUserInfo } from '@/hooks/query';
-import RenderRepositoryIem from '@/components/shared/Repository/Repository';
+import RepositoryItem from '@/components/shared/Repository/Repository';
 import AddNewRepository from './AddNewRepository';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface IRepositoryTabProps {}
 
@@ -21,6 +22,8 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
   const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
   const router = useRouter();
 
+  const [isLoginGithub, setIsLoginGithub] = useState<boolean>(false);
+
   useEffect(() => {
     if (searchParams.get('repoUrl')) {
       (async () =>
@@ -30,7 +33,13 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
           user_github_name: searchParams.get('userGithubName')
         }).then(() => router.replace('/edit-profile?tab=repository')))();
     }
-  }, []);
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (session?.repos_url) {
+      setIsLoginGithub(true);
+    }
+  }, [session]);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -44,26 +53,40 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
   return (
     <div>
       <div className='mb-10'>
-        <span
-          className='px-3 py-2 rounded-md cursor-pointer duration-300 bg-foreground-2 hover:bg-hover-2'
-          onClick={handleOpen}>
-          Edit
-        </span>
-        <a href='/api/repo-github'>Click me</a>
+        {isLoginGithub ? (
+          <span
+            className='px-3 py-2 rounded-md cursor-pointer duration-300 bg-foreground-2 hover:bg-hover-2'
+            onClick={handleOpen}
+          >
+            Edit
+          </span>
+        ) : (
+          <span
+            className='px-3 py-2 rounded-md cursor-pointer duration-300 bg-foreground-2 hover:bg-hover-2'
+            onClick={() => {
+              router.push('/api/repo-github');
+            }}
+          >
+            Login GitHub
+          </span>
+        )}
         <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'>
-          <AddNewRepository />
+          aria-describedby='modal-modal-description'
+        >
+          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
+            <AddNewRepository handleClose={handleClose} />
+          </div>
         </Modal>
       </div>
       <div className='flex flex-wrap justify-between mt-5'>
         {currentUserInfo?.repositories?.length === 0 ? (
           <>No repos</>
         ) : (
-          currentUserInfo.repositories.map((item, index) => {
-            return RenderRepositoryIem(item, index);
+          currentUserInfo?.repositories.map((item, index) => {
+            return <RepositoryItem item={item} key={index} />;
           })
         )}
       </div>

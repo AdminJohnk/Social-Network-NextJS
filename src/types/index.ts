@@ -56,6 +56,17 @@ export interface IRepository {
   languages: string;
 }
 
+export interface ICreateRepository {
+  id: string;
+  name: string;
+  private: boolean;
+  html_url: string;
+  watchers_count: number;
+  forks_count: number;
+  stargazers_count: number;
+  language: string;
+}
+
 export interface IExperience {
   position_name: string;
   company_name: string;
@@ -63,7 +74,12 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
+export type IKeyContact =
+  | 'facebook'
+  | 'instagram'
+  | 'twitter'
+  | 'github'
+  | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -272,7 +288,14 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video';
+type TypeofMessage =
+  | 'text'
+  | 'image'
+  | 'notification'
+  | 'audio'
+  | 'file'
+  | 'voice'
+  | 'video';
 
 export interface IMessage {
   _id: string;
@@ -327,7 +350,10 @@ export type ModalType =
   | {
       destroy: () => void;
       update: (configUpdate: any | ((prevConfig: any) => any)) => void;
-      then<T>(resolve: (confirmed: boolean) => T, reject: VoidFunction): Promise<T>;
+      then<T>(
+        resolve: (confirmed: boolean) => T,
+        reject: VoidFunction
+      ): Promise<T>;
     }
   | undefined;
 
@@ -390,4 +416,9 @@ export interface ISearchLog {
   createdAt: string;
 }
 
-export type IFeaturePost = 'detail' | 'newfeeds' | 'modal' | 'profile' | 'favorite';
+export type IFeaturePost =
+  | 'detail'
+  | 'newfeeds'
+  | 'modal'
+  | 'profile'
+  | 'favorite';

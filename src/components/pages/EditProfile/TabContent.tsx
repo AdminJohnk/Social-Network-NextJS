@@ -9,6 +9,7 @@ import ExperienceTab from './ExperienceTab';
 import RepositoryTab from './RepositoryTab';
 import PasswordTab from './PasswordTab';
 import { useCurrentUserInfo } from '@/hooks/query';
+import TabContentSkeleton from './TabContentSkeleton';
 
 export default function TabContent() {
   const { data: session } = useSession();
@@ -17,7 +18,7 @@ export default function TabContent() {
   return (
     <div className='bg-foreground-1 mb-20 mt-6 text-sm font-medium rounded-xl text-text-1'>
       {isLoadingCurrentUserInfo ? (
-        <div className='p-8'>Loading...</div>
+        <TabContentSkeleton />
       ) : (
         <TabsContent id='setting_tab' className='p-6 md:px-20 md:py-12'>
           <GeneralTab />
