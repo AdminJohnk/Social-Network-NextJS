@@ -8,7 +8,7 @@ import SideSkeleton from '@/components/shared/SideSkeleton';
 import { useAllNewsfeedPostsData } from '@/hooks/query';
 
 export default function NewsfeedSide() {
-  const { isLoadingAllNewsfeedPosts: isLoading } = useAllNewsfeedPostsData();
+  const { isLoadingAllNewsfeedPosts: isLoading, isFetchingNextNewsfeedPosts } = useAllNewsfeedPostsData();
 
   return (
     <div className='more-info w-2/5 max-lg:hidden'>

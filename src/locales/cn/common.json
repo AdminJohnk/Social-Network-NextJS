@@ -207,7 +207,7 @@
   "Group": "群组",
   "Clear": "清除",
   "Recent": "最近",
-  "Search Friends, videos": "搜索好友、视频",
+  "Search Friends, Posts": "搜索好友、帖子",
   "My Profile": "我的个人资料",
   "Account Settings": "账户设置",
   "Night Mode": "夜间模式",
@@ -240,5 +240,6 @@
   "Current Password": "当前密码",
   "New Password": "新密码",
   "Confirm New Password": "确认新密码",
-  "The old password is incorrect!": "旧密码不正确!"
+  "The old password is incorrect!": "旧密码不正确!",
+  "Your repository has been updated successfully!": "您的存储库已成功更新!"
 }

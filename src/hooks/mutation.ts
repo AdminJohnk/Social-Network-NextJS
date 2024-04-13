@@ -8,6 +8,7 @@ import {
   ICreateComment,
   ICreateLikeComment,
   ICreatePost,
+  ICreateSearchLog,
   IMessage,
   IResetPassword,
   ISharePost,
@@ -20,6 +21,7 @@ import {
 // import { useAppDispatch, useAppSelector } from './special';
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
+import { searchLogService } from '@/services/SearchLogService';
 // import { Socket } from '@/util/constants/SettingSystem';
 
 // ----------------------------- MUTATIONS -----------------------------
@@ -1192,3 +1194,35 @@ export const useMutateMessageCall = (conversation_id: string | undefined, type: 
 //     isSuccessConversation: isSuccess
 //   };
 // };
+
+export const useCreateSearchLog = () => {
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (payload: ICreateSearchLog) => {
+      const { data } = await searchLogService.createSearchLog(payload);
+      return data.metadata;
+    }
+  });
+
+  return {
+    mutateCreateSearchLog: mutateAsync,
+    isLoadingCreateSearchLog: isPending,
+    isErrorCreateSearchLog: isError,
+    isSuccessCreateSearchLog: isSuccess
+  };
+};
+
+export const useDeleteSearchLog = () => {
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (payload: ICreateSearchLog) => {
+      const { data } = await searchLogService.deleteSearchLog(payload);
+      return data.metadata;
+    }
+  });
+
+  return {
+    mutateDeleteSearchLog: mutateAsync,
+    isLoadingDeleteSearchLog: isPending,
+    isErrorDeleteSearchLog: isError,
+    isSuccessDeleteSearchLog: isSuccess
+  };
+};

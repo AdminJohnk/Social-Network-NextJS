@@ -31,5 +31,3 @@ export const showErrorToast = (mes: string) => {
     className: 'top-12'
   });
 };
-
-export { ToastContainer };

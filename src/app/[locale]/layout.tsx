@@ -4,8 +4,8 @@ import type { Metadata } from 'next';
 import { Flowbite, ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
+import { ToastContainer } from 'react-toastify';
 
-import { ToastContainer } from '@/components/ui/toast';
 import { QueryProvider, SessionProvider } from '@/app/provider';
 import { locales } from '@/i18n';
 import { cn } from '@/lib/utils';
@@ -40,7 +40,7 @@ export default function LocaleLayout({ children, params: { locale } }: ILocaleLa
       <body className={cn(font.className, 'h-dvh custom-scrollbar-bg')}>
         <QueryProvider>
           <SessionProvider>
-            <NextIntlClientProvider messages={message} locale={locale}>
+            <NextIntlClientProvider messages={message} locale={locale} >
               <Flowbite>
                 {children}
                 <ToastContainer />

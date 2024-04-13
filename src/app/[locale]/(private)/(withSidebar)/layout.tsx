@@ -1,8 +1,9 @@
+import { unstable_setRequestLocale } from 'next-intl/server';
+
 import FloatTool from '@/components/shared/FloatTool';
 import Header from '@/components/shared/Header';
 import SideBar from '@/components/shared/SideBar';
 import ToTop from '@/components/shared/ToTop';
-import { unstable_setRequestLocale } from 'next-intl/server';
 
 export interface IPrivateLayoutProps {
   children: React.ReactNode;

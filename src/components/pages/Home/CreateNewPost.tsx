@@ -10,9 +10,9 @@ import {
   IoVideocam
 } from 'react-icons/io5';
 
-export interface ICreateStoryProps {}
+export interface ICreateNewPostProps {}
 
-export default function CreateStatus(props: ICreateStoryProps) {
+export default function CreateNewPost(props: ICreateNewPostProps) {
   const t = useTranslations();
 
   return (
