@@ -39,12 +39,15 @@ export default function TabCover(props: ITabCoverProps) {
     }
   }, []);
 
-  const createQueryString = useCallback((name: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(name, value);
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
 
-    return params.toString();
-  }, []);
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   return (
     <div className='rounded-xl border border-border-1 bg-foreground-1 shadow-sm'>
