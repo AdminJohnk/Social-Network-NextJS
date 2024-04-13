@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { IRepository, IResponse, IUserUpdate, IUserInfo } from '@/types';
+import { IResponse, IUserUpdate, IUserInfo, ICreateRepository } from '@/types';
 import { BaseService } from './BaseService';
 
 class UserService extends BaseService {
@@ -50,12 +50,12 @@ class UserService extends BaseService {
     return this.get(`/users/find/${userID}`);
   };
 
-  getRepositoryGithub = (): Promise<AxiosResponse<IResponse<IRepository[]>>> => {
-    return this.getGithub(`/users/repositories`);
-  };
-
   searchUsersByName = (keyword: string, page: number): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
     return this.get(`/users/search/top/?search=${keyword}&page=${page}`);
+  };
+
+  getRepository = (link: string): Promise<AxiosResponse<ICreateRepository[]>> => {
+    return this.getGithub(link);
   };
 }
 

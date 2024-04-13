@@ -5,16 +5,17 @@ import { IRepository } from '@/types';
 import { IoStar } from 'react-icons/io5';
 import { BiGitRepoForked } from 'react-icons/bi';
 import { RiGitRepositoryLine } from 'react-icons/ri';
-
-import Image from 'next/image';
 import { Link } from '@/navigation';
 
-const Repository = (item: IRepository, index: number) => {
-  const colorLanguage = GithubColors.get(item.languages).color;
+export interface IRepositoryProps {
+  item: IRepository;
+}
+
+export default function AddNewRepository ({ item }: IRepositoryProps) {
+  const colorLanguage = GithubColors.get(item?.languages)?.color;
 
   return (
     <Link
-      key={index}
       className='mb-5 border-b border-border-1'
       style={{
         width: '48%'
@@ -23,7 +24,7 @@ const Repository = (item: IRepository, index: number) => {
       target='_blank'
     >
       <div className='top flex-start'>
-        <RiGitRepositoryLine className='text-text-1 size-6'/>
+        <RiGitRepositoryLine className='text-text-1 size-6' />
         <span
           className='name ml-2 text-text-1'
           style={{
@@ -34,7 +35,7 @@ const Repository = (item: IRepository, index: number) => {
           {item.name}
         </span>
         <span
-          className='rounded-lg ml-3 text-text-3 border-border-1'
+          className='rounded-lg ml-3 text-text-3 border border-text-3'
           style={{
             fontSize: '0.8rem',
             padding: '0.1rem 0.5rem'
@@ -62,5 +63,3 @@ const Repository = (item: IRepository, index: number) => {
     </Link>
   );
 };
-
-export default Repository;
