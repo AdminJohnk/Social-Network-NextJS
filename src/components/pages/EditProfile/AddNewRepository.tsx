@@ -2,7 +2,7 @@
 
 import { useCurrentUserInfo, useGetRepository } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import GithubColors from 'github-colors';
 import { IRepository } from '@/types';
 import { IoStar } from 'react-icons/io5';
@@ -18,30 +18,19 @@ export interface IAddNewRepositoryProps {
   handleClose: () => void;
 }
 
-export default function AddNewRepository({
-  handleClose
-}: IAddNewRepositoryProps) {
+export default function AddNewRepository({ handleClose }: IAddNewRepositoryProps) {
   const t = useTranslations();
   const { data: session } = useSession();
 
-  const { repositories, isLoadingRepositories } = useGetRepository(
-    session?.repos_url || ''
-  );
+  const { repositories, isLoadingRepositories } = useGetRepository(session?.repos_url || '');
 
   const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
-  const [newRepositories, setNewRepositories] = useState<IRepository[]>(
-    currentUserInfo.repositories
-  );
+  const [newRepositories, setNewRepositories] = useState<IRepository[]>(currentUserInfo.repositories);
 
   const { mutateUpdateUser } = useUpdateUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function onSubmit() {
-    if (!isChanged) {
-      handleClose();
-      return;
-    }
-
     setIsLoading(true);
 
     const updateResult = await mutateUpdateUser({
@@ -63,7 +52,16 @@ export default function AddNewRepository({
     handleClose();
   }
 
-  const [isChanged, setIsChanged] = useState<boolean>(false);
+  const isChanged = useMemo(
+    () =>
+      currentUserInfo.repositories.length != newRepositories.length ||
+      currentUserInfo.repositories.some((repo) => {
+        return !newRepositories.some((newRepo) => {
+          return newRepo.id == repo.id;
+        });
+      }),
+    [newRepositories, currentUserInfo.repositories]
+  );
 
   const RenderItemRepos = (item: IRepository, index: number) => {
     const colorLanguage = GithubColors.get(item.languages)?.color;
@@ -73,8 +71,7 @@ export default function AddNewRepository({
           'px-3 py-4 flex justify-between items-center border border-border-1 h-[100px]',
           index === 0 && 'border-t border-border-1'
         )}
-        key={index}
-      >
+        key={index}>
         <div className='left flex flex-col'>
           <div className='top'>
             <span className='name font-semibold'>{item.name}</span>
@@ -82,8 +79,7 @@ export default function AddNewRepository({
               className='rounded-lg ml-3 text-text-2 small-regular px-1 py-2 border border-text-3'
               style={{
                 padding: '0.1rem 0.5rem'
-              }}
-            >
+              }}>
               {item.private ? 'Private' : 'Public'}
             </span>
           </div>
@@ -106,16 +102,15 @@ export default function AddNewRepository({
         </div>
         <div className='right'>
           <Checkbox
-            defaultChecked={newRepositories.some(repo => {
+            defaultChecked={newRepositories.some((repo) => {
               return repo.id == item.id;
             })}
-            onChange={e => {
-              setIsChanged(true);
+            onChange={(e) => {
               if (e.target.checked) {
                 setNewRepositories([...newRepositories, item]);
               } else {
                 setNewRepositories(
-                  newRepositories.filter(repo => {
+                  newRepositories.filter((repo) => {
                     return repo.id != item.id;
                   })
                 );
@@ -131,16 +126,12 @@ export default function AddNewRepository({
     <div className='w-[600px] p-7 animate-fade-up'>
       {isLoadingRepositories ? (
         <div className='text-center'>
-          <div className='mb-6 h5-semibold'>
-            Select the repositories you want to feature
-          </div>
+          <div className='mb-6 h5-semibold'>Select the repositories you want to feature</div>
           <CircularProgress size={30} className='text-text-1' />
         </div>
       ) : (
         <div>
-          <div className='mb-6 h5-semibold'>
-            Select the repositories you want to feature
-          </div>
+          <div className='mb-6 h5-semibold'>Select the repositories you want to feature</div>
           <div className='max-h-[500px] h-fit overflow-y-scroll custom-scrollbar-fg border border-border-1'>
             {repositories?.map((item, index) => {
               return RenderItemRepos(item, index);
@@ -149,12 +140,9 @@ export default function AddNewRepository({
           <div className='mt-6 flex-end'>
             <Button
               className='button lg:px-6 text-white max-md:flex-1'
-              disabled={isLoadingRepositories}
-              onClick={onSubmit}
-            >
-              {isLoading && (
-                <CircularProgress size={20} className='text-text-1 mr-2' />
-              )}
+              disabled={isLoadingRepositories || !isChanged || isLoading}
+              onClick={onSubmit}>
+              {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
               {t('Save')} <span className='ripple-overlay'></span>
             </Button>
           </div>

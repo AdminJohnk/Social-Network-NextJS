@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import Modal from '@mui/material/Modal';
 import { useSession } from 'next-auth/react';
-import { Link, useRouter } from '@/navigation';
-import { BiSolidEdit } from 'react-icons/bi';
+import { useRouter as useRouterNext } from 'next/navigation';
+import { useRouter } from '@/navigation';
 
 import { useUpdateUser } from '@/hooks/mutation';
 import { useCurrentUserInfo } from '@/hooks/query';
@@ -21,6 +21,7 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
   const { data: session, update } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
   const router = useRouter();
+  const routerNext = useRouterNext();
 
   const [isLoginGithub, setIsLoginGithub] = useState<boolean>(false);
 
@@ -84,9 +85,8 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
           <span
             className='px-3 py-2 rounded-md cursor-pointer duration-300 bg-foreground-2 hover:bg-hover-2'
             onClick={() => {
-              router.push('/api/repo-github');
-            }}
-          >
+              routerNext.push('/api/repo-github');
+            }}>
             Login GitHub
           </span>
         )}
@@ -94,8 +94,7 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
           open={open}
           onClose={handleClose}
           aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
+          aria-describedby='modal-modal-description'>
           <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
             <AddNewRepository handleClose={handleClose} />
           </div>

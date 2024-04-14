@@ -1,11 +1,8 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import NewPost from '@/components/shared/NewPost';
-import CreateStatus from '@/components/pages/Home/CreateStatus';
 import { TabsContent } from '@/components/ui/tabs';
-import PostList from '@/components/pages/Profile/PostList';
 import Cover from '@/components/pages/Profile/Cover';
-import ProfileSide from '@/components/pages/Profile/ProfileSide';
+import TimelineTab from '@/components/pages/Profile/TimelineTab';
 
 export interface IProfileProps {
   params: { slug: string; locale: string };
@@ -22,15 +19,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
         </div>
 
         <TabsContent id='tabs-profile' className='!border-none'>
-          <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='profile-side'>
-            <div className='flex-1 xl:space-y-6 space-y-3'>
-              <NewPost profileID={slug} />
-              <CreateStatus />
-              <PostList profileID={slug} />
-            </div>
-
-            <ProfileSide profileID={slug} />
-          </div>
+          <TimelineTab profileID={slug} />
         </TabsContent>
       </div>
     </div>

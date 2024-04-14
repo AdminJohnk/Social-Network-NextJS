@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoChatboxEllipsesOutline, IoCreateOutline, IoExpandOutline, IoSearchOutline } from 'react-icons/io5';

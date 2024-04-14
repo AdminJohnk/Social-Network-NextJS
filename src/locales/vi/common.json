@@ -207,7 +207,7 @@
   "Group": "Nhóm",
   "Clear": "Xóa",
   "Recent": "Gần đây",
-  "Search Friends, videos": "Tìm kiếm bạn bè, video",
+  "Search Friends, Posts": "Tìm kiếm bạn bè, bài viết",
   "My Profile": "Trang cá nhân của tôi",
   "Account Settings": "Cài đặt tài khoản",
   "Night Mode": "Chế độ tối",
@@ -240,5 +240,6 @@
   "Current Password": "Mật khẩu hiện tại",
   "New Password": "Mật khẩu mới",
   "Confirm New Password": "Xác nhận mật khẩu mới",
-  "The old password is incorrect!": "Mật khẩu cũ không chính xác!"
+  "The old password is incorrect!": "Mật khẩu cũ không chính xác!",
+  "Your repository has been updated successfully!": "Kho lưu trữ của bạn đã được cập nhật thành công!"
 }

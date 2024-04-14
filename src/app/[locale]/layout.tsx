@@ -4,8 +4,8 @@ import type { Metadata } from 'next';
 import { Flowbite, ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
+import { ToastContainer } from 'react-toastify';
 
-import { ToastContainer } from '@/components/ui/toast';
 import { QueryProvider, SessionProvider } from '@/app/provider';
 import { locales } from '@/i18n';
 import { cn } from '@/lib/utils';
@@ -17,7 +17,7 @@ export interface ILocaleLayoutProps {
   };
 }
 
-const font = Inter({ subsets: ['latin'] });
+const font = Inter({ subsets: ['latin', 'vietnamese'] });
 
 export const metadata: Metadata = {
   title: 'Devhub',

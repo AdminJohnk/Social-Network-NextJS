@@ -24,7 +24,7 @@ export const userSocialTabSchema = z.object({
   twitter: z
     .string()
     .optional()
-    .refine((link) => (link && link.startsWith('https://www.twitter.com/')) || !link, {
+    .refine((link) => (link && link.startsWith('https://twitter.com/')) || !link, {
       message: 'Invalid Twitter link'
     }),
 

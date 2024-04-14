@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
@@ -17,9 +17,7 @@ export default function ExpertiseTab(props: IExpertiseTabProps) {
   const t = useTranslations();
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
-  const [addTagArr, setAddTagArr] = useState<string[]>(
-    currentUserInfo?.tags || []
-  );
+  const [addTagArr, setAddTagArr] = useState<string[]>(currentUserInfo.tags || []);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { mutateUpdateUser } = useUpdateUser();
 
@@ -41,6 +39,11 @@ export default function ExpertiseTab(props: IExpertiseTabProps) {
     }
   }
 
+  const isChanged = useMemo(
+    () => JSON.stringify(addTagArr) !== JSON.stringify(currentUserInfo.tags),
+    [addTagArr, currentUserInfo.tags]
+  );
+
   return (
     <div className='flex-center flex-col'>
       <div className='flex flex-wrap gap-4'>
@@ -53,14 +56,13 @@ export default function ExpertiseTab(props: IExpertiseTabProps) {
             )}
             onClick={() => {
               if (addTagArr.includes(item.title)) {
-                setAddTagArr(addTagArr.filter(tag => tag !== item.title));
+                setAddTagArr(addTagArr.filter((tag) => tag !== item.title));
                 return;
               } else {
                 setAddTagArr([...addTagArr, item.title]);
                 return;
               }
-            }}
-          >
+            }}>
             <div className='flex-start'>
               <span className='*:size-5 mr-2'>{item.svg}</span>
               <span>{item.title}</span>
@@ -70,18 +72,13 @@ export default function ExpertiseTab(props: IExpertiseTabProps) {
       </div>
 
       <div className='flex items-center justify-center gap-4 mt-10'>
-        <Button variant='destructive' className='button lg:px-6 max-md:flex-1'>
-          Cancel
-        </Button>
         <Button
           type='submit'
           className='button lg:px-6 text-white max-md:flex-1'
           onClick={onSubmit}
-        >
-          {isLoading && (
-            <CircularProgress size={20} className='text-text-1 mr-2' />
-          )}
-          Save <span className='ripple-overlay'></span>
+          disabled={!isChanged || isLoading}>
+          {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+          {t('Save')} <span className='ripple-overlay'></span>
         </Button>
       </div>
     </div>

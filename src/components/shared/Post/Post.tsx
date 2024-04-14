@@ -9,15 +9,14 @@ import { GoShare } from 'react-icons/go';
 import { IoHeart } from 'react-icons/io5';
 import { FaCommentDots } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 import CommentList from '@/components/shared/CommentList';
 import InputComment from '@/components/shared/InputComment';
-import PopoverClick from '@/components/ui/click-cards';
 import PostMoreChoose from './PostMoreChoose';
 import { IFeaturePost, IPost } from '@/types';
 import { getImageURL } from '@/lib/utils';
-import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 
 export interface IPostProps {
   post: IPost;
@@ -66,14 +65,6 @@ export default function Post({ post, feature }: IPostProps) {
           </div>
         </div>
         <div className='popover'>
-          {/* <PopoverClick
-            content={
-              <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
-                <IoIosMore className='size-6' />
-              </div>
-            }
-            hoverContent={<PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />}
-          /> */}
           <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
             <IoIosMore className='size-6' />
           </div>

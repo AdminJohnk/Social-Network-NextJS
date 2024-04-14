@@ -207,7 +207,7 @@
   "Group": "Group",
   "Clear": "Clear",
   "Recent": "Recent",
-  "Search Friends, videos": "Search Friends, videos",
+  "Search Friends, Posts": "Search Friends, Posts",
   "My Profile": "My Profile",
   "Account Settings": "Account Settings",
   "Night Mode": "Night Mode",
@@ -240,5 +240,6 @@
   "Current Password": "Current Password",
   "New Password": "New Password",
   "Confirm New Password": "Confirm New Password",
-  "The old password is incorrect!": "The old password is incorrect!"
+  "The old password is incorrect!": "The old password is incorrect!",
+  "Your repository has been updated successfully!": "Your repository has been updated successfully!"
 }
