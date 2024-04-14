@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar } from '@mui/material';
+import { Avatar, Modal } from '@mui/material';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoIosMore } from 'react-icons/io';
@@ -17,6 +17,7 @@ import InputComment from '@/components/shared/InputComment';
 import PostMoreChoose from './PostMoreChoose';
 import { IFeaturePost, IPost } from '@/types';
 import { getImageURL } from '@/lib/utils';
+import NewPostShare from '../NewPostShare/NewPostShare';
 
 export interface IPostProps {
   post: IPost;
@@ -42,6 +43,11 @@ export default function Post({ post, feature }: IPostProps) {
     else setContent(content);
   }, [expanded, content, isMoreThan500]);
 
+  // Modal
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div className='post bg-foreground-1 rounded-lg p-4'>
       <div className='flex-between'>
@@ -64,17 +70,23 @@ export default function Post({ post, feature }: IPostProps) {
             </Link>
           </div>
         </div>
-        <div className='popover'>
-          <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
-            <IoIosMore className='size-6' />
+        {feature !== 'sharing' && (
+          <div className='popover'>
+            <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
+              <IoIosMore className='size-6' />
+            </div>
+            <div data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
+              <PostMoreChoose
+                feature={feature}
+                post={post}
+                isMyPost={isMyPost}
+              />
+            </div>
           </div>
-          <div data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
-            <PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />
-          </div>
-        </div>
+        )}
       </div>
       <div className='mt-4'>
-        <div dangerouslySetInnerHTML={{ __html: contentQuill }} />
+        <div className='base-regular' dangerouslySetInnerHTML={{ __html: contentQuill }} />
         {isMoreThan500 && (
           <div
             className='clickMore my-3 cursor-pointer hover:text-text-2 duration-500'
@@ -93,36 +105,55 @@ export default function Post({ post, feature }: IPostProps) {
           />
         )}
       </div>
-      <div className='react flex-between mt-4'>
-        <div className='left flex gap-5'>
-          <div className='flex gap-3'>
-            <span className='p-1 bg-foreground-2 rounded-full'>
-              <IoHeart className='size-4 text-red-600 cursor-pointer' />
-            </span>
-            <span>{post.post_attributes.like_number}</span>
+      {feature !== 'sharing' && (
+        <div className='react flex-between mt-4'>
+          <div className='left flex gap-5'>
+            <div className='flex gap-3'>
+              <span className='p-1 bg-foreground-2 rounded-full'>
+                <IoHeart className='size-4 text-red-600 cursor-pointer' />
+              </span>
+              <span>{post.post_attributes.like_number}</span>
+            </div>
+            <div className='flex gap-3'>
+              <span className='p-1 bg-foreground-2 rounded-full'>
+                <FaCommentDots className='size-4 cursor-pointer' />
+              </span>
+              <span>{post.post_attributes.comment_number}</span>
+            </div>
           </div>
-          <div className='flex gap-3'>
-            <span className='p-1 bg-foreground-2 rounded-full'>
-              <FaCommentDots className='size-4 cursor-pointer' />
+          <div className='right flex-start gap-5'>
+            <span>
+              <FiSend className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer' />
             </span>
-            <span>{post.post_attributes.comment_number}</span>
+            <span>
+              <GoShare
+                className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
+                onClick={handleOpen}
+              />
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby='modal-modal-title'
+                aria-describedby='modal-modal-description'
+              >
+                <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
+                  <NewPostShare handleClose={handleClose} post={post} />
+                </div>
+              </Modal>
+            </span>
           </div>
         </div>
-        <div className='right flex-start gap-5'>
-          <span>
-            <FiSend className='size-5' />
-          </span>
-          <span>
-            <GoShare className='size-5' />
-          </span>
+      )}
+      {feature !== 'sharing' && (
+        <div>
+          <div className='comment-list mt-7'>
+            <CommentList postID={post._id} />
+          </div>
+          <div className='mt-8'>
+            <InputComment postID={post._id} />
+          </div>
         </div>
-      </div>
-      <div className='comment-list mt-7'>
-        <CommentList postID={post._id} />
-      </div>
-      <div className='mt-8'>
-        <InputComment postID={post._id} />
-      </div>
+      )}
     </div>
   );
 }

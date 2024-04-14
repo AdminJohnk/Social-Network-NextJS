@@ -1,15 +1,19 @@
 'use client';
 
-import * as React from 'react';
-import Popover from '@mui/material/Popover';
+import React, { useState } from 'react';
+import { Popover as PopoverMUI } from '@mui/material';
+import { PopoverProps } from '@mui/material';
 
-interface IPostMoreChooseProps {
-  content: React.ReactNode;
+export interface IPostMoreChooseProps extends PopoverProps {
+  mainContent: React.ReactNode;
   hoverContent: React.ReactNode;
 }
 
-export default function PopoverClick({ content, hoverContent }: IPostMoreChooseProps) {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+export default function Popover({
+  mainContent,
+  hoverContent
+}: IPostMoreChooseProps) {
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,9 +29,9 @@ export default function PopoverClick({ content, hoverContent }: IPostMoreChooseP
   return (
     <div>
       <button aria-describedby={id} onClick={handleClick}>
-        {content}
+        {mainContent}
       </button>
-      <Popover
+      <PopoverMUI
         classes={{
           paper: 'bg-transparent'
         }}
@@ -38,9 +42,10 @@ export default function PopoverClick({ content, hoverContent }: IPostMoreChooseP
         anchorOrigin={{
           vertical: 'center',
           horizontal: 'left'
-        }}>
+        }}
+      >
         {hoverContent}
-      </Popover>
+      </PopoverMUI>
     </div>
   );
 }

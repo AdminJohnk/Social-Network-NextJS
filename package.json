@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.3.4",
     "@mui/icons-material": "^5.15.15",
+    "@mui/joy": "^5.0.0-beta.32",
     "@mui/material": "^5.15.15",
     "@mui/x-date-pickers": "^7.2.0",
     "@radix-ui/react-hover-card": "^1.0.7",

@@ -6,12 +6,11 @@ import { useSearchParams } from 'next/navigation';
 import Modal from '@mui/material/Modal';
 import { useSession } from 'next-auth/react';
 import { useRouter as useRouterNext } from 'next/navigation';
-import { useRouter } from '@/navigation';
-
-import { useUpdateUser } from '@/hooks/mutation';
+import { Link, useRouter } from '@/navigation';
 import { useCurrentUserInfo } from '@/hooks/query';
 import RepositoryItem from '@/components/shared/Repository/Repository';
 import AddNewRepository from './AddNewRepository';
+import { BiSolidEdit } from 'react-icons/bi';
 
 export interface IRepositoryTabProps {}
 
