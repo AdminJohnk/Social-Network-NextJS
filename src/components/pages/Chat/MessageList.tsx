@@ -70,6 +70,7 @@ export default function MessageList({ conversationID, currentConversation }: IMe
           {messages.map((message, index, messArr) => (
             <MessageBox
               key={conversationID + '|' + message._id}
+              type={currentConversation.type}
               isLastMes={index === messArr.length - 1}
               message={message}
               seen={currentConversation.seen}
