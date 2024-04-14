@@ -12,7 +12,6 @@ import { useCurrentUserInfo } from '@/hooks/query';
 import RepositoryItem from '@/components/shared/Repository/Repository';
 import AddNewRepository from './AddNewRepository';
 import { BiSolidEdit } from 'react-icons/bi';
-import { BiSolidEdit } from 'react-icons/bi';
 
 export interface IRepositoryTabProps {}
 
