@@ -70,7 +70,7 @@ export default function AddNewRepository({
     return (
       <div
         className={cn(
-          'repositoriesItem px-3 py-4 flex justify-between items-center border border-border-1 h-[100px]',
+          'px-3 py-4 flex justify-between items-center border border-border-1 h-[100px]',
           index === 0 && 'border-t border-border-1'
         )}
         key={index}

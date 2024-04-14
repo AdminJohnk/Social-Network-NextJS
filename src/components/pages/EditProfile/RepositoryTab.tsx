@@ -5,13 +5,13 @@ import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import Modal from '@mui/material/Modal';
 import { useSession } from 'next-auth/react';
-import { useRouter } from '@/navigation';
+import { Link, useRouter } from '@/navigation';
+import { BiSolidEdit } from 'react-icons/bi';
 
 import { useUpdateUser } from '@/hooks/mutation';
 import { useCurrentUserInfo } from '@/hooks/query';
 import RepositoryItem from '@/components/shared/Repository/Repository';
 import AddNewRepository from './AddNewRepository';
-import { v4 as uuidv4 } from 'uuid';
 
 export interface IRepositoryTabProps {}
 
@@ -30,7 +30,8 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
         await update({
           ...session,
           repos_url: searchParams.get('repoUrl'),
-          user_github_name: searchParams.get('userGithubName')
+          user_github_name: searchParams.get('userGithubName'),
+          user_github_link: searchParams.get('userGithubLink')
         }).then(() => router.replace('/edit-profile?tab=repository')))();
     }
   }, [searchParams]);
@@ -41,10 +42,6 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
     }
   }, [session]);
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const { mutateUpdateUser } = useUpdateUser();
-
   // Modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -54,12 +51,35 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
     <div>
       <div className='mb-10'>
         {isLoginGithub ? (
-          <span
-            className='px-3 py-2 rounded-md cursor-pointer duration-300 bg-foreground-2 hover:bg-hover-2'
-            onClick={handleOpen}
-          >
-            Edit
-          </span>
+          <div className='flex-start text-text-2'>
+            <div>
+              <span>Login with account: </span>
+              <Link
+                href={session?.user_github_link || ''}
+                className='text-primary-500 hover:text-primary-600 duration-300 cursor-pointer'
+                target='_blank'
+              >
+                {session?.user_github_name}
+              </Link>
+            </div>
+            <span className='mx-2'>|</span>
+            <span
+              className='hover:text-text-1 cursor-pointer duration-300'
+              onClick={() => {
+                update({
+                  repos_url: '',
+                  user_github_name: '',
+                  user_github_link: ''
+                });
+                setIsLoginGithub(false);
+              }}
+            >
+              Logout
+            </span>
+            <span className='ml-auto' onClick={handleOpen}>
+              <BiSolidEdit className='size-5 hover:text-text-1 duration-300 cursor-pointer' />
+            </span>
+          </div>
         ) : (
           <span
             className='px-3 py-2 rounded-md cursor-pointer duration-300 bg-foreground-2 hover:bg-hover-2'

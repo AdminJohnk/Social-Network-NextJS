@@ -9,6 +9,7 @@ declare module 'next-auth' {
     refresh_token: string;
     repos_url?: string;
     user_github_name?: string;
+    user_github_link?: string;
   }
   interface User extends DefaultUser {
     id: string;
@@ -17,6 +18,7 @@ declare module 'next-auth' {
     refresh_token: string;
     repos_url?: string;
     user_github_name?: string;
+    user_github_link?: string;
   }
 }
 

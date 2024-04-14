@@ -26,7 +26,7 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `/edit-profile?tab=repository&repoUrl=${githubUser.repos_url}&userGithubName=${githubUser.login}`
+        Location: `/edit-profile?tab=repository&repoUrl=${githubUser.repos_url}&userGithubName=${githubUser.login}&userGithubLink=${githubUser.html_url}`
       }
     });
   } catch (e) {
@@ -49,4 +49,5 @@ interface GitHubUser {
   name: string;
   avatar_url: string;
   repos_url: string;
+  html_url: string;
 }

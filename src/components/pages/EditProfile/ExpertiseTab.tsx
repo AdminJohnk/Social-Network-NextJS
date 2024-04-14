@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
@@ -39,8 +39,6 @@ export default function ExpertiseTab(props: IExpertiseTabProps) {
     } else {
       // Set error
     }
-
-
   }
 
   return (
