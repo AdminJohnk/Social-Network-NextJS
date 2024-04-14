@@ -10,10 +10,9 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { FaGift } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
-import { IEmoji, IMessage, IUserInfo } from '@/types';
+import { IEmoji, IUserInfo } from '@/types';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
-// import { useSendMessage } from '@/hooks/mutation';
 import { useState } from 'react';
 import Picker from '@emoji-mart/react';
 import { useThemeMode } from 'flowbite-react';

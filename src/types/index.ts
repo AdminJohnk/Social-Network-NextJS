@@ -418,6 +418,7 @@ export interface ISearchLog {
 
 export type IFeaturePost =
   | 'detail'
+  | 'sharing'
   | 'newfeeds'
   | 'modal'
   | 'profile'
