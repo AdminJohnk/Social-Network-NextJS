@@ -5,7 +5,7 @@ export interface ITabCoverSkeletonProps {}
 
 export default function TabCoverSkeleton(props: ITabCoverSkeletonProps) {
   return (
-    <div className='post-skeleton bg-foreground-1 rounded-lg p-6'>
+    <div className='post-skeleton bg-foreground-1 rounded-xl p-6'>
       <div className='flex-between'>
         <div className='flex-start gap-3'>
           <Skeleton className='bg-foreground-2' variant='circular' width={60} height={60} />

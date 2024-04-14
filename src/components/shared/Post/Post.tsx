@@ -18,6 +18,7 @@ import PostMoreChoose from './PostMoreChoose';
 import { IFeaturePost, IPost } from '@/types';
 import { getImageURL } from '@/lib/utils';
 import NewPostShare from '../NewPostShare/NewPostShare';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 export interface IPostProps {
   post: IPost;
@@ -27,9 +28,7 @@ export interface IPostProps {
 export default function Post({ post, feature }: IPostProps) {
   const t = useTranslations();
   const content =
-    post.type === 'Post'
-      ? post.post_attributes.content
-      : post.post_attributes.post!.post_attributes.content;
+    post.type === 'Post' ? post.post_attributes.content : post.post_attributes.post!.post_attributes.content;
   const [contentQuill, setContent] = useState(content);
   const isMoreThan500 = content.length > 500;
   const [expanded, setExpanded] = useState(false);
@@ -56,16 +55,12 @@ export default function Post({ post, feature }: IPostProps) {
             <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
           </Link>
           <div className='flex flex-col ms-3'>
-            <Link
-              href={`/profile/${post.post_attributes.user._id}`}
-              className='base-bold'
-            >
+            <Link href={`/profile/${post.post_attributes.user._id}`} className='base-bold'>
               {post.post_attributes.user.name}
             </Link>
             <Link
               href={`/posts/${post._id}`}
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'
-            >
+              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
               {t('hours ago', { count: 2 })}
             </Link>
           </div>
@@ -76,11 +71,7 @@ export default function Post({ post, feature }: IPostProps) {
               <IoIosMore className='size-6' />
             </div>
             <div data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
-              <PostMoreChoose
-                feature={feature}
-                post={post}
-                isMyPost={isMyPost}
-              />
+              <PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />
             </div>
           </div>
         )}
@@ -90,8 +81,7 @@ export default function Post({ post, feature }: IPostProps) {
         {isMoreThan500 && (
           <div
             className='clickMore my-3 cursor-pointer hover:text-text-2 duration-500'
-            onClick={() => setExpanded(!expanded)}
-          >
+            onClick={() => setExpanded(!expanded)}>
             {expanded ? 'Read less' : 'Read more'}
           </div>
         )}
@@ -126,11 +116,11 @@ export default function Post({ post, feature }: IPostProps) {
               <FiSend className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer' />
             </span>
             <span>
-              <GoShare
+              {/* <GoShare
                 className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
                 onClick={handleOpen}
-              />
-              <Modal
+              /> */}
+              {/* <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby='modal-modal-title'
@@ -139,7 +129,15 @@ export default function Post({ post, feature }: IPostProps) {
                 <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
                   <NewPostShare handleClose={handleClose} post={post} />
                 </div>
-              </Modal>
+              </Modal> */}
+              <Dialog open={open} onOpenChange={setOpen}>
+                <DialogTrigger>
+                  <GoShare className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer' />
+                </DialogTrigger>
+                <DialogContent className='min-w-[610px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg'>
+                  <NewPostShare handleClose={handleClose} post={post} />
+                </DialogContent>
+              </Dialog>
             </span>
           </div>
         </div>

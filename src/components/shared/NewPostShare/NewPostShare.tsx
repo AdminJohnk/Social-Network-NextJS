@@ -37,7 +37,7 @@ export default function NewPostShare({ handleClose, post }: INewPostShareProps) 
   async function onSubmit() {}
 
   return (
-    <div className='w-[610px] max-h-[600px] p-7 animate-fade-up overflow-y-scroll custom-scrollbar-fg'>
+    <div className='animate-fade-up'>
       {isLoadingCurrentUserInfo ? (
         <div className='flex-between'>
           <div className='flex-start gap-3'>
@@ -93,15 +93,14 @@ export default function NewPostShare({ handleClose, post }: INewPostShareProps) 
               <PopoverTrigger>
                 <IoHappyOutline className='text-2xl flex' />
               </PopoverTrigger>
-              <PopoverContent>
+              <PopoverContent className='w-full p-0'>
                 <Picker
                   data={async () => {
                     const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
-                    return response.json();
+                    return await response.json();
                   }}
                   onEmojiSelect={(emoji: IEmoji) => {
-                    console.log(emoji.native);
                     addEmoji(emoji.native);
                   }}
                   theme={mode}
@@ -111,9 +110,9 @@ export default function NewPostShare({ handleClose, post }: INewPostShareProps) 
           </div>
         </div>
       )}
-      <div>
-        <Post post={post} feature='sharing' />
-      </div>
+
+      <Post post={post} feature='sharing' />
+
       <div className='flex-between mt-6'>
         <PostPrivacy setPrivacy={setPrivacy} />
         <Button
