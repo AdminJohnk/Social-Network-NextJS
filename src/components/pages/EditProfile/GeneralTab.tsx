@@ -33,9 +33,9 @@ export default function GeneralTab() {
   } = useForm<FormData>({
     resolver: zodResolver(userGeneralTabSchema),
     defaultValues: {
-      name: currentUserInfo?.name || '',
-      alias: currentUserInfo?.alias || '',
-      about: currentUserInfo?.about || ''
+      name: currentUserInfo.name || '',
+      alias: currentUserInfo.alias || '',
+      about: currentUserInfo.about || ''
     }
   });
 
@@ -43,9 +43,9 @@ export default function GeneralTab() {
 
   const isChanged = useMemo(() => {
     return (
-      values.name !== currentUserInfo?.name ||
-      values.alias !== currentUserInfo?.alias ||
-      values.about !== currentUserInfo?.about
+      values.name !== currentUserInfo.name ||
+      values.alias !== currentUserInfo.alias ||
+      values.about !== currentUserInfo.about
     );
   }, [values, currentUserInfo]);
 

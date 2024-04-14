@@ -17,7 +17,7 @@ export interface ILocaleLayoutProps {
   };
 }
 
-const font = Inter({ subsets: ['latin'] });
+const font = Inter({ subsets: ['latin', 'vietnamese'] });
 
 export const metadata: Metadata = {
   title: 'Devhub',
@@ -40,7 +40,7 @@ export default function LocaleLayout({ children, params: { locale } }: ILocaleLa
       <body className={cn(font.className, 'h-dvh custom-scrollbar-bg')}>
         <QueryProvider>
           <SessionProvider>
-            <NextIntlClientProvider messages={message} locale={locale} >
+            <NextIntlClientProvider messages={message} locale={locale}>
               <Flowbite>
                 {children}
                 <ToastContainer />
