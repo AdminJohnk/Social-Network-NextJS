@@ -1,5 +1,4 @@
 import { Skeleton } from '@mui/material';
-import * as React from 'react';
 
 export interface ITabContentSkeletonProps {}
 

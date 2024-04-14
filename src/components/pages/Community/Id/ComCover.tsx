@@ -2,7 +2,7 @@ import { TabTitle, Tabs } from '@/components/ui/tabs';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/navigation';
-import * as React from 'react';
+
 import { FaSearch } from 'react-icons/fa';
 import {
   IoAddOutline,

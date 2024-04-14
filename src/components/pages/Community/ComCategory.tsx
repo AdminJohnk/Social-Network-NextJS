@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';

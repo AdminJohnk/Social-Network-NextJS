@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import Popover from '@mui/material/Popover';
 
 interface IPostMoreChooseProps {
@@ -9,7 +9,7 @@ interface IPostMoreChooseProps {
 }
 
 export default function PopoverClick({ content, hoverContent }: IPostMoreChooseProps) {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

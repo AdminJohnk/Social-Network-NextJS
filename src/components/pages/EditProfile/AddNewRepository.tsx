@@ -139,7 +139,10 @@ export default function AddNewRepository({ handleClose }: IAddNewRepositoryProps
           </div>
           <div className='mt-6 flex-end'>
             <Button
-              className='button lg:px-6 text-white max-md:flex-1'
+              className={cn(
+                'button lg:px-6 text-white max-md:flex-1',
+                (isLoadingRepositories || !isChanged || isLoading) && 'select-none'
+              )}
               disabled={isLoadingRepositories || !isChanged || isLoading}
               onClick={onSubmit}>
               {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}

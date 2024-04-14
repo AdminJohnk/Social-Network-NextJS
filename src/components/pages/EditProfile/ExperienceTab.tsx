@@ -1,14 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { useCurrentUserInfo } from '@/hooks/query';
-import { IExperience } from '@/types';
 import { useSession } from 'next-auth/react';
 import { MdDelete } from 'react-icons/md';
 import { BiSolidEdit } from 'react-icons/bi';
 import { FaBriefcase } from 'react-icons/fa';
 import { FaPlus } from 'react-icons/fa6';
-import { Modal } from '@mui/material';
+
+import { useCurrentUserInfo } from '@/hooks/query';
+import { IExperience } from '@/types';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import AddNewExperience from './AddNewExperience';
 
 export interface IExperienceTabProps {}
@@ -19,8 +20,6 @@ export default function ExperienceTab(props: IExperienceTabProps) {
 
   // Modal
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const renderExperience = (item: IExperience) => {
     return (
@@ -41,13 +40,7 @@ export default function ExperienceTab(props: IExperienceTabProps) {
 
   return (
     <div>
-      <div className='size-6 flex-center bg-foreground-2 hover:bg-hover-1 duration-300 rounded-full mb-4'>
-        <FaPlus
-          className='size-4 text-text-2 cursor-pointer hover:text-text-1 duration-300'
-          onClick={handleOpen}
-        />
-      </div>
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby='modal-modal-title'
@@ -56,7 +49,20 @@ export default function ExperienceTab(props: IExperienceTabProps) {
         <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
           <AddNewExperience handleClose={handleClose} />
         </div>
-      </Modal>
+      </Modal> */}
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger>
+          <div className='size-6 flex-center bg-foreground-2 hover:bg-hover-1 duration-300 rounded-full mb-4'>
+            <FaPlus className='size-4 text-text-2 cursor-pointer hover:text-text-1 duration-300' />
+          </div>
+        </DialogTrigger>
+        <DialogContent className='w-[650px]'>
+          <DialogHeader>
+            <DialogTitle className='base-semibold'>Add Experiences</DialogTitle>
+          </DialogHeader>
+          <AddNewExperience handleClose={() => setOpen(false)} />
+        </DialogContent>
+      </Dialog>
       <div className='*:mb-3'>
         {currentUserInfo?.experiences?.map((item, index) => {
           return renderExperience(item);

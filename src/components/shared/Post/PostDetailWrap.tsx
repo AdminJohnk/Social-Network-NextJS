@@ -1,7 +1,7 @@
 'use client';
 
 import { usePostData } from '@/hooks/query';
-import * as React from 'react';
+
 import Post from './Post';
 import { IPost } from '@/types';
 

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/navigation';
-import * as React from 'react';
+
 import { IoChevronForward, IoPersonAddOutline } from 'react-icons/io5';
 
 export interface IRecommendWriterProps {}

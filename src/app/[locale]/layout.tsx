@@ -35,7 +35,7 @@ export default function LocaleLayout({ children, params: { locale } }: ILocaleLa
         <link rel='icon' href='/icon.png' type='image/png' sizes='png' />
       </head>
 
-      <Script src='/js/uikit.min.js' />
+      <Script src='/js/uikit.min.js' defer />
 
       <body className={cn(font.className, 'h-dvh custom-scrollbar-bg')}>
         <QueryProvider>
