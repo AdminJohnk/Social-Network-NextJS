@@ -2,42 +2,40 @@ import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { list } from 'postcss';
-import * as React from 'react';
 
-export interface IFriendsProps {
-}
+export interface IFriendsProps {}
 
 const listFriends = [
   {
     id: 1,
     name: 'Jesse Steeve',
-    avatar: '/images/avatars/avatar-7.jpg',
+    avatar: '/images/avatars/avatar-7.jpg'
   },
   {
     id: 2,
     name: 'John Michael',
-    avatar: '/images/avatars/avatar-2.jpg',
+    avatar: '/images/avatars/avatar-2.jpg'
   },
   {
     id: 3,
     name: 'Monroe Parker',
-    avatar: '/images/avatars/avatar-3.jpg',
+    avatar: '/images/avatars/avatar-3.jpg'
   },
   {
     id: 4,
     name: 'Martin Gray',
-    avatar: '/images/avatars/avatar-4.jpg',
+    avatar: '/images/avatars/avatar-4.jpg'
   },
   {
     id: 5,
     name: 'James Lewis',
-    avatar: '/images/avatars/avatar-5.jpg',
+    avatar: '/images/avatars/avatar-5.jpg'
   },
   {
     id: 6,
     name: 'Alex stella',
-    avatar: '/images/avatars/avatar-6.jpg',
-  },
+    avatar: '/images/avatars/avatar-6.jpg'
+  }
 ];
 
 export default function Friends(props: IFriendsProps) {

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Link } from '@/navigation';
-import * as React from 'react';
+
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
 export interface IComYouManageProps {}

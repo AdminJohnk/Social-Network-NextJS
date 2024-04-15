@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
@@ -74,7 +74,10 @@ export default function ExpertiseTab(props: IExpertiseTabProps) {
       <div className='flex items-center justify-center gap-4 mt-10'>
         <Button
           type='submit'
-          className='button lg:px-6 text-white max-md:flex-1'
+          className={cn(
+            'button lg:px-6 text-white max-md:flex-1',
+            (!isChanged || isLoading) && 'select-none'
+          )}
           onClick={onSubmit}
           disabled={!isChanged || isLoading}>
           {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}

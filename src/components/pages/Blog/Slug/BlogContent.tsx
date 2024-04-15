@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import * as React from 'react';
 
 export interface IBlogContentProps {}
 
@@ -16,9 +15,7 @@ export default function BlogContent(props: IBlogContentProps) {
         />
 
         <div className='p-6 w-full z-10 absolute bg-gradient-to-t bottom-0 hidden'>
-          <h1 className='text-xl font-semibold'>
-            How designers estimate the impact of UX?
-          </h1>
+          <h1 className='text-xl font-semibold'>How designers estimate the impact of UX?</h1>
 
           <div className='flex items-center gap-5 mt-4'>
             <div className='w-6 h-6 flex-shrink-0 rounded-md relative'>
@@ -40,9 +37,7 @@ export default function BlogContent(props: IBlogContentProps) {
         </div>
       </div>
       <div className='p-6'>
-        <h1 className='text-xl font-semibold mt-1'>
-          How designers estimate the impact of UX?
-        </h1>
+        <h1 className='text-xl font-semibold mt-1'>How designers estimate the impact of UX?</h1>
 
         <div className='flex gap-3 mt-6'>
           <Image
@@ -64,24 +59,19 @@ export default function BlogContent(props: IBlogContentProps) {
 
         <div className='space-y-2 font-normal mt-6 leading-6'>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor veniam, quis
+            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
           </p>
           <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-            eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-            qui dolorem ipsum quia
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium inventore veritatis et
+            quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+            sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia
           </p>
           <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo , consectetur adipiscing elit, sed do eiusmod
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium inventore veritatis et
+            quasi architecto beatae vitae dicta sunt explicabo , consectetur adipiscing elit, sed do eiusmod
             tempor incididunt ut labore
           </p>
         </div>

@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { useChangePassword } from '@/hooks/mutation';
 import { userPasswordTabSchema } from '@/lib/schema';
 import { CircularProgress } from '@mui/material';
+import { cn } from '@/lib/utils';
 
 type FormData = z.infer<typeof userPasswordTabSchema>;
 
@@ -27,6 +28,7 @@ export default function PasswordTab() {
   const {
     register,
     control,
+    reset,
     handleSubmit,
     setError,
     formState: { errors }
@@ -64,6 +66,7 @@ export default function PasswordTab() {
         },
         onSuccess: () => {
           showSuccessToast(t('Your profile has been updated successfully!'));
+          reset();
         },
         onSettled: () => {
           setIsLoading(false);
@@ -124,7 +127,10 @@ export default function PasswordTab() {
       <div className='flex items-center justify-center gap-4 mt-16'>
         <Button
           type='submit'
-          className='button lg:px-6 text-white max-md:flex-1'
+          className={cn(
+            'button lg:px-6 text-white max-md:flex-1',
+            (!isChanged || isLoading) && 'select-none'
+          )}
           disabled={isLoading || !isChanged}>
           {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
           {t('Save')}

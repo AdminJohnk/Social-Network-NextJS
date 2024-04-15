@@ -12,6 +12,7 @@ import { userGeneralTabSchema } from '@/lib/schema';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 type FormData = z.infer<typeof userGeneralTabSchema>;
 
@@ -126,7 +127,10 @@ export default function GeneralTab() {
       <div className='flex items-center justify-center gap-4 mt-16'>
         <Button
           type='submit'
-          className='button lg:px-6 text-white max-md:flex-1'
+          className={cn(
+            'button lg:px-6 text-white max-md:flex-1',
+            (!isChanged || isLoading) && 'select-none'
+          )}
           disabled={!isChanged || isLoading}>
           {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
           {t('Save')} <span className='ripple-overlay'></span>

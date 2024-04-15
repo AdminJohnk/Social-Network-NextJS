@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { IoArrowBack } from 'react-icons/io5';
@@ -13,10 +12,7 @@ export default function BackButton(props: IBackButtonProps) {
     <div>
       <Button variant='ghost'>
         <IoArrowBack size={18} />
-        <span
-          className='small-medium lg:base-medium'
-          onClick={() => router.back()}
-        >
+        <span className='small-medium lg:base-medium' onClick={() => router.back()}>
           {t('Back')}
         </span>
       </Button>

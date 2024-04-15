@@ -1,51 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Popover as PopoverMUI } from '@mui/material';
-import { PopoverProps } from '@mui/material';
+import * as React from 'react';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
 
-export interface IPostMoreChooseProps extends PopoverProps {
-  mainContent: React.ReactNode;
-  hoverContent: React.ReactNode;
-}
+import { cn } from '@/lib/utils';
 
-export default function Popover({
-  mainContent,
-  hoverContent
-}: IPostMoreChooseProps) {
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+const Popover = PopoverPrimitive.Root;
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+const PopoverTrigger = PopoverPrimitive.Trigger;
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+const PopoverContent = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+>(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
+  <PopoverPrimitive.Portal>
+    <PopoverPrimitive.Content
+      ref={ref}
+      align={align}
+      sideOffset={sideOffset}
+      className={cn(
+        'z-[9999] w-72 rounded-md border border-border-1 bg-foreground-1 p-4 text-text-1 shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        className
+      )}
+      {...props}
+    />
+  </PopoverPrimitive.Portal>
+));
+PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
-  return (
-    <div>
-      <button aria-describedby={id} onClick={handleClick}>
-        {mainContent}
-      </button>
-      <PopoverMUI
-        classes={{
-          paper: 'bg-transparent'
-        }}
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'left'
-        }}
-      >
-        {hoverContent}
-      </PopoverMUI>
-    </div>
-  );
-}
+export { Popover, PopoverTrigger, PopoverContent };

@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useRef } from 'react';
 import { FaTools } from 'react-icons/fa';
 import { TbBrandOpenai } from 'react-icons/tb';
 import { IoDocumentText, IoChatbubbleEllipses } from 'react-icons/io5';
@@ -9,7 +9,7 @@ import { AiFillQuestionCircle } from 'react-icons/ai';
 export interface IFloatToolProps {}
 
 export default function FloatTool(props: IFloatToolProps) {
-  const ListToolRef = React.useRef<HTMLDivElement>(null);
+  const ListToolRef = useRef<HTMLDivElement>(null);
   return (
     <div
       className='fixed bottom-20 right-4 group/list-tool bg-transparent z-[1000]'
