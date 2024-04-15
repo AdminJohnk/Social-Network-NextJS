@@ -111,19 +111,19 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
 
     const roundedCornerStyle = (isOwn: boolean, isNextMesGroup: boolean, isPrevMesGroup: boolean) => {
       if (isOwn) {
-        if (isNextMesGroup && isPrevMesGroup) return 'rounded-s-[1.5rem] rounded-e-[0.75rem] my-1';
+        if (isNextMesGroup && isPrevMesGroup) return 'rounded-s-[1.5rem] rounded-e-[0.75rem] my-[1px]';
         if (isNextMesGroup && !isPrevMesGroup)
-          return 'rounded-t-[1.5rem] rounded-bl-[1.5rem] rounded-br-[0.75rem] my-1';
+          return 'rounded-t-[1.5rem] rounded-bl-[1.5rem] rounded-br-[0.75rem] my-[1px]';
         if (!isNextMesGroup && isPrevMesGroup)
-          return 'rounded-b-[1.5rem] rounded-tl-[1.5rem] rounded-tr-[0.75rem] my-1';
-        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem] my-1';
+          return 'rounded-b-[1.5rem] rounded-tl-[1.5rem] rounded-tr-[0.75rem] my-[1px]';
+        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem] my-2';
       } else {
-        if (isNextMesGroup && isPrevMesGroup) return 'rounded-e-[1.5rem] rounded-s-[0.75rem] my-1';
+        if (isNextMesGroup && isPrevMesGroup) return 'rounded-e-[1.5rem] rounded-s-[0.75rem] my-[1px]';
         if (isNextMesGroup && !isPrevMesGroup)
-          return 'rounded-t-[1.5rem] rounded-br-[1.5rem] rounded-bl-[0.75rem] my-1';
+          return 'rounded-t-[1.5rem] rounded-br-[1.5rem] rounded-bl-[0.75rem] my-[1px]';
         if (!isNextMesGroup && isPrevMesGroup)
-          return 'rounded-b-[1.5rem] rounded-tr-[1.5rem] rounded-tl-[0.75rem] my-1';
-        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem] my-1';
+          return 'rounded-b-[1.5rem] rounded-tr-[1.5rem] rounded-tl-[0.75rem] my-[1px]';
+        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem] my-2';
       }
     };
 

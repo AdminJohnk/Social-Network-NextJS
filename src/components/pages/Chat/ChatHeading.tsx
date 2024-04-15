@@ -36,7 +36,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
       if (currentConversation.type === 'group') {
         const membersActive = currentConversation.members.filter(
           (member) =>
-            member._id === currentUserInfo._id ||
+            member._id === currentUserInfo?._id ||
             members.some((user) => user._id === member._id && user.is_online)
         );
 

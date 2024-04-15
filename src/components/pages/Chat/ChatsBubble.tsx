@@ -11,7 +11,6 @@ import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import MessageList from './MessageList';
 import { useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
-import { useSocketStore } from '@/store/socket';
 
 export interface IChatsBubbleProps {
   conversationID: string[] | undefined;
@@ -23,7 +22,6 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
   if (conversationID === undefined) return <></>;
 
   const { data: session } = useSession();
-
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
   const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID[0]);
@@ -39,7 +37,7 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
       <ChatHeading conversationID={conversationID[0]} otherUser={otherUser} />
       {isLoadingCurrentConversation ? (
         <div className='flex items-center justify-center h-full'>Loading...</div>
-      ) : (
+      ) : (<>
         <div className='w-full p-5 py-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg'>
           <div className='py-10 flex-center flex-col text-center text-sm lg:pt-8'>
             {currentConversation.type === 'group' ? (
@@ -87,11 +85,12 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
             )}
           </div>
 
-          <MessageList conversationID={conversationID[0]} currentConversation={currentConversation} otherUser={otherUser}/>
+          <MessageList conversationID={conversationID[0]} currentConversation={currentConversation} otherUser={otherUser} />
         </div>
+        <InputChat conversationID={conversationID} members={currentConversation.members} />
+      </>
       )}
       {/* <!-- sending message area --> */}
-      <InputChat conversationID={conversationID} members={currentConversation?.members} />
     </div>
   );
 }

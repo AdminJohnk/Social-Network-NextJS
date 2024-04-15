@@ -1,14 +1,17 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useInView, } from 'react-intersection-observer';
 import { useSession } from 'next-auth/react';
+import { debounce } from 'lodash';
+
 
 import MessageBox from './MessageBox';
 import { useCurrentUserInfo, useMessages } from '@/hooks/query';
 import { IConversation, IMessage, IUserInfo } from '@/types';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
+import { getImageURL } from '@/lib/utils';
 
 export interface IMessageListProps {
   conversationID: string;
@@ -23,6 +26,8 @@ export default function MessageList({ conversationID, currentConversation, other
   const { data: session } = useSession();
 
   const [seenRef, isSeen] = useInView({ threshold: 0 });
+
+  const [topRef, isOnTop] = useInView({ threshold: 0 });
 
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
@@ -85,7 +90,7 @@ export default function MessageList({ conversationID, currentConversation, other
   const seenMessage = useCallback(() => {
     if (
       messages.length > 0 &&
-      messages[messages.length - 1].sender._id !== currentUserInfo._id &&
+      messages[messages.length - 1].sender._id !== currentUserInfo?._id &&
       !currentConversation.seen.some((user) => user._id === currentUserInfo._id)
     ) {
       chatSocket.emit(Socket.SEEN_MSG, {
@@ -101,26 +106,146 @@ export default function MessageList({ conversationID, currentConversation, other
     }
   }, [isSeen, seenMessage]);
 
+  useEffect(() => {
+    if (isOnTop) {
+      fetchPreMessages();
+    }
+  }, [isOnTop]);
+
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const messageRef = useRef<HTMLDivElement>(null);
+  const typingDiv = useRef<HTMLDivElement>(null);
+
+  const setTyping = useCallback(
+    debounce((data: string) => setTypingUsers((prev) => prev.filter((user) => user !== data)), 500),
+    []
+  );
+
+  const scrollToBottom = useCallback(
+    (type: ScrollBehavior) => {
+      if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: type, block: 'end' });
+    },
+    [bottomRef.current]
+  );
+  useEffect(() => {
+    if (!messages) return;
+    if (count === 0) {
+      scrollToBottom('instant');
+      setCount(messages.length);
+      return;
+    }
+    if (messages.length - count === 1) scrollToBottom('auto');
+    // if load more message => keep scroll position
+    if (messages.length - count > 1) {
+      if (messageRef.current) {
+        messageRef.current.scrollTop = messageRef.current.scrollHeight - scrollPosition;
+      }
+    }
+    setCount(messages.length);
+  }, [messages]);
+
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const fetchPreMessages = useCallback(() => {
+    if (!isFetchingPreviousPage && messages && hasPreviousMessages) {
+      const element = messageRef.current;
+      if (element) {
+        setScrollPosition(element.scrollHeight - element.scrollTop);
+      }
+
+      fetchPreviousMessages();
+    }
+  }, [isFetchingPreviousPage, messages, hasPreviousMessages]);
+
+  const scrollToBottomWhenTyping = () => {
+    if (messageRef.current) {
+      messageRef.current.scrollTop = messageRef.current.scrollHeight;
+    }
+  };
+  // Scroll to the bottom whenever messages change
+  useEffect(() => {
+    scrollToBottomWhenTyping();
+  }, [typingUsers.length]);
+
+  useEffect(() => {
+    chatSocket.on(Socket.IS_TYPING + conversationID, (data: string) => {
+      setTypingUsers((prev) =>
+        prev.some((user) => user === data) || data === currentUserInfo._id ? prev : [...prev, data]
+      );
+      setIsTyping(true);
+    });
+    chatSocket.on(Socket.STOP_TYPING + conversationID, (data: string) => {
+      setIsTyping(typingUsers.length !== 1);
+      setTyping(data);
+    });
+
+    if (typingDiv.current) {
+      typingDiv.current.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      if (typingUsers.length === 0 || !isTyping) {
+        typingDiv.current.style.opacity = '0';
+        typingDiv.current.style.transform = 'translateY(0)';
+      } else {
+        typingDiv.current.style.opacity = '1';
+        typingDiv.current.style.transform = 'translateY(calc(-2rem + 18px))';
+      }
+    }
+
+    return () => {
+      chatSocket.off(Socket.IS_TYPING + conversationID);
+      chatSocket.off(Socket.STOP_TYPING + conversationID);
+    };
+  }, [typingUsers.length, currentUserInfo?._id, isTyping]);
+
   return (
     <>
       {isLoadingMessages ? (<div className='text-center'>Loading...</div>) : (
-        <div className='text-sm font-medium'>
-          {messages.map((message, index, messArr) => (
-            <MessageBox
-              key={conversationID + '|' + message._id}
-              type={currentConversation.type}
-              isLastMes={index === messArr.length - 1}
-              message={message}
-              seen={currentConversation.seen}
-              isAdmin={isAdmin(message.sender._id)}
-              isCreator={isCreator(message.sender._id)}
-              isPrevMesGroup={isPrevMesGroup(message, index, messArr)}
-              isNextMesGroup={isNextMesGroup(message, index, messArr)}
-              isMoreThan10Min={isMoreThan10Min(message, index, messArr)}
-            />
-          ))}
-          <div ref={seenRef} className='w-0 h-0' />
-        </div>
+        <>
+          <div className='text-sm font-medium'>
+            <div className='pt-1' ref={topRef} />
+            {messages.map((message, index, messArr) => (
+              <MessageBox
+                key={conversationID + '|' + message._id}
+                type={currentConversation.type}
+                isLastMes={index === messArr.length - 1}
+                message={message}
+                seen={currentConversation.seen}
+                isAdmin={isAdmin(message.sender._id)}
+                isCreator={isCreator(message.sender._id)}
+                isPrevMesGroup={isPrevMesGroup(message, index, messArr)}
+                isNextMesGroup={isNextMesGroup(message, index, messArr)}
+                isMoreThan10Min={isMoreThan10Min(message, index, messArr)}
+              />
+            ))}
+            <div ref={seenRef} className='w-0 h-0' />
+            <div className={typingUsers.length ? 'pb-6' : 'pb-1'} ref={bottomRef} />
+          </div>
+          <div className='px-2 flex flex-row items-center opacity-0' ref={typingDiv}>
+            {currentConversation.members.map((member) => {
+              const index = typingUsers.findIndex((user) => user === member._id);
+              if (index !== -1) {
+                return (
+                  <img
+                    key={member._id}
+                    className='rounded-full -top-2 absolute h-6 w-6 overflow-hidden'
+                    src={getImageURL(member.user_image, 'avatar_mini')}
+                    style={{
+                      left: `${index * 30 + typingUsers.length * 10}px`,
+                      // border: `2px solid ${themeColorSet.colorBg4}`
+                    }}
+                  />
+                );
+              }
+              return null;
+            })}
+            <div
+              className='typing-indicator rounded-full'
+              style={{
+                left: `${typingUsers.length * 30 + typingUsers.length * 10}px`
+              }}>
+              <div /> <div /> <div />
+            </div>
+          </div>
+        </>
       )}
     </>
   );

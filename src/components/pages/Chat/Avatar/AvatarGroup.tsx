@@ -65,7 +65,7 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
             key={user._id}
             className={cn('absolute inline-block rounded-full overflow-hidden', positionMap[index])}
             style={{ width: size / 2, height: size / 2 }}>
-            {index < 3 ? (
+            {index < 4 ? (
               <img
                 src={getImageURL(user.user_image, 'avatar_mini')}
                 alt='Avatar'
@@ -76,13 +76,13 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
                 }}
               />
             ) : (
-              <span className='flex flex-row items-center justify-center w-full h-full'>
+              <span className='flex flex-row items-center justify-center w-full h-full bg-foreground-2'>
                 <div
                   className='text-xs'
                   style={{
                     fontSize: size / 4,
                   }}>
-                  +{users.length - 3}
+                  {users.length - 4}
                 </div>
               </span>
             )}
