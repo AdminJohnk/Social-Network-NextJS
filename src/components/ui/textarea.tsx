@@ -26,7 +26,7 @@ export default function Textarea({ className, ...props }: ITextareaProps) {
         '.MuiTextarea-textarea': {
           boxShadow: 'none'
         },
-        border: 'none'
+        border: 'none',
       }}
     />
   );

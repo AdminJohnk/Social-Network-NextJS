@@ -53,23 +53,25 @@ export default function GeneralTab() {
   async function onSubmit({ name, alias, about }: FormData) {
     setIsLoading(true);
 
-    const updateResult = await mutateUpdateUser({
-      name,
-      alias,
-      about
-    });
-
-    setIsLoading(false);
-
-    showSuccessToast(t('Your profile has been updated successfully!'));
-
-    // OK
-    if (updateResult) {
-      // Show success notification
-    } else {
-      // Set error
-      showErrorToast(t('Failed to update your profile!'));
-    }
+    mutateUpdateUser(
+      {
+        name,
+        alias,
+        about
+      },
+      {
+        onSuccess() {
+          showSuccessToast(t('Your profile has been updated successfully!'));
+        },
+        onError() {
+          showErrorToast('Something went wrong! Please try again.');
+        
+        },
+        onSettled() {
+          setIsLoading(false);
+        }
+      }
+    );
   }
 
   return (
@@ -88,7 +90,11 @@ export default function GeneralTab() {
               className='w-full rounded-lg bg-foreground-2 border-none'
               {...register('name')}
             />
-            {errors.name && <p className='p-1 text-xs text-red-600'>{t(errors.name.message)}</p>}
+            {errors.name && (
+              <p className='p-1 text-xs text-red-600'>
+                {t(errors.name.message)}
+              </p>
+            )}
           </div>
         </div>
 
@@ -104,7 +110,11 @@ export default function GeneralTab() {
               className='w-full rounded-lg bg-foreground-2 border-none'
               {...register('alias')}
             />
-            {errors.alias && <p className='p-1 text-xs text-red-600'>{t(errors.alias.message)}</p>}
+            {errors.alias && (
+              <p className='p-1 text-xs text-red-600'>
+                {t(errors.alias.message)}
+              </p>
+            )}
           </div>
         </div>
 
@@ -120,7 +130,11 @@ export default function GeneralTab() {
               placeholder='Write something about yourself...'
               {...register('about')}
             />
-            {errors.about && <p className='p-1 text-xs text-red-600'>{t(errors.about.message)}</p>}
+            {errors.about && (
+              <p className='p-1 text-xs text-red-600'>
+                {t(errors.about.message)}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -131,8 +145,11 @@ export default function GeneralTab() {
             'button lg:px-6 text-white max-md:flex-1',
             (!isChanged || isLoading) && 'select-none'
           )}
-          disabled={!isChanged || isLoading}>
-          {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+          disabled={!isChanged || isLoading}
+        >
+          {isLoading && (
+            <CircularProgress size={20} className='text-text-1 mr-2' />
+          )}
           {t('Save')} <span className='ripple-overlay'></span>
         </Button>
       </div>

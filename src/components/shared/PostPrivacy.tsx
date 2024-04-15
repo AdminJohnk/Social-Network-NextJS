@@ -1,8 +1,9 @@
+import { Visibility } from '@/types';
 import { useTranslations } from 'next-intl';
 import { IoCheckmarkCircle, IoChevronDownOutline } from 'react-icons/io5';
 
 export interface IPostPrivacyProps {
-  setPrivacy: (privacy: string) => void;
+  setPrivacy: (privacy: Visibility) => void;
 }
 
 export default function PostPrivacy({ setPrivacy }: IPostPrivacyProps) {
@@ -22,7 +23,7 @@ export default function PostPrivacy({ setPrivacy }: IPostPrivacyProps) {
         className='p-2 bg-foreground-1 rounded-lg shadow-lg text-text-1 font-medium border border-border-1 w-60'
         data-uk-drop='offset:10;pos: bottom-left; reveal-left;animate-out: true; animation: uk-animation-scale-up uk-transform-origin-bottom-left ; mode:click'
       >
-        <form>
+        <div>
           <label
             className='uk-drop-close'
             onClick={() => {
@@ -75,7 +76,7 @@ export default function PostPrivacy({ setPrivacy }: IPostPrivacyProps) {
               <IoCheckmarkCircle className='hidden active absolute -translate-y-1/2 right-2 text-2xl text-blue-600 uk-animation-scale-up' />
             </div>
           </label>
-        </form>
+        </div>
       </div>
     </div>
   );
