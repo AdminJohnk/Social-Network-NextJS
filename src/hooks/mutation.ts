@@ -1,4 +1,5 @@
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import useSound from 'use-sound';
 
 // import { closeDrawer, setLoading } from '@/redux/Slice/DrawerHOCSlice';
 import { postService } from '@/services/PostService';
@@ -574,9 +575,12 @@ export const useSendMessage = () => {
  * used to determine whether to play a sound notification or not.
  */
 export const useReceiveMessage = (currentUserID: string, conversationID?: string) => {
-  const NotiMessage = new Audio('/sounds/sound-noti-message.wav');
-  const PopMessage = new Audio('/sounds/bubble-popping-short.mp3');
-  NotiMessage.volume = 0.3;
+  // const NotiMessage = new Audio('/sounds/sound-noti-message.wav');
+  // const PopMessage = new Audio('/sounds/bubble-popping-short.mp3');
+  // NotiMessage.volume = 0.3;
+
+  const [playNoti] = useSound('/sounds/sound-noti-message.wav', { volume: 0.3 });
+  const [playPop] = useSound('/sounds/bubble-popping-short.mp3', { volume: 0.3 });
 
   const queryClient = useQueryClient();
 
@@ -592,8 +596,8 @@ export const useReceiveMessage = (currentUserID: string, conversationID?: string
 
         if (index !== -1) {
           if (currentUserID !== message.sender._id) {
-            if (conversationID === message.conversation_id) void PopMessage.play();
-            else void NotiMessage.play();
+            if (conversationID === message.conversation_id) playPop();
+            else playNoti();
           }
 
           newData[index] = {

@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import ConversationList from '@/components/pages/Chat/ConversationList';
 import ChatInfo from '@/components/pages/Chat/ChatInfo';
 import ChatsBubble from '@/components/pages/Chat/ChatsBubble';
-import ChatSideBar from '@/components/pages/Chat/ChatSideBar/ChatSideBar';
+import ChatSideBar from '@/components/pages/Chat/ChatSideBar';
 
 export interface IMessageProps {
   params: {

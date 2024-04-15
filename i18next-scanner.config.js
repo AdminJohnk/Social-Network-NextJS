@@ -12,7 +12,7 @@ module.exports = {
       extensions: ['.ts', '.tsx']
     },
     trans: false,
-    lngs: ['en', 'vi', 'cn'],
+    lngs: ['en', 'vi', 'zh'],
     defaultLng: 'en',
     defaultNs: 'common',
     defaultValue: function (lng, ns, key) {

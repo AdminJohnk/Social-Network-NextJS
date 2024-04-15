@@ -8,7 +8,21 @@ import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from '@/navigation';
 import { cn } from '@/lib/utils';
 
-export default function Language() {
+interface ILanguageProps {
+  className?: string;
+  position?: 'bottom-right' | 'right-bottom';
+  arrow?: boolean;
+  withText?: boolean;
+  tooltip?: boolean;
+}
+
+export default function Language({
+  className,
+  position = 'bottom-right',
+  arrow = true,
+  withText = false,
+  tooltip = true
+}: ILanguageProps) {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations();
@@ -28,15 +42,16 @@ export default function Language() {
     <>
       <button
         type='button'
-        className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1'
-        data-uk-tooltip={`title: ${t('Change language')}; pos: bottom; offset:6`}>
+        className={cn('sm:p-2 p-1 rounded-full relative sm:bg-foreground-1', className)}
+        data-uk-tooltip={tooltip && `title: ${t('Change language')}; pos: bottom; offset:6`}>
         <IoLanguage className='w-5 h-5 max-sm:hidden' />
         <IoLanguageOutline className='sm:hidden text-2xl' />
+        {withText && t('Change language')}
       </button>
 
       <div
         className='hidden bg-foreground-2 rounded-lg drop-shadow-xl md:w-[250px] w-screen border-border-1'
-        data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '>
+        data-uk-drop={`offset:6;pos: ${position}; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right `}>
         <div className='flex items-center justify-between p-4 pb-1'>
           <h3 className='font-bold text-xl text-text-1'>{t('Change language')}</h3>
         </div>
@@ -66,14 +81,16 @@ export default function Language() {
             className={cn(
               'font-medium text-sm',
               isPending && 'cursor-not-allowed opacity-30',
-              locale === 'cn' && 'text-blue-500 bg-hover-2'
+              locale === 'zh' && 'text-blue-500 bg-hover-2'
             )}
-            onClick={() => onSelectChange('cn')}>
+            onClick={() => onSelectChange('zh')}>
             中文 – 简体
           </li>
         </ul>
 
-        <div className='w-3 h-3 absolute -top-1.5 right-3 border-l border-t rotate-45 max-md:hidden bg-foreground-2 dark:border-transparent' />
+        {arrow && (
+          <div className='w-3 h-3 absolute -top-1.5 right-3 border-l border-t rotate-45 max-md:hidden bg-foreground-2 dark:border-transparent' />
+        )}
       </div>
     </>
   );

@@ -23,7 +23,7 @@ export const STATUS_CODE = {
 };
 
 export const DEFAULT_LANGUAGE = 'en';
-export const LIST_LANGUAGE = ['en', 'vi', 'cn'];
+export const LIST_LANGUAGE = ['en', 'vi', 'zh'];
 
 export const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike', 'blockquote'],

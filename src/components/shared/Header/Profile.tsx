@@ -12,17 +12,12 @@ import { useTranslations } from 'next-intl';
 
 import { getImageURL } from '@/lib/utils';
 import { useCurrentUserInfo } from '@/hooks/query';
-import { useSocketStore } from '@/store/socket';
 
 export default function ProfileHeader() {
   const { toggleMode, mode } = useThemeMode();
   const [modeTheme, setModeTheme] = useState<ThemeMode>('dark');
   const { data: session } = useSession();
   const t = useTranslations();
-
-  const { activeMembers } = useSocketStore();
-
-  console.log(activeMembers);
 
   const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id || '');
 
