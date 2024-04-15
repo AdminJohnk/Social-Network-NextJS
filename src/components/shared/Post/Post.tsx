@@ -77,7 +77,7 @@ export default function Post({ post, feature }: IPostProps) {
         )}
       </div>
       <div className='mt-4'>
-        <div className='base-regular overflow break-words' dangerouslySetInnerHTML={{ __html: contentQuill }} />
+        <div className='base-regular overflow break-words text-balance' dangerouslySetInnerHTML={{ __html: contentQuill }} />
         {isMoreThan500 && (
           <div
             className='clickMore my-3 cursor-pointer hover:text-text-2 duration-500'
