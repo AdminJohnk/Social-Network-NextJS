@@ -2,13 +2,17 @@
 
 import { useTranslations } from 'next-intl';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import { useSession } from 'next-auth/react';
+import { useMemo } from 'react';
 
-import { useCurrentConversationData } from '@/hooks/query';
+import { useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
 import { Link } from '@/navigation';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { IUserInfo } from '@/types';
 import { Skeleton } from '@mui/material';
+import { useSocketStore } from '@/store/socket';
+import { getLastOnline } from '@/lib/descriptions/formatDateTime';
 export interface IChatHeadingProps {
   conversationID: string;
   otherUser: IUserInfo;
@@ -18,6 +22,36 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
   const t = useTranslations();
 
   const { currentConversation, isFetchingCurrentConversation } = useCurrentConversationData(conversationID);
+
+  const { data: session } = useSession();
+  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+
+  const { activeMembers: members, chatSocket } = useSocketStore();
+
+  const activeUser = members.find((member) => member._id === otherUser?._id);
+
+
+  const statusText = useMemo(() => {
+    if (currentConversation) {
+      if (currentConversation.type === 'group') {
+        const membersActive = currentConversation.members.filter(
+          (member) =>
+            member._id === currentUserInfo._id ||
+            members.some((user) => user._id === member._id && user.is_online)
+        );
+
+        const memberCount = currentConversation.members.length;
+        const activeMemberCount = membersActive.length;
+
+        return `${memberCount} members - ${activeMemberCount === 1 ? 'Only you' : activeMemberCount} online`;
+      }
+
+      const lastOnline =
+        !activeUser?.first_online || !activeUser ? otherUser.last_online : activeUser.last_online;
+
+      return activeUser?.is_online ? 'Online now' : getLastOnline(lastOnline);
+    }
+  }, [currentConversation, activeUser, members]);
 
   return (
     <>
@@ -104,11 +138,11 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
                   <AvatarMessage key={otherUser._id} user={otherUser} />
                 </Link>
               )}
-              <div className='w-3 h-3 bg-teal-500 rounded-full absolute -right-1 -bottom-0.5 m-px'></div>
+              {/* <div className='w-3 h-3 bg-teal-500 rounded-full absolute -right-1 -bottom-0.5 m-px'></div> */}
             </div>
             <div className='cursor-pointer'>
               <div className='text-base font-bold'> {currentConversation.name ?? otherUser.name}</div>
-              <div className='text-xs text-green-500 font-semibold'> {t('Online')}</div>
+              <div className='text-xs text-green-500 font-semibold'> {t(statusText)} </div>
             </div>
           </div>
 

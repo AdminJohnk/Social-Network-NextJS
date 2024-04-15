@@ -21,6 +21,7 @@ import { useSendMessage } from '@/hooks/mutation';
 import { IEmoji, IMessage, IUserInfo } from '@/types';
 import { cn } from '@/lib/utils';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
+import { imageService } from '@/services/ImageService';
 
 export interface IInputChatProps {
   conversationID: string[] | undefined;
@@ -56,17 +57,19 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
     if (!conversationID) return;
     if (!content && !files.length) return;
 
+    const ID = conversationID[0];
     setMessage('');
 
     if (content.trim() !== '' || content.trim().length !== 0) {
       const message = {
         _id: id,
-        conversation_id: conversationID,
+        conversation_id: ID,
         sender: {
           _id: currentUserInfo._id,
           user_image: currentUserInfo.user_image,
           name: currentUserInfo.name
         },
+        type: 'text',
         isSending: true,
         content: content,
         createdAt: new Date()
@@ -74,18 +77,17 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
       setId(uuidv4().replace(/-/g, ''));
       mutateSendMessage(message as unknown as IMessage);
-      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
-      chatSocket.emit(Socket.STOP_TYPING, { conversationID, userID: currentUserInfo._id, members });
+      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+      chatSocket.emit(Socket.STOP_TYPING, { conversationID: ID, userID: currentUserInfo._id, members });
     }
 
     if (files.length > 0) {
       const newFiles = [...files];
       setFiles([]);
-      // const result = await handleUploadImage(newFiles);
-      const result = 'file';
+      const result = await handleUploadImage(newFiles);
       const newMessage = {
         _id: id + 'image',
-        conversation_id: conversationID,
+        conversation_id: ID,
         images: result,
         sender: {
           _id: currentUserInfo._id,
@@ -95,7 +97,17 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
         type: 'image',
         createdAt: new Date()
       };
+      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message: newMessage });
     }
+  };
+
+  const handleUploadImage = async (files: File[]) => {
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('images', file);
+    });
+    const { data } = await imageService.uploadImages(formData);
+    return data.metadata;
   };
 
   const checkEmpty =

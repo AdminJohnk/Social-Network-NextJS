@@ -1,16 +1,17 @@
 'use client';
 
+import { useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useMemo } from 'react';
-import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
+import { Link } from '@/navigation';
 import InputChat from './InputChat';
 import ChatHeading from './ChatHeading';
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import MessageList from './MessageList';
 import { useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
+import { useSocketStore } from '@/store/socket';
 
 export interface IChatsBubbleProps {
   conversationID: string[] | undefined;
@@ -30,6 +31,7 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
   const otherUser = useMemo(() => {
     return currentConversation?.members?.filter((member) => member._id !== currentUserInfo?._id)[0];
   }, [currentUserInfo, currentConversation?.members]);
+
 
   return (
     <div className='flex-1'>
@@ -85,7 +87,7 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
             )}
           </div>
 
-          <MessageList conversationID={conversationID[0]} currentConversation={currentConversation} />
+          <MessageList conversationID={conversationID[0]} currentConversation={currentConversation} otherUser={otherUser}/>
         </div>
       )}
       {/* <!-- sending message area --> */}

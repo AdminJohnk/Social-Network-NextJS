@@ -66,7 +66,7 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
   const OptionRender = useMemo(() => {
     switch (optionIndex) {
       case 0:
-        return <ConversationList />;
+        return <ConversationList conversationID={conversationID} />;
       case 1:
         // return <ContactList contacts={contacts} />;
         return <>contact</>;

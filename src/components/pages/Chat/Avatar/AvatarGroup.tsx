@@ -1,9 +1,9 @@
 import { useCurrentUserInfo } from "@/hooks/query";
 import { cn, getImageURL } from "@/lib/utils";
+import { useSocketStore } from "@/store/socket";
 import { IUserInfo } from "@/types";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { FaEye } from "react-icons/fa";
 
 
 
@@ -16,8 +16,7 @@ interface IAvatarGroup {
 
 const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview = false }) => {
 
-  // const { activeMembers: members } = useAppSelector((state) => state.socketIO);
-  const activeMembers = true;
+  const { activeMembers: members } = useSocketStore();
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
@@ -26,8 +25,7 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
     users
       .map((user) => {
         if (user._id === currentUserInfo?._id) return;
-        // return members.some((member) => member._id === user._id && member.is_online);
-        return activeMembers;
+        return members.some((member) => member._id === user._id && member.is_online);
       })
       .indexOf(true) !== -1;
 
@@ -54,7 +52,6 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
             src={getImageURL(image, 'avatar_mini')!}
             alt='Avatar'
             referrerPolicy="no-referrer"
-            // preview={preview ? { src: getImageURL(image), mask: <FaEye /> } : false}
             style={{
               width: '100%',
               height: '100%',

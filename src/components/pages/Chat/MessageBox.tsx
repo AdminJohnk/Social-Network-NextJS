@@ -130,13 +130,17 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     const receivedMessage = (content: string) => {
       return <>
         <div className='flex gap-3'>
-          <Image
-            width={500}
-            height={500}
-            src={getImageURL(message.sender.user_image, 'avatar_mini')!}
-            alt=''
-            className='w-9 h-9 rounded-full shadow'
-          />
+          {((!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup)) ? (
+            <Image
+              width={500}
+              height={500}
+              src={getImageURL(message.sender.user_image, 'avatar_mini')!}
+              alt=''
+              className='w-9 h-9 rounded-full shadow'
+            />
+          ) : (
+            <div className='w-9 h-9 rounded-full'></div>
+          )}
           <div className={cn('px-4 py-2 max-w-sm bg-foreground-2', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>{content}</div>
         </div>
       </>
@@ -153,7 +157,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     }
     const messageCall = () => {
       return <>
-        {!isAdmin ? (
+        {isOwn ? (
           <div className='flex gap-2 flex-row-reverse items-end my-1'>
             <div className='flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow rounded-full'>
               <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
@@ -247,7 +251,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
 
     const messageContent = () => {
       if (message.type === 'text') {
-        if (isAdmin) {
+        if (!isOwn) {
           return <>
             {receivedMessage(message.content)}
           </>
@@ -257,7 +261,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           </>
         }
       } else if (message.type === 'image') {
-        if (isAdmin) {
+        if (!isOwn) {
           return <>
             {receivedMedia(message.images!)}
           </>

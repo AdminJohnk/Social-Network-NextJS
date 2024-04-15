@@ -1,4 +1,5 @@
 import { cn, getImageURL } from "@/lib/utils";
+import { useSocketStore } from "@/store/socket";
 import { IUserInfo } from "@/types";
 import Image from "next/image";
 
@@ -9,9 +10,8 @@ interface IAvatar {
 }
 
 const AvatarMessage: React.FC<IAvatar> = ({ size = 36, user, preview = false }) => {
-  // const { activeMembers: members } = useAppSelector((state) => state.socketIO);
-  // const isActive = members.some((member) => member._id === user._id && member.is_online);
-  const isActive = true;
+  const { activeMembers: members } = useSocketStore();
+  const isActive = members.some((member) => member._id === user._id && member.is_online);
 
   return (
     <div className='relative' style={{ width: size, height: size }}>

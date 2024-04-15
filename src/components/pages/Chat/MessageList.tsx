@@ -1,19 +1,33 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useSession } from 'next-auth/react';
 
 import MessageBox from './MessageBox';
-import { useMessages } from '@/hooks/query';
-import { IConversation, IMessage } from '@/types';
+import { useCurrentUserInfo, useMessages } from '@/hooks/query';
+import { IConversation, IMessage, IUserInfo } from '@/types';
+import { useSocketStore } from '@/store/socket';
+import { Socket } from '@/lib/utils/constants/SettingSystem';
 
 export interface IMessageListProps {
   conversationID: string;
   currentConversation: IConversation;
+  otherUser: IUserInfo;
 }
 
-export default function MessageList({ conversationID, currentConversation }: IMessageListProps) {
+export default function MessageList({ conversationID, currentConversation, otherUser }: IMessageListProps) {
   const { messages, isLoadingMessages, fetchPreviousMessages, isFetchingPreviousPage, hasPreviousMessages } =
     useMessages(conversationID);
+
+  const { data: session } = useSession();
+
+  const [seenRef, isSeen] = useInView({ threshold: 0 });
+
+  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+
+  const { activeMembers: members, chatSocket } = useSocketStore();
+
 
   const isAdmin = useCallback(
     (userID: string) => {
@@ -63,6 +77,30 @@ export default function MessageList({ conversationID, currentConversation }: IMe
     return new Date(message.createdAt).getTime() - new Date(preMessage.createdAt).getTime() > 600000;
   }, []);
 
+  const [count, setCount] = useState(0);
+  const [typingUsers, setTypingUsers] = useState<string[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const activeUser = members.find((member) => member._id === otherUser._id);
+
+  const seenMessage = useCallback(() => {
+    if (
+      messages.length > 0 &&
+      messages[messages.length - 1].sender._id !== currentUserInfo._id &&
+      !currentConversation.seen.some((user) => user._id === currentUserInfo._id)
+    ) {
+      chatSocket.emit(Socket.SEEN_MSG, {
+        conversationID,
+        userID: currentUserInfo._id
+      });
+    }
+  }, [currentConversation.seen, conversationID, messages]);
+
+  useEffect(() => {
+    if (isSeen) {
+      seenMessage();
+    }
+  }, [isSeen, seenMessage]);
+
   return (
     <>
       {isLoadingMessages ? (<div className='text-center'>Loading...</div>) : (
@@ -81,6 +119,7 @@ export default function MessageList({ conversationID, currentConversation }: IMe
               isMoreThan10Min={isMoreThan10Min(message, index, messArr)}
             />
           ))}
+          <div ref={seenRef} className='w-0 h-0' />
         </div>
       )}
     </>
