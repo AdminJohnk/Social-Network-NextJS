@@ -20,6 +20,10 @@ export default function ProfileHeader() {
   const { data: session } = useSession();
   const t = useTranslations();
 
+  const { activeMembers } = useSocketStore();
+
+  console.log(activeMembers);
+
   const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id || '');
 
   useEffect(() => {

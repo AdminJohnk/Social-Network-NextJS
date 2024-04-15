@@ -16,7 +16,7 @@ export const PresenceService = () => {
   const { presenceSocket, setActiveMembers } = useSocketStore();
 
   useEffect(() => {
-    if (currentUserInfo && allUsersUsedToChatWith) {
+    if (currentUserInfo && allUsersUsedToChatWith && presenceSocket) {
       presenceSocket.emit(Socket.SET_PRESENCE, currentUserInfo._id);
 
       currentUserInfo.members = [...currentUserInfo.friends, ...allUsersUsedToChatWith].filter(
@@ -51,7 +51,7 @@ export const PresenceService = () => {
         setActiveMembers(membersArr);
       });
     }
-  }, [currentUserInfo, allUsersUsedToChatWith]);
+  }, [currentUserInfo, allUsersUsedToChatWith, presenceSocket]);
 
   return <></>;
 };
@@ -61,8 +61,8 @@ export const ChatService = () => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (session) chatSocket.emit(Socket.SETUP, session.id);
-  }, [session]);
+    if (session && chatSocket) chatSocket.emit(Socket.SETUP, session.id);
+  }, [session, chatSocket]);
 
   return <></>;
 };
