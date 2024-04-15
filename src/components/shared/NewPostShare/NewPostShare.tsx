@@ -15,7 +15,8 @@ import Textarea from '@/components/ui/textarea';
 import Picker from '@emoji-mart/react';
 import { useThemeMode } from 'flowbite-react';
 import { IoHappyOutline } from 'react-icons/io5';
-import {
+import Popover from '@/components/ui/popover-v2';
+// import {
   Popover,
   PopoverContent,
   PopoverTrigger
@@ -47,7 +48,7 @@ export default function NewPostShare({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='animate-fade-up'>
+      <div className='w-[610px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg p-7 animate-fade-up'>
         {isLoadingCurrentUserInfo ? (
           <div className='flex-between'>
             <div className='flex-start gap-3'>
@@ -103,7 +104,7 @@ export default function NewPostShare({
                 maxRows={7}
                 {...register('content')}
               />
-              {/* <Popover
+              <Popover
               open={false}
               mainContent={<IoHappyOutline className='text-2xl flex' />}
               hoverContent={
@@ -120,8 +121,8 @@ export default function NewPostShare({
                   theme={mode}
                 />
               }
-            /> */}
-              <Popover>
+            />
+              {/* <Popover>
                 <PopoverTrigger>
                   <IoHappyOutline className='text-2xl flex' />
                 </PopoverTrigger>
@@ -140,7 +141,7 @@ export default function NewPostShare({
                     theme={mode}
                   />
                 </PopoverContent>
-              </Popover>
+              </Popover> */}
             </div>
           </div>
         )}

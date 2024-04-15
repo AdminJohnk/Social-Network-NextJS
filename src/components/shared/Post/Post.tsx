@@ -18,7 +18,7 @@ import PostMoreChoose from './PostMoreChoose';
 import { IFeaturePost, IPost } from '@/types';
 import { getImageURL } from '@/lib/utils';
 import NewPostShare from '../NewPostShare/NewPostShare';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+// import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 export interface IPostProps {
   post: IPost;
@@ -116,11 +116,11 @@ export default function Post({ post, feature }: IPostProps) {
               <FiSend className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer' />
             </span>
             <span>
-              {/* <GoShare
+              <GoShare
                 className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
                 onClick={handleOpen}
-              /> */}
-              {/* <Modal
+              />
+              <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby='modal-modal-title'
@@ -129,15 +129,15 @@ export default function Post({ post, feature }: IPostProps) {
                 <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
                   <NewPostShare handleClose={handleClose} post={post} />
                 </div>
-              </Modal> */}
-              <Dialog open={open} onOpenChange={setOpen}>
+              </Modal>
+              {/* <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger>
                   <GoShare className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer' />
                 </DialogTrigger>
                 <DialogContent className='w-[610px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg'>
                   <NewPostShare handleClose={handleClose} post={post} />
                 </DialogContent>
-              </Dialog>
+              </Dialog> */}
             </span>
           </div>
         </div>
