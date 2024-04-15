@@ -140,8 +140,9 @@ export interface IUpdatePost {
 
 export interface ISharePost {
   post: string;
-  visibility: Visibility;
+  visibility?: Visibility;
   owner_post: string;
+  content_share?: string;
 }
 
 type TypeofPost = 'Post' | 'Share';
@@ -162,6 +163,7 @@ export interface IPost {
     //if type is share
     post?: IPost;
     owner_post?: IUserInfo;
+    content_share: string;
 
     likes: ILikePost[];
     comments: ICommentPost[];
