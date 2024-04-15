@@ -134,7 +134,7 @@ export default function Post({ post, feature }: IPostProps) {
                 <DialogTrigger>
                   <GoShare className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer' />
                 </DialogTrigger>
-                <DialogContent className='min-w-[610px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg'>
+                <DialogContent className='w-[610px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg'>
                   <NewPostShare handleClose={handleClose} post={post} />
                 </DialogContent>
               </Dialog>
