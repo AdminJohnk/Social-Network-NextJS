@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   IoAddCircleOutline,
   IoDocumentText,
@@ -7,17 +8,19 @@ import {
   IoImages,
   IoSendOutline
 } from 'react-icons/io5';
+import { FaGift, FaPaperPlane } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
-import { FaGift } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
-import Picker from '@emoji-mart/react';
 import { useThemeMode } from 'flowbite-react';
+import Picker from '@emoji-mart/react';
+import { useSocketStore } from '@/store/socket';
 
-import { IEmoji, IUserInfo } from '@/types';
+import { useSendMessage } from '@/hooks/mutation';
+import { IEmoji, IMessage, IUserInfo } from '@/types';
 import { cn } from '@/lib/utils';
+import { Socket } from '@/lib/utils/constants/SettingSystem';
 
 export interface IInputChatProps {
   conversationID: string[] | undefined;
@@ -30,8 +33,10 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
   const { data: session } = useSession();
 
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
-  // const { mutateSendMessage } = useSendMessage();
+  const { mutateSendMessage } = useSendMessage();
   const [id, setId] = useState(uuidv4().replace(/-/g, ''));
+
+  const { chatSocket } = useSocketStore()
 
 
   const [messageContent, setMessage] = useState('');
@@ -66,8 +71,11 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
         content: content,
         createdAt: new Date()
       };
+
       setId(uuidv4().replace(/-/g, ''));
-      // mutateSendMessage(message as unknown as IMessage);
+      mutateSendMessage(message as unknown as IMessage);
+      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
+      chatSocket.emit(Socket.STOP_TYPING, { conversationID, userID: currentUserInfo._id, members });
     }
 
     if (files.length > 0) {
@@ -177,17 +185,8 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             // get cursor position
             const cursorPosition = e.currentTarget.selectionStart;
             setCursor(cursorPosition ?? 0);
-          }}></textarea>
-        <span
-          className={cn(
-            'transition-colors duration-300',
-            checkEmpty
-              ? 'text-gray-400 cursor-not-allowed'
-              : 'text-blue-500 hover:text-blue-700 hover:scale-110 cursor-pointer'
-          )}
-          onClick={() => handleSubmit(messageContent)}>
-          {/* <FontAwesomeIcon icon={faPaperPlane} /> */}
-        </span>
+          }}>
+        </textarea>
 
         <button type='button' className={cn('text-white shrink-0 p-2 absolute right-0.5 top-0',
           checkEmpty
