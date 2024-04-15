@@ -1,4 +1,4 @@
-export const DOMAIN_NAME = process.env.VITE_SERVER_ENDPOINT + '/api/v1';
+export const DOMAIN_NAME = process.env.NEXT_PUBLIC_API_BASE;
 
 export const USER_LOGIN = 'user_login';
 export const ID_USER = '_id';
@@ -21,6 +21,9 @@ export const STATUS_CODE = {
   CONFLICT: 409,
   SERVER_ERROR: 500
 };
+
+export const DEFAULT_LANGUAGE = 'en';
+export const LIST_LANGUAGE = ['en', 'vi', 'cn'];
 
 export const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike', 'blockquote'],

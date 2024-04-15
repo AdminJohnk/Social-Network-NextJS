@@ -51,7 +51,7 @@ export default function ExpertiseTab(props: IExpertiseTabProps) {
           <div
             key={index}
             className={cn(
-              'itemAddTag border-[0.5px] border-border-1 select-none px-4 py-2',
+              'itemTag border-[0.5px] border-border-1 select-none px-4 py-2',
               addTagArr.indexOf(item.title) !== -1 && 'bg-foreground-2'
             )}
             onClick={() => {

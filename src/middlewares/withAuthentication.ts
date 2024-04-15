@@ -2,7 +2,7 @@ import { getToken } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
 import { NextFetchEvent, NextResponse, NextRequest } from 'next/server';
 
-import { LIST_LANGUAGE } from '@/lib/constants/SettingSystem';
+import { LIST_LANGUAGE } from '@/lib/utils/constants/SettingSystem';
 import { MiddlewareFactory } from './types';
 
 export const withAuthentication: MiddlewareFactory =

@@ -88,7 +88,7 @@ export default function TimelineTab({ profileID }: ITimelineTabProps) {
           >
             <Intro profileID={profileID} />
 
-            <Friends />
+            <Friends  profileID={profileID}/>
           </div>
         )}
       </div>

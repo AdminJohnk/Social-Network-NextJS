@@ -11,7 +11,7 @@ export interface IRepositoryProps {
   item: IRepository;
 }
 
-export default function AddNewRepository ({ item }: IRepositoryProps) {
+export default function Repository ({ item }: IRepositoryProps) {
   const colorLanguage = GithubColors.get(item?.languages)?.color;
 
   return (

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
-import { LIST_LANGUAGE } from './lib/constants/SettingSystem';
+import { LIST_LANGUAGE } from '@/lib/utils/constants/SettingSystem';
 
 export const locales = LIST_LANGUAGE;
 
