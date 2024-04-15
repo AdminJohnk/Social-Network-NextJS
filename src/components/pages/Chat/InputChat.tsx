@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   IoAddCircleOutline,
   IoDocumentText,
@@ -16,6 +16,7 @@ import { useSession } from 'next-auth/react';
 import { useThemeMode } from 'flowbite-react';
 import Picker from '@emoji-mart/react';
 import { useSocketStore } from '@/store/socket';
+import { debounce } from 'lodash';
 
 import { useSendMessage } from '@/hooks/mutation';
 import { IEmoji, IMessage, IUserInfo } from '@/types';
@@ -32,6 +33,8 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
   const t = useTranslations();
   const { mode } = useThemeMode();
   const { data: session } = useSession();
+  const ID = conversationID ? conversationID[0] : '';
+
 
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
   const { mutateSendMessage } = useSendMessage();
@@ -46,18 +49,10 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
   const [files, setFiles] = useState<File[]>([]);
 
-
-  const handleStopTyping = () => {
-    setTimeout(() => {
-      setIsTyping(false);
-    }, 3000);
-  };
-
   const handleSubmit = async (content: string) => {
     if (!conversationID) return;
     if (!content && !files.length) return;
 
-    const ID = conversationID[0];
     setMessage('');
 
     if (content.trim() !== '' || content.trim().length !== 0) {
@@ -112,6 +107,17 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
   const checkEmpty =
     (messageContent.trim() === '' || messageContent.trim().length === 0) && files.length === 0;
+
+  const handleStopTyping = useCallback(
+    debounce(
+      () => {
+        console.log('stop typing');
+        chatSocket.emit(Socket.STOP_TYPING, { conversationID: ID, userID: currentUserInfo?._id, members });
+      },
+      1000
+    ),
+    []
+  );
 
   return (
     <div className='flex items-center md:gap-4 gap-2 md:p-3 p-2 overflow-hidden'>
@@ -192,6 +198,11 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             setCursor(cursorPosition ?? 0);
           }}
           onChange={(e) => {
+            chatSocket.emit(Socket.IS_TYPING, {
+              conversationID: ID,
+              userID: currentUserInfo?._id,
+              members
+            });
             setMessage(e.currentTarget.value);
             handleStopTyping();
             // get cursor position

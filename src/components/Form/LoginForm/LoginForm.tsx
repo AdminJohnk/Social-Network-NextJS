@@ -13,6 +13,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { userAuthSchema } from '@/lib/schema';
 import { cn } from '@/lib/utils';
+import { IoLogoGithub, IoLogoGoogle } from 'react-icons/io5';
 
 type FormData = z.infer<typeof userAuthSchema>;
 
@@ -129,6 +130,38 @@ export default function LoginForm({
             {t('Sign in')}
           </Button>
         </form>
+        <div className='mt-10'>
+          <hr />
+          <div className='flex flex-col items-center'>
+            <span >
+              Or
+            </span>
+          </div>
+          <div className='loginTool mt-10 w-full flex flex-col gap-3'>
+            <Button
+              variant={'ghost'}
+              className='flex-center w-full mb-5 hover:bg-blue-400 '
+              disabled={isLoading}
+              onClick={() => signIn('google')}
+            >
+              <span className='icon mr-2'>
+                <IoLogoGoogle className='size-5' />
+              </span>
+              <span>Continue with Gmail</span>
+            </Button>
+            <Button
+              variant={'ghost'}
+              className='flex-center w-full mb-5 hover:bg-blue-400'
+              disabled={isLoading}
+              onClick={() => signIn('github')}
+            >
+              <span className='icon mr-2'>
+                <IoLogoGithub className='size-5' />
+              </span>
+              <span>Continue with Github</span>
+            </Button>
+          </div>
+        </div>
         <div className='max-w-sm flex-center'>
           <div className='flex-start'>
             <div className='me-2 text-text-1'>

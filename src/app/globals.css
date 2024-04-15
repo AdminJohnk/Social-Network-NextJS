@@ -108,6 +108,7 @@
 }
 
 @layer base {
+
   *,
   html {
     @apply m-0 box-border scroll-smooth p-0;
@@ -159,7 +160,7 @@
     display: none;
   }
 
-  .switch.interactive-effect input:checked + .switch-button:before {
+  .switch.interactive-effect input:checked+.switch-button:before {
     -webkit-animation: switch-shadow-color 0.4s;
     animation: switch-shadow-color 0.4s;
   }
@@ -231,7 +232,7 @@
     border-radius: 50px;
   }
 
-  input:checked + .switch-button:before {
+  input:checked+.switch-button:before {
     -webkit-transform: translateX(14px);
     transform: translateX(14px);
   }
@@ -256,22 +257,22 @@
     background-color: rgb(2 132 199 / var(--tw-bg-opacity));
   }
 
-  input:checked + .switch-button {
+  input:checked+.switch-button {
     --tw-bg-opacity: 1;
     background-color: rgb(2 132 199 / var(--tw-bg-opacity));
   }
 
-  .dark input:checked + .switch-button {
+  .dark input:checked+.switch-button {
     --tw-bg-opacity: 1;
     background-color: rgb(147 197 253 / var(--tw-bg-opacity));
   }
 
-  .dark input:checked + .switch-button:before {
+  .dark input:checked+.switch-button:before {
     --tw-bg-opacity: 1;
     background-color: rgb(2 132 199 / var(--tw-bg-opacity));
   }
 
-  #side > :not([hidden]) ~ :not([hidden]) {
+  #side> :not([hidden])~ :not([hidden]) {
     --tw-space-y-reverse: 0;
     margin-top: calc(0.125rem * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0.125rem * var(--tw-space-y-reverse));
@@ -367,9 +368,57 @@
       transition: background-color 0.3s ease;
     }
   }
+
+  .typing-indicator {
+    display: inline-block;
+    position: absolute;
+    width: 52px;
+    height: 30px;
+    top: -9px;
+  }
+
+  .typing-indicator div {
+    position: absolute;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--foreground1);
+    animation: typing-indicator-animate 0.8s infinite linear;
+  }
+
+  .typing-indicator div:nth-child(1) {
+    left: 10px;
+    animation-delay: 0.1s;
+  }
+
+  .typing-indicator div:nth-child(2) {
+    left: 22px;
+    animation-delay: 0.2s;
+  }
+
+  .typing-indicator div:nth-child(3) {
+    left: 34px;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes typing-indicator-animate {
+
+    0%,
+    100% {
+      transform: translateY(-10px);
+    }
+
+    25%,
+    50%,
+    75% {
+      transform: translateY(0);
+    }
+  }
 }
 
 @layer utilities {
+
   /* Text */
   .h1-bold {
     @apply text-[36px] font-bold leading-[140%];
@@ -598,8 +647,7 @@
     height: 0.25rem;
     width: 33.333333%;
     --tw-translate-x: -50%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate))
-      skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     content: var(--tw-content);
     --tw-bg-opacity: 1;
     background-color: rgb(0 0 0 / var(--tw-bg-opacity));
@@ -851,8 +899,7 @@
     height: 2.25rem;
     width: 2.25rem;
     --tw-translate-y: -50%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate))
-      skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     place-items: center;
     border-radius: 9999px;
     --tw-bg-opacity: 1;
@@ -875,8 +922,7 @@
     height: 2.25rem;
     width: 2.25rem;
     --tw-translate-y: -50%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate))
-      skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     place-items: center;
     border-radius: 9999px;
     --tw-bg-opacity: 1;
@@ -897,7 +943,7 @@
     margin-top: 1.25rem;
   }
 
-  .side-list > :not([hidden]) ~ :not([hidden]) {
+  .side-list> :not([hidden])~ :not([hidden]) {
     --tw-space-y-reverse: 0;
     margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(1rem * var(--tw-space-y-reverse));
