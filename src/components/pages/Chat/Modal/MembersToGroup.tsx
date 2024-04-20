@@ -99,7 +99,7 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
   }, [membersToAdd]);
 
   return (
-    <div className='bg-foreground-1 rounded-lg p-4 w-[720px]'>
+    <div className='bg-foreground-1 rounded-lg p-8 w-[720px]'>
       <div className='flex flex-col'>
         <div className='flex flex-row'>
           <TextInput
@@ -156,14 +156,14 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
                     {user.name}
                   </div>
                 </div>
-                <Checkbox className='items-end' checked={checkList[user._id]} />
+                <Checkbox className='items-end mr-1' checked={checkList[user._id]} />
               </div>
             ))}
           </div>
         </div>
       </div>
-      <div>
-        <Button onClick={() => handleClose()}>
+      <div className='flex flex-end mt-4'>
+        <Button onClick={() => handleClose()} disabled={isLoading}>
           <div className='font-bold text-lg'>Cancel</div>
         </Button>
         <Button onClick={onSubmit} disabled={isChanged}>

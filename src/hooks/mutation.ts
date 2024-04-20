@@ -23,6 +23,9 @@ import {
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
 import { searchLogService } from '@/services/SearchLogService';
+import { useRouter } from '@/navigation';
+import { useSocketStore } from '@/store/socket';
+import { Socket } from '@/lib/utils/constants/SettingSystem';
 // import { Socket } from '@/util/constants/SettingSystem';
 
 // ----------------------------- MUTATIONS -----------------------------
@@ -853,42 +856,40 @@ export const useReceiveSeenConversation = () => {
  * The `useLeaveGroup` function is a custom hook in TypeScript that handles leaving a group
  * conversation, updating the conversation list, and emitting a socket event.
  */
-// export const useLeaveGroup = () => {
-//   const queryClient = useQueryClient();
-//   const navigate = useNavigate();
+export const useLeaveGroup = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-//   const { chatSocket } = useAppSelector(state => state.socketIO);
+  // const { chatSocket } = useAppSelector(state => state.socketIO);
+  const { chatSocket } = useSocketStore();
 
-//   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-//     mutationFn: async (conversationID: string) => {
-//       const { data } = await messageService.leaveGroup(conversationID);
-//       return data.metadata;
-//     },
-//     onSuccess(conversation, conversationID) {
-//       if (window.location.pathname.includes(conversationID))
-//         navigate('/message', { replace: true });
-//       queryClient.setQueryData<IConversation[]>(['conversations'], oldData => {
-//         if (!oldData) return;
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (conversationID: string) => {
+      const { data } = await messageService.leaveGroup(conversationID);
+      return data.metadata;
+    },
+    onSuccess(conversation, conversationID) {
+      if (window.location.pathname.includes(conversationID)) router.push('/message');
+      queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+        if (!oldData) return;
 
-//         const newData = [...oldData].filter(
-//           item => item._id !== conversationID
-//         );
+        const newData = [...oldData].filter((item) => item._id !== conversationID);
 
-//         return newData;
-//       });
-//       queryClient.removeQueries({ queryKey: ['conversation', conversationID] });
+        return newData;
+      });
+      queryClient.removeQueries({ queryKey: ['conversation', conversationID] });
 
-//       chatSocket.emit(Socket.LEAVE_GROUP, conversation);
-//     }
-//   });
+      chatSocket.emit(Socket.LEAVE_GROUP, conversation);
+    }
+  });
 
-//   return {
-//     mutateLeaveGroup: mutateAsync,
-//     isLoadingLeaveGroup: isPending,
-//     isErrorLeaveGroup: isError,
-//     isSuccessLeaveGroup: isSuccess
-//   };
-// };
+  return {
+    mutateLeaveGroup: mutateAsync,
+    isLoadingLeaveGroup: isPending,
+    isErrorLeaveGroup: isError,
+    isSuccessLeaveGroup: isSuccess
+  };
+};
 
 /**
  * The `useReceiveLeaveGroup` function is a custom hook that handles the mutation for updating

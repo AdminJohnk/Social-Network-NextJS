@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Link } from '@/navigation';
+import { Link, useRouter } from '@/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -16,15 +16,21 @@ import {
   IoStopCircleOutline,
   IoTrashOutline
 } from 'react-icons/io5';
-import { FaArrowLeft, FaCrown, FaDownload, FaPlusCircle, FaRegUser, FaUser, FaUserShield } from 'react-icons/fa';
+import { FaArrowLeft, FaCommentDots, FaCrown, FaDownload, FaPlusCircle, FaRegUser, FaUser, FaUserShield, FaUserSlash } from 'react-icons/fa';
+import { v4 as uuidv4 } from 'uuid';
 
+import { messageService } from '@/services/MessageService';
 import { useCurrentConversationData, useCurrentUserInfo, useMessagesImage } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
-import { IMessage } from '@/types';
+import { IMessage, IUserInfo } from '@/types';
 import { getImageURL } from '@/lib/utils';
 import { getDateTimeToNow } from '@/lib/descriptions/formatDateTime';
 import MembersToGroup from './Modal/MembersToGroup';
+import { FaEllipsisVertical, FaRightFromBracket } from 'react-icons/fa6';
+import { useSocketStore } from '@/store/socket';
+import { Socket } from '@/lib/utils/constants/SettingSystem';
+import { useLeaveGroup, useReceiveConversation, useSendMessage } from '@/hooks/mutation';
 
 export interface IChatInfoProps {
   conversationID: string[] | undefined;
@@ -32,15 +38,23 @@ export interface IChatInfoProps {
 
 export default function ChatInfo({ conversationID }: IChatInfoProps) {
   if (conversationID === undefined) return <></>;
+  const ID = conversationID[0];
 
   const t = useTranslations();
+
+  const { chatSocket } = useSocketStore()
+  const { mutateSendMessage } = useSendMessage();
+  const { mutateReceiveConversation } = useReceiveConversation();
+  const { mutateLeaveGroup } = useLeaveGroup();
+
+  const router = useRouter();
 
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
-  const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID[0]);
+  const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(ID);
 
-  const { messagesImage, isLoadingMessagesImage } = useMessagesImage(conversationID[0]);
+  const { messagesImage, isLoadingMessagesImage } = useMessagesImage(ID);
 
   const [openAvatar, setOpenAvatar] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
@@ -171,6 +185,278 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   const listImages = (items: IMessage[]) => {
     return listItems(items, 'No images', isLoadingMessagesImage);
   };
+
+  const friends = useMemo(() => {
+    return currentUserInfo?.members;
+  }, [currentUserInfo?.members]);
+
+  // filter members in friends but not in conversation
+  const members = useMemo(() => {
+    return friends?.filter((friend) => {
+      return !currentConversation?.members.some((member) => member._id === friend._id);
+    });
+  }, [friends, currentConversation?.members]);
+
+  const memberOptions = (user: IUserInfo) => {
+    const isCurrentUser = user._id === currentUserInfo?._id;
+    const isAdmin = currentConversation.admins.some((admin) => admin._id === user._id);
+    const isCurrentUserAdmin = currentConversation?.admins.some(
+      (admin) => admin._id === currentUserInfo?._id
+    );
+    const isCurrentUserCreator = currentConversation?.creator === currentUserInfo?._id;
+
+    return (
+      <ul>
+        <li className={!isAdmin && isCurrentUserAdmin ? '' : 'hidden'}>
+          <button
+            type='button'
+            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+            onClick={() => {
+              void messageService.commissionAdmin(currentConversation._id, user._id).then((res) => {
+                chatSocket.emit(Socket.COMMISSION_ADMIN, res.data.metadata);
+
+                const message = {
+                  _id: uuidv4().replace(/-/g, ''),
+                  conversation_id: ID,
+                  sender: {
+                    _id: currentUserInfo._id,
+                    user_image: currentUserInfo.user_image,
+                    name: currentUserInfo.name
+                  },
+                  isSending: true,
+                  type: 'notification',
+                  content: `promoted ${user.name} to administrator`,
+                  createdAt: new Date()
+                };
+
+                mutateSendMessage(message as unknown as IMessage);
+                chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+              });
+            }}>
+            <FaUserShield className='text-2xl' /> {t('Commission as administrator')}
+          </button>
+        </li>
+        <li className={isCurrentUserCreator && isAdmin && !isCurrentUser ? '' : 'hidden'}>
+          <button
+            type='button'
+            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+            onClick={() => {
+              void messageService.removeAdmin(currentConversation._id, user._id).then((res) => {
+                chatSocket.emit(Socket.DECOMMISSION_ADMIN, res.data.metadata);
+
+                const message = {
+                  _id: uuidv4().replace(/-/g, ''),
+                  conversation_id: ID,
+                  sender: {
+                    _id: currentUserInfo._id,
+                    user_image: currentUserInfo.user_image,
+                    name: currentUserInfo.name
+                  },
+                  isSending: true,
+                  type: 'notification',
+                  content: `revoked ${user.name} as administrator`,
+                  createdAt: new Date()
+                };
+
+                mutateSendMessage(message as unknown as IMessage);
+                chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+              });
+            }}>
+            <FaUserSlash className='text-2xl' /> {t('Revoke administrator')}
+          </button>
+        </li>
+        <li className={user._id === currentUserInfo?._id ? 'hidden' : ''}>
+          <button
+            type='button'
+            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+            onClick={() => {
+              void messageService
+                .createConversation({
+                  type: 'private',
+                  members: [user._id]
+                })
+                .then((res) => {
+                  chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
+                  mutateReceiveConversation(res.data.metadata);
+                  router.push(`/messages/${res.data.metadata._id}`);
+                });
+            }}>
+            <FaCommentDots className='text-2xl' /> {t('Message')}
+          </button>
+        </li>
+        <li>
+          <button
+            type='button'
+            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+            onClick={() => {
+              router.push(`/profile/${user._id}`);
+            }}>
+            <FaUser className='text-2xl' /> {t('View profile')}
+          </button>
+        </li>
+        <li className={(isAdmin && !isCurrentUser && !isCurrentUserCreator) ||
+          (!isCurrentUserCreator && !isCurrentUser)
+          ? 'hidden'
+          : ''}>
+          <button
+            type='button'
+            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+            onClick={() => {
+              if (user._id === currentUserInfo._id) {
+                mutateLeaveGroup(ID);
+                const message = {
+                  _id: uuidv4().replace(/-/g, ''),
+                  conversation_id: ID,
+                  sender: {
+                    _id: currentUserInfo._id,
+                    user_image: currentUserInfo.user_image,
+                    name: currentUserInfo.name
+                  },
+                  isSending: true,
+                  type: 'notification',
+                  content: 'left the group',
+                  createdAt: new Date()
+                };
+
+                mutateSendMessage(message as unknown as IMessage);
+                chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
+              } else {
+                void messageService.removeMember(currentConversation._id, user._id).then((res) => {
+                  chatSocket.emit(Socket.REMOVE_MEMBER, { ...res.data.metadata, remove_userID: user._id });
+
+                  const message = {
+                    _id: uuidv4().replace(/-/g, ''),
+                    conversation_id: ID,
+                    sender: {
+                      _id: currentUserInfo._id,
+                      user_image: currentUserInfo.user_image,
+                      name: currentUserInfo.name
+                    },
+                    isSending: true,
+                    type: 'notification',
+                    content: `removed ${user.name}`,
+                    createdAt: new Date()
+                  };
+
+                  mutateSendMessage(message as unknown as IMessage);
+                  chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+                });
+              }
+            }}>
+            {isCurrentUser ? (
+              <FaRightFromBracket className='text-2xl' />
+            ) : (
+              isCurrentUserCreator && <FaUserSlash className='text-2xl' />
+            )}
+            {isCurrentUser ? t('Leave group') : isCurrentUserCreator && t('Remove member')}
+          </button>
+        </li>
+
+      </ul>
+    );
+  }
+
+  const listMembers = useCallback(() => {
+    return (
+      <div className='ml-1 w-full flex flex-col items-center'>
+        <div className='listUser flex flex-col w-full pl-3' style={{ overflow: 'auto' }}>
+          {currentConversation?.members.map((member) => {
+            const isAdmin = currentConversation.admins.some((admin) => admin._id === member._id);
+            const isCreator = currentConversation.creator === member._id;
+            return (
+              <div key={member._id} className='mt-3 w-full flex flex-row justify-between items-center'>
+                <div className='user flex items-center' key={member._id}>
+                  {/* <Tooltip
+                        arrow
+                        title={`Message ${member.name}`}
+                        overlayInnerStyle={{
+                          borderRadius: '0.55rem',
+                          backgroundColor: themeColorSet.colorBgReverse3,
+                          color: themeColorSet.colorTextReverse2,
+                          fontWeight: 500
+                        }}
+                        mouseEnterDelay={0.2}
+                        autoAdjustOverflow>
+                        <div
+                          className='avatar-member relative cursor-pointer'
+                          onClick={() => {
+                            void messageService
+                              .createConversation({
+                                type: 'private',
+                                members: [member._id]
+                              })
+                              .then((res) => {
+                                chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
+                                mutateReceiveConversation(res.data.metadata);
+                                navigate(`/message/${res.data.metadata._id}`);
+                              });
+                          }}>
+                          <AvatarMessage key={member._id} user={member} />
+                        </div>
+                      </Tooltip> */}
+                  <div
+                    className='relative cursor-pointer'>
+                    <AvatarMessage key={member._id} user={member} />
+                  </div>
+                  <div className='flex flex-col text-left ml-2 font-bold'>
+                    <div className='flex flex-row items-center gap-2'>
+                      <span>{member.name}</span>
+                      {isAdmin &&
+                        (isCreator ? (
+                          <FaCrown className='ml-1 text-base' />
+                        ) : (
+                          <FaUserShield className='ml-1' />
+                        ))}
+                    </div>
+                    {isAdmin &&
+                      (isCreator ? (
+                        <p className='text-xs'>Group creator</p>
+                      ) : (
+                        <p className='text-xs'>Administrator</p>
+                      ))}
+                  </div>
+                </div>
+
+                <div>
+                  <button className='flex items-center gap-5 rounded-full p-3 w-full hover:bg-hover-1'>
+                    <FaEllipsisVertical />
+                  </button>
+                  <div
+                    className='min-w-[240px] w-fit'
+                    data-uk-dropdown='pos: bottom-left; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
+                  >
+                    {memberOptions(member)}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        {currentConversation.admins.some((admin) => admin._id === currentUserInfo?._id) && (
+          <div
+            className='add-member mt-3 w-11/12 flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-full hover:bg-hover-1 select-none'
+            onClick={handleOpen}>
+            <FaPlusCircle className='text-2xl' />
+            <span className='text-sm font-medium text-left ml-2 select-none'>Add members</span>
+            <Modal
+              open={openAddMember}
+              onClose={handleClose}
+              aria-labelledby='modal-modal-title'
+              aria-describedby='modal-modal-description'
+            >
+              <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
+                <MembersToGroup
+                  users={members}
+                  conversationID={currentConversation._id}
+                  handleClose={handleClose}
+                />
+              </div>
+            </Modal>
+          </div>
+        )}
+      </div>
+    );
+  }, [currentConversation?.admins, currentConversation?.members, currentUserInfo, members, openAddMember, memberOptions]);
 
   useEffect(() => {
     console.log(openAddMember)
@@ -308,98 +594,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       <IoPersonOutline className='text-2xl' /> {t('Members')}
                     </Link>
                     <ul>
-                      <div className='ml-1 w-full flex flex-col items-center'>
-                        <div className='listUser flex flex-col w-full pl-3' style={{ overflow: 'auto' }}>
-                          {currentConversation.members.map((member) => {
-                            const isAdmin = currentConversation.admins.some((admin) => admin._id === member._id);
-                            const isCreator = currentConversation.creator === member._id;
-                            return (
-                              <div key={member._id} className='mt-3 w-full flex flex-row justify-between items-center'>
-                                <div className='user flex items-center' key={member._id}>
-                                  {/* <Tooltip
-                                  arrow
-                                  title={`Message ${member.name}`}
-                                  overlayInnerStyle={{
-                                    borderRadius: '0.55rem',
-                                    backgroundColor: themeColorSet.colorBgReverse3,
-                                    color: themeColorSet.colorTextReverse2,
-                                    fontWeight: 500
-                                  }}
-                                  mouseEnterDelay={0.2}
-                                  autoAdjustOverflow>
-                                  <div
-                                    className='avatar-member relative cursor-pointer'
-                                    onClick={() => {
-                                      void messageService
-                                        .createConversation({
-                                          type: 'private',
-                                          members: [member._id]
-                                        })
-                                        .then((res) => {
-                                          chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
-                                          mutateReceiveConversation(res.data.metadata);
-                                          navigate(`/message/${res.data.metadata._id}`);
-                                        });
-                                    }}>
-                                    <AvatarMessage key={member._id} user={member} />
-                                  </div>
-                                </Tooltip> */}
-                                  <div
-                                    className='relative cursor-pointer'>
-                                    <AvatarMessage key={member._id} user={member} />
-                                  </div>
-                                  <div className='flex flex-col text-left ml-2 font-bold'>
-                                    <div className='flex flex-row items-center gap-2'>
-                                      <span>{member.name}</span>
-                                      {isAdmin &&
-                                        (isCreator ? (
-                                          <FaCrown className='ml-1 text-base' />
-                                        ) : (
-                                          <FaUserShield className='ml-1' />
-                                        ))}
-                                    </div>
-                                    {isAdmin &&
-                                      (isCreator ? (
-                                        <p className='text-xs'>Group creator</p>
-                                      ) : (
-                                        <p className='text-xs'>Administrator</p>
-                                      ))}
-                                  </div>
-                                </div>
-
-                                {/* <Dropdown
-                                className='options h-5 w-5 p-1 rounded-full cursor-pointer'
-                                menu={{ items: memberOptions(member) }}
-                                trigger={['click']}>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                              </Dropdown> */}
-                              </div>
-                            );
-                          })}
-                        </div>
-                        {currentConversation.admins.some((admin) => admin._id === currentUserInfo?._id) && (
-                          <div
-                            className='add-member mt-3 w-11/12 flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-full hover:bg-hover-1 select-none'
-                            onClick={handleOpen}>
-                            <FaPlusCircle className='text-2xl' />
-                            <span className='text-sm font-medium text-left ml-2 select-none'>Add members</span>
-                            <Modal
-                              open={openAddMember}
-                              onClose={handleClose}
-                              aria-labelledby='modal-modal-title'
-                              aria-describedby='modal-modal-description'
-                            >
-                              <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
-                                <MembersToGroup
-                                  users={currentConversation.members}
-                                  conversationID={currentConversation._id}
-                                  handleClose={handleClose}
-                                />
-                              </div>
-                            </Modal>
-                          </div>
-                        )}
-                      </div>
+                      {listMembers()}
                     </ul>
                   </li>
                 )}
@@ -426,8 +621,6 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 </li>
               </ul>
             )}
-
-
 
             {/* <!-- close button --> */}
             <button
