@@ -2,7 +2,6 @@
 
 import { useMemo } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
-import { getDateTimeToNow } from '@/lib/descriptions/formatDateTime';
 import { IConversation } from '@/types';
 import { cn } from '@/lib/utils';
 import AvatarGroup from './Avatar/AvatarGroup';

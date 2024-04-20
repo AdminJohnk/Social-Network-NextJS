@@ -34,7 +34,7 @@ export default function Post({ post, feature }: IPostProps) {
 
   const isMoreThan500 = content?.length > 500;
 
-  const now = useNow({ updateInterval: 1000 * 10 });
+  const now = useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
 
   const images: string[] =
