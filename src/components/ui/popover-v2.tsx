@@ -25,7 +25,7 @@ export default function Popover({ mainContent, hoverContent }: IPostMoreChoosePr
 
   return (
     <div>
-      <button aria-describedby={id} onClick={handleClick}>
+      <button type='button' aria-describedby={id} onClick={handleClick}>
         {mainContent}
       </button>
       <PopoverMUI

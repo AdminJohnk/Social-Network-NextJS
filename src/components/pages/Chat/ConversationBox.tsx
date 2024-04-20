@@ -9,6 +9,8 @@ import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { Link } from '@/navigation';
 import { useSession } from 'next-auth/react';
+import { useNow } from 'next-intl';
+import { useFormatter } from 'use-intl';
 
 export interface IConversationBoxProps {
   conversation: IConversation;
@@ -19,6 +21,9 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+
+  const now = useNow({ updateInterval: 1000 * 30 });
+  const format = useFormatter();
 
   const isSeen = conversation.seen.some((user) => user._id === currentUserInfo?._id);
   const isGroup = conversation.type === 'group';
@@ -156,7 +161,8 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
             {conversation.name ?? otherUser!.name}
           </div>
           <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-            {conversation.lastMessage?.createdAt && getDateTimeToNow(conversation.lastMessage.createdAt)}
+            {conversation.lastMessage?.createdAt &&
+              format.relativeTime(conversation.lastMessage.createdAt as unknown as Date, now)}
           </div>
         </div>
         <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>

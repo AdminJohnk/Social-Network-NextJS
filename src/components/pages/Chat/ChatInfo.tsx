@@ -16,7 +16,17 @@ import {
   IoStopCircleOutline,
   IoTrashOutline
 } from 'react-icons/io5';
-import { FaArrowLeft, FaCommentDots, FaCrown, FaDownload, FaPlusCircle, FaRegUser, FaUser, FaUserShield, FaUserSlash } from 'react-icons/fa';
+import {
+  FaArrowLeft,
+  FaCommentDots,
+  FaCrown,
+  FaDownload,
+  FaPlusCircle,
+  FaRegUser,
+  FaUser,
+  FaUserShield,
+  FaUserSlash
+} from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 
 import { messageService } from '@/services/MessageService';
@@ -24,7 +34,7 @@ import { useCurrentConversationData, useCurrentUserInfo, useMessagesImage } from
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { IMessage, IUserInfo } from '@/types';
-import { getImageURL } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import { getDateTimeToNow } from '@/lib/descriptions/formatDateTime';
 import MembersToGroup from './Modal/MembersToGroup';
 import { FaEllipsisVertical, FaRightFromBracket } from 'react-icons/fa6';
@@ -42,7 +52,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
   const t = useTranslations();
 
-  const { chatSocket } = useSocketStore()
+  const { chatSocket } = useSocketStore();
   const { mutateSendMessage } = useSendMessage();
   const { mutateReceiveConversation } = useReceiveConversation();
   const { mutateLeaveGroup } = useLeaveGroup();
@@ -59,7 +69,6 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   const [openAvatar, setOpenAvatar] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
-
 
   const [audios, setAudios] = useState<IMessage[]>([]);
   const [files, setFiles] = useState<IMessage[]>([]);
@@ -127,10 +136,11 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
         <div className='content'>
           {isLoading ? (
             <>Loading...</>
-          ) : items.length === 0 ? (<div className='flex flex-col justify-center items-center'>
-            <IoImageSharp className='text-3xl text-gray-300' />
-            {description}
-          </div>
+          ) : items.length === 0 ? (
+            <div className='flex flex-col justify-center items-center'>
+              <IoImageSharp className='text-3xl text-gray-300' />
+              {description}
+            </div>
           ) : (
             <>
               {firstFourImagesWithInfo.map((image, index) => (
@@ -146,9 +156,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       />
                     </div>
                     <div className='info'>
-                      <div className='name font-bold'>
-                        {image?.sender.name}
-                      </div>
+                      <div className='name font-bold'>{image?.sender.name}</div>
                       <div className='date'>{getDateTimeToNow(image.createdAt!)}</div>
                     </div>
                   </div>
@@ -165,15 +173,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 .slice(0, 4)
                 .map((item) => item.images)
                 .flat().length > 4 && (
-                  <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
-                    <p className='cursor-pointer'
-                      onClick={() => {
-                        changeConversationOption('image');
-                      }}>
-                      See all
-                    </p>
-                  </div>
-                )}
+                <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
+                  <p
+                    className='cursor-pointer'
+                    onClick={() => {
+                      changeConversationOption('image');
+                    }}>
+                    See all
+                  </p>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -198,16 +207,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   }, [friends, currentConversation?.members]);
 
   const memberOptions = (user: IUserInfo) => {
-    const isCurrentUser = user._id === currentUserInfo?._id;
+    const isMe = user._id === currentUserInfo?._id;
     const isAdmin = currentConversation.admins.some((admin) => admin._id === user._id);
-    const isCurrentUserAdmin = currentConversation?.admins.some(
-      (admin) => admin._id === currentUserInfo?._id
-    );
-    const isCurrentUserCreator = currentConversation?.creator === currentUserInfo?._id;
+
+    const isMeCreator = currentConversation?.creator === currentUserInfo?._id;
+    const isMeAdmin =
+      currentConversation?.admins.some((admin) => admin._id === currentUserInfo?._id) || isMeCreator;
 
     return (
       <ul>
-        <li className={!isAdmin && isCurrentUserAdmin ? '' : 'hidden'}>
+        <li className={cn(!isAdmin && isMeCreator ? '' : 'hidden')}>
           <button
             type='button'
             className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
@@ -236,7 +245,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             <FaUserShield className='text-2xl' /> {t('Commission as administrator')}
           </button>
         </li>
-        <li className={isCurrentUserCreator && isAdmin && !isCurrentUser ? '' : 'hidden'}>
+        <li className={cn(isMeCreator && isAdmin && !isMe ? '' : 'hidden')}>
           <button
             type='button'
             className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
@@ -265,7 +274,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             <FaUserSlash className='text-2xl' /> {t('Revoke administrator')}
           </button>
         </li>
-        <li className={user._id === currentUserInfo?._id ? 'hidden' : ''}>
+        <li className={cn(isMe ? 'hidden' : '')}>
           <button
             type='button'
             className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
@@ -294,10 +303,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             <FaUser className='text-2xl' /> {t('View profile')}
           </button>
         </li>
-        <li className={(isAdmin && !isCurrentUser && !isCurrentUserCreator) ||
-          (!isCurrentUserCreator && !isCurrentUser)
-          ? 'hidden'
-          : ''}>
+        <li className={cn((isAdmin && !isMe && !isMeCreator) || (!isMeAdmin && !isMe) ? 'hidden' : '')}>
           <button
             type='button'
             className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
@@ -343,18 +349,17 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 });
               }
             }}>
-            {isCurrentUser ? (
+            {isMe ? (
               <FaRightFromBracket className='text-2xl' />
             ) : (
-              isCurrentUserCreator && <FaUserSlash className='text-2xl' />
+              isMeAdmin && <FaUserSlash className='text-2xl' />
             )}
-            {isCurrentUser ? t('Leave group') : isCurrentUserCreator && t('Remove member')}
+            {isMe ? t('Leave group') : isMeAdmin && t('Remove member')}
           </button>
         </li>
-
       </ul>
     );
-  }
+  };
 
   const listMembers = useCallback(() => {
     return (
@@ -394,8 +399,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                           <AvatarMessage key={member._id} user={member} />
                         </div>
                       </Tooltip> */}
-                  <div
-                    className='relative cursor-pointer'>
+                  <div className='relative cursor-pointer'>
                     <AvatarMessage key={member._id} user={member} />
                   </div>
                   <div className='flex flex-col text-left ml-2 font-bold'>
@@ -410,9 +414,9 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     </div>
                     {isAdmin &&
                       (isCreator ? (
-                        <p className='text-xs'>Group creator</p>
+                        <p className='text-xs'>{t('Group creator')}</p>
                       ) : (
-                        <p className='text-xs'>Administrator</p>
+                        <p className='text-xs'>{t('Administrator')}</p>
                       ))}
                   </div>
                 </div>
@@ -423,8 +427,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   </button>
                   <div
                     className='min-w-[240px] w-fit'
-                    data-uk-dropdown='pos: bottom-left; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
-                  >
+                    data-uk-dropdown='pos: bottom-left; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                     {memberOptions(member)}
                   </div>
                 </div>
@@ -442,8 +445,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
               open={openAddMember}
               onClose={handleClose}
               aria-labelledby='modal-modal-title'
-              aria-describedby='modal-modal-description'
-            >
+              aria-describedby='modal-modal-description'>
               <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
                 <MembersToGroup
                   users={members}
@@ -456,10 +458,17 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
         )}
       </div>
     );
-  }, [currentConversation?.admins, currentConversation?.members, currentUserInfo, members, openAddMember, memberOptions]);
+  }, [
+    currentConversation?.admins,
+    currentConversation?.members,
+    currentUserInfo,
+    members,
+    openAddMember,
+    memberOptions
+  ]);
 
   useEffect(() => {
-    console.log(openAddMember)
+    console.log(openAddMember);
   }, [openAddMember]);
 
   const handleOpen = () => setOpenAddMember(true);
@@ -533,7 +542,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   </button>
                   <span className='font-bold text-lg'>Medias</span>
                 </div>
-                {messagesImage.map((item) => (
+                {messagesImage.map((item) =>
                   item.images?.map((image, index) => (
                     <div className='fileContent flex justify-between items-center mb-2 ml-2' key={index}>
                       <div className='left flex justify-between items-center'>
@@ -547,9 +556,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                           />
                         </div>
                         <div className='info'>
-                          <div className='name font-bold'>
-                            {item?.sender.name}
-                          </div>
+                          <div className='name font-bold'>{item?.sender.name}</div>
                           <div className='date'>{getDateTimeToNow(item.createdAt!)}</div>
                         </div>
                       </div>
@@ -562,7 +569,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       </div>
                     </div>
                   ))
-                ))}
+                )}
               </>
             ) : (
               <ul className='text-base font-medium px-1' data-uk-nav>
@@ -577,14 +584,10 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   </div>
                 </li>
                 <li className='uk-parent'>
-                  <Link
-                    href=''
-                    className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
+                  <Link href='' className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
                     <IoImageOutline className='text-2xl' /> {t('Images')}
                   </Link>
-                  <ul className='pl-5 my-1 space-y-0 text-sm'>
-                    {listImages(messagesImage ?? [])}
-                  </ul>
+                  <ul className='pl-5 my-1 space-y-0 text-sm'>{listImages(messagesImage ?? [])}</ul>
                 </li>
                 {currentConversation.type === 'group' && (
                   <li className='uk-parent'>
@@ -593,9 +596,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
                       <IoPersonOutline className='text-2xl' /> {t('Members')}
                     </Link>
-                    <ul>
-                      {listMembers()}
-                    </ul>
+                    <ul>{listMembers()}</ul>
                   </li>
                 )}
                 <li>

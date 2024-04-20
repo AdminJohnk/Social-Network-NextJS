@@ -680,7 +680,7 @@
 /* dropdown */
 
 .uk-dropdown {
-  position: absolute;
+  position: absolute !important;
   z-index: 1020;
   display: none;
   width: 13rem;

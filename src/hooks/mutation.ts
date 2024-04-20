@@ -773,80 +773,74 @@ export const useReceiveSeenConversation = () => {
  * The `useDissolveGroup` function is a custom hook that handles the mutation for dissolving a group
  * conversation and updates the query data accordingly.
  */
-// export const useDissolveGroup = () => {
-//   const queryClient = useQueryClient();
-//   const navigate = useNavigate();
+export const useDissolveGroup = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-//   const { chatSocket } = useAppSelector(state => state.socketIO);
+  const { chatSocket } = useSocketStore();
 
-//   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-//     mutationFn: async (conversationID: string) => {
-//       const { data } = await messageService.dissolveGroup(conversationID);
-//       return data.metadata;
-//     },
-//     onSuccess(conversation, conversationID) {
-//       if (window.location.pathname.includes(conversationID))
-//         navigate('/message', { replace: true });
-//       queryClient.setQueryData<IConversation[]>(['conversations'], oldData => {
-//         if (!oldData) return;
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (conversationID: string) => {
+      const { data } = await messageService.dissolveGroup(conversationID);
+      return data.metadata;
+    },
+    onSuccess(conversation, conversationID) {
+      if (window.location.pathname.includes(conversationID)) router.replace('/message');
+      queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+        if (!oldData) return;
 
-//         const newData = [...oldData];
+        const newData = [...oldData];
 
-//         return newData.filter(item => item._id !== conversationID);
-//       });
-//       queryClient.removeQueries({ queryKey: ['conversation', conversationID] });
+        return newData.filter((item) => item._id !== conversationID);
+      });
+      queryClient.removeQueries({ queryKey: ['conversation', conversationID] });
 
-//       chatSocket.emit(Socket.DISSOLVE_GROUP, conversation);
-//     }
-//   });
+      chatSocket.emit(Socket.DISSOLVE_GROUP, conversation);
+    }
+  });
 
-//   return {
-//     mutateDissolveGroup: mutateAsync,
-//     isLoadingDissolveGroup: isPending,
-//     isErrorDissolveGroup: isError,
-//     isSuccessDissolveGroup: isSuccess
-//   };
-// };
+  return {
+    mutateDissolveGroup: mutateAsync,
+    isLoadingDissolveGroup: isPending,
+    isErrorDissolveGroup: isError,
+    isSuccessDissolveGroup: isSuccess
+  };
+};
 
 /**
  * The `useReceiveDissolveGroup` function is a custom hook that handles the mutation for updating
  * conversation data when a group is dissolved.
  */
-// export const useReceiveDissolveGroup = () => {
-//   const queryClient = useQueryClient();
-//   const navigate = useNavigate();
+export const useReceiveDissolveGroup = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-//   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation(
-//     {
-//       mutationFn: async (conversation: IConversation) =>
-//         await Promise.resolve(conversation),
-//       onSuccess(conversation) {
-//         if (window.location.pathname.includes(conversation._id))
-//           navigate('/message', { replace: true });
-//         queryClient.setQueryData<IConversation[]>(
-//           ['conversations'],
-//           oldData => {
-//             if (!oldData) return;
+  const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
+    mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
+    onSuccess(conversation) {
+      if (window.location.pathname.includes(conversation._id)) router.replace('/message');
+      queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+        if (!oldData) return;
 
-//         const newData = [...oldData];
+        const newData = [...oldData];
 
-//         return newData.filter((item) => item._id !== conversation._id);
-//       });
+        return newData.filter((item) => item._id !== conversation._id);
+      });
 
-//       queryClient.removeQueries({
-//         queryKey: ['conversation', conversation._id]
-//       });
-//     }
-//   });
+      queryClient.removeQueries({
+        queryKey: ['conversation', conversation._id]
+      });
+    }
+  });
 
-//   return {
-//     mutateReceiveDissolveGroup: mutateAsync,
-//     isLoadingReceiveDissolveGroup: isPending,
-//     isErrorReceiveDissolveGroup: isError,
-//     isSuccessReceiveDissolveGroup: isSuccess,
-//     conversation: variables
-//   };
-// };
+  return {
+    mutateReceiveDissolveGroup: mutateAsync,
+    isLoadingReceiveDissolveGroup: isPending,
+    isErrorReceiveDissolveGroup: isError,
+    isSuccessReceiveDissolveGroup: isSuccess,
+    conversation: variables
+  };
+};
 
 /**
  * The `useLeaveGroup` function is a custom hook in TypeScript that handles leaving a group
@@ -895,48 +889,48 @@ export const useLeaveGroup = () => {
  * The `useReceiveLeaveGroup` function is a custom hook that handles the mutation for updating
  * conversation data when a user leaves a group.
  */
-// export const useReceiveLeaveGroup = () => {
-//   const queryClient = useQueryClient();
+export const useReceiveLeaveGroup = () => {
+  const queryClient = useQueryClient();
 
-//   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
-//     mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
-//     onSuccess(conversation) {
-//       queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-//         if (!oldData) return;
+  const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
+    mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
+    onSuccess(conversation) {
+      queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+        if (!oldData) return;
 
-//         const newData = [...oldData];
+        const newData = [...oldData];
 
-//         const index = newData.findIndex((item) => item._id === conversation._id);
+        const index = newData.findIndex((item) => item._id === conversation._id);
 
-//         if (index !== -1) {
-//           newData[index] = {
-//             ...newData[index],
-//             members: conversation.members
-//           };
-//         }
+        if (index !== -1) {
+          newData[index] = {
+            ...newData[index],
+            members: conversation.members
+          };
+        }
 
-//         return newData;
-//       });
+        return newData;
+      });
 
-//       queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
-//         if (!oldData) return;
+      queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
+        if (!oldData) return;
 
-//         return {
-//           ...oldData,
-//           members: conversation.members
-//         };
-//       });
-//     }
-//   });
+        return {
+          ...oldData,
+          members: conversation.members
+        };
+      });
+    }
+  });
 
-//   return {
-//     mutateReceiveLeaveGroup: mutateAsync,
-//     isLoadingReceiveLeaveGroup: isPending,
-//     isErrorReceiveLeaveGroup: isError,
-//     isSuccessReceiveLeaveGroup: isSuccess,
-//     conversation: variables
-//   };
-// };
+  return {
+    mutateReceiveLeaveGroup: mutateAsync,
+    isLoadingReceiveLeaveGroup: isPending,
+    isErrorReceiveLeaveGroup: isError,
+    isSuccessReceiveLeaveGroup: isSuccess,
+    conversation: variables
+  };
+};
 
 /**
  * The `useMutateMessageCall` function is a custom hook in TypeScript that handles mutation for a
@@ -973,230 +967,225 @@ export const useMutateMessageCall = (conversation_id: string | undefined, type: 
  * The `useMutateConversation` function is a custom hook in TypeScript that handles mutations for
  * updating conversation data and updating the query cache.
  */
-// export const useMutateConversation = (currentUserID: string) => {
-//   const queryClient = useQueryClient();
-//   const navigate = useNavigate();
+export const useMutateConversation = (currentUserID: string) => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-//   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-//     mutationFn: async (payload: IUpdateConversation) => await Promise.resolve(payload),
-//     onSuccess(conversation) {
-//       switch (conversation.typeUpdate) {
-//         case 'name':
-//           queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-//             if (!oldData) return;
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (payload: IUpdateConversation) => await Promise.resolve(payload),
+    onSuccess(conversation) {
+      switch (conversation.typeUpdate) {
+        case 'name':
+          queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+            if (!oldData) return;
 
-//             const newData = [...oldData];
+            const newData = [...oldData];
 
-//             const index = newData.findIndex((item) => item._id === conversation._id);
+            const index = newData.findIndex((item) => item._id === conversation._id);
 
-//             if (index !== -1) {
-//               newData[index] = {
-//                 ...newData[index],
-//                 name: conversation.name
-//               };
-//             }
+            if (index !== -1) {
+              newData[index] = {
+                ...newData[index],
+                name: conversation.name
+              };
+            }
 
-//             return newData;
-//           });
+            return newData;
+          });
 
-//           queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
-//             if (!oldData) return;
+          queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
+            if (!oldData) return;
 
-//             return {
-//               ...oldData,
-//               name: conversation.name
-//             };
-//           });
-//           break;
-//         case 'image':
-//           queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-//             if (!oldData) return;
+            return {
+              ...oldData,
+              name: conversation.name
+            };
+          });
+          break;
+        case 'image':
+          queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+            if (!oldData) return;
 
-//             const newData = [...oldData];
+            const newData = [...oldData];
 
-//             const index = newData.findIndex((item) => item._id === conversation._id);
+            const index = newData.findIndex((item) => item._id === conversation._id);
 
-//             if (index !== -1) {
-//               newData[index] = {
-//                 ...newData[index],
-//                 image: conversation.image
-//               };
-//             }
+            if (index !== -1) {
+              newData[index] = {
+                ...newData[index],
+                image: conversation.image
+              };
+            }
 
-//             return newData;
-//           });
+            return newData;
+          });
 
-//           queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
-//             if (!oldData) return;
+          queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
+            if (!oldData) return;
 
-//             return {
-//               ...oldData,
-//               image: conversation.image
-//             };
-//           });
-//           break;
-//         case 'cover_image':
-//           queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-//             if (!oldData) return;
+            return {
+              ...oldData,
+              image: conversation.image
+            };
+          });
+          break;
+        case 'cover_image':
+          queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+            if (!oldData) return;
 
-//             const newData = [...oldData];
+            const newData = [...oldData];
 
-//             const index = newData.findIndex((item) => item._id === conversation._id);
+            const index = newData.findIndex((item) => item._id === conversation._id);
 
-//             if (index !== -1) {
-//               newData[index] = {
-//                 ...newData[index],
-//                 cover_image: conversation.cover_image
-//               };
-//             }
+            if (index !== -1) {
+              newData[index] = {
+                ...newData[index],
+                cover_image: conversation.cover_image
+              };
+            }
 
-//             return newData;
-//           });
+            return newData;
+          });
 
-//           queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
-//             if (!oldData) return;
+          queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
+            if (!oldData) return;
 
-//             return {
-//               ...oldData,
-//               cover_image: conversation.cover_image
-//             };
-//           });
-//           break;
-//         case 'add_member':
-//           queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-//             if (!oldData) return;
+            return {
+              ...oldData,
+              cover_image: conversation.cover_image
+            };
+          });
+          break;
+        case 'add_member':
+          queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+            if (!oldData) return;
 
-//             const newData = [...oldData];
+            const newData = [...oldData];
 
-//             const index = newData.findIndex((item) => item._id === conversation._id);
+            const index = newData.findIndex((item) => item._id === conversation._id);
 
-//             if (index !== -1) {
-//               newData[index] = {
-//                 ...newData[index],
-//                 members: conversation.members
-//               };
-//             } else {
-//               newData.unshift(conversation);
-//             }
+            if (index !== -1) {
+              newData[index] = {
+                ...newData[index],
+                members: conversation.members
+              };
+            } else {
+              newData.unshift(conversation);
+            }
 
-//             return newData;
-//           });
+            return newData;
+          });
 
-//           queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
-//             if (!oldData) return;
+          queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
+            if (!oldData) return;
 
-//             return {
-//               ...oldData,
-//               members: conversation.members
-//             };
-//           });
-//           break;
-//         case 'remove_member':
-//           queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-//             if (!oldData) return;
+            return {
+              ...oldData,
+              members: conversation.members
+            };
+          });
+          break;
+        case 'remove_member':
+          queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+            if (!oldData) return;
 
-//             const newData = [...oldData];
+            const newData = [...oldData];
 
-//             const index = newData.findIndex((item) => item._id === conversation._id);
+            const index = newData.findIndex((item) => item._id === conversation._id);
 
-// //               if (index !== -1) {
-// //                 const isHavingMe = newData[index].members.some(
-// //                   item => item._id === currentUserID
-// //                 );
-// //                 const isHavingUser = conversation.members.some(
-// //                   item => item._id === currentUserID
-// //                 );
-// //                 if (isHavingMe && !isHavingUser) {
-// //                   if (window.location.pathname.includes(conversation._id))
-// //                     navigate('/message', { replace: true });
-// //                   newData.splice(index, 1);
-// //                 } else {
-// //                   newData[index] = {
-// //                     ...newData[index],
-// //                     members: conversation.members
-// //                   };
-// //                 }
-// //               }
+            if (index !== -1) {
+              const isHavingMe = newData[index].members.some((item) => item._id === currentUserID);
+              const isHavingUser = conversation.members.some((item) => item._id === currentUserID);
+              if (isHavingMe && !isHavingUser) {
+                if (window.location.pathname.includes(conversation._id)) router.replace('/message');
+                newData.splice(index, 1);
+              } else {
+                newData[index] = {
+                  ...newData[index],
+                  members: conversation.members
+                };
+              }
+            }
 
-//             return newData;
-//           });
+            return newData;
+          });
 
-//           queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
-//             if (!oldData) return;
+          queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
+            if (!oldData) return;
 
-//             return {
-//               ...oldData,
-//               members: conversation.members
-//             };
-//           });
-//           break;
-//         case 'commission_admin':
-//           queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-//             if (!oldData) return;
+            return {
+              ...oldData,
+              members: conversation.members
+            };
+          });
+          break;
+        case 'commission_admin':
+          queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+            if (!oldData) return;
 
-//             const newData = [...oldData];
+            const newData = [...oldData];
 
-//             const index = newData.findIndex((item) => item._id === conversation._id);
+            const index = newData.findIndex((item) => item._id === conversation._id);
 
-//             if (index !== -1) {
-//               newData[index] = {
-//                 ...newData[index],
-//                 admins: conversation.admins
-//               };
-//             }
+            if (index !== -1) {
+              newData[index] = {
+                ...newData[index],
+                admins: conversation.admins
+              };
+            }
 
-//             return newData;
-//           });
+            return newData;
+          });
 
-//           queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
-//             if (!oldData) return;
+          queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
+            if (!oldData) return;
 
-//             return {
-//               ...oldData,
-//               admins: conversation.admins
-//             };
-//           });
-//           break;
-//         case 'remove_admin':
-//           queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
-//             if (!oldData) return;
+            return {
+              ...oldData,
+              admins: conversation.admins
+            };
+          });
+          break;
+        case 'remove_admin':
+          queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
+            if (!oldData) return;
 
-//             const newData = [...oldData];
+            const newData = [...oldData];
 
-//             const index = newData.findIndex((item) => item._id === conversation._id);
+            const index = newData.findIndex((item) => item._id === conversation._id);
 
-//             if (index !== -1) {
-//               newData[index] = {
-//                 ...newData[index],
-//                 admins: conversation.admins
-//               };
-//             }
+            if (index !== -1) {
+              newData[index] = {
+                ...newData[index],
+                admins: conversation.admins
+              };
+            }
 
-//             return newData;
-//           });
+            return newData;
+          });
 
-//           queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
-//             if (!oldData) return;
+          queryClient.setQueryData<IConversation>(['conversation', conversation._id], (oldData) => {
+            if (!oldData) return;
 
-//             return {
-//               ...oldData,
-//               admins: conversation.admins
-//             };
-//           });
-//           break;
-//         default:
-//           break;
-//       }
-//     }
-//   });
+            return {
+              ...oldData,
+              admins: conversation.admins
+            };
+          });
+          break;
+        default:
+          break;
+      }
+    }
+  });
 
-//   return {
-//     mutateConversation: mutateAsync,
-//     isLoadingConversation: isPending,
-//     isErrorConversation: isError,
-//     isSuccessConversation: isSuccess
-//   };
-// };
+  return {
+    mutateConversation: mutateAsync,
+    isLoadingConversation: isPending,
+    isErrorConversation: isError,
+    isSuccessConversation: isSuccess
+  };
+};
 
 export const useCreateSearchLog = () => {
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
