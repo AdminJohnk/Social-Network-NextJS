@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/navigation';
-import { FaCheckCircle, FaPencilAlt } from 'react-icons/fa';
+import { FaCheckCircle, FaPencilAlt, FaCheck } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 import {
   IoAddCircle,
@@ -21,6 +21,18 @@ import {
   IoStopCircleOutline,
   IoVideocamOutline
 } from 'react-icons/io5';
+import { useMemo, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  useAcceptFriendUser,
+  useAddFriendUser,
+  useCancelFriendUser,
+  useDeclineFriendUser,
+  useDeleteFriendUser
+} from '@/hooks/mutation';
+import { RiArrowGoBackFill } from 'react-icons/ri';
+import { CircularProgress } from '@mui/material';
+import { MdCancel } from 'react-icons/md';
 
 export interface ICoverProps {
   profileID: string;
@@ -34,9 +46,35 @@ export default function Cover({ profileID }: ICoverProps) {
 
   const isMe = session?.id === profileID;
 
+  const { mutateAddFriendUser } = useAddFriendUser();
+
+  const { mutateAcceptFriendUser } = useAcceptFriendUser();
+
+  const { mutateCancelFriendUser } = useCancelFriendUser();
+
+  const { mutateDeclineFriendUser } = useDeclineFriendUser();
+
+  const { mutateDeleteFriendUser } = useDeleteFriendUser();
+
   const isFriend = currentUserInfo?.friends?.some(
     friend => friend._id === profileID
   );
+
+  const sentRequest = useMemo(() => {
+    if (currentUserInfo && otherUserInfo) {
+      return currentUserInfo.requestSent.indexOf(otherUserInfo._id) !== -1;
+    }
+    return false;
+  }, [currentUserInfo, otherUserInfo]);
+
+  const receivedRequest = useMemo(() => {
+    if (currentUserInfo && otherUserInfo) {
+      return currentUserInfo.requestReceived.indexOf(otherUserInfo._id) !== -1;
+    }
+    return false;
+  }, [currentUserInfo, otherUserInfo]);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
     <>
@@ -94,14 +132,6 @@ export default function Cover({ profileID }: ICoverProps) {
               <h3 className='md:text-3xl text-base font-bold text-text-1'>
                 {otherUserInfo?.name}
               </h3>
-              {/* <p className='mt-2 text-gray-500 dark:text-white/80'>
-                Family , Food , Fashion , Forever
-                {isMe && (
-                  <Link href='#' className='text-blue-500 ml-4 inline-block'>
-                    {t('Edit')}
-                  </Link>
-                )}
-              </p> */}
               <p
                 className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'
                 dangerouslySetInnerHTML={{ __html: otherUserInfo?.about }}
@@ -124,29 +154,153 @@ export default function Cover({ profileID }: ICoverProps) {
                   </Link>
                 </button>
               )}
-              {!isFriend && !isMe && (
-                <button className='button bg-blue-1 hover:bg-blue-2 flex items-center gap-2 text-white py-2 px-3.5 max-md:flex-1'>
-                  <IoAddCircle className='text-xl' />
-                  <span className='text-sm'> {t('Add Friend')} </span>
-                </button>
+              {!isFriend && !sentRequest && !receivedRequest && !isMe && (
+                <Button
+                  variant={'main'}
+                  preIcon={
+                    isLoading ? (
+                      <CircularProgress size={17} className='text-text-1' />
+                    ) : (
+                      <IoAddCircle className='text-xl' />
+                    )
+                  }
+                  onClick={() => {
+                    setIsLoading(true);
+                    mutateAddFriendUser(profileID, {
+                      onSettled: () => {
+                        setIsLoading(false);
+                      }
+                    });
+                  }}
+                >
+                  {t('Add Friend')}
+                </Button>
               )}
-              {isFriend && (
+              {sentRequest && !isMe && (
+                <Button
+                  variant={'main'}
+                  preIcon={
+                    isLoading ? (
+                      <CircularProgress size={17} className='text-text-1' />
+                    ) : (
+                      <MdCancel className='text-xl' />
+                    )
+                  }
+                  onClick={() => {
+                    setIsLoading(true);
+                    mutateCancelFriendUser(profileID, {
+                      onSettled: () => {
+                        setIsLoading(false);
+                      }
+                    });
+                  }}
+                >
+                  {t('Cancel Request')}
+                </Button>
+              )}
+              {receivedRequest && !isMe && (
+                <Button
+                  variant={'main'}
+                  preIcon={
+                    isLoading ? (
+                      <CircularProgress size={17} className='text-text-1' />
+                    ) : (
+                      <FaCheck className='text-xl' />
+                    )
+                  }
+                  onClick={() => {
+                    setIsLoading(true);
+                    mutateAcceptFriendUser(profileID, {
+                      onSettled: () => {
+                        setIsLoading(false);
+                      }
+                    });
+                  }}
+                >
+                  {t('Accept')}
+                </Button>
+              )}
+              {receivedRequest && !isMe && (
                 <div>
-                  <button className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-2 text-text-1 py-2 px-3.5 max-md:flex-1'>
-                    <FaCheckCircle className='text-xl' />
-                    <span className='text-sm text-text-1'> {t('Friend')} </span>
-                  </button>
+                  <Button
+                    variant={'main'}
+                    preIcon={
+                      isLoading ? (
+                        <CircularProgress size={17} className='text-text-1' />
+                      ) : (
+                        <RiArrowGoBackFill className='text-xl' />
+                      )
+                    }
+                  >
+                    <span className='text-sm'> {t('Response')} </span>
+                  </Button>
                   <div
                     className='w-[240px] !bg-foreground-1'
                     data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
                   >
-                    <nav>
-                      <Link
-                        href='#'
-                        className='hover:!bg-hover-1 text-black/90 dark:text-white/90'
+                    <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
+                      <div
+                        className='uk-drop-close'
+                        onClick={() => {
+                          setIsLoading(true);
+                          mutateAcceptFriendUser(profileID, {
+                            onSettled: () => {
+                              setIsLoading(false);
+                            }
+                          });
+                        }}
                       >
-                        {t('Unfriend')}
-                      </Link>
+                        <span className='text-sm'>{t('Accept')}</span>
+                      </div>
+                      <div
+                        className='uk-drop-close'
+                        onClick={() => {
+                          setIsLoading(true);
+                          mutateDeclineFriendUser(profileID, {
+                            onSettled: () => {
+                              setIsLoading(false);
+                            }
+                          });
+                        }}
+                      >
+                        <span className='text-sm'>{t('Decline')}</span>
+                      </div>
+                    </nav>
+                  </div>
+                </div>
+              )}
+              {isFriend && !isMe && (
+                <div>
+                  <Button
+                    variant={'main'}
+                    preIcon={
+                      isLoading ? (
+                        <CircularProgress size={17} className='text-text-1' />
+                      ) : (
+                        <FaCheckCircle className='text-xl' />
+                      )
+                    }
+                  >
+                    <span className='text-sm'> {t('Friend')} </span>
+                  </Button>
+                  <div
+                    className='w-[240px] !bg-foreground-1'
+                    data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
+                  >
+                    <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
+                      <div
+                        className='uk-drop-close'
+                        onClick={() => {
+                          setIsLoading(true);
+                          mutateDeleteFriendUser(profileID, {
+                            onSettled: () => {
+                              setIsLoading(false);
+                            }
+                          });
+                        }}
+                      >
+                        <span className='text-sm'>{t('Unfriend')}</span>
+                      </div>
                     </nav>
                   </div>
                 </div>
@@ -272,7 +426,7 @@ export default function Cover({ profileID }: ICoverProps) {
                   {t('Photos')}
                 </TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-                  {t('Videos')}
+                  {t('Repositories')}
                 </TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>
                   {t('Groups')}

@@ -3,6 +3,9 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { TabsContent } from '@/components/ui/tabs';
 import Cover from '@/components/pages/Profile/Cover';
 import TimelineTab from '@/components/pages/Profile/TimelineTab';
+import RepositoryTab from '@/components/pages/Profile/RepositoryTab';
+import FriendTab from '@/components/pages/Profile/FriendTab';
+import PhotoTab from '@/components/pages/Profile/PhotoTab';
 
 export interface IProfileProps {
   params: { slug: string; locale: string };
@@ -20,6 +23,9 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
 
         <TabsContent id='tabs-profile' className='!border-none'>
           <TimelineTab profileID={slug} />
+          <FriendTab profileID={slug}/>
+          <PhotoTab profileID={slug}/>
+          <RepositoryTab profileID={slug} />
         </TabsContent>
       </div>
     </div>

@@ -93,7 +93,7 @@ export default function Intro({ profileID }: IIntroProps) {
               <IoPeopleOutline className='size-6' />
               <div>
                 {t('Friends')}
-                <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>{user.friend_number}</span>
+                <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>{user?.friend_number}</span>
               </div>
             </li>
           </ul>
