@@ -76,12 +76,11 @@ const handler = NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_ID ?? '',
       clientSecret: process.env.GITHUB_SECRET ?? '',
-      profile: async profile => {
+      profile: async (profile) => {
         if (profile) {
-          const { data }: { data: IResponse<UserLogin> } =
-            await authService.loginWithGithub({
-              email: profile.email
-            });
+          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub({
+            email: profile.email
+          });
           if (data) {
             return {
               id: data.metadata.user._id,
@@ -102,7 +101,7 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user, session, trigger }) {
       if (user) {
-        return { ...token, ...user, ...session };
+        return { ...token, ...user, ...session, access_token_expiry: Date.now() + 60 * 60 * 24 * 2 * 1000 };
       }
       if (trigger === 'update' && session) {
         return { ...token, ...session };

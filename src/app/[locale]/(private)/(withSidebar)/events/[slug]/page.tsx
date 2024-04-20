@@ -137,19 +137,19 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
                       className='w-[240px] hidden'
                       data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                       <nav>
-                        <Link href='#'>
+                        <Link href=''>
                           <IoBookmarkOutline className='size-5' /> Save
                         </Link>
-                        <Link href='#'>
+                        <Link href=''>
                           <IoFlagOutline className='size-5' /> Add to page
                         </Link>
-                        <Link href='#'>
+                        <Link href=''>
                           <IoCalendarNumberOutline className='size-5' /> Add to calender
                         </Link>
-                        <Link href='#'>
+                        <Link href=''>
                           <IoShareOutline className='size-5' /> Share profile
                         </Link>
-                        <Link href='#'>
+                        <Link href=''>
                           <IoInformationCircleOutline className='size-5' />
                           Report Event
                         </Link>
@@ -382,7 +382,7 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
                     <div className='p-5 px-6 bg-foreground-1 rounded-md'>
                       <div className='flex items-baseline justify-between'>
                         <h3 className='base-bold'> Invite friends </h3>
-                        <Link href='#' className='text-sm text-blue-500'>
+                        <Link href='' className='text-sm text-blue-500'>
                           See all
                         </Link>
                       </div>

@@ -22,7 +22,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             </Link>
             <div className='card-text mt-1'>
               <div className='flex items-center flex-wrap space-x-1'>
-                <Link href='#'>
+                <Link href=''>
                   <span> 164 Members </span>
                 </Link>
               </div>
@@ -42,7 +42,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             </Link>
             <div className='card-text mt-1'>
               <div className='flex items-center flex-wrap space-x-1'>
-                <Link href='#'>
+                <Link href=''>
                   <span> 218 Members </span>
                 </Link>
               </div>
@@ -62,7 +62,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             </Link>
             <div className='card-text mt-1'>
               <div className='flex items-center flex-wrap space-x-1'>
-                <Link href='#'>
+                <Link href=''>
                   <span> 325 Members </span>
                 </Link>
               </div>
@@ -82,7 +82,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             </Link>
             <div className='card-text mt-1'>
               <div className='flex items-center flex-wrap space-x-1'>
-                <Link href='#'>
+                <Link href=''>
                   <span> 142 Members </span>
                 </Link>
               </div>
@@ -102,7 +102,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             </Link>
             <div className='card-text mt-1'>
               <div className='flex items-center flex-wrap space-x-1'>
-                <Link href='#'>
+                <Link href=''>
                   <span> 164 Members </span>
                 </Link>
               </div>
@@ -122,7 +122,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             </Link>
             <div className='card-text mt-1'>
               <div className='flex items-center flex-wrap space-x-1'>
-                <Link href='#'>
+                <Link href=''>
                   <span> 218 Members </span>
                 </Link>
               </div>
@@ -142,7 +142,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             </Link>
             <div className='card-text mt-1'>
               <div className='flex items-center flex-wrap space-x-1'>
-                <Link href='#'>
+                <Link href=''>
                   <span> 218 Members </span>
                 </Link>
               </div>
@@ -162,7 +162,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             </Link>
             <div className='card-text mt-1'>
               <div className='flex items-center flex-wrap space-x-1'>
-                <Link href='#'>
+                <Link href=''>
                   <span> 164 Members </span>
                 </Link>
               </div>
@@ -182,7 +182,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             </Link>
             <div className='card-text mt-1'>
               <div className='flex items-center flex-wrap space-x-1'>
-                <Link href='#'>
+                <Link href=''>
                   <span> 325 Members </span>
                 </Link>
               </div>

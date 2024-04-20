@@ -114,26 +114,26 @@ export default function ComCover(props: IComCoverProps) {
                     className='w-[240px]'
                     data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                     <nav>
-                      <Link href='#' className='hover:!bg-hover-1'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         <IoPricetagOutline className='text-xl' />
                         {t('Unfollow')}
                       </Link>
-                      <Link href='#' className='hover:!bg-hover-1'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         <IoShareOutline className='text-xl' /> {t('Share')}
                       </Link>
-                      <Link href='#' className='hover:!bg-hover-1'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         <IoLinkOutline className='text-xl' /> {t('Copy link')}
                       </Link>
-                      <Link href='#' className='hover:!bg-hover-1'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         <IoChatbubbleEllipsesOutline className='text-xl' />
                         {t('Sort comments')}
                       </Link>
-                      <Link href='#' className='hover:!bg-hover-1'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         <IoFlagOutline className='text-xl' />
                         {t('Report group')}
                       </Link>
                       <hr />
-                      <Link href='#' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
+                      <Link href='' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
                         <IoStopCircleOutline className='text-xl' /> {t('Block')}
                       </Link>
                     </nav>

@@ -36,14 +36,14 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
                     data-uk-switcher='connect: #tabs2 ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
                     <li>
                       <Link
-                        href='#'
+                        href=''
                         className='inline-flex items-center gap-2 py-2.5 px-4 rounded-full bg-foreground-1 hover:bg-hover-1 duration-300'>
                         {t('Suggestions')}
                       </Link>
                     </li>
                     <li>
                       <Link
-                        href='#'
+                        href=''
                         className='inline-flex items-center gap-2 py-2.5 px-4 rounded-full bg-foreground-1 hover:bg-hover-1 duration-300'>
                         {t('Popular')}
                       </Link>
@@ -65,7 +65,7 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
                 <div className='box p-5 px-6 bg-foreground-1'>
                   <div className='flex items-baseline justify-between'>
                     <h3 className='font-bold text-base'>{t('Pages You Manage')}</h3>
-                    <Link href='#' className='text-sm text-blue-500'></Link>
+                    <Link href='' className='text-sm text-blue-500'></Link>
                   </div>
 
                   <div className='side-list'>
@@ -163,7 +163,7 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
                 <div className='bg-foreground-1 rounded-xl shadow p-5 px-6 border1'>
                   <div className='flex items-baseline justify-between'>
                     <h3 className='font-bold text-base'>{t('Suggested Manage')}</h3>
-                    <Link href='#' className='text-sm text-blue-500'>
+                    <Link href='' className='text-sm text-blue-500'>
                       {t('See all')}
                     </Link>
                   </div>
@@ -267,7 +267,7 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
                 <div className='bg-foreground-1 rounded-xl shadow p-5 px-6 border1'>
                   <div className='flex items-baseline justify-between'>
                     <h3 className='font-bold text-base'>{t('Suggested Manage')}</h3>
-                    <Link href='#' className='text-sm text-blue-500'>
+                    <Link href='' className='text-sm text-blue-500'>
                       {t('See all')}
                     </Link>
                   </div>

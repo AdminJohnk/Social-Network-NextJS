@@ -29,10 +29,19 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
       })
       .indexOf(true) !== -1;
 
+  let pixelValue = Math.floor(size / 4);
+  let floatValue = pixelValue / 4;
+
+  // Check if the decimal part is not 0.5
+  if (floatValue % 1 !== 0.5) {
+    // Round down to the nearest integer
+    floatValue = Math.floor(floatValue);
+  }
+
   const positionMap: Record<number, string> = {
-    0: `top-0 left-[${size / 4}px]`,
-    1: 'bottom-1',
-    2: 'bottom-1 right-0'
+    0: `top-0.5 left-${floatValue}`,
+    1: 'bottom-0.5 left-0',
+    2: 'bottom-0.5 right-0'
   };
 
   if (users.length > 3) {

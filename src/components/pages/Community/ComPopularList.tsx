@@ -23,7 +23,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             <div className='card-list-info font-normal mt-1'>
               <div>232k {t(' members')} </div>
               <div className='md:block hidden'>·</div>
-              <Link href='#'> {t('Education')} </Link>
+              <Link href=''> {t('Education')} </Link>
             </div>
             <div className='flex items-center gap-3 mt-3'>
               <div className='flex -space-x-2'>
@@ -79,7 +79,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             <div className='card-list-info font-normal mt-1'>
               <div>232k {t(' members')} </div>
               <div className='md:block hidden'>·</div>
-              <Link href='#'> {t('Education')} </Link>
+              <Link href=''> {t('Education')} </Link>
             </div>
             <div className='flex items-center gap-3 mt-3'>
               <div className='flex -space-x-2'>
@@ -135,7 +135,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             <div className='card-list-info font-normal mt-1'>
               <div>232k {t(' members')} </div>
               <div className='md:block hidden'>·</div>
-              <Link href='#'> {t('Education')} </Link>
+              <Link href=''> {t('Education')} </Link>
             </div>
             <div className='flex items-center gap-3 mt-3'>
               <div className='flex -space-x-2'>
@@ -191,7 +191,7 @@ export default function ComPopularList(props: IComPopularListProps) {
             <div className='card-list-info font-normal mt-1'>
               <div>360k {t(' members')} </div>
               <div className='md:block hidden'>·</div>
-              <Link href='#'> {t('Education')} </Link>
+              <Link href=''> {t('Education')} </Link>
             </div>
             <div className='flex items-center gap-3 mt-3'>
               <div className='flex -space-x-2'>

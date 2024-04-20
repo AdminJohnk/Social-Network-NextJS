@@ -1,4 +1,5 @@
 import { forwardRef, useMemo } from 'react';
+import { Anchorme, LinkComponentProps } from 'react-anchorme';
 import { getDateTime } from '@/lib/descriptions/formatDateTime';
 import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
@@ -6,6 +7,8 @@ import { IMessage, IUserInfo, TypeofConversation } from '@/types';
 import Image from 'next/image';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
+import { FaCrown, FaShieldHalved } from 'react-icons/fa6';
+import { ImageList, ImageListItem } from '@mui/material';
 
 export interface IMessageBoxProps {
   message: IMessage;
@@ -22,22 +25,17 @@ export interface IMessageBoxProps {
 
 const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
   (
-    {
-      message,
-      isLastMes,
-      seen,
-      isNextMesGroup,
-      isPrevMesGroup,
-      isMoreThan10Min,
-      isAdmin,
-      type,
-      isCreator
-    },
+    { message, isLastMes, seen, isNextMesGroup, isPrevMesGroup, isMoreThan10Min, isAdmin, type, isCreator },
     ref
   ) => {
     const { data: session } = useSession();
 
     const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+
+    const handleFirstName = (name: string) => {
+      const arr = name.split(' ');
+      return arr[arr.length - 1];
+    };
 
     const seenList = useMemo(() => {
       return seen.filter((user) => user._id !== message.sender._id).map((user) => user.user_image);
@@ -49,11 +47,12 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       if (message.content.includes('missed')) {
         return 'missed';
       }
-      if (senderId === session?.id as string) {
+      if (senderId === (session?.id as string)) {
         return 'outgoing';
       }
       return 'incoming';
     };
+
     const notification: Record<string, Record<string, JSX.Element>> = {
       video: {
         incoming: (
@@ -116,224 +115,363 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           return 'rounded-t-[1.5rem] rounded-bl-[1.5rem] rounded-br-[0.75rem] my-[1px]';
         if (!isNextMesGroup && isPrevMesGroup)
           return 'rounded-b-[1.5rem] rounded-tl-[1.5rem] rounded-tr-[0.75rem] my-[1px]';
-        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem] my-2';
+        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem]';
       } else {
         if (isNextMesGroup && isPrevMesGroup) return 'rounded-e-[1.5rem] rounded-s-[0.75rem] my-[1px]';
         if (isNextMesGroup && !isPrevMesGroup)
           return 'rounded-t-[1.5rem] rounded-br-[1.5rem] rounded-bl-[0.75rem] my-[1px]';
         if (!isNextMesGroup && isPrevMesGroup)
           return 'rounded-b-[1.5rem] rounded-tr-[1.5rem] rounded-tl-[0.75rem] my-[1px]';
-        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem] my-2';
+        if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem]';
       }
     };
 
     const receivedMessage = (content: string) => {
-      return <>
-        <div className='flex gap-3'>
-          {((!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup)) ? (
-            <Image
-              width={500}
-              height={500}
-              src={getImageURL(message.sender.user_image, 'avatar_mini')!}
-              alt=''
-              className='w-9 h-9 rounded-full shadow'
-            />
-          ) : (
-            <div className='w-9 h-9 rounded-full'></div>
-          )}
-          <div className={cn('px-4 py-2 max-w-sm bg-foreground-2', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>{content}</div>
-        </div>
-      </>
-    }
+      return (
+        <>
+          <div
+            className={cn(
+              'flex gap-3',
+              type === 'group' && !isOwn && !isPrevMesGroup ? 'items-end' : 'items-center'
+            )}>
+            {(!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup) ? (
+              <Image
+                width={500}
+                height={500}
+                src={getImageURL(message.sender.user_image, 'avatar_mini')!}
+                alt=''
+                className='w-9 h-9 rounded-full shadow'
+              />
+            ) : (
+              <div className='w-9 h-9 rounded-full' />
+            )}
+            <div>
+              {type === 'group' && !isOwn && !isPrevMesGroup && (
+                <div className='text-sm ml-2 mt-2'>
+                  <Link href={`/profile/${message.sender._id}`} className='flex flex-row gap-1'>
+                    {handleFirstName(message.sender.name)}
+                    {isAdmin &&
+                      (isCreator ? (
+                        <FaCrown className='ml-1 text-base' />
+                      ) : (
+                        <FaShieldHalved className='ml-1' />
+                      ))}
+                  </Link>
+                </div>
+              )}
+              <div
+                className={cn(
+                  'px-4 py-2 max-w-sm w-min bg-foreground-2',
+                  roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                )}>
+                <Anchorme
+                  linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
+                  truncate={30}
+                  target='_blank'
+                  rel='noreferrer noopener'>
+                  {content}
+                </Anchorme>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    };
 
     const sentMessage = (content: string) => {
-      return <>
-        <div className='flex gap-2 flex-row-reverse items-end'>
-          <div className={cn('px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>
-            {content}
-          </div>
-        </div>
-      </>
-    }
-    const messageCall = () => {
-      return <>
-        {isOwn ? (
-          <div className='flex gap-2 flex-row-reverse items-end my-1'>
-            <div className='flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow rounded-full'>
-              <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
-                {notification[message.type][stateCalled(message.sender._id)]}
-              </div>
-              <div className='flex flex-col mx-2'>
-                <div>{message.content}</div>
-                <div> {getDateTime(message.createdAt)}</div>
-              </div>
-            </div>
-          </div>) : (
-          <div className='flex gap-3 my-1'>
-            <Image
-              width={500}
-              height={500}
-              src={getImageURL(message.sender.user_image, 'avatar_mini')!}
-              alt=''
-              className='w-9 h-9 rounded-full shadow'
-            />
-            <div className='flex items-center cursor-pointer hover:scale-[103%] max-w-sm bg-foreground-2 px-4 py-2 rounded-full'>
-              <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
-                {notification[message.type][stateCalled(message.sender._id)]}
-              </div>
-              <div className='flex flex-col mx-2'>
-                <div>{message.content}</div>
-                <div> {getDateTime(message.createdAt)}</div>
-              </div>
+      return (
+        <>
+          <div className='flex gap-2 flex-row-reverse items-end'>
+            <div
+              className={cn(
+                'px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
+                roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+              )}>
+              <Anchorme
+                linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
+                truncate={30}
+                target='_blank'
+                rel='noreferrer noopener'>
+                {content}
+              </Anchorme>
             </div>
           </div>
-        )}
-      </>
-    }
+        </>
+      );
+    };
 
     const receivedMedia = (content: string[]) => {
-      return <>
-        <div className='flex gap-2 flex-row-reverse items-start'>
-          <Link className='block rounded-[18px] border overflow-hidden' href='#'>
-            <div className='max-w-md'>
-              <div className='max-w-full relative w-72'>
-                <div className='relative' style={{ paddingBottom: '57.4286%' }}>
-                  <div className='w-full h-full absolute inset-0'>
-                    <Image
-                      width={500}
-                      height={500}
-                      src={getImageURL(content[0])}
-                      alt=''
-                      className='block max-w-full max-h-52 w-full h-full object-cover'
-                    />
-                  </div>
+      return (
+        <>
+          <div className='flex gap-3 items-end'>
+            {(!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup) ? (
+              <Image
+                width={500}
+                height={500}
+                src={getImageURL(message.sender.user_image, 'avatar_mini')!}
+                alt=''
+                className='w-9 h-9 rounded-full shadow'
+              />
+            ) : (
+              <div className='w-9 h-9 rounded-full'></div>
+            )}
+            <div>
+              {type === 'group' && !isOwn && !isPrevMesGroup && (
+                <div className='text-sm ml-2 mt-2'>
+                  <Link href={`/profile/${message.sender._id}`} className='flex flex-row gap-1'>
+                    {handleFirstName(message.sender.name)}
+                    {isAdmin &&
+                      (isCreator ? (
+                        <FaCrown className='ml-1 text-base' />
+                      ) : (
+                        <FaShieldHalved className='ml-1' />
+                      ))}
+                  </Link>
                 </div>
+              )}
+              <div className={cn('max-w-sm', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>
+                {content.length > 1 ? (
+                  <ImageList
+                    sx={{ width: content.length == 2 ? 336 : 500, height: 'auto' }}
+                    cols={content.length == 2 ? 2 : 3}
+                    rowHeight={'auto'}>
+                    {content.map((item) => (
+                      <ImageListItem key={item}>
+                        <Image
+                          width={500}
+                          height={500}
+                          src={getImageURL(item)}
+                          alt=''
+                          className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[18px]'
+                        />
+                      </ImageListItem>
+                    ))}
+                  </ImageList>
+                ) : (
+                  <Link className='block rounded-[18px] border overflow-hidden' href=''>
+                    <div className='max-w-md'>
+                      <div className='max-w-full relative w-72'>
+                        <div className='relative' style={{ paddingBottom: '57.4286%' }}>
+                          <div className='w-full h-full absolute inset-0'>
+                            <Image
+                              width={500}
+                              height={500}
+                              src={getImageURL(content[0])}
+                              alt=''
+                              className='block max-w-full max-h-52 w-full h-full object-cover'
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                )}
               </div>
             </div>
-          </Link>
-        </div>
-      </>
-    }
+          </div>
+        </>
+      );
+    };
 
     const sentMedia = (content: string[]) => {
-      return <>
-        <div className='flex gap-2 flex-row-reverse items-end'>
-          <Link className='block rounded-[18px] border overflow-hidden' href='#'>
-            <div className='max-w-md'>
-              <div className='max-w-full relative w-72'>
-                <div className='relative' style={{ paddingBottom: '57.4286%' }}>
-                  <div className='w-full h-full absolute inset-0'>
+      return (
+        <>
+          <div className='flex gap-2 flex-row-reverse items-end'>
+            {content.length > 1 ? (
+              <ImageList
+                sx={{ width: content.length == 2 ? 336 : 500, height: 'auto' }}
+                cols={content.length == 2 ? 2 : 3}
+                rowHeight={'auto'}>
+                {content.map((item) => (
+                  <ImageListItem key={item}>
                     <Image
                       width={500}
                       height={500}
-                      src={getImageURL(content[0])}
+                      src={getImageURL(item)}
                       alt=''
-                      className='block max-w-full max-h-52 w-full h-full object-cover'
+                      className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[18px]'
                     />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            ) : (
+              <Link className='block rounded-[18px] border overflow-hidden' href=''>
+                <div className='max-w-md'>
+                  <div className='max-w-full relative w-72'>
+                    <div className='relative' style={{ paddingBottom: '57.4286%' }}>
+                      <div className='w-full h-full absolute inset-0'>
+                        <Image
+                          width={500}
+                          height={500}
+                          src={getImageURL(content[0])}
+                          alt=''
+                          className='block max-w-full max-h-52 w-full h-full object-cover'
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            )}
+          </div>
+        </>
+      );
+    };
+
+    const messageCall = () => {
+      return (
+        <>
+          {isOwn ? (
+            <div className='flex gap-2 flex-row-reverse items-end my-[1px]'>
+              <div
+                className={cn(
+                  'flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
+                  roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                )}>
+                <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
+                  {notification[message.type][stateCalled(message.sender._id)]}
+                </div>
+                <div className='flex flex-col mx-2'>
+                  <div>{message.content}</div>
+                  <div> {getDateTime(message.createdAt)}</div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className='flex gap-3 items-end'>
+              {(!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup) ? (
+                <Image
+                  width={500}
+                  height={500}
+                  src={getImageURL(message.sender.user_image, 'avatar_mini')!}
+                  alt=''
+                  className='w-9 h-9 rounded-full shadow mb-1'
+                />
+              ) : (
+                <div className='w-9 h-9 rounded-full'></div>
+              )}
+              <div>
+                {type === 'group' && !isOwn && !isPrevMesGroup && (
+                  <div className='text-sm ml-2 mt-2'>
+                    <Link href={`/profile/${message.sender._id}`} className='flex flex-row gap-1'>
+                      {handleFirstName(message.sender.name)}
+                      {isAdmin &&
+                        (isCreator ? (
+                          <FaCrown className='ml-1 text-base' />
+                        ) : (
+                          <FaShieldHalved className='ml-1' />
+                        ))}
+                    </Link>
+                  </div>
+                )}
+                <div
+                  className={cn(
+                    'flex items-center cursor-pointer hover:scale-[103%] max-w-sm bg-foreground-2 px-4 py-2 !my-[1px]',
+                    roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                  )}>
+                  <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
+                    {notification[message.type][stateCalled(message.sender._id)]}
+                  </div>
+                  <div className='flex flex-col mx-2'>
+                    <div>{message.content}</div>
+                    <div> {getDateTime(message.createdAt)}</div>
                   </div>
                 </div>
               </div>
             </div>
-          </Link>
-        </div>
-      </>
-    }
+          )}
+        </>
+      );
+    };
 
     const time = (time: string) => {
-      return <>
-        <div className='flex justify-center my-4'>
-          <div className='font-medium text-gray-500 text-sm dark:text-white/70'>
-            {getDateTime(time)}
+      return (
+        <>
+          <div className='flex justify-center my-4'>
+            <div className='font-medium text-gray-500 text-sm dark:text-white/70'>{getDateTime(time)}</div>
           </div>
-        </div>
-      </>
-    }
+        </>
+      );
+    };
 
     const messageContent = () => {
       if (message.type === 'text') {
         if (!isOwn) {
-          return <>
-            {receivedMessage(message.content)}
-          </>
+          return <>{receivedMessage(message.content)}</>;
         } else {
-          return <>
-            {sentMessage(message.content)}
-          </>
+          return <>{sentMessage(message.content)}</>;
         }
       } else if (message.type === 'image') {
         if (!isOwn) {
-          return <>
-            {receivedMedia(message.images!)}
-          </>
+          return <>{receivedMedia(message.images!)}</>;
         } else {
-          return <>
-            {sentMedia(message.images!)}
-          </>
+          return <>{sentMedia(message.images!)}</>;
         }
       } else if (message.type === 'voice' || message.type === 'video') {
-        return <>
-          {messageCall()}
-        </>
+        return <>{messageCall()}</>;
       } else if (message.type === 'notification') {
-        return <>
-          <div className='flex justify-center mb-2'>
-            <div className='text-sm text-gray-500 font-semibold'>
-              {isOwn ? 'You' : message.sender.name}&nbsp;{message.content}
-            </div>
-          </div>
-        </>
-      }
-    }
-
-    return <>
-      {isMoreThan10Min && time(message.createdAt)}
-      {messageContent()}
-      <div className='seen-message text-xs font-light'>
-        <div className='relative flex flex-row-reverse items-end'>
-          {isLastMes &&
-            isOwn &&
-            seenList.length > 0 &&
-            seenList.map((userImage, index) => (
-              <div
-                key={index}
-                className='inline-block rounded-full overflow-hidden h-4 w-4 mt-1 mr-2 mb-2'>
-                <Image
-                  className='h-4 w-4'
-                  src={getImageURL(userImage, 'avatar_mini')}
-                  alt='User Image'
-                  width={500}
-                  height={500}
-                />
+        return (
+          <>
+            <div className='flex justify-center mb-2'>
+              <div className='text-sm text-gray-500 font-semibold'>
+                {isOwn ? 'You' : message.sender.name}&nbsp;{message.content}
               </div>
-            ))}
-          {isOwn && (
-            <>
-              {seenList.length === 0 && message.isSending && (
-                <svg
-                  className='w-4 h-4 text-gray-400 -mt-1 mr-2 mb-2'
-                  fill='currentColor'
-                  viewBox='0 0 20 20'
-                  xmlns='http://www.w3.org/2000/svg'>
-                  <circle cx='10' cy='10' r='8' stroke='currentColor' fill='none' />
-                </svg>
-              )}
-              {isLastMes && seenList.length === 0 && !message.isSending && (
-                <svg
-                  className='w-4 h-4 text-gray-400 -mt-1 mr-2 mb-2'
-                  fill='currentColor'
-                  viewBox='0 0 20 20'
-                  xmlns='http://www.w3.org/2000/svg'>
-                  <path
-                    fillRule='evenodd'
-                    d='M10 2a8 8 0 100 16 8 8 0 000-16zM8.707 7.707a1 1 0 00-1.414 1.414l2.5 2.5a1 1 0 001.414 0l5.5-5.5a1 1 0 10-1.414-1.414L10.5 9.086 8.707 7.707z'
+            </div>
+          </>
+        );
+      }
+    };
+
+    return (
+      <div ref={ref}>
+        {isMoreThan10Min && time(message.createdAt)}
+        <div className={!isNextMesGroup && !isPrevMesGroup ? 'my-2' : ''}>{messageContent()}</div>
+        <div className='text-xs font-light'>
+          <div className='relative flex flex-row-reverse items-end'>
+            {isLastMes &&
+              isOwn &&
+              seenList.length > 0 &&
+              seenList.map((userImage, index) => (
+                <div key={index} className='inline-block rounded-full overflow-hidden h-4 w-4 mt-1 mr-2 mb-2'>
+                  <Image
+                    className='h-4 w-4'
+                    src={getImageURL(userImage, 'avatar_mini')}
+                    alt='User Image'
+                    width={500}
+                    height={500}
                   />
-                </svg>
-              )}
-            </>
-          )}
+                </div>
+              ))}
+            {isOwn && (
+              <>
+                {seenList.length === 0 && message.isSending && (
+                  <svg
+                    className='w-4 h-4 text-gray-400 mt-1 mr-2 mb-2'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                    xmlns='http://www.w3.org/2000/svg'>
+                    <circle cx='10' cy='10' r='8' stroke='currentColor' fill='none' />
+                  </svg>
+                )}
+                {isLastMes && seenList.length === 0 && !message.isSending && (
+                  <svg
+                    className='w-4 h-4 text-gray-400 mt-1 mr-2 mb-2'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                    xmlns='http://www.w3.org/2000/svg'>
+                    <path
+                      fillRule='evenodd'
+                      d='M10 2a8 8 0 100 16 8 8 0 000-16zM8.707 7.707a1 1 0 00-1.414 1.414l2.5 2.5a1 1 0 001.414 0l5.5-5.5a1 1 0 10-1.414-1.414L10.5 9.086 8.707 7.707z'
+                    />
+                  </svg>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </>
-  })
+    );
+  }
+);
 
-export default MessageBox;  
+export default MessageBox;

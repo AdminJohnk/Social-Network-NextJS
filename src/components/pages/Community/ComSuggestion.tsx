@@ -14,7 +14,7 @@ export default function ComSuggestion(props: IComSuggestionProps) {
           <h2 className='h5-semibold'>{t('Suggestions')}</h2>
           <p className='base-regular text-text-2 leading-6'>Find a communities You Might Be Interested In.</p>
         </div>
-        <Link href='#' className='text-blue-500 sm:block hidden text-sm'>
+        <Link href='' className='text-blue-500 sm:block hidden text-sm'>
           {t('See all')}
         </Link>
       </div>

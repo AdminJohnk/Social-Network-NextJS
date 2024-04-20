@@ -54,7 +54,7 @@ export default function Friends({ profileID }: IFriendsProps) {
             {t('Num Friends', { count: otherUserInfo?.friends?.length || 0 })}
           </span>
         </h3>
-        <Link href='#' className='text-sm text-blue-500'>
+        <Link href='' className='text-sm text-blue-500'>
           {t('Find Friend')}
         </Link>
       </div>

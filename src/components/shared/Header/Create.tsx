@@ -74,13 +74,13 @@ export default function CreateHeader() {
           <div className='dark:hidden'>
             <Link
               className='absolute -translate-y-1/2 top-1/2 -left-4 flex items-center w-8 h-full px-1.5 justify-start bg-gradient-to-r from-white via-white dark:from-transparent dark:via-transparent'
-              href='#'
+              href=''
               data-uk-slider-item='previous'>
               <IoChevronBack className='text-xl' />
             </Link>
             <Link
               className='absolute -translate-y-1/2 top-1/2 -right-4 flex items-center w-8 h-full px-1.5 justify-end bg-gradient-to-l from-white via-white dark:from-transparent dark:via-transparent'
-              href='#'
+              href=''
               data-uk-slider-item='next'>
               <IoChevronForward className='text-xl' />
             </Link>

@@ -1,21 +1,25 @@
 import { useTranslations } from 'next-intl';
-import { CiBookmark, CiFlag1 } from 'react-icons/ci';
-import {
-  IoOpenOutline,
-  IoTrashOutline,
-  IoBookmark,
-  IoBookmarkOutline
-} from 'react-icons/io5';
+import { CiFlag1 } from 'react-icons/ci';
+import { IoOpenOutline, IoTrashOutline, IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { FiEdit } from 'react-icons/fi';
-import { Link } from '@/navigation';
 import { IPost } from '@/types';
 import { IFeaturePost } from '@/types';
 import { useDeletePost, useSavePost, useSharePost } from '@/hooks/mutation';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { Modal } from '@mui/material';
-import YesNoQuestion from '../YesNoQuestion';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { cn } from '@/lib/utils';
+import { CircularProgress } from '@mui/material';
+import { Button } from '@/components/ui/button';
 
 export interface IPostMoreChooseProps {
   post: IPost;
@@ -23,11 +27,7 @@ export interface IPostMoreChooseProps {
   feature?: IFeaturePost;
 }
 
-export default function PostMoreChoose({
-  post,
-  isMyPost,
-  feature
-}: IPostMoreChooseProps) {
+export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreChooseProps) {
   const t = useTranslations();
   const { data: session } = useSession();
   const userID = session?.id || '';
@@ -86,7 +86,7 @@ export default function PostMoreChoose({
   };
 
   return (
-    <div className='post-more-choose w-56 bg-foreground-1 border border-border-1 text-text-1 p-2'>
+    <div className='post-more-choose w-56 bg-foreground-1 border border-border-1 rounded-lg text-text-1 p-2'>
       {/* Open Post In New Tab */}
       <div>
         {feature === 'detail' ? (
@@ -94,11 +94,10 @@ export default function PostMoreChoose({
         ) : (
           <div
             className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               window.open('/posts/' + post._id, '_blank');
-            }}
-          >
+            }}>
             <span className='text-2xl'>
               <IoOpenOutline />
             </span>
@@ -111,14 +110,9 @@ export default function PostMoreChoose({
           onClick={() => {
             setIsSaved(!is_saved);
             mutateSavePost(post._id);
-          }}
-        >
-          <span className='text-2xl'>
-            {is_saved ? <IoBookmark /> : <IoBookmarkOutline />}
-          </span>
-          <span>
-            {is_saved ? t('Remove From Favorite') : t('Add To Favorite')}
-          </span>
+          }}>
+          <span className='text-2xl'>{is_saved ? <IoBookmark /> : <IoBookmarkOutline />}</span>
+          <span>{is_saved ? t('Remove From Favorite') : t('Add To Favorite')}</span>
         </div>
         {isMyPost && (
           <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'>
@@ -137,37 +131,40 @@ export default function PostMoreChoose({
         </div>
         {/* Delete Post */}
         {isMyPost && (
-          <div
-            className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
-            onClick={() => {
-              handleOpen();
-              if (post.type === 'Post') {
-              } else {
-              }
-            }}
-          >
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby='modal-modal-title'
-              aria-describedby='modal-modal-description'
-            >
-              <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
-                <YesNoQuestion
-                  title='Are you sure delete this post?'
-                  content='You will not be able to recover post after deletion!'
-                  type='warning'
-                  isLoading={isLoading}
-                  action={handleDeletePost}
-                  cancel={handleClose}
-                />
-              </div>
-            </Modal>
-            <span className='text-2xl'>
-              <IoTrashOutline />
-            </span>
-            <span>{t('Delete Post')}</span>
-          </div>
+          <AlertDialog open={open}>
+            <AlertDialogTrigger
+              className='flex w-full gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
+              onClick={handleOpen}>
+              <span className='text-2xl'>
+                <IoTrashOutline />
+              </span>
+              <span>{t('Delete Post')}</span>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{t('Are you absolutely sure delete this post?')}</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {t('You will not be able to recover post after deletion!')}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <Button
+                  variant='destructive'
+                  className={cn(isLoading && 'select-none')}
+                  disabled={isLoading}
+                  onClick={handleClose}>
+                  {t('Cancel')}
+                </Button>
+                <Button
+                  className={cn(isLoading && 'select-none')}
+                  disabled={isLoading}
+                  onClick={handleDeletePost}>
+                  {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+                  {t('Delete')}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         )}
       </div>
     </div>

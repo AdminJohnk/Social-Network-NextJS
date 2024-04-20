@@ -12,7 +12,7 @@ export default function RecommendWriter(props: IRecommendWriterProps) {
     <div className='bg-foreground-1 p-6 rounded-md mt-8 shadow'>
       <div className='flex items-center justify-between'>
         <h3 className='text-lg font-semibold'>{t('Recommended Writers for you')}</h3>
-        <Link href='#' className='text-sm text-blue-500 flex items-center gap-2'>
+        <Link href='' className='text-sm text-blue-500 flex items-center gap-2'>
           {t('See all')} <IoChevronForward />
         </Link>
       </div>

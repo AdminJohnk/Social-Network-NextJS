@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations, useFormatter, useNow } from 'next-intl';
+import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
 import { useMemo } from 'react';

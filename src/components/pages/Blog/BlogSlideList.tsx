@@ -26,7 +26,7 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
                   </h4>
                 </Link>
                 <p className='card-text text-xs mt-1.5'>
-                  <Link href='#'> Jesse Steeve </Link>
+                  <Link href=''> Jesse Steeve </Link>
                 </p>
                 <div className='card-list-info mt-1 text-xs'>
                   <div> 10 Jun 2022 </div>
@@ -51,7 +51,7 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
                   </h4>
                 </Link>
                 <p className='card-text text-xs mt-1.5'>
-                  <Link href='#'> John Michael</Link>
+                  <Link href=''> John Michael</Link>
                 </p>
                 <div className='card-list-info mt-1 text-xs'>
                   <div> 10 Jun 2022 </div>
@@ -76,7 +76,7 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
                   </h4>
                 </Link>
                 <p className='card-text text-xs mt-1.5'>
-                  <Link href='#'> Monroe Parker </Link>
+                  <Link href=''> Monroe Parker </Link>
                 </p>
                 <div className='card-list-info mt-1 text-xs'>
                   <div> 10 Jun 2022 </div>
@@ -101,7 +101,7 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
                   </h4>
                 </Link>
                 <p className='card-text text-xs mt-1.5'>
-                  <Link href='#'> Martin Gray </Link>
+                  <Link href=''> Martin Gray </Link>
                 </p>
                 <div className='card-list-info mt-1 text-xs'>
                   <div> 10 Jun 2022 </div>
@@ -114,10 +114,10 @@ export default function BlogSlideList(props: IBlogSlideListProps) {
         </ul>
       </div>
 
-      <Link className='nav-prev !top-24' href='#' data-uk-slider-item='previous'>
+      <Link className='nav-prev !top-24' href='' data-uk-slider-item='previous'>
         <IoChevronBack />
       </Link>
-      <Link className='nav-next !top-24' href='#' data-uk-slider-item='next'>
+      <Link className='nav-next !top-24' href='' data-uk-slider-item='next'>
         <IoChevronForward />
       </Link>
     </div>

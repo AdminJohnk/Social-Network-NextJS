@@ -22,11 +22,7 @@ const AvatarMessage: React.FC<IAvatar> = ({ size = 36, user, preview = false }) 
           src={getImageURL(user.user_image, 'avatar_mini')!}
           alt='Avatar'
           referrerPolicy="no-referrer"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
-          }}
+          className="object-cover w-full h-full"
         />
       </div>
       {isActive && (

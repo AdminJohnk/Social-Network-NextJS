@@ -16,7 +16,7 @@ export default function ComCategory(props: IComCategoryProps) {
             Find a community by browsing top categories.
           </p>
         </div>
-        <Link href='#' className='text-blue-500 sm:block hidden text-sm'>
+        <Link href='' className='text-blue-500 sm:block hidden text-sm'>
           {t('See all')}
         </Link>
       </div>
@@ -25,7 +25,7 @@ export default function ComCategory(props: IComCategoryProps) {
         <div className='uk-slider-container pb-1'>
           <ul className='uk-slider-items grid-small'>
             <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-              <Link href='#'>
+              <Link href=''>
                 <div className='relative rounded-lg overflow-hidden'>
                   <Image
                     width={500}
@@ -41,7 +41,7 @@ export default function ComCategory(props: IComCategoryProps) {
               </Link>
             </li>
             <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-              <Link href='#'>
+              <Link href=''>
                 <div className='relative rounded-lg overflow-hidden'>
                   <Image
                     width={500}
@@ -57,7 +57,7 @@ export default function ComCategory(props: IComCategoryProps) {
               </Link>
             </li>
             <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-              <Link href='#'>
+              <Link href=''>
                 <div className='relative rounded-lg overflow-hidden'>
                   <Image
                     width={500}
@@ -73,7 +73,7 @@ export default function ComCategory(props: IComCategoryProps) {
               </Link>
             </li>
             <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-              <Link href='#'>
+              <Link href=''>
                 <div className='relative rounded-lg overflow-hidden'>
                   <Image
                     width={500}
@@ -89,7 +89,7 @@ export default function ComCategory(props: IComCategoryProps) {
               </Link>
             </li>
             <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-              <Link href='#'>
+              <Link href=''>
                 <div className='relative rounded-lg overflow-hidden'>
                   <Image
                     width={500}
@@ -105,7 +105,7 @@ export default function ComCategory(props: IComCategoryProps) {
               </Link>
             </li>
             <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-              <Link href='#'>
+              <Link href=''>
                 <div className='relative rounded-lg overflow-hidden'>
                   <Image
                     width={500}
@@ -123,10 +123,10 @@ export default function ComCategory(props: IComCategoryProps) {
           </ul>
         </div>
 
-        <Link className='nav-prev' href='#' data-uk-slider-item='previous'>
+        <Link className='nav-prev' href='' data-uk-slider-item='previous'>
           <IoChevronBack />
         </Link>
-        <Link className='nav-next' href='#' data-uk-slider-item='next'>
+        <Link className='nav-next' href='' data-uk-slider-item='next'>
           <IoChevronForward />
         </Link>
       </div>

@@ -15,7 +15,6 @@ export default function Event({ params: { locale } }: IEventProps) {
   unstable_setRequestLocale(locale);
   const t = useTranslations();
 
-
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-0'>
       <div className='newsfeed px-5 py-5'>
@@ -50,7 +49,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> About Safety and Flight </h4>
                             </Link>
-                            <Link href='#'>
+                            <Link href=''>
                               <p className='card-text text-black mt-2'> Dubai </p>
                             </Link>
                             <div className='card-list-info text-xs mt-1'>
@@ -86,7 +85,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> Wedding trend Ideas </h4>
                             </Link>
-                            <Link href='#'>
+                            <Link href=''>
                               <p className='card-text text-black mt-2'> Turkey </p>
                             </Link>
                             <div className='card-list-info text-xs mt-1'>
@@ -122,7 +121,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> The global creative </h4>
                             </Link>
-                            <Link href='#'>
+                            <Link href=''>
                               <p className='card-text text-black mt-2'> Japan </p>
                             </Link>
                             <div className='card-list-info text-xs mt-1'>
@@ -158,7 +157,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> Perspective is everything </h4>
                             </Link>
-                            <Link href='#'>
+                            <Link href=''>
                               <p className='card-text text-black mt-2'> London </p>
                             </Link>
                             <div className='card-list-info text-xs mt-1'>
@@ -194,7 +193,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> About Safety and Flight </h4>
                             </Link>
-                            <Link href='#'>
+                            <Link href=''>
                               <p className='card-text text-black mt-2'> Dubai </p>
                             </Link>
                             <div className='card-list-info text-xs mt-1'>
@@ -221,10 +220,10 @@ export default function Event({ params: { locale } }: IEventProps) {
                   </div>
 
                   {/* <!-- slide nav icons --> */}
-                  <Link className='nav-prev !top-20' href='#' data-uk-slider-item='previous'>
+                  <Link className='nav-prev !top-20' href='' data-uk-slider-item='previous'>
                     <IoChevronBack className='text-2xl' />
                   </Link>
-                  <Link className='nav-next !top-20' href='#' data-uk-slider-item='next'>
+                  <Link className='nav-next !top-20' href='' data-uk-slider-item='next'>
                     <IoChevronForward className='text-2xl' />
                   </Link>
                 </div>
@@ -236,7 +235,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                       {t('Find a group by browsing top categories')}.
                     </p>
                   </div>
-                  <Link href='#' className='text-blue-500 sm:block hidden text-sm'>
+                  <Link href='' className='text-blue-500 sm:block hidden text-sm'>
                     {t('See all')}
                   </Link>
                 </div>
@@ -246,7 +245,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                   <div className='uk-slider-container pb-1'>
                     <ul className='uk-slider-items grid-small'>
                       <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-                        <Link href='#'>
+                        <Link href=''>
                           <div className='relative rounded-lg overflow-hidden'>
                             <Image
                               width={500}
@@ -265,7 +264,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                         </Link>
                       </li>
                       <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-                        <Link href='#'>
+                        <Link href=''>
                           <div className='relative rounded-lg overflow-hidden'>
                             <Image
                               width={500}
@@ -284,7 +283,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                         </Link>
                       </li>
                       <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-                        <Link href='#'>
+                        <Link href=''>
                           <div className='relative rounded-lg overflow-hidden'>
                             <Image
                               width={500}
@@ -303,7 +302,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                         </Link>
                       </li>
                       <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-                        <Link href='#'>
+                        <Link href=''>
                           <div className='relative rounded-lg overflow-hidden'>
                             <Image
                               width={500}
@@ -322,7 +321,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                         </Link>
                       </li>
                       <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-                        <Link href='#'>
+                        <Link href=''>
                           <div className='relative rounded-lg overflow-hidden'>
                             <Image
                               width={500}
@@ -341,7 +340,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                         </Link>
                       </li>
                       <li className='md:w-1/5 sm:w-1/3 w-1/2'>
-                        <Link href='#'>
+                        <Link href=''>
                           <div className='relative rounded-lg overflow-hidden'>
                             <Image
                               width={500}
@@ -363,17 +362,17 @@ export default function Event({ params: { locale } }: IEventProps) {
                   </div>
 
                   {/* <!-- slide nav icons --> */}
-                  <Link className='nav-prev' href='#' data-uk-slider-item='previous'>
+                  <Link className='nav-prev' href='' data-uk-slider-item='previous'>
                     <IoChevronBack className='text-2xl' />
                   </Link>
-                  <Link className='nav-next' href='#' data-uk-slider-item='next'>
+                  <Link className='nav-next' href='' data-uk-slider-item='next'>
                     <IoChevronForward className='text-2xl' />
                   </Link>
                 </div>
 
                 <div className='flex items-center justify-between text-black dark:text-white py-3 mt-6'>
                   <h3 className='text-xl font-semibold'> {t('Upcoming Events')} </h3>
-                  <Link href='#' className='text-sm text-blue-500'>
+                  <Link href='' className='text-sm text-blue-500'>
                     {t('See all')}
                   </Link>
                 </div>
@@ -394,7 +393,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                       <Link href='/events/123'>
                         <h4 className='card-title text-sm'> The global creative </h4>
                       </Link>
-                      <Link href='#'>
+                      <Link href=''>
                         <p className='card-text text-black mt-2'> Japan </p>
                       </Link>
                       <div className='card-list-info text-xs mt-1'>
@@ -429,7 +428,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                       <Link href='/events/123'>
                         <h4 className='card-title text-sm'> Wedding trend Ideas </h4>
                       </Link>
-                      <Link href='#'>
+                      <Link href=''>
                         <p className='card-text text-black mt-2'> Turkey </p>
                       </Link>
                       <div className='card-list-info text-xs mt-1'>
@@ -466,7 +465,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                       <Link href='/events/123'>
                         <h4 className='card-title text-sm'> About Safety and Flight </h4>
                       </Link>
-                      <Link href='#'>
+                      <Link href=''>
                         <p className='card-text text-black mt-2'> Dubai </p>
                       </Link>
                       <div className='card-list-info text-xs mt-1'>
@@ -501,7 +500,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                       <Link href='/events/123'>
                         <h4 className='card-title text-sm'> Perspective is everything </h4>
                       </Link>
-                      <Link href='#'>
+                      <Link href=''>
                         <p className='card-text text-black mt-2'> London </p>
                       </Link>
                       <div className='card-list-info text-xs mt-1'>
