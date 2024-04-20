@@ -193,55 +193,57 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           ) : (
             <div className='w-9 h-9 rounded-full'></div>
           )}
-          {type === 'group' && !isOwn && !isPrevMesGroup && (
-            <div
-              className='text-sm ml-2 mt-2'>
-              <Link href={`/profile/${message.sender._id}`} className='flex flex-row gap-1'>
-                {handleFirstName(message.sender.name)}
-                {isAdmin &&
-                  (isCreator ? (
-                    <FaCrown className='ml-1 text-base' />
-                  ) : (
-                    <FaShieldHalved className='ml-1' />
-                  ))}
-              </Link>
-            </div>
-          )}
-          <div className={cn('max-w-sm bg-foreground-2', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>
-            {content.length > 1 ? (
-              <ImageList sx={{ width: content.length == 2 ? 336 : 500, height: 'auto' }} cols={content.length == 2 ? 2 : 3} rowHeight={'auto'}>
-                {content.map((item) => (
-                  <ImageListItem key={item}>
-                    <Image
-                      width={500}
-                      height={500}
-                      src={getImageURL(item)}
-                      alt=''
-                      className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[18px]'
-                    />
-                  </ImageListItem>
-                ))
-                }
-              </ImageList>
-            ) : (
-              <Link className='block rounded-[18px] border overflow-hidden' href='#'>
-                <div className='max-w-md'>
-                  <div className='max-w-full relative w-72'>
-                    <div className='relative' style={{ paddingBottom: '57.4286%' }}>
-                      <div className='w-full h-full absolute inset-0'>
-                        <Image
-                          width={500}
-                          height={500}
-                          src={getImageURL(content[0])}
-                          alt=''
-                          className='block max-w-full max-h-52 w-full h-full object-cover'
-                        />
+          <div>
+            {type === 'group' && !isOwn && !isPrevMesGroup && (
+              <div
+                className='text-sm ml-2 mt-2'>
+                <Link href={`/profile/${message.sender._id}`} className='flex flex-row gap-1'>
+                  {handleFirstName(message.sender.name)}
+                  {isAdmin &&
+                    (isCreator ? (
+                      <FaCrown className='ml-1 text-base' />
+                    ) : (
+                      <FaShieldHalved className='ml-1' />
+                    ))}
+                </Link>
+              </div>
+            )}
+            <div className={cn('max-w-sm', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>
+              {content.length > 1 ? (
+                <ImageList sx={{ width: content.length == 2 ? 336 : 500, height: 'auto' }} cols={content.length == 2 ? 2 : 3} rowHeight={'auto'}>
+                  {content.map((item) => (
+                    <ImageListItem key={item}>
+                      <Image
+                        width={500}
+                        height={500}
+                        src={getImageURL(item)}
+                        alt=''
+                        className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[18px]'
+                      />
+                    </ImageListItem>
+                  ))
+                  }
+                </ImageList>
+              ) : (
+                <Link className='block rounded-[18px] border overflow-hidden' href='#'>
+                  <div className='max-w-md'>
+                    <div className='max-w-full relative w-72'>
+                      <div className='relative' style={{ paddingBottom: '57.4286%' }}>
+                        <div className='w-full h-full absolute inset-0'>
+                          <Image
+                            width={500}
+                            height={500}
+                            src={getImageURL(content[0])}
+                            alt=''
+                            className='block max-w-full max-h-52 w-full h-full object-cover'
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            )}
+                </Link>
+              )}
+            </div>
           </div>
         </div >
       </>
