@@ -16,16 +16,12 @@ export default function RepositoryTab({ profileID }: IRepositoryTabProps) {
     <div className='bg-foreground-1 my-8 w-full rounded-md'>
       {otherUserInfo?.repositories.length <= 0 ? (
         <div className='w-full px-10 py-8 flex-center'>
-          <Nodata
-            width={150}
-            height={150}
-            title={'No repository found'}
-          ></Nodata>
+          <Nodata width={150} height={150} title={'No repository found'}></Nodata>
         </div>
       ) : (
         <div className='flex flex-wrap px-10 py-8 gap-10 w-full'>
-          {otherUserInfo?.repositories.map((repo, index) => (
-            <div className='w-[calc(50%-2.5rem)] border-b border-border-1 pb-3'>
+          {otherUserInfo?.repositories.map((repo) => (
+            <div key={repo.id} className='w-[calc(50%-2.5rem)] border-b border-border-1 pb-3'>
               <Repository key={repo.id} item={repo} />
             </div>
           ))}

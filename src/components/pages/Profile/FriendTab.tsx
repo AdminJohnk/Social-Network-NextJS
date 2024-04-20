@@ -41,7 +41,7 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
         />
         <div className='ml-3'>
           <div>{friend.name}</div>
-          {friend?.experiences.length > 0 && (
+          {friend?.experiences?.length > 0 && (
             <span className='small-regular text-text-2 mt-1'>
               Work at
               <span className='mx-1 small-bold'>
@@ -73,7 +73,7 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
             mutateAddFriendUser(friend._id);
           }}
         >
-          {t('Add friend')}
+          {t('Add Friend')}
         </Button>
       )}
     </div>
