@@ -50,15 +50,15 @@ export default function NotificationsHeader() {
               className='w-[280px] group'
               data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click; offset:5'>
               <nav className='text-sm'>
-                <Link href='#'>
+                <Link href=''>
                   <IoCheckmarkCircleOutline className='text-xl shrink-0' />
                   {t('Mark all as read')}
                 </Link>
-                <Link href='#'>
+                <Link href=''>
                   <IoSettingsOutline className='text-xl shrink-0' />
                   {t('Notification setting')}
                 </Link>
-                <Link href='#'>
+                <Link href=''>
                   <IoNotificationsOffOutline className='text-xl shrink-0' />
                   {t('Mute Notification')}
                 </Link>
@@ -70,7 +70,7 @@ export default function NotificationsHeader() {
         <div className='text-sm h-[400px] w-full overflow-y-auto pr-2 custom-scrollbar-fg'>
           <div className='pl-2 p-1 text-sm font-normal'>
             <Link
-              href='#'
+              href=''
               className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2 bg-teal-500/5'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
@@ -91,7 +91,7 @@ export default function NotificationsHeader() {
               </div>
             </Link>
             <Link
-              href='#'
+              href=''
               className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
@@ -111,7 +111,7 @@ export default function NotificationsHeader() {
               </div>
             </Link>
             <Link
-              href='#'
+              href=''
               className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
@@ -131,7 +131,7 @@ export default function NotificationsHeader() {
               </div>
             </Link>
             <Link
-              href='#'
+              href=''
               className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
@@ -151,7 +151,7 @@ export default function NotificationsHeader() {
               <Button type='button'>{t('Follow')}</Button>
             </Link>
             <Link
-              href='#'
+              href=''
               className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2 bg-teal-500/5'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
@@ -172,7 +172,7 @@ export default function NotificationsHeader() {
               </div>
             </Link>
             <Link
-              href='#'
+              href=''
               className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
@@ -192,7 +192,7 @@ export default function NotificationsHeader() {
               </div>
             </Link>
             <Link
-              href='#'
+              href=''
               className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
@@ -212,7 +212,7 @@ export default function NotificationsHeader() {
               </div>
             </Link>
             <Link
-              href='#'
+              href=''
               className='relative flex items-center gap-3 p-2 duration-200 rounded-xl pr-10 hover:bg-hover-2'>
               <div className='relative w-12 h-12 shrink-0'>
                 <Image
@@ -233,7 +233,7 @@ export default function NotificationsHeader() {
           </div>
         </div>
 
-        <Link href='#'>
+        <Link href=''>
           <div className='text-center py-4 border-t border-border-1 text-sm font-medium text-blue-600 '>
             {t('View Notifications')}
           </div>

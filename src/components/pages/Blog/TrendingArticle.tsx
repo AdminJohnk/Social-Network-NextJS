@@ -9,7 +9,7 @@ export default function TrendingArticle(props: ITrendingArticleProps) {
     <div className='box p-5 px-6 bg-foreground-1'>
       <div className='flex items-baseline justify-between'>
         <h3 className='font-bold text-base'> {t('Trending Articles')}</h3>
-        <Link href='#' className='text-sm text-blue-500'>
+        <Link href='' className='text-sm text-blue-500'>
           {t('See all')}
         </Link>
       </div>

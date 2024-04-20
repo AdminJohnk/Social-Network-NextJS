@@ -16,7 +16,7 @@ export default function BlogMain(props: IBlogMainProps) {
       </div>
       <div className='card-body p-5 w-full z-10 absolute bg-gradient-to-t bottom-0 from-black/60'>
         <p className='card-text'>
-          <Link href='#'> Denise Marie </Link>
+          <Link href=''> Denise Marie </Link>
         </p>
         <h4 className='card-title text-xl mt-1.5'>Exploring an Abandoned Water Park in China</h4>
 

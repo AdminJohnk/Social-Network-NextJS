@@ -10,7 +10,7 @@ export default function Shortcuts() {
       <div className='px-3 pb-2 text-sm font-medium'>
         <div className='text-text-1'>{t('Shortcut')}</div>
       </div>
-      <Link href='#'>
+      <Link href=''>
         <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-hover-1'>
           <Image
             src='/images/home/avatar-2.jpg'
@@ -22,7 +22,7 @@ export default function Shortcuts() {
           <div>Marin Gray</div>
         </div>
       </Link>
-      <Link href='#'>
+      <Link href=''>
         <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-hover-1'>
           <Image
             src='/images/home/avatar-7.jpg'
@@ -34,7 +34,7 @@ export default function Shortcuts() {
           <div>Alexa Stella</div>
         </div>
       </Link>
-      <Link href='#'>
+      <Link href=''>
         <div className='flex items-center gap-2 p-3 px-4 rounded-xl hover:bg-hover-1'>
           <Image
             src='/images/home/avatar-3.jpg'

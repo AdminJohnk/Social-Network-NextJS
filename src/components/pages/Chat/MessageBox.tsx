@@ -1,4 +1,5 @@
 import { forwardRef, useMemo } from 'react';
+import { Anchorme, LinkComponentProps } from 'react-anchorme';
 import { getDateTime } from '@/lib/descriptions/formatDateTime';
 import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
@@ -51,6 +52,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       }
       return 'incoming';
     };
+
     const notification: Record<string, Record<string, JSX.Element>> = {
       video: {
         incoming: (
@@ -141,7 +143,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 className='w-9 h-9 rounded-full shadow'
               />
             ) : (
-              <div className='w-9 h-9 rounded-full'></div>
+              <div className='w-9 h-9 rounded-full' />
             )}
             <div>
               {type === 'group' && !isOwn && !isPrevMesGroup && (
@@ -162,7 +164,13 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   'px-4 py-2 max-w-sm w-min bg-foreground-2',
                   roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
                 )}>
-                {content}
+                <Anchorme
+                  linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
+                  truncate={30}
+                  target='_blank'
+                  rel='noreferrer noopener'>
+                  {content}
+                </Anchorme>
               </div>
             </div>
           </div>
@@ -179,7 +187,13 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 'px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
                 roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
               )}>
-              {content}
+              <Anchorme
+                linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
+                truncate={30}
+                target='_blank'
+                rel='noreferrer noopener'>
+                {content}
+              </Anchorme>
             </div>
           </div>
         </>
@@ -234,7 +248,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                     ))}
                   </ImageList>
                 ) : (
-                  <Link className='block rounded-[18px] border overflow-hidden' href='#'>
+                  <Link className='block rounded-[18px] border overflow-hidden' href=''>
                     <div className='max-w-md'>
                       <div className='max-w-full relative w-72'>
                         <div className='relative' style={{ paddingBottom: '57.4286%' }}>

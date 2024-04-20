@@ -27,7 +27,7 @@ export default function ComSuggestionList(props: IComSuggestionListProps) {
             <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> {t('Travel')} </Link>
+            <Link href=''> {t('Travel')} </Link>
             <div className='md:block hidden'>·</div>
             <div>232k {t(' members')} </div>
           </div>
@@ -62,7 +62,7 @@ export default function ComSuggestionList(props: IComSuggestionListProps) {
             <h4 className='card-title'> {t('Abstract minimal')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> {t('Technology')} </Link>
+            <Link href=''> {t('Technology')} </Link>
             <div className='md:block hidden'>·</div>
             <div> 328k {t(' members')} </div>
           </div>
@@ -97,7 +97,7 @@ export default function ComSuggestionList(props: IComSuggestionListProps) {
             <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> {t('Business')} </Link>
+            <Link href=''> {t('Business')} </Link>
             <div className='md:block hidden'>·</div>
             <div> 436k {t(' members')} </div>
           </div>
@@ -132,7 +132,7 @@ export default function ComSuggestionList(props: IComSuggestionListProps) {
             <h4 className='card-title'> {t('Graphic Design')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href='#'> {t('Design')} </Link>
+            <Link href=''> {t('Design')} </Link>
             <div className='md:block hidden'>·</div>
             <div> {t('420k members')} </div>
           </div>
