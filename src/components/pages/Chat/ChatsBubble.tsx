@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
@@ -38,7 +38,7 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
       ) : (
         <>
           <ChatHeading conversationID={conversationID[0]} otherUser={otherUser} />
-          <div className='w-full p-5 py-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg'>
+          <div className='w-full p-5 pt-10 pb-5 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg'>
             <div className='py-10 flex-center flex-col text-center text-sm lg:pt-8'>
               {currentConversation.type === 'group' ? (
                 <AvatarGroup

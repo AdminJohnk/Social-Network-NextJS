@@ -5,6 +5,7 @@ import { Link } from '@/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { Modal } from '@mui/material';
 import {
   IoClose,
   IoImageOutline,
@@ -15,14 +16,15 @@ import {
   IoStopCircleOutline,
   IoTrashOutline
 } from 'react-icons/io5';
+import { FaArrowLeft, FaCrown, FaDownload, FaPlusCircle, FaRegUser, FaUser, FaUserShield } from 'react-icons/fa';
 
 import { useCurrentConversationData, useCurrentUserInfo, useMessagesImage } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { IMessage } from '@/types';
 import { getImageURL } from '@/lib/utils';
-import { FaArrowLeft, FaCrown, FaDownload, FaPlusCircle, FaRegUser, FaUser, FaUserShield } from 'react-icons/fa';
 import { getDateTimeToNow } from '@/lib/descriptions/formatDateTime';
+import MembersToGroup from './Modal/MembersToGroup';
 
 export interface IChatInfoProps {
   conversationID: string[] | undefined;
@@ -32,8 +34,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   if (conversationID === undefined) return <></>;
 
   const t = useTranslations();
-  const { data: session } = useSession();
 
+  const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
   const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID[0]);
@@ -170,6 +172,13 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
     return listItems(items, 'No images', isLoadingMessagesImage);
   };
 
+  useEffect(() => {
+    console.log(openAddMember)
+  }, [openAddMember]);
+
+  const handleOpen = () => setOpenAddMember(true);
+  const handleClose = () => setOpenAddMember(false);
+
   return (
     <>
       {isLoadingCurrentConversation ? (
@@ -270,7 +279,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 ))}
               </>
             ) : (
-              <ul className='text-base font-medium pl-1' data-uk-nav>
+              <ul className='text-base font-medium px-1' data-uk-nav>
                 <li>
                   <div className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
                     <IoNotificationsOffOutline className='text-2xl' />
@@ -299,7 +308,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       <IoPersonOutline className='text-2xl' /> {t('Members')}
                     </Link>
                     <ul>
-                      <div className='ml-2 w-full'>
+                      <div className='ml-1 w-full flex flex-col items-center'>
                         <div className='listUser flex flex-col w-full pl-3' style={{ overflow: 'auto' }}>
                           {currentConversation.members.map((member) => {
                             const isAdmin = currentConversation.admins.some((admin) => admin._id === member._id);
@@ -370,10 +379,24 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                         </div>
                         {currentConversation.admins.some((admin) => admin._id === currentUserInfo?._id) && (
                           <div
-                            className='add-member mt-3 w-full flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-full'
-                            onClick={() => setOpenAddMember(!openAddMember)}>
+                            className='add-member mt-3 w-11/12 flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-full hover:bg-hover-1 select-none'
+                            onClick={handleOpen}>
                             <FaPlusCircle className='text-2xl' />
-                            <span className='text-sm font-medium text-left ml-2'>Add members</span>
+                            <span className='text-sm font-medium text-left ml-2 select-none'>Add members</span>
+                            <Modal
+                              open={openAddMember}
+                              onClose={handleClose}
+                              aria-labelledby='modal-modal-title'
+                              aria-describedby='modal-modal-description'
+                            >
+                              <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
+                                <MembersToGroup
+                                  users={currentConversation.members}
+                                  conversationID={currentConversation._id}
+                                  handleClose={handleClose}
+                                />
+                              </div>
+                            </Modal>
                           </div>
                         )}
                       </div>
