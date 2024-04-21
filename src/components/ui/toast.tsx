@@ -1,8 +1,7 @@
-import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { Bounce, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const showSuccessToast = (mes: string) => {
-
   toast.success(mes, {
     position: 'top-right',
     autoClose: 3000,

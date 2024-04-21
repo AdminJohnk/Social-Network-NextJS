@@ -101,6 +101,7 @@
   "Mute Notification": "静音通知",
   "Ignore messages": "忽略消息",
   "Delete Chat": "删除聊天",
+  "Create New Group": "创建新群组",
   "Remove member": "移除成员",
   "Revoke administrator": "撤销管理员",
   "Commission as administrator": "委任为管理员",
@@ -256,5 +257,12 @@
   "New Password": "新密码",
   "Confirm New Password": "确认新密码",
   "The old password is incorrect!": "旧密码不正确!",
-  "Your repository has been updated successfully!": "您的存储库已成功更新!"
+  "Your repository has been updated successfully!": "您的存储库已成功更新!",
+  "Repositories": "存储库",
+  "Work at": "工作于",
+  "as a": "作为",
+  "Cancel Request": "取消请求",
+  "Response": "响应",
+  "Accept": "接受",
+  "Decline": "拒绝"
 }

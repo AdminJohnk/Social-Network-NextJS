@@ -100,6 +100,7 @@
   "Administrator": "Quản trị viên",
   "Mute Notification": "Tắt thông báo",
   "Ignore messages": "Bỏ qua tin nhắn",
+  "Create New Group": "Tạo nhóm mới",
   "Delete Chat": "Xóa trò chuyện",
   "Remove member": "Xóa thành viên",
   "Revoke administrator": "Thu hồi quản trị viên",
@@ -256,5 +257,12 @@
   "New Password": "Mật khẩu mới",
   "Confirm New Password": "Xác nhận mật khẩu mới",
   "The old password is incorrect!": "Mật khẩu cũ không chính xác!",
-  "Your repository has been updated successfully!": "Kho lưu trữ của bạn đã được cập nhật thành công!"
+  "Your repository has been updated successfully!": "Kho lưu trữ của bạn đã được cập nhật thành công!",
+  "Repositories": "Kho lưu trữ",
+  "Work at": "Làm việc tại",
+  "as a": "như một",
+  "Cancel Request": "Hủy yêu cầu",
+  "Response": "Phản hồi",
+  "Accept": "Chấp nhận",
+  "Decline": "Từ chối"
 }

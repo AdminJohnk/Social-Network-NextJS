@@ -65,7 +65,7 @@ export default function SubNavigate() {
           </Link>
         </li>
         <li className='uk-parent'>
-          <Link href='#' className='group'>
+          <Link href='' className='group'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'

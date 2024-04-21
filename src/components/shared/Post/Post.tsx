@@ -8,8 +8,7 @@ import { FiSend } from 'react-icons/fi';
 import { GoShare } from 'react-icons/go';
 import { IoHeart } from 'react-icons/io5';
 import { FaCommentDots } from 'react-icons/fa';
-import { useNow, useTranslations } from 'next-intl';
-import { useFormatter } from 'use-intl';
+import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 
@@ -101,7 +100,7 @@ export default function Post({ post, feature }: IPostProps) {
               <Link
                 href={`/posts/${post._id}`}
                 className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
-                {t('hours ago', { count: 2 })}
+                {format.relativeTime(post.post_attributes.post?.createdAt as unknown as Date, now)}
               </Link>
             </div>
           </div>

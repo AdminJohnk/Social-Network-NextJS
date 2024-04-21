@@ -120,7 +120,7 @@ export default function SearchHeader() {
                   {searchLogs.keywords.map((item) => (
                     <Link
                       key={item}
-                      href='#'
+                      href=''
                       className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-2 rounded-lg'>
                       <IoSearchOutline className='text-2xl' />
                       {item}
@@ -185,7 +185,7 @@ export default function SearchHeader() {
             </>
           )}
           <div className='flex justify-end pr-2 text-sm font-medium text-red-500'>
-            <Link href='#' className='flex hover:bg-red-50 dark:hover:bg-slate-800 p-1.5 rounded'>
+            <Link href='' className='flex hover:bg-red-50 dark:hover:bg-slate-800 p-1.5 rounded'>
               <IoTrash className='mr-2 text-lg' />
               {t('Clear your history')}
             </Link>

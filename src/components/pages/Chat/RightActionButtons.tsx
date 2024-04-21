@@ -17,8 +17,7 @@ import { useCurrentUserInfo } from '@/hooks/query';
 import { useSocketStore } from '@/store/socket';
 import CreateNewGroup from './Modal/CreateNewGroup';
 
-interface IRightActionButtons {
-}
+interface IRightActionButtons {}
 
 interface Option {
   label: string;
@@ -26,9 +25,8 @@ interface Option {
   id: string;
 }
 
-export default function RightActionButtons({ }: IRightActionButtons) {
+export default function RightActionButtons({}: IRightActionButtons) {
   const t = useTranslations();
-
 
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
@@ -54,25 +52,21 @@ export default function RightActionButtons({ }: IRightActionButtons) {
               open={openAddMember}
               onClose={handleClose}
               aria-labelledby='modal-modal-title'
-              aria-describedby='modal-modal-description'
-            >
+              aria-describedby='modal-modal-description'>
               <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
-                <CreateNewGroup
-                  users={currentUserInfo?.members ?? []}
-                  handleClose={handleClose}
-                />
+                <CreateNewGroup users={currentUserInfo?.members ?? []} handleClose={handleClose} />
               </div>
             </Modal>
           </Link>
-          <Link href='#' className='hover:!bg-foreground-2'>
+          <Link href='' className='hover:!bg-foreground-2'>
             <IoCheckmarkOutline className='text-2xl shrink-0 -ml-1' />
             {t('Mark all as read')}
           </Link>
-          <Link href='#' className='hover:!bg-foreground-2'>
+          <Link href='' className='hover:!bg-foreground-2'>
             <IoNotificationsOutline className='text-2xl shrink-0 -ml-1' />
             {t('Notifications setting')}
           </Link>
-          <Link href='#' className='hover:!bg-foreground-2'>
+          <Link href='' className='hover:!bg-foreground-2'>
             <IoVolumeMuteOutline className='text-2xl shrink-0 -ml-1' />
             {t('Mute notifications')}
           </Link>

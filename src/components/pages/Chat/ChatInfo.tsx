@@ -18,6 +18,7 @@ import {
 } from 'react-icons/io5';
 import {
   FaArrowLeft,
+  FaChevronDown,
   FaCommentDots,
   FaCrown,
   FaDownload,
@@ -479,8 +480,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
       {isLoadingCurrentConversation ? (
         <></>
       ) : (
-        <div className='right w-full h-full absolute top-0 right-0 z-10 hidden transition-transform'>
-          <div className='uk-animation-slide-right-medium w-[360px] border-l shadow-lg h-screen bg-white absolute right-0 top-0 z-50 dark:bg-background-2 dark:border-slate-700'>
+        <div className='right w-full h-full absolute top-0 right-0 z-[9999] hidden transition-transform'>
+          <div className='uk-animation-slide-right-medium w-[360px] border-l shadow-lg h-screen bg-white absolute right-0 top-0 z-[9999] dark:bg-background-2 dark:border-slate-700 custom-scrollbar-bg overflow-y-scroll'>
             <div className='w-full h-1.5 bg-gradient-to-r to-purple-500 via-red-500 from-pink-500 -mt-px'></div>
 
             <div className='py-10 flex-center flex-col text-center text-sm pt-20'>
@@ -530,6 +531,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             </div>
 
             <hr className='opacity-80 dark:border-slate-700' />
+
             {enableSeeAll ? (
               <>
                 <div className='flex flex-row items-center py-2'>
@@ -584,17 +586,25 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   </div>
                 </li>
                 <li className='uk-parent'>
-                  <Link href='' className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-                    <IoImageOutline className='text-2xl' /> {t('Images')}
+                  <Link
+                    href=''
+                    className='flex items-center justify-between gap-5 rounded-md p-3 w-full hover:bg-hover-1 group'>
+                    <div className='flex flex-row gap-5'>
+                      <IoImageOutline className='text-2xl' /> {t('Images')}
+                    </div>
+                    <FaChevronDown className='mr-2 duration-300 group-aria-expanded:rotate-180' />
                   </Link>
                   <ul className='pl-5 my-1 space-y-0 text-sm'>{listImages(messagesImage ?? [])}</ul>
                 </li>
                 {currentConversation.type === 'group' && (
                   <li className='uk-parent'>
                     <Link
-                      href={''}
-                      className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-                      <IoPersonOutline className='text-2xl' /> {t('Members')}
+                      href=''
+                      className='flex items-center justify-between gap-5 rounded-md p-3 w-full hover:bg-hover-1 group'>
+                      <div className='flex flex-row gap-5'>
+                        <IoPersonOutline className='text-2xl' /> {t('Members')}
+                      </div>
+                      <FaChevronDown className='mr-2 duration-300 group-aria-expanded:rotate-180' />
                     </Link>
                     <ul>{listMembers()}</ul>
                   </li>

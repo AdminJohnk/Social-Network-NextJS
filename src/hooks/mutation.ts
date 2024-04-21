@@ -23,7 +23,7 @@ import {
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
 import { searchLogService } from '@/services/SearchLogService';
-import { useRouter } from '@/navigation';
+import { usePathname, useRouter } from '@/navigation';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 // import { Socket } from '@/util/constants/SettingSystem';
@@ -776,6 +776,7 @@ export const useReceiveSeenConversation = () => {
 export const useDissolveGroup = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const pathname = usePathname();
 
   const { chatSocket } = useSocketStore();
 
@@ -785,7 +786,8 @@ export const useDissolveGroup = () => {
       return data.metadata;
     },
     onSuccess(conversation, conversationID) {
-      if (window.location.pathname.includes(conversationID)) router.replace('/message');
+      if (pathname.includes(conversationID)) router.replace('/messages');
+
       queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
         if (!oldData) return;
 
@@ -814,11 +816,12 @@ export const useDissolveGroup = () => {
 export const useReceiveDissolveGroup = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const pathname = usePathname();
 
   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
     mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
     onSuccess(conversation) {
-      if (window.location.pathname.includes(conversation._id)) router.replace('/message');
+      if (pathname.includes(conversation._id)) router.replace('/messages');
       queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
         if (!oldData) return;
 
@@ -853,8 +856,8 @@ export const useReceiveDissolveGroup = () => {
 export const useLeaveGroup = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const pathname = usePathname();
 
-  // const { chatSocket } = useAppSelector(state => state.socketIO);
   const { chatSocket } = useSocketStore();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
@@ -863,7 +866,7 @@ export const useLeaveGroup = () => {
       return data.metadata;
     },
     onSuccess(conversation, conversationID) {
-      if (window.location.pathname.includes(conversationID)) router.push('/message');
+      if (pathname.includes(conversationID)) router.push('/messages');
       queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
         if (!oldData) return;
 
@@ -970,6 +973,7 @@ export const useMutateMessageCall = (conversation_id: string | undefined, type: 
 export const useMutateConversation = (currentUserID: string) => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const pathname = usePathname();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (payload: IUpdateConversation) => await Promise.resolve(payload),
@@ -1097,7 +1101,7 @@ export const useMutateConversation = (currentUserID: string) => {
               const isHavingMe = newData[index].members.some((item) => item._id === currentUserID);
               const isHavingUser = conversation.members.some((item) => item._id === currentUserID);
               if (isHavingMe && !isHavingUser) {
-                if (window.location.pathname.includes(conversation._id)) router.replace('/message');
+                if (pathname.includes(conversation._id)) router.replace('/messages');
                 newData.splice(index, 1);
               } else {
                 newData[index] = {

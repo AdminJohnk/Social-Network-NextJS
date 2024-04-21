@@ -86,10 +86,10 @@ export default function BlogSlideThumbnail(props: IBlogSlideThumbnailProps) {
         <ul className='inline-flex flex-wrap justify-center  absolute bottom-3 gap-1.5 uk-dotnav uk-slideshow-nav'></ul>
       </div>
 
-      <Link className='nav-prev' href='#' data-uk-slideshow-item='previous'>
+      <Link className='nav-prev' href='' data-uk-slideshow-item='previous'>
         <IoChevronBack />
       </Link>
-      <Link className='nav-next' href='#' data-uk-slideshow-item='next'>
+      <Link className='nav-next' href='' data-uk-slideshow-item='next'>
         <IoChevronForward />
       </Link>
     </div>

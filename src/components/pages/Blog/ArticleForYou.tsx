@@ -13,7 +13,7 @@ export default function ArticleForYou(props: IArticleForYouProps) {
     <div>
       <div className='flex items-center justify-between py-3 mt-8'>
         <h3 className='text-xl font-semibold'> {t('Articles for you')} </h3>
-        <Link href='#' className='text-sm text-blue-500'>
+        <Link href='' className='text-sm text-blue-500'>
           {t('See all')}
         </Link>
       </div>
@@ -35,7 +35,7 @@ export default function ArticleForYou(props: IArticleForYouProps) {
               consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt ut laoreet dolore magna
               aliquam erat volutpat. Ut wiis enim ad minim veniam,
             </p>
-            <Link href='#'>
+            <Link href=''>
               <div className='card-list-link'> Jesse Steeve </div>
             </Link>
             <div className='card-list-info'>
@@ -66,7 +66,7 @@ export default function ArticleForYou(props: IArticleForYouProps) {
               consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt ut laoreet dolore magna
               aliquam erat volutpat. Ut wiis enim ad minim veniam,
             </p>
-            <Link href='#'>
+            <Link href=''>
               <div className='card-list-link'> Monroe Parker </div>
             </Link>
             <div className='card-list-info'>
@@ -99,7 +99,7 @@ export default function ArticleForYou(props: IArticleForYouProps) {
               consectetur adipiscing elit, sed diam nodum nibh euismod tincidunt ut laoreet dolore magna
               aliquam erat volutpat. Ut wiis enim ad minim veniam,
             </p>
-            <Link href='#'>
+            <Link href=''>
               <div className='card-list-link'> Martin Gray </div>
             </Link>
             <div className='card-list-info'>

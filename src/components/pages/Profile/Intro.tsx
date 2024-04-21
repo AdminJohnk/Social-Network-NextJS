@@ -8,7 +8,6 @@ import { IoLocationOutline, IoBriefcaseOutline, IoPeopleOutline, IoAt } from 're
 import { PiGraduationCap } from 'react-icons/pi';
 import { MdOutlineHomeWork } from 'react-icons/md';
 import descArrays from '@/lib/descriptions/Tags';
-import Repository from '@/components/shared/Repository/Repository';
 
 export interface IIntroProps {
   profileID: string;
@@ -93,7 +92,7 @@ export default function Intro({ profileID }: IIntroProps) {
               <IoPeopleOutline className='size-6' />
               <div>
                 {t('Friends')}
-                <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>{user.friend_number}</span>
+                <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>{user?.friend_number}</span>
               </div>
             </li>
           </ul>
@@ -164,10 +163,7 @@ export default function Intro({ profileID }: IIntroProps) {
                 alt=''
                 className='object-cover w-full h-full inset-0'
               />
-            </div> */}
-              {user.repositories.map((repo, index) => (
-                <Repository key={index} item={repo} />
-              ))}
+          </div> */}
             </div>
           )}
         </div>

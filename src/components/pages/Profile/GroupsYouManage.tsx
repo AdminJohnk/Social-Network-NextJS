@@ -12,7 +12,7 @@ export default function GroupsYouManage(props: IGroupsYouManageProps) {
       <h3 className='font-bold text-base'> {t('Suggested Manage')} </h3>
       <div className='mt-5'>
         <div className='flex items-center space-x-3 my-3'>
-          <Link href='#'>
+          <Link href=''>
             <Image
               width={500}
               height={500}
@@ -22,7 +22,7 @@ export default function GroupsYouManage(props: IGroupsYouManageProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='#'>
+            <Link href=''>
               <h4 className='text-sm leading-5 font-bold text-text-1'> John Michael</h4>
             </Link>
             <div className='mt-0.5 text-xs leading-4 text-text-2'>
@@ -32,7 +32,7 @@ export default function GroupsYouManage(props: IGroupsYouManageProps) {
           <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>{t('Like')}</button>
         </div>
         <div className='flex items-center space-x-3 my-3'>
-          <Link href='#'>
+          <Link href=''>
             <Image
               width={500}
               height={500}
@@ -42,7 +42,7 @@ export default function GroupsYouManage(props: IGroupsYouManageProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='#'>
+            <Link href=''>
               <h4 className='text-sm leading-5 font-bold text-text-1'> Martin Gray</h4>
             </Link>
             <div className='mt-0.5 text-xs leading-4 text-text-2'>
@@ -52,7 +52,7 @@ export default function GroupsYouManage(props: IGroupsYouManageProps) {
           <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>{t('Like')}</button>
         </div>
         <div className='flex items-center space-x-3 my-3'>
-          <Link href='#'>
+          <Link href=''>
             <Image
               width={500}
               height={500}
@@ -62,7 +62,7 @@ export default function GroupsYouManage(props: IGroupsYouManageProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='#'>
+            <Link href=''>
               <h4 className='text-sm leading-5 font-bold text-text-1'> Monroe Parker</h4>
             </Link>
             <div className='mt-0.5 text-xs leading-4 text-text-2'>
@@ -72,7 +72,7 @@ export default function GroupsYouManage(props: IGroupsYouManageProps) {
           <button className='button bg-foreground-2 hover:bg-hover-2 dark:text-white'>{t('Like')}</button>
         </div>
         <div className='flex items-center space-x-3 my-3'>
-          <Link href='#'>
+          <Link href=''>
             <Image
               width={500}
               height={500}
@@ -82,7 +82,7 @@ export default function GroupsYouManage(props: IGroupsYouManageProps) {
             />
           </Link>
           <div className='flex-1'>
-            <Link href='#'>
+            <Link href=''>
               <h4 className='text-sm leading-5 font-bold text-text-1'> Jesse Steeve</h4>
             </Link>
             <div className='mt-0.5 text-xs leading-4 text-text-2'>

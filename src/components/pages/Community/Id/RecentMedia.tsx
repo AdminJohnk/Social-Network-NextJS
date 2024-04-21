@@ -10,7 +10,7 @@ export default function RecentMedia(props: IRecentMediaProps) {
     <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
       <div className='flex items-baseline justify-between text-text-1'>
         <h3 className='font-bold text-base'> {t('Recent Media')} </h3>
-        <Link href='#' className='text-sm text-blue-500'>
+        <Link href='' className='text-sm text-blue-500'>
           {t('See all')}
         </Link>
       </div>

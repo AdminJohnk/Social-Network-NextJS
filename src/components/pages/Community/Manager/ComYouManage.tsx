@@ -10,7 +10,7 @@ export default function ComYouManage(props: IComYouManageProps) {
     <div className='box p-5'>
       <div className='flex items-baseline justify-between'>
         <h3 className='font-bold text-base'> Groups You Manage </h3>
-        <Link href='#' className='text-sm text-blue-500'>
+        <Link href='' className='text-sm text-blue-500'>
           See all
         </Link>
       </div>
@@ -114,10 +114,10 @@ export default function ComYouManage(props: IComYouManageProps) {
           </ul>
         </div>
 
-        <Link className='nav-prev !top-12' href='#' data-uk-slider-item='previous'>
+        <Link className='nav-prev !top-12' href='' data-uk-slider-item='previous'>
           <IoChevronBack />
         </Link>
-        <Link className='nav-next !top-12' href='#' data-uk-slider-item='next'>
+        <Link className='nav-next !top-12' href='' data-uk-slider-item='next'>
           <IoChevronForward />
         </Link>
       </div>

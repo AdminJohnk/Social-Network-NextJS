@@ -8,8 +8,7 @@ import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { Link } from '@/navigation';
 import { useSession } from 'next-auth/react';
-import { useNow } from 'next-intl';
-import { useFormatter } from 'use-intl';
+import { useFormatter, useNow } from 'next-intl';
 
 export interface IConversationBoxProps {
   conversation: IConversation;
