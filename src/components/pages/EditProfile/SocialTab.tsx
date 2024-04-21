@@ -1,17 +1,10 @@
 'use client';
 
-import  { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
-import {
-  FaFacebook,
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-  FaYoutube
-} from 'react-icons/fa';
+import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 import * as z from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -61,13 +54,7 @@ export default function SocialTab(props: ISocialTabProps) {
     setValue('github', github || '');
   }, [currentUserInfo]);
 
-  async function onSubmit({
-    facebook,
-    twitter,
-    instagram,
-    linkedin,
-    github
-  }: FormData) {
+  async function onSubmit({ facebook, twitter, instagram, linkedin, github }: FormData) {
     setIsLoading(true);
 
     const updateResult = await mutateUpdateUser({
@@ -92,18 +79,6 @@ export default function SocialTab(props: ISocialTabProps) {
     }
   }
 
-  console.log('values', JSON.stringify(values));
-  console.log(
-    'currentUserInfo',
-    JSON.stringify({
-      facebook: currentUserInfo.contacts?.find((contact) => contact.key === 'facebook')?.link,
-      twitter: currentUserInfo.contacts?.find((contact) => contact.key === 'twitter')?.link,
-      instagram: currentUserInfo.contacts?.find((contact) => contact.key === 'instagram')?.link,
-      linkedin: currentUserInfo.contacts?.find((contact) => contact.key === 'linkedin')?.link,
-      github: currentUserInfo.contacts?.find((contact) => contact.key === 'github')?.link
-    })
-  );
-
   const isChanged = useMemo(
     () =>
       JSON.stringify(values) !==
@@ -116,8 +91,6 @@ export default function SocialTab(props: ISocialTabProps) {
       }),
     [values, currentUserInfo]
   );
-
-  console.log('isChanged', isChanged);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -165,11 +138,7 @@ export default function SocialTab(props: ISocialTabProps) {
                 placeholder='https://www.instagram.com/myname'
                 {...register('instagram')}
               />
-              {errors.instagram && (
-                <p className='p-1 text-xs text-red-600'>
-                  {t(errors.instagram.message)}
-                </p>
-              )}
+              {errors.instagram && <p className='p-1 text-xs text-red-600'>{t(errors.instagram.message)}</p>}
             </div>
           </div>
 
@@ -200,11 +169,7 @@ export default function SocialTab(props: ISocialTabProps) {
                 placeholder='https://github.com/myname'
                 {...register('github')}
               />
-              {errors.github && (
-                <p className='p-1 text-xs text-red-600'>
-                  {t(errors.github.message)}
-                </p>
-              )}
+              {errors.github && <p className='p-1 text-xs text-red-600'>{t(errors.github.message)}</p>}
             </div>
           </div>
         </div>

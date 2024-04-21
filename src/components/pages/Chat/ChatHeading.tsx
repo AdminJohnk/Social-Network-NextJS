@@ -145,7 +145,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
               {/* <div className='w-3 h-3 bg-teal-500 rounded-full absolute -right-1 -bottom-0.5 m-px'></div> */}
             </div>
             <div className='cursor-pointer'>
-              <div className='text-base font-bold'> {currentConversation.name ?? otherUser.name}</div>
+              <div className='text-base font-bold'> {currentConversation.name || otherUser.name}</div>
               <div className='text-xs text-green-500 font-semibold'> {statusText} </div>
             </div>
           </div>

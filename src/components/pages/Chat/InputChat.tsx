@@ -42,7 +42,7 @@ const VisuallyHiddenInput = styled('input')({
   bottom: 0,
   left: 0,
   whiteSpace: 'nowrap',
-  width: 1,
+  width: 1
 });
 
 export default function InputChat({ conversationID, members }: IInputChatProps) {
@@ -51,13 +51,11 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
   const { data: session } = useSession();
   const ID = conversationID ? conversationID[0] : '';
 
-
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
   const { mutateSendMessage } = useSendMessage();
   const [id, setId] = useState(uuidv4().replace(/-/g, ''));
 
-  const { chatSocket } = useSocketStore()
-
+  const { chatSocket } = useSocketStore();
 
   const [messageContent, setMessage] = useState('');
   const [cursor, setCursor] = useState(0);
@@ -148,7 +146,8 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
   const handleStopTyping = useCallback(
     debounce(
-      () => chatSocket.emit(Socket.STOP_TYPING, { conversationID: ID, userID: currentUserInfo?._id, members }),
+      () =>
+        chatSocket.emit(Socket.STOP_TYPING, { conversationID: ID, userID: currentUserInfo?._id, members }),
       1000
     ),
     []
@@ -211,14 +210,14 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
                 />
               </Button> */}
               <Button
-                component="label"
+                component='label'
                 role={undefined}
-                variant="contained"
+                variant='contained'
                 tabIndex={-1}
                 className='bg-green-50 text-green-600 border border-green-100 shadow-sm p-2.5 rounded-full shrink-0 duration-100 hover:scale-[1.15] dark:bg-dark-1 dark:border-0'>
                 <IoImages className='text-3xl flex' />
                 <VisuallyHiddenInput
-                  type="file"
+                  type='file'
                   multiple
                   onChange={(info) => {
                     const image = info.target.files;
@@ -271,7 +270,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             onKeyUp={(e) => {
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
-              setCursor(cursorPosition ?? 0);
+              setCursor(cursorPosition || 0);
 
               if (e.key === 'Enter') {
                 handleSubmit(messageContent);
@@ -280,7 +279,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             onClick={(e) => {
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
-              setCursor(cursorPosition ?? 0);
+              setCursor(cursorPosition || 0);
             }}
             onChange={(e) => {
               chatSocket.emit(Socket.IS_TYPING, {
@@ -292,14 +291,18 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
               handleStopTyping();
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
-              setCursor(cursorPosition ?? 0);
-            }}>
-          </input>
+              setCursor(cursorPosition || 0);
+            }}></input>
 
-          <button type='button' className={cn('text-white shrink-0 p-2 absolute right-0.5 top-0',
-            checkEmpty
-              ? 'text-gray-400 cursor-not-allowed'
-              : 'text-blue-500 hover:text-blue-700 hover:scale-110 cursor-pointer')} onClick={() => handleSubmit(messageContent)}>
+          <button
+            type='button'
+            className={cn(
+              'text-white shrink-0 p-2 absolute right-0.5 top-0',
+              checkEmpty
+                ? 'text-gray-400 cursor-not-allowed'
+                : 'text-blue-500 hover:text-blue-700 hover:scale-110 cursor-pointer'
+            )}
+            onClick={() => handleSubmit(messageContent)}>
             <IoSendOutline className='text-xl flex' />
           </button>
         </div>
@@ -309,8 +312,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
           className='flex h-full dark:text-white'
           onClick={() => {
             handleLike();
-          }}
-        >
+          }}>
           <IoHeartOutline className='text-3xl flex -mt-3' />
         </button>
       </div>

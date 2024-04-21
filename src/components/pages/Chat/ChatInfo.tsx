@@ -174,16 +174,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 .slice(0, 4)
                 .map((item) => item.images)
                 .flat().length > 4 && (
-                  <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
-                    <p
-                      className='cursor-pointer'
-                      onClick={() => {
-                        changeConversationOption('image');
-                      }}>
-                      See all
-                    </p>
-                  </div>
-                )}
+                <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
+                  <p
+                    className='cursor-pointer'
+                    onClick={() => {
+                      changeConversationOption('image');
+                    }}>
+                    See all
+                  </p>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -243,7 +243,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
               });
             }}>
-            <FaUserShield className='text-2xl' /> <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
+            <FaUserShield className='text-2xl' />{' '}
+            <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
           </button>
         </li>
         <li className={cn(isMeCreator && isAdmin && !isMe ? '' : 'hidden')}>
@@ -272,7 +273,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
               });
             }}>
-            <FaUserSlash className='text-2xl' /> <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
+            <FaUserSlash className='text-2xl' />{' '}
+            <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
           </button>
         </li>
         <li className={cn(isMe ? 'hidden' : '')}>
@@ -355,7 +357,9 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             ) : (
               isMeAdmin && <FaUserSlash className='text-2xl' />
             )}
-            <span className='whitespace-nowrap'>{isMe ? t('Leave group') : isMeAdmin && t('Remove member')}</span>
+            <span className='whitespace-nowrap'>
+              {isMe ? t('Leave group') : isMeAdmin && t('Remove member')}
+            </span>
           </button>
         </li>
       </ul>
@@ -594,7 +598,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     </div>
                     <FaChevronDown className='mr-2 duration-300 group-aria-expanded:rotate-180' />
                   </Link>
-                  <ul className='pl-5 my-1 space-y-0 text-sm'>{listImages(messagesImage ?? [])}</ul>
+                  <ul className='pl-5 my-1 space-y-0 text-sm'>{listImages(messagesImage || [])}</ul>
                 </li>
                 {currentConversation.type === 'group' && (
                   <li className='uk-parent'>

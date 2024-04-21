@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { FaSearch } from 'react-icons/fa';
+import { IoSearchOutline } from 'react-icons/io5';
 
 export default function SearchChat() {
   const t = useTranslations();
@@ -9,7 +9,7 @@ export default function SearchChat() {
   return (
     <div className='relative mt-4'>
       <div className='absolute left-3 bottom-1/2 translate-y-1/2 flex'>
-        <FaSearch className='text-xl' />
+        <IoSearchOutline className='text-xl' />
       </div>
       <input
         type='text'
