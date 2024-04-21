@@ -82,7 +82,7 @@ function ConversationList({ conversationID }: IConversationListProps) {
   return (
     <>
       {/* <!-- heading title --> */}
-      <div className='p-4 border-b dark:border-slate-700'>
+      <div className='p-4'>
         <div className='flex mt-2 items-center justify-between'>
           <HeadingTitle />
           {/* <!-- right action buttons --> */}
