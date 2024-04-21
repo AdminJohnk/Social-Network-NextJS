@@ -143,9 +143,9 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
             ) : (
               <div className='w-9 h-9 rounded-full'></div>
             )}
-            <div>
+            <div className={cn('relative', type === 'group' && !isOwn && !isPrevMesGroup && 'mt-7')}>
               {type === 'group' && !isOwn && !isPrevMesGroup && (
-                <div className='text-sm ml-2 mt-2'>
+                <div className='text-sm ml-2 mt-2 absolute -top-7 left-0'>
                   <Link href={`/profile/${message.sender._id}`} className='flex flex-row gap-1'>
                     {handleFirstName(message.sender.name)}
                     {isAdmin &&
@@ -159,7 +159,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               )}
               <div
                 className={cn(
-                  'px-4 py-2 max-w-sm w-min bg-foreground-2',
+                  'px-4 py-2 max-w-sm bg-foreground-2',
                   roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
                 )}>
                 {content}
