@@ -93,7 +93,7 @@ export default function FriendTab({ profileID }: IFriendTabProps) {
         <>Loading...</>
       ) : (
         <div className='bg-foreground-1 my-8 w-full rounded-md'>
-          {otherUserInfo.friends.length <= 0 ? (
+          {otherUserInfo?.friends.length <= 0 ? (
             <div className='w-full px-10 py-8 flex-center'>
               <Nodata
                 width={150}

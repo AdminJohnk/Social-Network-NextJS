@@ -86,7 +86,7 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
   }, [optionIndex, OptionRender]);
 
   return (
-    <div className='fixed top-0 left-0 z-50 pt-2 h-dvh overflow-hidden transition-transform lg:duration-500 max-lg:w-full max-lg:-translate-x-full'>
+    <div className='fixed bg-background-1 top-0 left-0 z-50 pt-2 h-dvh overflow-hidden transition-transform lg:duration-500 max-lg:w-full max-lg:-translate-x-full'>
       <div className='option flex flex-col h-full items-center justify-between'>
         <div className='flex flex-col items-center'>
           <Link href='/' className='icon_logo'>
