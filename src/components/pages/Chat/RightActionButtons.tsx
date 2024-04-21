@@ -10,6 +10,7 @@ import {
   IoVolumeMuteOutline
 } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
+import { Link } from '@/navigation';
 
 import { useCurrentUserInfo } from '@/hooks/query';
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -42,7 +43,7 @@ export default function RightActionButtons({ }: IRightActionButtons) {
         className='md:w-[270px] w-full hidden'
         data-uk-dropdown='pos: bottom-left; offset:10; animation: uk-animation-slide-bottom-small'>
         <nav>
-          <Link href={''} className='hover:!bg-foreground-2' onClick={handleOpen}>
+          <Link href={''} className='hover:!bg-foreground-2'>
             <IoAddCircleOutline className='text-2xl shrink-0 -ml-1' />
             {t('Create New Group')}
             {/* <Modal
