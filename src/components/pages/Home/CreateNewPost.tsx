@@ -1,6 +1,7 @@
 'use client';
 
 import PostPrivacy from '@/components/shared/PostPrivacy';
+import Editor from '@/components/shared/Editor/Editor';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -34,11 +35,7 @@ export default function CreateNewPost(props: ICreateNewPostProps) {
         </div>
 
         <div className='space-y-5 mt-3 p-2'>
-          <textarea
-            className='w-full resize-none !text-text-1 placeholder:!text-text-2 !bg-background-1 !border-transparent focus:!border-transparent focus:!ring-transparent !font-normal !text-xl'
-            rows={6}
-            placeholder={t('What do you have in mind?')}
-          />
+          <Editor />
         </div>
 
         <div className='flex items-center gap-2 text-sm py-2 px-4 font-medium flex-wrap'>
