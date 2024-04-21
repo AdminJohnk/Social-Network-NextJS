@@ -244,7 +244,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
                 });
               }}>
-              <FaUserShield className='text-2xl' /> <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
+              <FaUserShield className='text-2xl' />
+              <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
             </button>
           </li>
         )}
@@ -275,12 +276,13 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
                 });
               }}>
-              <FaUserSlash className='text-2xl' /> <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
+              <FaUserSlash className='text-2xl' />
+              <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
             </button>
           </li>
         )}
         {!isMe && (
-          <li >
+          <li>
             <button
               type='button'
               className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
@@ -362,7 +364,9 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
               ) : (
                 isMeAdmin && <FaUserSlash className='text-2xl' />
               )}
-              <span className='whitespace-nowrap'>{isMe ? t('Leave group') : isMeAdmin && t('Remove member')}</span>
+              <span className='whitespace-nowrap'>
+                {isMe ? t('Leave group') : isMeAdmin && t('Remove member')}
+              </span>
             </button>
           </li>
         )}
