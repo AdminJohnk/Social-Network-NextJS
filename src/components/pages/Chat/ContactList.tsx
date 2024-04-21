@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { FaUserPlus } from 'react-icons/fa6';
 import Image from 'next/image';
-import { TextInput } from 'flowbite-react';
 import { IoSearchOutline } from 'react-icons/io5';
 
 import AvatarMessage from './Avatar/AvatarMessage';
@@ -14,7 +13,7 @@ import { useReceiveConversation } from '@/hooks/mutation';
 import { messageService } from '@/services/MessageService';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 import { useTranslations } from 'next-intl';
-import SearchChat from './SearchChat';
+import { useDebounce } from '@/hooks/special';
 
 export interface IContactListProps {
   contacts: IUserInfo[];
@@ -31,6 +30,9 @@ export default function ContactList({ contacts }: IContactListProps) {
   const router = useRouter();
   const [search, setSearch] = useState('');
   const [searchFriends, setSearchFriends] = useState<IUserInfo[]>(contacts);
+
+  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
+  const searchDebounce = useDebounce(search, 500);
 
   const HandleOnClick = (userFriend: string) => {
     void messageService
@@ -50,27 +52,27 @@ export default function ContactList({ contacts }: IContactListProps) {
   }, [contacts]);
 
   useEffect(() => {
-    if (search === '') {
+    if (!searchDebounce) {
+      setIsLoadingSearch(false);
       setSearchFriends(contacts);
-    } else {
-      const searchTerm = removeAccents(search).toLowerCase();
-
-      setSearchFriends(
-        contacts.filter((friend) => {
-          const name = removeAccents(friend.name).toLowerCase();
-          return name.includes(searchTerm);
-        })
-      );
+      return;
     }
-  }, [search]);
 
-  const removeAccents = (str: string) => {
-    return str
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/đ/g, 'd')
-      .replace(/Đ/g, 'D');
-  };
+    setIsLoadingSearch(false);
+    setSearchFriends(
+      contacts.filter((contact) => {
+        const name = contact.name
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase();
+        const search = searchDebounce
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase();
+        return name.includes(search);
+      })
+    );
+  }, [searchDebounce]);
 
   return (
     <div>
@@ -94,7 +96,20 @@ export default function ContactList({ contacts }: IContactListProps) {
             addon={<IoSearchOutline className='text-xl rounded-md' />}
             onChange={(e) => setSearch(e.target.value)}
           /> */}
-          <SearchChat setSearch={setSearch} />
+          <div className='relative mt-4'>
+            <div className='absolute left-3 bottom-1/2 translate-y-1/2 flex'>
+              <IoSearchOutline className='text-xl' />
+            </div>
+            <input
+              type='text'
+              placeholder={t('Search')}
+              className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
+              onChange={(e) => {
+                setSearch(e.target.value)
+                if (!isLoadingSearch) setIsLoadingSearch(true);
+              }}
+            />
+          </div>
         </div>
         <div className='px-2 w-full'>
           <div
@@ -117,10 +132,10 @@ export default function ContactList({ contacts }: IContactListProps) {
                 <Image
                   className='!text-red-500 h-10 w-10'
                   src='https://static.thenounproject.com/png/3668369-200.png'
-                  alt='No contact found'
+                  alt={t('Not found any friends')}
                   width={500}
                   height={500} />
-                <span className='whitespace-nowrap'>{t("No contact found")}</span>
+                <span className='whitespace-nowrap'>{t("Not found any friends")}</span>
               </div>
             ) : (
               searchFriends.map((item) => {

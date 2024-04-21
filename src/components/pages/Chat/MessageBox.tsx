@@ -144,7 +144,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
         [0x1f1e6, 0x1f1ff] // Enclosed Characters
       ];
 
-      for (let i = 0; i < content.length; ) {
+      for (let i = 0; i < content.length;) {
         const char = content.codePointAt(i)!;
 
         let isEmoji = false;
@@ -488,50 +488,51 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     return (
       <div ref={ref}>
         {isMoreThan10Min && time(message.createdAt)}
-        <div className={!isNextMesGroup && !isPrevMesGroup ? 'my-2' : ''}>{messageContent()}</div>
-        <div className='text-xs font-light'>
-          <div className='relative flex flex-row-reverse items-end'>
-            {isLastMes &&
-              isOwn &&
-              seenList.length > 0 &&
-              seenList.map((userImage, index) => (
-                <div key={index} className='inline-block rounded-full overflow-hidden h-4 w-4 mt-1 mr-2 mb-2'>
-                  <Image
-                    className='h-4 w-4'
-                    src={getImageURL(userImage, 'avatar_mini')}
-                    alt='User Image'
-                    width={500}
-                    height={500}
-                  />
-                </div>
-              ))}
-            {isOwn && (
-              <>
-                {seenList.length === 0 && message.isSending && (
-                  <svg
-                    className='w-4 h-4 text-gray-400 mt-1 mr-2 mb-2'
-                    fill='currentColor'
-                    viewBox='0 0 20 20'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <circle cx='10' cy='10' r='8' stroke='currentColor' fill='none' />
-                  </svg>
-                )}
-                {isLastMes && seenList.length === 0 && !message.isSending && (
-                  <svg
-                    className='w-4 h-4 text-gray-400 mt-1 mr-2 mb-2'
-                    fill='currentColor'
-                    viewBox='0 0 20 20'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      fillRule='evenodd'
-                      d='M10 2a8 8 0 100 16 8 8 0 000-16zM8.707 7.707a1 1 0 00-1.414 1.414l2.5 2.5a1 1 0 001.414 0l5.5-5.5a1 1 0 10-1.414-1.414L10.5 9.086 8.707 7.707z'
+        <div className={cn(!isNextMesGroup && !isPrevMesGroup ? 'my-2' : '')}>{messageContent()}</div>
+        {isLastMes && (
+          <div className='text-xs font-light'>
+            <div className='relative flex flex-row-reverse items-end'>
+              {isOwn &&
+                seenList.length > 0 &&
+                seenList.map((userImage, index) => (
+                  <div key={index} className='inline-block rounded-full overflow-hidden h-4 w-4 mr-2 mb-2'>
+                    <Image
+                      className='h-4 w-4'
+                      src={getImageURL(userImage, 'avatar_mini')}
+                      alt='User Image'
+                      width={500}
+                      height={500}
                     />
-                  </svg>
-                )}
-              </>
-            )}
+                  </div>
+                ))}
+              {isOwn && (
+                <>
+                  {seenList.length === 0 && message.isSending && (
+                    <svg
+                      className='w-4 h-4 text-gray-400 mr-2 mb-2'
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
+                      xmlns='http://www.w3.org/2000/svg'>
+                      <circle cx='10' cy='10' r='8' stroke='currentColor' fill='none' />
+                    </svg>
+                  )}
+                  {seenList.length === 0 && !message.isSending && (
+                    <svg
+                      className='w-4 h-4 text-gray-400 mr-2 mb-2'
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
+                      xmlns='http://www.w3.org/2000/svg'>
+                      <path
+                        fillRule='evenodd'
+                        d='M10 2a8 8 0 100 16 8 8 0 000-16zM8.707 7.707a1 1 0 00-1.414 1.414l2.5 2.5a1 1 0 001.414 0l5.5-5.5a1 1 0 10-1.414-1.414L10.5 9.086 8.707 7.707z'
+                      />
+                    </svg>
+                  )}
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
