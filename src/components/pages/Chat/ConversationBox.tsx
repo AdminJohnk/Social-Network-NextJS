@@ -149,6 +149,8 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
       case 'revoke_admin':
         if (message.target) return t('revoked') + ' ' + message.target.name + ' ' + t('as administrator');
         break;
+      default:
+        return t(message.content);
     }
   }, []);
 
