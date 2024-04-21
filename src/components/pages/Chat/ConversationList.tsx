@@ -89,10 +89,6 @@ function ConversationList({ conversationID }: IConversationListProps) {
           <div className='flex items-center gap-2.5'>
             <RightActionButtons />
 
-            <button className=''>
-              <IoCheckmarkCircleOutline className='text-2xl flex' />
-            </button>
-
             {/* <!-- mobile toggle menu --> */}
             <button
               type='button'

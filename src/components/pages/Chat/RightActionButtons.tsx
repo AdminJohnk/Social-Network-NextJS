@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 import {
   IoAddCircleOutline,
   IoCheckmarkOutline,
+  IoEllipsisHorizontal,
   IoNotificationsOutline,
-  IoSettingsOutline,
   IoVolumeMuteOutline
 } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
@@ -35,12 +35,12 @@ export default function RightActionButtons({}: IRightActionButtons) {
 
   return (
     <>
-      <button className='group'>
-        <IoSettingsOutline className='text-2xl flex group-aria-expanded:rotate-180' />
+      <button className='p-2 rounded-full hover:bg-hover-1'>
+        <IoEllipsisHorizontal className='text-2xl' />
       </button>
       <div
         className='md:w-[270px] w-full hidden'
-        data-uk-dropdown='pos: bottom-left; mode: click;offset:10; animation: uk-animation-slide-bottom-small; animate-out: true;'>
+        data-uk-dropdown='pos: bottom-right; mode: click; offset:5; animation: uk-animation-slide-top-small; animate-out: true;'>
         <nav className='space-y-1'>
           {/* <Modal
               open={openAddMember}

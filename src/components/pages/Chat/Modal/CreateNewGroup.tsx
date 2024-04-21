@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Checkbox, TextInput } from 'flowbite-react';
 import { IoSearchOutline } from 'react-icons/io5';
 import { FaXmark } from 'react-icons/fa6';
+import { useTranslations } from 'next-intl';
 
 import { messageService } from '@/services/MessageService';
 import AvatarMessage from '../Avatar/AvatarMessage';
@@ -18,6 +19,7 @@ export interface ICreateNewGroupProps {
 }
 
 export default function CreateNewGroup({ users, handleClose }: ICreateNewGroupProps) {
+  const t = useTranslations();
   const { chatSocket } = useSocketStore();
 
   const [checkList, setCheckList] = useState<Record<string, boolean>>({});
@@ -154,12 +156,12 @@ export default function CreateNewGroup({ users, handleClose }: ICreateNewGroupPr
           </div>
         </div>
       </div>
-      <div className='flex flex-end gap-5'>
+      <div className='flex flex-end mt-2 gap-5'>
         <Button variant='destructive' onClick={() => handleClose()} disabled={isLoading}>
-          <div className='font-bold'>Cancel</div>
+          <div className='font-bold'>{t('Cancel')}</div>
         </Button>
         <Button onClick={onSubmit} disabled={isChanged}>
-          <div className='font-bold'>Create</div>
+          <div className='font-bold'>{t('Create')}</div>
         </Button>
       </div>
     </div>
