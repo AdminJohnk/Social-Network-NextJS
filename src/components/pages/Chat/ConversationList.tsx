@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { IoChevronDownOutline } from 'react-icons/io5';
+import { use, useEffect, useState } from 'react';
+import { IoChevronDownOutline, IoSearchOutline } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 import RightActionButtons from './RightActionButtons';
 import HeadingTitle from './HeadingTitle';
-import SearchChat from './SearchChat';
 import ConversationBox from './ConversationBox';
 import { useConversationsData, useCurrentUserInfo } from '@/hooks/query';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
@@ -21,13 +21,17 @@ import {
   useReceiveSeenConversation
 } from '@/hooks/mutation';
 import { cn } from '@/lib/utils';
+import { useDebounce } from '@/hooks/special';
 
 interface IConversationListProps {
   conversationID?: string;
 }
 
 function ConversationList({ conversationID }: IConversationListProps) {
+  const t = useTranslations();
+
   const { conversations, isLoadingConversations } = useConversationsData();
+  const [searchConversation, setSearchConversation] = useState<IConversation[]>(conversations);
 
   const { chatSocket } = useSocketStore();
 
@@ -35,7 +39,36 @@ function ConversationList({ conversationID }: IConversationListProps) {
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
   const [search, setSearch] = useState('');
+  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
+  const searchDebounce = useDebounce(search, 500);
 
+  useEffect(() => {
+    setSearchConversation(conversations);
+  }, [conversations]);
+
+  useEffect(() => {
+    if (!searchDebounce) {
+      setIsLoadingSearch(false);
+      setSearchConversation(conversations);
+      return;
+    }
+
+    setIsLoadingSearch(false);
+    setSearchConversation(
+      conversations.filter((conversation) => {
+        const otherUser = conversation.members.find((member) => member._id !== currentUserInfo?._id);
+        const name = (conversation.name || otherUser!.name)
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase();
+        const search = searchDebounce
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase();
+        return name.includes(search);
+      })
+    );
+  }, [searchDebounce, conversations]);
 
   const { mutateReceiveConversation } = useReceiveConversation();
   const { mutateReceiveLeaveGroup } = useReceiveLeaveGroup();
@@ -104,14 +137,27 @@ function ConversationList({ conversationID }: IConversationListProps) {
         </div>
 
         {/* <!-- search --> */}
-        <SearchChat setSearch={setSearch} />
+        <div className='relative mt-4'>
+          <div className='absolute left-3 bottom-1/2 translate-y-1/2 flex'>
+            <IoSearchOutline className='text-xl' />
+          </div>
+          <input
+            type='text'
+            placeholder={t('Search')}
+            className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
+            onChange={(e) => {
+              setSearch(e.target.value)
+              if (!isLoadingSearch) setIsLoadingSearch(true);
+            }}
+          />
+        </div>
       </div>
       {isLoadingConversations ? (
         <div className='h-[calc(100vh-127px)] text-center py-10'>Loading...</div>
       ) : (
         <div className={'space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)] custom-scrollbar-fg'}>
-          {conversations.map((conversation) => (
-            <div className={cn('rounded-xl', conversationID === conversation._id && 'bg-hover-2')}>
+          {searchConversation?.map((conversation) => (
+            <div key={conversation._id} className={cn('rounded-xl', conversationID === conversation._id && 'bg-hover-2')}>
               <ConversationBox key={conversation._id} conversation={conversation} />
             </div>
           ))}
