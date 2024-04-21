@@ -9,6 +9,7 @@ import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { FaCrown, FaShieldHalved } from 'react-icons/fa6';
 import { ImageList, ImageListItem } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 export interface IMessageBoxProps {
   message: IMessage;
@@ -28,6 +29,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     { message, isLastMes, seen, isNextMesGroup, isPrevMesGroup, isMoreThan10Min, isAdmin, type, isCreator },
     ref
   ) => {
+    const t = useTranslations();
     const { data: session } = useSession();
 
     const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
@@ -127,23 +129,22 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     };
 
     const checkContentType = (content: string) => {
-
       if (content === '❤️') {
         return 'emoji';
       }
 
       // Define the ranges of Unicode code points for emoji characters
       const emojiRanges = [
-        [0x1F600, 0x1F64F], // Emoticons
-        [0x1F300, 0x1F5FF], // Miscellaneous Symbols and Pictographs
-        [0x1F680, 0x1F6FF], // Transport and Map Symbols
-        [0x2600, 0x26FF],   // Miscellaneous Symbols
-        [0x2700, 0x27BF],   // Dingbats
-        [0x1F900, 0x1F9FF], // Supplemental Symbols and Pictographs
-        [0x1F1E6, 0x1F1FF]  // Enclosed Characters
+        [0x1f600, 0x1f64f], // Emoticons
+        [0x1f300, 0x1f5ff], // Miscellaneous Symbols and Pictographs
+        [0x1f680, 0x1f6ff], // Transport and Map Symbols
+        [0x2600, 0x26ff], // Miscellaneous Symbols
+        [0x2700, 0x27bf], // Dingbats
+        [0x1f900, 0x1f9ff], // Supplemental Symbols and Pictographs
+        [0x1f1e6, 0x1f1ff] // Enclosed Characters
       ];
 
-      for (let i = 0; i < content.length;) {
+      for (let i = 0; i < content.length; ) {
         const char = content.codePointAt(i)!;
 
         let isEmoji = false;
@@ -159,7 +160,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           return 'text';
         }
 
-        i += char > 0xFFFF ? 2 : 1;
+        i += char > 0xffff ? 2 : 1;
       }
 
       return 'emoji';
@@ -169,10 +170,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       return (
         <>
           <div
-            className={cn(
-              'flex gap-3 items-end',
-              (type === 'group' && !isOwn && !isPrevMesGroup) ? '' : ''
-            )}>
+            className={cn('flex gap-3 items-end', type === 'group' && !isOwn && !isPrevMesGroup ? '' : '')}>
             {(!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup) ? (
               <Image
                 width={500}
@@ -226,7 +224,9 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               className={cn(
                 'px-4 py-2 max-w-2xl',
                 roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup),
-                checkContentType(content) === 'emoji' ? 'text-2xl' : 'bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
+                checkContentType(content) === 'emoji'
+                  ? 'text-2xl'
+                  : 'bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
               )}>
               <Anchorme
                 linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
@@ -427,38 +427,58 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
 
     const time = (time: string) => {
       return (
-        <>
-          <div className='flex justify-center my-4'>
-            <div className='font-medium text-gray-500 text-sm dark:text-white/70'>{getDateTime(time)}</div>
-          </div>
-        </>
+        <div className='flex justify-center my-4'>
+          <div className='font-medium text-gray-500 text-sm dark:text-white/70'>{getDateTime(time)}</div>
+        </div>
       );
+    };
+
+    const switchNoti = (message: IMessage) => {
+      if (!message) return;
+      switch (message.action) {
+        case 'add_member':
+          if (message.target) return t('added') + ' ' + message.target.name + ' ' + t('to the group');
+          break;
+        case 'remove_member':
+          if (message.target) return t('removed') + ' ' + message.target.name + ' ' + t('from the group');
+          break;
+        case 'change_name':
+          return t('changed the group name to') + ' ' + message.content;
+        case 'change_avatar':
+          return t('changed the group avatar');
+        case 'leave_conversation':
+          return t('left the conversation');
+        case 'promote_admin':
+          if (message.target) return t('promoted') + ' ' + message.target.name + ' ' + t('to administrator');
+          break;
+        case 'revoke_admin':
+          if (message.target) return t('revoked') + ' ' + message.target.name + ' ' + t('as administrator');
+          break;
+      }
     };
 
     const messageContent = () => {
       if (message.type === 'text') {
         if (!isOwn) {
-          return <>{receivedMessage(message.content)}</>;
+          return receivedMessage(message.content);
         } else {
-          return <>{sentMessage(message.content)}</>;
+          return sentMessage(message.content);
         }
       } else if (message.type === 'image') {
         if (!isOwn) {
-          return <>{receivedMedia(message.images!)}</>;
+          return receivedMedia(message.images!);
         } else {
-          return <>{sentMedia(message.images!)}</>;
+          return sentMedia(message.images!);
         }
       } else if (message.type === 'voice' || message.type === 'video') {
-        return <>{messageCall()}</>;
+        return messageCall();
       } else if (message.type === 'notification') {
         return (
-          <>
-            <div className='flex justify-center mb-2'>
-              <div className='text-sm text-gray-500 font-semibold'>
-                {isOwn ? 'You' : message.sender.name}&nbsp;{message.content}
-              </div>
+          <div className='flex justify-center mb-2'>
+            <div className='text-sm text-gray-500 font-semibold'>
+              {isOwn ? t('You') : message.sender.name}&nbsp;{switchNoti(message)}
             </div>
-          </>
+          </div>
         );
       }
     };

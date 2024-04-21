@@ -286,6 +286,14 @@ export interface IUpdateConversation extends IConversation {
 }
 
 type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video';
+type TypeofAction =
+  | 'promote_admin'
+  | 'revoke_admin'
+  | 'remove_member'
+  | 'change_name'
+  | 'change_avatar'
+  | 'leave_conversation'
+  | 'add_member';
 
 export interface IMessage {
   _id: string;
@@ -293,6 +301,8 @@ export interface IMessage {
   type: TypeofMessage;
   sender: IUserInfo;
   content: string;
+  action: TypeofAction;
+  target?: IUserInfo;
   isSending?: boolean;
   images?: string[];
   createdAt: string;

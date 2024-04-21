@@ -35,7 +35,7 @@ import { useCurrentConversationData, useCurrentUserInfo, useMessagesImage } from
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { IMessage, IUserInfo } from '@/types';
-import { cn, getImageURL } from '@/lib/utils';
+import { getImageURL } from '@/lib/utils';
 import { getDateTimeToNow } from '@/lib/descriptions/formatDateTime';
 import MembersToGroup from './Modal/MembersToGroup';
 import { FaEllipsisVertical, FaRightFromBracket } from 'react-icons/fa6';
@@ -236,7 +236,11 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     },
                     isSending: true,
                     type: 'notification',
-                    content: `promoted ${user.name} to administrator`,
+                    action: 'promote_admin',
+                    target: {
+                      _id: user._id,
+                      name: user.name
+                    },
                     createdAt: new Date()
                   };
 
@@ -268,7 +272,11 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     },
                     isSending: true,
                     type: 'notification',
-                    content: `revoked ${user.name} as administrator`,
+                    action: 'revoke_admin',
+                    target: {
+                      _id: user._id,
+                      name: user.name
+                    },
                     createdAt: new Date()
                   };
 
@@ -330,7 +338,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     },
                     isSending: true,
                     type: 'notification',
-                    content: 'left the group',
+                    action: 'leave_conversation',
                     createdAt: new Date()
                   };
 
@@ -350,7 +358,11 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       },
                       isSending: true,
                       type: 'notification',
-                      content: `removed ${user.name}`,
+                      action: 'remove_member',
+                      target: {
+                        _id: user._id,
+                        name: user.name
+                      },
                       createdAt: new Date()
                     };
 

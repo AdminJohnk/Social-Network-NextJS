@@ -204,10 +204,7 @@ export default function CreateNewGroup({ users, handleClose }: ICreateNewGroupPr
       </div>
       <div className='flex flex-end mt-2 gap-5'>
         <Button
-          className={cn(
-            'button lg:px-6 text-white max-md:flex-1',
-            (!isChanged || isLoading) && 'select-none'
-          )}
+          className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
           variant='destructive'
           onClick={handleClose}
           disabled={isLoading}>
