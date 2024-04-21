@@ -1,8 +1,8 @@
 'use client';
 
 import { ReactElement, useEffect, useMemo, useState } from 'react';
-import { IoLanguage, IoLanguageOutline, IoMoonOutline, IoSettingsSharp } from 'react-icons/io5';
-import { FaComment, FaSnowflake, FaUser, FaVideo } from 'react-icons/fa';
+import { IoMoonOutline, IoSettingsSharp } from 'react-icons/io5';
+import { FaComment, FaUser, FaVideo } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { useThemeMode } from 'flowbite-react';
@@ -19,6 +19,7 @@ import ConversationList from './ConversationList';
 import { PopoverContent, Popover, PopoverTrigger } from '@/components/ui/popover';
 import Language from '@/components/shared/Header/Language';
 import ContactList from './ContactList';
+import Logo from '@/components/shared/Logo';
 
 export interface IChatSideBarProps {
   conversationID: string | undefined;
@@ -51,7 +52,7 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
   }, [conversations]);
 
   const contacts = useMemo(() => {
-    return currentUserInfo?.members ?? [];
+    return currentUserInfo?.members || [];
   }, [currentUserInfo?.members]);
 
   const contactCount = useMemo(() => {
@@ -64,7 +65,7 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
   const options = [
     { name: 'new message', icon: <FaComment className='text-2xl' />, count: notSeenCount },
     { name: 'contact', icon: <FaUser className='text-2xl' />, count: contactCount },
-    { name: 'missing call', icon: <FaVideo className='text-2xl' />, count: calledList?.length ?? 0 }
+    { name: 'missing call', icon: <FaVideo className='text-2xl' />, count: calledList?.length || 0 }
   ];
 
   const OptionRender = useMemo(() => {
@@ -91,7 +92,7 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
       <div className='option flex flex-col h-full items-center justify-between'>
         <div className='flex flex-col items-center'>
           <Link href='/' className='icon_logo'>
-            <FaSnowflake className='text-3xl' />
+            <Logo />
           </Link>
           <div className='max-md/2:pt-0 pt-6'>
             {options.map((option, index) => (

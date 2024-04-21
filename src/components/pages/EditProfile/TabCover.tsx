@@ -86,7 +86,7 @@ export default function TabCover(props: ITabCoverProps) {
               <div className='flex flex-col'>
                 <span className='h5-bold mb-2'>{currentUserInfo.name}</span>
                 <span className='small-regular text-text-2'>
-                  @{currentUserInfo.alias ?? currentUserInfo._id}
+                  @{currentUserInfo.alias || currentUserInfo._id}
                 </span>
               </div>
             </div>

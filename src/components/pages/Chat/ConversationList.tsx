@@ -20,6 +20,7 @@ import {
   useReceiveMessage,
   useReceiveSeenConversation
 } from '@/hooks/mutation';
+import { cn } from '@/lib/utils';
 
 interface IConversationListProps {
   conversationID?: string;
@@ -108,9 +109,11 @@ function ConversationList({ conversationID }: IConversationListProps) {
       {isLoadingConversations ? (
         <div className='h-[calc(100vh-127px)] text-center py-10'>Loading...</div>
       ) : (
-        <div className='space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)] custom-scrollbar-fg'>
+        <div className={'space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)] custom-scrollbar-fg'}>
           {conversations.map((conversation) => (
-            <ConversationBox key={conversation._id} conversation={conversation} />
+            <div className={cn('rounded-xl', conversationID === conversation._id && 'bg-hover-2')}>
+              <ConversationBox key={conversation._id} conversation={conversation} />
+            </div>
           ))}
         </div>
       )}

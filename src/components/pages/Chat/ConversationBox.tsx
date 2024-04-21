@@ -1,21 +1,23 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
-import { IConversation } from '@/types';
+import { IConversation, IMessage } from '@/types';
 import { cn } from '@/lib/utils';
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { Link } from '@/navigation';
 import { useSession } from 'next-auth/react';
-import { useFormatter, useNow } from 'next-intl';
+import { useFormatter, useNow, useTranslations } from 'next-intl';
 
 export interface IConversationBoxProps {
   conversation: IConversation;
 }
 
 export default function ConversationBox({ conversation }: IConversationBoxProps) {
-  if (!conversation.lastMessage) return <></>;
+  if (!conversation.lastMessage && conversation.type === 'private') return <></>;
+
+  const t = useTranslations();
 
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
@@ -104,8 +106,8 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
   const senderName = useMemo(() => {
     if (isOwn) {
-      if (conversation.lastMessage.type === 'notification') return 'You ';
-      else return 'You: ';
+      if (conversation.lastMessage?.type === 'notification') return t('You') + ' ';
+      else return t('You') + ': ';
     }
 
     const lastMessageSenderName = conversation.lastMessage?.sender?.name;
@@ -113,7 +115,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
     const arr = lastMessageSenderName.split(' ');
 
-    if (conversation.lastMessage.type === 'notification') return arr[arr.length - 1] + ' ';
+    if (conversation.lastMessage?.type === 'notification') return arr[arr.length - 1] + ' ';
 
     if (conversation.type === 'private') return '';
 
@@ -126,45 +128,71 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
     return conversation.seen.some((user) => user._id === currentUserInfo?._id);
   }, [conversation.lastMessage, conversation.seen, currentUserInfo]);
 
+  const switchNoti = useCallback((message: IMessage) => {
+    if (!message) return;
+    switch (message.action) {
+      case 'add_member':
+        if (message.target) return t('added') + ' ' + message.target.name + ' ' + t('to the group');
+        break;
+      case 'remove_member':
+        if (message.target) return t('removed') + ' ' + message.target.name + ' ' + t('from the group');
+        break;
+      case 'change_name':
+        return t('changed the group name to') + ' ' + message.content;
+      case 'change_avatar':
+        return t('changed the group avatar');
+      case 'leave_conversation':
+        return t('left the conversation');
+      case 'promote_admin':
+        if (message.target) return t('promoted') + ' ' + message.target.name + ' ' + t('to administrator');
+        break;
+      case 'revoke_admin':
+        if (message.target) return t('revoked') + ' ' + message.target.name + ' ' + t('as administrator');
+        break;
+    }
+  }, []);
+
   const lastMessageText = useMemo(() => {
-    if (conversation.lastMessage?.images?.length! > 0) return 'Sent an image';
+    if (conversation.lastMessage?.images?.length! > 0) return t('Sent an image');
 
     if (conversation.lastMessage?.type === 'voice' || conversation.lastMessage?.type === 'video')
-      return 'The call has ended';
+      return t('The call has ended');
 
-    if (conversation.lastMessage?.content) return conversation.lastMessage.content;
+    if (conversation.lastMessage?.type === 'notification') return switchNoti(conversation.lastMessage);
 
-    return 'Start a conversation';
+    if (conversation.lastMessage?.content) return conversation.lastMessage?.content;
+
+    return t('Start a conversation');
   }, [conversation.lastMessage]);
 
   return (
     <Link
       href={`/messages/${conversation._id}`}
-      className='relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-hover-1'>
-      <div className='relative w-14 h-14 shrink-0'>
-        {conversation.type === 'group' ? (
-          <AvatarGroup
-            key={conversation._id}
-            users={conversation.members}
-            image={conversation.image}
-            size={50}
-          />
-        ) : (
-          <AvatarMessage key={conversation._id} user={otherUser!} size={50} />
-        )}
-      </div>
+      className='relative flex items-center gap-4 px-2 py-3 duration-200 rounded-xl hover:bg-hover-1'>
+      {conversation.type === 'group' ? (
+        <AvatarGroup
+          key={conversation._id}
+          users={conversation.members}
+          image={conversation.image}
+          size={50}
+        />
+      ) : (
+        <AvatarMessage key={conversation._id} user={otherUser!} size={50} />
+      )}
       <div className='flex-1 min-w-0'>
         <div className='flex items-center gap-2 mb-1.5'>
           <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-            {conversation.name ?? otherUser!.name}
+            {conversation.name || otherUser!.name}
           </div>
           <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-            {conversation.lastMessage?.createdAt &&
-              format.relativeTime(conversation.lastMessage.createdAt as unknown as Date, now)}
+            {format.relativeTime(
+              (conversation?.lastMessage?.createdAt || conversation.createdAt) as unknown as Date,
+              now
+            )}
           </div>
         </div>
         <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-          <span className={cn('truncate text-sm', (!isOwn && !hasSeen) ? 'font-bold' : 'text-text-2')}>
+          <span className={cn('truncate text-sm', !isOwn && !hasSeen ? 'font-bold' : 'text-text-2')}>
             {senderName + lastMessageText}
           </span>
         </div>

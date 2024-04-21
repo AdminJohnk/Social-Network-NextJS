@@ -35,7 +35,7 @@ import { useCurrentConversationData, useCurrentUserInfo, useMessagesImage } from
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { IMessage, IUserInfo } from '@/types';
-import { cn, getImageURL } from '@/lib/utils';
+import { getImageURL } from '@/lib/utils';
 import { getDateTimeToNow } from '@/lib/descriptions/formatDateTime';
 import MembersToGroup from './Modal/MembersToGroup';
 import { FaEllipsisVertical, FaRightFromBracket } from 'react-icons/fa6';
@@ -174,16 +174,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 .slice(0, 4)
                 .map((item) => item.images)
                 .flat().length > 4 && (
-                  <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
-                    <p
-                      className='cursor-pointer'
-                      onClick={() => {
-                        changeConversationOption('image');
-                      }}>
-                      See all
-                    </p>
-                  </div>
-                )}
+                <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
+                  <p
+                    className='cursor-pointer'
+                    onClick={() => {
+                      changeConversationOption('image');
+                    }}>
+                    See all
+                  </p>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -236,7 +236,11 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     },
                     isSending: true,
                     type: 'notification',
-                    content: `promoted ${user.name} to administrator`,
+                    action: 'promote_admin',
+                    target: {
+                      _id: user._id,
+                      name: user.name
+                    },
                     createdAt: new Date()
                   };
 
@@ -244,7 +248,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
                 });
               }}>
-              <FaUserShield className='text-2xl' /> <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
+              <FaUserShield className='text-2xl' />
+              <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
             </button>
           </li>
         )}
@@ -267,7 +272,11 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     },
                     isSending: true,
                     type: 'notification',
-                    content: `revoked ${user.name} as administrator`,
+                    action: 'revoke_admin',
+                    target: {
+                      _id: user._id,
+                      name: user.name
+                    },
                     createdAt: new Date()
                   };
 
@@ -275,12 +284,13 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
                 });
               }}>
-              <FaUserSlash className='text-2xl' /> <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
+              <FaUserSlash className='text-2xl' />
+              <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
             </button>
           </li>
         )}
         {!isMe && (
-          <li >
+          <li>
             <button
               type='button'
               className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
@@ -328,7 +338,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     },
                     isSending: true,
                     type: 'notification',
-                    content: 'left the group',
+                    action: 'leave_conversation',
                     createdAt: new Date()
                   };
 
@@ -348,7 +358,11 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       },
                       isSending: true,
                       type: 'notification',
-                      content: `removed ${user.name}`,
+                      action: 'remove_member',
+                      target: {
+                        _id: user._id,
+                        name: user.name
+                      },
                       createdAt: new Date()
                     };
 
@@ -362,7 +376,9 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
               ) : (
                 isMeAdmin && <FaUserSlash className='text-2xl' />
               )}
-              <span className='whitespace-nowrap'>{isMe ? t('Leave group') : isMeAdmin && t('Remove member')}</span>
+              <span className='whitespace-nowrap'>
+                {isMe ? t('Leave group') : isMeAdmin && t('Remove member')}
+              </span>
             </button>
           </li>
         )}
@@ -602,7 +618,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     </div>
                     <FaChevronDown className='mr-2 duration-300 group-aria-expanded:rotate-180' />
                   </Link>
-                  <ul className='pl-5 my-1 space-y-0 text-sm'>{listImages(messagesImage ?? [])}</ul>
+                  <ul className='pl-5 my-1 space-y-0 text-sm'>{listImages(messagesImage || [])}</ul>
                 </li>
                 {currentConversation.type === 'group' && (
                   <li className='uk-parent'>

@@ -21,13 +21,11 @@ export interface IMembersToGroupProps {
 }
 
 export default function MembersToGroup({ users, conversationID, handleClose }: IMembersToGroupProps) {
-
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
   const { mutateSendMessage } = useSendMessage();
 
-  const { chatSocket } = useSocketStore()
-
+  const { chatSocket } = useSocketStore();
 
   const [checkList, setCheckList] = useState<Record<string, boolean>>({});
   const [checkedUsers, setCheckedUsers] = useState<IUserInfo[]>([]);
@@ -57,7 +55,6 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
     setMembersToAdd(checkedUsers);
   }, [checkedUsers]);
 
-
   const isChanged = useMemo(() => {
     return membersToAdd.length === 0;
   }, [membersToAdd]);
@@ -82,7 +79,9 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
             },
             isSending: true,
             type: 'notification',
-            content: `added ${member.name} to the group`,
+            action: 'add_member',
+            target: member._id,
+            targetName: member.name,
             createdAt: new Date()
           };
 
@@ -106,7 +105,7 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
             placeholder='Search'
             className='rounded-full'
             addon={<IoSearchOutline className='text-xl' />}
-          // onChange={(e) => setSearch(e.target.value)}
+            // onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <div className='flex flex-row h-28 w-full'>
@@ -152,9 +151,7 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
                   <div className='avatar relative'>
                     <AvatarMessage key={user._id} user={user} />
                   </div>
-                  <div className='name text-center ml-2 font-bold'>
-                    {user.name}
-                  </div>
+                  <div className='name text-center ml-2 font-bold'>{user.name}</div>
                 </div>
                 <Checkbox className='items-end mr-1' checked={checkList[user._id]} />
               </div>
@@ -171,6 +168,5 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
         </Button>
       </div>
     </div>
-
   );
 }
