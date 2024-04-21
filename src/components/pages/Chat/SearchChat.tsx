@@ -3,7 +3,11 @@
 import { useTranslations } from 'next-intl';
 import { FaSearch } from 'react-icons/fa';
 
-export default function SearchChat() {
+interface ISearchChatProps {
+  setSearch: (value: string) => void;
+}
+
+export default function SearchChat({ setSearch }: ISearchChatProps) {
   const t = useTranslations();
 
   return (
@@ -15,6 +19,7 @@ export default function SearchChat() {
         type='text'
         placeholder={t('Search')}
         className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
+        onChange={(e) => setSearch(e.target.value)}
       />
     </div>
   );

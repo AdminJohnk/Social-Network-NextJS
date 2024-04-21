@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
-import { IoCheckmarkCircleOutline, IoChevronDownOutline } from 'react-icons/io5';
+import { useEffect, useState } from 'react';
+import { IoChevronDownOutline } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
 
 import RightActionButtons from './RightActionButtons';
@@ -32,6 +32,9 @@ function ConversationList({ conversationID }: IConversationListProps) {
 
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+
+  const [search, setSearch] = useState('');
+
 
   const { mutateReceiveConversation } = useReceiveConversation();
   const { mutateReceiveLeaveGroup } = useReceiveLeaveGroup();
@@ -100,7 +103,7 @@ function ConversationList({ conversationID }: IConversationListProps) {
         </div>
 
         {/* <!-- search --> */}
-        <SearchChat />
+        <SearchChat setSearch={setSearch} />
       </div>
       {isLoadingConversations ? (
         <div className='h-[calc(100vh-127px)] text-center py-10'>Loading...</div>
