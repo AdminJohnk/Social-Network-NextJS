@@ -126,13 +126,52 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       }
     };
 
+    const checkContentType = (content: string) => {
+
+      if (content === '❤️') {
+        return 'emoji';
+      }
+
+      // Define the ranges of Unicode code points for emoji characters
+      const emojiRanges = [
+        [0x1F600, 0x1F64F], // Emoticons
+        [0x1F300, 0x1F5FF], // Miscellaneous Symbols and Pictographs
+        [0x1F680, 0x1F6FF], // Transport and Map Symbols
+        [0x2600, 0x26FF],   // Miscellaneous Symbols
+        [0x2700, 0x27BF],   // Dingbats
+        [0x1F900, 0x1F9FF], // Supplemental Symbols and Pictographs
+        [0x1F1E6, 0x1F1FF]  // Enclosed Characters
+      ];
+
+      for (let i = 0; i < content.length;) {
+        const char = content.codePointAt(i)!;
+
+        let isEmoji = false;
+        for (let j = 0; j < emojiRanges.length; j++) {
+          const [start, end] = emojiRanges[j];
+          if (char >= start && char <= end) {
+            isEmoji = true;
+            break;
+          }
+        }
+
+        if (!isEmoji) {
+          return 'text';
+        }
+
+        i += char > 0xFFFF ? 2 : 1;
+      }
+
+      return 'emoji';
+    };
+
     const receivedMessage = (content: string) => {
       return (
         <>
           <div
             className={cn(
-              'flex gap-3',
-              type === 'group' && !isOwn && !isPrevMesGroup ? 'items-end' : 'items-center'
+              'flex gap-3 items-end',
+              (type === 'group' && !isOwn && !isPrevMesGroup) ? '' : ''
             )}>
             {(!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup) ? (
               <Image
@@ -145,9 +184,9 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
             ) : (
               <div className='w-9 h-9 rounded-full' />
             )}
-            <div>
+            <div className={cn('relative', type === 'group' && !isOwn && !isPrevMesGroup && 'mt-7')}>
               {type === 'group' && !isOwn && !isPrevMesGroup && (
-                <div className='text-sm ml-2 mt-2'>
+                <div className='text-sm ml-2 mt-2 absolute -top-7 left-0'>
                   <Link href={`/profile/${message.sender._id}`} className='flex flex-row gap-1'>
                     {handleFirstName(message.sender.name)}
                     {isAdmin &&
@@ -161,8 +200,9 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               )}
               <div
                 className={cn(
-                  'px-4 py-2 max-w-sm w-min bg-foreground-2',
-                  roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                  'px-4 py-2 max-w-2xl md:max-w-sm',
+                  roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup),
+                  checkContentType(content) === 'emoji' ? 'text-2xl' : 'bg-foreground-2'
                 )}>
                 <Anchorme
                   linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
@@ -184,8 +224,9 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div className='flex gap-2 flex-row-reverse items-end'>
             <div
               className={cn(
-                'px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
-                roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                'px-4 py-2 max-w-2xl md:max-w-sm',
+                roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup),
+                checkContentType(content) === 'emoji' ? 'text-2xl' : 'bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
               )}>
               <Anchorme
                 linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
@@ -242,13 +283,13 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                           height={500}
                           src={getImageURL(item)}
                           alt=''
-                          className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[18px]'
+                          className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[10px]'
                         />
                       </ImageListItem>
                     ))}
                   </ImageList>
                 ) : (
-                  <Link className='block rounded-[18px] border overflow-hidden' href=''>
+                  <Link className='block rounded-[10px] border overflow-hidden' href=''>
                     <div className='max-w-md'>
                       <div className='max-w-full relative w-72'>
                         <div className='relative' style={{ paddingBottom: '57.4286%' }}>
@@ -289,13 +330,13 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                       height={500}
                       src={getImageURL(item)}
                       alt=''
-                      className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[18px]'
+                      className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[10px]'
                     />
                   </ImageListItem>
                 ))}
               </ImageList>
             ) : (
-              <Link className='block rounded-[18px] border overflow-hidden' href=''>
+              <Link className='block rounded-[10px] border overflow-hidden' href=''>
                 <div className='max-w-md'>
                   <div className='max-w-full relative w-72'>
                     <div className='relative' style={{ paddingBottom: '57.4286%' }}>

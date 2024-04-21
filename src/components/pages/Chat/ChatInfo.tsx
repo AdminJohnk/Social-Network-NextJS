@@ -174,16 +174,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 .slice(0, 4)
                 .map((item) => item.images)
                 .flat().length > 4 && (
-                <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
-                  <p
-                    className='cursor-pointer'
-                    onClick={() => {
-                      changeConversationOption('image');
-                    }}>
-                    See all
-                  </p>
-                </div>
-              )}
+                  <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
+                    <p
+                      className='cursor-pointer'
+                      onClick={() => {
+                        changeConversationOption('image');
+                      }}>
+                      See all
+                    </p>
+                  </div>
+                )}
             </>
           )}
         </div>
@@ -243,7 +243,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
               });
             }}>
-            <FaUserShield className='text-2xl' /> {t('Commission as administrator')}
+            <FaUserShield className='text-2xl' /> <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
           </button>
         </li>
         <li className={cn(isMeCreator && isAdmin && !isMe ? '' : 'hidden')}>
@@ -272,7 +272,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
               });
             }}>
-            <FaUserSlash className='text-2xl' /> {t('Revoke administrator')}
+            <FaUserSlash className='text-2xl' /> <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
           </button>
         </li>
         <li className={cn(isMe ? 'hidden' : '')}>
@@ -291,7 +291,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   router.push(`/messages/${res.data.metadata._id}`);
                 });
             }}>
-            <FaCommentDots className='text-2xl' /> {t('Message')}
+            <FaCommentDots className='text-2xl' /> <span className='whitespace-nowrap'>{t('Message')}</span>
           </button>
         </li>
         <li>
@@ -301,7 +301,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             onClick={() => {
               router.push(`/profile/${user._id}`);
             }}>
-            <FaUser className='text-2xl' /> {t('View profile')}
+            <FaUser className='text-2xl' /> <span className='whitespace-nowrap'>{t('View profile')}</span>
           </button>
         </li>
         <li className={cn((isAdmin && !isMe && !isMeCreator) || (!isMeAdmin && !isMe) ? 'hidden' : '')}>
@@ -355,7 +355,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             ) : (
               isMeAdmin && <FaUserSlash className='text-2xl' />
             )}
-            {isMe ? t('Leave group') : isMeAdmin && t('Remove member')}
+            <span className='whitespace-nowrap'>{isMe ? t('Leave group') : isMeAdmin && t('Remove member')}</span>
           </button>
         </li>
       </ul>
@@ -427,7 +427,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     <FaEllipsisVertical />
                   </button>
                   <div
-                    className='min-w-[240px] w-fit'
+                    className='min-w-[260px] !w-fit'
                     data-uk-dropdown='pos: bottom-left; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                     {memberOptions(member)}
                   </div>
@@ -468,9 +468,9 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
     memberOptions
   ]);
 
-  useEffect(() => {
-    console.log(openAddMember);
-  }, [openAddMember]);
+  // useEffect(() => {
+  //   console.log(openAddMember);
+  // }, [openAddMember]);
 
   const handleOpen = () => setOpenAddMember(true);
   const handleClose = () => setOpenAddMember(false);

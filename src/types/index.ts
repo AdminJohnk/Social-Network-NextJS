@@ -297,7 +297,8 @@ type TypeofMessage =
   | 'audio'
   | 'file'
   | 'voice'
-  | 'video';
+  | 'video'
+  | 'icon';
 
 export interface IMessage {
   _id: string;

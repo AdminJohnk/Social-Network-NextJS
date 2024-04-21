@@ -122,7 +122,8 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
         user_image: currentUserInfo?.user_image,
         name: currentUserInfo?.name
       },
-      type: 'like',
+      type: 'text',
+      // type: 'icon',
       isSending: true,
       content: '❤️',
       createdAt: new Date()
@@ -263,9 +264,8 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
           </div>
         </div>
         <div className='relative flex-1'>
-          <textarea
+          <input
             placeholder={t('Write your message')}
-            rows={1}
             className='w-full resize-none bg-foreground-1 rounded-full px-4 p-2'
             value={messageContent}
             onKeyUp={(e) => {
@@ -294,7 +294,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
               const cursorPosition = e.currentTarget.selectionStart;
               setCursor(cursorPosition ?? 0);
             }}>
-          </textarea>
+          </input>
 
           <button type='button' className={cn('text-white shrink-0 p-2 absolute right-0.5 top-0',
             checkEmpty
