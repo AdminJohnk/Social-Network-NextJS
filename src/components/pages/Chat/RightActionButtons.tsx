@@ -17,7 +17,7 @@ import { useCurrentUserInfo } from '@/hooks/query';
 import { useSocketStore } from '@/store/socket';
 import CreateNewGroup from './Modal/CreateNewGroup';
 
-interface IRightActionButtons {}
+interface IRightActionButtons { }
 
 interface Option {
   label: string;
@@ -25,7 +25,7 @@ interface Option {
   id: string;
 }
 
-export default function RightActionButtons({}: IRightActionButtons) {
+export default function RightActionButtons({ }: IRightActionButtons) {
   const t = useTranslations();
 
   const { data: session } = useSession();
@@ -42,12 +42,12 @@ export default function RightActionButtons({}: IRightActionButtons) {
         <IoSettingsOutline className='text-2xl flex group-aria-expanded:rotate-180' />
       </button>
       <div
-        className='md:w-[270px] w-full hidden'
+        className='md:w-[270px] !w-fit hidden'
         data-uk-dropdown='pos: bottom-left; offset:10; animation: uk-animation-slide-bottom-small'>
         <nav>
           <Link href={''} className='hover:!bg-foreground-2' onClick={handleOpen}>
             <IoAddCircleOutline className='text-2xl shrink-0 -ml-1' />
-            {t('Create New Group')}
+            <span className='whitespace-nowrap'>{t('Create New Group')}</span>
             <Modal
               open={openAddMember}
               onClose={handleClose}
@@ -60,15 +60,15 @@ export default function RightActionButtons({}: IRightActionButtons) {
           </Link>
           <Link href='' className='hover:!bg-foreground-2'>
             <IoCheckmarkOutline className='text-2xl shrink-0 -ml-1' />
-            {t('Mark all as read')}
+            <span className='whitespace-nowrap'>{t('Mark all as read')}</span>
           </Link>
           <Link href='' className='hover:!bg-foreground-2'>
             <IoNotificationsOutline className='text-2xl shrink-0 -ml-1' />
-            {t('Notifications setting')}
+            <span className='whitespace-nowrap'>{t('Notifications setting')}</span>
           </Link>
           <Link href='' className='hover:!bg-foreground-2'>
             <IoVolumeMuteOutline className='text-2xl shrink-0 -ml-1' />
-            {t('Mute notifications')}
+            <span className='whitespace-nowrap'>{t('Mute notifications')}</span>
           </Link>
         </nav>
       </div>

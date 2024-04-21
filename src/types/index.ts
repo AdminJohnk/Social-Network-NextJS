@@ -74,12 +74,7 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact =
-  | 'facebook'
-  | 'instagram'
-  | 'twitter'
-  | 'github'
-  | 'linkedin';
+export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -290,15 +285,7 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage =
-  | 'text'
-  | 'image'
-  | 'notification'
-  | 'audio'
-  | 'file'
-  | 'voice'
-  | 'video'
-  | 'icon';
+type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video';
 
 export interface IMessage {
   _id: string;
@@ -353,10 +340,7 @@ export type ModalType =
   | {
       destroy: () => void;
       update: (configUpdate: any | ((prevConfig: any) => any)) => void;
-      then<T>(
-        resolve: (confirmed: boolean) => T,
-        reject: VoidFunction
-      ): Promise<T>;
+      then<T>(resolve: (confirmed: boolean) => T, reject: VoidFunction): Promise<T>;
     }
   | undefined;
 
@@ -419,10 +403,4 @@ export interface ISearchLog {
   createdAt: string;
 }
 
-export type IFeaturePost =
-  | 'detail'
-  | 'sharing'
-  | 'newfeeds'
-  | 'modal'
-  | 'profile'
-  | 'favorite';
+export type IFeaturePost = 'detail' | 'sharing' | 'newfeeds' | 'modal' | 'profile' | 'favorite';
