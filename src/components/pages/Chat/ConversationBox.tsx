@@ -166,7 +166,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
           </div>
         </div>
         <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-          <span className={cn('truncate text-sm', !isOwn && !hasSeen && 'font-bold')}>
+          <span className={cn('truncate text-sm', (!isOwn && !hasSeen) ? 'font-bold' : 'text-text-2')}>
             {senderName + lastMessageText}
           </span>
         </div>

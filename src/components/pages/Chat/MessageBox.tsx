@@ -200,7 +200,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               )}
               <div
                 className={cn(
-                  'px-4 py-2 max-w-2xl md:max-w-sm',
+                  'px-4 py-2 max-w-2xl',
                   roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup),
                   checkContentType(content) === 'emoji' ? 'text-2xl' : 'bg-foreground-2'
                 )}>
@@ -224,7 +224,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div className='flex gap-2 flex-row-reverse items-end'>
             <div
               className={cn(
-                'px-4 py-2 max-w-2xl md:max-w-sm',
+                'px-4 py-2 max-w-2xl',
                 roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup),
                 checkContentType(content) === 'emoji' ? 'text-2xl' : 'bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
               )}>

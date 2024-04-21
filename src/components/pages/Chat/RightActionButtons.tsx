@@ -10,12 +10,13 @@ import {
   IoVolumeMuteOutline
 } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
+import { Link } from '@/navigation';
 
 import { useCurrentUserInfo } from '@/hooks/query';
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import CreateNewGroup from './Modal/CreateNewGroup';
 
-interface IRightActionButtons {}
+interface IRightActionButtons { }
 
 interface Option {
   label: string;
@@ -23,7 +24,7 @@ interface Option {
   id: string;
 }
 
-export default function RightActionButtons({}: IRightActionButtons) {
+export default function RightActionButtons({ }: IRightActionButtons) {
   const t = useTranslations();
 
   const { data: session } = useSession();
@@ -40,9 +41,12 @@ export default function RightActionButtons({}: IRightActionButtons) {
       </button>
       <div
         className='md:w-[270px] w-full hidden'
-        data-uk-dropdown='pos: bottom-right; mode: click; offset:5; animation: uk-animation-slide-top-small; animate-out: true;'>
-        <nav className='space-y-1'>
-          {/* <Modal
+        data-uk-dropdown='pos: bottom-left; offset:10; animation: uk-animation-slide-bottom-small'>
+        <nav>
+          <Link href={''} className='hover:!bg-foreground-2'>
+            <IoAddCircleOutline className='text-2xl shrink-0 -ml-1' />
+            {t('Create New Group')}
+            {/* <Modal
               open={openAddMember}
               onClose={handleClose}
               aria-labelledby='modal-modal-title'
