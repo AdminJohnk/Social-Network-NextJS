@@ -187,28 +187,6 @@ export default function Cover({ profileID }: ICoverProps) {
                 </Button>
               )}
               {receivedRequest && !isMe && (
-                <Button
-                  variant={'main'}
-                  preIcon={
-                    isLoading ? (
-                      <CircularProgress size={17} className='text-text-1' />
-                    ) : (
-                      <FaCheck className='text-xl' />
-                    )
-                  }
-                  onClick={() => {
-                    setIsLoading(true);
-                    mutateAcceptFriendUser(profileID, {
-                      onSettled: () => {
-                        setIsLoading(false);
-                      }
-                    });
-                  }}
-                >
-                  {t('Accept')}
-                </Button>
-              )}
-              {receivedRequest && !isMe && (
                 <div>
                   <Button
                     variant={'main'}
@@ -224,7 +202,7 @@ export default function Cover({ profileID }: ICoverProps) {
                   </Button>
                   <div
                     className='w-[240px] !bg-foreground-1'
-                    data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
+                    data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
                   >
                     <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
                       <div
@@ -273,7 +251,7 @@ export default function Cover({ profileID }: ICoverProps) {
                   </Button>
                   <div
                     className='w-[240px] !bg-foreground-1'
-                    data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
+                    data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
                   >
                     <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
                       <div
