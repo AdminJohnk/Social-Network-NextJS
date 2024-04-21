@@ -29,7 +29,7 @@ const Message = ({ params: { conversationID } }: IMessageProps) => {
         <ChatSideBar conversationID={conversationID?.[0]} setSideBarSelect={handleSelect} />
         {/* <!-- main contents --> */}
         {/* <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]"> */}
-        <main className='ml-[80px]'>
+        <main className='md:ml-[80px]'>
           <div className='mx-auto h-screen relative shadow-lg overflow-hidden border-border-1'>
             <div className='flex bg-white dark:bg-background-2'>
               {/* <!-- sidebar --> */}
