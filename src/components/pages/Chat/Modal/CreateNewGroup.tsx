@@ -145,7 +145,7 @@ export default function CreateNewGroup({ users, handleClose }: ICreateNewGroupPr
                       />
                     </div>
                     <div className='name_career'>
-                      <div className='name mb-1'> {handleFirstName(user.name)}</div>
+                      <div className='name mb-1'>{handleFirstName(user.name)}</div>
                     </div>
                   </div>
                   <div className='flex items-center'></div>
@@ -170,7 +170,7 @@ export default function CreateNewGroup({ users, handleClose }: ICreateNewGroupPr
               }}
             />
           </div>
-          <div className='list-users flex flex-col w-full max-h-80 overflow-auto custom-scrollbar-fg'>
+          <div className='list-users flex flex-col w-full max-h-80 overflow-auto custom-scrollbar-fg gap-5'>
             {isLoadingSearch ? (
               <div className='flex-center p-1 mt-2'>
                 <CircularProgress size={20} className='!text-text-1' />
@@ -186,7 +186,7 @@ export default function CreateNewGroup({ users, handleClose }: ICreateNewGroupPr
             ) : (
               contacts.map((user) => (
                 <div
-                  className='user flex items-center justify-between cursor-pointer mt-5'
+                  className='user flex items-center justify-between cursor-pointer'
                   key={user._id}
                   onClick={() => HandleOnClick(user._id)}>
                   <div className='info flex items-center'>

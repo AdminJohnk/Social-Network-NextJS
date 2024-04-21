@@ -23,13 +23,14 @@ import {
   FaCrown,
   FaDownload,
   FaPlusCircle,
-  FaRegUser,
   FaUser,
   FaUserShield,
   FaUserSlash
 } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
+import { FaEllipsisVertical, FaRightFromBracket } from 'react-icons/fa6';
 
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { messageService } from '@/services/MessageService';
 import { useCurrentConversationData, useCurrentUserInfo, useMessagesImage } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
@@ -38,7 +39,6 @@ import { IMessage, IUserInfo } from '@/types';
 import { getImageURL } from '@/lib/utils';
 import { getDateTimeToNow } from '@/lib/descriptions/formatDateTime';
 import MembersToGroup from './Modal/MembersToGroup';
-import { FaEllipsisVertical, FaRightFromBracket } from 'react-icons/fa6';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 import { useLeaveGroup, useReceiveConversation, useSendMessage } from '@/hooks/mutation';
@@ -461,25 +461,41 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
           })}
         </div>
         {currentConversation.admins.some((admin) => admin._id === currentUserInfo?._id) && (
-          <div
-            className='add-member mt-3 w-11/12 flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-full hover:bg-hover-1 select-none'
-            onClick={handleOpen}>
-            <FaPlusCircle className='text-2xl' />
-            <span className='text-sm font-medium text-left ml-2 select-none'>Add members</span>
-            <Modal
-              open={openAddMember}
-              onClose={handleClose}
-              aria-labelledby='modal-modal-title'
-              aria-describedby='modal-modal-description'>
-              <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
-                <MembersToGroup
-                  users={members}
-                  conversationID={currentConversation._id}
-                  handleClose={handleClose}
-                />
-              </div>
-            </Modal>
-          </div>
+          // <div
+          //   className='add-member mt-3 w-11/12 flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-full hover:bg-hover-1 select-none'
+          //   onClick={handleOpen}>
+          //   <FaPlusCircle className='text-2xl' />
+          //   <span className='text-sm font-medium text-left ml-2 select-none'>Add members</span>
+          // <Modal
+          //   open={openAddMember}
+          //   onClose={handleClose}
+          //   aria-labelledby='modal-modal-title'
+          //   aria-describedby='modal-modal-description'>
+          //   <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
+          //     <MembersToGroup
+          //       users={members}
+          //       conversationID={currentConversation._id}
+          //       handleClose={handleClose}
+          //     />
+          //   </div>
+          // </Modal>
+          <Dialog open={openAddMember} onOpenChange={setOpenAddMember}>
+            <DialogTrigger className='add-member mt-3 w-full flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-xl hover:bg-hover-1 select-none'>
+              <FaPlusCircle className='text-2xl' />
+              <span className='text-sm font-medium text-left ml-2 select-none'>{t('Add members')}</span>
+            </DialogTrigger>
+            <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+              <DialogHeader>
+                <DialogTitle>{t('Add members')}</DialogTitle>
+              </DialogHeader>
+              <MembersToGroup
+                users={members}
+                conversationID={currentConversation._id}
+                handleClose={handleClose}
+              />
+            </DialogContent>
+          </Dialog>
+          // </div>
         )}
       </div>
     );
