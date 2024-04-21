@@ -217,119 +217,14 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
     return (
       <ul>
-        <li className={cn(!isAdmin && isMeCreator ? '' : 'hidden')}>
-          <button
-            type='button'
-            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-            onClick={() => {
-              void messageService.commissionAdmin(currentConversation._id, user._id).then((res) => {
-                chatSocket.emit(Socket.COMMISSION_ADMIN, res.data.metadata);
-
-                const message = {
-                  _id: uuidv4().replace(/-/g, ''),
-                  conversation_id: ID,
-                  sender: {
-                    _id: currentUserInfo._id,
-                    user_image: currentUserInfo.user_image,
-                    name: currentUserInfo.name
-                  },
-                  isSending: true,
-                  type: 'notification',
-                  content: `promoted ${user.name} to administrator`,
-                  createdAt: new Date()
-                };
-
-                mutateSendMessage(message as unknown as IMessage);
-                chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
-              });
-            }}>
-            <FaUserShield className='text-2xl' /> <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
-          </button>
-        </li>
-        <li className={cn(isMeCreator && isAdmin && !isMe ? '' : 'hidden')}>
-          <button
-            type='button'
-            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-            onClick={() => {
-              void messageService.removeAdmin(currentConversation._id, user._id).then((res) => {
-                chatSocket.emit(Socket.DECOMMISSION_ADMIN, res.data.metadata);
-
-                const message = {
-                  _id: uuidv4().replace(/-/g, ''),
-                  conversation_id: ID,
-                  sender: {
-                    _id: currentUserInfo._id,
-                    user_image: currentUserInfo.user_image,
-                    name: currentUserInfo.name
-                  },
-                  isSending: true,
-                  type: 'notification',
-                  content: `revoked ${user.name} as administrator`,
-                  createdAt: new Date()
-                };
-
-                mutateSendMessage(message as unknown as IMessage);
-                chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
-              });
-            }}>
-            <FaUserSlash className='text-2xl' /> <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
-          </button>
-        </li>
-        <li className={cn(isMe ? 'hidden' : '')}>
-          <button
-            type='button'
-            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-            onClick={() => {
-              void messageService
-                .createConversation({
-                  type: 'private',
-                  members: [user._id]
-                })
-                .then((res) => {
-                  chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
-                  mutateReceiveConversation(res.data.metadata);
-                  router.push(`/messages/${res.data.metadata._id}`);
-                });
-            }}>
-            <FaCommentDots className='text-2xl' /> <span className='whitespace-nowrap'>{t('Message')}</span>
-          </button>
-        </li>
-        <li>
-          <button
-            type='button'
-            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-            onClick={() => {
-              router.push(`/profile/${user._id}`);
-            }}>
-            <FaUser className='text-2xl' /> <span className='whitespace-nowrap'>{t('View profile')}</span>
-          </button>
-        </li>
-        <li className={cn((isAdmin && !isMe && !isMeCreator) || (!isMeAdmin && !isMe) ? 'hidden' : '')}>
-          <button
-            type='button'
-            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-            onClick={() => {
-              if (user._id === currentUserInfo._id) {
-                mutateLeaveGroup(ID);
-                const message = {
-                  _id: uuidv4().replace(/-/g, ''),
-                  conversation_id: ID,
-                  sender: {
-                    _id: currentUserInfo._id,
-                    user_image: currentUserInfo.user_image,
-                    name: currentUserInfo.name
-                  },
-                  isSending: true,
-                  type: 'notification',
-                  content: 'left the group',
-                  createdAt: new Date()
-                };
-
-                mutateSendMessage(message as unknown as IMessage);
-                chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
-              } else {
-                void messageService.removeMember(currentConversation._id, user._id).then((res) => {
-                  chatSocket.emit(Socket.REMOVE_MEMBER, { ...res.data.metadata, remove_userID: user._id });
+        {!isAdmin && isMeCreator && (
+          <li>
+            <button
+              type='button'
+              className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+              onClick={() => {
+                void messageService.commissionAdmin(currentConversation._id, user._id).then((res) => {
+                  chatSocket.emit(Socket.COMMISSION_ADMIN, res.data.metadata);
 
                   const message = {
                     _id: uuidv4().replace(/-/g, ''),
@@ -341,30 +236,143 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     },
                     isSending: true,
                     type: 'notification',
-                    content: `removed ${user.name}`,
+                    content: `promoted ${user.name} to administrator`,
                     createdAt: new Date()
                   };
 
                   mutateSendMessage(message as unknown as IMessage);
                   chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
                 });
-              }
+              }}>
+              <FaUserShield className='text-2xl' /> <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
+            </button>
+          </li>
+        )}
+        {isMeCreator && isAdmin && !isMe && (
+          <li>
+            <button
+              type='button'
+              className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+              onClick={() => {
+                void messageService.removeAdmin(currentConversation._id, user._id).then((res) => {
+                  chatSocket.emit(Socket.DECOMMISSION_ADMIN, res.data.metadata);
+
+                  const message = {
+                    _id: uuidv4().replace(/-/g, ''),
+                    conversation_id: ID,
+                    sender: {
+                      _id: currentUserInfo._id,
+                      user_image: currentUserInfo.user_image,
+                      name: currentUserInfo.name
+                    },
+                    isSending: true,
+                    type: 'notification',
+                    content: `revoked ${user.name} as administrator`,
+                    createdAt: new Date()
+                  };
+
+                  mutateSendMessage(message as unknown as IMessage);
+                  chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+                });
+              }}>
+              <FaUserSlash className='text-2xl' /> <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
+            </button>
+          </li>
+        )}
+        {!isMe && (
+          <li >
+            <button
+              type='button'
+              className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+              onClick={() => {
+                void messageService
+                  .createConversation({
+                    type: 'private',
+                    members: [user._id]
+                  })
+                  .then((res) => {
+                    chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
+                    mutateReceiveConversation(res.data.metadata);
+                    router.push(`/messages/${res.data.metadata._id}`);
+                  });
+              }}>
+              <FaCommentDots className='text-2xl' /> <span className='whitespace-nowrap'>{t('Message')}</span>
+            </button>
+          </li>
+        )}
+        <li>
+          <button
+            type='button'
+            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+            onClick={() => {
+              router.push(`/profile/${user._id}`);
             }}>
-            {isMe ? (
-              <FaRightFromBracket className='text-2xl' />
-            ) : (
-              isMeAdmin && <FaUserSlash className='text-2xl' />
-            )}
-            <span className='whitespace-nowrap'>{isMe ? t('Leave group') : isMeAdmin && t('Remove member')}</span>
+            <FaUser className='text-2xl' /> <span className='whitespace-nowrap'>{t('View profile')}</span>
           </button>
         </li>
+        {!((isAdmin && !isMe && !isMeCreator) || (!isMeAdmin && !isMe)) && (
+          <li>
+            <button
+              type='button'
+              className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+              onClick={() => {
+                if (user._id === currentUserInfo._id) {
+                  mutateLeaveGroup(ID);
+                  const message = {
+                    _id: uuidv4().replace(/-/g, ''),
+                    conversation_id: ID,
+                    sender: {
+                      _id: currentUserInfo._id,
+                      user_image: currentUserInfo.user_image,
+                      name: currentUserInfo.name
+                    },
+                    isSending: true,
+                    type: 'notification',
+                    content: 'left the group',
+                    createdAt: new Date()
+                  };
+
+                  mutateSendMessage(message as unknown as IMessage);
+                  chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
+                } else {
+                  void messageService.removeMember(currentConversation._id, user._id).then((res) => {
+                    chatSocket.emit(Socket.REMOVE_MEMBER, { ...res.data.metadata, remove_userID: user._id });
+
+                    const message = {
+                      _id: uuidv4().replace(/-/g, ''),
+                      conversation_id: ID,
+                      sender: {
+                        _id: currentUserInfo._id,
+                        user_image: currentUserInfo.user_image,
+                        name: currentUserInfo.name
+                      },
+                      isSending: true,
+                      type: 'notification',
+                      content: `removed ${user.name}`,
+                      createdAt: new Date()
+                    };
+
+                    mutateSendMessage(message as unknown as IMessage);
+                    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+                  });
+                }
+              }}>
+              {isMe ? (
+                <FaRightFromBracket className='text-2xl' />
+              ) : (
+                isMeAdmin && <FaUserSlash className='text-2xl' />
+              )}
+              <span className='whitespace-nowrap'>{isMe ? t('Leave group') : isMeAdmin && t('Remove member')}</span>
+            </button>
+          </li>
+        )}
       </ul>
     );
   };
 
   const listMembers = useCallback(() => {
     return (
-      <div className='ml-1 w-full flex flex-col items-center'>
+      <div className='ml-1 mb-2 w-full flex flex-col items-center'>
         <div className='listUser flex flex-col w-full pl-3' style={{ overflow: 'auto' }}>
           {currentConversation?.members.map((member) => {
             const isAdmin = currentConversation.admins.some((admin) => admin._id === member._id);
