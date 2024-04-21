@@ -148,7 +148,7 @@ export default function GeneralTab() {
           disabled={!isChanged || isLoading}
         >
           {isLoading && (
-            <CircularProgress size={20} className='text-text-1 mr-2' />
+            <CircularProgress size={20} className='!text-text-1 mr-2' />
           )}
           {t('Save')} <span className='ripple-overlay'></span>
         </Button>

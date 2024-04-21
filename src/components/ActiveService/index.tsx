@@ -4,7 +4,16 @@ import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
 import { useCurrentUserInfo, useGetAllUsersUsedToChatWith } from '@/hooks/query';
+import {
+  useMutateConversation,
+  useReceiveConversation,
+  useReceiveDissolveGroup,
+  useReceiveLeaveGroup,
+  useReceiveMessage,
+  useReceiveSeenConversation
+} from '@/hooks/mutation';
 import { useSocketStore } from '@/store/socket';
+import { IConversation, IMessage } from '@/types';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 
 export const PresenceService = () => {
@@ -60,9 +69,59 @@ export const ChatService = () => {
   const { chatSocket } = useSocketStore();
   const { data: session } = useSession();
 
+  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+
+  const { mutateReceiveConversation } = useReceiveConversation();
+  const { mutateReceiveLeaveGroup } = useReceiveLeaveGroup();
+  const { mutateReceiveDissolveGroup } = useReceiveDissolveGroup();
+  const { mutateReceiveSeenConversation } = useReceiveSeenConversation();
+  const { mutateReceiveMessage } = useReceiveMessage(currentUserInfo._id);
+  const { mutateConversation } = useMutateConversation(currentUserInfo._id || '');
+
   useEffect(() => {
     if (session && chatSocket) chatSocket.emit(Socket.SETUP, session.id);
   }, [session, chatSocket]);
+
+  useEffect(() => {
+    if (currentUserInfo && chatSocket) {
+      chatSocket.on(Socket.PRIVATE_CONVERSATION, (conversation: IConversation) => {
+        mutateReceiveConversation(conversation);
+      });
+      chatSocket.on(Socket.LEAVE_GROUP, (conversation: IConversation) => {
+        mutateReceiveLeaveGroup(conversation);
+      });
+      chatSocket.on(Socket.DISSOLVE_GROUP, (conversation: IConversation) => {
+        mutateReceiveDissolveGroup(conversation);
+      });
+      chatSocket.on(Socket.PRIVATE_MSG, (message: IMessage) => {
+        mutateReceiveMessage(message);
+      });
+      chatSocket.on(Socket.SEEN_MSG, (conversation: IConversation) => {
+        mutateReceiveSeenConversation(conversation);
+      });
+      chatSocket.on(Socket.CHANGE_CONVERSATION_IMAGE, (conversation: IConversation) => {
+        mutateConversation({ ...conversation, typeUpdate: 'image' });
+      });
+      chatSocket.on(Socket.CHANGE_CONVERSATION_COVER, (conversation: IConversation) => {
+        mutateConversation({ ...conversation, typeUpdate: 'cover_image' });
+      });
+      chatSocket.on(Socket.CHANGE_CONVERSATION_NAME, (conversation: IConversation) => {
+        mutateConversation({ ...conversation, typeUpdate: 'name' });
+      });
+      chatSocket.on(Socket.ADD_MEMBER, (conversation: IConversation) => {
+        mutateConversation({ ...conversation, typeUpdate: 'add_member' });
+      });
+      chatSocket.on(Socket.REMOVE_MEMBER, (conversation: IConversation) => {
+        mutateConversation({ ...conversation, typeUpdate: 'remove_member' });
+      });
+      chatSocket.on(Socket.COMMISSION_ADMIN, (conversation: IConversation) => {
+        mutateConversation({ ...conversation, typeUpdate: 'commission_admin' });
+      });
+      chatSocket.on(Socket.DECOMMISSION_ADMIN, (conversation: IConversation) => {
+        mutateConversation({ ...conversation, typeUpdate: 'remove_admin' });
+      });
+    }
+  }, [currentUserInfo, chatSocket]);
 
   return <></>;
 };

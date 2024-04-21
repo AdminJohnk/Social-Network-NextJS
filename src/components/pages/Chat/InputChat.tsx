@@ -116,9 +116,9 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
       _id: id,
       conversation_id: ID,
       sender: {
-        _id: currentUserInfo?._id,
-        user_image: currentUserInfo?.user_image,
-        name: currentUserInfo?.name
+        _id: currentUserInfo._id,
+        user_image: currentUserInfo.user_image,
+        name: currentUserInfo.name
       },
       type: 'text',
       // type: 'icon',
@@ -146,8 +146,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
   const handleStopTyping = useCallback(
     debounce(
-      () =>
-        chatSocket.emit(Socket.STOP_TYPING, { conversationID: ID, userID: currentUserInfo?._id, members }),
+      () => chatSocket.emit(Socket.STOP_TYPING, { conversationID: ID, userID: currentUserInfo._id, members }),
       1000
     ),
     []
@@ -284,7 +283,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             onChange={(e) => {
               chatSocket.emit(Socket.IS_TYPING, {
                 conversationID: ID,
-                userID: currentUserInfo?._id,
+                userID: currentUserInfo._id,
                 members
               });
               setMessage(e.currentTarget.value);

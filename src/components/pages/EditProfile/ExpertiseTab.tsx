@@ -80,7 +80,7 @@ export default function ExpertiseTab(props: IExpertiseTabProps) {
           )}
           onClick={onSubmit}
           disabled={!isChanged || isLoading}>
-          {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
           {t('Save')} <span className='ripple-overlay'></span>
         </Button>
       </div>

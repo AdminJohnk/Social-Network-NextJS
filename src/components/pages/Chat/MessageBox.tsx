@@ -43,7 +43,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       return seen.filter((user) => user._id !== message.sender._id).map((user) => user.user_image);
     }, [seen, message]);
 
-    const isOwn = currentUserInfo?._id === message.sender._id;
+    const isOwn = currentUserInfo._id === message.sender._id;
 
     const stateCalled = (senderId: string) => {
       if (message.content.includes('missed')) {

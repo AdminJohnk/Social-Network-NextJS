@@ -69,7 +69,7 @@ export default function Post({ post, feature }: IPostProps) {
             <Link
               href={`/posts/${post._id}`}
               className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
-              {format.relativeTime(post.createdAt as unknown as Date, now)}
+              {format.relativeTime(post.createdAt as unknown as Date, now < new Date() ? new Date() : now)}
             </Link>
           </div>
         </div>

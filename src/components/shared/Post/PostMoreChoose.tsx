@@ -159,7 +159,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
                   onClick={handleDeletePost}>
-                  {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+                  {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
                   {t('Delete')}
                 </Button>
               </AlertDialogFooter>

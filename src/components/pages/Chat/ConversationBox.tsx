@@ -25,15 +25,15 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   const now = useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
 
-  const isSeen = conversation.seen.some((user) => user._id === currentUserInfo?._id);
+  const isSeen = conversation.seen.some((user) => user._id === currentUserInfo._id);
   const isGroup = conversation.type === 'group';
   const isLastMessageFromCurrentUser =
-    conversation.lastMessage && conversation.lastMessage.sender._id === currentUserInfo?._id;
+    conversation.lastMessage && conversation.lastMessage.sender._id === currentUserInfo._id;
 
   const otherUser = useMemo(() => {
     if (isGroup) return;
 
-    return conversation.members.find((member) => member._id !== currentUserInfo?._id);
+    return conversation.members.find((member) => member._id !== currentUserInfo._id);
   }, [currentUserInfo, conversation?.members]);
 
   // const items: MenuProps['items'] = [
@@ -44,7 +44,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   //     icon: <FontAwesomeIcon icon={isSeen ? faReSquareCheck : faSquareCheck} />,
   //     onClick: () => {
   //       const emitType = isSeen ? Socket.UNSEEN_MSG : Socket.SEEN_MSG;
-  //       chatSocket.emit(emitType, { conversationID: conversation._id, userID: currentUserInfo?._id });
+  //       chatSocket.emit(emitType, { conversationID: conversation._id, userID: currentUserInfo._id });
   //     }
   //   },
   //   {
@@ -83,7 +83,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   //         _id: uuidv4().replace(/-/g, ''),
   //         conversation_id: conversation._id,
   //         sender: {
-  //           _id: currentUserInfo?._id,
+  //           _id: currentUserInfo._id,
   //           user_image: currentUserInfo.user_image,
   //           name: currentUserInfo.name
   //         },
@@ -101,7 +101,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   // ];
 
   const isOwn = useMemo(() => {
-    return currentUserInfo?._id === conversation.lastMessage?.sender?._id;
+    return currentUserInfo._id === conversation.lastMessage?.sender?._id;
   }, [conversation.lastMessage, currentUserInfo]);
 
   const senderName = useMemo(() => {
@@ -125,7 +125,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   const hasSeen = useMemo(() => {
     if (!conversation.lastMessage) return false;
 
-    return conversation.seen.some((user) => user._id === currentUserInfo?._id);
+    return conversation.seen.some((user) => user._id === currentUserInfo._id);
   }, [conversation.lastMessage, conversation.seen, currentUserInfo]);
 
   const switchNoti = useCallback((message: IMessage) => {
@@ -189,7 +189,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
           <div className='text-xs font-light text-gray-500 dark:text-white/70'>
             {format.relativeTime(
               (conversation?.lastMessage?.createdAt || conversation.createdAt) as unknown as Date,
-              now
+              now < new Date() ? new Date() : now
             )}
           </div>
         </div>

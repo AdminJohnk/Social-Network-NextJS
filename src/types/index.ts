@@ -413,4 +413,4 @@ export interface ISearchLog {
   createdAt: string;
 }
 
-export type IFeaturePost = 'detail' | 'sharing' | 'newfeeds' | 'modal' | 'profile' | 'favorite';
+export type IFeaturePost = 'detail' | 'sharing' | 'newsfeed' | 'modal' | 'profile' | 'favorite';
