@@ -110,20 +110,27 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       }
     };
 
-    const roundedCornerStyle = (isOwn: boolean, isNextMesGroup: boolean, isPrevMesGroup: boolean) => {
+    const containerStyle = cn(
+      isNextMesGroup && isPrevMesGroup && 'py-[1px]',
+      isNextMesGroup && !isPrevMesGroup && 'pt-1 pb-[1px]',
+      !isNextMesGroup && isPrevMesGroup && 'pt-[1px] pb-1',
+      !isNextMesGroup && !isPrevMesGroup && 'py-1'
+    );
+
+    const roundedCornerStyle = (isNextMesGroup: boolean, isPrevMesGroup: boolean) => {
       if (isOwn) {
-        if (isNextMesGroup && isPrevMesGroup) return 'rounded-s-[1.5rem] rounded-e-[0.75rem] my-[1px]';
+        if (isNextMesGroup && isPrevMesGroup) return 'rounded-s-[1.5rem] rounded-e-[0.75rem]';
         if (isNextMesGroup && !isPrevMesGroup)
-          return 'rounded-t-[1.5rem] rounded-bl-[1.5rem] rounded-br-[0.75rem] my-[1px]';
+          return 'rounded-t-[1.5rem] rounded-bl-[1.5rem] rounded-br-[0.75rem]';
         if (!isNextMesGroup && isPrevMesGroup)
-          return 'rounded-b-[1.5rem] rounded-tl-[1.5rem] rounded-tr-[0.75rem] my-[1px]';
+          return 'rounded-b-[1.5rem] rounded-tl-[1.5rem] rounded-tr-[0.75rem]';
         if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem]';
       } else {
-        if (isNextMesGroup && isPrevMesGroup) return 'rounded-e-[1.5rem] rounded-s-[0.75rem] my-[1px]';
+        if (isNextMesGroup && isPrevMesGroup) return 'rounded-e-[1.5rem] rounded-s-[0.75rem]';
         if (isNextMesGroup && !isPrevMesGroup)
-          return 'rounded-t-[1.5rem] rounded-br-[1.5rem] rounded-bl-[0.75rem] my-[1px]';
+          return 'rounded-t-[1.5rem] rounded-br-[1.5rem] rounded-bl-[0.75rem]';
         if (!isNextMesGroup && isPrevMesGroup)
-          return 'rounded-b-[1.5rem] rounded-tr-[1.5rem] rounded-tl-[0.75rem] my-[1px]';
+          return 'rounded-b-[1.5rem] rounded-tr-[1.5rem] rounded-tl-[0.75rem]';
         if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem]';
       }
     };
@@ -144,7 +151,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
         [0x1f1e6, 0x1f1ff] // Enclosed Characters
       ];
 
-      for (let i = 0; i < content.length;) {
+      for (let i = 0; i < content.length; ) {
         const char = content.codePointAt(i)!;
 
         let isEmoji = false;
@@ -199,7 +206,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               <div
                 className={cn(
                   'px-4 py-2 max-w-2xl',
-                  roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup),
+                  roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
                   checkContentType(content) === 'emoji' ? 'text-2xl' : 'bg-foreground-2'
                 )}>
                 <Anchorme
@@ -223,7 +230,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
             <div
               className={cn(
                 'px-4 py-2 max-w-2xl',
-                roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup),
+                roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
                 checkContentType(content) === 'emoji'
                   ? 'text-2xl'
                   : 'bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
@@ -270,7 +277,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   </Link>
                 </div>
               )}
-              <div className={cn('max-w-sm', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>
+              <div className={cn('max-w-sm', roundedCornerStyle(isNextMesGroup, isPrevMesGroup))}>
                 {content.length > 1 ? (
                   <ImageList
                     sx={{ width: content.length == 2 ? 336 : 500, height: 'auto' }}
@@ -367,7 +374,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               <div
                 className={cn(
                   'flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
-                  roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                  roundedCornerStyle(isNextMesGroup, isPrevMesGroup)
                 )}>
                 <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
                   {notification[message.type][stateCalled(message.sender._id)]}
@@ -408,7 +415,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 <div
                   className={cn(
                     'flex items-center cursor-pointer hover:scale-[103%] max-w-sm bg-foreground-2 px-4 py-2 !my-[1px]',
-                    roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                    roundedCornerStyle(isNextMesGroup, isPrevMesGroup)
                   )}>
                   <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
                     {notification[message.type][stateCalled(message.sender._id)]}
@@ -488,7 +495,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     return (
       <div ref={ref}>
         {isMoreThan10Min && time(message.createdAt)}
-        <div className={cn(!isNextMesGroup && !isPrevMesGroup ? 'my-2' : '')}>{messageContent()}</div>
+        <div className={containerStyle}>{messageContent()}</div>
         {isLastMes && (
           <div className='text-xs font-light'>
             <div className='relative flex flex-row-reverse items-end'>
