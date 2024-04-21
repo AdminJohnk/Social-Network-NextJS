@@ -9,7 +9,7 @@ import { Link } from '@/navigation';
 import { Avatar, CircularProgress, Skeleton } from '@mui/material';
 import { getImageURL } from '@/lib/utils';
 import PostPrivacy from '../PostPrivacy';
-import { useRef, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Textarea from '@/components/ui/textarea';
 import Picker from '@emoji-mart/react';
@@ -67,6 +67,10 @@ export default function NewPostShare({
   const [cursor, setCursor] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
+  useEffect(() => {
+    textareaRef.current?.classList.add('custom-scrollbar-fg');
+  }, []);
+
   return (
     <form onSubmit={onSubmit}>
       <div className='w-[630px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg p-7 animate-fade-up'>
@@ -123,18 +127,18 @@ export default function NewPostShare({
                 placeholder={t('What do you have in mind?')}
                 value={text}
                 onChange={event => {
-                  const position = textareaRef.current?.selectionStart;
-                  setCursor(position || 0);
+                  // const position = textareaRef.current?.selectionStart;
+                  // setCursor(position || 0);
                   setText(event.target.value);
                 }}
-                onKeyUp={() => {
-                  const position = textareaRef.current?.selectionStart;
-                  setCursor(position || 0);
-                }}
-                onClick={() => {
-                  const position = textareaRef.current?.selectionStart;
-                  setCursor(position || 0);
-                }}
+                // onKeyUp={() => {
+                //   const position = textareaRef.current?.selectionStart;
+                //   setCursor(position || 0);
+                // }}
+                // onClick={() => {
+                //   const position = textareaRef.current?.selectionStart;
+                //   setCursor(position || 0);
+                // }}
                 maxRows={7}
               />
               <Popover

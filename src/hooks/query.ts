@@ -854,3 +854,21 @@ export const useGetSearchLogs = () => {
     isFetchingSearchLogs: isFetching
   };
 };
+
+export const useGetAllImages = (userID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allImages'],
+    queryFn: async () => {
+      const { data } = await postService.getAllImages(userID);
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllImages: isPending,
+    isErrorAllImages: isError,
+    allImages: data!,
+    isFetchingAllImages: isFetching
+  };
+}

@@ -47,6 +47,7 @@
     "react-hooks-global-state": "^2.1.0",
     "react-icons": "^5.1.0",
     "react-intersection-observer": "^9.8.2",
+    "react-photo-view": "^1.2.4",
     "react-slick": "^0.30.2",
     "react-toastify": "^10.0.5",
     "slick-carousel": "^1.8.1",
