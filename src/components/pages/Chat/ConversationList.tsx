@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { IoChevronDownOutline, IoSearchOutline } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
+import { CircularProgress } from '@mui/material';
 
 import RightActionButtons from './RightActionButtons';
 import HeadingTitle from './HeadingTitle';
@@ -95,7 +96,9 @@ function ConversationList({ conversationID }: IConversationListProps) {
         </div>
       </div>
       {isLoadingConversations ? (
-        <div className='h-[calc(100vh-127px)] text-center py-10'>Loading...</div>
+        <div className='h-[calc(100vh-127px)] flex-center py-10'>
+          <CircularProgress size={20} className='!text-text-1' />
+        </div>
       ) : (
         <div className={'space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)] custom-scrollbar-fg'}>
           {searchConversation?.map((conversation) => (

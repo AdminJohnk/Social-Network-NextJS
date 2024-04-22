@@ -54,9 +54,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
 
       return activeUser?.is_online
         ? t('Online')
-        : t('Last seen at') +
-            ' ' +
-            format.relativeTime(lastOnline as unknown as Date, now < new Date() ? new Date() : now);
+        : t('Last seen at') + ' ' + format.relativeTime(lastOnline as unknown as Date, new Date());
     }
   }, [currentConversation, activeUser, members, currentUserInfo, now, otherUser]);
 

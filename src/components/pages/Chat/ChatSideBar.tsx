@@ -135,6 +135,7 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
                   className='flex w-full items-center cursor-pointer gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'
                   arrow={false}
                   position='right-bottom'
+                  animation='bottom-left'
                   tooltip={false}
                   withText
                 />

@@ -5,7 +5,7 @@ import { Link, useRouter } from '@/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { CircularProgress, Modal } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import {
   IoClose,
   IoImageOutline,
@@ -30,7 +30,14 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { FaEllipsisVertical, FaRightFromBracket } from 'react-icons/fa6';
 
-import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter
+} from '@/components/ui/dialog';
 import { messageService } from '@/services/MessageService';
 import { useCurrentConversationData, useCurrentUserInfo, useMessagesImage } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
@@ -140,7 +147,9 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
       return (
         <div className='content'>
           {isLoading ? (
-            <>Loading...</>
+            <div className='flex-center p-1'>
+              <CircularProgress size={20} className='!text-text-1' />
+            </div>
           ) : items.length === 0 ? (
             <div className='flex flex-col justify-center items-center'>
               <IoImageSharp className='text-3xl text-gray-300' />
@@ -178,16 +187,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 .slice(0, 4)
                 .map((item) => item.images)
                 .flat().length > 4 && (
-                  <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
-                    <p
-                      className='cursor-pointer'
-                      onClick={() => {
-                        changeConversationOption('image');
-                      }}>
-                      See all
-                    </p>
-                  </div>
-                )}
+                <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
+                  <p
+                    className='cursor-pointer'
+                    onClick={() => {
+                      changeConversationOption('image');
+                    }}>
+                    See all
+                  </p>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -211,146 +220,25 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
     });
   }, [friends, currentConversation?.members]);
 
-  const memberOptions = (user: IUserInfo) => {
-    const isMe = user._id === currentUserInfo._id;
-    const isAdmin = currentConversation.admins.some((admin) => admin._id === user._id);
+  const memberOptions = useCallback(
+    (user: IUserInfo) => {
+      const isMe = user._id === currentUserInfo._id;
+      const isAdmin = currentConversation.admins.some((admin) => admin._id === user._id);
 
-    const isMeCreator = currentConversation?.creator === currentUserInfo._id;
-    const isMeAdmin =
-      currentConversation?.admins.some((admin) => admin._id === currentUserInfo._id) || isMeCreator;
+      const isMeCreator = currentConversation?.creator === currentUserInfo._id;
+      const isMeAdmin =
+        currentConversation?.admins.some((admin) => admin._id === currentUserInfo._id) || isMeCreator;
 
-    return (
-      <ul>
-        {!isAdmin && isMeCreator && (
-          <li>
-            <button
-              type='button'
-              className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-              onClick={() => {
-                void messageService.commissionAdmin(currentConversation._id, user._id).then((res) => {
-                  chatSocket.emit(Socket.COMMISSION_ADMIN, res.data.metadata);
-
-                  const message = {
-                    _id: uuidv4().replace(/-/g, ''),
-                    conversation_id: ID,
-                    sender: {
-                      _id: currentUserInfo._id,
-                      user_image: currentUserInfo.user_image,
-                      name: currentUserInfo.name
-                    },
-                    isSending: true,
-                    type: 'notification',
-                    action: 'promote_admin',
-                    target: {
-                      _id: user._id,
-                      name: user.name
-                    },
-                    createdAt: new Date()
-                  };
-
-                  mutateSendMessage(message as unknown as IMessage);
-                  chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
-                });
-              }}>
-              <FaUserShield className='text-2xl' />
-              <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
-            </button>
-          </li>
-        )}
-        {isMeCreator && isAdmin && !isMe && (
-          <li>
-            <button
-              type='button'
-              className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-              onClick={() => {
-                void messageService.removeAdmin(currentConversation._id, user._id).then((res) => {
-                  chatSocket.emit(Socket.DECOMMISSION_ADMIN, res.data.metadata);
-
-                  const message = {
-                    _id: uuidv4().replace(/-/g, ''),
-                    conversation_id: ID,
-                    sender: {
-                      _id: currentUserInfo._id,
-                      user_image: currentUserInfo.user_image,
-                      name: currentUserInfo.name
-                    },
-                    isSending: true,
-                    type: 'notification',
-                    action: 'revoke_admin',
-                    target: {
-                      _id: user._id,
-                      name: user.name
-                    },
-                    createdAt: new Date()
-                  };
-
-                  mutateSendMessage(message as unknown as IMessage);
-                  chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
-                });
-              }}>
-              <FaUserSlash className='text-2xl' />
-              <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
-            </button>
-          </li>
-        )}
-        {!isMe && (
-          <li>
-            <button
-              type='button'
-              className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-              onClick={() => {
-                void messageService
-                  .createConversation({
-                    type: 'private',
-                    members: [user._id]
-                  })
-                  .then((res) => {
-                    chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
-                    mutateReceiveConversation(res.data.metadata);
-                    router.push(`/messages/${res.data.metadata._id}`);
-                  });
-              }}>
-              <FaCommentDots className='text-2xl' /> <span className='whitespace-nowrap'>{t('Message')}</span>
-            </button>
-          </li>
-        )}
-        <li>
-          <button
-            type='button'
-            className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-            onClick={() => {
-              router.push(`/profile/${user._id}`);
-            }}>
-            <FaUser className='text-2xl' /> <span className='whitespace-nowrap'>{t('View profile')}</span>
-          </button>
-        </li>
-        {!((isAdmin && !isMe && !isMeCreator) || (!isMeAdmin && !isMe)) && (
-          <li>
-            <button
-              type='button'
-              className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-              onClick={() => {
-                if (user._id === currentUserInfo._id) {
-                  mutateLeaveGroup(ID);
-                  const message = {
-                    _id: uuidv4().replace(/-/g, ''),
-                    conversation_id: ID,
-                    sender: {
-                      _id: currentUserInfo._id,
-                      user_image: currentUserInfo.user_image,
-                      name: currentUserInfo.name
-                    },
-                    isSending: true,
-                    type: 'notification',
-                    action: 'leave_conversation',
-                    createdAt: new Date()
-                  };
-
-                  mutateSendMessage(message as unknown as IMessage);
-                  chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
-                } else {
-                  void messageService.removeMember(currentConversation._id, user._id).then((res) => {
-                    chatSocket.emit(Socket.REMOVE_MEMBER, { ...res.data.metadata, remove_userID: user._id });
+      return (
+        <ul>
+          {!isAdmin && isMeCreator && (
+            <li>
+              <button
+                type='button'
+                className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+                onClick={() => {
+                  void messageService.commissionAdmin(currentConversation._id, user._id).then((res) => {
+                    chatSocket.emit(Socket.COMMISSION_ADMIN, res.data.metadata);
 
                     const message = {
                       _id: uuidv4().replace(/-/g, ''),
@@ -362,7 +250,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       },
                       isSending: true,
                       type: 'notification',
-                      action: 'remove_member',
+                      action: 'promote_admin',
                       target: {
                         _id: user._id,
                         name: user.name
@@ -373,22 +261,150 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     mutateSendMessage(message as unknown as IMessage);
                     chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
                   });
-                }
+                }}>
+                <FaUserShield className='text-2xl' />
+                <span className='whitespace-nowrap'>{t('Commission as administrator')}</span>
+              </button>
+            </li>
+          )}
+          {isMeCreator && isAdmin && !isMe && (
+            <li>
+              <button
+                type='button'
+                className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+                onClick={() => {
+                  void messageService.removeAdmin(currentConversation._id, user._id).then((res) => {
+                    chatSocket.emit(Socket.DECOMMISSION_ADMIN, res.data.metadata);
+
+                    const message = {
+                      _id: uuidv4().replace(/-/g, ''),
+                      conversation_id: ID,
+                      sender: {
+                        _id: currentUserInfo._id,
+                        user_image: currentUserInfo.user_image,
+                        name: currentUserInfo.name
+                      },
+                      isSending: true,
+                      type: 'notification',
+                      action: 'revoke_admin',
+                      target: {
+                        _id: user._id,
+                        name: user.name
+                      },
+                      createdAt: new Date()
+                    };
+
+                    mutateSendMessage(message as unknown as IMessage);
+                    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+                  });
+                }}>
+                <FaUserSlash className='text-2xl' />
+                <span className='whitespace-nowrap'>{t('Revoke administrator')}</span>
+              </button>
+            </li>
+          )}
+          {!isMe && (
+            <li>
+              <button
+                type='button'
+                className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+                onClick={() => {
+                  void messageService
+                    .createConversation({
+                      type: 'private',
+                      members: [user._id]
+                    })
+                    .then((res) => {
+                      chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
+                      mutateReceiveConversation(res.data.metadata);
+                      router.push(`/messages/${res.data.metadata._id}`);
+                    });
+                }}>
+                <FaCommentDots className='text-2xl' />{' '}
+                <span className='whitespace-nowrap'>{t('Message')}</span>
+              </button>
+            </li>
+          )}
+          <li>
+            <button
+              type='button'
+              className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+              onClick={() => {
+                router.push(`/profile/${user._id}`);
               }}>
-              {isMe ? (
-                <FaRightFromBracket className='text-2xl' />
-              ) : (
-                isMeAdmin && <FaUserSlash className='text-2xl' />
-              )}
-              <span className='whitespace-nowrap'>
-                {isMe ? t('Leave group') : isMeAdmin && t('Remove member')}
-              </span>
+              <FaUser className='text-2xl' /> <span className='whitespace-nowrap'>{t('View profile')}</span>
             </button>
           </li>
-        )}
-      </ul>
-    );
-  };
+          {!((isAdmin && !isMe && !isMeCreator) || (!isMeAdmin && !isMe)) && (
+            <li>
+              <button
+                type='button'
+                className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+                onClick={() => {
+                  if (user._id === currentUserInfo._id) {
+                    mutateLeaveGroup(ID);
+                    const message = {
+                      _id: uuidv4().replace(/-/g, ''),
+                      conversation_id: ID,
+                      sender: {
+                        _id: currentUserInfo._id,
+                        user_image: currentUserInfo.user_image,
+                        name: currentUserInfo.name
+                      },
+                      isSending: true,
+                      type: 'notification',
+                      action: 'leave_conversation',
+                      createdAt: new Date()
+                    };
+
+                    mutateSendMessage(message as unknown as IMessage);
+                    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
+                  } else {
+                    void messageService.removeMember(currentConversation._id, user._id).then((res) => {
+                      chatSocket.emit(Socket.REMOVE_MEMBER, {
+                        ...res.data.metadata,
+                        remove_userID: user._id
+                      });
+
+                      const message = {
+                        _id: uuidv4().replace(/-/g, ''),
+                        conversation_id: ID,
+                        sender: {
+                          _id: currentUserInfo._id,
+                          user_image: currentUserInfo.user_image,
+                          name: currentUserInfo.name
+                        },
+                        isSending: true,
+                        type: 'notification',
+                        action: 'remove_member',
+                        target: {
+                          _id: user._id,
+                          name: user.name
+                        },
+                        createdAt: new Date()
+                      };
+
+                      mutateSendMessage(message as unknown as IMessage);
+                      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+                    });
+                  }
+                }}>
+                {isMe ? (
+                  <FaRightFromBracket className='text-2xl' />
+                ) : (
+                  isMeAdmin && <FaUserSlash className='text-2xl' />
+                )}
+                <span className='whitespace-nowrap'>
+                  {isMe ? t('Leave group') : isMeAdmin && t('Remove member')}
+                </span>
+              </button>
+            </li>
+          )}
+        </ul>
+      );
+    },
+    [currentConversation?.admins, currentConversation?.creator, currentUserInfo, members, ID]
+  );
 
   const listMembers = useCallback(() => {
     return (
@@ -428,10 +444,10 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                           <AvatarMessage key={member._id} user={member} />
                         </div>
                       </Tooltip> */}
-                  <div className='relative cursor-pointer'>
+                  <Link href={`/profile/${member._id}`} className='relative'>
                     <AvatarMessage key={member._id} user={member} />
-                  </div>
-                  <div className='flex flex-col text-left ml-2 font-bold'>
+                  </Link>
+                  <Link href={`/profile/${member._id}`} className='flex flex-col text-left ml-2 font-bold'>
                     <div className='flex flex-row items-center gap-2'>
                       <span>{member.name}</span>
                       {isAdmin &&
@@ -447,7 +463,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       ) : (
                         <p className='text-xs'>{t('Administrator')}</p>
                       ))}
-                  </div>
+                  </Link>
                 </div>
 
                 <div>
@@ -582,12 +598,14 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   }, [fileAvatar]);
 
   return (
-    <>
-      {isLoadingCurrentConversation ? (
-        <></>
-      ) : (
-        <div className='right w-full h-full absolute top-0 right-0 z-[9999] hidden transition-transform'>
-          <div className='uk-animation-slide-right-medium w-[360px] border-l shadow-lg h-screen bg-white absolute right-0 top-0 z-[9999] dark:bg-background-2 dark:border-slate-700 custom-scrollbar-bg overflow-y-scroll'>
+    <div className='right w-full h-full absolute top-0 right-0 z-[9999] hidden transition-transform'>
+      <div className='uk-animation-slide-right-medium w-[360px] border-l shadow-lg h-screen bg-white absolute right-0 top-0 z-[9999] dark:bg-background-2 dark:border-slate-700 custom-scrollbar-bg overflow-y-scroll'>
+        {isLoadingCurrentConversation ? (
+          <div className='flex-center p-1'>
+            <CircularProgress size={20} className='!text-text-1' />
+          </div>
+        ) : (
+          <>
             <div className='w-full h-1.5 bg-gradient-to-r to-purple-500 via-red-500 from-pink-500 -mt-px'></div>
 
             <div className='py-10 flex-center flex-col text-center text-sm pt-20'>
@@ -722,16 +740,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                               <Button
                                 variant={'destructive'}
                                 className='button lg:px-6 text-white max-md:flex-1'
-                                onClick={() => {
-
-                                }}>
+                                onClick={() => {}}>
                                 {t('Cancel')}
                               </Button>
                               <Button
                                 className='button lg:px-6 text-white max-md:flex-1'
                                 onClick={onSubmitChangeAvatar}
                                 disabled={isChangedAvatar || isLoadingChangeAvatar}>
-                                {isLoadingChangeAvatar && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                                {isLoadingChangeAvatar && (
+                                  <CircularProgress size={20} className='!text-text-1 mr-2' />
+                                )}
                                 {t('Save')}
                               </Button>
                             </DialogFooter>
@@ -766,16 +784,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                               <Button
                                 variant={'destructive'}
                                 className='button lg:px-6 text-white max-md:flex-1'
-                                onClick={() => {
-
-                                }}>
+                                onClick={() => {}}>
                                 {t('Cancel')}
                               </Button>
                               <Button
                                 className='button lg:px-6 text-white max-md:flex-1'
                                 onClick={onSubmitChangeName}
                                 disabled={isChangedName || isLoadingChangeName}>
-                                {isLoadingChangeName && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                                {isLoadingChangeName && (
+                                  <CircularProgress size={20} className='!text-text-1 mr-2' />
+                                )}
                                 {t('Save')}
                               </Button>
                             </DialogFooter>
@@ -840,14 +858,14 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
               data-uk-toggle='target: .right; cls: hidden'>
               <IoClose className='text-2xl flex' />
             </button>
-          </div>
 
-          {/* <!-- overlay --> */}
-          <div
-            className='bg-slate-100/40 backdrop-blur absolute w-full h-full dark:bg-slate-800/40'
-            data-uk-toggle='target: .right;cls: hidden'></div>
-        </div>
-      )}
-    </>
+            {/* <!-- overlay --> */}
+          </>
+        )}
+      </div>
+      <div
+        className='bg-slate-100/40 backdrop-blur absolute w-full h-full dark:bg-slate-800/40'
+        data-uk-toggle='target: .right;cls: hidden'></div>
+    </div>
   );
 }

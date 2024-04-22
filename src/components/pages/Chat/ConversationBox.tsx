@@ -90,7 +90,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   //         isSending: true,
   //         type: 'notification',
   //         content: 'left the group',
-  //         createdAt: new Date()
+  //
   //       };
 
   //       mutateSendMessage(message as unknown as IMessage);
@@ -189,12 +189,12 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
           <div className='text-xs font-light text-gray-500 dark:text-white/70'>
             {format.relativeTime(
               (conversation?.lastMessage?.createdAt || conversation.createdAt) as unknown as Date,
-              now < new Date() ? new Date() : now
+              new Date()
             )}
           </div>
         </div>
         <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-          <span className={cn('truncate text-sm', !isOwn && !hasSeen ? 'font-bold' : 'text-text-2')}>
+          <span className={cn('truncate text-sm', !isOwn && !hasSeen ? 'font-extrabold' : 'text-text-2')}>
             {senderName + lastMessageText}
           </span>
         </div>

@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 interface ILanguageProps {
   className?: string;
   position?: 'bottom-right' | 'right-bottom';
+  animation?: 'top-right' | 'bottom-left';
   arrow?: boolean;
   withText?: boolean;
   tooltip?: boolean;
@@ -19,6 +20,7 @@ interface ILanguageProps {
 export default function Language({
   className,
   position = 'bottom-right',
+  animation = 'top-right',
   arrow = true,
   withText = false,
   tooltip = true
@@ -51,7 +53,7 @@ export default function Language({
 
       <div
         className='hidden bg-foreground-2 rounded-lg drop-shadow-xl md:w-[250px] w-screen border-border-1'
-        data-uk-drop={`offset:6;pos: ${position}; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right `}>
+        data-uk-drop={`offset:6;pos: ${position}; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-${animation} `}>
         <div className='flex items-center justify-between p-4 pb-1'>
           <h3 className='font-bold text-xl text-text-1'>{t('Change language')}</h3>
         </div>
