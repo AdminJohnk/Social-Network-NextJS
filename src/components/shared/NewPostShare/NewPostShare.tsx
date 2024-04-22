@@ -9,7 +9,7 @@ import { Link } from '@/navigation';
 import { Avatar, CircularProgress, Skeleton } from '@mui/material';
 import { getImageURL } from '@/lib/utils';
 import PostPrivacy from '../PostPrivacy';
-import { use, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Textarea from '@/components/ui/textarea';
 import Picker from '@emoji-mart/react';

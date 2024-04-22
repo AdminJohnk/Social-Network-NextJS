@@ -30,7 +30,7 @@ export default function Popover({ mainContent, hoverContent }: IPostMoreChoosePr
       </button>
       <PopoverMUI
         classes={{
-          paper: 'bg-transparent'
+          paper: '!bg-transparent'
         }}
         id={id}
         open={open}
