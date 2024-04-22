@@ -10,7 +10,6 @@ import { useThemeMode } from 'flowbite-react';
 import { Link } from '@/navigation';
 import {
   useConversationsData,
-  useCurrentConversationData,
   useCurrentUserInfo,
   useGetCalled
 } from '@/hooks/query';

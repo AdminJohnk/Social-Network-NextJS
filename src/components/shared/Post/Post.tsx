@@ -78,7 +78,7 @@ export default function Post({ post, feature }: IPostProps) {
             <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
               <IoIosMore className='size-6' />
             </div>
-            <div data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
+            <div className='!w-fit' data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
               <PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />
             </div>
           </div>
