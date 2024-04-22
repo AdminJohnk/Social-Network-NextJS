@@ -5,7 +5,7 @@ import { Link, useRouter } from '@/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { Modal } from '@mui/material';
+import { CircularProgress, Modal } from '@mui/material';
 import {
   IoClose,
   IoImageOutline,
@@ -30,7 +30,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { FaEllipsisVertical, FaRightFromBracket } from 'react-icons/fa6';
 
-import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { messageService } from '@/services/MessageService';
 import { useCurrentConversationData, useCurrentUserInfo, useMessagesImage } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
@@ -42,6 +42,8 @@ import MembersToGroup from './Modal/MembersToGroup';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 import { useLeaveGroup, useReceiveConversation, useSendMessage } from '@/hooks/mutation';
+import { Button } from '@/components/ui/button';
+import { ProfileUpload } from '@/components/ui/upload-image';
 
 export interface IChatInfoProps {
   conversationID: string[] | undefined;
@@ -67,9 +69,11 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
   const { messagesImage, isLoadingMessagesImage } = useMessagesImage(ID);
 
-  const [openAvatar, setOpenAvatar] = useState(false);
+  const [openChangeAvatar, setOpenChangeAvatar] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
+
+  const [groupName, setGroupName] = useState('');
 
   const [audios, setAudios] = useState<IMessage[]>([]);
   const [files, setFiles] = useState<IMessage[]>([]);
@@ -174,16 +178,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 .slice(0, 4)
                 .map((item) => item.images)
                 .flat().length > 4 && (
-                <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
-                  <p
-                    className='cursor-pointer'
-                    onClick={() => {
-                      changeConversationOption('image');
-                    }}>
-                    See all
-                  </p>
-                </div>
-              )}
+                  <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
+                    <p
+                      className='cursor-pointer'
+                      onClick={() => {
+                        changeConversationOption('image');
+                      }}>
+                      See all
+                    </p>
+                  </div>
+                )}
             </>
           )}
         </div>
@@ -461,24 +465,6 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
           })}
         </div>
         {currentConversation.admins.some((admin) => admin._id === currentUserInfo._id) && (
-          // <div
-          //   className='add-member mt-3 w-11/12 flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-full hover:bg-hover-1 select-none'
-          //   onClick={handleOpen}>
-          //   <FaPlusCircle className='text-2xl' />
-          //   <span className='text-sm font-medium text-left ml-2 select-none'>Add members</span>
-          // <Modal
-          //   open={openAddMember}
-          //   onClose={handleClose}
-          //   aria-labelledby='modal-modal-title'
-          //   aria-describedby='modal-modal-description'>
-          //   <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
-          //     <MembersToGroup
-          //       users={members}
-          //       conversationID={currentConversation._id}
-          //       handleClose={handleClose}
-          //     />
-          //   </div>
-          // </Modal>
           <Dialog open={openAddMember} onOpenChange={setOpenAddMember}>
             <DialogTrigger className='add-member mt-3 w-full flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-xl hover:bg-hover-1 select-none'>
               <FaPlusCircle className='text-2xl' />
@@ -491,11 +477,10 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
               <MembersToGroup
                 users={members}
                 conversationID={currentConversation._id}
-                handleClose={handleClose}
+                handleClose={() => setOpenAddMember(false)}
               />
             </DialogContent>
           </Dialog>
-          // </div>
         )}
       </div>
     );
@@ -508,12 +493,93 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
     memberOptions
   ]);
 
-  // useEffect(() => {
-  //   console.log(openAddMember);
-  // }, [openAddMember]);
+  // change conversation name
+  const [isLoadingChangeName, setIsLoadingChangeName] = useState(false);
+  const isChangedName = useMemo(() => {
+    return groupName === currentConversation?.name;
+  }, [groupName, currentConversation]);
 
-  const handleOpen = () => setOpenAddMember(true);
-  const handleClose = () => setOpenAddMember(false);
+  const onSubmitChangeName = useCallback(() => {
+    setIsLoadingChangeName(true);
+
+    messageService
+      .changeConversationName(ID, groupName!)
+      .then((res) => {
+        setIsLoadingChangeName(false);
+        const message = {
+          _id: uuidv4().replace(/-/g, ''),
+          conversation_id: ID,
+          sender: {
+            _id: currentUserInfo._id,
+            user_image: currentUserInfo.user_image,
+            name: currentUserInfo.name
+          },
+          isSending: true,
+          type: 'notification',
+          action: 'change_name',
+          content: groupName,
+          createdAt: new Date()
+        };
+
+        mutateSendMessage(message as unknown as IMessage);
+        chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+
+        chatSocket.emit(Socket.CHANGE_CONVERSATION_NAME, res.data.metadata);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setIsLoadingChangeName(false);
+        setOpenChangeName(false);
+      });
+  }, [groupName]);
+
+  // change conversation image
+  const [avatar, setAvatar] = useState('');
+  const [fileAvatar, setFileAvatar] = useState<File>();
+
+  const [isLoadingChangeAvatar, setIsLoadingChangeAvatar] = useState(false);
+  const isChangedAvatar = useMemo(() => {
+    return !fileAvatar;
+  }, [fileAvatar]);
+
+  useEffect(() => {
+    if (currentConversation?.image) {
+      setAvatar(getImageURL(currentConversation.image, 'avatar'));
+    }
+  }, [currentConversation]);
+
+  const onSubmitChangeAvatar = useCallback(() => {
+    setIsLoadingChangeAvatar(true);
+
+    messageService
+      .changeConversationImage(ID, fileAvatar!)
+      .then((res) => {
+        setIsLoadingChangeAvatar(false);
+        const message = {
+          _id: uuidv4().replace(/-/g, ''),
+          conversation_id: ID,
+          sender: {
+            _id: currentUserInfo._id,
+            user_image: currentUserInfo.user_image,
+            name: currentUserInfo.name
+          },
+          isSending: true,
+          type: 'notification',
+          action: 'change_avatar',
+          createdAt: new Date()
+        };
+
+        mutateSendMessage(message as unknown as IMessage);
+        chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+
+        chatSocket.emit(Socket.CHANGE_CONVERSATION_IMAGE, res.data.metadata);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setIsLoadingChangeAvatar(false);
+        setOpenChangeAvatar(false);
+      });
+  }, [fileAvatar]);
 
   return (
     <>
@@ -625,6 +691,107 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     </label>
                   </div>
                 </li>
+                {currentConversation.type === 'group' && (
+                  <li className='uk-parent'>
+                    <Link
+                      href=''
+                      className='flex items-center justify-between gap-5 rounded-md p-3 w-full hover:bg-hover-1 group'>
+                      <div className='flex flex-row gap-5'>
+                        <IoSettingsOutline className='text-2xl' /> {t('Customize conversation')}
+                      </div>
+                      <FaChevronDown className='mr-2 duration-300 group-aria-expanded:rotate-180' />
+                    </Link>
+                    <ul className='pl-5 my-1 space-y-0 text-sm'>
+                      <li>
+                        {/* <button
+                          type='button'
+                          className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
+                          <IoImageOutline className='text-2xl' /> {t('Change group image')}
+                        </button> */}
+                        <Dialog open={openChangeAvatar} onOpenChange={setOpenChangeAvatar}>
+                          <DialogTrigger className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1 select-none'>
+                            <IoImageOutline className='text-2xl' />
+                            <span className='select-none'>{t('Change group image')}</span>
+                          </DialogTrigger>
+                          <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+                            <DialogHeader>
+                              <DialogTitle>{t('Change group image')}</DialogTitle>
+                            </DialogHeader>
+                            <ProfileUpload fieldChange={setFileAvatar} mediaURL={avatar} />
+                            <DialogFooter>
+                              <Button
+                                variant={'destructive'}
+                                className='button lg:px-6 text-white max-md:flex-1'
+                                onClick={() => {
+
+                                }}>
+                                {t('Cancel')}
+                              </Button>
+                              <Button
+                                className='button lg:px-6 text-white max-md:flex-1'
+                                onClick={onSubmitChangeAvatar}
+                                disabled={isChangedAvatar || isLoadingChangeAvatar}>
+                                {isLoadingChangeAvatar && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                                {t('Save')}
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      </li>
+                      <li>
+                        {/* <button
+                        type='button'
+                        className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+                        onClick={() => setOpenChangeName(true)}
+                      >
+                        <IoPersonOutline className='text-2xl' /> {t('Change group name')}
+                      </button> */}
+                        <Dialog open={openChangeName} onOpenChange={setOpenChangeName}>
+                          <DialogTrigger className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1 select-none'>
+                            <IoPersonOutline className='text-2xl' />
+                            <span className='select-none'>{t('Change group name')}</span>
+                          </DialogTrigger>
+                          <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+                            <DialogHeader>
+                              <DialogTitle>{t('Change group name')}</DialogTitle>
+                            </DialogHeader>
+                            <input
+                              type='text'
+                              defaultValue={currentConversation.name}
+                              placeholder={t("Group's name")}
+                              className='w-full !py-2 rounded-lg bg-foreground-1'
+                              onChange={(event) => setGroupName(event.currentTarget.value)}
+                            />
+                            <DialogFooter>
+                              <Button
+                                variant={'destructive'}
+                                className='button lg:px-6 text-white max-md:flex-1'
+                                onClick={() => {
+
+                                }}>
+                                {t('Cancel')}
+                              </Button>
+                              <Button
+                                className='button lg:px-6 text-white max-md:flex-1'
+                                onClick={onSubmitChangeName}
+                                disabled={isChangedName || isLoadingChangeName}>
+                                {isLoadingChangeName && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                                {t('Save')}
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      </li>
+                      {/* <li>
+                      <button
+                        type='button'
+                        className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
+                        <IoPersonOutline className='text-2xl' /> {t('Change emoticons')}
+                      </button>
+                    </li> */}
+                    </ul>
+                  </li>
+                )}
                 <li className='uk-parent'>
                   <Link
                     href=''
@@ -649,13 +816,6 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     <ul>{listMembers()}</ul>
                   </li>
                 )}
-                <li>
-                  <button
-                    type='button'
-                    className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-                    <IoSettingsOutline className='text-2xl' /> {t('Ignore messages')}
-                  </button>
-                </li>
                 <li>
                   <button
                     type='button'

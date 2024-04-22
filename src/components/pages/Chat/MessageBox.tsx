@@ -205,9 +205,9 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               )}
               <div
                 className={cn(
-                  'px-4 py-2 max-w-2xl',
+                  'max-w-2xl',
                   roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
-                  checkContentType(content) === 'emoji' ? 'text-2xl' : 'bg-foreground-2'
+                  checkContentType(content) === 'emoji' ? 'text-4xl' : 'px-4 py-2 bg-foreground-2'
                 )}>
                 <Anchorme
                   linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
@@ -229,11 +229,11 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div className='flex gap-2 flex-row-reverse items-end'>
             <div
               className={cn(
-                'px-4 py-2 max-w-2xl',
+                'max-w-2xl',
                 roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
                 checkContentType(content) === 'emoji'
-                  ? 'text-2xl'
-                  : 'bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
+                  ? 'text-4xl'
+                  : 'px-4 py-2 bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
               )}>
               <Anchorme
                 linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
