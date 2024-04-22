@@ -9,7 +9,7 @@ import { Link } from '@/navigation';
 import { Avatar, CircularProgress, Skeleton } from '@mui/material';
 import { getImageURL } from '@/lib/utils';
 import PostPrivacy from '../PostPrivacy';
-import { use, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Textarea from '@/components/ui/textarea';
 import Picker from '@emoji-mart/react';
@@ -24,16 +24,11 @@ export interface INewPostShareProps {
   post: IPost;
 }
 
-export default function NewPostShare({
-  handleClose,
-  post
-}: INewPostShareProps) {
+export default function NewPostShare({ handleClose, post }: INewPostShareProps) {
   const t = useTranslations();
   const { mode } = useThemeMode();
   const { data: session } = useSession();
-  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo(
-    session?.id || ''
-  );
+  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id || '');
   const { mutateSharePost } = useSharePost();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -77,46 +72,25 @@ export default function NewPostShare({
         {isLoadingCurrentUserInfo ? (
           <div className='flex-between'>
             <div className='flex-start gap-3'>
-              <Skeleton
-                className='bg-foreground-2'
-                variant='circular'
-                width={40}
-                height={40}
-              />
+              <Skeleton className='bg-foreground-2' variant='circular' width={40} height={40} />
               <div className='flex flex-col'>
-                <Skeleton
-                  className='bg-foreground-2 w-36'
-                  variant='text'
-                  sx={{ fontSize: '1.5rem' }}
-                />
-                <Skeleton
-                  className='bg-foreground-2 w-36'
-                  variant='text'
-                  sx={{ fontSize: '1rem' }}
-                />
+                <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1.5rem' }} />
+                <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1rem' }} />
               </div>
             </div>
             <div>
-              <Skeleton
-                className='bg-foreground-2'
-                variant='circular'
-                width={25}
-                height={25}
-              />
+              <Skeleton className='bg-foreground-2' variant='circular' width={25} height={25} />
             </div>
           </div>
         ) : (
           <div>
             <div className='flex-start'>
-              <Link href={`/profile/${currentUserInfo?._id}`}>
-                <Avatar src={getImageURL(currentUserInfo?.user_image)} />
+              <Link href={`/profile/${currentUserInfo._id}`}>
+                <Avatar src={getImageURL(currentUserInfo.user_image)} />
               </Link>
               <div className='flex flex-col ms-3'>
-                <Link
-                  href={`/profile/${currentUserInfo?._id}`}
-                  className='base-bold'
-                >
-                  {currentUserInfo?.name}
+                <Link href={`/profile/${currentUserInfo._id}`} className='base-bold'>
+                  {currentUserInfo.name}
                 </Link>
               </div>
             </div>
@@ -126,7 +100,7 @@ export default function NewPostShare({
                 className='w-full mt-3'
                 placeholder={t('What do you have in mind?')}
                 value={text}
-                onChange={event => {
+                onChange={(event) => {
                   // const position = textareaRef.current?.selectionStart;
                   // setCursor(position || 0);
                   setText(event.target.value);
@@ -147,17 +121,12 @@ export default function NewPostShare({
                 hoverContent={
                   <Picker
                     data={async () => {
-                      const response = await fetch(
-                        'https://cdn.jsdelivr.net/npm/@emoji-mart/data'
-                      );
+                      const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
                       return response.json();
                     }}
                     onEmojiSelect={(emoji: IEmoji) => {
-                      const newText =
-                        text.slice(0, cursor) +
-                        emoji.native +
-                        text.slice(cursor);
+                      const newText = text.slice(0, cursor) + emoji.native + text.slice(cursor);
                       setText(newText);
                       setCursor(cursor + emoji.native.length);
                     }}
@@ -178,9 +147,7 @@ export default function NewPostShare({
             className='button lg:px-6 text-white max-md:flex-1'
             // disabled={!isChanged || isLoading}
           >
-            {isLoading && (
-              <CircularProgress size={20} className='text-text-1 mr-2' />
-            )}
+            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
             {t('Share')} <span className='ripple-overlay'></span>
           </Button>
         </div>

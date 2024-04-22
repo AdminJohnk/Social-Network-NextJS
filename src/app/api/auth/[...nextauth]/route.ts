@@ -50,8 +50,8 @@ const handler = NextAuth({
       }
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+      clientId: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
       profile: async (profile) => {
         if (profile) {
           const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGoogle({
@@ -74,13 +74,14 @@ const handler = NextAuth({
       }
     }),
     GithubProvider({
-      clientId: process.env.GITHUB_ID ?? '',
-      clientSecret: process.env.GITHUB_SECRET ?? '',
+      clientId: process.env.GITHUB_ID || '',
+      clientSecret: process.env.GITHUB_SECRET || '',
       profile: async (profile) => {
         if (profile) {
           const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub({
             email: profile.email
           });
+          
           if (data) {
             return {
               id: data.metadata.user._id,

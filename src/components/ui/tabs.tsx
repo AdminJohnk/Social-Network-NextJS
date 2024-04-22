@@ -27,7 +27,7 @@ function Tabs(props: ITabsProps) {
           data-uk-switcher={`connect: #${
             props.id
           }; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium; active: ${
-            props.active ?? 0
+            props.active || 0
           }`}>
           {props.children}
         </ul>

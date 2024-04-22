@@ -24,6 +24,7 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
   const routerNext = useRouterNext();
 
   const [isLoginGithub, setIsLoginGithub] = useState<boolean>(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     if (searchParams.get('repoUrl')) {
@@ -58,37 +59,39 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
               <Link
                 href={session?.user_github_link || ''}
                 className='text-primary-500 hover:text-primary-600 duration-300 cursor-pointer'
-                target='_blank'
-              >
+                target='_blank'>
                 {session?.user_github_name}
               </Link>
             </div>
             <span className='mx-2'>|</span>
-            <span
+            <button
               className='hover:text-text-1 cursor-pointer duration-300'
+              disabled={isDisabled}
               onClick={() => {
                 update({
                   repos_url: '',
                   user_github_name: '',
                   user_github_link: ''
                 });
+                setIsDisabled(true);
                 setIsLoginGithub(false);
-              }}
-            >
+              }}>
               Logout
-            </span>
+            </button>
             <span className='ml-auto' onClick={handleOpen}>
               <BiSolidEdit className='size-5 hover:text-text-1 duration-300 cursor-pointer' />
             </span>
           </div>
         ) : (
-          <span
+          <button
             className='px-3 py-2 rounded-md cursor-pointer duration-300 bg-foreground-2 hover:bg-hover-2'
+            disabled={isDisabled}
             onClick={() => {
               routerNext.push('/api/repo-github');
+              setIsDisabled(true);
             }}>
             Login GitHub
-          </span>
+          </button>
         )}
         <Modal
           open={open}
@@ -101,10 +104,10 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
         </Modal>
       </div>
       <div className='flex flex-wrap justify-between mt-5'>
-        {currentUserInfo?.repositories?.length === 0 ? (
+        {currentUserInfo.repositories?.length === 0 ? (
           <>No repos</>
         ) : (
-          currentUserInfo?.repositories.map((item, index) => {
+          currentUserInfo.repositories.map((item, index) => {
             return <RepositoryItem item={item} key={index} />;
           })
         )}

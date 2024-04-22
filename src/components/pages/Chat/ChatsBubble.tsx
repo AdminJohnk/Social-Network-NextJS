@@ -11,6 +11,7 @@ import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import MessageList from './MessageList';
 import { useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
+import { CircularProgress } from '@mui/material';
 
 export interface IChatsBubbleProps {
   conversationID: string[] | undefined;
@@ -22,19 +23,21 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
   if (conversationID === undefined) return <></>;
 
   const { data: session } = useSession();
-  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
   const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID[0]);
 
   const otherUser = useMemo(() => {
-    return currentConversation?.members?.filter((member) => member._id !== currentUserInfo?._id)[0];
+    return currentConversation?.members?.filter((member) => member._id !== currentUserInfo._id)[0];
   }, [currentUserInfo, currentConversation?.members]);
 
   return (
     <div className='flex-1'>
       {/* <!-- chat heading --> */}
-      {isLoadingCurrentConversation || isLoadingCurrentUserInfo ? (
-        <div className='flex items-center justify-center h-full'>Loading...</div>
+      {isLoadingCurrentConversation ? (
+        <div className='flex-center h-full p-1'>
+          <CircularProgress size={20} className='!text-text-1' />
+        </div>
       ) : (
         <>
           <ChatHeading conversationID={conversationID[0]} otherUser={otherUser} />
@@ -77,7 +80,7 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
                   <div className='mt-3.5'>
                     <Link
                       href={`/profile/${otherUser._id}`}
-                      className='inline-block rounded-lg px-4 py-1.5 text-sm font-semibold bg-foreground-2'>
+                      className='inline-block rounded-lg px-4 py-1.5 text-sm font-semibold bg-foreground-2 hover:bg-hover-1'>
                       {t('View profile')}
                     </Link>
                   </div>

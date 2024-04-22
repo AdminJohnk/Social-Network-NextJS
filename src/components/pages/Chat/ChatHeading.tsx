@@ -37,7 +37,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
       if (currentConversation.type === 'group') {
         const membersActive = currentConversation.members.filter(
           (member) =>
-            member._id === currentUserInfo?._id ||
+            member._id === currentUserInfo._id ||
             members.some((user) => user._id === member._id && user.is_online)
         );
 
@@ -54,7 +54,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
 
       return activeUser?.is_online
         ? t('Online')
-        : t('Last seen at') + ' ' + format.relativeTime(lastOnline as unknown as Date, now);
+        : t('Last seen at') + ' ' + format.relativeTime(lastOnline as unknown as Date, new Date());
     }
   }, [currentConversation, activeUser, members, currentUserInfo, now, otherUser]);
 
@@ -145,7 +145,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
               {/* <div className='w-3 h-3 bg-teal-500 rounded-full absolute -right-1 -bottom-0.5 m-px'></div> */}
             </div>
             <div className='cursor-pointer'>
-              <div className='text-base font-bold'> {currentConversation.name ?? otherUser.name}</div>
+              <div className='text-base font-bold'> {currentConversation.name || otherUser.name}</div>
               <div className='text-xs text-green-500 font-semibold'> {statusText} </div>
             </div>
           </div>

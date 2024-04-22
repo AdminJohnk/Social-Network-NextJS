@@ -9,6 +9,7 @@ import { useCurrentUserInfo } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { FaCrown, FaShieldHalved } from 'react-icons/fa6';
 import { ImageList, ImageListItem } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 export interface IMessageBoxProps {
   message: IMessage;
@@ -28,6 +29,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     { message, isLastMes, seen, isNextMesGroup, isPrevMesGroup, isMoreThan10Min, isAdmin, type, isCreator },
     ref
   ) => {
+    const t = useTranslations();
     const { data: session } = useSession();
 
     const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
@@ -41,7 +43,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       return seen.filter((user) => user._id !== message.sender._id).map((user) => user.user_image);
     }, [seen, message]);
 
-    const isOwn = currentUserInfo?._id === message.sender._id;
+    const isOwn = currentUserInfo._id === message.sender._id;
 
     const stateCalled = (senderId: string) => {
       if (message.content.includes('missed')) {
@@ -108,61 +110,114 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       }
     };
 
-    const roundedCornerStyle = (isOwn: boolean, isNextMesGroup: boolean, isPrevMesGroup: boolean) => {
+    const containerStyle = cn(
+      isNextMesGroup && isPrevMesGroup && 'py-[1px]',
+      isNextMesGroup && !isPrevMesGroup && 'pt-1 pb-[1px]',
+      !isNextMesGroup && isPrevMesGroup && 'pt-[1px] pb-1',
+      !isNextMesGroup && !isPrevMesGroup && 'py-1'
+    );
+
+    const roundedCornerStyle = (isNextMesGroup: boolean, isPrevMesGroup: boolean) => {
       if (isOwn) {
-        if (isNextMesGroup && isPrevMesGroup) return 'rounded-s-[1.5rem] rounded-e-[0.75rem] my-[1px]';
+        if (isNextMesGroup && isPrevMesGroup) return 'rounded-s-[1.5rem] rounded-e-[0.75rem]';
         if (isNextMesGroup && !isPrevMesGroup)
-          return 'rounded-t-[1.5rem] rounded-bl-[1.5rem] rounded-br-[0.75rem] my-[1px]';
+          return 'rounded-t-[1.5rem] rounded-bl-[1.5rem] rounded-br-[0.75rem]';
         if (!isNextMesGroup && isPrevMesGroup)
-          return 'rounded-b-[1.5rem] rounded-tl-[1.5rem] rounded-tr-[0.75rem] my-[1px]';
+          return 'rounded-b-[1.5rem] rounded-tl-[1.5rem] rounded-tr-[0.75rem]';
         if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem]';
       } else {
-        if (isNextMesGroup && isPrevMesGroup) return 'rounded-e-[1.5rem] rounded-s-[0.75rem] my-[1px]';
+        if (isNextMesGroup && isPrevMesGroup) return 'rounded-e-[1.5rem] rounded-s-[0.75rem]';
         if (isNextMesGroup && !isPrevMesGroup)
-          return 'rounded-t-[1.5rem] rounded-br-[1.5rem] rounded-bl-[0.75rem] my-[1px]';
+          return 'rounded-t-[1.5rem] rounded-br-[1.5rem] rounded-bl-[0.75rem]';
         if (!isNextMesGroup && isPrevMesGroup)
-          return 'rounded-b-[1.5rem] rounded-tr-[1.5rem] rounded-tl-[0.75rem] my-[1px]';
+          return 'rounded-b-[1.5rem] rounded-tr-[1.5rem] rounded-tl-[0.75rem]';
         if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem]';
       }
+    };
+
+    const checkContentType = (content: string) => {
+      if (content === '❤️') {
+        return 'emoji';
+      }
+
+      // Define the ranges of Unicode code points for emoji characters
+      const emojiRanges = [
+        [0x1f600, 0x1f64f], // Emoticons
+        [0x1f300, 0x1f5ff], // Miscellaneous Symbols and Pictographs
+        [0x1f680, 0x1f6ff], // Transport and Map Symbols
+        [0x2600, 0x26ff], // Miscellaneous Symbols
+        [0x2700, 0x27bf], // Dingbats
+        [0x1f900, 0x1f9ff], // Supplemental Symbols and Pictographs
+        [0x1f1e6, 0x1f1ff] // Enclosed Characters
+      ];
+
+      for (let i = 0; i < content.length; ) {
+        const char = content.codePointAt(i)!;
+
+        let isEmoji = false;
+        for (let j = 0; j < emojiRanges.length; j++) {
+          const [start, end] = emojiRanges[j];
+          if (char >= start && char <= end) {
+            isEmoji = true;
+            break;
+          }
+        }
+
+        if (!isEmoji) {
+          return 'text';
+        }
+
+        i += char > 0xffff ? 2 : 1;
+      }
+
+      return 'emoji';
     };
 
     const receivedMessage = (content: string) => {
       return (
         <>
           <div
-            className={cn(
-              'flex gap-3',
-              type === 'group' && !isOwn && !isPrevMesGroup ? 'items-end' : 'items-center'
-            )}>
+            className={cn('flex gap-3 items-end', type === 'group' && !isOwn && !isPrevMesGroup ? '' : '')}>
             {(!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup) ? (
-              <Image
-                width={500}
-                height={500}
-                src={getImageURL(message.sender.user_image, 'avatar_mini')!}
-                alt=''
-                className='w-9 h-9 rounded-full shadow'
-              />
+              <Link
+                href={`/profile/${message.sender._id}`}
+                data-uk-tooltip={`title: ${message.sender.name}; pos: left; offset:6`}>
+                <Image
+                  width={500}
+                  height={500}
+                  src={getImageURL(message.sender.user_image, 'avatar_mini')!}
+                  alt=''
+                  className='w-9 h-9 rounded-full shadow'
+                />
+              </Link>
             ) : (
               <div className='w-9 h-9 rounded-full' />
             )}
-            <div>
+            <div className={cn('relative', type === 'group' && !isOwn && !isPrevMesGroup && 'mt-7')}>
               {type === 'group' && !isOwn && !isPrevMesGroup && (
-                <div className='text-sm ml-2 mt-2'>
+                <div className='text-sm ml-2 mt-2 absolute -top-7 left-0'>
                   <Link href={`/profile/${message.sender._id}`} className='flex flex-row gap-1'>
                     {handleFirstName(message.sender.name)}
                     {isAdmin &&
                       (isCreator ? (
-                        <FaCrown className='ml-1 text-base' />
+                        <FaCrown
+                          className='ml-1 text-base'
+                          data-uk-tooltip={`title: ${t('Group creator')}; pos: top-left; delay: 200;offset:6`}
+                        />
                       ) : (
-                        <FaShieldHalved className='ml-1' />
+                        <FaShieldHalved
+                          className='ml-1'
+                          data-uk-tooltip={`title: ${t('Administrator')}; pos: top-left; delay: 200;offset:6`}
+                        />
                       ))}
                   </Link>
                 </div>
               )}
               <div
                 className={cn(
-                  'px-4 py-2 max-w-sm w-min bg-foreground-2',
-                  roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                  'max-w-2xl',
+                  roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
+                  checkContentType(content) === 'emoji' ? 'text-4xl' : 'px-4 py-2 bg-foreground-2'
                 )}>
                 <Anchorme
                   linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
@@ -184,8 +239,11 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div className='flex gap-2 flex-row-reverse items-end'>
             <div
               className={cn(
-                'px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
-                roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                'max-w-2xl',
+                roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
+                checkContentType(content) === 'emoji'
+                  ? 'text-4xl'
+                  : 'px-4 py-2 bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
               )}>
               <Anchorme
                 linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
@@ -229,10 +287,10 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   </Link>
                 </div>
               )}
-              <div className={cn('max-w-sm', roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup))}>
+              <div className={cn('max-w-sm', roundedCornerStyle(isNextMesGroup, isPrevMesGroup))}>
                 {content.length > 1 ? (
                   <ImageList
-                    sx={{ width: content.length == 2 ? 336 : 500, height: 'auto' }}
+                    sx={{ width: content.length == 2 ? 326 : 490, height: 'auto' }}
                     cols={content.length == 2 ? 2 : 3}
                     rowHeight={'auto'}>
                     {content.map((item) => (
@@ -242,13 +300,13 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                           height={500}
                           src={getImageURL(item)}
                           alt=''
-                          className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[18px]'
+                          className='block max-w-full max-h-52 w-40 h-40 max-lg:w-20 max-lg:h-20 object-cover rounded-[10px]'
                         />
                       </ImageListItem>
                     ))}
                   </ImageList>
                 ) : (
-                  <Link className='block rounded-[18px] border overflow-hidden' href=''>
+                  <Link className='block rounded-[10px] border overflow-hidden' href=''>
                     <div className='max-w-md'>
                       <div className='max-w-full relative w-72'>
                         <div className='relative' style={{ paddingBottom: '57.4286%' }}>
@@ -279,7 +337,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div className='flex gap-2 flex-row-reverse items-end'>
             {content.length > 1 ? (
               <ImageList
-                sx={{ width: content.length == 2 ? 336 : 500, height: 'auto' }}
+                sx={{ width: content.length == 2 ? 326 : 490, height: 'auto' }}
                 cols={content.length == 2 ? 2 : 3}
                 rowHeight={'auto'}>
                 {content.map((item) => (
@@ -289,13 +347,13 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                       height={500}
                       src={getImageURL(item)}
                       alt=''
-                      className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[18px]'
+                      className='block max-w-full max-h-52 w-40 h-40 max-lg:w-20 max-lg:h-20 object-cover rounded-[10px]'
                     />
                   </ImageListItem>
                 ))}
               </ImageList>
             ) : (
-              <Link className='block rounded-[18px] border overflow-hidden' href=''>
+              <div className='block rounded-[10px] border overflow-hidden'>
                 <div className='max-w-md'>
                   <div className='max-w-full relative w-72'>
                     <div className='relative' style={{ paddingBottom: '57.4286%' }}>
@@ -311,7 +369,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             )}
           </div>
         </>
@@ -326,7 +384,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               <div
                 className={cn(
                   'flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
-                  roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                  roundedCornerStyle(isNextMesGroup, isPrevMesGroup)
                 )}>
                 <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
                   {notification[message.type][stateCalled(message.sender._id)]}
@@ -367,7 +425,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 <div
                   className={cn(
                     'flex items-center cursor-pointer hover:scale-[103%] max-w-sm bg-foreground-2 px-4 py-2 !my-[1px]',
-                    roundedCornerStyle(isOwn, isNextMesGroup, isPrevMesGroup)
+                    roundedCornerStyle(isNextMesGroup, isPrevMesGroup)
                   )}>
                   <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
                     {notification[message.type][stateCalled(message.sender._id)]}
@@ -386,38 +444,60 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
 
     const time = (time: string) => {
       return (
-        <>
-          <div className='flex justify-center my-4'>
-            <div className='font-medium text-gray-500 text-sm dark:text-white/70'>{getDateTime(time)}</div>
-          </div>
-        </>
+        <div className='flex justify-center my-4'>
+          <div className='font-medium text-gray-500 text-sm dark:text-white/70'>{getDateTime(time)}</div>
+        </div>
       );
+    };
+
+    const switchNoti = (message: IMessage) => {
+      if (!message) return;
+      switch (message.action) {
+        case 'add_member':
+          if (message.target) return t('added') + ' ' + message.target.name + ' ' + t('to the group');
+          break;
+        case 'remove_member':
+          if (message.target) return t('removed') + ' ' + message.target.name + ' ' + t('from the group');
+          break;
+        case 'change_name':
+          return t('changed the group name to') + ' ' + message.content;
+        case 'change_avatar':
+          return t('changed the group avatar');
+        case 'leave_conversation':
+          return t('left the conversation');
+        case 'promote_admin':
+          if (message.target) return t('promoted') + ' ' + message.target.name + ' ' + t('to administrator');
+          break;
+        case 'revoke_admin':
+          if (message.target) return t('revoked') + ' ' + message.target.name + ' ' + t('as administrator');
+          break;
+        default:
+          return t(message.content);
+      }
     };
 
     const messageContent = () => {
       if (message.type === 'text') {
         if (!isOwn) {
-          return <>{receivedMessage(message.content)}</>;
+          return receivedMessage(message.content);
         } else {
-          return <>{sentMessage(message.content)}</>;
+          return sentMessage(message.content);
         }
       } else if (message.type === 'image') {
         if (!isOwn) {
-          return <>{receivedMedia(message.images!)}</>;
+          return receivedMedia(message.images!);
         } else {
-          return <>{sentMedia(message.images!)}</>;
+          return sentMedia(message.images!);
         }
       } else if (message.type === 'voice' || message.type === 'video') {
-        return <>{messageCall()}</>;
+        return messageCall();
       } else if (message.type === 'notification') {
         return (
-          <>
-            <div className='flex justify-center mb-2'>
-              <div className='text-sm text-gray-500 font-semibold'>
-                {isOwn ? 'You' : message.sender.name}&nbsp;{message.content}
-              </div>
+          <div className='flex justify-center mb-2'>
+            <div className='text-sm text-gray-500 font-semibold'>
+              {isOwn ? t('You') : message.sender.name}&nbsp;{switchNoti(message)}
             </div>
-          </>
+          </div>
         );
       }
     };
@@ -425,50 +505,51 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     return (
       <div ref={ref}>
         {isMoreThan10Min && time(message.createdAt)}
-        <div className={!isNextMesGroup && !isPrevMesGroup ? 'my-2' : ''}>{messageContent()}</div>
-        <div className='text-xs font-light'>
-          <div className='relative flex flex-row-reverse items-end'>
-            {isLastMes &&
-              isOwn &&
-              seenList.length > 0 &&
-              seenList.map((userImage, index) => (
-                <div key={index} className='inline-block rounded-full overflow-hidden h-4 w-4 mt-1 mr-2 mb-2'>
-                  <Image
-                    className='h-4 w-4'
-                    src={getImageURL(userImage, 'avatar_mini')}
-                    alt='User Image'
-                    width={500}
-                    height={500}
-                  />
-                </div>
-              ))}
-            {isOwn && (
-              <>
-                {seenList.length === 0 && message.isSending && (
-                  <svg
-                    className='w-4 h-4 text-gray-400 mt-1 mr-2 mb-2'
-                    fill='currentColor'
-                    viewBox='0 0 20 20'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <circle cx='10' cy='10' r='8' stroke='currentColor' fill='none' />
-                  </svg>
-                )}
-                {isLastMes && seenList.length === 0 && !message.isSending && (
-                  <svg
-                    className='w-4 h-4 text-gray-400 mt-1 mr-2 mb-2'
-                    fill='currentColor'
-                    viewBox='0 0 20 20'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      fillRule='evenodd'
-                      d='M10 2a8 8 0 100 16 8 8 0 000-16zM8.707 7.707a1 1 0 00-1.414 1.414l2.5 2.5a1 1 0 001.414 0l5.5-5.5a1 1 0 10-1.414-1.414L10.5 9.086 8.707 7.707z'
+        <div className={containerStyle}>{messageContent()}</div>
+        {isLastMes && (
+          <div className='text-xs font-light'>
+            <div className='relative flex flex-row-reverse items-end'>
+              {isOwn &&
+                seenList.length > 0 &&
+                seenList.map((userImage, index) => (
+                  <div key={index} className='inline-block rounded-full overflow-hidden h-4 w-4 mr-2 mb-2'>
+                    <Image
+                      className='h-4 w-4'
+                      src={getImageURL(userImage, 'avatar_mini')}
+                      alt='User Image'
+                      width={500}
+                      height={500}
                     />
-                  </svg>
-                )}
-              </>
-            )}
+                  </div>
+                ))}
+              {isOwn && (
+                <>
+                  {seenList.length === 0 && message.isSending && (
+                    <svg
+                      className='w-4 h-4 text-gray-400 mr-2 mb-2'
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
+                      xmlns='http://www.w3.org/2000/svg'>
+                      <circle cx='10' cy='10' r='8' stroke='currentColor' fill='none' />
+                    </svg>
+                  )}
+                  {seenList.length === 0 && !message.isSending && (
+                    <svg
+                      className='w-4 h-4 text-gray-400 mr-2 mb-2'
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
+                      xmlns='http://www.w3.org/2000/svg'>
+                      <path
+                        fillRule='evenodd'
+                        d='M10 2a8 8 0 100 16 8 8 0 000-16zM8.707 7.707a1 1 0 00-1.414 1.414l2.5 2.5a1 1 0 001.414 0l5.5-5.5a1 1 0 10-1.414-1.414L10.5 9.086 8.707 7.707z'
+                      />
+                    </svg>
+                  )}
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

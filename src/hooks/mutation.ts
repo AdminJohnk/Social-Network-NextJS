@@ -541,8 +541,8 @@ export const useSendMessage = () => {
         }
 
         return newData.sort((a, b) => {
-          const aTime = a.lastMessage?.createdAt ?? 0;
-          const bTime = b.lastMessage?.createdAt ?? 0;
+          const aTime = a.lastMessage?.createdAt || 0;
+          const bTime = b.lastMessage?.createdAt || 0;
           return new Date(bTime).getTime() - new Date(aTime).getTime();
         });
       });
@@ -607,8 +607,8 @@ export const useReceiveMessage = (currentUserID: string, conversationID?: string
           };
 
           newData.sort((a, b) => {
-            const aTime = a.lastMessage?.createdAt ?? 0;
-            const bTime = b.lastMessage?.createdAt ?? 0;
+            const aTime = a.lastMessage?.createdAt || 0;
+            const bTime = b.lastMessage?.createdAt || 0;
             return new Date(bTime).getTime() - new Date(aTime).getTime();
           });
         }

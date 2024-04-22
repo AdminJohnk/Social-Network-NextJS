@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import Post from '@/components/shared/Post/Post';
 import { PostSkeleton } from '@/components/shared/Post';
 import { useAllNewsfeedPostsData } from '@/hooks/query';
-import { BiLoader } from 'react-icons/bi';
 
 export default function PostList() {
   const [postsRef, inPostsView] = useInView({ threshold: 0 });
@@ -40,7 +39,7 @@ export default function PostList() {
               ))}
               {hasNextPosts && (
                 <div ref={postsRef}>
-                  <BiLoader className='animate-spin' />
+                  <PostSkeleton />
                 </div>
               )}
             </>

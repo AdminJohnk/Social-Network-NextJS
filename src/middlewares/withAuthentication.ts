@@ -10,7 +10,7 @@ export const withAuthentication: MiddlewareFactory =
     return withAuth(
       async function middleware(req) {
         const token = await getToken({ req });
-        const isAuth = !!token;
+        const isAuth = !!token && token.access_token_expiry > Date.now() - 600000;
 
         const locale = LIST_LANGUAGE.map((lang) => lang).join('|');
 

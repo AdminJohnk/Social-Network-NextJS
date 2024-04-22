@@ -13,10 +13,7 @@ export default function Textarea({ className, ...props }: ITextareaProps) {
   return (
     <TextareaMUI
       {...props}
-      className={cn(
-        'text-text-1 bg-transparent  placeholder:base-regular',
-        className
-      )}
+      className={cn('!text-text-1 !bg-transparent placeholder:!base-regular', className)}
       sx={{
         '--Textarea-focusedThickness': '0',
         '--Textarea-focusedHighlight': 'transparent',
@@ -26,7 +23,7 @@ export default function Textarea({ className, ...props }: ITextareaProps) {
         '.MuiTextarea-textarea': {
           boxShadow: 'none'
         },
-        border: 'none',
+        border: 'none'
       }}
     />
   );

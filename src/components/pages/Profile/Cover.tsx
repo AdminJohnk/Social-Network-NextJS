@@ -56,9 +56,7 @@ export default function Cover({ profileID }: ICoverProps) {
 
   const { mutateDeleteFriendUser } = useDeleteFriendUser();
 
-  const isFriend = currentUserInfo?.friends?.some(
-    friend => friend._id === profileID
-  );
+  const isFriend = currentUserInfo.friends?.some((friend) => friend._id === profileID);
 
   const sentRequest = useMemo(() => {
     if (currentUserInfo && otherUserInfo) {
@@ -122,9 +120,7 @@ export default function Cover({ profileID }: ICoverProps) {
                   </button>
                 )}
               </div>
-              <h3 className='md:text-3xl text-base font-bold text-text-1'>
-                {otherUserInfo?.name}
-              </h3>
+              <h3 className='md:text-3xl text-base font-bold text-text-1'>{otherUserInfo?.name}</h3>
               <p
                 className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'
                 dangerouslySetInnerHTML={{ __html: otherUserInfo?.about }}></p>
@@ -147,7 +143,7 @@ export default function Cover({ profileID }: ICoverProps) {
                   variant={'main'}
                   preIcon={
                     isLoading ? (
-                      <CircularProgress size={17} className='text-text-1' />
+                      <CircularProgress size={17} className='!text-text-1' />
                     ) : (
                       <IoAddCircle className='text-xl' />
                     )
@@ -159,8 +155,7 @@ export default function Cover({ profileID }: ICoverProps) {
                         setIsLoading(false);
                       }
                     });
-                  }}
-                >
+                  }}>
                   {t('Add Friend')}
                 </Button>
               )}
@@ -169,7 +164,7 @@ export default function Cover({ profileID }: ICoverProps) {
                   variant={'main'}
                   preIcon={
                     isLoading ? (
-                      <CircularProgress size={17} className='text-text-1' />
+                      <CircularProgress size={17} className='!text-text-1' />
                     ) : (
                       <MdCancel className='text-xl' />
                     )
@@ -181,8 +176,7 @@ export default function Cover({ profileID }: ICoverProps) {
                         setIsLoading(false);
                       }
                     });
-                  }}
-                >
+                  }}>
                   {t('Cancel Request')}
                 </Button>
               )}
@@ -192,18 +186,16 @@ export default function Cover({ profileID }: ICoverProps) {
                     variant={'main'}
                     preIcon={
                       isLoading ? (
-                        <CircularProgress size={17} className='text-text-1' />
+                        <CircularProgress size={17} className='!text-text-1' />
                       ) : (
                         <RiArrowGoBackFill className='text-xl' />
                       )
-                    }
-                  >
+                    }>
                     <span className='text-sm'> {t('Response')} </span>
                   </Button>
                   <div
                     className='w-[240px] !bg-foreground-1'
-                    data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
-                  >
+                    data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                     <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
                       <div
                         className='uk-drop-close'
@@ -214,8 +206,7 @@ export default function Cover({ profileID }: ICoverProps) {
                               setIsLoading(false);
                             }
                           });
-                        }}
-                      >
+                        }}>
                         <span className='text-sm'>{t('Accept')}</span>
                       </div>
                       <div
@@ -227,8 +218,7 @@ export default function Cover({ profileID }: ICoverProps) {
                               setIsLoading(false);
                             }
                           });
-                        }}
-                      >
+                        }}>
                         <span className='text-sm'>{t('Decline')}</span>
                       </div>
                     </nav>
@@ -241,18 +231,16 @@ export default function Cover({ profileID }: ICoverProps) {
                     variant={'main'}
                     preIcon={
                       isLoading ? (
-                        <CircularProgress size={17} className='text-text-1' />
+                        <CircularProgress size={17} className='!text-text-1' />
                       ) : (
                         <FaCheckCircle className='text-xl' />
                       )
-                    }
-                  >
+                    }>
                     <span className='text-sm'> {t('Friend')} </span>
                   </Button>
                   <div
                     className='w-[240px] !bg-foreground-1'
-                    data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
-                  >
+                    data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                     <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
                       <div
                         className='uk-drop-close'
@@ -263,8 +251,7 @@ export default function Cover({ profileID }: ICoverProps) {
                               setIsLoading(false);
                             }
                           });
-                        }}
-                      >
+                        }}>
                         <span className='text-sm'>{t('Unfriend')}</span>
                       </div>
                     </nav>
@@ -339,26 +326,12 @@ export default function Cover({ profileID }: ICoverProps) {
             </div>
 
             <nav className='flex rounded-xl -mb-px font-medium text-[15px] max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
-              <Tabs
-                id='tabs-profile'
-                navClassName='!pt-0 !rounded-sm'
-                disableChevron
-              >
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-                  {t('Timeline')}
-                </TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-                  {t('Friends')}
-                </TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-                  {t('Photos')}
-                </TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-                  {t('Repositories')}
-                </TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-                  {t('Groups')}
-                </TabTitle>
+              <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Timeline')}</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Friends')}</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Photos')}</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Repositories')}</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Groups')}</TabTitle>
               </Tabs>
 
               {/* <!-- dropdown --> */}

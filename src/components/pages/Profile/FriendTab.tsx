@@ -24,10 +24,10 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
   const { mutateDeleteFriendUser } = useDeleteFriendUser();
 
   useEffect(() => {
-    setIsFriend(currentUserInfo?.friends.some(item => item._id === friend._id));
-  }, [currentUserInfo?.friends]);
+    setIsFriend(currentUserInfo.friends.some((item) => item._id === friend._id));
+  }, [currentUserInfo.friends]);
 
-  if(friend?._id == currentUserInfo?._id) return null;
+  if (friend?._id == currentUserInfo._id) return null;
 
   return (
     <div className='flex-between'>
@@ -44,13 +44,8 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
           {friend?.experiences?.length > 0 && (
             <span className='small-regular text-text-2 mt-1'>
               Work at
-              <span className='mx-1 small-bold'>
-                {friend?.experiences[0]?.company_name}
-              </span>
-              as a
-              <span className='mx-1 small-bold'>
-                {friend?.experiences[0]?.position_name}
-              </span>
+              <span className='mx-1 small-bold'>{friend?.experiences[0]?.company_name}</span>
+              as a<span className='mx-1 small-bold'>{friend?.experiences[0]?.position_name}</span>
             </span>
           )}
         </div>
@@ -61,8 +56,7 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
           onClick={() => {
             setIsFriend(!isFriend);
             mutateDeleteFriendUser(friend._id);
-          }}
-        >
+          }}>
           {t('Unfriend')}
         </Button>
       ) : (
@@ -71,8 +65,7 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
           onClick={() => {
             setIsFriend(isFriend);
             mutateAddFriendUser(friend._id);
-          }}
-        >
+          }}>
           {t('Add Friend')}
         </Button>
       )}
@@ -95,11 +88,7 @@ export default function FriendTab({ profileID }: IFriendTabProps) {
         <div className='bg-foreground-1 my-8 w-full rounded-md'>
           {otherUserInfo?.friends.length <= 0 ? (
             <div className='w-full px-10 py-8 flex-center'>
-              <Nodata
-                width={150}
-                height={150}
-                title={'No friend found'}
-              ></Nodata>
+              <Nodata width={150} height={150} title={'No friend found'}></Nodata>
             </div>
           ) : (
             <div className='flex-between flex-wrap px-10 py-8 gap-10 w-full'>

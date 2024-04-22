@@ -1,11 +1,9 @@
-import { useCurrentUserInfo } from "@/hooks/query";
-import { cn, getImageURL } from "@/lib/utils";
-import { useSocketStore } from "@/store/socket";
-import { IUserInfo } from "@/types";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-
-
+import { useCurrentUserInfo } from '@/hooks/query';
+import { cn, getImageURL } from '@/lib/utils';
+import { useSocketStore } from '@/store/socket';
+import { IUserInfo } from '@/types';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 interface IAvatarGroup {
   users: IUserInfo[];
@@ -15,7 +13,6 @@ interface IAvatarGroup {
 }
 
 const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview = false }) => {
-
   const { activeMembers: members } = useSocketStore();
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
@@ -24,7 +21,7 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
   const isActive =
     users
       .map((user) => {
-        if (user._id === currentUserInfo?._id) return;
+        if (user._id === currentUserInfo._id) return;
         return members.some((member) => member._id === user._id && member.is_online);
       })
       .indexOf(true) !== -1;
@@ -60,7 +57,7 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
             height={500}
             src={getImageURL(image, 'avatar_mini')!}
             alt='Avatar'
-            referrerPolicy="no-referrer"
+            referrerPolicy='no-referrer'
             style={{
               width: '100%',
               height: '100%',
@@ -89,7 +86,7 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
                 <div
                   className='text-xs'
                   style={{
-                    fontSize: size / 4,
+                    fontSize: size / 4
                   }}>
                   {users.length - 4}
                 </div>
