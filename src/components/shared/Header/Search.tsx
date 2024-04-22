@@ -95,7 +95,7 @@ export default function SearchHeader() {
       <div
         className='hidden !z-10'
         data-uk-drop='pos: bottom-center; animation: uk-animation-slide-bottom-small; mode:click; animate-out: true'>
-        <div className='xl:w-[694px] sm:w-96 lg:w-[574px] bg-hover-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
+        <div className='xl:w-[694px] sm:w-96 lg:w-[574px] bg-foreground-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
           {searchDebounce === '' ? (
             isLoadingSearchLogs ? (
               <div className='py-20'>
@@ -121,7 +121,7 @@ export default function SearchHeader() {
                     <Link
                       key={item}
                       href=''
-                      className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-2 rounded-lg'>
+                      className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-1 rounded-lg'>
                       <IoSearchOutline className='text-2xl' />
                       {item}
                       <IoClose className='text-base absolute right-3 top-1/2 -translate-y-1/2' />
@@ -131,7 +131,7 @@ export default function SearchHeader() {
                     <Link
                       key={user._id}
                       href={`/profile/${user._id}`}
-                      className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-2 rounded-lg'>
+                      className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-1 rounded-lg'>
                       <Image
                         src={getImageURL(user.user_image, 'avatar')}
                         className='w-9 h-9 rounded-full'
@@ -159,7 +159,7 @@ export default function SearchHeader() {
                   <Link
                     key={user._id}
                     href={`/profile/${user._id}`}
-                    className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-2 rounded-lg'>
+                    className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-1 rounded-lg'>
                     <Image
                       src={getImageURL(user.user_image, 'avatar')}
                       className='w-9 h-9 rounded-full'
@@ -175,7 +175,7 @@ export default function SearchHeader() {
                 ))}
               </nav>
               <div
-                className='flex gap-1.5 mt-2 items-center cursor-pointer p-2 hover:bg-hover-2 rounded-lg'
+                className='flex gap-1.5 mt-2 items-center cursor-pointer p-2 hover:bg-hover-1 rounded-lg'
                 onClick={() => getSearchPage(searchDebounce)}>
                 <div className='avatar relative'>
                   <IoSearchOutline className='text-xl' />

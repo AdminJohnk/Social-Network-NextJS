@@ -104,10 +104,10 @@ export default function RepositoryTab(props: IRepositoryTabProps) {
         </Modal>
       </div>
       <div className='flex flex-wrap justify-between mt-5'>
-        {currentUserInfo?.repositories?.length === 0 ? (
+        {currentUserInfo.repositories?.length === 0 ? (
           <>No repos</>
         ) : (
-          currentUserInfo?.repositories.map((item, index) => {
+          currentUserInfo.repositories.map((item, index) => {
             return <RepositoryItem item={item} key={index} />;
           })
         )}

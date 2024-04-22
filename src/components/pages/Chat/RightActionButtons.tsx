@@ -48,7 +48,7 @@ export default function RightActionButtons({}: IRightActionButtons) {
               aria-labelledby='modal-modal-title'
               aria-describedby='modal-modal-description'>
               <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
-                <CreateNewGroup users={currentUserInfo?.members || []} handleClose={handleClose} />
+                <CreateNewGroup users={currentUserInfo.members || []} handleClose={handleClose} />
               </div>
             </Modal> */}
           <Dialog open={open} onOpenChange={setOpen}>
@@ -60,7 +60,7 @@ export default function RightActionButtons({}: IRightActionButtons) {
               <DialogHeader>
                 <DialogTitle>{t('Create New Group')}</DialogTitle>
               </DialogHeader>
-              <CreateNewGroup users={currentUserInfo?.members ?? []} handleClose={handleClose} />
+              <CreateNewGroup users={currentUserInfo.members ?? []} handleClose={handleClose} />
             </DialogContent>
           </Dialog>
 

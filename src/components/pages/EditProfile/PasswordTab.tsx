@@ -132,7 +132,7 @@ export default function PasswordTab() {
             (!isChanged || isLoading) && 'select-none'
           )}
           disabled={isLoading || !isChanged}>
-          {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
           {t('Save')}
         </Button>
       </div>

@@ -98,7 +98,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   }, []);
 
   const otherUser = useMemo(() => {
-    return currentConversation?.members?.filter((member) => member._id !== currentUserInfo?._id)[0];
+    return currentConversation?.members?.filter((member) => member._id !== currentUserInfo._id)[0];
   }, [currentUserInfo, currentConversation?.members]);
 
   const downloadImage = async (url?: string) => {
@@ -197,8 +197,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   };
 
   const friends = useMemo(() => {
-    return currentUserInfo?.members;
-  }, [currentUserInfo?.members]);
+    return currentUserInfo.members;
+  }, [currentUserInfo.members]);
 
   // filter members in friends but not in conversation
   const members = useMemo(() => {
@@ -208,12 +208,12 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   }, [friends, currentConversation?.members]);
 
   const memberOptions = (user: IUserInfo) => {
-    const isMe = user._id === currentUserInfo?._id;
+    const isMe = user._id === currentUserInfo._id;
     const isAdmin = currentConversation.admins.some((admin) => admin._id === user._id);
 
-    const isMeCreator = currentConversation?.creator === currentUserInfo?._id;
+    const isMeCreator = currentConversation?.creator === currentUserInfo._id;
     const isMeAdmin =
-      currentConversation?.admins.some((admin) => admin._id === currentUserInfo?._id) || isMeCreator;
+      currentConversation?.admins.some((admin) => admin._id === currentUserInfo._id) || isMeCreator;
 
     return (
       <ul>
@@ -460,7 +460,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             );
           })}
         </div>
-        {currentConversation.admins.some((admin) => admin._id === currentUserInfo?._id) && (
+        {currentConversation.admins.some((admin) => admin._id === currentUserInfo._id) && (
           // <div
           //   className='add-member mt-3 w-11/12 flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-full hover:bg-hover-1 select-none'
           //   onClick={handleOpen}>

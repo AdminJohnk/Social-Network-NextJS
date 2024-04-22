@@ -57,13 +57,13 @@ export default function Language({
         </div>
 
         <ul
-          className='p-2 text-xs hover:*:bg-hover-2 *:p-2 *:rounded-lg *:cursor-pointer *:duration-300 space-y-2'
+          className='p-2 text-xs hover:*:bg-hover-1 *:p-2 *:rounded-lg *:cursor-pointer *:duration-300 space-y-2'
           data-uk-scrollspy='target: > li; cls: uk-animation-scale-up , uk-animation-slide-bottom-small ;repeat: true'>
           <li
             className={cn(
               'font-medium text-sm',
               isPending && 'cursor-not-allowed opacity-30',
-              locale === 'vi' && 'text-blue-500 bg-hover-2'
+              locale === 'vi' && 'text-blue-500 select-none !cursor-default bg-hover-1'
             )}
             onClick={() => onSelectChange('vi')}>
             Tiếng Việt
@@ -72,7 +72,7 @@ export default function Language({
             className={cn(
               'font-medium text-sm',
               isPending && 'cursor-not-allowed opacity-30',
-              locale === 'en' && 'text-blue-500 bg-hover-2'
+              locale === 'en' && 'text-blue-500 select-none !cursor-default bg-hover-1'
             )}
             onClick={() => onSelectChange('en')}>
             English
@@ -81,7 +81,7 @@ export default function Language({
             className={cn(
               'font-medium text-sm',
               isPending && 'cursor-not-allowed opacity-30',
-              locale === 'zh' && 'text-blue-500 bg-hover-2'
+              locale === 'zh' && 'text-blue-500 select-none !cursor-default bg-hover-1'
             )}
             onClick={() => onSelectChange('zh')}>
             中文 – 简体

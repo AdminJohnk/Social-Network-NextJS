@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoChevronDownOutline, IoSearchOutline } from 'react-icons/io5';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -9,17 +9,7 @@ import RightActionButtons from './RightActionButtons';
 import HeadingTitle from './HeadingTitle';
 import ConversationBox from './ConversationBox';
 import { useConversationsData, useCurrentUserInfo } from '@/hooks/query';
-import { Socket } from '@/lib/utils/constants/SettingSystem';
-import { useSocketStore } from '@/store/socket';
-import { IConversation, IMessage } from '@/types';
-import {
-  useMutateConversation,
-  useReceiveConversation,
-  useReceiveDissolveGroup,
-  useReceiveLeaveGroup,
-  useReceiveMessage,
-  useReceiveSeenConversation
-} from '@/hooks/mutation';
+import { IConversation } from '@/types';
 import { cn } from '@/lib/utils';
 import { useDebounce } from '@/hooks/special';
 
@@ -32,8 +22,6 @@ function ConversationList({ conversationID }: IConversationListProps) {
 
   const { conversations, isLoadingConversations } = useConversationsData();
   const [searchConversation, setSearchConversation] = useState<IConversation[]>(conversations);
-
-  const { chatSocket } = useSocketStore();
 
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
@@ -56,7 +44,7 @@ function ConversationList({ conversationID }: IConversationListProps) {
     setIsLoadingSearch(false);
     setSearchConversation(
       conversations.filter((conversation) => {
-        const otherUser = conversation.members.find((member) => member._id !== currentUserInfo?._id);
+        const otherUser = conversation.members.find((member) => member._id !== currentUserInfo._id);
         const name = (conversation.name || otherUser!.name)
           .normalize('NFD')
           .replace(/[\u0300-\u036f]/g, '')
@@ -69,52 +57,6 @@ function ConversationList({ conversationID }: IConversationListProps) {
       })
     );
   }, [searchDebounce, conversations]);
-
-  const { mutateReceiveConversation } = useReceiveConversation();
-  const { mutateReceiveLeaveGroup } = useReceiveLeaveGroup();
-  const { mutateReceiveDissolveGroup } = useReceiveDissolveGroup();
-  const { mutateReceiveSeenConversation } = useReceiveSeenConversation();
-  const { mutateReceiveMessage } = useReceiveMessage(currentUserInfo?._id, conversationID);
-  const { mutateConversation } = useMutateConversation(currentUserInfo?._id || '');
-
-  useEffect(() => {
-    chatSocket.on(Socket.PRIVATE_CONVERSATION, (conversation: IConversation) => {
-      mutateReceiveConversation(conversation);
-    });
-    chatSocket.on(Socket.LEAVE_GROUP, (conversation: IConversation) => {
-      mutateReceiveLeaveGroup(conversation);
-    });
-    chatSocket.on(Socket.DISSOLVE_GROUP, (conversation: IConversation) => {
-      mutateReceiveDissolveGroup(conversation);
-    });
-    chatSocket.on(Socket.PRIVATE_MSG, (message: IMessage) => {
-      mutateReceiveMessage(message);
-    });
-    chatSocket.on(Socket.SEEN_MSG, (conversation: IConversation) => {
-      mutateReceiveSeenConversation(conversation);
-    });
-    chatSocket.on(Socket.CHANGE_CONVERSATION_IMAGE, (conversation: IConversation) => {
-      mutateConversation({ ...conversation, typeUpdate: 'image' });
-    });
-    chatSocket.on(Socket.CHANGE_CONVERSATION_COVER, (conversation: IConversation) => {
-      mutateConversation({ ...conversation, typeUpdate: 'cover_image' });
-    });
-    chatSocket.on(Socket.CHANGE_CONVERSATION_NAME, (conversation: IConversation) => {
-      mutateConversation({ ...conversation, typeUpdate: 'name' });
-    });
-    chatSocket.on(Socket.ADD_MEMBER, (conversation: IConversation) => {
-      mutateConversation({ ...conversation, typeUpdate: 'add_member' });
-    });
-    chatSocket.on(Socket.REMOVE_MEMBER, (conversation: IConversation) => {
-      mutateConversation({ ...conversation, typeUpdate: 'remove_member' });
-    });
-    chatSocket.on(Socket.COMMISSION_ADMIN, (conversation: IConversation) => {
-      mutateConversation({ ...conversation, typeUpdate: 'commission_admin' });
-    });
-    chatSocket.on(Socket.DECOMMISSION_ADMIN, (conversation: IConversation) => {
-      mutateConversation({ ...conversation, typeUpdate: 'remove_admin' });
-    });
-  }, []);
 
   return (
     <>
@@ -146,7 +88,7 @@ function ConversationList({ conversationID }: IConversationListProps) {
             placeholder={t('Search')}
             className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
             onChange={(e) => {
-              setSearch(e.target.value)
+              setSearch(e.target.value);
               if (!isLoadingSearch) setIsLoadingSearch(true);
             }}
           />
@@ -157,7 +99,9 @@ function ConversationList({ conversationID }: IConversationListProps) {
       ) : (
         <div className={'space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)] custom-scrollbar-fg'}>
           {searchConversation?.map((conversation) => (
-            <div key={conversation._id} className={cn('rounded-xl', conversationID === conversation._id && 'bg-hover-2')}>
+            <div
+              key={conversation._id}
+              className={cn('rounded-xl', conversationID === conversation._id && 'bg-hover-2')}>
               <ConversationBox key={conversation._id} conversation={conversation} />
             </div>
           ))}

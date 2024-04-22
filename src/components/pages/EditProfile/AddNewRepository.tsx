@@ -127,7 +127,7 @@ export default function AddNewRepository({ handleClose }: IAddNewRepositoryProps
       {isLoadingRepositories ? (
         <div className='text-center'>
           <div className='mb-6 h5-semibold'>Select the repositories you want to feature</div>
-          <CircularProgress size={30} className='text-text-1' />
+          <CircularProgress size={30} className='!text-text-1' />
         </div>
       ) : (
         <div>
@@ -145,7 +145,7 @@ export default function AddNewRepository({ handleClose }: IAddNewRepositoryProps
               )}
               disabled={isLoadingRepositories || !isChanged || isLoading}
               onClick={onSubmit}>
-              {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+              {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
               {t('Save')} <span className='ripple-overlay'></span>
             </Button>
           </div>

@@ -64,7 +64,7 @@ export default function ExperienceTab(props: IExperienceTabProps) {
         </DialogContent>
       </Dialog>
       <div className='*:mb-3'>
-        {currentUserInfo?.experiences?.map((item, index) => {
+        {currentUserInfo.experiences?.map((item, index) => {
           return renderExperience(item);
         })}
       </div>

@@ -179,7 +179,7 @@ export default function SocialTab(props: ISocialTabProps) {
             type='submit'
             className='button lg:px-6 text-white max-md:flex-1'
             disabled={isLoading || !isChanged}>
-            {isLoading && <CircularProgress size={20} className='text-text-1 mr-2' />}
+            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
             {t('Save')} <span className='ripple-overlay'></span>
           </Button>
         </div>

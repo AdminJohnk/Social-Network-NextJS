@@ -33,9 +33,8 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
   const { calledList } = useGetCalled();
   const { data: session } = useSession();
 
-  const { isLoadingCurrentUserInfo, currentUserInfo } = useCurrentUserInfo(session?.id as string);
-  const { conversations, isLoadingConversations } = useConversationsData();
-  const { isLoadingCurrentConversation } = useCurrentConversationData(conversationID!);
+  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { conversations } = useConversationsData();
 
   const notSeenCount = useMemo(() => {
     if (!currentUserInfo || !conversations) return 0;
@@ -49,11 +48,11 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
 
       return count + 1;
     }, 0);
-  }, [conversations]);
+  }, [conversations, currentUserInfo]);
 
   const contacts = useMemo(() => {
-    return currentUserInfo?.members || [];
-  }, [currentUserInfo?.members]);
+    return currentUserInfo.members || [];
+  }, [currentUserInfo.members]);
 
   const contactCount = useMemo(() => {
     if (!contacts) return 0;

@@ -27,7 +27,7 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
   const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID[0]);
 
   const otherUser = useMemo(() => {
-    return currentConversation?.members?.filter((member) => member._id !== currentUserInfo?._id)[0];
+    return currentConversation?.members?.filter((member) => member._id !== currentUserInfo._id)[0];
   }, [currentUserInfo, currentConversation?.members]);
 
   return (

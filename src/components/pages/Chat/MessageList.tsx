@@ -1,10 +1,9 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useInView, } from 'react-intersection-observer';
+import { useInView } from 'react-intersection-observer';
 import { useSession } from 'next-auth/react';
 import { debounce } from 'lodash';
-
 
 import MessageBox from './MessageBox';
 import { useCurrentUserInfo, useMessages } from '@/hooks/query';
@@ -32,7 +31,6 @@ export default function MessageList({ conversationID, currentConversation, other
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
   const { activeMembers: members, chatSocket } = useSocketStore();
-
 
   const isAdmin = useCallback(
     (userID: string) => {
@@ -90,7 +88,7 @@ export default function MessageList({ conversationID, currentConversation, other
   const seenMessage = useCallback(() => {
     if (
       messages.length > 0 &&
-      messages[messages.length - 1].sender._id !== currentUserInfo?._id &&
+      messages[messages.length - 1].sender._id !== currentUserInfo._id &&
       !currentConversation.seen.some((user) => user._id === currentUserInfo._id)
     ) {
       chatSocket.emit(Socket.SEEN_MSG, {
@@ -194,11 +192,13 @@ export default function MessageList({ conversationID, currentConversation, other
       chatSocket.off(Socket.IS_TYPING + conversationID);
       chatSocket.off(Socket.STOP_TYPING + conversationID);
     };
-  }, [typingUsers.length, currentUserInfo?._id, isTyping]);
+  }, [typingUsers.length, currentUserInfo._id, isTyping]);
 
   return (
     <>
-      {isLoadingMessages ? (<div className='text-center'>Loading...</div>) : (
+      {isLoadingMessages ? (
+        <div className='text-center'>Loading...</div>
+      ) : (
         <>
           <div className='text-sm font-medium'>
             <div className='pt-1' ref={topRef} />
@@ -229,7 +229,7 @@ export default function MessageList({ conversationID, currentConversation, other
                     className='rounded-full -top-2 absolute h-6 w-6 overflow-hidden'
                     src={getImageURL(member.user_image, 'avatar_mini')}
                     style={{
-                      left: `${index * 30 + typingUsers.length * 10}px`,
+                      left: `${index * 30 + typingUsers.length * 10}px`
                       // border: `2px solid ${themeColorSet.colorBg4}`
                     }}
                   />
