@@ -9,6 +9,7 @@ import AvatarMessage from './Avatar/AvatarMessage';
 import { Link } from '@/navigation';
 import { useSession } from 'next-auth/react';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
+import ContextMenuConversationBox from './ContextMenuConversationBox';
 
 export interface IConversationBoxProps {
   conversation: IConversation;
@@ -168,37 +169,39 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   }, [conversation.lastMessage]);
 
   return (
-    <Link
-      href={`/messages/${conversation._id}`}
-      className='relative flex items-center gap-4 px-2 py-3 duration-200 rounded-xl hover:bg-hover-1'>
-      {conversation.type === 'group' ? (
-        <AvatarGroup
-          key={conversation._id}
-          users={conversation.members}
-          image={conversation.image}
-          size={50}
-        />
-      ) : (
-        <AvatarMessage key={conversation._id} user={otherUser!} size={50} />
-      )}
-      <div className='flex-1 min-w-0'>
-        <div className='flex items-center gap-2 mb-1.5'>
-          <div className='mr-auto text-sm text-black dark:text-white font-medium'>
-            {conversation.name || otherUser!.name}
+    <ContextMenuConversationBox>
+      <Link
+        href={`/messages/${conversation._id}`}
+        className='relative flex items-center gap-4 px-2 py-3 duration-200 rounded-xl hover:bg-hover-1'>
+        {conversation.type === 'group' ? (
+          <AvatarGroup
+            key={conversation._id}
+            users={conversation.members}
+            image={conversation.image}
+            size={50}
+          />
+        ) : (
+          <AvatarMessage key={conversation._id} user={otherUser!} size={50} />
+        )}
+        <div className='flex-1 min-w-0'>
+          <div className='flex items-center gap-2 mb-1.5'>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
+              {conversation.name || otherUser!.name}
+            </div>
+            <div className='text-xs font-light text-gray-500 dark:text-white/70'>
+              {format.relativeTime(
+                (conversation?.lastMessage?.createdAt || conversation.createdAt) as unknown as Date,
+                new Date()
+              )}
+            </div>
           </div>
-          <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-            {format.relativeTime(
-              (conversation?.lastMessage?.createdAt || conversation.createdAt) as unknown as Date,
-              new Date()
-            )}
+          <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
+            <span className={cn('truncate text-sm', !isOwn && !hasSeen ? 'font-extrabold' : 'text-text-2')}>
+              {senderName + lastMessageText}
+            </span>
           </div>
         </div>
-        <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-          <span className={cn('truncate text-sm', !isOwn && !hasSeen ? 'font-extrabold' : 'text-text-2')}>
-            {senderName + lastMessageText}
-          </span>
-        </div>
-      </div>
-    </Link>
+      </Link>
+    </ContextMenuConversationBox>
   );
 }

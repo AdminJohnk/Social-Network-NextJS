@@ -123,16 +123,16 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
             </PopoverTrigger>
             <PopoverContent>
               <div className='space-y-2'>
-                <div className='flex items-center cursor-default gap-2.5 hover:bg-hover-2 p-2 rounded-md'>
+                <div className='flex items-center cursor-default gap-2.5 hover:bg-hover-1 p-2 rounded-md'>
                   <IoMoonOutline className='size-5' />
                   {t('Night Mode')}
                   <label className='switch ml-auto cursor-pointer'>
-                    <input type='checkbox' checked={mode === 'dark' ? true : false} onChange={toggleMode} />
+                    <input type='checkbox' checked={mode === 'dark'} onChange={toggleMode} />
                     <span className='switch-button !relative'></span>
                   </label>
                 </div>
                 <Language
-                  className='flex w-full items-center cursor-pointer gap-2.5 hover:bg-hover-2 p-2 px-2.5 rounded-md'
+                  className='flex w-full items-center cursor-pointer gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'
                   arrow={false}
                   position='right-bottom'
                   animation='bottom-left'

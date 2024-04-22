@@ -444,7 +444,10 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                           <AvatarMessage key={member._id} user={member} />
                         </div>
                       </Tooltip> */}
-                  <Link href={`/profile/${member._id}`} className='relative'>
+                  <Link
+                    href={`/profile/${member._id}`}
+                    className='relative'
+                    data-uk-tooltip={`title: ${member.name}; pos: left; offset:6`}>
                     <AvatarMessage key={member._id} user={member} />
                   </Link>
                   <Link href={`/profile/${member._id}`} className='flex flex-col text-left ml-2 font-bold'>
@@ -452,9 +455,19 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       <span>{member.name}</span>
                       {isAdmin &&
                         (isCreator ? (
-                          <FaCrown className='ml-1 text-base' />
+                          <FaCrown
+                            className='ml-1 text-base'
+                            data-uk-tooltip={`title: ${t(
+                              'Group creator'
+                            )}; pos: top-left; delay: 200;offset:6`}
+                          />
                         ) : (
-                          <FaUserShield className='ml-1' />
+                          <FaUserShield
+                            className='ml-1'
+                            data-uk-tooltip={`title: ${t(
+                              'Administrator'
+                            )}; pos: top-left; delay: 200;offset:6`}
+                          />
                         ))}
                     </div>
                     {isAdmin &&
@@ -599,7 +612,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
   return (
     <div className='right w-full h-full absolute top-0 right-0 z-[9999] hidden transition-transform'>
-      <div className='uk-animation-slide-right-medium w-[360px] border-l shadow-lg h-screen bg-white absolute right-0 top-0 z-[9999] dark:bg-background-2 dark:border-slate-700 custom-scrollbar-bg overflow-y-scroll'>
+      <div className='uk-animation-slide-right-medium w-[360px] border-l shadow-lg h-screen bg-background-1 absolute right-0 top-0 z-[9999] dark:border-slate-700 custom-scrollbar-bg overflow-y-scroll'>
         {isLoadingCurrentConversation ? (
           <div className='flex-center p-1'>
             <CircularProgress size={20} className='!text-text-1' />

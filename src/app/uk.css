@@ -638,7 +638,7 @@
 .uk-tooltip {
   position: absolute;
   top: 0px;
-  z-index: 1050;
+  z-index: 9999;
   display: none;
   max-width: 200px;
   border-radius: 0.375rem;

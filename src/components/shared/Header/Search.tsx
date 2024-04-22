@@ -32,7 +32,7 @@ export default function SearchHeader() {
   const { usersByName } = useGetUsersByName(searchDebounce);
 
   const { mutateCreateSearchLog } = useCreateSearchLog();
-  const { mutateDeleteSearchLog } = useDeleteSearchLog();
+  const { mutateDeleteSearchLog, isLoadingDeleteSearchLog } = useDeleteSearchLog();
 
   const handleDeleteSearchLog = (
     e: React.MouseEvent<Element, MouseEvent>,
@@ -44,7 +44,7 @@ export default function SearchHeader() {
       user: currentUserInfo._id,
       [type]: value
     }).then(() => {
-      queryClient.resetQueries({ queryKey: ['searchLogs'] });
+      queryClient.refetchQueries({ queryKey: ['searchLogs'] });
     });
   };
 
@@ -54,7 +54,7 @@ export default function SearchHeader() {
       user: currentUserInfo._id,
       recently_search: id
     }).then(() => {
-      queryClient.resetQueries({ queryKey: ['searchLogs'] });
+      queryClient.refetchQueries({ queryKey: ['searchLogs'] });
     });
     router.push(`/profile/${id}`);
   };
@@ -68,7 +68,6 @@ export default function SearchHeader() {
       queryClient.resetQueries({ queryKey: ['searchLogs'] });
     });
     router.push(`/search/top?search=${search}`);
-    // setIsListVisible(false);
   };
 
   useEffect(() => {
@@ -93,11 +92,12 @@ export default function SearchHeader() {
         />
       </div>
       <div
+        id='search-box2'
         className='hidden !z-10'
         data-uk-drop='pos: bottom-center; animation: uk-animation-slide-bottom-small; mode:click; animate-out: true'>
         <div className='xl:w-[694px] sm:w-96 lg:w-[574px] bg-foreground-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
           {searchDebounce === '' ? (
-            isLoadingSearchLogs ? (
+            isLoadingSearchLogs || isLoadingDeleteSearchLog ? (
               <div className='flex-center w-full h-full p-5'>
                 <CircularProgress size={20} className='!text-text-1' />
               </div>
@@ -105,28 +105,30 @@ export default function SearchHeader() {
                 searchLogs.keywords.length === 0 &&
                 searchLogs.recently_search_list.length === 0) ||
               !searchLogs ? (
-              <CgTrashEmpty className='cursor-default px-40' />
+              <div className='flex-center w-full h-full p-5'>
+                {t('You have not searched for anything yet')}
+              </div>
             ) : (
               <>
                 <div className='flex justify-between px-2 py-2.5 text-sm font-medium'>
                   <div className='text-black dark:text-white'>{t('Recent')}</div>
-                  <button type='button' className='text-blue-500'>
+                  <button type='button' className='text-blue-500 hover:underline'>
                     {t('Clear')}
                   </button>
                 </div>
                 <nav className='text-sm font-medium'>
                   {searchLogs.keywords.map((item) => (
-                    <Link
+                    <div
                       key={item}
-                      href=''
+                      onClick={() => getSearchPage(item)}
                       className='relative px-3 py-1.5 cursor-pointer flex items-center gap-4 hover:bg-hover-1 rounded-lg'>
                       <IoSearchOutline className='text-2xl' />
                       {item}
                       <IoClose
-                        className='text-base absolute right-3 top-1/2 -translate-y-1/2'
+                        className='text-lg absolute p-0.5 rounded-full hover:bg-hover-2 z-10 right-3 top-1/2 -translate-y-1/2'
                         onClick={(e) => handleDeleteSearchLog(e, 'keyword', item)}
                       />
-                    </Link>
+                    </div>
                   ))}
                   {searchLogs.recently_search_list.map((user) => (
                     <div
@@ -145,7 +147,7 @@ export default function SearchHeader() {
                         <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
                       </div>
                       <IoClose
-                        className='text-base absolute right-3 top-1/2 -translate-y-1/2'
+                        className='text-lg absolute p-0.5 rounded-full hover:bg-hover-2 z-10 right-3 top-1/2 -translate-y-1/2'
                         onClick={(e) => handleDeleteSearchLog(e, 'recently_search', user._id)}
                       />
                     </div>
@@ -189,10 +191,10 @@ export default function SearchHeader() {
             </>
           )}
           <div className='flex justify-end pr-2 text-sm font-medium text-red-500'>
-            <Link href='' className='flex hover:bg-red-50 dark:hover:bg-slate-800 p-1.5 rounded'>
+            <div className='flex hover:bg-red-200 cursor-pointer p-1.5 rounded'>
               <IoTrash className='mr-2 text-lg' />
               {t('Clear your history')}
-            </Link>
+            </div>
           </div>
         </div>
       </div>

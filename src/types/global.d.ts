@@ -27,3 +27,12 @@ declare module 'use-sound' {
     { id, volume, playbackRate, soundEnabled, interrupt, onload, ...delegated }?: HookOptions<T>
   ): ReturnedValue;
 }
+
+declare global {
+  var Config: {
+    UIkit: any;
+  };
+  var UIkit: any;
+}
+
+export {};

@@ -179,7 +179,9 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div
             className={cn('flex gap-3 items-end', type === 'group' && !isOwn && !isPrevMesGroup ? '' : '')}>
             {(!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup) ? (
-              <Link href={`/profile/${message.sender._id}`}>
+              <Link
+                href={`/profile/${message.sender._id}`}
+                data-uk-tooltip={`title: ${message.sender.name}; pos: left; offset:6`}>
                 <Image
                   width={500}
                   height={500}
@@ -198,9 +200,15 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                     {handleFirstName(message.sender.name)}
                     {isAdmin &&
                       (isCreator ? (
-                        <FaCrown className='ml-1 text-base' />
+                        <FaCrown
+                          className='ml-1 text-base'
+                          data-uk-tooltip={`title: ${t('Group creator')}; pos: top-left; delay: 200;offset:6`}
+                        />
                       ) : (
-                        <FaShieldHalved className='ml-1' />
+                        <FaShieldHalved
+                          className='ml-1'
+                          data-uk-tooltip={`title: ${t('Administrator')}; pos: top-left; delay: 200;offset:6`}
+                        />
                       ))}
                   </Link>
                 </div>
