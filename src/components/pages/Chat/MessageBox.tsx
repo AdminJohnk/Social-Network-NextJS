@@ -151,7 +151,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
         [0x1f1e6, 0x1f1ff] // Enclosed Characters
       ];
 
-      for (let i = 0; i < content.length; ) {
+      for (let i = 0; i < content.length;) {
         const char = content.codePointAt(i)!;
 
         let isEmoji = false;
@@ -280,7 +280,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               <div className={cn('max-w-sm', roundedCornerStyle(isNextMesGroup, isPrevMesGroup))}>
                 {content.length > 1 ? (
                   <ImageList
-                    sx={{ width: content.length == 2 ? 336 : 500, height: 'auto' }}
+                    sx={{ width: content.length == 2 ? 326 : 490, height: 'auto' }}
                     cols={content.length == 2 ? 2 : 3}
                     rowHeight={'auto'}>
                     {content.map((item) => (
@@ -290,7 +290,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                           height={500}
                           src={getImageURL(item)}
                           alt=''
-                          className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[10px]'
+                          className='block max-w-full max-h-52 w-40 h-40 max-lg:w-20 max-lg:h-20 object-cover rounded-[10px]'
                         />
                       </ImageListItem>
                     ))}
@@ -327,7 +327,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div className='flex gap-2 flex-row-reverse items-end'>
             {content.length > 1 ? (
               <ImageList
-                sx={{ width: content.length == 2 ? 336 : 500, height: 'auto' }}
+                sx={{ width: content.length == 2 ? 326 : 490, height: 'auto' }}
                 cols={content.length == 2 ? 2 : 3}
                 rowHeight={'auto'}>
                 {content.map((item) => (
@@ -337,7 +337,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                       height={500}
                       src={getImageURL(item)}
                       alt=''
-                      className='block max-w-full max-h-52 w-40 h-40 object-cover rounded-[10px]'
+                      className='block max-w-full max-h-52 w-40 h-40 max-lg:w-20 max-lg:h-20 object-cover rounded-[10px]'
                     />
                   </ImageListItem>
                 ))}
