@@ -151,7 +151,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
         [0x1f1e6, 0x1f1ff] // Enclosed Characters
       ];
 
-      for (let i = 0; i < content.length;) {
+      for (let i = 0; i < content.length; ) {
         const char = content.codePointAt(i)!;
 
         let isEmoji = false;
@@ -179,13 +179,15 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div
             className={cn('flex gap-3 items-end', type === 'group' && !isOwn && !isPrevMesGroup ? '' : '')}>
             {(!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup) ? (
-              <Image
-                width={500}
-                height={500}
-                src={getImageURL(message.sender.user_image, 'avatar_mini')!}
-                alt=''
-                className='w-9 h-9 rounded-full shadow'
-              />
+              <Link href={`/profile/${message.sender._id}`}>
+                <Image
+                  width={500}
+                  height={500}
+                  src={getImageURL(message.sender.user_image, 'avatar_mini')!}
+                  alt=''
+                  className='w-9 h-9 rounded-full shadow'
+                />
+              </Link>
             ) : (
               <div className='w-9 h-9 rounded-full' />
             )}
@@ -343,7 +345,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 ))}
               </ImageList>
             ) : (
-              <Link className='block rounded-[10px] border overflow-hidden' href=''>
+              <div className='block rounded-[10px] border overflow-hidden'>
                 <div className='max-w-md'>
                   <div className='max-w-full relative w-72'>
                     <div className='relative' style={{ paddingBottom: '57.4286%' }}>
@@ -359,7 +361,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             )}
           </div>
         </>

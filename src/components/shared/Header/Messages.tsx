@@ -16,7 +16,7 @@ import { cn } from '@/lib/utils';
 
 export default function MessagesHeader() {
   const t = useTranslations();
-  const now = useNow({ updateInterval: 1000 * 30 });
+  useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
 
   const [search, setSearch] = useState<string>('');
@@ -220,16 +220,21 @@ export default function MessagesHeader() {
                           <div className='text-xs text-gray-500 dark:text-white/80'>
                             {format.relativeTime(
                               conversation.lastMessage.createdAt as unknown as Date,
-                              now < new Date() ? new Date() : now
+                              new Date()
                             )}
                           </div>
                         )}
-                        <div className='w-2.5 h-2.5 bg-blue-600 rounded-full'></div>
+                        <div
+                          className={cn(
+                            'w-2.5 h-2.5 bg-blue-600 rounded-full invisible',
+                            !isOwn && !hasSeen() && 'visible'
+                          )}
+                        />
                       </div>
                       <div
                         className={cn(
                           'overflow-hidden text-ellipsis text-xs whitespace-nowrap',
-                          !isOwn && !hasSeen() ? 'font-bold' : 'font-normal'
+                          !isOwn && !hasSeen() ? 'font-extrabold' : 'font-normal text-text-2'
                         )}>
                         {senderName() + lastMessageText()}
                       </div>
@@ -242,7 +247,7 @@ export default function MessagesHeader() {
         </div>
 
         <Link href='/messages'>
-          <div className='text-center py-4 border-t border-border-1 text-sm font-medium text-blue-600 dark:text-white'>
+          <div className='text-center py-4 border-t border-border-1 text-sm font-medium text-blue-600 dark:text-white hover:underline'>
             {t('See all messages')}
           </div>
         </Link>

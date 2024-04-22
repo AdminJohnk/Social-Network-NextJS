@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSession } from 'next-auth/react';
+import { CircularProgress } from '@mui/material';
 import { debounce } from 'lodash';
 
 import MessageBox from './MessageBox';
@@ -197,7 +198,9 @@ export default function MessageList({ conversationID, currentConversation, other
   return (
     <>
       {isLoadingMessages ? (
-        <div className='text-center'>Loading...</div>
+        <div className='flex-center p-1'>
+          <CircularProgress size={20} className='!text-text-1' />
+        </div>
       ) : (
         <>
           <div className='text-sm font-medium'>

@@ -116,8 +116,7 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
             target: {
               _id: member._id,
               name: member.name
-            },
-            createdAt: new Date()
+            }
           };
 
           mutateSendMessage(message as unknown as IMessage);
