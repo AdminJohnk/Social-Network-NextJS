@@ -53,12 +53,11 @@ import { Button } from '@/components/ui/button';
 import { ProfileUpload } from '@/components/ui/upload-image';
 
 export interface IChatInfoProps {
-  conversationID: string[] | undefined;
+  conversationID: string | undefined;
 }
 
 export default function ChatInfo({ conversationID }: IChatInfoProps) {
   if (conversationID === undefined) return <></>;
-  const ID = conversationID[0];
 
   const t = useTranslations();
 
@@ -72,9 +71,9 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
-  const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(ID);
+  const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID);
 
-  const { messagesImage, isLoadingMessagesImage } = useMessagesImage(ID);
+  const { messagesImage, isLoadingMessagesImage } = useMessagesImage(conversationID);
 
   const [openChangeAvatar, setOpenChangeAvatar] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
@@ -187,16 +186,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 .slice(0, 4)
                 .map((item) => item.images)
                 .flat().length > 4 && (
-                <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
-                  <p
-                    className='cursor-pointer'
-                    onClick={() => {
-                      changeConversationOption('image');
-                    }}>
-                    See all
-                  </p>
-                </div>
-              )}
+                  <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
+                    <p
+                      className='cursor-pointer'
+                      onClick={() => {
+                        changeConversationOption('image');
+                      }}>
+                      See all
+                    </p>
+                  </div>
+                )}
             </>
           )}
         </div>
@@ -242,7 +241,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
                     const message = {
                       _id: uuidv4().replace(/-/g, ''),
-                      conversation_id: ID,
+                      conversation_id: conversationID,
                       sender: {
                         _id: currentUserInfo._id,
                         user_image: currentUserInfo.user_image,
@@ -259,7 +258,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     };
 
                     mutateSendMessage(message as unknown as IMessage);
-                    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+                    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
                   });
                 }}>
                 <FaUserShield className='text-2xl' />
@@ -278,7 +277,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
                     const message = {
                       _id: uuidv4().replace(/-/g, ''),
-                      conversation_id: ID,
+                      conversation_id: conversationID,
                       sender: {
                         _id: currentUserInfo._id,
                         user_image: currentUserInfo.user_image,
@@ -295,7 +294,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     };
 
                     mutateSendMessage(message as unknown as IMessage);
-                    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+                    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
                   });
                 }}>
                 <FaUserSlash className='text-2xl' />
@@ -342,10 +341,10 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
                 onClick={() => {
                   if (user._id === currentUserInfo._id) {
-                    mutateLeaveGroup(ID);
+                    mutateLeaveGroup(conversationID);
                     const message = {
                       _id: uuidv4().replace(/-/g, ''),
-                      conversation_id: ID,
+                      conversation_id: conversationID,
                       sender: {
                         _id: currentUserInfo._id,
                         user_image: currentUserInfo.user_image,
@@ -368,7 +367,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
                       const message = {
                         _id: uuidv4().replace(/-/g, ''),
-                        conversation_id: ID,
+                        conversation_id: conversationID,
                         sender: {
                           _id: currentUserInfo._id,
                           user_image: currentUserInfo.user_image,
@@ -385,7 +384,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       };
 
                       mutateSendMessage(message as unknown as IMessage);
-                      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+                      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
                     });
                   }
                 }}>
@@ -403,7 +402,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
         </ul>
       );
     },
-    [currentConversation?.admins, currentConversation?.creator, currentUserInfo, members, ID]
+    [currentConversation?.admins, currentConversation?.creator, currentUserInfo, members, conversationID]
   );
 
   const listMembers = useCallback(() => {
@@ -532,12 +531,12 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
     setIsLoadingChangeName(true);
 
     messageService
-      .changeConversationName(ID, groupName!)
+      .changeConversationName(conversationID, groupName!)
       .then((res) => {
         setIsLoadingChangeName(false);
         const message = {
           _id: uuidv4().replace(/-/g, ''),
-          conversation_id: ID,
+          conversation_id: conversationID,
           sender: {
             _id: currentUserInfo._id,
             user_image: currentUserInfo.user_image,
@@ -551,7 +550,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
         };
 
         mutateSendMessage(message as unknown as IMessage);
-        chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+        chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
 
         chatSocket.emit(Socket.CHANGE_CONVERSATION_NAME, res.data.metadata);
       })
@@ -581,12 +580,12 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
     setIsLoadingChangeAvatar(true);
 
     messageService
-      .changeConversationImage(ID, fileAvatar!)
+      .changeConversationImage(conversationID, fileAvatar!)
       .then((res) => {
         setIsLoadingChangeAvatar(false);
         const message = {
           _id: uuidv4().replace(/-/g, ''),
-          conversation_id: ID,
+          conversation_id: conversationID,
           sender: {
             _id: currentUserInfo._id,
             user_image: currentUserInfo.user_image,
@@ -599,7 +598,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
         };
 
         mutateSendMessage(message as unknown as IMessage);
-        chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+        chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
 
         chatSocket.emit(Socket.CHANGE_CONVERSATION_IMAGE, res.data.metadata);
       })
@@ -753,7 +752,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                               <Button
                                 variant={'destructive'}
                                 className='button lg:px-6 text-white max-md:flex-1'
-                                onClick={() => {}}>
+                                onClick={() => setOpenChangeAvatar(false)}>
                                 {t('Cancel')}
                               </Button>
                               <Button
@@ -797,7 +796,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                               <Button
                                 variant={'destructive'}
                                 className='button lg:px-6 text-white max-md:flex-1'
-                                onClick={() => {}}>
+                                onClick={() => setOpenChangeName(false)}>
                                 {t('Cancel')}
                               </Button>
                               <Button

@@ -151,7 +151,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
         [0x1f1e6, 0x1f1ff] // Enclosed Characters
       ];
 
-      for (let i = 0; i < content.length; ) {
+      for (let i = 0; i < content.length;) {
         const char = content.codePointAt(i)!;
 
         let isEmoji = false;
@@ -215,7 +215,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               )}
               <div
                 className={cn(
-                  'max-w-2xl',
+                  'max-w-2xl whitespace-pre-wrap',
                   roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
                   checkContentType(content) === 'emoji' ? 'text-4xl' : 'px-4 py-2 bg-foreground-2'
                 )}>
@@ -239,7 +239,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div className='flex gap-2 flex-row-reverse items-end'>
             <div
               className={cn(
-                'max-w-2xl',
+                'max-w-2xl whitespace-pre-wrap',
                 roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
                 checkContentType(content) === 'emoji'
                   ? 'text-4xl'

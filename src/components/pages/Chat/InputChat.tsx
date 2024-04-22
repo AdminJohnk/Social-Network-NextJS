@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   IoAddCircleOutline,
   IoDocumentText,
@@ -27,9 +27,10 @@ import { useSendMessage } from '@/hooks/mutation';
 import { IEmoji, IMessage, IUserInfo } from '@/types';
 import { cn } from '@/lib/utils';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
+import Textarea from '@/components/ui/textarea';
 
 export interface IInputChatProps {
-  conversationID: string[] | undefined;
+  conversationID: string | undefined;
   members: IUserInfo[];
 }
 
@@ -49,7 +50,6 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
   const t = useTranslations();
   const { mode } = useThemeMode();
   const { data: session } = useSession();
-  const ID = conversationID ? conversationID[0] : '';
 
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
   const { mutateSendMessage } = useSendMessage();
@@ -65,13 +65,14 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
   const handleSubmit = async (content: string) => {
     if (!conversationID) return;
     if (!content && !files.length) return;
+    content = content.replace(/\n$/, "");
 
     setMessage('');
 
     if (content.trim() !== '' || content.trim().length !== 0) {
       const message = {
         _id: id,
-        conversation_id: ID,
+        conversation_id: conversationID,
         sender: {
           _id: currentUserInfo._id,
           user_image: currentUserInfo.user_image,
@@ -85,8 +86,8 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
       setId(uuidv4().replace(/-/g, ''));
       mutateSendMessage(message as unknown as IMessage);
-      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
-      chatSocket.emit(Socket.STOP_TYPING, { conversationID: ID, userID: currentUserInfo._id, members });
+      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
+      chatSocket.emit(Socket.STOP_TYPING, { conversationID, userID: currentUserInfo._id, members });
     }
 
     if (files.length > 0) {
@@ -95,7 +96,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
       const result = await handleUploadImage(newFiles);
       const newMessage = {
         _id: id + 'image',
-        conversation_id: ID,
+        conversation_id: conversationID,
         images: result,
         sender: {
           _id: currentUserInfo._id,
@@ -105,7 +106,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
         type: 'image',
         createdAt: new Date()
       };
-      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message: newMessage });
+      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message: newMessage });
     }
   };
 
@@ -114,7 +115,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
     const message = {
       _id: id,
-      conversation_id: ID,
+      conversation_id: conversationID,
       sender: {
         _id: currentUserInfo._id,
         user_image: currentUserInfo.user_image,
@@ -129,7 +130,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
     setId(uuidv4().replace(/-/g, ''));
     mutateSendMessage(message as unknown as IMessage);
-    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
   };
 
   const handleUploadImage = async (files: File[]) => {
@@ -146,14 +147,20 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
   const handleStopTyping = useCallback(
     debounce(
-      () => chatSocket.emit(Socket.STOP_TYPING, { conversationID: ID, userID: currentUserInfo._id, members }),
+      () => chatSocket.emit(Socket.STOP_TYPING, { conversationID, userID: currentUserInfo._id, members }),
       1000
     ),
     []
   );
 
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    textareaRef.current?.classList.add('custom-scrollbar-fg');
+  }, []);
+
   return (
-    <>
+    <div className='absolute w-full bottom-3'>
       <div className='relative -top-20 left-0 z-30'>
         {files.length > 0 && (
           <div className='absolute overflow-auto w-[99.4%] h-20 flex px-4 pt-2 gap-5 z-10 bg-gradient-to-t via-white from-white via-30% from-30% dark:from-slate-900 dark:via-slate-900 custom-scrollbar-fg'>
@@ -180,8 +187,8 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
           </div>
         )}
       </div>
-      <div className='flex items-center md:gap-4 gap-2 md:p-3 p-2 overflow-hidden'>
-        <div id='message__wrap' className='flex items-center gap-2 h-full dark:text-white -mt-1.5'>
+      <div className='flex items-end md:gap-4 gap-2 md:p-3 p-2 overflow-hidden bg-background-1'>
+        <div id='message__wrap' className='flex items-center gap-2 h-full dark:text-white -mt-1.5 mb-1'>
           <button type='button' className='shrink-0'>
             <IoAddCircleOutline className='text-3xl flex' />
           </button>
@@ -191,23 +198,6 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             <div
               className='sm:w-full p-3 flex justify-center gap-5'
               data-uk-scrollspy='target: > button; cls: uk-animation-slide-bottom-small; delay: 100;repeat:true'>
-              {/* <Button
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                className='bg-sky-50 text-sky-600 border border-sky-100 shadow-sm p-2.5 rounded-full shrink-0 duration-100 hover:scale-[1.15] dark:bg-dark-1 dark:border-0'>
-                <IoImage className='text-3xl flex' />
-                <VisuallyHiddenInput
-                  type="file"
-                  onChange={(info) => {
-                    const image = info.target.files;
-                    if (image) {
-                      setFiles([...files, ...Array.from(image)]);
-                    }
-                  }}
-                />
-              </Button> */}
               <Button
                 component='label'
                 role={undefined}
@@ -261,8 +251,41 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             </div>
           </div>
         </div>
-        <div className='relative flex-1'>
-          <input
+        <Textarea
+          slotProps={{ textarea: { ref: textareaRef } }}
+          maxRows={5}
+          className='w-full resize-none !bg-foreground-1 rounded-full px-4 p-2'
+          placeholder={t('Write your message')}
+          value={messageContent}
+          onChange={(e) => {
+            chatSocket.emit(Socket.IS_TYPING, {
+              conversationID: conversationID,
+              userID: currentUserInfo._id,
+              members
+            });
+            setMessage(e.currentTarget.value);
+            handleStopTyping();
+            // get cursor position
+            const cursorPosition = e.currentTarget.selectionStart;
+            setCursor(cursorPosition || 0);
+          }}
+          onClick={(e) => {
+            // get cursor position
+            const cursorPosition = e.currentTarget.selectionStart;
+            setCursor(cursorPosition || 0);
+          }}
+          onKeyUp={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              handleSubmit(messageContent);
+              return;
+            }
+            // get cursor position
+            const cursorPosition = e.currentTarget.selectionStart;
+            setCursor(cursorPosition || 0);
+
+          }}
+        />
+        {/* <input
             placeholder={t('Write your message')}
             className='w-full resize-none bg-foreground-1 rounded-full px-4 p-2'
             value={messageContent}
@@ -282,7 +305,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             }}
             onChange={(e) => {
               chatSocket.emit(Socket.IS_TYPING, {
-                conversationID: ID,
+                conversationID: conversationID,
                 userID: currentUserInfo._id,
                 members
               });
@@ -291,12 +314,12 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursor(cursorPosition || 0);
-            }}></input>
-
+            }}></input> */}
+        {messageContent ? (
           <button
             type='button'
             className={cn(
-              'text-white shrink-0 p-2 absolute right-0.5 top-0',
+              'text-white shrink-0 p-2',
               checkEmpty
                 ? 'text-gray-400 cursor-not-allowed'
                 : 'text-blue-500 hover:text-blue-700 hover:scale-110 cursor-pointer'
@@ -304,17 +327,17 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             onClick={() => handleSubmit(messageContent)}>
             <IoSendOutline className='text-xl flex' />
           </button>
-        </div>
-
-        <button
-          type='button'
-          className='flex h-full dark:text-white'
-          onClick={() => {
-            handleLike();
-          }}>
-          <IoHeartOutline className='text-3xl flex -mt-3' />
-        </button>
+        ) : (
+          <button
+            type='button'
+            className='text-text-1 cursor-pointer mb-1'
+            onClick={() => {
+              handleLike();
+            }}>
+            <IoHeartOutline className='text-3xl' />
+          </button>
+        )}
       </div>
-    </>
+    </div>
   );
 }
