@@ -224,7 +224,7 @@ export default function MessagesHeader() {
                             )}
                           </div>
                         )}
-                        <div className='w-2.5 h-2.5 bg-blue-600 rounded-full dark:bg-slate-700'></div>
+                        <div className='w-2.5 h-2.5 bg-blue-600 rounded-full'></div>
                       </div>
                       <div
                         className={cn(
