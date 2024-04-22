@@ -7,7 +7,7 @@ import { IoClose, IoSearch, IoSearchOutline, IoTrash } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { useQueryClient } from '@tanstack/react-query';
-import { FaSpinner } from 'react-icons/fa';
+import { CircularProgress } from '@mui/material';
 
 import { useCurrentUserInfo, useGetSearchLogs, useGetUsersByName } from '@/hooks/query';
 import { useCreateSearchLog, useDeleteSearchLog } from '@/hooks/mutation';
@@ -35,7 +35,7 @@ export default function SearchHeader() {
   const { mutateDeleteSearchLog } = useDeleteSearchLog();
 
   const handleDeleteSearchLog = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    e: React.MouseEvent<Element, MouseEvent>,
     type = 'keyword' || 'recently_search',
     value: string
   ) => {
@@ -98,10 +98,8 @@ export default function SearchHeader() {
         <div className='xl:w-[694px] sm:w-96 lg:w-[574px] bg-foreground-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
           {searchDebounce === '' ? (
             isLoadingSearchLogs ? (
-              <div className='py-20'>
-                <FaSpinner>
-                  <div className='content' />
-                </FaSpinner>
+              <div className='flex-center w-full h-full p-5'>
+                <CircularProgress size={20} className='!text-text-1' />
               </div>
             ) : (searchLogs &&
                 searchLogs.keywords.length === 0 &&
@@ -121,17 +119,20 @@ export default function SearchHeader() {
                     <Link
                       key={item}
                       href=''
-                      className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-1 rounded-lg'>
+                      className='relative px-3 py-1.5 cursor-pointer flex items-center gap-4 hover:bg-hover-1 rounded-lg'>
                       <IoSearchOutline className='text-2xl' />
                       {item}
-                      <IoClose className='text-base absolute right-3 top-1/2 -translate-y-1/2' />
+                      <IoClose
+                        className='text-base absolute right-3 top-1/2 -translate-y-1/2'
+                        onClick={(e) => handleDeleteSearchLog(e, 'keyword', item)}
+                      />
                     </Link>
                   ))}
                   {searchLogs.recently_search_list.map((user) => (
-                    <Link
+                    <div
                       key={user._id}
-                      href={`/profile/${user._id}`}
-                      className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-1 rounded-lg'>
+                      className='relative px-3 py-1.5 cursor-pointer flex items-center gap-4 hover:bg-hover-1 rounded-lg'
+                      onClick={(e) => handleShowUserProfile(e, user._id)}>
                       <Image
                         src={getImageURL(user.user_image, 'avatar')}
                         className='w-9 h-9 rounded-full'
@@ -143,8 +144,11 @@ export default function SearchHeader() {
                         <div>{user.name}</div>
                         <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
                       </div>
-                      <IoClose className='text-base absolute right-3 top-1/2 -translate-y-1/2' />
-                    </Link>
+                      <IoClose
+                        className='text-base absolute right-3 top-1/2 -translate-y-1/2'
+                        onClick={(e) => handleDeleteSearchLog(e, 'recently_search', user._id)}
+                      />
+                    </div>
                   ))}
                 </nav>
               </>
@@ -156,10 +160,10 @@ export default function SearchHeader() {
               </div>
               <nav className='text-sm font-medium'>
                 {users.map((user) => (
-                  <Link
+                  <div
                     key={user._id}
-                    href={`/profile/${user._id}`}
-                    className='relative px-3 py-1.5 flex items-center gap-4 hover:bg-hover-1 rounded-lg'>
+                    className='relative px-3 py-1.5 cursor-pointer flex items-center gap-4 hover:bg-hover-1 rounded-lg'
+                    onClick={(e) => handleShowUserProfile(e, user._id)}>
                     <Image
                       src={getImageURL(user.user_image, 'avatar')}
                       className='w-9 h-9 rounded-full'
@@ -171,7 +175,7 @@ export default function SearchHeader() {
                       <div>{user.name}</div>
                       <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </nav>
               <div
