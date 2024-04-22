@@ -54,29 +54,28 @@ export const useChangePassword = () => {
  * The `useCreatePost` function is a custom hook that handles the creation of a new post, including
  * making an API request and updating the query data for the user's posts and the newsfeed.
  */
-// export const useCreatePost = () => {
-//   const uid = useAppSelector(state => state.auth.userID);
+export const useCreatePost = (uid: string) => {
 
-//   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-//   const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
-//     mutationFn: async (newPost: ICreatePost) => {
-//       const { data } = await postService.createPost(newPost);
-//       return data.metadata;
-//     },
-//     onSuccess() {
-//       queryClient.invalidateQueries({ queryKey: ['posts', uid] });
-//       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
-//     }
-//   });
-//   return {
-//     mutateCreatePost: mutateAsync,
-//     isLoadingCreatePost: isPending,
-//     isErrorCreatePost: isError,
-//     errorCreatePost: error,
-//     isSuccessCreatePost: isSuccess
-//   };
-// };
+  const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
+    mutationFn: async (newPost: ICreatePost) => {
+      const { data } = await postService.createPost(newPost);
+      return data.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['posts', uid] });
+      queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
+    }
+  });
+  return {
+    mutateCreatePost: mutateAsync,
+    isLoadingCreatePost: isPending,
+    isErrorCreatePost: isError,
+    errorCreatePost: error,
+    isSuccessCreatePost: isSuccess
+  };
+};
 
 /**
  * The `useViewPost` function is a custom hook that handles the logic for viewing a post, including
