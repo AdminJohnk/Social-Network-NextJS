@@ -81,6 +81,7 @@ const handler = NextAuth({
           const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub({
             email: profile.email
           });
+          
           if (data) {
             return {
               id: data.metadata.user._id,
