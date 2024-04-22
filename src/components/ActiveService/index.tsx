@@ -60,6 +60,12 @@ export const PresenceService = () => {
         setActiveMembers(membersArr);
       });
     }
+
+    return () => {
+      if (presenceSocket) {
+        presenceSocket.off(Socket.SET_ACTIVE_MEM);
+      }
+    };
   }, [currentUserInfo, allUsersUsedToChatWith, presenceSocket]);
 
   return <></>;
@@ -121,6 +127,23 @@ export const ChatService = () => {
         mutateConversation({ ...conversation, typeUpdate: 'remove_admin' });
       });
     }
+
+    return () => {
+      if (chatSocket) {
+        chatSocket.off(Socket.PRIVATE_CONVERSATION);
+        chatSocket.off(Socket.LEAVE_GROUP);
+        chatSocket.off(Socket.DISSOLVE_GROUP);
+        chatSocket.off(Socket.PRIVATE_MSG);
+        chatSocket.off(Socket.SEEN_MSG);
+        chatSocket.off(Socket.CHANGE_CONVERSATION_IMAGE);
+        chatSocket.off(Socket.CHANGE_CONVERSATION_COVER);
+        chatSocket.off(Socket.CHANGE_CONVERSATION_NAME);
+        chatSocket.off(Socket.ADD_MEMBER);
+        chatSocket.off(Socket.REMOVE_MEMBER);
+        chatSocket.off(Socket.COMMISSION_ADMIN);
+        chatSocket.off(Socket.DECOMMISSION_ADMIN);
+      }
+    };
   }, [currentUserInfo, chatSocket]);
 
   return <></>;
