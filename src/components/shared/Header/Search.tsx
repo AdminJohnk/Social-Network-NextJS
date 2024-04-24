@@ -64,7 +64,7 @@ export default function SearchHeader() {
       user: currentUserInfo._id,
       keyword: search.trim()
     }).then(() => {
-      queryClient.resetQueries({ queryKey: ['searchLogs'] });
+      queryClient.refetchQueries({ queryKey: ['searchLogs'] });
     });
     router.push(`/search/top?search=${search}`);
   };

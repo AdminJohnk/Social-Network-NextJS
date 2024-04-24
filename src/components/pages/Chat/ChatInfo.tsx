@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -44,13 +44,13 @@ import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { IMessage, IUserInfo } from '@/types';
 import { getImageURL } from '@/lib/utils';
-import { getDateTimeToNow } from '@/lib/descriptions/formatDateTime';
 import MembersToGroup from './Modal/MembersToGroup';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 import { useLeaveGroup, useReceiveConversation, useSendMessage } from '@/hooks/mutation';
 import { Button } from '@/components/ui/button';
 import { ProfileUpload } from '@/components/ui/upload-image';
+import { isThisWeek, isThisYear, isToday } from 'date-fns';
 
 export interface IChatInfoProps {
   conversationID: string | undefined;
@@ -60,6 +60,48 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   if (conversationID === undefined) return <></>;
 
   const t = useTranslations();
+  useNow({ updateInterval: 1000 * 30 });
+  const format = useFormatter();
+
+  const handleDateTime = useCallback((date: string) => {
+    const messageDate = new Date(date).getTime();
+
+    // check if today
+    if (isToday(messageDate)) {
+      return format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true });
+    }
+
+    // check if this week
+    if (isThisWeek(messageDate)) {
+      return (
+        format.dateTime(new Date(date), { weekday: 'long' }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }
+
+    // check if this year
+    if (isThisYear(messageDate)) {
+      return (
+        format.dateTime(new Date(date), {
+          month: 'long',
+          day: 'numeric'
+        }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }
+
+    return (
+      format.dateTime(new Date(date), {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }) +
+      ' • ' +
+      format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+    );
+  }, []);
 
   const { chatSocket } = useSocketStore();
   const { mutateSendMessage } = useSendMessage();
@@ -79,7 +121,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   const [openChangeName, setOpenChangeName] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
 
-  const [groupName, setGroupName] = useState('');
+  const [groupName, setGroupName] = useState(currentConversation?.name);
 
   const [audios, setAudios] = useState<IMessage[]>([]);
   const [files, setFiles] = useState<IMessage[]>([]);
@@ -170,7 +212,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     </div>
                     <div className='info'>
                       <div className='name font-bold'>{image?.sender.name}</div>
-                      <div className='date'>{getDateTimeToNow(image.createdAt!)}</div>
+                      <div className='date'>{handleDateTime(image.createdAt!)}</div>
                     </div>
                   </div>
                   <div
@@ -186,16 +228,16 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 .slice(0, 4)
                 .map((item) => item.images)
                 .flat().length > 4 && (
-                  <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
-                    <p
-                      className='cursor-pointer'
-                      onClick={() => {
-                        changeConversationOption('image');
-                      }}>
-                      See all
-                    </p>
-                  </div>
-                )}
+                <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
+                  <p
+                    className='cursor-pointer'
+                    onClick={() => {
+                      changeConversationOption('image');
+                    }}>
+                    See all
+                  </p>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -527,6 +569,12 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
     return groupName === currentConversation?.name;
   }, [groupName, currentConversation]);
 
+  useEffect(() => {
+    if (currentConversation) {
+      setGroupName(currentConversation.name);
+    }
+  }, [currentConversation]);
+
   const onSubmitChangeName = useCallback(() => {
     setIsLoadingChangeName(true);
 
@@ -695,7 +743,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                         </div>
                         <div className='info'>
                           <div className='name font-bold'>{item?.sender.name}</div>
-                          <div className='date'>{getDateTimeToNow(item.createdAt!)}</div>
+                          <div className='date'>{handleDateTime(item.createdAt!)}</div>
                         </div>
                       </div>
                       <div
@@ -733,11 +781,6 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     </Link>
                     <ul className='pl-5 my-1 space-y-0 text-sm'>
                       <li>
-                        {/* <button
-                          type='button'
-                          className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
-                          <IoImageOutline className='text-2xl' /> {t('Change group image')}
-                        </button> */}
                         <Dialog open={openChangeAvatar} onOpenChange={setOpenChangeAvatar}>
                           <DialogTrigger className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1 select-none'>
                             <IoImageOutline className='text-2xl' />
@@ -769,13 +812,6 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                         </Dialog>
                       </li>
                       <li>
-                        {/* <button
-                        type='button'
-                        className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-                        onClick={() => setOpenChangeName(true)}
-                      >
-                        <IoPersonOutline className='text-2xl' /> {t('Change group name')}
-                      </button> */}
                         <Dialog open={openChangeName} onOpenChange={setOpenChangeName}>
                           <DialogTrigger className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1 select-none'>
                             <IoPersonOutline className='text-2xl' />
@@ -853,6 +889,34 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     <IoStopCircleOutline className='text-2xl' /> {t('Block')}
                   </button>
                 </li>
+                {currentConversation.type === 'group' && (
+                  <li>
+                    <button
+                      type='button'
+                      className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-red-50 text-red-500'
+                      onClick={() => {
+                        mutateLeaveGroup(conversationID);
+                        const message = {
+                          _id: uuidv4().replace(/-/g, ''),
+                          conversation_id: conversationID,
+                          sender: {
+                            _id: currentUserInfo._id,
+                            user_image: currentUserInfo.user_image,
+                            name: currentUserInfo.name
+                          },
+                          isSending: true,
+                          type: 'notification',
+                          action: 'leave_conversation',
+                          createdAt: new Date()
+                        };
+
+                        mutateSendMessage(message as unknown as IMessage);
+                        chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
+                      }}>
+                      <FaRightFromBracket className='text-2xl' /> {t('Leave group')}
+                    </button>
+                  </li>
+                )}
                 <li>
                   <button
                     type='button'

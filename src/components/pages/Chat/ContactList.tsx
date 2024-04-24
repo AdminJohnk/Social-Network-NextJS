@@ -22,7 +22,6 @@ export interface IContactListProps {
 export default function ContactList({ contacts }: IContactListProps) {
   const t = useTranslations();
 
-
   const { chatSocket } = useSocketStore();
 
   const { mutateReceiveConversation } = useReceiveConversation();
@@ -81,10 +80,8 @@ export default function ContactList({ contacts }: IContactListProps) {
           <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'> {t('Contacts')} </h2>
           {/* <!-- right action buttons --> */}
           <div className='flex items-center gap-2.5'>
-            <div className='cursor-pointer' onClick={() => { }}>
-              <FaUserPlus
-                className='text-2xl rounded-lg'
-              />
+            <div className='cursor-pointer' onClick={() => {}}>
+              <FaUserPlus className='text-2xl rounded-lg' />
             </div>
           </div>
         </div>
@@ -99,15 +96,14 @@ export default function ContactList({ contacts }: IContactListProps) {
             placeholder={t('Search')}
             className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
             onChange={(e) => {
-              setSearch(e.target.value)
+              setSearch(e.target.value);
               if (!isLoadingSearch) setIsLoadingSearch(true);
             }}
           />
         </div>
       </div>
       <div className='px-2 w-full'>
-        <div
-          className='flex flex-col overflow-auto'>
+        <div className='flex flex-col overflow-auto'>
           {searchFriends.length === 0 ? (
             <div className='flex flex-row items-center justify-center gap-4'>
               <Image
@@ -115,8 +111,9 @@ export default function ContactList({ contacts }: IContactListProps) {
                 src='https://static.thenounproject.com/png/3668369-200.png'
                 alt={t('Not found any friends')}
                 width={500}
-                height={500} />
-              <span className='whitespace-nowrap'>{t("Not found any friends")}</span>
+                height={500}
+              />
+              <span className='whitespace-nowrap'>{t('Not found any friends')}</span>
             </div>
           ) : (
             searchFriends.map((item) => {
@@ -128,9 +125,7 @@ export default function ContactList({ contacts }: IContactListProps) {
                   <div className='avatar relative'>
                     <AvatarMessage key={item._id} user={item} />
                   </div>
-                  <div className='name text-center ml-2 font-bold'>
-                    {item.name}
-                  </div>
+                  <div className='name text-center ml-2 font-bold'>{item.name}</div>
                 </div>
               );
             })

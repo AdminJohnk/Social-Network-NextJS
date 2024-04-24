@@ -9,6 +9,7 @@ import AvatarMessage from './Avatar/AvatarMessage';
 import { Link } from '@/navigation';
 import { useSession } from 'next-auth/react';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
+import { isThisWeek, isThisYear, isToday } from 'date-fns';
 import ContextMenuConversationBox from './ContextMenuConversationBox';
 
 export interface IConversationBoxProps {
@@ -23,8 +24,48 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   const { data: session } = useSession();
   const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
 
-  const now = useNow({ updateInterval: 1000 * 30 });
+  useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
+
+  const handleDateTime = useCallback((date: string) => {
+    const messageDate = new Date(date).getTime();
+
+    // check if today
+    if (isToday(messageDate)) {
+      return format.relativeTime(new Date(date), new Date());
+    }
+
+    // check if this week
+    if (isThisWeek(messageDate)) {
+      return (
+        format.dateTime(new Date(date), { weekday: 'long' }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }
+
+    // check if this year
+    if (isThisYear(messageDate)) {
+      return (
+        format.dateTime(new Date(date), {
+          month: 'long',
+          day: 'numeric'
+        }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }
+
+    return (
+      format.dateTime(new Date(date), {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }) +
+      ' • ' +
+      format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+    );
+  }, []);
 
   const isSeen = conversation.seen.some((user) => user._id === currentUserInfo._id);
   const isGroup = conversation.type === 'group';
@@ -189,10 +230,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
               {conversation.name || otherUser!.name}
             </div>
             <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              {format.relativeTime(
-                (conversation?.lastMessage?.createdAt || conversation.createdAt) as unknown as Date,
-                new Date()
-              )}
+              {handleDateTime(conversation?.lastMessage?.createdAt || conversation.createdAt)}
             </div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>

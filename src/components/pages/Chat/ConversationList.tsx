@@ -95,21 +95,25 @@ function ConversationList({ conversationID }: IConversationListProps) {
           />
         </div>
       </div>
-      {isLoadingConversations ? (
-        <div className='h-[calc(100vh-127px)] flex-center py-10'>
-          <CircularProgress size={20} className='!text-text-1' />
-        </div>
-      ) : (
-        <div className={'space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)] custom-scrollbar-fg'}>
-          {searchConversation?.map((conversation) => (
+      <div className={'space-y-2 p-2 overflow-y-auto custom-scrollbar-fg'}>
+        {isLoadingConversations ? (
+          <div className='w-full flex-center py-10'>
+            <CircularProgress size={20} className='!text-text-1' />
+          </div>
+        ) : isLoadingSearch ? (
+          <div className='w-full flex-center py-10'>
+            <CircularProgress size={20} className='!text-text-1' />
+          </div>
+        ) : (
+          searchConversation?.map((conversation) => (
             <div
               key={conversation._id}
               className={cn('rounded-xl', conversationID === conversation._id && 'bg-hover-2')}>
               <ConversationBox key={conversation._id} conversation={conversation} />
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
     </>
   );
 }

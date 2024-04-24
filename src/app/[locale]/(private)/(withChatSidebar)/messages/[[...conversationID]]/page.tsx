@@ -28,7 +28,6 @@ const Message = ({ params: { conversationID } }: IMessageProps) => {
       } else if (conversationID && conversationID.length > 1) {
         router.push(`/messages/${ID}`);
       }
-      return
     }, [isErrorCurrentConversation]);
   }
 
@@ -52,7 +51,7 @@ const Message = ({ params: { conversationID } }: IMessageProps) => {
                 <div className='md:w-[360px] relative border-r dark:border-slate-700'>
                   <div
                     id='side-chat'
-                    className='top-0 left-0 max-md:fixed max-md:w-5/6 max-md:h-screen z-50 max-md:shadow max-md:-translate-x-full bg-background-1'>
+                    className='top-0 left-0 max-md:fixed max-md:w-5/6 h-dvh z-50 max-md:shadow max-md:-translate-x-full bg-background-1'>
                     {/* <!-- conversations list --> */}
                     {select}
                   </div>

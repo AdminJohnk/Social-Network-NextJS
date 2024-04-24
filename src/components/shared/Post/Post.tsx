@@ -9,7 +9,8 @@ import { GoShare } from 'react-icons/go';
 import { IoHeart } from 'react-icons/io5';
 import { FaCommentDots } from 'react-icons/fa';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { isThisWeek, isThisYear, isToday } from 'date-fns';
 import { useSession } from 'next-auth/react';
 
 import CommentList from '@/components/shared/CommentList';
@@ -33,8 +34,48 @@ export default function Post({ post, feature }: IPostProps) {
 
   const isMoreThan500 = content?.length > 500;
 
-  const now = useNow({ updateInterval: 1000 * 30 });
+  useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
+
+  const handleDateTime = useCallback((date: string) => {
+    const messageDate = new Date(date).getTime();
+
+    // check if today
+    if (isToday(messageDate)) {
+      return format.relativeTime(new Date(date), new Date());
+    }
+
+    // check if this week
+    if (isThisWeek(messageDate)) {
+      return (
+        format.dateTime(new Date(date), { weekday: 'long' }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }
+
+    // check if this year
+    if (isThisYear(messageDate)) {
+      return (
+        format.dateTime(new Date(date), {
+          month: 'long',
+          day: 'numeric'
+        }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }
+
+    return (
+      format.dateTime(new Date(date), {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }) +
+      ' • ' +
+      format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+    );
+  }, []);
 
   const images: string[] =
     post.type === 'Post' ? post.post_attributes.images : post.post_attributes.post!?.post_attributes?.images;
@@ -69,7 +110,7 @@ export default function Post({ post, feature }: IPostProps) {
             <Link
               href={`/posts/${post._id}`}
               className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
-              {format.relativeTime(post.createdAt as unknown as Date, now < new Date() ? new Date() : now)}
+              {handleDateTime(post.createdAt)}
             </Link>
           </div>
         </div>
@@ -78,7 +119,9 @@ export default function Post({ post, feature }: IPostProps) {
             <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
               <IoIosMore className='size-6' />
             </div>
-            <div className='!w-fit' data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
+            <div
+              className='!w-fit'
+              data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
               <PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />
             </div>
           </div>
@@ -100,7 +143,7 @@ export default function Post({ post, feature }: IPostProps) {
               <Link
                 href={`/posts/${post._id}`}
                 className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
-                {format.relativeTime(post.post_attributes.post?.createdAt as unknown as Date, new Date())}
+                {handleDateTime(post.post_attributes.post!.createdAt)}
               </Link>
             </div>
           </div>

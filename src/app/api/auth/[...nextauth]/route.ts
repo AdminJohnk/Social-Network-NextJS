@@ -81,7 +81,7 @@ const handler = NextAuth({
           const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub({
             email: profile.email
           });
-          
+
           if (data) {
             return {
               id: data.metadata.user._id,
@@ -102,7 +102,12 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user, session, trigger }) {
       if (user) {
-        return { ...token, ...user, ...session, access_token_expiry: Date.now() + 60 * 60 * 24 * 2 * 1000 };
+        return {
+          ...token,
+          ...user,
+          ...session,
+          access_token_expiry: Date.now()
+        };
       }
       if (trigger === 'update' && session) {
         return { ...token, ...session };

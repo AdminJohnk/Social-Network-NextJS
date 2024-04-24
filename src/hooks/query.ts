@@ -465,6 +465,10 @@ export const useCurrentConversationData = (conversationID: string | undefined) =
     queryFn: async () => {
       await queryClient.prefetchInfiniteQuery({
         queryKey: ['messages', conversationID],
+        queryFn: async ({ pageParam }) => {
+          const { data } = await messageService.getMessages(conversationID!, pageParam);
+          return data.metadata;
+        },
         initialPageParam: 1
       });
       const { data } = await messageService.getConversation(conversationID!);
@@ -871,4 +875,4 @@ export const useGetAllImages = (userID: string) => {
     allImages: data!,
     isFetchingAllImages: isFetching
   };
-}
+};

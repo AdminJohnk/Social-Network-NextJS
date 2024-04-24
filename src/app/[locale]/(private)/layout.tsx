@@ -13,7 +13,7 @@ export interface IPrivateLayoutProps {
 export default function PrivateLayout({ children }: IPrivateLayoutProps) {
   const { data: session } = useSession();
   const { isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id || '');
-  
+
   return (
     <>
       {isLoadingCurrentUserInfo ? (

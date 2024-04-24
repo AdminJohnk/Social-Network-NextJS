@@ -9,6 +9,7 @@ import { useSession } from 'next-auth/react';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { cn } from '@/lib/utils';
+import { Link } from '@/navigation';
 
 function SampleNextArrow(props: React.ButtonHTMLAttributes<HTMLDivElement>) {
   const { onClick } = props;
@@ -38,8 +39,8 @@ var settings = {
   dots: false,
   infinite: false,
   speed: 500,
-  slidesToShow: 5,
-  slidesToScroll: 5,
+  slidesToShow: 10,
+  slidesToScroll: 2,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />
 };
@@ -61,9 +62,12 @@ export default function OnlineFriend() {
           {Children.toArray(
             currentUserInfo.friends.map((friend) => {
               return (
-                <div className='p-1 cursor-pointer'>
+                <Link
+                  href={`/profile/${friend._id}`}
+                  className='p-1 cursor-pointer'
+                  data-uk-tooltip={`title: ${friend.name}; pos: top; delay: 200; offset: 6`}>
                   <AvatarMessage user={friend} />
-                </div>
+                </Link>
               );
             })
           )}

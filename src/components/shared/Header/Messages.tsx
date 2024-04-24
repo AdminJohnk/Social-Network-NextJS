@@ -6,6 +6,7 @@ import { IoChatboxEllipsesOutline, IoSearchOutline } from 'react-icons/io5';
 import { CircularProgress } from '@mui/material';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
+import { isThisWeek, isThisYear, isToday } from 'date-fns';
 
 import { useConversationsData, useCurrentUserInfo } from '@/hooks/query';
 import { useDebounce } from '@/hooks/special';
@@ -18,6 +19,46 @@ export default function MessagesHeader() {
   const t = useTranslations();
   useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
+
+  const handleDateTime = useCallback((date: string) => {
+    const messageDate = new Date(date).getTime();
+
+    // check if today
+    if (isToday(messageDate)) {
+      return format.relativeTime(new Date(date), new Date());
+    }
+
+    // check if this week
+    if (isThisWeek(messageDate)) {
+      return (
+        format.dateTime(new Date(date), { weekday: 'long' }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }
+
+    // check if this year
+    if (isThisYear(messageDate)) {
+      return (
+        format.dateTime(new Date(date), {
+          month: 'long',
+          day: 'numeric'
+        }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }
+
+    return (
+      format.dateTime(new Date(date), {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }) +
+      ' • ' +
+      format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+    );
+  }, []);
 
   const [search, setSearch] = useState<string>('');
   const [searchConversation, setSearchConversation] = useState<IConversation[]>([]);
@@ -218,10 +259,7 @@ export default function MessagesHeader() {
                         </div>
                         {conversation.lastMessage && (
                           <div className='text-xs text-gray-500 dark:text-white/80'>
-                            {format.relativeTime(
-                              conversation.lastMessage.createdAt as unknown as Date,
-                              new Date()
-                            )}
+                            {handleDateTime(conversation.lastMessage.createdAt)}
                           </div>
                         )}
                         <div

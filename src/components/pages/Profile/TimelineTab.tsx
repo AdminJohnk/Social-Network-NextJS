@@ -65,7 +65,7 @@ export default function TimelineTab({ profileID }: ITimelineTabProps) {
           <div
             id='profile-side'
             className='lg:space-y-6 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-            data-uk-sticky='media: 1024; end: #profile-posts; offset: 80'>
+            data-uk-sticky='media: 1024; end: #profile-posts; offset: 130'>
             <Intro profileID={profileID} />
 
             <Friends profileID={profileID} />
