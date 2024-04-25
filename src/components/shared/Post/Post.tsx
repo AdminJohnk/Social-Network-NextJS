@@ -109,7 +109,7 @@ export default function Post({ post, feature }: IPostProps) {
             </Link>
             <Link
               href={`/posts/${post._id}`}
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
+              className='small-bold text-text-2 hover:underline hover:text-text-1'>
               {handleDateTime(post.createdAt)}
             </Link>
           </div>
@@ -142,7 +142,7 @@ export default function Post({ post, feature }: IPostProps) {
               </Link>
               <Link
                 href={`/posts/${post._id}`}
-                className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
+                className='small-bold text-text-2 hover:underline hover:text-text-1'>
                 {handleDateTime(post.post_attributes.post!.createdAt)}
               </Link>
             </div>
@@ -155,9 +155,9 @@ export default function Post({ post, feature }: IPostProps) {
           />
           {isMoreThan500 && (
             <div
-              className='clickMore my-3 cursor-pointer hover:text-text-2 duration-500'
+              className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
               onClick={() => setExpanded(!expanded)}>
-              {expanded ? 'Read less' : 'Read more'}
+              {expanded ? t('Read less') : t('Read more')}
             </div>
           )}
           {images.length !== 0 && (
