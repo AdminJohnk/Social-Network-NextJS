@@ -106,7 +106,7 @@ const handler = NextAuth({
           ...token,
           ...user,
           ...session,
-          access_token_expiry: Date.now()
+          access_token_expiry: Date.now() + 60 * 60 * 24 * 1000 * 2
         };
       }
       if (trigger === 'update' && session) {
