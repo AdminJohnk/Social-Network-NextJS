@@ -221,7 +221,7 @@ export default function MessageList({ conversationID, currentConversation, other
               />
             ))}
             <div ref={seenRef} className='w-0 h-0' />
-            <div className={typingUsers ? 'pb-6' : 'pb-1'} ref={bottomRef} />
+            <div className={typingUsers.length > 0 ? 'pb-6' : 'pb-1'} ref={bottomRef} />
           </div>
           <div className='px-2 flex flex-row items-center opacity-0' ref={typingDiv}>
             {currentConversation.members.map((member) => {
