@@ -28,7 +28,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
     const messageDate = new Date(date).getTime();
 
     // check if this week
-    if (isThisWeek(messageDate)) {
+    if (isThisWeek(messageDate, { weekStartsOn: 1 })) {
       return format.relativeTime(new Date(date), new Date());
     }
 

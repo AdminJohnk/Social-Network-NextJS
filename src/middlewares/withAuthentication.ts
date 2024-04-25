@@ -14,9 +14,6 @@ export const withAuthentication: MiddlewareFactory =
 
         const locale = LIST_LANGUAGE.map((lang) => lang).join('|');
 
-        // const isAuthPage =
-        //   req.nextUrl.pathname.startsWith('/login') || req.nextUrl.pathname.startsWith('/register');
-
         const isAuthPage = req.nextUrl.pathname.match(new RegExp(`\/((${locale})\/)?(login|register)`));
 
         if (isAuthPage) {

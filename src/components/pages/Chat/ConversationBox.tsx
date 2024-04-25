@@ -36,7 +36,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
     }
 
     // check if this week
-    if (isThisWeek(messageDate)) {
+    if (isThisWeek(messageDate, { weekStartsOn: 1 })) {
       return (
         format.dateTime(new Date(date), { weekday: 'long' }) +
         ' • ' +

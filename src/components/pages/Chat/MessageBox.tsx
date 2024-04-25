@@ -50,7 +50,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       }
 
       // check if this week
-      if (isThisWeek(messageDate)) {
+      if (isThisWeek(messageDate, { weekStartsOn: 1 })) {
         return (
           format.dateTime(new Date(date), { weekday: 'long' }) +
           ' • ' +

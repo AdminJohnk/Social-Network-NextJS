@@ -126,6 +126,7 @@ export default function MessageList({ conversationID, currentConversation, other
     },
     [bottomRef.current]
   );
+
   useEffect(() => {
     if (!messages) return;
     if (count === 0) {
@@ -220,7 +221,7 @@ export default function MessageList({ conversationID, currentConversation, other
               />
             ))}
             <div ref={seenRef} className='w-0 h-0' />
-            <div className={typingUsers.length ? 'pb-6' : 'pb-1'} ref={bottomRef} />
+            <div className={typingUsers ? 'pb-6' : 'pb-1'} ref={bottomRef} />
           </div>
           <div className='px-2 flex flex-row items-center opacity-0' ref={typingDiv}>
             {currentConversation.members.map((member) => {
@@ -229,12 +230,9 @@ export default function MessageList({ conversationID, currentConversation, other
                 return (
                   <img
                     key={member._id}
-                    className='rounded-full -top-2 absolute h-6 w-6 overflow-hidden'
+                    className='rounded-full bg-border-1 border-2 border-solid -top-2 absolute h-6 w-6 overflow-hidden'
                     src={getImageURL(member.user_image, 'avatar_mini')}
-                    style={{
-                      left: `${index * 30 + typingUsers.length * 10}px`
-                      // border: `2px solid ${themeColorSet.colorBg4}`
-                    }}
+                    style={{ left: `${index * 30 + typingUsers.length * 10}px` }}
                   />
                 );
               }
@@ -242,9 +240,7 @@ export default function MessageList({ conversationID, currentConversation, other
             })}
             <div
               className='typing-indicator rounded-full'
-              style={{
-                left: `${typingUsers.length * 30 + typingUsers.length * 10}px`
-              }}>
+              style={{ left: `${typingUsers.length * 30 + typingUsers.length * 10}px` }}>
               <div /> <div /> <div />
             </div>
           </div>
