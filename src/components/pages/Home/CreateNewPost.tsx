@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import Picker from '@emoji-mart/react';
 import PostPrivacy from '@/components/shared/PostPrivacy';
 import Editor from '@/components/shared/Editor/Editor';
 import { useTranslations } from 'next-intl';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/googlecode.css';
 
 import {
   IoEllipsisHorizontal,
@@ -23,7 +24,6 @@ import { CircularProgress } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useCreatePost } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { UkClose } from '../../../../declare';
 
 export interface ICreateNewPostProps {}
 
@@ -31,7 +31,6 @@ export default function CreateNewPost(props: ICreateNewPostProps) {
   const t = useTranslations();
   const { data: session } = useSession();
 
-  const { mode } = useThemeMode();
   const { mutateCreatePost } = useCreatePost(session?.id || '');
 
   const [privacy, setPrivacy] = useState<Visibility>('public');
@@ -39,15 +38,11 @@ export default function CreateNewPost(props: ICreateNewPostProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
-
   const handleSubmit = async () => {
-    UIkit.modal('#create-status').hide();
-    return;
-
     setIsLoading(true);
+    const content = editor?.getHTML() as string;
 
-    if (editor?.getText() === '') {
+    if (!editor?.getText().trim()) {
       showErrorToast('Please enter some text!');
       setIsLoading(false);
       return;
@@ -56,13 +51,15 @@ export default function CreateNewPost(props: ICreateNewPostProps) {
     mutateCreatePost(
       {
         title: '',
-        content: editor?.getHTML() || '',
+        content: content || '',
         images: [],
         visibility: privacy
       },
       {
         onSuccess() {
           showSuccessToast(t('Post created successfully!'));
+          editor?.commands.clearContent();
+          UIkit.modal('#create-status').hide();
         },
         onError() {
           showErrorToast('Something went wrong! Please try again.');
@@ -123,37 +120,13 @@ export default function CreateNewPost(props: ICreateNewPostProps) {
             <IoVideocam className='text-base' />
             {t('Video')}
           </button>
-          <Popover
-            open={false}
-            mainContent={
-              <button
-                type='button'
-                className='flex items-center gap-1.5 bg-orange-50 text-orange-600 rounded-full py-1 px-2 border-2 border-orange-100 dark:bg-yellow-950 dark:border-yellow-900'
-              >
-                <IoHappy className='text-base' />
-                {t('Feeling')}
-              </button>
-            }
-            hoverContent={
-              <Picker
-                data={async () => {
-                  const response = await fetch(
-                    'https://cdn.jsdelivr.net/npm/@emoji-mart/data'
-                  );
-
-                  return response.json();
-                }}
-                onEmojiSelect={(emoji: IEmoji) => {
-                  editor
-                    ?.chain()
-                    .focus()
-                    .insertContent({ type: 'text', text: emoji.native })
-                    .run();
-                }}
-                theme={mode}
-              />
-            }
-          />
+          {/* <button
+            type='button'
+            className='flex items-center gap-1.5 bg-orange-50 text-orange-600 rounded-full py-1 px-2 border-2 border-orange-100 dark:bg-yellow-950 dark:border-yellow-900'
+          >
+            <IoHappy className='text-base' />
+            {t('Feeling')}
+          </button>
           <button
             type='button'
             className='flex items-center gap-1.5 bg-red-50 text-red-600 rounded-full py-1 px-2 border-2 border-rose-100 dark:bg-rose-950 dark:border-rose-900'
@@ -166,7 +139,7 @@ export default function CreateNewPost(props: ICreateNewPostProps) {
             className='grid place-items-center w-8 h-8 text-xl rounded-full hover:bg-hover-1'
           >
             <IoEllipsisHorizontal />
-          </button>
+          </button> */}
         </div>
 
         <div className='p-5 flex justify-between items-center'>
@@ -182,7 +155,7 @@ export default function CreateNewPost(props: ICreateNewPostProps) {
               onClick={handleSubmit}
             >
               {isLoading && (
-                <CircularProgress size={20} className='text-text-1 mr-2' />
+                <CircularProgress size={20} className='!text-text-1 mr-2' />
               )}
               {t('Create')} <span className='ripple-overlay'></span>
             </Button>

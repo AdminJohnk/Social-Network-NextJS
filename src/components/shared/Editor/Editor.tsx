@@ -10,10 +10,6 @@ import { Editor as EditorProps, EditorContent, useEditor } from '@tiptap/react';
 import { Link } from '@tiptap/extension-link';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import { Highlight } from '@tiptap/extension-highlight';
-import css from 'highlight.js/lib/languages/css';
-import js from 'highlight.js/lib/languages/javascript';
-import ts from 'highlight.js/lib/languages/typescript';
-import html from 'highlight.js/lib/languages/xml';
 import { lowlight } from 'lowlight';
 import {
   MdFormatBold,
@@ -21,21 +17,20 @@ import {
   MdFormatStrikethrough,
   MdFormatListBulleted,
   MdFormatListNumbered,
-  MdFormatUnderlined
+  MdFormatUnderlined,
+  MdLink
 } from 'react-icons/md';
 import { FaUndo, FaRedo, FaYoutube, FaPen } from 'react-icons/fa';
 import { FiAlignCenter } from 'react-icons/fi';
 import { LuHeading1, LuHeading2, LuHeading3 } from 'react-icons/lu';
-import { IoCodeSlashOutline } from 'react-icons/io5';
+import { IoCodeSlashOutline, IoHappy } from 'react-icons/io5';
 import { GoChevronDown } from 'react-icons/go';
+import Picker from '@emoji-mart/react';
 import { cn } from '@/lib/utils';
-import { MdLink, MdInsertEmoticon } from 'react-icons/md';
 import { useTranslations } from 'next-intl';
-
-lowlight.registerLanguage('css', css);
-lowlight.registerLanguage('javascript', js);
-lowlight.registerLanguage('typescript', ts);
-lowlight.registerLanguage('html', html);
+import Popover from '@/components/ui/popover-v2';
+import { IEmoji } from '@/types';
+import { useThemeMode } from 'flowbite-react';
 
 const MenuBar = ({ editor }: { editor: EditorProps }) => {
   if (!editor) {
@@ -43,6 +38,7 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
   }
 
   const [typeNumber, setTypeNumber] = useState(0);
+  const { mode } = useThemeMode();
 
   const typeText = [
     {
@@ -273,6 +269,30 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
         >
           <FaYoutube className='size-5' />
         </button>
+        {/* Add Emoji */}
+        <Popover
+          open={false}
+          mainContent={<IoHappy className='size-5' />}
+          hoverContent={
+            <Picker
+              data={async () => {
+                const response = await fetch(
+                  'https://cdn.jsdelivr.net/npm/@emoji-mart/data'
+                );
+
+                return response.json();
+              }}
+              onEmojiSelect={(emoji: IEmoji) => {
+                editor
+                  ?.chain()
+                  .focus()
+                  .insertContent({ type: 'text', text: emoji.native })
+                  .run();
+              }}
+              theme={mode}
+            />
+          }
+        />
       </div>
     </div>
   );
@@ -304,18 +324,24 @@ export default function Editor({ setEditor }: EditorContentProps) {
       }),
       Highlight,
       CodeBlockLowlight.configure({ lowlight })
-    ]
+    ],
+    editorProps: {
+      attributes: {
+        class: 'max-h-[350px] overflow-y-scroll overflow custom-scrollbar-bg'
+      }
+    }
   });
 
   setEditor && setEditor(editor as EditorProps);
+
+  editor?.commands.focus();
 
   return (
     <div>
       <MenuBar editor={editor as EditorProps} />
       <EditorContent
-        className='my-5 px-2 *:outline-none'
+        className='my-5 px-2 *:outline-none overflow-hidden'
         editor={editor}
-        placeholder='Write something...'
       />
     </div>
   );
