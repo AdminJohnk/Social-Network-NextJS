@@ -59,7 +59,7 @@ export default function CreateNewPost() {
 
   return (
     <div className='hidden lg:p-20' id='create-status' data-uk-modal>
-      <div className='uk-modal-dialog tt relative overflow-hidden mx-auto bg-background-1 shadow-xl rounded-lg md:w-[600px] w-full'>
+      <div className='uk-modal-dialog tt relative mx-auto bg-background-1 shadow-xl rounded-lg md:w-[600px] w-full'>
         <div className='text-center py-4 border-b mb-0 border-border-1'>
           <h2 className='text-sm font-medium text-text-1'>{t('Create Status')}</h2>
 

@@ -30,7 +30,7 @@ export default function Post({ post, feature }: IPostProps) {
   const t = useTranslations();
   const content =
     post.type === 'Post' ? post.post_attributes.content : post.post_attributes.post!.post_attributes.content;
-  const [contentQuill, setContent] = useState(content);
+  const [contentTiptap, setContentTiptap] = useState(content);
   const [expanded, setExpanded] = useState(false);
 
   const isMoreThan500 = content?.length > 500;
@@ -88,8 +88,8 @@ export default function Post({ post, feature }: IPostProps) {
   const isMyPost = post.post_attributes.user._id === currentUserInfo._id;
 
   useEffect(() => {
-    if (isMoreThan500 && !expanded) setContent(content.slice(0, 500) + '...');
-    else setContent(content);
+    if (isMoreThan500 && !expanded) setContentTiptap(content.slice(0, 500) + '...');
+    else setContentTiptap(content);
   }, [expanded, content, isMoreThan500]);
 
   // Modal
@@ -152,11 +152,7 @@ export default function Post({ post, feature }: IPostProps) {
           </div>
         )}
         <div className={cn('mt-4', post.type === 'Share' && 'px-5')}>
-          {/* <div
-            className='base-regular overflow break-words text-balance'
-            dangerouslySetInnerHTML={{ __html: contentQuill }}
-          /> */}
-          <ShowContent content={contentQuill} />
+          <ShowContent content={contentTiptap} />
           {isMoreThan500 && (
             <div
               className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
