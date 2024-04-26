@@ -2,9 +2,7 @@ import Image from 'next/image';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
-export interface IComMineListProps {}
-
-export default function ComMineList(props: IComMineListProps) {
+export default function ComMineList() {
   const t = useTranslations();
   return (
     <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2.5'>

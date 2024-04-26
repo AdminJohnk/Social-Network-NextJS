@@ -7,9 +7,7 @@ import { useState } from 'react';
 
 import { IoEllipsisHorizontal, IoHappy, IoImage, IoLocation, IoVideocam } from 'react-icons/io5';
 
-export interface ICreateNewPostProps {}
-
-export default function CreateNewPost(props: ICreateNewPostProps) {
+export default function CreateNewPost() {
   const t = useTranslations();
 
   const [privacy, setPrivacy] = useState('public');

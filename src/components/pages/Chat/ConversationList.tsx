@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { IoChevronDownOutline, IoSearchOutline } from 'react-icons/io5';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { CircularProgress } from '@mui/material';
 
@@ -24,8 +23,7 @@ function ConversationList({ conversationID }: IConversationListProps) {
   const { conversations, isLoadingConversations } = useConversationsData();
   const [searchConversation, setSearchConversation] = useState<IConversation[]>(conversations);
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const [search, setSearch] = useState('');
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);

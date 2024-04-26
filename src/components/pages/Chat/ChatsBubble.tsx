@@ -1,7 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { Link } from '@/navigation';
@@ -22,8 +21,7 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
 
   if (conversationID === undefined) return <></>;
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID);
 

@@ -4,9 +4,7 @@ import { Link } from '@/navigation';
 
 import { IoChevronForward, IoPersonAddOutline } from 'react-icons/io5';
 
-export interface IRecommendWriterProps {}
-
-export default function RecommendWriter(props: IRecommendWriterProps) {
+export default function RecommendWriter() {
   const t = useTranslations();
   return (
     <div className='bg-foreground-1 p-6 rounded-md mt-8 shadow'>

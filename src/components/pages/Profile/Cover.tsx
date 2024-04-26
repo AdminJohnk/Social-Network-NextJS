@@ -2,8 +2,6 @@
 
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
-import { getImageURL } from '@/lib/utils';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/navigation';
@@ -32,6 +30,7 @@ import {
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { CircularProgress } from '@mui/material';
 import { MdCancel } from 'react-icons/md';
+import { getImageURL } from '@/lib/utils';
 
 export interface ICoverProps {
   profileID: string;
@@ -39,12 +38,11 @@ export interface ICoverProps {
 
 export default function Cover({ profileID }: ICoverProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
   const { userPosts } = useUserPostsData(profileID);
 
-  const isMe = session?.id === profileID;
+  const isMe = currentUserInfo._id === profileID;
 
   const { mutateAddFriendUser } = useAddFriendUser();
 

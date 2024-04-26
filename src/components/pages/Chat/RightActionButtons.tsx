@@ -9,7 +9,6 @@ import {
   IoNotificationsOutline,
   IoVolumeMuteOutline
 } from 'react-icons/io5';
-import { useSession } from 'next-auth/react';
 
 import { useCurrentUserInfo } from '@/hooks/query';
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -26,8 +25,7 @@ interface Option {
 export default function RightActionButtons({}: IRightActionButtons) {
   const t = useTranslations();
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const [open, setOpen] = useState(false);
 

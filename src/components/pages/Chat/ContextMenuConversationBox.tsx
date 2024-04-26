@@ -1,6 +1,5 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { useRouter } from '@/navigation';
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
@@ -29,10 +28,9 @@ export default function ContextMenuConversationBox({
   conversation
 }: IContextMenuConversationBoxProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
 
   const router = useRouter();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
   const { chatSocket } = useSocketStore();
 
   const { mutateLeaveGroup } = useLeaveGroup();

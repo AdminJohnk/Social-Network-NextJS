@@ -1,8 +1,6 @@
 import Image from 'next/image';
 
-export interface IBlogInputCommentProps {}
-
-export default function BlogInputComment(props: IBlogInputCommentProps) {
+export default function BlogInputComment() {
   return (
     <div className='sm:px-4 sm:py-3 p-2.5 border-t border-border-1 flex items-center gap-1 -m-6 mt-0 bg-foreground-2'>
       <Image

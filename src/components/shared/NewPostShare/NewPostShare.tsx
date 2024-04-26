@@ -2,7 +2,6 @@
 
 import { useCurrentUserInfo } from '@/hooks/query';
 import { IEmoji, IPost, Visibility } from '@/types';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Post from '../Post';
 import { Link } from '@/navigation';
@@ -27,8 +26,7 @@ export interface INewPostShareProps {
 export default function NewPostShare({ handleClose, post }: INewPostShareProps) {
   const t = useTranslations();
   const { mode } = useThemeMode();
-  const { data: session } = useSession();
-  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo();
   const { mutateSharePost } = useSharePost();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);

@@ -4,9 +4,7 @@ import { Link } from '@/navigation';
 
 import { IoChatboxOutline, IoThumbsUpOutline } from 'react-icons/io5';
 
-export interface IBlogMainProps {}
-
-export default function BlogMain(props: IBlogMainProps) {
+export default function BlogMain() {
   const t = useTranslations();
   return (
     <div className='card mt-8'>

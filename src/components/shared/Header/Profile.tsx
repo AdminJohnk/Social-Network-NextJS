@@ -1,7 +1,7 @@
 'use client';
 
 import { useThemeMode, ThemeMode } from 'flowbite-react';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { useEffect, useState } from 'react';
@@ -16,10 +16,9 @@ import { useCurrentUserInfo } from '@/hooks/query';
 export default function ProfileHeader() {
   const { toggleMode, mode } = useThemeMode();
   const [modeTheme, setModeTheme] = useState<ThemeMode>('dark');
-  const { data: session } = useSession();
   const t = useTranslations();
 
-  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo();
 
   useEffect(() => {
     setModeTheme(mode);

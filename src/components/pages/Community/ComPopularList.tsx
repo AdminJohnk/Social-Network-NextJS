@@ -2,9 +2,7 @@ import Image from 'next/image';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
-export interface IComPopularListProps {}
-
-export default function ComPopularList(props: IComPopularListProps) {
+export default function ComPopularList() {
   const t = useTranslations();
   return (
     <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2.5'>

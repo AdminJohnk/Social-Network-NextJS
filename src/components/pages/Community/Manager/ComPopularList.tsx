@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import { Link } from '@/navigation';
 
-export interface IComPopularListProps {}
-
-export default function ComPopularList(props: IComPopularListProps) {
+export default function ComPopularList() {
   return (
     <div>
       <div

@@ -2,7 +2,6 @@
 
 import { useCallback, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
 import { Avatar } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 
@@ -13,12 +12,9 @@ import { usePathname, useRouter } from '@/navigation';
 import TabCoverSkeleton from './TabCoverSkeleton';
 import Divider from '@/components/shared/Divider';
 
-export interface ITabCoverProps {}
-
-export default function TabCover(props: ITabCoverProps) {
+export default function TabCover() {
   const t = useTranslations();
-  const { data: session } = useSession();
-  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

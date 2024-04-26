@@ -3,7 +3,6 @@ import { Checkbox } from 'flowbite-react';
 import { IoSearchOutline } from 'react-icons/io5';
 import { FaXmark } from 'react-icons/fa6';
 import { v4 as uuidv4 } from 'uuid';
-import { useSession } from 'next-auth/react';
 import { CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
@@ -26,8 +25,8 @@ export interface IMembersToGroupProps {
 
 export default function MembersToGroup({ users, conversationID, handleClose }: IMembersToGroupProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+
+  const { currentUserInfo } = useCurrentUserInfo();
   const { mutateSendMessage } = useSendMessage();
 
   const { chatSocket } = useSocketStore();

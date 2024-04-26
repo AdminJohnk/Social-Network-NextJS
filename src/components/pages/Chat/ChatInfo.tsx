@@ -3,7 +3,6 @@
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { CircularProgress } from '@mui/material';
 import {
@@ -110,8 +109,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
   const router = useRouter();
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID);
 

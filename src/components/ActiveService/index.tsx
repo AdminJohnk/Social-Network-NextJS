@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 
 import { useCurrentUserInfo, useGetAllUsersUsedToChatWith } from '@/hooks/query';
 import {
@@ -17,9 +16,7 @@ import { IConversation, IMessage } from '@/types';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 
 export const PresenceService = () => {
-  const { data: session } = useSession();
-
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
   const { allUsersUsedToChatWith } = useGetAllUsersUsedToChatWith();
 
   const { presenceSocket, setActiveMembers } = useSocketStore();
@@ -73,9 +70,8 @@ export const PresenceService = () => {
 
 export const ChatService = () => {
   const { chatSocket } = useSocketStore();
-  const { data: session } = useSession();
 
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const { mutateReceiveConversation } = useReceiveConversation();
   const { mutateReceiveLeaveGroup } = useReceiveLeaveGroup();
@@ -85,8 +81,8 @@ export const ChatService = () => {
   const { mutateConversation } = useMutateConversation(currentUserInfo._id || '');
 
   useEffect(() => {
-    if (session && chatSocket) chatSocket.emit(Socket.SETUP, session.id);
-  }, [session, chatSocket]);
+    if (currentUserInfo && chatSocket) chatSocket.emit(Socket.SETUP, currentUserInfo._id);
+  }, [currentUserInfo, chatSocket]);
 
   useEffect(() => {
     if (currentUserInfo && chatSocket) {

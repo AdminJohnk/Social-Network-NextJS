@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import { Link } from '@/navigation';
 
-export interface IComSuggestionListProps {}
-
-export default function ComSuggestionList(props: IComSuggestionListProps) {
+export default function ComSuggestionList() {
   return (
     <div>
       <div

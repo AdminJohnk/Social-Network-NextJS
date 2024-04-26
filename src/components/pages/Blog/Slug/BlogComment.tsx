@@ -4,9 +4,7 @@ import { Link } from '@/navigation';
 import { IoChevronDown } from 'react-icons/io5';
 import BlogInputComment from './BlogInputComment';
 
-export interface IBlogCommentProps {}
-
-export default function BlogComment(props: IBlogCommentProps) {
+export default function BlogComment() {
   return (
     <div className='box p-5 px-6 relative bg-foreground-1'>
       <h3 className='font-semibold text-base'>Comments</h3>

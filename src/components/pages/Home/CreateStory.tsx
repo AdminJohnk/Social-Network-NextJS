@@ -1,9 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { IoImage, IoTimeOutline } from 'react-icons/io5';
 
-export interface ICreateStoryProps {}
-
-export default function CreateStory(props: ICreateStoryProps) {
+export default function CreateStory() {
   const t = useTranslations();
 
   return (

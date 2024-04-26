@@ -15,9 +15,7 @@ import {
   IoStopCircleOutline
 } from 'react-icons/io5';
 
-export interface IComCoverProps {}
-
-export default function ComCover(props: IComCoverProps) {
+export default function ComCover() {
   const t = useTranslations();
   return (
     <div className='bg-foreground-1 shadow lg:rounded-b-2xl lg:-mt-10 '>

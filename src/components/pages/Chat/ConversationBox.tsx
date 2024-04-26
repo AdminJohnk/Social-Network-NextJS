@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils';
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { Link } from '@/navigation';
-import { useSession } from 'next-auth/react';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
 import ContextMenuConversationBox from './ContextMenuConversationBox';
@@ -21,8 +20,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
   const t = useTranslations();
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();

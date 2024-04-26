@@ -3,9 +3,7 @@ import { Link } from '@/navigation';
 
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
-export interface IBlogSlideThumbnailProps {}
-
-export default function BlogSlideThumbnail(props: IBlogSlideThumbnailProps) {
+export default function BlogSlideThumbnail() {
   return (
     <div
       className='relative uk-visible-toggle'
