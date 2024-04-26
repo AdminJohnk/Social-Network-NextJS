@@ -24,7 +24,7 @@ export default function Popover({ mainContent, hoverContent }: IPostMoreChoosePr
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <div>
+    <div className='flex-center'>
       <button type='button' aria-describedby={id} onClick={handleClick}>
         {mainContent}
       </button>

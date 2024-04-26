@@ -9,7 +9,12 @@ import Post, { PostSkeleton } from '@/components/shared/Post';
 import SideSkeleton from '@/components/shared/SideSkeleton';
 import Intro from './Intro';
 import Friends from './Friends';
-import { useUserPostsData } from '@/hooks/query';
+import {
+  useCurrentUserInfo,
+  useOtherUserInfo,
+  useUserPostsData
+} from '@/hooks/query';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface ITimelineTabProps {
   profileID: string;
@@ -18,21 +23,34 @@ export interface ITimelineTabProps {
 export default function TimelineTab({ profileID }: ITimelineTabProps) {
   const [postsRef, inPostsView] = useInView({ threshold: 0 });
 
-  const { isLoadingUserPosts, userPosts, isFetchingNextUserPosts, hasNextUserPosts, fetchNextUserPosts } =
-    useUserPostsData(profileID);
+  const {
+    isLoadingUserPosts,
+    userPosts,
+    isFetchingNextUserPosts,
+    hasNextUserPosts,
+    fetchNextUserPosts
+  } = useUserPostsData(profileID);
 
   useEffect(() => {
     if (inPostsView && hasNextUserPosts && !isFetchingNextUserPosts) {
       fetchNextUserPosts();
     }
-  }, [inPostsView, hasNextUserPosts, isFetchingNextUserPosts, fetchNextUserPosts]);
+  }, [
+    inPostsView,
+    hasNextUserPosts,
+    isFetchingNextUserPosts,
+    fetchNextUserPosts
+  ]);
 
   useEffect(() => {
     UIkit.sticky('#profile-side')?.$emit('update');
   }, [userPosts]);
 
   return (
-    <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='profile-posts'>
+    <div
+      className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse'
+      id='profile-posts'
+    >
       <div className='flex-1 xl:space-y-6 space-y-3'>
         <NewPost profileID={profileID} />
         <CreateNewPost />
@@ -41,7 +59,7 @@ export default function TimelineTab({ profileID }: ITimelineTabProps) {
             <PostSkeleton />
           ) : userPosts ? (
             <>
-              {userPosts.map((post) => (
+              {userPosts.map(post => (
                 <Post key={post._id} post={post} />
               ))}
               {hasNextUserPosts && (
@@ -65,7 +83,8 @@ export default function TimelineTab({ profileID }: ITimelineTabProps) {
           <div
             id='profile-side'
             className='lg:space-y-6 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-            data-uk-sticky='media: 1024; end: #profile-posts; offset: 130'>
+            data-uk-sticky='media: 1024; end: #profile-posts; offset: 130'
+          >
             <Intro profileID={profileID} />
 
             <Friends profileID={profileID} />
