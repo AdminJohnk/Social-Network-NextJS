@@ -11,16 +11,15 @@ import { FaCommentDots } from 'react-icons/fa';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
-import { useSession } from 'next-auth/react';
 
 import CommentList from '@/components/shared/CommentList';
 import InputComment from '@/components/shared/InputComment';
 import PostMoreChoose from './PostMoreChoose';
 import { IFeaturePost, IPost, IUserInfo } from '@/types';
 import { cn, getImageURL } from '@/lib/utils';
-import Editor from '../Editor/Editor';
 import ShowContent from '../ShowContent/ShowContent';
 import CreateNewPostShare from '../CreateNewPostShare/CreateNewPostShare';
+import { useCurrentUserInfo } from '@/hooks/query';
 
 export interface IPostProps {
   post: IPost;
@@ -30,9 +29,7 @@ export interface IPostProps {
 export default function Post({ post, feature }: IPostProps) {
   const t = useTranslations();
   const content =
-    post.type === 'Post'
-      ? post.post_attributes.content
-      : post.post_attributes.post!.post_attributes.content;
+    post.type === 'Post' ? post.post_attributes.content : post.post_attributes.post!.post_attributes.content;
   const [contentQuill, setContent] = useState(content);
   const [expanded, setExpanded] = useState(false);
 
@@ -40,6 +37,8 @@ export default function Post({ post, feature }: IPostProps) {
 
   useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
+
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const handleDateTime = useCallback((date: string) => {
     const messageDate = new Date(date).getTime();
@@ -82,15 +81,11 @@ export default function Post({ post, feature }: IPostProps) {
   }, []);
 
   const images: string[] =
-    post.type === 'Post'
-      ? post.post_attributes.images
-      : post.post_attributes.post!?.post_attributes?.images;
+    post.type === 'Post' ? post.post_attributes.images : post.post_attributes.post!?.post_attributes?.images;
 
   const ownerPost: IUserInfo = post?.post_attributes?.owner_post as IUserInfo;
 
-  const { data: session } = useSession();
-
-  const isMyPost = post.post_attributes.user._id === session?.id;
+  const isMyPost = post.post_attributes.user._id === currentUserInfo._id;
 
   useEffect(() => {
     if (isMoreThan500 && !expanded) setContent(content.slice(0, 500) + '...');
@@ -110,10 +105,7 @@ export default function Post({ post, feature }: IPostProps) {
             <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
           </Link>
           <div className='flex flex-col ms-3'>
-            <Link
-              href={`/profile/${post.post_attributes.user._id}`}
-              className='base-bold'
-            >
+            <Link href={`/profile/${post.post_attributes.user._id}`} className='base-bold'>
               {post.post_attributes.user.name}
             </Link>
             <Link
@@ -131,11 +123,7 @@ export default function Post({ post, feature }: IPostProps) {
             <div
               className='!w-fit'
               data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
-              <PostMoreChoose
-                feature={feature}
-                post={post}
-                isMyPost={isMyPost}
-              />
+              <PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />
             </div>
           </div>
         )}
@@ -145,15 +133,9 @@ export default function Post({ post, feature }: IPostProps) {
           <ShowContent content={post?.post_attributes?.content_share} />
         </div>
       )}
-      <div
-        className={cn(
-          post.type === 'Share' && 'border border-border-1 rounded-lg pb-4'
-        )}
-      >
+      <div className={cn(post.type === 'Share' && 'border border-border-1 rounded-lg pb-4')}>
         {post.type === 'Share' && (
-          <div
-            className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}
-          >
+          <div className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}>
             <Link href={`/profile/${ownerPost._id}`}>
               <Avatar src={getImageURL(ownerPost.user_image)} />
             </Link>
@@ -178,8 +160,7 @@ export default function Post({ post, feature }: IPostProps) {
           {isMoreThan500 && (
             <div
               className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
-              onClick={() => setExpanded(!expanded)}
-            >
+              onClick={() => setExpanded(!expanded)}>
               {expanded ? t('Read less') : t('Read more')}
             </div>
           )}
@@ -197,12 +178,7 @@ export default function Post({ post, feature }: IPostProps) {
         </div>
       </div>
       {feature !== 'sharing' && (
-        <div
-          className={cn(
-            'react flex-between mt-4',
-            post.type === 'Share' && 'mt-4'
-          )}
-        >
+        <div className={cn('react flex-between mt-4', post.type === 'Share' && 'mt-4')}>
           <div className='left flex gap-5'>
             <div className='flex gap-3'>
               <span className='p-1 bg-foreground-2 rounded-full'>
@@ -231,8 +207,7 @@ export default function Post({ post, feature }: IPostProps) {
                   open={open}
                   onClose={handleClose}
                   aria-labelledby='modal-modal-title'
-                  aria-describedby='modal-modal-description'
-                >
+                  aria-describedby='modal-modal-description'>
                   <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
                     <CreateNewPostShare handleClose={handleClose} post={post} />
                   </div>

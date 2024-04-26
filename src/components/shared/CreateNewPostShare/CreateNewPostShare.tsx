@@ -1,8 +1,7 @@
 'use client';
 
 import { useCurrentUserInfo } from '@/hooks/query';
-import { IEmoji, IPost, Visibility } from '@/types';
-import { useSession } from 'next-auth/react';
+import { IPost, Visibility } from '@/types';
 import { useTranslations } from 'next-intl';
 import Post from '../Post';
 import { Link } from '@/navigation';
@@ -11,11 +10,6 @@ import { getImageURL } from '@/lib/utils';
 import PostPrivacy from '../PostPrivacy';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import Textarea from '@/components/ui/textarea';
-import Picker from '@emoji-mart/react';
-import { useThemeMode } from 'flowbite-react';
-import { IoHappyOutline } from 'react-icons/io5';
-import Popover from '@/components/ui/popover-v2';
 import { showSuccessToast } from '@/components/ui/toast';
 import { useSharePost } from '@/hooks/mutation';
 import { Editor as EditorProps } from '@tiptap/react';
@@ -26,21 +20,14 @@ export interface ICreateNewPostShareProps {
   post: IPost;
 }
 
-export default function CreateNewPostShare({
-  handleClose,
-  post
-}: ICreateNewPostShareProps) {
+export default function CreateNewPostShare({ handleClose, post }: ICreateNewPostShareProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
-  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo(
-    session?.id || ''
-  );
+  const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo();
   const { mutateSharePost } = useSharePost();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [privacy, setPrivacy] = useState<Visibility>('public');
 
-  const [text, setText] = useState('');
   const [editor, setEditor] = useState<EditorProps>();
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -79,32 +66,14 @@ export default function CreateNewPostShare({
         {isLoadingCurrentUserInfo ? (
           <div className='flex-between'>
             <div className='flex-start gap-3'>
-              <Skeleton
-                className='bg-foreground-2'
-                variant='circular'
-                width={40}
-                height={40}
-              />
+              <Skeleton className='bg-foreground-2' variant='circular' width={40} height={40} />
               <div className='flex flex-col'>
-                <Skeleton
-                  className='bg-foreground-2 w-36'
-                  variant='text'
-                  sx={{ fontSize: '1.5rem' }}
-                />
-                <Skeleton
-                  className='bg-foreground-2 w-36'
-                  variant='text'
-                  sx={{ fontSize: '1rem' }}
-                />
+                <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1.5rem' }} />
+                <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1rem' }} />
               </div>
             </div>
             <div>
-              <Skeleton
-                className='bg-foreground-2'
-                variant='circular'
-                width={25}
-                height={25}
-              />
+              <Skeleton className='bg-foreground-2' variant='circular' width={25} height={25} />
             </div>
           </div>
         ) : (
@@ -114,10 +83,7 @@ export default function CreateNewPostShare({
                 <Avatar src={getImageURL(currentUserInfo.user_image)} />
               </Link>
               <div className='flex flex-col ms-3'>
-                <Link
-                  href={`/profile/${currentUserInfo._id}`}
-                  className='base-bold'
-                >
+                <Link href={`/profile/${currentUserInfo._id}`} className='base-bold'>
                   {currentUserInfo.name}
                 </Link>
               </div>
@@ -137,9 +103,7 @@ export default function CreateNewPostShare({
             className='button lg:px-6 text-white max-md:flex-1'
             // disabled={!isChanged || isLoading}
           >
-            {isLoading && (
-              <CircularProgress size={20} className='!text-text-1 mr-2' />
-            )}
+            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
             {t('Share')} <span className='ripple-overlay'></span>
           </Button>
         </div>

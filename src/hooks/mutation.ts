@@ -8,6 +8,7 @@ import {
   IConversation,
   ICreateComment,
   ICreateLikeComment,
+  ICreatePost,
   ICreateSearchLog,
   IMessage,
   IResetPassword,
@@ -47,8 +48,7 @@ export const useChangePassword = () => {
  * The `useCreatePost` function is a custom hook that handles the creation of a new post, including
  * making an API request and updating the query data for the user's posts and the newsfeed.
  */
-export const useCreatePost = (uid: string) => {
-
+export const useCreatePost = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
@@ -56,8 +56,9 @@ export const useCreatePost = (uid: string) => {
       const { data } = await postService.createPost(newPost);
       return data.metadata;
     },
-    onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['posts', uid] });
+    async onSuccess() {
+      const session = await getSession();
+      queryClient.invalidateQueries({ queryKey: ['posts', session?.id] });
       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
     }
   });
@@ -126,15 +127,17 @@ export const useUpdatePost = () => {
  * The `useDeletePost` function is a custom hook that handles the deletion of a post and invalidates
  * the relevant query caches upon success.
  */
-export const useDeletePost = (userID: string) => {
+export const useDeletePost = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (postID: string) => {
       await postService.deletePost(postID);
     },
-    onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['posts', userID] });
+    async onSuccess() {
+      const session = await getSession();
+
+      queryClient.invalidateQueries({ queryKey: ['posts', session?.id] });
 
       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
     }

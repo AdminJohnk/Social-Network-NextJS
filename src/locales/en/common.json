@@ -48,6 +48,7 @@
   "Message": "Message",
   "Report": "Report",
   "Share profile": "Share profile",
+  "Shared post successfully!": "Shared post successfully!",
   "Block": "Block",
   "Timeline": "Timeline",
   "Friends": "Friends",
@@ -304,7 +305,5 @@
   "Response": "Response",
   "Accept": "Accept",
   "Decline": "Decline",
-  "Show more": "Show more",
-  "Show less": "Show less",
   "Contacts": "Contacts"
 }

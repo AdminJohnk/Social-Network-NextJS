@@ -1,8 +1,7 @@
 'use client';
 
-import { useOtherUserInfo } from '@/hooks/query';
+import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
 import { Link } from '@/navigation';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { IoLocationOutline, IoBriefcaseOutline, IoPeopleOutline, IoAt } from 'react-icons/io5';
 import { PiGraduationCap } from 'react-icons/pi';
@@ -16,14 +15,13 @@ export interface IIntroProps {
 
 export default function Intro({ profileID }: IIntroProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
 
-  const isMe = session?.id === profileID;
-
+  const { currentUserInfo } = useCurrentUserInfo();
   const { otherUserInfo: user, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
 
   const [more, setMore] = useState(false);
 
+  const isMe = currentUserInfo._id === profileID;
   const tags = more ? user?.tags : user?.tags.slice(0, 6);
 
   useEffect(() => {
