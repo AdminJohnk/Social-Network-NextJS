@@ -40,6 +40,26 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
   const [typeNumber, setTypeNumber] = useState(0);
   const { mode } = useThemeMode();
 
+  const selectTypeNumber = () => {
+    if (editor.isActive('paragraph')) {
+      setTypeNumber(0);
+    } else if (editor.isActive('heading', { level: 1 })) {
+      setTypeNumber(1);
+    } else if (editor.isActive('heading', { level: 2 })) {
+      setTypeNumber(2);
+    } else if (editor.isActive('heading', { level: 3 })) {
+      setTypeNumber(3);
+    } else if (editor.isActive('bulletList')) {
+      setTypeNumber(4);
+    } else if (editor.isActive('orderedList')) {
+      setTypeNumber(5);
+    } else if (editor.isActive('codeBlock')) {
+      setTypeNumber(6);
+    } else {
+      setTypeNumber(0);
+    }
+  };
+
   const typeText = [
     {
       // Normal
@@ -51,7 +71,6 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().setParagraph().run();
-        setTypeNumber(0);
       },
       className: editor.isActive('paragraph') ? 'text-primary-500' : ''
     },
@@ -65,9 +84,6 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().toggleHeading({ level: 1 }).run();
-        !editor.isActive('heading', { level: 1 })
-          ? setTypeNumber(0)
-          : setTypeNumber(1);
       },
       className: editor.isActive('heading', { level: 1 })
         ? 'text-primary-500'
@@ -83,9 +99,6 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().toggleHeading({ level: 2 }).run();
-        !editor.isActive('heading', { level: 2 })
-          ? setTypeNumber(0)
-          : setTypeNumber(2);
       },
       className: editor.isActive('heading', { level: 2 })
         ? 'text-primary-500'
@@ -101,9 +114,6 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().toggleHeading({ level: 3 }).run();
-        !editor.isActive('heading', { level: 3 })
-          ? setTypeNumber(0)
-          : setTypeNumber(3);
       },
       className: editor.isActive('heading', { level: 3 })
         ? 'text-primary-500'
@@ -119,7 +129,6 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().toggleBulletList().run();
-        !editor.isActive('bulletList') ? setTypeNumber(0) : setTypeNumber(4);
       },
       className: editor.isActive('bulletList') ? 'text-primary-500' : ''
     },
@@ -133,7 +142,6 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().toggleOrderedList().run();
-        !editor.isActive('orderedList') ? setTypeNumber(0) : setTypeNumber(5);
       },
       className: editor.isActive('orderedList') ? 'text-primary-500' : ''
     },
@@ -147,7 +155,6 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().toggleCodeBlock().run();
-        !editor.isActive('codeBlock') ? setTypeNumber(0) : setTypeNumber(6);
       },
       className: editor.isActive('codeBlock') ? 'text-primary-500' : ''
     }
@@ -157,12 +164,14 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
     <div className='flex-start px-2'>
       <div className='flex-start gap-2 *:p-1 *:text-1'>
         <button
+          type='button'
           onClick={() => editor.chain().focus().undo().run()}
           disabled={!editor.can().chain().focus().undo().run()}
         >
           <FaUndo className='size-4' />
         </button>
         <button
+          type='button'
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run()}
         >
@@ -208,6 +217,7 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
         </button>
       </div>
       <span className='mx-2'>|</span>
+      {/* Type Text */}
       <div className='flex-start gap-2 *:p-1 *:text-1'>
         <div>
           <div className='flex-start gap-2'>
@@ -226,6 +236,7 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
                     )}
                     onClick={() => {
                       item.callback();
+                      selectTypeNumber();
                     }}
                   >
                     {item.node}

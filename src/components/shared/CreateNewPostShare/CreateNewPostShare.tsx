@@ -1,7 +1,7 @@
 'use client';
 
 import { useCurrentUserInfo } from '@/hooks/query';
-import { IEmoji, IPost, Visibility } from '@/types';
+import { IPost, Visibility } from '@/types';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Post from '../Post';
@@ -11,11 +11,6 @@ import { getImageURL } from '@/lib/utils';
 import PostPrivacy from '../PostPrivacy';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import Textarea from '@/components/ui/textarea';
-import Picker from '@emoji-mart/react';
-import { useThemeMode } from 'flowbite-react';
-import { IoHappyOutline } from 'react-icons/io5';
-import Popover from '@/components/ui/popover-v2';
 import { showSuccessToast } from '@/components/ui/toast';
 import { useSharePost } from '@/hooks/mutation';
 import { Editor as EditorProps } from '@tiptap/react';
@@ -43,8 +38,7 @@ export default function CreateNewPostShare({
   const [text, setText] = useState('');
   const [editor, setEditor] = useState<EditorProps>();
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmit() {
     setIsLoading(true);
     const content = editor?.getHTML() as string;
 
@@ -74,7 +68,6 @@ export default function CreateNewPostShare({
   }, []);
 
   return (
-    <form onSubmit={onSubmit}>
       <div className='w-[630px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg p-7 animate-fade-up'>
         {isLoadingCurrentUserInfo ? (
           <div className='flex-between'>
@@ -135,7 +128,8 @@ export default function CreateNewPostShare({
           <Button
             type='submit'
             className='button lg:px-6 text-white max-md:flex-1'
-            // disabled={!isChanged || isLoading}
+            disabled={isLoading}
+            onClick={onSubmit}
           >
             {isLoading && (
               <CircularProgress size={20} className='!text-text-1 mr-2' />
@@ -144,6 +138,5 @@ export default function CreateNewPostShare({
           </Button>
         </div>
       </div>
-    </form>
   );
 }

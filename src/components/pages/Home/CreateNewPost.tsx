@@ -4,19 +4,10 @@ import { useState } from 'react';
 import PostPrivacy from '@/components/shared/PostPrivacy';
 import Editor from '@/components/shared/Editor/Editor';
 import { useTranslations } from 'next-intl';
-import hljs from 'highlight.js';
 import 'highlight.js/styles/googlecode.css';
 
-import {
-  IoEllipsisHorizontal,
-  IoHappy,
-  IoImage,
-  IoLocation,
-  IoVideocam
-} from 'react-icons/io5';
-import Popover from '@/components/ui/popover-v2';
-import { IEmoji, Visibility } from '@/types';
-import { useThemeMode } from 'flowbite-react';
+import { IoImage, IoVideocam } from 'react-icons/io5';
+import { Visibility } from '@/types';
 import { Editor as EditorProps } from '@tiptap/react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -39,8 +30,8 @@ export default function CreateNewPost(props: ICreateNewPostProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async () => {
-    setIsLoading(true);
     const content = editor?.getHTML() as string;
+    setIsLoading(true);
 
     if (!editor?.getText().trim()) {
       showErrorToast('Please enter some text!');

@@ -20,23 +20,25 @@ export default function FloatTool(props: IFloatToolProps) {
       onMouseLeave={() => {
         ListToolRef.current!.classList.add('animate-fade-up-out');
         ListToolRef.current!.classList.remove('animate-fade-up-in');
-      }}>
-      <div className='p-3 bg-foreground-1 hover:bg-hover-3 duration-300 rounded-full shadow-xl'>
+      }}
+    >
+      <div className='p-3 bg-2 duration-300 rounded-full shadow-xl'>
         <FaTools className='size-6 text-purple-1' />
       </div>
       <div
         ref={ListToolRef}
-        className='absolute opacity-0 -top-[255px] *:mt-3 pb-4 bg-transparent duration-300'>
-        <div className='p-3 bg-foreground-1 hover:bg-hover-3 duration-300 rounded-full cursor-pointer shadow-xl'>
+        className='absolute opacity-0 -top-[255px] *:mt-3 pb-4 bg-transparent duration-300'
+      >
+        <div className='p-3 bg-2 duration-300 rounded-full cursor-pointer shadow-xl'>
           <AiFillQuestionCircle className='size-6 text-text-2' />
         </div>
-        <div className='p-3 bg-foreground-1 hover:bg-hover-3 duration-300 rounded-full cursor-pointer shadow-xl'>
+        <div className='p-3 bg-2 duration-300 rounded-full cursor-pointer shadow-xl'>
           <IoDocumentText className='size-6 text-text-2' />
         </div>
-        <div className='p-3 bg-foreground-1 hover:bg-hover-3 duration-300 rounded-full cursor-pointer shadow-xl'>
+        <div className='p-3 bg-2 duration-300 rounded-full cursor-pointer shadow-xl'>
           <IoChatbubbleEllipses className='size-6 text-text-2' />
         </div>
-        <div className='p-3 bg-foreground-1 hover:bg-hover-3 duration-300 rounded-full cursor-pointer shadow-xl'>
+        <div className='p-3 bg-2 duration-300 rounded-full cursor-pointer shadow-xl'>
           <TbBrandOpenai className='size-6 text-text-2' />
         </div>
       </div>

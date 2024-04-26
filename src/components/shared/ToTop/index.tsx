@@ -45,7 +45,7 @@ export default function ToTop() {
       onClick={() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }}>
-      <IoArrowUpCircleOutline className='size-12 text-green-1 bg-foreground-1 hover:bg-hover-3 duration-300 rounded-full p-2' />
+      <IoArrowUpCircleOutline className='size-12 text-green-1 bg-2 rounded-full p-2' />
     </div>
   );
 }
