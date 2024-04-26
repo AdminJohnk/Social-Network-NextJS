@@ -3,7 +3,8 @@ import {
   useInfiniteQuery,
   useQuery,
   useQueryClient,
-  QueryCache
+  QueryCache,
+  infiniteQueryOptions
 } from '@tanstack/react-query';
 import { getSession } from 'next-auth/react';
 
@@ -723,6 +724,32 @@ export const useGetCommunityByID = (id: string) => {
     isFetchingMessageCall: isFetching
   };
 };
+
+export const useMessagesOption = (conversationID: string) =>
+  infiniteQueryOptions({
+    queryKey: ['messages', conversationID],
+    queryFn: async ({ pageParam }) => {
+      const { data } = await messageService.getMessages(conversationID, pageParam);
+      return data.metadata;
+    },
+    initialPageParam: 1,
+    getPreviousPageParam: (lastPage, _, lastPageParam) => {
+      if (lastPage.length < 30) {
+        return undefined;
+      }
+      return lastPageParam + 1;
+    },
+    getNextPageParam: (_, __, firstPageParam) => {
+      if (firstPageParam <= 1) {
+        return undefined;
+      }
+      return firstPageParam - 1;
+    },
+    select: (data) => {
+      return data.pages.flat();
+    },
+    staleTime: Infinity
+  });
 
 export const useGetNoti = (userID: number) => {
   const { data, isPending, isError, isFetching } = useInfiniteQuery({
