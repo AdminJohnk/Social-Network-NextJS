@@ -2,7 +2,6 @@
 
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { IoChevronBackOutline } from 'react-icons/io5';
-import { useSession } from 'next-auth/react';
 import { useCallback, useMemo } from 'react';
 import { isThisWeek, isThisYear } from 'date-fns';
 
@@ -57,8 +56,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
 
   const { currentConversation, isFetchingCurrentConversation } = useCurrentConversationData(conversationID);
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const { activeMembers: members } = useSocketStore();
 

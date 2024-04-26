@@ -11,14 +11,15 @@ import { FaCommentDots } from 'react-icons/fa';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
-import { useSession } from 'next-auth/react';
 
 import CommentList from '@/components/shared/CommentList';
 import InputComment from '@/components/shared/InputComment';
 import PostMoreChoose from './PostMoreChoose';
 import { IFeaturePost, IPost, IUserInfo } from '@/types';
 import { cn, getImageURL } from '@/lib/utils';
-import NewPostShare from '../NewPostShare/NewPostShare';
+import ShowContent from '../ShowContent/ShowContent';
+import CreateNewPostShare from '../CreateNewPostShare/CreateNewPostShare';
+import { useCurrentUserInfo } from '@/hooks/query';
 
 export interface IPostProps {
   post: IPost;
@@ -36,6 +37,8 @@ export default function Post({ post, feature }: IPostProps) {
 
   useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
+
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const handleDateTime = useCallback((date: string) => {
     const messageDate = new Date(date).getTime();
@@ -82,9 +85,7 @@ export default function Post({ post, feature }: IPostProps) {
 
   const ownerPost: IUserInfo = post?.post_attributes?.owner_post as IUserInfo;
 
-  const { data: session } = useSession();
-
-  const isMyPost = post.post_attributes.user._id === session?.id;
+  const isMyPost = post.post_attributes.user._id === currentUserInfo._id;
 
   useEffect(() => {
     if (isMoreThan500 && !expanded) setContent(content.slice(0, 500) + '...');
@@ -109,7 +110,7 @@ export default function Post({ post, feature }: IPostProps) {
             </Link>
             <Link
               href={`/posts/${post._id}`}
-              className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
+              className='small-bold text-text-2 hover:underline hover:text-text-1'>
               {handleDateTime(post.createdAt)}
             </Link>
           </div>
@@ -128,7 +129,9 @@ export default function Post({ post, feature }: IPostProps) {
         )}
       </div>
       {post.type === 'Share' && (
-        <div className='my-4 content-share'>{post?.post_attributes?.content_share}</div>
+        <div className='my-4 content-share'>
+          <ShowContent content={post?.post_attributes?.content_share} />
+        </div>
       )}
       <div className={cn(post.type === 'Share' && 'border border-border-1 rounded-lg pb-4')}>
         {post.type === 'Share' && (
@@ -142,22 +145,23 @@ export default function Post({ post, feature }: IPostProps) {
               </Link>
               <Link
                 href={`/posts/${post._id}`}
-                className='small-bold text-text-2 hover:no-underline hover:text-text-2'>
+                className='small-bold text-text-2 hover:underline hover:text-text-1'>
                 {handleDateTime(post.post_attributes.post!.createdAt)}
               </Link>
             </div>
           </div>
         )}
         <div className={cn('mt-4', post.type === 'Share' && 'px-5')}>
-          <div
+          {/* <div
             className='base-regular overflow break-words text-balance'
             dangerouslySetInnerHTML={{ __html: contentQuill }}
-          />
+          /> */}
+          <ShowContent content={contentQuill} />
           {isMoreThan500 && (
             <div
-              className='clickMore my-3 cursor-pointer hover:text-text-2 duration-500'
+              className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
               onClick={() => setExpanded(!expanded)}>
-              {expanded ? 'Read less' : 'Read more'}
+              {expanded ? t('Read less') : t('Read more')}
             </div>
           )}
           {images.length !== 0 && (
@@ -205,7 +209,7 @@ export default function Post({ post, feature }: IPostProps) {
                   aria-labelledby='modal-modal-title'
                   aria-describedby='modal-modal-description'>
                   <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
-                    <NewPostShare handleClose={handleClose} post={post} />
+                    <CreateNewPostShare handleClose={handleClose} post={post} />
                   </div>
                 </Modal>
               </span>

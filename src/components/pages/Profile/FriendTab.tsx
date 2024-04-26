@@ -6,7 +6,6 @@ import { useAddFriendUser, useDeleteFriendUser } from '@/hooks/mutation';
 import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
 import { IUserInfo } from '@/types';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -17,8 +16,7 @@ interface IRenderFriendItemProps {
 
 function RenderFriendItem({ friend }: IRenderFriendItemProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
   const [isFriend, setIsFriend] = useState(false);
   const { mutateAddFriendUser } = useAddFriendUser();
   const { mutateDeleteFriendUser } = useDeleteFriendUser();

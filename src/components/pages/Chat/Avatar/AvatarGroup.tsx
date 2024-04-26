@@ -1,9 +1,9 @@
+import Image from 'next/image';
+
 import { useCurrentUserInfo } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
 import { useSocketStore } from '@/store/socket';
 import { IUserInfo } from '@/types';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 
 interface IAvatarGroup {
   users: IUserInfo[];
@@ -14,8 +14,8 @@ interface IAvatarGroup {
 
 const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview = false }) => {
   const { activeMembers: members } = useSocketStore();
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const slicedUsers = users.length > 3 ? users.slice(0, 4) : users.slice(0, 3);
   const isActive =

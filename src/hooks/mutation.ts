@@ -1,7 +1,7 @@
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getSession } from 'next-auth/react';
 import useSound from 'use-sound';
 
-// import { closeDrawer, setLoading } from '@/redux/Slice/DrawerHOCSlice';
 import { postService } from '@/services/PostService';
 import { userService } from '@/services/UserService';
 import {
@@ -19,14 +19,12 @@ import {
   IUserInfo,
   IUserUpdate
 } from '@/types';
-// import { useAppDispatch, useAppSelector } from './special';
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
 import { searchLogService } from '@/services/SearchLogService';
 import { usePathname, useRouter } from '@/navigation';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
-// import { Socket } from '@/util/constants/SettingSystem';
 
 // ----------------------------- MUTATIONS -----------------------------
 
@@ -50,90 +48,76 @@ export const useChangePassword = () => {
  * The `useCreatePost` function is a custom hook that handles the creation of a new post, including
  * making an API request and updating the query data for the user's posts and the newsfeed.
  */
-/**
- * The `useCreatePost` function is a custom hook that handles the creation of a new post, including
- * making an API request and updating the query data for the user's posts and the newsfeed.
- */
-// export const useCreatePost = () => {
-//   const uid = useAppSelector(state => state.auth.userID);
+export const useCreatePost = () => {
+  const queryClient = useQueryClient();
 
-//   const queryClient = useQueryClient();
-
-//   const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
-//     mutationFn: async (newPost: ICreatePost) => {
-//       const { data } = await postService.createPost(newPost);
-//       return data.metadata;
-//     },
-//     onSuccess() {
-//       queryClient.invalidateQueries({ queryKey: ['posts', uid] });
-//       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
-//     }
-//   });
-//   return {
-//     mutateCreatePost: mutateAsync,
-//     isLoadingCreatePost: isPending,
-//     isErrorCreatePost: isError,
-//     errorCreatePost: error,
-//     isSuccessCreatePost: isSuccess
-//   };
-// };
+  const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
+    mutationFn: async (newPost: ICreatePost) => {
+      const { data } = await postService.createPost(newPost);
+      return data.metadata;
+    },
+    async onSuccess() {
+      const session = await getSession();
+      queryClient.invalidateQueries({ queryKey: ['posts', session?.id] });
+      queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
+    }
+  });
+  return {
+    mutateCreatePost: mutateAsync,
+    isLoadingCreatePost: isPending,
+    isErrorCreatePost: isError,
+    errorCreatePost: error,
+    isSuccessCreatePost: isSuccess
+  };
+};
 
 /**
  * The `useViewPost` function is a custom hook that handles the logic for viewing a post, including
  * making a mutation request to the server and updating the cache.
  */
-// export const useViewPost = () => {
-//   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-//     mutationFn: async (postID: string) => {
-//       await postService.viewPost(postID);
-//     }
-//   });
-//   return {
-//     mutateViewPost: mutateAsync,
-//     isLoadingViewPost: isPending,
-//     isErrorViewPost: isError,
-//     isSuccessViewPost: isSuccess
-//   };
-// };
+export const useViewPost = () => {
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (postID: string) => {
+      await postService.viewPost(postID);
+    }
+  });
+  return {
+    mutateViewPost: mutateAsync,
+    isLoadingViewPost: isPending,
+    isErrorViewPost: isError,
+    isSuccessViewPost: isSuccess
+  };
+};
 
 /**
  * The `useUpdatePost` function is a custom hook that handles the mutation logic for updating a post,
  * including invalidating relevant query caches.
  */
-/**
- * The `useUpdatePost` function is a custom hook that handles the mutation logic for updating a post,
- * including invalidating relevant query caches.
- */
-// export const useUpdatePost = () => {
-//   const queryClient = useQueryClient();
+export const useUpdatePost = () => {
+  const queryClient = useQueryClient();
 
-//   const dispatch = useAppDispatch();
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (post: IUpdatePost) => {
+      const { data } = await postService.updatePost(post.id, post.postUpdate);
+      return data.metadata;
+    },
+    onSuccess(updatedPost) {
+      queryClient.invalidateQueries({
+        queryKey: ['posts', updatedPost.post_attributes.user._id]
+      });
 
-//   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-//     mutationFn: async (post: IUpdatePost) => {
-//       const { data } = await postService.updatePost(post.id, post.postUpdate);
-//       return data.metadata;
-//     },
-//     onSuccess(updatedPost) {
-//       dispatch(setLoading(false));
-//       dispatch(closeDrawer());
+      queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
 
-//       queryClient.invalidateQueries({
-//         queryKey: ['posts', updatedPost.post_attributes.user._id]
-//       });
-
-//       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
-
-//       queryClient.invalidateQueries({ queryKey: ['post', updatedPost._id] });
-//     }
-//   });
-//   return {
-//     mutateUpdatePost: mutateAsync,
-//     isLoadingUpdatePost: isPending,
-//     isErrorUpdatePost: isError,
-//     isSuccessUpdatePost: isSuccess
-//   };
-// };
+      queryClient.invalidateQueries({ queryKey: ['post', updatedPost._id] });
+    }
+  });
+  return {
+    mutateUpdatePost: mutateAsync,
+    isLoadingUpdatePost: isPending,
+    isErrorUpdatePost: isError,
+    isSuccessUpdatePost: isSuccess
+  };
+};
 
 /**
  * The `useDeletePost` function is a custom hook that handles the deletion of a post and invalidates
@@ -143,15 +127,17 @@ export const useChangePassword = () => {
  * The `useDeletePost` function is a custom hook that handles the deletion of a post and invalidates
  * the relevant query caches upon success.
  */
-export const useDeletePost = (userID: string) => {
+export const useDeletePost = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (postID: string) => {
       await postService.deletePost(postID);
     },
-    onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['posts', userID] });
+    async onSuccess() {
+      const session = await getSession();
+
+      queryClient.invalidateQueries({ queryKey: ['posts', session?.id] });
 
       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
     }
@@ -243,42 +229,37 @@ export const useSavePost = () => {
  * The `useCommentPost` function is a custom hook that handles the creation of a new comment and
  * invalidates the comments query cache upon success.
  */
-/**
- * The `useCommentPost` function is a custom hook that handles the creation of a new comment and
- * invalidates the comments query cache upon success.
- */
-// export const useCommentPost = () => {
-//   const queryClient = useQueryClient();
+export const useCommentPost = () => {
+  const queryClient = useQueryClient();
 
-//   const uid = useAppSelector(state => state.auth.userID);
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (commentData: ICreateComment) => {
+      await postService.createComment(commentData);
+    },
+    async onSuccess(_, newComment) {
+      const session = await getSession();
+      queryClient.invalidateQueries({
+        queryKey: ['comments', newComment.post]
+      });
 
-//   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-//     mutationFn: async (commentData: ICreateComment) => {
-//       await postService.createComment(commentData);
-//     },
-//     onSuccess(_, newComment) {
-//       queryClient.invalidateQueries({
-//         queryKey: ['comments', newComment.post]
-//       });
+      queryClient.invalidateQueries({
+        queryKey: ['childComments', newComment.parent]
+      });
 
-//       queryClient.invalidateQueries({
-//         queryKey: ['childComments', newComment.parent]
-//       });
+      queryClient.invalidateQueries({ queryKey: ['post', newComment.post] });
 
-//       queryClient.invalidateQueries({ queryKey: ['post', newComment.post] });
+      queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
 
-//       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
-
-//       queryClient.invalidateQueries({ queryKey: ['posts', uid] });
-//     }
-//   });
-//   return {
-//     mutateCommentPost: mutateAsync,
-//     isLoadingCommentPost: isPending,
-//     isErrorCommentPost: isError,
-//     isSuccessCommentPost: isSuccess
-//   };
-// };
+      queryClient.invalidateQueries({ queryKey: ['posts', session?.id] });
+    }
+  });
+  return {
+    mutateCommentPost: mutateAsync,
+    isLoadingCommentPost: isPending,
+    isErrorCommentPost: isError,
+    isSuccessCommentPost: isSuccess
+  };
+};
 
 /**
  * The `useLikeComment` function is a custom hook that handles the logic for liking a comment and

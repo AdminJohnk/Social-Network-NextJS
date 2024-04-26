@@ -1,7 +1,5 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
-
 import SuggestFollow from './SuggestFollow';
 import OnlineFriend from './OnlineFriend';
 import TrendForYou from './TrendForYou';
@@ -10,10 +8,8 @@ import { useAllNewsfeedPostsData, useCurrentUserInfo } from '@/hooks/query';
 import { useEffect } from 'react';
 
 export default function NewsfeedSide() {
-  const { data: session } = useSession();
-
   const { isLoadingAllNewsfeedPosts, allNewsfeedPosts } = useAllNewsfeedPostsData();
-  const { isLoadingCurrentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { isLoadingCurrentUserInfo } = useCurrentUserInfo();
 
   useEffect(() => {
     UIkit.sticky('#newsfeed-side')?.$emit('update');

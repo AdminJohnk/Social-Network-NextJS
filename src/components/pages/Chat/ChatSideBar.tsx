@@ -4,15 +4,10 @@ import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { IoMoonOutline, IoSettingsSharp } from 'react-icons/io5';
 import { FaComment, FaUser, FaVideo } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
 import { useThemeMode } from 'flowbite-react';
 
 import { Link } from '@/navigation';
-import {
-  useConversationsData,
-  useCurrentUserInfo,
-  useGetCalled
-} from '@/hooks/query';
+import { useConversationsData, useCurrentUserInfo, useGetCalled } from '@/hooks/query';
 import { cn } from '@/lib/utils';
 import ConversationList from './ConversationList';
 import { PopoverContent, Popover, PopoverTrigger } from '@/components/ui/popover';
@@ -30,9 +25,8 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
   const { toggleMode, mode } = useThemeMode();
 
   const { calledList } = useGetCalled();
-  const { data: session } = useSession();
 
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
   const { conversations } = useConversationsData();
 
   const notSeenCount = useMemo(() => {

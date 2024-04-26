@@ -10,7 +10,6 @@ import {
 import { FaGift } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import { useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
 import { useThemeMode } from 'flowbite-react';
 import Picker from '@emoji-mart/react';
 import { debounce } from 'lodash';
@@ -35,9 +34,8 @@ export interface IInputChatProps {
 export default function InputChat({ conversationID, members }: IInputChatProps) {
   const t = useTranslations();
   const { mode } = useThemeMode();
-  const { data: session } = useSession();
 
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
   const { mutateSendMessage } = useSendMessage();
   const [id, setId] = useState(uuidv4().replace(/-/g, ''));
 

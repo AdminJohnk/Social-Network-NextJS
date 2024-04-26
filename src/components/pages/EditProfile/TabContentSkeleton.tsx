@@ -1,8 +1,6 @@
 import { Skeleton } from '@mui/material';
 
-export interface ITabContentSkeletonProps {}
-
-export default function TabContentSkeleton(props: ITabContentSkeletonProps) {
+export default function TabContentSkeleton() {
   return (
     <div className='post-skeleton bg-foreground-1 rounded-lg p-4'>
       <div className='flex-between'>

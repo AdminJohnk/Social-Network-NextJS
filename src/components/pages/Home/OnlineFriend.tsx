@@ -4,14 +4,13 @@ import { Children } from 'react';
 import Slider from 'react-slick';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
 
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { cn } from '@/lib/utils';
 import { Link } from '@/navigation';
 
-function SampleNextArrow(props: React.ButtonHTMLAttributes<HTMLDivElement>) {
+function SampleNextArrow(props: React.ButtonHTMLAttributes<HTMLSpanElement>) {
   const { onClick } = props;
   return (
     <span
@@ -24,7 +23,7 @@ function SampleNextArrow(props: React.ButtonHTMLAttributes<HTMLDivElement>) {
   );
 }
 
-function SamplePrevArrow(props: React.ButtonHTMLAttributes<HTMLDivElement>) {
+function SamplePrevArrow(props: React.ButtonHTMLAttributes<HTMLSpanElement>) {
   const { onClick } = props;
   return (
     <span
@@ -48,9 +47,7 @@ var settings = {
 export default function OnlineFriend() {
   const t = useTranslations();
 
-  const { data: session } = useSession();
-
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
 
   return (
     <div className='online-friend px-5 py-4 bg-foreground-1 rounded-lg'>

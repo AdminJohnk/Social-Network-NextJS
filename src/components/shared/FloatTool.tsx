@@ -6,9 +6,8 @@ import { TbBrandOpenai } from 'react-icons/tb';
 import { IoDocumentText, IoChatbubbleEllipses } from 'react-icons/io5';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 
-export interface IFloatToolProps {}
 
-export default function FloatTool(props: IFloatToolProps) {
+export default function FloatTool() {
   const ListToolRef = useRef<HTMLDivElement>(null);
   return (
     <div

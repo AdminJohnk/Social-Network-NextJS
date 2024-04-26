@@ -5,9 +5,7 @@ import { Link } from '@/navigation';
 import { CiHeart } from 'react-icons/ci';
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5';
 
-export interface IArticleForYouProps {}
-
-export default function ArticleForYou(props: IArticleForYouProps) {
+export default function ArticleForYou() {
   const t = useTranslations();
   return (
     <div>

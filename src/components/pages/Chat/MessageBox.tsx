@@ -1,15 +1,15 @@
 import { forwardRef, useCallback, useMemo } from 'react';
 import { Anchorme, LinkComponentProps } from 'react-anchorme';
-import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
-import { IMessage, IUserInfo, TypeofConversation } from '@/types';
 import Image from 'next/image';
-import { useCurrentUserInfo } from '@/hooks/query';
-import { useSession } from 'next-auth/react';
 import { FaCrown, FaShieldHalved } from 'react-icons/fa6';
 import { ImageList, ImageListItem } from '@mui/material';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
+
+import { cn, getImageURL } from '@/lib/utils';
+import { IMessage, IUserInfo, TypeofConversation } from '@/types';
+import { useCurrentUserInfo } from '@/hooks/query';
 
 export interface IMessageBoxProps {
   message: IMessage;
@@ -30,11 +30,10 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     ref
   ) => {
     const t = useTranslations();
-    const { data: session } = useSession();
     useNow({ updateInterval: 1000 * 30 });
     const format = useFormatter();
 
-    const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+    const { currentUserInfo } = useCurrentUserInfo();
 
     const handleFirstName = useCallback((name: string) => {
       const arr = name.split(' ');
@@ -91,7 +90,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       if (message.content.includes('missed')) {
         return 'missed';
       }
-      if (senderId === (session?.id as string)) {
+      if (senderId === currentUserInfo._id) {
         return 'outgoing';
       }
       return 'incoming';

@@ -3,9 +3,7 @@ import { Link } from '@/navigation';
 
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
-export interface IComYouManageProps {}
-
-export default function ComYouManage(props: IComYouManageProps) {
+export default function ComYouManage() {
   return (
     <div className='box p-5'>
       <div className='flex items-baseline justify-between'>

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from '@/navigation';
 import { IoClose, IoSearch, IoSearchOutline, IoTrash } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { CircularProgress } from '@mui/material';
 
@@ -18,7 +17,6 @@ import { getImageURL } from '@/lib/utils';
 export default function SearchHeader() {
   const t = useTranslations();
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
   const router = useRouter();
 
   const [search, setSearch] = useState('');
@@ -27,7 +25,7 @@ export default function SearchHeader() {
   const searchDebounce = useDebounce(search, 500);
 
   const { searchLogs, isLoadingSearchLogs } = useGetSearchLogs();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
   const { usersByName, isLoadingUsersByName } = useGetUsersByName(searchDebounce);
 
   const { mutateCreateSearchLog } = useCreateSearchLog();

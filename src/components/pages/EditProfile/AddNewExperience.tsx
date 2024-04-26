@@ -1,9 +1,7 @@
 import { InputStyle, LabelStyle } from '@/components/shared/InputStyle';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 import { DateRange } from 'react-day-picker';
-import { CircularProgress } from '@mui/material';
 
 import { DatePickerWithRange } from '@/components/ui/date-picker';
 import { Button } from '@/components/ui/button';
@@ -15,7 +13,6 @@ export interface IAddNewExperienceProps {
 
 export default function AddNewExperience({ handleClose }: IAddNewExperienceProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
 
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [endDate, setEndDate] = useState<Date | undefined>();

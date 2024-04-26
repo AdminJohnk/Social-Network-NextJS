@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useSession } from 'next-auth/react';
 import { CircularProgress } from '@mui/material';
 import { debounce } from 'lodash';
 
@@ -23,13 +22,11 @@ export default function MessageList({ conversationID, currentConversation, other
   const { messages, isLoadingMessages, fetchPreviousMessages, isFetchingPreviousPage, hasPreviousMessages } =
     useMessages(conversationID);
 
-  const { data: session } = useSession();
-
   const [seenRef, isSeen] = useInView({ threshold: 0 });
 
   const [topRef, isOnTop] = useInView({ threshold: 0 });
 
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const { activeMembers: members, chatSocket } = useSocketStore();
 

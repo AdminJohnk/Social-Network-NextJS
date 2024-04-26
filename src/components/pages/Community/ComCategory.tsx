@@ -3,9 +3,7 @@ import { Link } from '@/navigation';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 
-export interface IComCategoryProps {}
-
-export default function ComCategory(props: IComCategoryProps) {
+export default function ComCategory() {
   const t = useTranslations();
   return (
     <div>

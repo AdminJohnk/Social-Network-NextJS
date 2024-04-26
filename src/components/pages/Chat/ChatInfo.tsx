@@ -3,7 +3,6 @@
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { CircularProgress } from '@mui/material';
 import {
@@ -110,8 +109,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
   const router = useRouter();
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID);
 
@@ -450,7 +448,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   const listMembers = useCallback(() => {
     return (
       <div className='ml-1 mb-2 w-full flex flex-col items-center'>
-        <div className='listUser flex flex-col w-full pl-3' style={{ overflow: 'auto' }}>
+        <div className='listUser flex flex-col w-full pl-3 overflow-auto'>
           {currentConversation?.members.map((member) => {
             const isAdmin = currentConversation.admins.some((admin) => admin._id === member._id);
             const isCreator = currentConversation.creator === member._id;
@@ -526,7 +524,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   </button>
                   <div
                     className='min-w-[260px] !w-fit'
-                    data-uk-dropdown='pos: bottom-left; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                    data-uk-dropdown='pos: left-top; shift: false; flip: false; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click; offset:10'>
                     {memberOptions(member)}
                   </div>
                 </div>
@@ -762,7 +760,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 <li>
                   <div className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
                     <IoNotificationsOffOutline className='text-2xl' />
-                    {t('Mute Notification')}
+                    {t('Mute notifications')}
                     <label className='switch cursor-pointer ml-auto'>
                       <input type='checkbox' defaultChecked />
                       <span className='switch-button !relative'></span>
@@ -921,7 +919,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   <button
                     type='button'
                     className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-red-50 text-red-500'>
-                    <IoTrashOutline className='text-2xl' /> {t('Delete Chat')}
+                    <IoTrashOutline className='text-2xl' /> {t('Delete chat')}
                   </button>
                 </li>
               </ul>

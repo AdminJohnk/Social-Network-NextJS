@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { IoChatboxEllipsesOutline, IoSearchOutline } from 'react-icons/io5';
 import { CircularProgress } from '@mui/material';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
 
 import { useConversationsData, useCurrentUserInfo } from '@/hooks/query';
 import { useDebounce } from '@/hooks/special';
@@ -24,9 +23,7 @@ export default function MessagesHeader() {
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const searchDebounce = useDebounce(search, 500);
 
-  const { data: session } = useSession();
-
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
   const { conversations, isLoadingConversations } = useConversationsData();
 
   useEffect(() => {

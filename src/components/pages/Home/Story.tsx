@@ -9,7 +9,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { IoCamera } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 
-function SampleNextArrow(props: any) {
+function SampleNextArrow(props: React.ButtonHTMLAttributes<HTMLSpanElement>) {
   const { onClick } = props;
   return (
     <span
@@ -22,7 +22,7 @@ function SampleNextArrow(props: any) {
   );
 }
 
-function SamplePrevArrow(props: any) {
+function SamplePrevArrow(props: React.ButtonHTMLAttributes<HTMLSpanElement>) {
   const { onClick } = props;
   return (
     <span
@@ -35,9 +35,7 @@ function SamplePrevArrow(props: any) {
   );
 }
 
-export interface IStoryProps {}
-
-export default function Story(props: IStoryProps) {
+export default function Story() {
   var settings: Settings = {
     dots: false,
     infinite: false,

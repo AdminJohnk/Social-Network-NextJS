@@ -2,9 +2,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 
-export interface IRecentMediaProps {}
-
-export default function RecentMedia(props: IRecentMediaProps) {
+export default function RecentMedia() {
   const t = useTranslations();
   return (
     <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>

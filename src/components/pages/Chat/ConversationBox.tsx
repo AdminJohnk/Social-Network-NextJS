@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils';
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { Link } from '@/navigation';
-import { useSession } from 'next-auth/react';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import ContextMenuConversationBox from './ContextMenuConversationBox';
 
@@ -20,8 +19,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
   const t = useTranslations();
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
@@ -36,70 +34,6 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
     return conversation.members.find((member) => member._id !== currentUserInfo._id);
   }, [currentUserInfo, conversation?.members]);
-
-  // const items: MenuProps['items'] = [
-  //   {
-  //     label: isSeen ? 'Undo reading' : 'Mark as read',
-  //     style: { display: isLastMessageFromCurrentUser ? 'none' : 'block' },
-  //     key: '1',
-  //     icon: <FontAwesomeIcon icon={isSeen ? faReSquareCheck : faSquareCheck} />,
-  //     onClick: () => {
-  //       const emitType = isSeen ? Socket.UNSEEN_MSG : Socket.SEEN_MSG;
-  //       chatSocket.emit(emitType, { conversationID: conversation._id, userID: currentUserInfo._id });
-  //     }
-  //   },
-  //   {
-  //     label: 'Mute notifications',
-  //     key: '2',
-  //     icon: <FontAwesomeIcon icon={faBellSlash} />
-  //   },
-  //   {
-  //     label: 'View profile',
-  //     key: '4',
-  //     icon: <FontAwesomeIcon icon={faUser} />,
-  //     onClick: () => navigate(`/user/${otherUser._id}`),
-  //     style: { display: isGroup ? 'none' : 'block' }
-  //   },
-  //   { type: 'divider' },
-  //   {
-  //     label: 'Audio call',
-  //     key: '5',
-  //     icon: <FontAwesomeIcon icon={faPhone} />,
-  //     onClick: () => audioCall(conversation._id)
-  //   },
-  //   {
-  //     label: 'Video chat',
-  //     key: '6',
-  //     icon: <FontAwesomeIcon icon={faVideoCamera} />,
-  //     onClick: () => videoChat(conversation._id)
-  //   },
-  //   { type: 'divider' },
-  //   {
-  //     label: isGroup ? 'Leave group' : 'Delete chat',
-  //     danger: true,
-  //     key: '3',
-  //     onClick: () => {
-  //       mutateLeaveGroup(conversation._id);
-  //       const message = {
-  //         _id: uuidv4().replace(/-/g, ''),
-  //         conversation_id: conversation._id,
-  //         sender: {
-  //           _id: currentUserInfo._id,
-  //           user_image: currentUserInfo.user_image,
-  //           name: currentUserInfo.name
-  //         },
-  //         isSending: true,
-  //         type: 'notification',
-  //         content: 'left the group',
-  //
-  //       };
-
-  //       mutateSendMessage(message as unknown as IMessage);
-  //       chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: conversation._id, message });
-  //     },
-  //     icon: <FontAwesomeIcon icon={isGroup ? faRightFromBracket : faTrash} />
-  //   }
-  // ];
 
   const isOwn = useMemo(() => {
     return currentUserInfo._id === conversation.lastMessage?.sender?._id;
@@ -169,7 +103,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   }, [conversation.lastMessage]);
 
   return (
-    <ContextMenuConversationBox>
+    <ContextMenuConversationBox conversation={conversation}>
       <Link
         href={`/messages/${conversation._id}`}
         className='relative flex items-center gap-4 px-2 py-3 duration-200 rounded-xl hover:bg-hover-1'>

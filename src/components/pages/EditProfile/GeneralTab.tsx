@@ -1,7 +1,5 @@
 'use client';
 
-import { useCurrentUserInfo } from '@/hooks/query';
-import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { useUpdateUser } from '@/hooks/mutation';
 import { useMemo, useState } from 'react';
@@ -12,14 +10,14 @@ import { userGeneralTabSchema } from '@/lib/schema';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { useCurrentUserInfo } from '@/hooks/query';
 import { cn } from '@/lib/utils';
 
 type FormData = z.infer<typeof userGeneralTabSchema>;
 
 export default function GeneralTab() {
   const t = useTranslations();
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -65,7 +63,6 @@ export default function GeneralTab() {
         },
         onError() {
           showErrorToast('Something went wrong! Please try again.');
-        
         },
         onSettled() {
           setIsLoading(false);
@@ -90,11 +87,7 @@ export default function GeneralTab() {
               className='w-full rounded-lg bg-foreground-2 border-none'
               {...register('name')}
             />
-            {errors.name && (
-              <p className='p-1 text-xs text-red-600'>
-                {t(errors.name.message)}
-              </p>
-            )}
+            {errors.name && <p className='p-1 text-xs text-red-600'>{t(errors.name.message)}</p>}
           </div>
         </div>
 
@@ -110,11 +103,7 @@ export default function GeneralTab() {
               className='w-full rounded-lg bg-foreground-2 border-none'
               {...register('alias')}
             />
-            {errors.alias && (
-              <p className='p-1 text-xs text-red-600'>
-                {t(errors.alias.message)}
-              </p>
-            )}
+            {errors.alias && <p className='p-1 text-xs text-red-600'>{t(errors.alias.message)}</p>}
           </div>
         </div>
 
@@ -130,11 +119,7 @@ export default function GeneralTab() {
               placeholder='Write something about yourself...'
               {...register('about')}
             />
-            {errors.about && (
-              <p className='p-1 text-xs text-red-600'>
-                {t(errors.about.message)}
-              </p>
-            )}
+            {errors.about && <p className='p-1 text-xs text-red-600'>{t(errors.about.message)}</p>}
           </div>
         </div>
       </div>
@@ -145,11 +130,8 @@ export default function GeneralTab() {
             'button lg:px-6 text-white max-md:flex-1',
             (!isChanged || isLoading) && 'select-none'
           )}
-          disabled={!isChanged || isLoading}
-        >
-          {isLoading && (
-            <CircularProgress size={20} className='!text-text-1 mr-2' />
-          )}
+          disabled={!isChanged || isLoading}>
+          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
           {t('Save')} <span className='ripple-overlay'></span>
         </Button>
       </div>

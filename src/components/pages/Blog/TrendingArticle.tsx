@@ -1,9 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 
-export interface ITrendingArticleProps {}
-
-export default function TrendingArticle(props: ITrendingArticleProps) {
+export default function TrendingArticle() {
   const t = useTranslations();
   return (
     <div className='box p-5 px-6 bg-foreground-1'>

@@ -3,9 +3,7 @@ import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
-export interface IBlogSlideListProps {}
-
-export default function BlogSlideList(props: IBlogSlideListProps) {
+export default function BlogSlideList() {
   const t = useTranslations();
   return (
     <div data-uk-slider='finite:true'>

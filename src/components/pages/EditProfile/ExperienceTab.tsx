@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { MdDelete } from 'react-icons/md';
 import { BiSolidEdit } from 'react-icons/bi';
 import { FaBriefcase } from 'react-icons/fa';
@@ -12,11 +11,8 @@ import { IExperience } from '@/types';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import AddNewExperience from './AddNewExperience';
 
-export interface IExperienceTabProps {}
-
-export default function ExperienceTab(props: IExperienceTabProps) {
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+export default function ExperienceTab() {
+  const { currentUserInfo } = useCurrentUserInfo();
 
   // Modal
   const [open, setOpen] = useState(false);

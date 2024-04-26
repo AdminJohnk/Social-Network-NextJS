@@ -1,8 +1,6 @@
 import Image from 'next/image';
 
-export interface IBlogContentProps {}
-
-export default function BlogContent(props: IBlogContentProps) {
+export default function BlogContent() {
   return (
     <div className='box overflow-hidden bg-foreground-1'>
       <div className='relative h-80'>

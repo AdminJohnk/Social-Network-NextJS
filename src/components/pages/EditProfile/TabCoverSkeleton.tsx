@@ -1,9 +1,7 @@
 import Divider from '@/components/shared/Divider';
 import { Skeleton } from '@mui/material';
 
-export interface ITabCoverSkeletonProps {}
-
-export default function TabCoverSkeleton(props: ITabCoverSkeletonProps) {
+export default function TabCoverSkeleton() {
   return (
     <div className='post-skeleton bg-foreground-1 rounded-xl p-6'>
       <div className='flex-between'>

@@ -3,9 +3,7 @@ import { useRouter } from 'next/navigation';
 import { IoArrowBack } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 
-export interface IBackButtonProps {}
-
-export default function BackButton(props: IBackButtonProps) {
+export default function BackButton() {
   const t = useTranslations();
   const router = useRouter();
   return (

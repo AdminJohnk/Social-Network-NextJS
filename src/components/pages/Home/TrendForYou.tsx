@@ -2,9 +2,7 @@ import { FiRefreshCw } from 'react-icons/fi';
 import { FaHashtag } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
 
-export interface ITrendForYouProps {}
-
-export default function TrendForYou(props: ITrendForYouProps) {
+export default function TrendForYou() {
   const t = useTranslations();
 
   const TrendList = [

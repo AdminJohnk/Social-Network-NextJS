@@ -3,9 +3,7 @@ import { Link } from '@/navigation';
 import { IoIosAddCircle } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
 
-export interface IComSuggestionProps {}
-
-export default function ComSuggestion(props: IComSuggestionProps) {
+export default function ComSuggestion() {
   const t = useTranslations();
   return (
     <div>

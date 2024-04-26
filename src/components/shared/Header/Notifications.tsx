@@ -60,7 +60,7 @@ export default function NotificationsHeader() {
                 </Link>
                 <Link href=''>
                   <IoNotificationsOffOutline className='text-xl shrink-0' />
-                  {t('Mute Notification')}
+                  {t('Mute notifications')}
                 </Link>
               </nav>
             </div>

@@ -6,7 +6,6 @@ import { IPost } from '@/types';
 import { IFeaturePost } from '@/types';
 import { useDeletePost, useSavePost, useSharePost } from '@/hooks/mutation';
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -29,11 +28,9 @@ export interface IPostMoreChooseProps {
 
 export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreChooseProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
-  const userID = session?.id || '';
 
   const { mutateSavePost } = useSavePost();
-  const { mutateDeletePost } = useDeletePost(userID);
+  const { mutateDeletePost } = useDeletePost();
   const { mutateSharePost } = useSharePost();
 
   const [is_saved, setIsSaved] = useState(post.is_saved);
@@ -112,7 +109,9 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
             mutateSavePost(post._id);
           }}>
           <span className='text-2xl'>{is_saved ? <IoBookmark /> : <IoBookmarkOutline />}</span>
-          <span className='whitespace-nowrap'>{is_saved ? t('Remove From Favorite') : t('Add To Favorite')}</span>
+          <span className='whitespace-nowrap'>
+            {is_saved ? t('Remove From Favorite') : t('Add To Favorite')}
+          </span>
         </div>
         {isMyPost && (
           <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'>
