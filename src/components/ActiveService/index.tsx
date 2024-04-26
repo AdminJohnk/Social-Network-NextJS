@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import useSound from 'use-sound';
+import { useTranslations } from 'next-intl';
+import { v4 as uuidv4 } from 'uuid';
+import { FaPhone, FaVideo } from 'react-icons/fa6';
+import { useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
 
 import { useCurrentUserInfo, useGetAllUsersUsedToChatWith } from '@/hooks/query';
 import {
@@ -9,11 +15,17 @@ import {
   useReceiveDissolveGroup,
   useReceiveLeaveGroup,
   useReceiveMessage,
-  useReceiveSeenConversation
+  useReceiveSeenConversation,
+  useSendMessage
 } from '@/hooks/mutation';
 import { useSocketStore } from '@/store/socket';
-import { IConversation, IMessage } from '@/types';
+import { IConversation, IMessage, ISocketCall } from '@/types';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
+import { getImageURL } from '@/lib/utils';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { audioCall, videoChat } from '@/lib/utils/call';
+import { capitalizeFirstLetter } from '@/lib/utils/convertText';
 
 export const PresenceService = () => {
   const { currentUserInfo } = useCurrentUserInfo();
@@ -69,10 +81,15 @@ export const PresenceService = () => {
 };
 
 export const ChatService = () => {
+  const t = useTranslations();
   const { chatSocket } = useSocketStore();
+  const [soundCall, exposedSound] = useSound('/sounds/sound-noti-call.wav', { volume: 0.3 });
+
+  const queryClient = useQueryClient();
 
   const { currentUserInfo } = useCurrentUserInfo();
 
+  const { mutateSendMessage } = useSendMessage();
   const { mutateReceiveConversation } = useReceiveConversation();
   const { mutateReceiveLeaveGroup } = useReceiveLeaveGroup();
   const { mutateReceiveDissolveGroup } = useReceiveDissolveGroup();
@@ -80,12 +97,34 @@ export const ChatService = () => {
   const { mutateReceiveMessage } = useReceiveMessage(currentUserInfo._id);
   const { mutateConversation } = useMutateConversation(currentUserInfo._id || '');
 
-  useEffect(() => {
-    if (currentUserInfo && chatSocket) chatSocket.emit(Socket.SETUP, currentUserInfo._id);
-  }, [currentUserInfo, chatSocket]);
+  const [openCall, setOpenCall] = useState(false);
+  const [dataCall, setDataCall] = useState<ISocketCall>();
+  const [callType, setCallType] = useState<string>();
+  const [isMissed, setIsMissed] = useState(false);
+
+  const handleSendEndCall = useCallback((data: ISocketCall, type: string, status: string) => {
+    const message = {
+      _id: uuidv4().replace(/-/g, ''),
+      conversation_id: data?.conversation_id,
+      sender: {
+        _id: data?.author._id,
+        user_image: data?.author.user_image,
+        name: data?.author.name
+      },
+      isSending: true,
+      content: `${capitalizeFirstLetter(type)} call ${status}`,
+      type: type,
+      createdAt: new Date()
+    };
+
+    mutateSendMessage(message as unknown as IMessage);
+    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: data?.conversation_id, message });
+  }, []);
 
   useEffect(() => {
     if (currentUserInfo && chatSocket) {
+      chatSocket.emit(Socket.SETUP, currentUserInfo._id);
+
       chatSocket.on(Socket.PRIVATE_CONVERSATION, (conversation: IConversation) => {
         mutateReceiveConversation(conversation);
       });
@@ -122,6 +161,44 @@ export const ChatService = () => {
       chatSocket.on(Socket.DECOMMISSION_ADMIN, (conversation: IConversation) => {
         mutateConversation({ ...conversation, typeUpdate: 'remove_admin' });
       });
+      chatSocket.on(Socket.VIDEO_CALL, (data: ISocketCall) => {
+        soundCall();
+        setOpenCall(true);
+        setDataCall(data);
+        setCallType('video');
+        setIsMissed(false);
+      });
+      chatSocket.on(Socket.VOICE_CALL, (data: ISocketCall) => {
+        soundCall();
+        setOpenCall(true);
+        setDataCall(data);
+        setCallType('voice');
+        setIsMissed(false);
+      });
+      chatSocket.on(Socket.END_VIDEO_CALL, (data: ISocketCall) => {
+        queryClient.invalidateQueries({ queryKey: ['called'] });
+        if (openCall) {
+          exposedSound.stop();
+          setDataCall(data);
+          setCallType('video');
+          setIsMissed(true);
+        }
+      });
+      chatSocket.on(Socket.END_VOICE_CALL, (data: ISocketCall) => {
+        queryClient.invalidateQueries({ queryKey: ['called'] });
+        if (openCall) {
+          exposedSound.stop();
+          setDataCall(data);
+          setCallType('voice');
+          setIsMissed(true);
+        }
+      });
+      chatSocket.on(Socket.SEND_END_VIDEO_CALL, (data: ISocketCall) => {
+        handleSendEndCall(data, 'video', data?.type);
+      });
+      chatSocket.on(Socket.SEND_END_VOICE_CALL, (data: ISocketCall) => {
+        handleSendEndCall(data, 'voice', data?.type);
+      });
     }
 
     return () => {
@@ -138,9 +215,80 @@ export const ChatService = () => {
         chatSocket.off(Socket.REMOVE_MEMBER);
         chatSocket.off(Socket.COMMISSION_ADMIN);
         chatSocket.off(Socket.DECOMMISSION_ADMIN);
+        chatSocket.off(Socket.VIDEO_CALL);
+        chatSocket.off(Socket.VOICE_CALL);
+        chatSocket.off(Socket.END_VIDEO_CALL);
+        chatSocket.off(Socket.END_VOICE_CALL);
+        chatSocket.off(Socket.SEND_END_VIDEO_CALL);
+        chatSocket.off(Socket.SEND_END_VOICE_CALL);
       }
     };
   }, [currentUserInfo, chatSocket]);
 
-  return <></>;
+  return (
+    <Dialog open={openCall} onOpenChange={setOpenCall}>
+      <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+        <DialogHeader>
+          <DialogTitle>{callType === 'video' ? t('Video Call') : t('Voice Call')}</DialogTitle>
+        </DialogHeader>
+        {callType === 'video' ? <FaVideo className='text-2xl' /> : <FaPhone className='text-2xl' />}
+        <span className='text-sm font-medium text-left ml-2 select-none'>
+          {callType === 'video' ? t('Video Call') : t('Voice Call')}
+        </span>
+        <div className='flex flex-row items-center justify-center pt-4 pb-2'>
+          <Image
+            width={500}
+            height={500}
+            className='h-12 w-12 mr-3 rounded-full overflow-hidden'
+            src={getImageURL(dataCall?.user_image, 'avatar_mini')}
+            alt='avatar'
+          />
+          <div className='font-semibold text-lg'>
+            {isMissed ? (
+              <>
+                {callType === 'video' ? t('You missed a video call') : t('You missed a voice call')}&nbsp;
+                {dataCall?.typeofConversation === 'group'
+                  ? `${t('from')} ${dataCall?.conversation_name}`
+                  : `${t('from')} ${dataCall?.author.name}`}
+              </>
+            ) : (
+              <>
+                {dataCall?.author.name} {t('is calling')}&nbsp;
+                {dataCall?.typeofConversation === 'group'
+                  ? `${t('from')} ${dataCall?.conversation_name}`
+                  : t('you')}
+              </>
+            )}
+          </div>
+        </div>
+        <DialogFooter>
+          <Button
+            onClick={() => {
+              if (isMissed) setOpenCall(false);
+              else {
+                callType === 'video'
+                  ? chatSocket.emit(Socket.LEAVE_VIDEO_CALL, { ...dataCall, type: 'missed' })
+                  : chatSocket.emit(Socket.LEAVE_VOICE_CALL, { ...dataCall, type: 'missed' });
+                exposedSound.stop();
+                setOpenCall(false);
+              }
+            }}>
+            {isMissed ? t('Close') : t('Decline')}
+          </Button>
+          {!isMissed && (
+            <Button
+              onClick={() => {
+                callType === 'video'
+                  ? videoChat(dataCall!.conversation_id)
+                  : audioCall(dataCall!.conversation_id);
+                soundCall();
+                setOpenCall(false);
+              }}>
+              {t('Accept')}
+            </Button>
+          )}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
 };

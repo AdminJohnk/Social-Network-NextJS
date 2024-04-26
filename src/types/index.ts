@@ -15,6 +15,17 @@ export interface IUserLogin {
 
 export interface IGoogleLogin {
   email: string;
+  name: string;
+  givenName: string;
+  familyName: string;
+  imageUrl: string;
+}
+
+export interface IGithubLogin {
+  email: string;
+  name: string;
+  login: string;
+  avatar_url: string;
 }
 
 export interface IUserRegister extends IUserLogin {

@@ -8,6 +8,7 @@ import { Youtube } from '@tiptap/extension-youtube';
 import { EditorOptions, useEditor } from '@tiptap/react';
 import { Link } from '@tiptap/extension-link';
 import { Placeholder } from '@tiptap/extension-placeholder';
+import { useTranslations } from 'next-intl';
 import { Highlight } from '@tiptap/extension-highlight';
 import { lowlight } from 'lowlight';
 
@@ -37,6 +38,8 @@ export const useDebounce = <T>(value: T, delay: number): T => {
 };
 
 export const useCustomEditor = ({ content, extensions = [], ...props }: Partial<EditorOptions>) => {
+  const t = useTranslations();
+
   const editor = useEditor(
     {
       content,
@@ -46,7 +49,9 @@ export const useCustomEditor = ({ content, extensions = [], ...props }: Partial<
         }),
         Underline,
         Link,
-        Placeholder,
+        Placeholder.configure({
+          placeholder: t('What do you have in mind?')
+        }),
         Youtube.configure({
           width: 440,
           height: 300,

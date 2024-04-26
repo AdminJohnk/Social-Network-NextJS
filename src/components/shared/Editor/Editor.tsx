@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { Editor as EditorProps, EditorContent } from '@tiptap/react';
-import { Placeholder } from '@tiptap/extension-placeholder';
 import {
   MdFormatBold,
   MdFormatItalic,
@@ -271,9 +270,6 @@ interface EditorContentProps {
 
 export default function Editor({ setEditor }: EditorContentProps) {
   const t = useTranslations();
-  Placeholder.configure({
-    placeholder: t('What do you have in mind?')
-  });
 
   const editor = useCustomEditor({
     editable: true,
