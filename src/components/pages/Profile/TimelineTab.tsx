@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import { useInView } from 'react-intersection-observer';
 
 import NewPost from '@/components/shared/NewPost/NewPost';
@@ -22,10 +21,7 @@ export interface ITimelineTabProps {
 }
 
 export default function TimelineTab({ profileID }: ITimelineTabProps) {
-  const { data: session } = useSession();
   const [postsRef, inPostsView] = useInView({ threshold: 0 });
-
-  const userID = session?.id || '';
 
   const {
     isLoadingUserPosts,
@@ -34,9 +30,6 @@ export default function TimelineTab({ profileID }: ITimelineTabProps) {
     hasNextUserPosts,
     fetchNextUserPosts
   } = useUserPostsData(profileID);
-
-  const { currentUserInfo } = useCurrentUserInfo(userID);
-  const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
 
   useEffect(() => {
     if (inPostsView && hasNextUserPosts && !isFetchingNextUserPosts) {
@@ -49,10 +42,14 @@ export default function TimelineTab({ profileID }: ITimelineTabProps) {
     fetchNextUserPosts
   ]);
 
+  useEffect(() => {
+    UIkit.sticky('#profile-side')?.$emit('update');
+  }, [userPosts]);
+
   return (
     <div
       className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse'
-      id='profile-side'
+      id='profile-posts'
     >
       <div className='flex-1 xl:space-y-6 space-y-3'>
         <NewPost profileID={profileID} />
@@ -84,8 +81,9 @@ export default function TimelineTab({ profileID }: ITimelineTabProps) {
           <SideSkeleton />
         ) : (
           <div
+            id='profile-side'
             className='lg:space-y-6 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-            data-uk-sticky='media: 1024; end: #profile-side; offset: 80'
+            data-uk-sticky='media: 1024; end: #profile-posts; offset: 130'
           >
             <Intro profileID={profileID} />
 

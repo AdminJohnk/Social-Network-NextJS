@@ -4,13 +4,13 @@ import { Children } from 'react';
 import Slider from 'react-slick';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
 
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { cn } from '@/lib/utils';
+import { Link } from '@/navigation';
 
-function SampleNextArrow(props: React.ButtonHTMLAttributes<HTMLDivElement>) {
+function SampleNextArrow(props: React.ButtonHTMLAttributes<HTMLSpanElement>) {
   const { onClick } = props;
   return (
     <span
@@ -23,7 +23,7 @@ function SampleNextArrow(props: React.ButtonHTMLAttributes<HTMLDivElement>) {
   );
 }
 
-function SamplePrevArrow(props: React.ButtonHTMLAttributes<HTMLDivElement>) {
+function SamplePrevArrow(props: React.ButtonHTMLAttributes<HTMLSpanElement>) {
   const { onClick } = props;
   return (
     <span
@@ -38,8 +38,8 @@ var settings = {
   dots: false,
   infinite: false,
   speed: 500,
-  slidesToShow: 5,
-  slidesToScroll: 5,
+  slidesToShow: 10,
+  slidesToScroll: 2,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />
 };
@@ -47,9 +47,7 @@ var settings = {
 export default function OnlineFriend() {
   const t = useTranslations();
 
-  const { data: session } = useSession();
-
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
 
   return (
     <div className='online-friend px-5 py-4 bg-foreground-1 rounded-lg'>
@@ -61,9 +59,12 @@ export default function OnlineFriend() {
           {Children.toArray(
             currentUserInfo.friends.map((friend) => {
               return (
-                <div className='p-1 cursor-pointer'>
+                <Link
+                  href={`/profile/${friend._id}`}
+                  className='p-1 cursor-pointer'
+                  data-uk-tooltip={`title: ${friend.name}; pos: top; delay: 200; offset: 6`}>
                   <AvatarMessage user={friend} />
-                </div>
+                </Link>
               );
             })
           )}

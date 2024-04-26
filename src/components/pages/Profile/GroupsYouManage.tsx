@@ -2,9 +2,7 @@ import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-export interface IGroupsYouManageProps {}
-
-export default function GroupsYouManage(props: IGroupsYouManageProps) {
+export default function GroupsYouManage() {
   const t = useTranslations();
 
   return (

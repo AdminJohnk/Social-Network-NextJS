@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { IoChatboxEllipsesOutline, IoSearchOutline } from 'react-icons/io5';
 import { CircularProgress } from '@mui/material';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
 
 import { useConversationsData, useCurrentUserInfo } from '@/hooks/query';
 import { useDebounce } from '@/hooks/special';
@@ -24,9 +23,7 @@ export default function MessagesHeader() {
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const searchDebounce = useDebounce(search, 500);
 
-  const { data: session } = useSession();
-
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
   const { conversations, isLoadingConversations } = useConversationsData();
 
   useEffect(() => {
@@ -213,15 +210,12 @@ export default function MessagesHeader() {
                     </div>
                     <div className='flex-1 min-w-0'>
                       <div className='flex items-center gap-2 mb-1'>
-                        <div className='mr-auto text-sm text-black dark:text-white font-medium'>
+                        <div className='mr-auto text-sm text-black dark:text-white font-medium line-clamp-1'>
                           {isGroup ? conversation.name : otherUser?.name}
                         </div>
                         {conversation.lastMessage && (
                           <div className='text-xs text-gray-500 dark:text-white/80'>
-                            {format.relativeTime(
-                              conversation.lastMessage.createdAt as unknown as Date,
-                              new Date()
-                            )}
+                            {format.relativeTime(new Date(conversation.lastMessage.createdAt), new Date())}
                           </div>
                         )}
                         <div

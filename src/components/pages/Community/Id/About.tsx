@@ -1,9 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 
-export interface IAboutProps {}
-
-export default function About(props: IAboutProps) {
+export default function About() {
   const t = useTranslations();
   return (
     <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>

@@ -1,13 +1,11 @@
 'use client';
 
 import { TabTitle, Tabs } from '@/components/ui/tabs';
-import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
-import { getImageURL } from '@/lib/utils';
-import { useSession } from 'next-auth/react';
+import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/navigation';
-import { FaCheckCircle, FaPencilAlt, FaCheck } from 'react-icons/fa';
+import { FaCheckCircle, FaPencilAlt } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 import {
   IoAddCircle,
@@ -16,12 +14,11 @@ import {
   IoChevronDown,
   IoEllipsisHorizontal,
   IoFlagOutline,
-  IoSearch,
   IoShareOutline,
   IoStopCircleOutline,
   IoVideocamOutline
 } from 'react-icons/io5';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   useAcceptFriendUser,
@@ -33,6 +30,7 @@ import {
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { CircularProgress } from '@mui/material';
 import { MdCancel } from 'react-icons/md';
+import { getImageURL } from '@/lib/utils';
 
 export interface ICoverProps {
   profileID: string;
@@ -40,11 +38,11 @@ export interface ICoverProps {
 
 export default function Cover({ profileID }: ICoverProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
+  const { userPosts } = useUserPostsData(profileID);
 
-  const isMe = session?.id === profileID;
+  const isMe = currentUserInfo._id === profileID;
 
   const { mutateAddFriendUser } = useAddFriendUser();
 
@@ -74,6 +72,10 @@ export default function Cover({ profileID }: ICoverProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  useEffect(() => {
+    UIkit.sticky('#profile-tabs')?.$emit('update');
+  }, [userPosts]);
+
   return (
     <>
       {isLoadingOtherUserInfo ? (
@@ -88,7 +90,7 @@ export default function Cover({ profileID }: ICoverProps) {
               alt=''
               className='h-full w-full object-cover inset-0'
             />
-            <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10'></div>
+            <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10' />
 
             {isMe && (
               <div className='absolute bottom-0 right-0 m-4 z-20'>
@@ -127,20 +129,23 @@ export default function Cover({ profileID }: ICoverProps) {
             </div>
           </div>
           <div
+            id='profile-tabs'
             className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'
-            data-uk-sticky='offset:50; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl  animation:uk-animation-slide-top ; media: 992'>
+            data-uk-sticky='offset:50; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl animation:uk-animation-slide-top ; media: 992'>
             <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
               {isMe && (
-                <button className='button bg-foreground-2 hover:bg-hover-2 text-white py-2 px-3.5 max-md:flex-1'>
+                <Button
+                  variant='main'
+                  className='button bg-foreground-2 hover:bg-hover-2 text-text-1 py-2 px-3.5 max-md:flex-1'>
                   <Link href={'/edit-profile'} className='flex items-center gap-2'>
                     <FaPencilAlt className='text-lg' />
                     <span className='text-sm'> {t('Edit Profile')} </span>
                   </Link>
-                </button>
+                </Button>
               )}
               {!isFriend && !sentRequest && !receivedRequest && !isMe && (
                 <Button
-                  variant={'main'}
+                  variant='main'
                   preIcon={
                     isLoading ? (
                       <CircularProgress size={17} className='!text-text-1' />
@@ -161,7 +166,7 @@ export default function Cover({ profileID }: ICoverProps) {
               )}
               {sentRequest && !isMe && (
                 <Button
-                  variant={'main'}
+                  variant='main'
                   preIcon={
                     isLoading ? (
                       <CircularProgress size={17} className='!text-text-1' />
@@ -183,7 +188,7 @@ export default function Cover({ profileID }: ICoverProps) {
               {receivedRequest && !isMe && (
                 <div>
                   <Button
-                    variant={'main'}
+                    variant='main'
                     preIcon={
                       isLoading ? (
                         <CircularProgress size={17} className='!text-text-1' />
@@ -228,7 +233,7 @@ export default function Cover({ profileID }: ICoverProps) {
               {isFriend && !isMe && (
                 <div>
                   <Button
-                    variant={'main'}
+                    variant='main'
                     preIcon={
                       isLoading ? (
                         <CircularProgress size={17} className='!text-text-1' />
@@ -259,16 +264,12 @@ export default function Cover({ profileID }: ICoverProps) {
                 </div>
               )}
 
-              <button type='submit' className='rounded-lg bg-foreground-2 flex px-2.5 py-2 hover:bg-hover-2'>
-                <IoSearch className='text-xl' />
-              </button>
-
               <div>
-                <button
-                  type='submit'
+                <Button
+                  variant='main'
                   className='rounded-lg bg-foreground-2 hover:bg-hover-2 flex px-2.5 py-2'>
                   <IoEllipsisHorizontal className='text-xl' />
-                </button>
+                </Button>
                 <div
                   className='w-[240px] !bg-foreground-1 hidden'
                   data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>

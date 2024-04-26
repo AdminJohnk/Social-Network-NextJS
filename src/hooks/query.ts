@@ -3,9 +3,9 @@ import {
   useInfiniteQuery,
   useQuery,
   useQueryClient,
-  QueryCache,
-  infiniteQueryOptions
+  QueryCache
 } from '@tanstack/react-query';
+import { getSession } from 'next-auth/react';
 
 import { IMessage } from '@/types';
 import { userService } from '@/services/UserService';
@@ -14,7 +14,6 @@ import { postService } from '@/services/PostService';
 import { messageService } from '@/services/MessageService';
 import { communityService } from '@/services/CommunityService';
 import { searchLogService } from '@/services/SearchLogService';
-import { GITHUB_TOKEN } from '@/lib/utils/constants/SettingSystem';
 import { ApplyDefaults } from '@/lib/utils';
 
 export const queryCache = new QueryCache();
@@ -30,16 +29,18 @@ export const queryCache = new QueryCache();
  * - `currentUserInfo` is an object that contains information about the current user.
  * - `isFetchingCurrentUserInfo` is a boolean that indicates whether the query is currently fetching.
  */
-export const useCurrentUserInfo = (userID: string) => {
+export const useCurrentUserInfo = () => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['currentUserInfo'],
     queryFn: async () => {
+      const session = await getSession();
+
       const [{ data: Friends }, { data: RequestSent }, { data: requestReceived }, { data: userInfo }] =
         await Promise.all([
-          userService.getFriends(userID),
-          userService.getRequestSent(userID),
-          userService.getRequestReceived(userID),
-          userService.getUserInfoByID(userID)
+          userService.getFriends(session?.id || ''),
+          userService.getRequestSent(session?.id || ''),
+          userService.getRequestReceived(session?.id || ''),
+          userService.getUserInfoByID(session?.id || '')
         ]);
       userInfo.metadata.friends = Friends.metadata;
       userInfo.metadata.requestSent = RequestSent.metadata;
@@ -47,8 +48,7 @@ export const useCurrentUserInfo = (userID: string) => {
       userInfo.metadata.friend_number = Friends.metadata.length;
       return ApplyDefaults(userInfo.metadata);
     },
-    staleTime: Infinity,
-    enabled: !!userID
+    staleTime: Infinity
   });
 
   return {
@@ -465,6 +465,10 @@ export const useCurrentConversationData = (conversationID: string | undefined) =
     queryFn: async () => {
       await queryClient.prefetchInfiniteQuery({
         queryKey: ['messages', conversationID],
+        queryFn: async ({ pageParam }) => {
+          const { data } = await messageService.getMessages(conversationID!, pageParam);
+          return data.metadata;
+        },
         initialPageParam: 1
       });
       const { data } = await messageService.getConversation(conversationID!);
@@ -720,32 +724,6 @@ export const useGetCommunityByID = (id: string) => {
   };
 };
 
-export const useMessagesOption = (conversationID: string) =>
-  infiniteQueryOptions({
-    queryKey: ['messages', conversationID],
-    queryFn: async ({ pageParam }) => {
-      const { data } = await messageService.getMessages(conversationID, pageParam);
-      return data.metadata;
-    },
-    initialPageParam: 1,
-    getPreviousPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage.length < 30) {
-        return undefined;
-      }
-      return lastPageParam + 1;
-    },
-    getNextPageParam: (_, __, firstPageParam) => {
-      if (firstPageParam <= 1) {
-        return undefined;
-      }
-      return firstPageParam - 1;
-    },
-    select: (data) => {
-      return data.pages.flat();
-    },
-    staleTime: Infinity
-  });
-
 export const useGetNoti = (userID: number) => {
   const { data, isPending, isError, isFetching } = useInfiniteQuery({
     queryKey: ['noti', userID],
@@ -871,4 +849,4 @@ export const useGetAllImages = (userID: string) => {
     allImages: data!,
     isFetchingAllImages: isFetching
   };
-}
+};

@@ -13,13 +13,11 @@ import RepositoryItem from '@/components/shared/Repository/Repository';
 import AddNewRepository from './AddNewRepository';
 import { BiSolidEdit } from 'react-icons/bi';
 
-export interface IRepositoryTabProps {}
-
-export default function RepositoryTab(props: IRepositoryTabProps) {
+export default function RepositoryTab() {
   const t = useTranslations();
   const searchParams = useSearchParams();
   const { data: session, update } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
   const router = useRouter();
   const routerNext = useRouterNext();
 

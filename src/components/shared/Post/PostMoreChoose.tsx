@@ -6,7 +6,6 @@ import { IPost } from '@/types';
 import { IFeaturePost } from '@/types';
 import { useDeletePost, useSavePost, useSharePost } from '@/hooks/mutation';
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -29,11 +28,9 @@ export interface IPostMoreChooseProps {
 
 export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreChooseProps) {
   const t = useTranslations();
-  const { data: session } = useSession();
-  const userID = session?.id || '';
 
   const { mutateSavePost } = useSavePost();
-  const { mutateDeletePost } = useDeletePost(userID);
+  const { mutateDeletePost } = useDeletePost();
   const { mutateSharePost } = useSharePost();
 
   const [is_saved, setIsSaved] = useState(post.is_saved);
@@ -86,7 +83,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
   };
 
   return (
-    <div className='post-more-choose w-56 bg-foreground-1 border border-border-1 rounded-lg text-text-1 p-2'>
+    <div className='post-more-choose w-fit bg-foreground-1 border border-border-1 rounded-lg text-text-1 p-2'>
       {/* Open Post In New Tab */}
       <div>
         {feature === 'detail' ? (
@@ -101,25 +98,27 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
             <span className='text-2xl'>
               <IoOpenOutline />
             </span>
-            <span>{t('Open Post In New Tab')}</span>
+            <span className='whitespace-nowrap'>{t('Open Post In New Tab')}</span>
           </div>
         )}
         {/* Add To Favorite */}
         <div
-          className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
+          className='flex w-fit gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
           onClick={() => {
             setIsSaved(!is_saved);
             mutateSavePost(post._id);
           }}>
           <span className='text-2xl'>{is_saved ? <IoBookmark /> : <IoBookmarkOutline />}</span>
-          <span>{is_saved ? t('Remove From Favorite') : t('Add To Favorite')}</span>
+          <span className='whitespace-nowrap'>
+            {is_saved ? t('Remove From Favorite') : t('Add To Favorite')}
+          </span>
         </div>
         {isMyPost && (
           <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'>
             <span className='text-2xl'>
               <FiEdit />
             </span>
-            <span>{t('Edit Post')}</span>
+            <span className='whitespace-nowrap'>{t('Edit Post')}</span>
           </div>
         )}
         {/* Report This Post */}
@@ -127,7 +126,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
           <span className='text-2xl'>
             <CiFlag1 />
           </span>
-          <span>{t('Report This Post')}</span>
+          <span className='whitespace-nowrap'>{t('Report This Post')}</span>
         </div>
         {/* Delete Post */}
         {isMyPost && (

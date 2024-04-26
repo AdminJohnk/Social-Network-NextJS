@@ -10,12 +10,9 @@ export const withAuthentication: MiddlewareFactory =
     return withAuth(
       async function middleware(req) {
         const token = await getToken({ req });
-        const isAuth = !!token && token.access_token_expiry > Date.now() - 600000;
+        const isAuth = !!token && token.access_token_expiry > Date.now() + 600000;
 
         const locale = LIST_LANGUAGE.map((lang) => lang).join('|');
-
-        // const isAuthPage =
-        //   req.nextUrl.pathname.startsWith('/login') || req.nextUrl.pathname.startsWith('/register');
 
         const isAuthPage = req.nextUrl.pathname.match(new RegExp(`\/((${locale})\/)?(login|register)`));
 

@@ -2,10 +2,9 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Link, useRouter } from '@/navigation';
+import { useRouter } from '@/navigation';
 import { IoClose, IoSearch, IoSearchOutline, IoTrash } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { CircularProgress } from '@mui/material';
 
@@ -13,13 +12,11 @@ import { useCurrentUserInfo, useGetSearchLogs, useGetUsersByName } from '@/hooks
 import { useCreateSearchLog, useDeleteSearchLog } from '@/hooks/mutation';
 import { useDebounce } from '@/hooks/special';
 import { IUserInfo } from '@/types';
-import { CgTrashEmpty } from 'react-icons/cg';
 import { getImageURL } from '@/lib/utils';
 
 export default function SearchHeader() {
   const t = useTranslations();
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
   const router = useRouter();
 
   const [search, setSearch] = useState('');
@@ -28,8 +25,8 @@ export default function SearchHeader() {
   const searchDebounce = useDebounce(search, 500);
 
   const { searchLogs, isLoadingSearchLogs } = useGetSearchLogs();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
-  const { usersByName } = useGetUsersByName(searchDebounce);
+  const { currentUserInfo } = useCurrentUserInfo();
+  const { usersByName, isLoadingUsersByName } = useGetUsersByName(searchDebounce);
 
   const { mutateCreateSearchLog } = useCreateSearchLog();
   const { mutateDeleteSearchLog, isLoadingDeleteSearchLog } = useDeleteSearchLog();
@@ -65,7 +62,7 @@ export default function SearchHeader() {
       user: currentUserInfo._id,
       keyword: search.trim()
     }).then(() => {
-      queryClient.resetQueries({ queryKey: ['searchLogs'] });
+      queryClient.refetchQueries({ queryKey: ['searchLogs'] });
     });
     router.push(`/search/top?search=${search}`);
   };
@@ -161,24 +158,34 @@ export default function SearchHeader() {
                 <div className='text-black dark:text-white'>{t('Search')}</div>
               </div>
               <nav className='text-sm font-medium'>
-                {users.map((user) => (
-                  <div
-                    key={user._id}
-                    className='relative px-3 py-1.5 cursor-pointer flex items-center gap-4 hover:bg-hover-1 rounded-lg'
-                    onClick={(e) => handleShowUserProfile(e, user._id)}>
-                    <Image
-                      src={getImageURL(user.user_image, 'avatar')}
-                      className='w-9 h-9 rounded-full'
-                      alt=''
-                      width={50}
-                      height={50}
-                    />
-                    <div>
-                      <div>{user.name}</div>
-                      <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
-                    </div>
+                {isLoadingUsersByName ? (
+                  <div className='flex-center w-full h-full p-5'>
+                    <CircularProgress size={20} className='!text-text-1' />
                   </div>
-                ))}
+                ) : users.length === 0 ? (
+                  <div className='flex-center w-full h-full p-5'>
+                    {t('Cannot find anyone named')} "{searchDebounce}"
+                  </div>
+                ) : (
+                  users.map((user) => (
+                    <div
+                      key={user._id}
+                      className='relative px-3 py-1.5 cursor-pointer flex items-center gap-4 hover:bg-hover-1 rounded-lg'
+                      onClick={(e) => handleShowUserProfile(e, user._id)}>
+                      <Image
+                        src={getImageURL(user.user_image, 'avatar')}
+                        className='w-9 h-9 rounded-full'
+                        alt=''
+                        width={50}
+                        height={50}
+                      />
+                      <div>
+                        <div>{user.name}</div>
+                        <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
+                      </div>
+                    </div>
+                  ))
+                )}
               </nav>
               <div
                 className='flex gap-1.5 mt-2 items-center cursor-pointer p-2 hover:bg-hover-1 rounded-lg'
@@ -186,7 +193,9 @@ export default function SearchHeader() {
                 <div className='avatar relative'>
                   <IoSearchOutline className='text-xl' />
                 </div>
-                <div className='name text-center ml-2'>Search for "{searchDebounce}"</div>
+                <div className='name text-center ml-2'>
+                  {t('Search for')} "{searchDebounce}"
+                </div>
               </div>
             </>
           )}

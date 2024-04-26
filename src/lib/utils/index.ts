@@ -97,6 +97,7 @@ export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(obj: T): T 
       },
       title: '',
       content: '',
+      content_share: '',
       images: [],
       url: undefined,
       post: undefined,

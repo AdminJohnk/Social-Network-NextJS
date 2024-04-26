@@ -2,8 +2,8 @@
 
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { IoChevronBackOutline } from 'react-icons/io5';
-import { useSession } from 'next-auth/react';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
+import { isThisWeek, isThisYear } from 'date-fns';
 
 import { useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
@@ -23,10 +23,40 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
   const now = useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
 
+  const handleDateTime = useCallback((date: string) => {
+    const messageDate = new Date(date).getTime();
+
+    // check if this week
+    if (isThisWeek(messageDate, { weekStartsOn: 1 })) {
+      return format.relativeTime(new Date(date), new Date());
+    }
+
+    // check if this year
+    if (isThisYear(messageDate)) {
+      return (
+        format.dateTime(new Date(date), {
+          month: 'long',
+          day: 'numeric'
+        }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }
+
+    return (
+      format.dateTime(new Date(date), {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }) +
+      ' • ' +
+      format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+    );
+  }, []);
+
   const { currentConversation, isFetchingCurrentConversation } = useCurrentConversationData(conversationID);
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const { activeMembers: members } = useSocketStore();
 
@@ -52,9 +82,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
       const lastOnline =
         !activeUser?.first_online || !activeUser ? otherUser.last_online : activeUser.last_online;
 
-      return activeUser?.is_online
-        ? t('Online')
-        : t('Last seen at') + ' ' + format.relativeTime(lastOnline as unknown as Date, new Date());
+      return activeUser?.is_online ? t('Online') : t('Last seen at') + ' ' + handleDateTime(lastOnline);
     }
   }, [currentConversation, activeUser, members, currentUserInfo, now, otherUser]);
 

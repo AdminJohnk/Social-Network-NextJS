@@ -1,9 +1,7 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-export interface ISuggestGroupProps {}
-
-export default function SuggestGroup(props: ISuggestGroupProps) {
+export default function SuggestGroup() {
   const t = useTranslations();
   const generateItems = () => {
     const items = [];
@@ -20,14 +18,10 @@ export default function SuggestGroup(props: ISuggestGroupProps) {
             />
             <div>
               <div className='base-semibold'>{t('Abstract minimal')}</div>
-              <div className='small-regular text-text-2'>
-                218 {t('Members')}
-              </div>
+              <div className='small-regular text-text-2'>218 {t('Members')}</div>
             </div>
           </div>
-          <button className='px-6 py-2 bg-foreground-2 hover:bg-hover-2 rounded-lg duration-300'>
-            Join
-          </button>
+          <button className='px-6 py-2 bg-foreground-2 hover:bg-hover-2 rounded-lg duration-300'>Join</button>
         </div>
       );
     }

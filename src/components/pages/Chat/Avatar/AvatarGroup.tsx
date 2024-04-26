@@ -1,9 +1,9 @@
+import Image from 'next/image';
+
 import { useCurrentUserInfo } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
 import { useSocketStore } from '@/store/socket';
 import { IUserInfo } from '@/types';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 
 interface IAvatarGroup {
   users: IUserInfo[];
@@ -14,8 +14,8 @@ interface IAvatarGroup {
 
 const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview = false }) => {
   const { activeMembers: members } = useSocketStore();
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const slicedUsers = users.length > 3 ? users.slice(0, 4) : users.slice(0, 3);
   const isActive =
@@ -55,14 +55,11 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
           <Image
             width={500}
             height={500}
-            src={getImageURL(image, 'avatar_mini')!}
+            src={getImageURL(image, 'avatar')!}
             alt='Avatar'
             referrerPolicy='no-referrer'
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
+            className='w-full h-full object-cover'
+            priority
           />
         </div>
       ) : (
@@ -72,14 +69,14 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
             className={cn('absolute inline-block rounded-full overflow-hidden', positionMap[index])}
             style={{ width: size / 2, height: size / 2 }}>
             {index < 4 ? (
-              <img
-                src={getImageURL(user.user_image, 'avatar_mini')}
+              <Image
+                width={500}
+                height={500}
+                src={getImageURL(user.user_image, 'avatar')}
                 alt='Avatar'
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }}
+                referrerPolicy='no-referrer'
+                className='w-full h-full object-cover'
+                priority
               />
             ) : (
               <span className='flex flex-row items-center justify-center w-full h-full bg-foreground-2'>

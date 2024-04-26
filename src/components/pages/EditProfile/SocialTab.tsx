@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
-import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 import * as z from 'zod';
@@ -16,12 +15,9 @@ import { useUpdateUser } from '@/hooks/mutation';
 
 type FormData = z.infer<typeof userSocialTabSchema>;
 
-export interface ISocialTabProps {}
-
-export default function SocialTab(props: ISocialTabProps) {
+export default function SocialTab() {
   const t = useTranslations();
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const {
     register,

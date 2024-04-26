@@ -1,15 +1,15 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useCallback, useMemo } from 'react';
 import { Anchorme, LinkComponentProps } from 'react-anchorme';
-import { getDateTime } from '@/lib/descriptions/formatDateTime';
-import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
-import { IMessage, IUserInfo, TypeofConversation } from '@/types';
 import Image from 'next/image';
-import { useCurrentUserInfo } from '@/hooks/query';
-import { useSession } from 'next-auth/react';
 import { FaCrown, FaShieldHalved } from 'react-icons/fa6';
 import { ImageList, ImageListItem } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { useFormatter, useNow, useTranslations } from 'next-intl';
+import { isThisWeek, isThisYear, isToday } from 'date-fns';
+
+import { cn, getImageURL } from '@/lib/utils';
+import { IMessage, IUserInfo, TypeofConversation } from '@/types';
+import { useCurrentUserInfo } from '@/hooks/query';
 
 export interface IMessageBoxProps {
   message: IMessage;
@@ -30,14 +30,55 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     ref
   ) => {
     const t = useTranslations();
-    const { data: session } = useSession();
+    useNow({ updateInterval: 1000 * 30 });
+    const format = useFormatter();
 
-    const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+    const { currentUserInfo } = useCurrentUserInfo();
 
-    const handleFirstName = (name: string) => {
+    const handleFirstName = useCallback((name: string) => {
       const arr = name.split(' ');
       return arr[arr.length - 1];
-    };
+    }, []);
+
+    const handleDateTime = useCallback((date: string) => {
+      const messageDate = new Date(date).getTime();
+
+      // check if today
+      if (isToday(messageDate)) {
+        return format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true });
+      }
+
+      // check if this week
+      if (isThisWeek(messageDate, { weekStartsOn: 1 })) {
+        return (
+          format.dateTime(new Date(date), { weekday: 'long' }) +
+          ' • ' +
+          format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+        );
+      }
+
+      // check if this year
+      if (isThisYear(messageDate)) {
+        return (
+          format.dateTime(new Date(date), {
+            month: 'long',
+            day: 'numeric'
+          }) +
+          ' • ' +
+          format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+        );
+      }
+
+      return (
+        format.dateTime(new Date(date), {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }) +
+        ' • ' +
+        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      );
+    }, []);
 
     const seenList = useMemo(() => {
       return seen.filter((user) => user._id !== message.sender._id).map((user) => user.user_image);
@@ -49,7 +90,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       if (message.content.includes('missed')) {
         return 'missed';
       }
-      if (senderId === (session?.id as string)) {
+      if (senderId === currentUserInfo._id) {
         return 'outgoing';
       }
       return 'incoming';
@@ -110,14 +151,18 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       }
     };
 
-    const containerStyle = cn(
-      isNextMesGroup && isPrevMesGroup && 'py-[1px]',
-      isNextMesGroup && !isPrevMesGroup && 'pt-1 pb-[1px]',
-      !isNextMesGroup && isPrevMesGroup && 'pt-[1px] pb-1',
-      !isNextMesGroup && !isPrevMesGroup && 'py-1'
+    const containerStyle = useMemo(
+      () =>
+        cn(
+          isNextMesGroup && isPrevMesGroup && 'py-[1px]',
+          isNextMesGroup && !isPrevMesGroup && 'pt-1 pb-[1px]',
+          !isNextMesGroup && isPrevMesGroup && 'pt-[1px] pb-1',
+          !isNextMesGroup && !isPrevMesGroup && 'py-1'
+        ),
+      [isNextMesGroup, isPrevMesGroup]
     );
 
-    const roundedCornerStyle = (isNextMesGroup: boolean, isPrevMesGroup: boolean) => {
+    const roundedCornerStyle = useCallback(() => {
       if (isOwn) {
         if (isNextMesGroup && isPrevMesGroup) return 'rounded-s-[1.5rem] rounded-e-[0.75rem]';
         if (isNextMesGroup && !isPrevMesGroup)
@@ -133,7 +178,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           return 'rounded-b-[1.5rem] rounded-tr-[1.5rem] rounded-tl-[0.75rem]';
         if (!isNextMesGroup && !isPrevMesGroup) return 'rounded-[1.5rem]';
       }
-    };
+    }, [isNextMesGroup, isPrevMesGroup, isOwn]);
 
     const checkContentType = (content: string) => {
       if (content === '❤️') {
@@ -215,10 +260,13 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               )}
               <div
                 className={cn(
-                  'max-w-2xl',
-                  roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
+                  'max-w-2xl whitespace-pre-wrap',
+                  roundedCornerStyle(),
                   checkContentType(content) === 'emoji' ? 'text-4xl' : 'px-4 py-2 bg-foreground-2'
-                )}>
+                )}
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
+                  isOwn ? 'left' : 'right'
+                }; delay: 200;offset:6`}>
                 <Anchorme
                   linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
                   truncate={30}
@@ -239,12 +287,15 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div className='flex gap-2 flex-row-reverse items-end'>
             <div
               className={cn(
-                'max-w-2xl',
-                roundedCornerStyle(isNextMesGroup, isPrevMesGroup),
+                'max-w-2xl whitespace-pre-wrap',
+                roundedCornerStyle(),
                 checkContentType(content) === 'emoji'
                   ? 'text-4xl'
                   : 'px-4 py-2 bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
-              )}>
+              )}
+              data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
+                isOwn ? 'left' : 'right'
+              }; delay: 200;offset:6`}>
               <Anchorme
                 linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
                 truncate={30}
@@ -287,7 +338,11 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   </Link>
                 </div>
               )}
-              <div className={cn('max-w-sm', roundedCornerStyle(isNextMesGroup, isPrevMesGroup))}>
+              <div
+                className={cn('max-w-sm', roundedCornerStyle())}
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
+                  isOwn ? 'left' : 'right'
+                }; delay: 200;offset:6`}>
                 {content.length > 1 ? (
                   <ImageList
                     sx={{ width: content.length == 2 ? 326 : 490, height: 'auto' }}
@@ -384,14 +439,17 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               <div
                 className={cn(
                   'flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
-                  roundedCornerStyle(isNextMesGroup, isPrevMesGroup)
-                )}>
+                  roundedCornerStyle()
+                )}
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
+                  isOwn ? 'left' : 'right'
+                }; delay: 200;offset:6`}>
                 <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
                   {notification[message.type][stateCalled(message.sender._id)]}
                 </div>
                 <div className='flex flex-col mx-2'>
                   <div>{message.content}</div>
-                  <div> {getDateTime(message.createdAt)}</div>
+                  <div> {handleDateTime(message.createdAt)}</div>
                 </div>
               </div>
             </div>
@@ -425,14 +483,17 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 <div
                   className={cn(
                     'flex items-center cursor-pointer hover:scale-[103%] max-w-sm bg-foreground-2 px-4 py-2 !my-[1px]',
-                    roundedCornerStyle(isNextMesGroup, isPrevMesGroup)
-                  )}>
+                    roundedCornerStyle()
+                  )}
+                  data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
+                    isOwn ? 'left' : 'right'
+                  }; delay: 200;offset:6`}>
                   <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
                     {notification[message.type][stateCalled(message.sender._id)]}
                   </div>
                   <div className='flex flex-col mx-2'>
                     <div>{message.content}</div>
-                    <div> {getDateTime(message.createdAt)}</div>
+                    <div> {handleDateTime(message.createdAt)}</div>
                   </div>
                 </div>
               </div>
@@ -445,7 +506,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     const time = (time: string) => {
       return (
         <div className='flex justify-center my-4'>
-          <div className='font-medium text-gray-500 text-sm dark:text-white/70'>{getDateTime(time)}</div>
+          <div className='font-medium text-gray-500 text-sm dark:text-white/70'>{handleDateTime(time)}</div>
         </div>
       );
     };
@@ -493,7 +554,11 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
         return messageCall();
       } else if (message.type === 'notification') {
         return (
-          <div className='flex justify-center mb-2'>
+          <div
+            className='flex justify-center mb-2'
+            data-uk-tooltip={`title: ${handleDateTime(
+              message.createdAt
+            )}; delay: 500; pos: top; delay: 200;offset:6`}>
             <div className='text-sm text-gray-500 font-semibold'>
               {isOwn ? t('You') : message.sender.name}&nbsp;{switchNoti(message)}
             </div>

@@ -14,23 +14,23 @@
     --tw-text-opacity: 1;
     --tw-border-opacity: 1;
 
-    --background1: #f6f9fb;
-    --background2: rgb(31 41 55 / var(--tw-bg-opacity));
+    --background1: #f9fafb; /* Very light gray (was foreground1) */
+    --background2: #f3f4f6; /* Very light gray (was foreground2) */
 
-    --foreground1: #ffffff;
-    --foreground2: #f1f5f9;
-    --foreground3: #f4f7fa;
+    --foreground1: #f1f3f5; /* Light gray (was background1) */
+    --foreground2: #e5e7eb; /* Light gray (was background2) */
+    --foreground3: #e7e9eb; /* Light gray (was foreground3) */
 
-    --hover1: #f1f5f9;
-    --hover2: #f4f7fa;
-    --hover3: #f6f9fb;
+    --hover1: #bfdbfe; /* Light blue */
+    --hover2: #dbeafe; /* Very light blue */
+    --hover3: #e0e7ff; /* Very light blue */
 
-    --text1: #000000;
-    --text2: #4b5563;
-    --text3: #6b7280;
+    --text1: #1e293b; /* Dark blue */
+    --text2: #475569; /* Dark blue-gray */
+    --text3: #64748b; /* Blue-gray */
 
-    --border1: #d5d8dc;
-    --border2: #ff0000;
+    --border1: #e2e8f0; /* Light blue-gray */
+    --border2: #f87171; /* Light red */
 
     --dark1: rgb(17 24 39 / var(--tw-bg-opacity));
     --light1: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -64,7 +64,7 @@
     --tw-border-opacity: 1;
 
     --background1: #0f172a;
-    --background2: rgb(31 41 55 / var(--tw-bg-opacity));
+    --background2: #1f2937;
 
     --foreground1: #1e293b;
     --foreground2: #334155;
@@ -78,7 +78,7 @@
     --text2: #d0d0d3;
     --text3: #6b7280;
 
-    --border1: rgb(75 85 99 / var(--tw-border-opacity));
+    --border1: #4b5563;
     --border2: #ff0000;
 
     --dark1: rgb(17 24 39 / var(--tw-bg-opacity));

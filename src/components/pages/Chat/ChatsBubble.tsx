@@ -1,7 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { Link } from '@/navigation';
@@ -14,7 +13,7 @@ import { useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
 import { CircularProgress } from '@mui/material';
 
 export interface IChatsBubbleProps {
-  conversationID: string[] | undefined;
+  conversationID: string | undefined;
 }
 
 export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
@@ -22,17 +21,16 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
 
   if (conversationID === undefined) return <></>;
 
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id as string);
+  const { currentUserInfo } = useCurrentUserInfo();
 
-  const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID[0]);
+  const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID);
 
   const otherUser = useMemo(() => {
     return currentConversation?.members?.filter((member) => member._id !== currentUserInfo._id)[0];
   }, [currentUserInfo, currentConversation?.members]);
 
   return (
-    <div className='flex-1'>
+    <div className='flex-1 relative'>
       {/* <!-- chat heading --> */}
       {isLoadingCurrentConversation ? (
         <div className='flex-center h-full p-1'>
@@ -40,8 +38,8 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
         </div>
       ) : (
         <>
-          <ChatHeading conversationID={conversationID[0]} otherUser={otherUser} />
-          <div className='w-full p-5 pt-10 pb-5 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg'>
+          <ChatHeading conversationID={conversationID} otherUser={otherUser} />
+          <div className='w-full ps-5 pt-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg'>
             <div className='py-10 flex-center flex-col text-center text-sm lg:pt-8'>
               {currentConversation.type === 'group' ? (
                 <AvatarGroup
@@ -89,7 +87,7 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
             </div>
 
             <MessageList
-              conversationID={conversationID[0]}
+              conversationID={conversationID}
               currentConversation={currentConversation}
               otherUser={otherUser}
             />
@@ -97,7 +95,6 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
           <InputChat conversationID={conversationID} members={currentConversation.members} />
         </>
       )}
-      {/* <!-- sending message area --> */}
     </div>
   );
 }

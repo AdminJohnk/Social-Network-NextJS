@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
-import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import descArrays from '@/lib/descriptions/Tags';
 import { cn } from '@/lib/utils';
@@ -11,12 +10,9 @@ import { CircularProgress } from '@mui/material';
 import { showSuccessToast } from '@/components/ui/toast';
 import { useTranslations } from 'next-intl';
 
-export interface IExpertiseTabProps {}
-
-export default function ExpertiseTab(props: IExpertiseTabProps) {
+export default function ExpertiseTab() {
   const t = useTranslations();
-  const { data: session } = useSession();
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
   const [addTagArr, setAddTagArr] = useState<string[]>(currentUserInfo.tags || []);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { mutateUpdateUser } = useUpdateUser();

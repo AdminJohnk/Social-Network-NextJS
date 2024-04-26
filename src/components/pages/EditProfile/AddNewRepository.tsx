@@ -24,7 +24,7 @@ export default function AddNewRepository({ handleClose }: IAddNewRepositoryProps
 
   const { repositories, isLoadingRepositories } = useGetRepository(session?.repos_url || '');
 
-  const { currentUserInfo } = useCurrentUserInfo(session?.id || '');
+  const { currentUserInfo } = useCurrentUserInfo();
   const [newRepositories, setNewRepositories] = useState<IRepository[]>(currentUserInfo.repositories);
 
   const { mutateUpdateUser } = useUpdateUser();
