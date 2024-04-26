@@ -136,11 +136,13 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
     <div className='flex-start px-2'>
       <div className='flex-start gap-2 *:p-1 *:text-1'>
         <button
+          type='button'
           onClick={() => editor.chain().focus().undo().run()}
           disabled={!editor.can().chain().focus().undo().run()}>
           <FaUndo className='size-4' />
         </button>
         <button
+          type='button'
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run()}>
           <FaRedo className='size-4' />
