@@ -289,11 +289,9 @@ export default function Editor({ setEditor, content }: EditorContentProps) {
   useEffect(() => {
     if (setEditor && editor) {
       setEditor(editor);
-      editor?.chain().focus('start').run();
+      editor.chain().focus('start').run();
     }
   }, [editor]);
-
-  console.log('editor');
 
   return (
     <div>

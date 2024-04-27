@@ -1,4 +1,4 @@
-import { cn, getImageURL } from '@/lib/utils';
+import {  getImageURL } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { IoImage } from 'react-icons/io5';
@@ -6,8 +6,6 @@ import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import Image from 'next/image';
 import { IoCloseOutline } from 'react-icons/io5';
-import { get } from 'lodash';
-import { useDeleteImage, useUploadImages } from '@/hooks/mutation';
 
 export interface IUploadImageProps {
   imagesOfPost?: string[];
@@ -15,28 +13,20 @@ export interface IUploadImageProps {
   setImagesOfS3: (images: File[]) => void;
 }
 
-export default function UploadImage({
-  imagesOfPost,
-  setImagesOfPost,
-  setImagesOfS3
-}: IUploadImageProps) {
+export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOfS3 }: IUploadImageProps) {
   const t = useTranslations();
-  const { mutateDeleteImage } = useDeleteImage();
-
 
   const [imagesPost, setImagesPost] = useState<string[]>(imagesOfPost || []);
   const [images, setImages] = useState<ImageListType>([]);
 
   useEffect(() => {
     setImagesOfPost(imagesPost);
-    const files = images.map(image => image.file);
+    const files = images.map((image) => image.file);
     setImagesOfS3(files as File[]);
   }, [imagesPost, images]);
 
   const maxNumber = 5 - imagesPost.length;
-  const onChange = (
-    imageList: ImageListType
-  ) => {
+  const onChange = (imageList: ImageListType) => {
     setImages(imageList);
   };
 
@@ -55,8 +45,7 @@ export default function UploadImage({
         onChange={onChange}
         maxNumber={maxNumber}
         dataURLKey='data_url'
-        acceptType={['jpg', 'jpeg', 'png', 'gif']}
-      >
+        acceptType={['jpg', 'jpeg', 'png', 'gif']}>
         {({
           imageList,
           onImageUpload,
@@ -79,8 +68,7 @@ export default function UploadImage({
               <button
                 type='button'
                 className='flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:border-sky-900'
-                onClick={onImageUpload}
-              >
+                onClick={onImageUpload}>
                 <IoImage className='text-base' />
                 {t('Image')}
               </button>
@@ -91,10 +79,7 @@ export default function UploadImage({
                   onClick={() => {
                     onImageRemoveAll();
                     setImagesPost([]);
-                    // delete image post in server
-                    mutateDeleteImage(imagesPost);
-                  }}
-                >
+                  }}>
                   <span>{t('Remove all')}</span>
                   <IoCloseOutline className='size-5' />
                 </button>
@@ -116,10 +101,7 @@ export default function UploadImage({
                         {
                           // max 30 characters + '...' + file extension
                           (image.file?.name.length as number) > 33
-                            ? `${image.file?.name.slice(
-                                0,
-                                30
-                              )}... ${image.file?.name.slice(
+                            ? `${image.file?.name.slice(0, 30)}... ${image.file?.name.slice(
                                 image.file?.name.length - 4
                               )}`
                             : image.file?.name
@@ -127,9 +109,7 @@ export default function UploadImage({
                             : ''
                         }
                       </div>
-                      <div className='text-text-2'>
-                        {convertByte(image.file?.size || 0) || ''}
-                      </div>
+                      <div className='text-text-2'>{convertByte(image.file?.size || 0) || ''}</div>
                     </div>
                     <div className='image-item__btn-wrapper flex flex-col gap-2 *:p-1 *:text-1'>
                       <button onClick={() => onImageUpdate(index)}>
@@ -159,9 +139,7 @@ export default function UploadImage({
                         {
                           // max 30 characters + '...' + file extension
                           (image.length as number) > 33
-                            ? `${image.slice(0, 30)}... ${image.slice(
-                                image.length - 4
-                              )}`
+                            ? `${image.slice(0, 30)}... ${image.slice(image.length - 4)}`
                             : image
                             ? image
                             : ''
@@ -171,13 +149,8 @@ export default function UploadImage({
                     <div className='image-item__btn-wrapper flex flex-col gap-2 *:p-1 *:text-1'>
                       <button
                         onClick={() => {
-                          setImagesPost(
-                            imagesPost.filter((_, i) => i !== index)
-                          );
-                          // delete image post in server
-                          mutateDeleteImage(imagesPost);
-                        }}
-                      >
+                          setImagesPost(imagesPost.filter((_, i) => i !== index));
+                        }}>
                         <FaTrash />
                       </button>
                     </div>

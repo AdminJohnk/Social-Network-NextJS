@@ -2,7 +2,6 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 
 import NewPost from '@/components/shared/NewPost/NewPost';
 import Story from '@/components/pages/Home/Story';
-import CreateNewPost from '@/components/pages/Home/CreateNewPost';
 import CreateStory from '@/components/pages/Home/CreateStory';
 import PostList from '@/components/pages/Home/PostList';
 import NewsfeedSide from '@/components/pages/Home/NewsfeedSide';
@@ -27,7 +26,6 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
           <div className='post w-3/5 max-lg:w-full px-9 max-md:px-2'>
             <div className='new-post mb-8'>
               <NewPost />
-              <CreateNewPost />
             </div>
             <PostList />
           </div>
