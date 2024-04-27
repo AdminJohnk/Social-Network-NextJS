@@ -122,108 +122,104 @@ export const ChatService = () => {
   }, []);
 
   useEffect(() => {
-    if (currentUserInfo && chatSocket) {
-      chatSocket.emit(Socket.SETUP, currentUserInfo._id);
+    chatSocket.emit(Socket.SETUP, currentUserInfo._id);
 
-      chatSocket.on(Socket.PRIVATE_CONVERSATION, (conversation: IConversation) => {
-        mutateReceiveConversation(conversation);
-      });
-      chatSocket.on(Socket.LEAVE_GROUP, (conversation: IConversation) => {
-        mutateReceiveLeaveGroup(conversation);
-      });
-      chatSocket.on(Socket.DISSOLVE_GROUP, (conversation: IConversation) => {
-        mutateReceiveDissolveGroup(conversation);
-      });
-      chatSocket.on(Socket.PRIVATE_MSG, (message: IMessage) => {
-        mutateReceiveMessage(message);
-      });
-      chatSocket.on(Socket.SEEN_MSG, (conversation: IConversation) => {
-        mutateReceiveSeenConversation(conversation);
-      });
-      chatSocket.on(Socket.CHANGE_CONVERSATION_IMAGE, (conversation: IConversation) => {
-        mutateConversation({ ...conversation, typeUpdate: 'image' });
-      });
-      chatSocket.on(Socket.CHANGE_CONVERSATION_COVER, (conversation: IConversation) => {
-        mutateConversation({ ...conversation, typeUpdate: 'cover_image' });
-      });
-      chatSocket.on(Socket.CHANGE_CONVERSATION_NAME, (conversation: IConversation) => {
-        mutateConversation({ ...conversation, typeUpdate: 'name' });
-      });
-      chatSocket.on(Socket.ADD_MEMBER, (conversation: IConversation) => {
-        mutateConversation({ ...conversation, typeUpdate: 'add_member' });
-      });
-      chatSocket.on(Socket.REMOVE_MEMBER, (conversation: IConversation) => {
-        mutateConversation({ ...conversation, typeUpdate: 'remove_member' });
-      });
-      chatSocket.on(Socket.COMMISSION_ADMIN, (conversation: IConversation) => {
-        mutateConversation({ ...conversation, typeUpdate: 'commission_admin' });
-      });
-      chatSocket.on(Socket.DECOMMISSION_ADMIN, (conversation: IConversation) => {
-        mutateConversation({ ...conversation, typeUpdate: 'remove_admin' });
-      });
-      chatSocket.on(Socket.VIDEO_CALL, (data: ISocketCall) => {
-        soundCall({ forceSoundEnabled: true });
-        setOpenCall(true);
+    chatSocket.on(Socket.PRIVATE_CONVERSATION, (conversation: IConversation) => {
+      mutateReceiveConversation(conversation);
+    });
+    chatSocket.on(Socket.LEAVE_GROUP, (conversation: IConversation) => {
+      mutateReceiveLeaveGroup(conversation);
+    });
+    chatSocket.on(Socket.DISSOLVE_GROUP, (conversation: IConversation) => {
+      mutateReceiveDissolveGroup(conversation);
+    });
+    chatSocket.on(Socket.PRIVATE_MSG, (message: IMessage) => {
+      mutateReceiveMessage(message);
+    });
+    chatSocket.on(Socket.SEEN_MSG, (conversation: IConversation) => {
+      mutateReceiveSeenConversation(conversation);
+    });
+    chatSocket.on(Socket.CHANGE_CONVERSATION_IMAGE, (conversation: IConversation) => {
+      mutateConversation({ ...conversation, typeUpdate: 'image' });
+    });
+    chatSocket.on(Socket.CHANGE_CONVERSATION_COVER, (conversation: IConversation) => {
+      mutateConversation({ ...conversation, typeUpdate: 'cover_image' });
+    });
+    chatSocket.on(Socket.CHANGE_CONVERSATION_NAME, (conversation: IConversation) => {
+      mutateConversation({ ...conversation, typeUpdate: 'name' });
+    });
+    chatSocket.on(Socket.ADD_MEMBER, (conversation: IConversation) => {
+      mutateConversation({ ...conversation, typeUpdate: 'add_member' });
+    });
+    chatSocket.on(Socket.REMOVE_MEMBER, (conversation: IConversation) => {
+      mutateConversation({ ...conversation, typeUpdate: 'remove_member' });
+    });
+    chatSocket.on(Socket.COMMISSION_ADMIN, (conversation: IConversation) => {
+      mutateConversation({ ...conversation, typeUpdate: 'commission_admin' });
+    });
+    chatSocket.on(Socket.DECOMMISSION_ADMIN, (conversation: IConversation) => {
+      mutateConversation({ ...conversation, typeUpdate: 'remove_admin' });
+    });
+    chatSocket.on(Socket.VIDEO_CALL, (data: ISocketCall) => {
+      soundCall();
+      setOpenCall(true);
+      setDataCall(data);
+      setCallType('video');
+      setIsMissed(false);
+    });
+    chatSocket.on(Socket.VOICE_CALL, (data: ISocketCall) => {
+      soundCall();
+      setOpenCall(true);
+      setDataCall(data);
+      setCallType('voice');
+      setIsMissed(false);
+    });
+    chatSocket.on(Socket.END_VIDEO_CALL, (data: ISocketCall) => {
+      queryClient.invalidateQueries({ queryKey: ['called'] });
+      if (openCall) {
+        exposedSound.stop();
         setDataCall(data);
         setCallType('video');
-        setIsMissed(false);
-      });
-      chatSocket.on(Socket.VOICE_CALL, (data: ISocketCall) => {
-        soundCall({ forceSoundEnabled: true });
-        setOpenCall(true);
+        setIsMissed(true);
+      }
+    });
+    chatSocket.on(Socket.END_VOICE_CALL, (data: ISocketCall) => {
+      queryClient.invalidateQueries({ queryKey: ['called'] });
+      if (openCall) {
+        exposedSound.stop();
         setDataCall(data);
         setCallType('voice');
-        setIsMissed(false);
-      });
-      chatSocket.on(Socket.END_VIDEO_CALL, (data: ISocketCall) => {
-        queryClient.invalidateQueries({ queryKey: ['called'] });
-        if (openCall) {
-          exposedSound.stop();
-          setDataCall(data);
-          setCallType('video');
-          setIsMissed(true);
-        }
-      });
-      chatSocket.on(Socket.END_VOICE_CALL, (data: ISocketCall) => {
-        queryClient.invalidateQueries({ queryKey: ['called'] });
-        if (openCall) {
-          exposedSound.stop();
-          setDataCall(data);
-          setCallType('voice');
-          setIsMissed(true);
-        }
-      });
-      chatSocket.on(Socket.SEND_END_VIDEO_CALL, (data: ISocketCall) => {
-        handleSendEndCall(data, 'video', data?.type);
-      });
-      chatSocket.on(Socket.SEND_END_VOICE_CALL, (data: ISocketCall) => {
-        handleSendEndCall(data, 'voice', data?.type);
-      });
-    }
+        setIsMissed(true);
+      }
+    });
+    chatSocket.on(Socket.SEND_END_VIDEO_CALL, (data: ISocketCall) => {
+      handleSendEndCall(data, 'video', data.type);
+    });
+    chatSocket.on(Socket.SEND_END_VOICE_CALL, (data: ISocketCall) => {
+      handleSendEndCall(data, 'voice', data.type);
+    });
 
     return () => {
-      if (chatSocket) {
-        chatSocket.off(Socket.PRIVATE_CONVERSATION);
-        chatSocket.off(Socket.LEAVE_GROUP);
-        chatSocket.off(Socket.DISSOLVE_GROUP);
-        chatSocket.off(Socket.PRIVATE_MSG);
-        chatSocket.off(Socket.SEEN_MSG);
-        chatSocket.off(Socket.CHANGE_CONVERSATION_IMAGE);
-        chatSocket.off(Socket.CHANGE_CONVERSATION_COVER);
-        chatSocket.off(Socket.CHANGE_CONVERSATION_NAME);
-        chatSocket.off(Socket.ADD_MEMBER);
-        chatSocket.off(Socket.REMOVE_MEMBER);
-        chatSocket.off(Socket.COMMISSION_ADMIN);
-        chatSocket.off(Socket.DECOMMISSION_ADMIN);
-        chatSocket.off(Socket.VIDEO_CALL);
-        chatSocket.off(Socket.VOICE_CALL);
-        chatSocket.off(Socket.END_VIDEO_CALL);
-        chatSocket.off(Socket.END_VOICE_CALL);
-        chatSocket.off(Socket.SEND_END_VIDEO_CALL);
-        chatSocket.off(Socket.SEND_END_VOICE_CALL);
-      }
+      chatSocket.off(Socket.PRIVATE_CONVERSATION);
+      chatSocket.off(Socket.LEAVE_GROUP);
+      chatSocket.off(Socket.DISSOLVE_GROUP);
+      chatSocket.off(Socket.PRIVATE_MSG);
+      chatSocket.off(Socket.SEEN_MSG);
+      chatSocket.off(Socket.CHANGE_CONVERSATION_IMAGE);
+      chatSocket.off(Socket.CHANGE_CONVERSATION_COVER);
+      chatSocket.off(Socket.CHANGE_CONVERSATION_NAME);
+      chatSocket.off(Socket.ADD_MEMBER);
+      chatSocket.off(Socket.REMOVE_MEMBER);
+      chatSocket.off(Socket.COMMISSION_ADMIN);
+      chatSocket.off(Socket.DECOMMISSION_ADMIN);
+      chatSocket.off(Socket.VIDEO_CALL);
+      chatSocket.off(Socket.VOICE_CALL);
+      chatSocket.off(Socket.END_VIDEO_CALL);
+      chatSocket.off(Socket.END_VOICE_CALL);
+      chatSocket.off(Socket.SEND_END_VIDEO_CALL);
+      chatSocket.off(Socket.SEND_END_VOICE_CALL);
     };
-  }, [currentUserInfo, chatSocket]);
+  }, []);
 
   return (
     <Dialog open={openCall} onOpenChange={setOpenCall}>
@@ -281,7 +277,6 @@ export const ChatService = () => {
                 callType === 'video'
                   ? videoChat(dataCall!.conversation_id)
                   : audioCall(dataCall!.conversation_id);
-                soundCall();
                 setOpenCall(false);
               }}>
               {t('Accept')}

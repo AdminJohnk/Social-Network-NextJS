@@ -16,10 +16,9 @@ const serverUrl = process.env.NEXT_PUBLIC_LIVEKIT_SERVER;
 export interface IVoiceCallProps {
   params: {
     conversationID: string;
-  }
+  };
 }
 const VoiceCall = ({ params: { conversationID } }: IVoiceCallProps) => {
-
   const { dataMessageCall: dataAudio } = useMessageCall(conversationID, 'audio');
 
   const { chatSocket } = useSocketStore();
@@ -48,7 +47,7 @@ const VoiceCall = ({ params: { conversationID } }: IVoiceCallProps) => {
       data-lk-theme='default'
       onConnected={() => chatSocket.emit(Socket.VOICE_CALL, { ...dataAudio })}
       onDisconnected={onDisconnected}
-      options={{ adaptiveStream: true, dynacast: true, }}
+      options={{ adaptiveStream: true, dynacast: true }}
       style={{ height: '100vh' }}>
       <AudioConference />
       <RoomAudioRenderer />
