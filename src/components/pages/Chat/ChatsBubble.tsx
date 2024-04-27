@@ -47,7 +47,7 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
       ) : (
         <>
           <ChatHeading conversationID={conversationID} otherUser={otherUser} />
-          <div className='w-full ps-5 pt-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg'>
+          <div className='w-full ps-5 pe-2 pt-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] custom-scrollbar-fg'>
             <div className='py-10 flex-center flex-col text-center text-sm lg:pt-8'>
               {currentConversation.type === 'group' ? (
                 <AvatarGroup

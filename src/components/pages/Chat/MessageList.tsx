@@ -11,6 +11,12 @@ import { IConversation, IMessage, IUserInfo } from '@/types';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 import { getImageURL } from '@/lib/utils';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { FaPhone, FaVideo } from 'react-icons/fa';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
+import { audioCall, videoChat } from '@/lib/utils/call';
 
 export interface IMessageListProps {
   conversationID: string;
@@ -18,7 +24,13 @@ export interface IMessageListProps {
   otherUser: IUserInfo;
 }
 
+export interface IReCallProps {
+  open: boolean;
+  type: 'video' | 'voice';
+}
+
 export default function MessageList({ conversationID, currentConversation, otherUser }: IMessageListProps) {
+  const t = useTranslations();
   const { messages, isLoadingMessages, fetchPreviousMessages, isFetchingPreviousPage, hasPreviousMessages } =
     useMessages(conversationID);
 
@@ -193,6 +205,8 @@ export default function MessageList({ conversationID, currentConversation, other
     };
   }, [typingUsers.length, currentUserInfo._id, isTyping]);
 
+  const [openReCall, setOpenReCall] = useState<IReCallProps>({ open: false, type: 'video' });
+
   return (
     <>
       {isLoadingMessages ? (
@@ -215,6 +229,7 @@ export default function MessageList({ conversationID, currentConversation, other
                 isPrevMesGroup={isPrevMesGroup(message, index, messArr)}
                 isNextMesGroup={isNextMesGroup(message, index, messArr)}
                 isMoreThan10Min={isMoreThan10Min(message, index, messArr)}
+                setOpenReCall={setOpenReCall}
               />
             ))}
             <div ref={seenRef} className='w-0 h-0' />
@@ -241,6 +256,36 @@ export default function MessageList({ conversationID, currentConversation, other
               <div /> <div /> <div />
             </div>
           </div>
+
+          <Dialog open={openReCall.open} onOpenChange={() => setOpenReCall((prev) => ({ ...prev, open: false }))}>
+            <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+              <DialogHeader>
+                <DialogTitle>{openReCall.type === 'video' ? t('Video Call') : t('Voice Call')}</DialogTitle>
+              </DialogHeader>
+              <div className="flex-center">
+                {openReCall.type === 'video' ? t('Call the group to start a new video call') : t('Call the group to start a new voice call')}
+              </div>
+              <DialogFooter>
+                <Button
+                  onClick={() => {
+                    setOpenReCall((prev) => ({ ...prev, open: false }));
+                  }}>
+                  {t('Cancel')}
+                </Button>
+                <Button
+                  onClick={() => {
+                    if (openReCall.type === 'video') {
+                      videoChat(conversationID);
+                    } else {
+                      audioCall(conversationID);
+                    }
+                    setOpenReCall((prev) => ({ ...prev, open: false }));
+                  }}>
+                  {t('Call')}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </>
       )}
     </>

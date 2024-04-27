@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo } from 'react';
+import { forwardRef, useCallback, useMemo, useState } from 'react';
 import { Anchorme, LinkComponentProps } from 'react-anchorme';
 import { Link } from '@/navigation';
 import Image from 'next/image';
@@ -10,6 +10,12 @@ import { isThisWeek, isThisYear, isToday } from 'date-fns';
 import { cn, getImageURL } from '@/lib/utils';
 import { IMessage, IUserInfo, TypeofConversation } from '@/types';
 import { useCurrentUserInfo } from '@/hooks/query';
+import { audioCall, videoChat } from '@/lib/utils/call';
+
+export interface IReCallProps {
+  open: boolean;
+  type: 'video' | 'voice';
+}
 
 export interface IMessageBoxProps {
   message: IMessage;
@@ -22,11 +28,12 @@ export interface IMessageBoxProps {
   isCreator: boolean;
   type: TypeofConversation;
   typeCalled?: string;
+  setOpenReCall: (value: IReCallProps) => void;
 }
 
 const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
   (
-    { message, isLastMes, seen, isNextMesGroup, isPrevMesGroup, isMoreThan10Min, isAdmin, type, isCreator },
+    { message, isLastMes, seen, isNextMesGroup, isPrevMesGroup, isMoreThan10Min, isAdmin, type, isCreator, setOpenReCall },
     ref
   ) => {
     const t = useTranslations();
@@ -196,7 +203,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
         [0x1f1e6, 0x1f1ff] // Enclosed Characters
       ];
 
-      for (let i = 0; i < content.length; ) {
+      for (let i = 0; i < content.length;) {
         const char = content.codePointAt(i)!;
 
         let isEmoji = false;
@@ -264,9 +271,8 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   roundedCornerStyle,
                   checkContentType(content) === 'emoji' ? 'text-4xl' : 'px-4 py-2 bg-foreground-2'
                 )}
-                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
-                  isOwn ? 'left' : 'right'
-                }; delay: 200;offset:6`}>
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                  }; delay: 200;offset:6`}>
                 <Anchorme
                   linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
                   truncate={30}
@@ -293,9 +299,8 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   ? 'text-4xl'
                   : 'px-4 py-2 bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
               )}
-              data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
-                isOwn ? 'left' : 'right'
-              }; delay: 200;offset:6`}>
+              data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                }; delay: 200;offset:6`}>
               <Anchorme
                 linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
                 truncate={30}
@@ -431,6 +436,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       );
     };
 
+
     const messageCall = () => {
       return (
         <>
@@ -441,14 +447,28 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   'flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
                   roundedCornerStyle
                 )}
-                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
-                  isOwn ? 'left' : 'right'
-                }; delay: 200;offset:6`}>
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                  }; delay: 200;offset:6`}
+                onClick={() => {
+                  if (type === 'group') {
+                    if (message.type === 'voice') {
+                      setOpenReCall({ open: true, type: 'voice' })
+                    } else {
+                      setOpenReCall({ open: true, type: 'video' })
+                    }
+                  } else {
+                    if (message.type === 'video') {
+                      videoChat(message.conversation_id);
+                    } else {
+                      audioCall(message.conversation_id);
+                    }
+                  }
+                }}>
                 <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
                   {notification[message.type][stateCalled(message.sender._id)]}
                 </div>
                 <div className='flex flex-col mx-2'>
-                  <div>{message.content}</div>
+                  <div>{t(message.content)}</div>
                   <div> {handleDateTime(message.createdAt)}</div>
                 </div>
               </div>
@@ -485,14 +505,28 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                     'flex items-center cursor-pointer hover:scale-[103%] max-w-sm bg-foreground-2 px-4 py-2 !my-[1px]',
                     roundedCornerStyle
                   )}
-                  data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
-                    isOwn ? 'left' : 'right'
-                  }; delay: 200;offset:6`}>
+                  data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                    }; delay: 200;offset:6`}
+                  onClick={() => {
+                    if (type === 'group') {
+                      if (message.type === 'voice') {
+                        setOpenReCall({ open: true, type: 'voice' })
+                      } else {
+                        setOpenReCall({ open: true, type: 'video' })
+                      }
+                    } else {
+                      if (message.type === 'video') {
+                        videoChat(message.conversation_id);
+                      } else {
+                        audioCall(message.conversation_id);
+                      }
+                    }
+                  }}>
                   <div className='flex items-center justify-center w-8 h-8 rounded-full bg-neutral-300'>
                     {notification[message.type][stateCalled(message.sender._id)]}
                   </div>
                   <div className='flex flex-col mx-2'>
-                    <div>{message.content}</div>
+                    <div>{t(message.content)}</div>
                     <div> {handleDateTime(message.createdAt)}</div>
                   </div>
                 </div>

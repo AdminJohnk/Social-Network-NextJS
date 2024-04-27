@@ -93,7 +93,7 @@ function ConversationList({ conversationID }: IConversationListProps) {
           />
         </div>
       </div>
-      <div className={'space-y-2 p-2 overflow-y-auto custom-scrollbar-fg'}>
+      <div className='space-y-2 p-2 overflow-y-auto custom-scrollbar-fg'>
         {isLoadingConversations ? (
           <div className='w-full flex-center py-10'>
             <CircularProgress size={20} className='!text-text-1' />

@@ -74,7 +74,8 @@ export default function ContactList({ contacts }: IContactListProps) {
   }, [searchDebounce]);
 
   return (
-    <div className='flex flex-col'>
+    <>
+      {/* <!-- heading title --> */}
       <div className='p-4'>
         <div className='flex mt-2 items-center justify-between'>
           <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'>
@@ -82,14 +83,12 @@ export default function ContactList({ contacts }: IContactListProps) {
             {t('Contacts')}{' '}
           </h2>
           {/* <!-- right action buttons --> */}
-          <div className='flex items-center gap-2.5'>
-            <div className='cursor-pointer' onClick={() => {}}>
-              <FaUserPlus className='text-2xl rounded-lg' />
-            </div>
+          <div className='p-2 rounded-full hover:bg-hover-1'>
+            <FaUserPlus className='text-2xl rounded-lg' />
           </div>
         </div>
-      </div>
-      <div className='px-4 pb-4 w-full'>
+
+        {/* <!-- search --> */}
         <div className='relative mt-4'>
           <div className='absolute left-3 bottom-1/2 translate-y-1/2 flex'>
             <IoSearchOutline className='text-xl' />
@@ -138,6 +137,6 @@ export default function ContactList({ contacts }: IContactListProps) {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
