@@ -2,43 +2,27 @@
 
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { IoChevronBackOutline } from 'react-icons/io5';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { isThisWeek, isThisYear } from 'date-fns';
-import { useQueryClient } from '@tanstack/react-query';
 import { Skeleton } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
-import useSound from 'use-sound';
 
-import { queryCache, useCurrentConversationData, useCurrentUserInfo, useMessagesOption } from '@/hooks/query';
+import { useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
 import { Link } from '@/navigation';
 import AvatarMessage from './Avatar/AvatarMessage';
-import { IMessage, ISocketCall, IUserInfo } from '@/types';
+import { IUserInfo } from '@/types';
 import { useSocketStore } from '@/store/socket';
 import { audioCall, videoChat } from '@/lib/utils/call';
-import { Socket } from '@/lib/utils/constants/SettingSystem';
-import { useSendMessage } from '@/hooks/mutation';
-import { capitalizeFirstLetter } from '@/lib/utils/convertText';
-import { getImageURL } from '@/lib/utils';
-import { FaPhone, FaVideo } from 'react-icons/fa';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 
 export interface IChatHeadingProps {
   conversationID: string;
   otherUser: IUserInfo;
 }
 
-
 export default function ChatHeading({ conversationID, otherUser }: IChatHeadingProps) {
   const t = useTranslations();
   const now = useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
-
-  const { chatSocket } = useSocketStore();
-  const queryClient = useQueryClient();
-  const [soundCall, exposedSound] = useSound('/sounds/sound-noti-call.wav', { volume: 0.3 });
 
   const handleDateTime = useCallback((date: string) => {
     const messageDate = new Date(date).getTime();
@@ -91,8 +75,9 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
         const memberCount = currentConversation.members.length;
         const activeMemberCount = membersActive.length;
 
-        return `${memberCount} ${t('members')} - ${activeMemberCount === 1 ? t('Only you') : activeMemberCount
-          } ${t('online')}`;
+        return `${memberCount} ${t('members')} - ${
+          activeMemberCount === 1 ? t('Only you') : activeMemberCount
+        } ${t('online')}`;
       }
 
       const lastOnline =
@@ -101,176 +86,6 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
       return activeUser?.is_online ? t('Online') : t('Last seen at') + ' ' + handleDateTime(lastOnline);
     }
   }, [currentConversation, activeUser, members, currentUserInfo, now, otherUser]);
-
-  const { mutateSendMessage } = useSendMessage();
-
-  const handleSendEndCall = useCallback((data: ISocketCall, type: string, status: string) => {
-    const message = {
-      _id: uuidv4().replace(/-/g, ''),
-      conversation_id: data?.conversation_id,
-      sender: {
-        _id: data?.author._id,
-        user_image: data?.author.user_image,
-        name: data?.author.name
-      },
-      isSending: true,
-      content: `${capitalizeFirstLetter(type)} call ${status}`,
-      type: type,
-      createdAt: new Date()
-    };
-
-    mutateSendMessage(message as unknown as IMessage);
-    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: data?.conversation_id, message });
-  }, []);
-
-  const [openCall, setOpenCall] = useState(false);
-  const [socketCall, setSocketCall] = useState<ISocketCall>();
-  const [callType, setCallType] = useState<string>();
-  const [isMissed, setIsMissed] = useState(false);
-
-  const notiCall = (data: ISocketCall, type: string, isMissed: boolean) => {
-    if (isMissed)
-      return (
-        <Dialog open={openCall} onOpenChange={setOpenCall}>
-          <DialogContent className='bg-background-1 max-w-[600px] border-none'>
-            <DialogHeader>
-              <DialogTitle>{type === 'video' ? t('Video Call') : t('Voice Call')}</DialogTitle>
-            </DialogHeader>
-            {type === 'video' ? (<FaVideo className='text-2xl' />) : (<FaPhone className='text-2xl' />)}
-            <span className='text-sm font-medium text-left ml-2 select-none'>{type === 'video' ? t('Video Call') : t('Voice Call')}</span>
-            <div className='flex flex-row items-center justify-center pt-4 pb-2'>
-              <Image
-                width={500}
-                height={500}
-                className='h-12 w-12 mr-3 rounded-full overflow-hidden'
-                src={getImageURL(data?.user_image, 'avatar')}
-                alt='avatar'
-              />
-              <div className='font-semibold text-lg'>
-                {type === 'video' ? t('You missed a video call') : t('You missed a voice call')}&nbsp;
-                {data?.typeofConversation === 'group'
-                  ? `${t('from')} ${data?.conversation_name}`
-                  : `${t('from')} ${data?.author.name}`}
-              </div>
-            </div>
-            <DialogFooter>
-              <div className='mt-6 flex items-center justify-end gap-x-3'>
-                <Button
-                  onClick={() => {
-                    setOpenCall(false);
-                  }}>
-                  {t('Close')}
-                </Button>
-              </div>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      );
-
-    return (
-      <Dialog open={openCall} onOpenChange={setOpenCall}>
-        <DialogContent className='bg-background-1 max-w-[600px] border-none'>
-          <DialogHeader>
-            <DialogTitle>{type === 'video' ? t('Video Call') : t('Voice Call')}</DialogTitle>
-          </DialogHeader>
-          {type === 'video' ? (<FaVideo className='text-2xl' />) : (<FaPhone className='text-2xl' />)}
-          <span className='text-sm font-medium text-left ml-2 select-none'>{type === 'video' ? t('Video Call') : t('Voice Call')}</span>
-          <div className='flex flex-row items-center justify-center pt-4 pb-2'>
-            <Image
-              width={500}
-              height={500}
-              className='h-12 w-12 mr-3 rounded-full overflow-hidden'
-              src={getImageURL(data?.user_image, 'avatar_mini')}
-              alt='avatar'
-            />
-            <div className='font-semibold text-lg'>
-              {data?.author.name} {t('is calling')}&nbsp;
-              {data?.typeofConversation === 'group' ? `${t('from')} ${data?.conversation_name}` : t('you')}
-            </div>
-          </div>
-          <DialogFooter>
-            <Button
-              onClick={() => {
-                chatSocket.emit(Socket.LEAVE_VIDEO_CALL, { ...data, type: 'missed' });
-                exposedSound.stop();
-                setOpenCall(false);
-              }}>
-              {t('Decline')}
-            </Button>
-            <Button
-              onClick={() => {
-                videoChat(data?.conversation_id);
-                soundCall()
-                setOpenCall(false);
-              }}>
-              {t('Accept')}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    )
-  };
-
-  useEffect(() => {
-    chatSocket.on(Socket.VIDEO_CALL, (data: ISocketCall) => {
-      soundCall();
-      setOpenCall(true);
-      setSocketCall(data);
-      setCallType('video');
-      setIsMissed(false);
-    });
-
-    chatSocket.on(Socket.VOICE_CALL, (data: ISocketCall) => {
-      soundCall();
-      setOpenCall(true);
-      setSocketCall(data);
-      setCallType('voice');
-      setIsMissed(false);
-    });
-
-    chatSocket.on(Socket.END_VIDEO_CALL, (data: ISocketCall) => {
-      queryClient.invalidateQueries({ queryKey: ['called'] });
-      if (openCall) {
-        exposedSound.stop();
-        setSocketCall(data);
-        setCallType('video');
-        setIsMissed(true);
-      }
-    });
-
-    chatSocket.on(Socket.END_VOICE_CALL, (data: ISocketCall) => {
-      queryClient.invalidateQueries({ queryKey: ['called'] });
-      if (openCall) {
-        exposedSound.stop();
-        setSocketCall(data);
-        setCallType('voice');
-        setIsMissed(true);
-      }
-    });
-
-    chatSocket.on(Socket.SEND_END_VIDEO_CALL, (data: ISocketCall) => {
-      handleSendEndCall(data, 'video', data?.type);
-    });
-
-    chatSocket.on(Socket.SEND_END_VOICE_CALL, (data: ISocketCall) => {
-      handleSendEndCall(data, 'voice', data?.type);
-    });
-
-    return () => {
-      chatSocket.off(Socket.VIDEO_CALL);
-      chatSocket.off(Socket.VOICE_CALL);
-      chatSocket.off(Socket.END_VIDEO_CALL);
-      chatSocket.off(Socket.END_VOICE_CALL);
-      chatSocket.off(Socket.SEND_END_VIDEO_CALL);
-      chatSocket.off(Socket.SEND_END_VOICE_CALL);
-
-      if (queryCache.find({ queryKey: ['messages', conversationID] })?.getObserversCount() ?? 0 === 0) {
-        // remove all pages of messages from cache except the first page
-        queryClient.removeQueries({ queryKey: ['messages', conversationID], exact: true });
-        queryClient.prefetchInfiniteQuery(useMessagesOption(conversationID));
-      }
-    };
-  }, [openCall, socketCall, callType, isMissed]);
 
   return (
     <>
@@ -364,10 +179,13 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
             </div>
           </div>
 
-          {notiCall(socketCall!, callType!, isMissed)}
-
           <div className='flex items-center gap-2'>
-            <button type='button' className='hover:bg-hover-1 p-1.5 rounded-full' onClick={() => { audioCall(conversationID) }}>
+            <button
+              type='button'
+              className='hover:bg-hover-1 p-1.5 rounded-full'
+              onClick={() => {
+                audioCall(conversationID);
+              }}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 20 20'
@@ -379,7 +197,12 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
                   clipRule='evenodd'></path>
               </svg>
             </button>
-            <button type='button' className='hover:bg-hover-1 p-1.5 rounded-full' onClick={() => { videoChat(conversationID) }}>
+            <button
+              type='button'
+              className='hover:bg-hover-1 p-1.5 rounded-full'
+              onClick={() => {
+                videoChat(conversationID);
+              }}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'

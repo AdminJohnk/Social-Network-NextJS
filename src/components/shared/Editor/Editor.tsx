@@ -1,16 +1,7 @@
-import React, { useState } from 'react';
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
-import Document from '@tiptap/extension-document';
-import Paragraph from '@tiptap/extension-paragraph';
-import Text from '@tiptap/extension-text';
-import StarterKit from '@tiptap/starter-kit';
-import { Underline } from '@tiptap/extension-underline';
-import { Youtube } from '@tiptap/extension-youtube';
-import { Editor as EditorProps, EditorContent, useEditor } from '@tiptap/react';
-import { Link } from '@tiptap/extension-link';
-import { Placeholder } from '@tiptap/extension-placeholder';
-import { Highlight } from '@tiptap/extension-highlight';
-import { lowlight } from 'lowlight';
+'use client';
+
+import { useEffect, useState } from 'react';
+import { Editor as EditorProps, EditorContent } from '@tiptap/react';
 import {
   MdFormatBold,
   MdFormatItalic,
@@ -31,14 +22,13 @@ import { useTranslations } from 'next-intl';
 import Popover from '@/components/ui/popover-v2';
 import { IEmoji } from '@/types';
 import { useThemeMode } from 'flowbite-react';
+import { useCustomEditor } from '@/hooks/special';
 
-const MenuBar = ({ editor }: { editor: EditorProps }) => {
-  if (!editor) {
-    return null;
-  }
-
+const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
   const [typeNumber, setTypeNumber] = useState(0);
   const { mode } = useThemeMode();
+
+  if (!editor) return <></>;
 
   const typeText = [
     {
@@ -65,13 +55,9 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().toggleHeading({ level: 1 }).run();
-        !editor.isActive('heading', { level: 1 })
-          ? setTypeNumber(0)
-          : setTypeNumber(1);
+        !editor.isActive('heading', { level: 1 }) ? setTypeNumber(0) : setTypeNumber(1);
       },
-      className: editor.isActive('heading', { level: 1 })
-        ? 'text-primary-500'
-        : ''
+      className: editor.isActive('heading', { level: 1 }) ? 'text-primary-500' : ''
     },
     {
       // Heading 2
@@ -83,13 +69,9 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().toggleHeading({ level: 2 }).run();
-        !editor.isActive('heading', { level: 2 })
-          ? setTypeNumber(0)
-          : setTypeNumber(2);
+        !editor.isActive('heading', { level: 2 }) ? setTypeNumber(0) : setTypeNumber(2);
       },
-      className: editor.isActive('heading', { level: 2 })
-        ? 'text-primary-500'
-        : ''
+      className: editor.isActive('heading', { level: 2 }) ? 'text-primary-500' : ''
     },
     {
       // Heading 3
@@ -101,13 +83,9 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
       ),
       callback: () => {
         editor.chain().focus().toggleHeading({ level: 3 }).run();
-        !editor.isActive('heading', { level: 3 })
-          ? setTypeNumber(0)
-          : setTypeNumber(3);
+        !editor.isActive('heading', { level: 3 }) ? setTypeNumber(0) : setTypeNumber(3);
       },
-      className: editor.isActive('heading', { level: 3 })
-        ? 'text-primary-500'
-        : ''
+      className: editor.isActive('heading', { level: 3 }) ? 'text-primary-500' : ''
     },
     {
       // Bullet List
@@ -159,15 +137,13 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
         <button
           type='button'
           onClick={() => editor.chain().focus().undo().run()}
-          disabled={!editor.can().chain().focus().undo().run()}
-        >
+          disabled={!editor.can().chain().focus().undo().run()}>
           <FaUndo className='size-4' />
         </button>
         <button
           type='button'
           onClick={() => editor.chain().focus().redo().run()}
-          disabled={!editor.can().chain().focus().redo().run()}
-        >
+          disabled={!editor.can().chain().focus().redo().run()}>
           <FaRedo className='size-4' />
         </button>
       </div>
@@ -176,36 +152,31 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}
-          className={editor.isActive('bold') ? 'text-primary-500' : ''}
-        >
+          className={editor.isActive('bold') ? 'text-primary-500' : ''}>
           <MdFormatBold className='size-5' />
         </button>
         <button
           onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={!editor.can().chain().focus().toggleItalic().run()}
-          className={editor.isActive('italic') ? 'text-primary-500' : ''}
-        >
+          className={editor.isActive('italic') ? 'text-primary-500' : ''}>
           <MdFormatItalic className='size-5' />
         </button>
         <button
           onClick={() => editor.commands.toggleUnderline()}
           disabled={!editor.can().chain().focus().toggleUnderline().run()}
-          className={editor.isActive('underline') ? 'text-primary-500' : ''}
-        >
+          className={editor.isActive('underline') ? 'text-primary-500' : ''}>
           <MdFormatUnderlined className='size-5' />
         </button>
         <button
           onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={!editor.can().chain().focus().toggleStrike().run()}
-          className={editor.isActive('strike') ? 'text-primary-500' : ''}
-        >
+          className={editor.isActive('strike') ? 'text-primary-500' : ''}>
           <MdFormatStrikethrough className='size-5' />
         </button>
         <button
           onClick={() => editor.chain().focus().toggleHighlight().run()}
           disabled={!editor.can().chain().focus().toggleHighlight().run()}
-          className={editor.isActive('highlight') ? 'text-primary-500' : ''}
-        >
+          className={editor.isActive('highlight') ? 'text-primary-500' : ''}>
           <FaPen className='size-5' />
         </button>
       </div>
@@ -216,25 +187,22 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
             {typeText[typeNumber].node}
             <GoChevronDown className='size-4' />
           </div>
-          <div data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
-            {
-              <div className='p-2 bg-foreground-1 rounded-lg shadow-lg'>
-                {typeText.map((item, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                      'p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close',
-                      item.className
-                    )}
-                    onClick={() => {
-                      item.callback();
-                    }}
-                  >
-                    {item.node}
-                  </div>
-                ))}
-              </div>
-            }
+          <div data-uk-drop='pos: bottom-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
+            <div className='p-2 bg-foreground-1 rounded-lg shadow-lg'>
+              {typeText.map((item, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    'p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close',
+                    item.className
+                  )}
+                  onClick={() => {
+                    item.callback();
+                  }}>
+                  {item.node}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -247,28 +215,30 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
               editor.chain().focus().unsetLink().run();
             } else {
               const url = window.prompt('Enter the URL');
-              editor
-                .chain()
-                .focus()
-                .extendMarkRange('link')
-                .toggleLink({ href: url as string })
-                .run();
+              if (url) {
+                editor
+                  .chain()
+                  .focus()
+                  .extendMarkRange('link')
+                  .toggleLink({ href: url as string })
+                  .run();
+              }
             }
-          }}
-        >
+          }}>
           <MdLink className='size-5' />
         </button>
         {/* Add Youtube */}
         <button
           onClick={() => {
             const url = window.prompt('Enter the Youtube URL');
-            editor
-              .chain()
-              .focus()
-              .setYoutubeVideo({ src: url as string })
-              .run();
-          }}
-        >
+            if (url) {
+              editor
+                .chain()
+                .focus()
+                .setYoutubeVideo({ src: url as string })
+                .run();
+            }
+          }}>
           <FaYoutube className='size-5' />
         </button>
         {/* Add Emoji */}
@@ -278,18 +248,12 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
           hoverContent={
             <Picker
               data={async () => {
-                const response = await fetch(
-                  'https://cdn.jsdelivr.net/npm/@emoji-mart/data'
-                );
+                const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
                 return response.json();
               }}
               onEmojiSelect={(emoji: IEmoji) => {
-                editor
-                  ?.chain()
-                  .focus()
-                  .insertContent({ type: 'text', text: emoji.native })
-                  .run();
+                editor.chain().focus().insertContent({ type: 'text', text: emoji.native }).run();
               }}
               theme={mode}
             />
@@ -306,45 +270,28 @@ interface EditorContentProps {
 
 export default function Editor({ setEditor }: EditorContentProps) {
   const t = useTranslations();
-  Placeholder.configure({
-    placeholder: t('What do you have in mind?')
-  });
 
-  const editor = useEditor({
-    extensions: [
-      Document,
-      Paragraph,
-      Text,
-      StarterKit,
-      Underline,
-      Link,
-      Placeholder,
-      Youtube.configure({
-        width: 440,
-        height: 300,
-        ccLanguage: 'en'
-      }),
-      Highlight,
-      CodeBlockLowlight.configure({ lowlight })
-    ],
+  const editor = useCustomEditor({
+    editable: true,
     editorProps: {
       attributes: {
-        class: 'max-h-[350px] overflow-y-scroll overflow custom-scrollbar-bg'
+        class: 'max-h-[350px] overflow-y-scroll custom-scrollbar-bg'
       }
     }
   });
 
-  setEditor && setEditor(editor as EditorProps);
+  useEffect(() => {
+    if (editor) {
+      if (setEditor) setEditor(editor);
 
-  editor?.commands.focus();
+      editor.commands.focus();
+    }
+  }, []);
 
   return (
     <div>
-      <MenuBar editor={editor as EditorProps} />
-      <EditorContent
-        className='my-5 px-2 *:outline-none overflow-hidden'
-        editor={editor}
-      />
+      <MenuBar editor={editor} />
+      <EditorContent className='my-5 px-2 *:outline-none overflow-hidden' editor={editor} />
     </div>
   );
 }

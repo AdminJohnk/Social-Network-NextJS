@@ -4,7 +4,8 @@ import {
   IUserRegister,
   IVerifyCode,
   IForgotPassword,
-  IResetPassword
+  IResetPassword,
+  IGithubLogin
 } from '@/types';
 import { BaseService } from './BaseService';
 
@@ -21,7 +22,7 @@ class AuthService extends BaseService {
   loginWithGoogle = (email: IGoogleLogin) => {
     return this.post(`/auth/login-google`, email);
   };
-  loginWithGithub = (email: IGoogleLogin) => {
+  loginWithGithub = (email: IGithubLogin) => {
     return this.post(`/auth/login-github`, email);
   };
   logout = () => {

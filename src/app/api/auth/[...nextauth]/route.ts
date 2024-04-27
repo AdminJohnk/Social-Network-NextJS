@@ -54,9 +54,7 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
       profile: async (profile) => {
         if (profile) {
-          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGoogle({
-            email: profile.email
-          });
+          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGoogle(profile);
 
           if (data) {
             return {
@@ -78,9 +76,7 @@ const handler = NextAuth({
       clientSecret: process.env.GITHUB_SECRET || '',
       profile: async (profile) => {
         if (profile) {
-          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub({
-            email: profile.email
-          });
+          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub(profile);
 
           if (data) {
             return {

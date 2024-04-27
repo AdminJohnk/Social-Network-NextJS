@@ -29,8 +29,12 @@ export interface IPostProps {
 export default function Post({ post, feature }: IPostProps) {
   const t = useTranslations();
   const content =
-    post.type === 'Post' ? post.post_attributes.content : post.post_attributes.post!.post_attributes.content;
-  const [contentQuill, setContent] = useState(content);
+    post.type === 'Post'
+      ? post.post_attributes.content
+      : post.post_attributes.post
+      ? post.post_attributes.post.post_attributes.content
+      : '';
+  const [contentTiptap, setContentTiptap] = useState(content);
   const [expanded, setExpanded] = useState(false);
 
   const isMoreThan500 = content?.length > 500;
@@ -81,15 +85,19 @@ export default function Post({ post, feature }: IPostProps) {
   }, []);
 
   const images: string[] =
-    post.type === 'Post' ? post.post_attributes.images : post.post_attributes.post!?.post_attributes?.images;
+    post.type === 'Post'
+      ? post.post_attributes.images
+      : post.post_attributes.post
+      ? post.post_attributes.post.post_attributes.images
+      : [];
 
   const ownerPost: IUserInfo = post?.post_attributes?.owner_post as IUserInfo;
 
   const isMyPost = post.post_attributes.user._id === currentUserInfo._id;
 
   useEffect(() => {
-    if (isMoreThan500 && !expanded) setContent(content.slice(0, 500) + '...');
-    else setContent(content);
+    if (isMoreThan500 && !expanded) setContentTiptap(content.slice(0, 500) + '...');
+    else setContentTiptap(content);
   }, [expanded, content, isMoreThan500]);
 
   // Modal
@@ -133,49 +141,52 @@ export default function Post({ post, feature }: IPostProps) {
           <ShowContent content={post?.post_attributes?.content_share} />
         </div>
       )}
-      <div className={cn(post.type === 'Share' && 'border border-border-1 rounded-lg pb-4')}>
-        {post.type === 'Share' && (
-          <div className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}>
-            <Link href={`/profile/${ownerPost._id}`}>
-              <Avatar src={getImageURL(ownerPost.user_image)} />
-            </Link>
-            <div className='flex flex-col ms-3'>
-              <Link href={`/profile/${ownerPost._id}`} className='base-bold'>
-                {ownerPost.name}
+      <div className={cn(post.type === 'Share' && 'border border-border-1 rounded-lg')}>
+        {post.type === 'Share' &&
+          (content.length > 0 ? (
+            <div className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}>
+              <Link href={`/profile/${ownerPost._id}`}>
+                <Avatar src={getImageURL(ownerPost.user_image)} />
               </Link>
-              <Link
-                href={`/posts/${post._id}`}
-                className='small-bold text-text-2 hover:underline hover:text-text-1'>
-                {handleDateTime(post.post_attributes.post!.createdAt)}
-              </Link>
+              <div className='flex flex-col ms-3'>
+                <Link href={`/profile/${ownerPost._id}`} className='base-bold'>
+                  {ownerPost.name}
+                </Link>
+                <Link
+                  href={`/posts/${post.post_attributes.post!._id}`}
+                  className='small-bold text-text-2 hover:underline hover:text-text-1'>
+                  {handleDateTime(post.post_attributes.post!.createdAt)}
+                </Link>
+              </div>
             </div>
+          ) : (
+            <div className='my-4 flex-center'>
+              <div className='text-text-2 h3-semibold'>{t('This post is no longer available')}</div>
+            </div>
+          ))}
+        {content.length > 0 && (
+          <div className={cn('mt-4', post.type === 'Share' && 'px-5')}>
+            <ShowContent content={contentTiptap} />
+            {isMoreThan500 && (
+              <div
+                className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
+                onClick={() => setExpanded(!expanded)}>
+                {expanded ? t('Read less') : t('Read more')}
+              </div>
+            )}
+            {images.length !== 0 && (
+              <div className='mb-5'>
+                <Image
+                  className='rounded-lg w-full h-full object-cover'
+                  src={getImageURL(images[0])}
+                  width={1500}
+                  height={1500}
+                  alt='image'
+                />
+              </div>
+            )}
           </div>
         )}
-        <div className={cn('mt-4', post.type === 'Share' && 'px-5')}>
-          {/* <div
-            className='base-regular overflow break-words text-balance'
-            dangerouslySetInnerHTML={{ __html: contentQuill }}
-          /> */}
-          <ShowContent content={contentQuill} />
-          {isMoreThan500 && (
-            <div
-              className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
-              onClick={() => setExpanded(!expanded)}>
-              {expanded ? t('Read less') : t('Read more')}
-            </div>
-          )}
-          {images.length !== 0 && (
-            <div>
-              <Image
-                className='rounded-lg w-full h-full object-cover'
-                src={getImageURL(images[0])}
-                width={1500}
-                height={1500}
-                alt='image'
-              />
-            </div>
-          )}
-        </div>
       </div>
       {feature !== 'sharing' && (
         <div className={cn('react flex-between mt-4', post.type === 'Share' && 'mt-4')}>

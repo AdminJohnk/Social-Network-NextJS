@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { Link } from '@/navigation';
@@ -18,6 +19,7 @@ export interface IChatsBubbleProps {
 
 export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
   const t = useTranslations();
+  const queryClient = useQueryClient();
 
   if (conversationID === undefined) return <></>;
 
@@ -28,6 +30,12 @@ export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
   const otherUser = useMemo(() => {
     return currentConversation?.members?.filter((member) => member._id !== currentUserInfo._id)[0];
   }, [currentUserInfo, currentConversation?.members]);
+
+  useEffect(() => {
+    // return () => {
+    //   queryClient.resetQueries({ queryKey: ['messages', conversationID] });
+    // };
+  }, []);
 
   return (
     <div className='flex-1 relative'>
