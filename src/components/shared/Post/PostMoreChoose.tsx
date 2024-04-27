@@ -1,6 +1,13 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 import { CiFlag1 } from 'react-icons/ci';
-import { IoOpenOutline, IoTrashOutline, IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
+import {
+  IoOpenOutline,
+  IoTrashOutline,
+  IoBookmark,
+  IoBookmarkOutline
+} from 'react-icons/io5';
 import { FiEdit } from 'react-icons/fi';
 import { IPost } from '@/types';
 import { IFeaturePost } from '@/types';
@@ -19,6 +26,8 @@ import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
 import { CircularProgress } from '@mui/material';
 import { Button } from '@/components/ui/button';
+import EditPost from '../EditPost';
+import Modal from '../Modal';
 
 export interface IPostMoreChooseProps {
   post: IPost;
@@ -26,7 +35,11 @@ export interface IPostMoreChooseProps {
   feature?: IFeaturePost;
 }
 
-export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreChooseProps) {
+export default function PostMoreChoose({
+  post,
+  isMyPost,
+  feature
+}: IPostMoreChooseProps) {
   const t = useTranslations();
 
   const { mutateSavePost } = useSavePost();
@@ -44,6 +57,11 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  // Modal Edit Post
+  const [openEditPost, setOpenEditPost] = useState(false);
+  const handleOpenEditPost = () => setOpenEditPost(true);
+  const handleCloseEditPost = () => setOpenEditPost(false);
 
   const handleDeletePost = () => {
     setIsLoading(true);
@@ -91,14 +109,15 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
         ) : (
           <div
             className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               window.open('/posts/' + post._id, '_blank');
-            }}>
+            }}
+          >
             <span className='text-2xl'>
               <IoOpenOutline />
             </span>
-            <span className='whitespace-nowrap'>{t('Open Post In New Tab')}</span>
+            <span>{t('Open Post In New Tab')}</span>
           </div>
         )}
         {/* Add To Favorite */}
@@ -107,33 +126,58 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
           onClick={() => {
             setIsSaved(!is_saved);
             mutateSavePost(post._id);
-          }}>
-          <span className='text-2xl'>{is_saved ? <IoBookmark /> : <IoBookmarkOutline />}</span>
-          <span className='whitespace-nowrap'>
+          }}
+        >
+          <span className='text-2xl'>
+            {is_saved ? <IoBookmark /> : <IoBookmarkOutline />}
+          </span>
+          <span>
             {is_saved ? t('Remove From Favorite') : t('Add To Favorite')}
           </span>
         </div>
         {isMyPost && (
-          <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'>
-            <span className='text-2xl'>
-              <FiEdit />
-            </span>
-            <span className='whitespace-nowrap'>{t('Edit Post')}</span>
-          </div>
+          // <div
+          //   className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
+          //   onClick={handleOpenEditPost}
+          // >
+          //   <span className='text-2xl'>
+          //     <FiEdit />
+          //   </span>
+          //   <span>{t('Edit Post')}</span>
+
+          //   <EditPost post={post} />
+
+          // </div>
+
+          <AlertDialog open={openEditPost}>
+            <AlertDialogTrigger
+              className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
+              onClick={handleOpenEditPost}
+            >
+              <span className='text-2xl'>
+                <FiEdit />
+              </span>
+              <span>{t('Edit Post')}</span>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              {<EditPost post={post} handleClose={handleCloseEditPost} />}
+            </AlertDialogContent>
+          </AlertDialog>
         )}
         {/* Report This Post */}
         <div className='flex gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'>
           <span className='text-2xl'>
             <CiFlag1 />
           </span>
-          <span className='whitespace-nowrap'>{t('Report This Post')}</span>
+          <span>{t('Report This Post')}</span>
         </div>
         {/* Delete Post */}
         {isMyPost && (
           <AlertDialog open={open}>
             <AlertDialogTrigger
               className='flex w-full gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
-              onClick={handleOpen}>
+              onClick={handleOpen}
+            >
               <span className='text-2xl'>
                 <IoTrashOutline />
               </span>
@@ -141,7 +185,9 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>{t('Are you absolutely sure delete this post?')}</AlertDialogTitle>
+                <AlertDialogTitle>
+                  {t('Are you absolutely sure delete this post?')}
+                </AlertDialogTitle>
                 <AlertDialogDescription>
                   {t('You will not be able to recover post after deletion!')}
                 </AlertDialogDescription>
@@ -151,14 +197,18 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
                   variant='destructive'
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
-                  onClick={handleClose}>
+                  onClick={handleClose}
+                >
                   {t('Cancel')}
                 </Button>
                 <Button
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
-                  onClick={handleDeletePost}>
-                  {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                  onClick={handleDeletePost}
+                >
+                  {isLoading && (
+                    <CircularProgress size={20} className='!text-text-1 mr-2' />
+                  )}
                   {t('Delete')}
                 </Button>
               </AlertDialogFooter>

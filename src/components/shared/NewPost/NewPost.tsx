@@ -21,7 +21,7 @@ export default function NewPost({ profileID }: INewPostProps) {
   return (
     <div className='new-post px-4 py-5 bg-foreground-1 flex-between gap-1 rounded-lg'>
       <div
-        className='text-center py-2 bg-foreground-2 basis-9/12 rounded-lg hover:bg-hover-2 cursor-pointer'
+        className='text-center py-2 bg-foreground-2 basis-9/12 rounded-lg hover:bg-hover-2 cursor-pointer duration-300'
         data-uk-toggle='target: #create-status'>
         {profileID ? (
           <span>

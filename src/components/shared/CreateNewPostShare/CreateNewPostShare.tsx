@@ -30,8 +30,7 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
 
   const [editor, setEditor] = useState<EditorProps>();
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmit() {
     setIsLoading(true);
     const content = editor?.getHTML() as string;
 
@@ -61,7 +60,6 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
   }, []);
 
   return (
-    <form onSubmit={onSubmit}>
       <div className='w-[630px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg p-7 animate-fade-up'>
         {isLoadingCurrentUserInfo ? (
           <div className='flex-between'>
@@ -101,13 +99,13 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
           <Button
             type='submit'
             className='button lg:px-6 text-white max-md:flex-1'
-            // disabled={!isChanged || isLoading}
+            disabled={isLoading}
+            onClick={onSubmit}
           >
             {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
             {t('Share')} <span className='ripple-overlay'></span>
           </Button>
         </div>
       </div>
-    </form>
   );
 }

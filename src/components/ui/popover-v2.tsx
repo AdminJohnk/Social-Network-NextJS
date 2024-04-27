@@ -38,7 +38,7 @@ export default function Popover({ mainContent, hoverContent }: IPostMoreChoosePr
         disableEnforceFocus
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'center',
+          vertical: 'bottom',
           horizontal: 'left'
         }}>
         {hoverContent}

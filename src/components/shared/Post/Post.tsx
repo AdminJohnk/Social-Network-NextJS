@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Modal } from '@mui/material';
+import { Avatar } from '@mui/material';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoIosMore } from 'react-icons/io';
@@ -19,6 +19,7 @@ import { IFeaturePost, IPost, IUserInfo } from '@/types';
 import { cn, getImageURL } from '@/lib/utils';
 import ShowContent from '../ShowContent/ShowContent';
 import CreateNewPostShare from '../CreateNewPostShare/CreateNewPostShare';
+import Modal from '@/components/shared/Modal';
 import { useCurrentUserInfo } from '@/hooks/query';
 
 export interface IPostProps {
@@ -57,7 +58,11 @@ export default function Post({ post, feature }: IPostProps) {
       return (
         format.dateTime(new Date(date), { weekday: 'long' }) +
         ' • ' +
-        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+        format.dateTime(new Date(date), {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true
+        })
       );
     }
 
@@ -69,7 +74,11 @@ export default function Post({ post, feature }: IPostProps) {
           day: 'numeric'
         }) +
         ' • ' +
-        format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+        format.dateTime(new Date(date), {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true
+        })
       );
     }
 
@@ -80,7 +89,11 @@ export default function Post({ post, feature }: IPostProps) {
         day: 'numeric'
       }) +
       ' • ' +
-      format.dateTime(new Date(date), { hour: 'numeric', minute: 'numeric', hour12: true })
+      format.dateTime(new Date(date), {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      })
     );
   }, []);
 
@@ -96,7 +109,8 @@ export default function Post({ post, feature }: IPostProps) {
   const isMyPost = post.post_attributes.user._id === currentUserInfo._id;
 
   useEffect(() => {
-    if (isMoreThan500 && !expanded) setContentTiptap(content.slice(0, 500) + '...');
+    if (isMoreThan500 && !expanded)
+      setContentTiptap(content.slice(0, 500) + '...');
     else setContentTiptap(content);
   }, [expanded, content, isMoreThan500]);
 
@@ -113,12 +127,16 @@ export default function Post({ post, feature }: IPostProps) {
             <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
           </Link>
           <div className='flex flex-col ms-3'>
-            <Link href={`/profile/${post.post_attributes.user._id}`} className='base-bold'>
+            <Link
+              href={`/profile/${post.post_attributes.user._id}`}
+              className='base-bold'
+            >
               {post.post_attributes.user.name}
             </Link>
             <Link
               href={`/posts/${post._id}`}
-              className='small-bold text-text-2 hover:underline hover:text-text-1'>
+              className='small-bold text-text-2 hover:underline hover:text-text-1'
+            >
               {handleDateTime(post.createdAt)}
             </Link>
           </div>
@@ -130,8 +148,13 @@ export default function Post({ post, feature }: IPostProps) {
             </div>
             <div
               className='!w-fit'
-              data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
-              <PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />
+              data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'
+            >
+              <PostMoreChoose
+                feature={feature}
+                post={post}
+                isMyPost={isMyPost}
+              />
             </div>
           </div>
         )}
@@ -141,10 +164,16 @@ export default function Post({ post, feature }: IPostProps) {
           <ShowContent content={post?.post_attributes?.content_share} />
         </div>
       )}
-      <div className={cn(post.type === 'Share' && 'border border-border-1 rounded-lg')}>
+      <div
+        className={cn(
+          post.type === 'Share' && 'border border-border-1 rounded-lg'
+        )}
+      >
         {post.type === 'Share' &&
           (content.length > 0 ? (
-            <div className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}>
+            <div
+            className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}
+          >
               <Link href={`/profile/${ownerPost._id}`}>
                 <Avatar src={getImageURL(ownerPost.user_image)} />
               </Link>
@@ -154,7 +183,8 @@ export default function Post({ post, feature }: IPostProps) {
                 </Link>
                 <Link
                   href={`/posts/${post.post_attributes.post!._id}`}
-                  className='small-bold text-text-2 hover:underline hover:text-text-1'>
+                  className='small-bold text-text-2 hover:underline hover:text-text-1'
+              >
                   {handleDateTime(post.post_attributes.post!.createdAt)}
                 </Link>
               </div>
@@ -170,26 +200,36 @@ export default function Post({ post, feature }: IPostProps) {
             {isMoreThan500 && (
               <div
                 className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
-                onClick={() => setExpanded(!expanded)}>
+                onClick={() => setExpanded(!expanded)}
+            >
                 {expanded ? t('Read less') : t('Read more')}
               </div>
             )}
             {images.length !== 0 && (
-              <div className='mb-5'>
-                <Image
-                  className='rounded-lg w-full h-full object-cover'
-                  src={getImageURL(images[0])}
-                  width={1500}
-                  height={1500}
-                  alt='image'
-                />
+              <div className='flex flex-wrap mb-5'>
+              {images.map((image, index) => (
+                <div key={index} className='mt-4'>
+                    <Image
+                      className='rounded-lg w-full h-full object-cover'
+                      src={getImageURL(image)}
+                      width={1500}
+                      height={1500}
+                      alt='image'
+                    />
+                </div>
+              ))}
               </div>
             )}
           </div>
         )}
       </div>
       {feature !== 'sharing' && (
-        <div className={cn('react flex-between mt-4', post.type === 'Share' && 'mt-4')}>
+        <div
+          className={cn(
+            'react flex-between mt-4',
+            post.type === 'Share' && 'mt-4'
+          )}
+        >
           <div className='left flex gap-5'>
             <div className='flex gap-3'>
               <span className='p-1 bg-foreground-2 rounded-full'>
@@ -215,14 +255,13 @@ export default function Post({ post, feature }: IPostProps) {
                   onClick={handleOpen}
                 />
                 <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby='modal-modal-title'
-                  aria-describedby='modal-modal-description'>
-                  <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
+                  componentModal={
                     <CreateNewPostShare handleClose={handleClose} post={post} />
-                  </div>
-                </Modal>
+                  }
+                  open={open}
+                  handleClose={handleClose}
+                  children={<></>}
+                />
               </span>
             )}
           </div>

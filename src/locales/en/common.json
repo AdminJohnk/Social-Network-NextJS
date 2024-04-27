@@ -311,5 +311,7 @@
   "Response": "Response",
   "Accept": "Accept",
   "Decline": "Decline",
-  "Contacts": "Contacts"
+  "Contacts": "Contacts",
+  "Post updated successfully!": "Post updated successfully!",
+  "Remove all": "Remove all"
 }

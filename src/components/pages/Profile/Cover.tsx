@@ -275,20 +275,20 @@ export default function Cover({ profileID }: ICoverProps) {
                   data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                   {isMe ? (
                     <nav>
-                      <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         {t('Activity Log')}
                       </Link>
-                      <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         {t('Archive')}
                       </Link>
-                      <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         {t('More')}
                       </Link>
                       <hr />
-                      <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         {t('Settings & Privacy')}
                       </Link>
-                      <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         {t('Help & Support')}
                       </Link>
                     </nav>
@@ -296,23 +296,23 @@ export default function Cover({ profileID }: ICoverProps) {
                     <nav>
                       {isFriend && (
                         <>
-                          <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                          <Link href='' className='hover:!bg-hover-1'>
                             <FiPhone className='text-xl' /> {t('Voice Call')}
                           </Link>
-                          <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                          <Link href='' className='hover:!bg-hover-1'>
                             <IoVideocamOutline className='text-xl' />
                             {t('Video Call')}
                           </Link>
                         </>
                       )}
-                      <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         <IoChatboxEllipsesOutline className='text-xl' />
                         {t('Message')}
                       </Link>
-                      <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         <IoFlagOutline className='text-xl' /> {t('Report')}
                       </Link>
-                      <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                      <Link href='' className='hover:!bg-hover-1'>
                         <IoShareOutline className='text-xl' />
                         {t('Share profile')}
                       </Link>
@@ -347,25 +347,25 @@ export default function Cover({ profileID }: ICoverProps) {
                   className='md:w-[240px] w-screen !bg-foreground-1 hidden'
                   data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:-4'>
                   <nav className='text-[15px]'>
-                    <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link href='' className='hover:!bg-hover-1'>
                       {t('Likes')}
                     </Link>
-                    <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link href='' className='hover:!bg-hover-1'>
                       {t('Music')}
                     </Link>
-                    <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link href='' className='hover:!bg-hover-1'>
                       {t('Events')}
                     </Link>
-                    <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link href='' className='hover:!bg-hover-1'>
                       {t('Books')}
                     </Link>
-                    <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link href='' className='hover:!bg-hover-1'>
                       {t('Reviews given')}
                     </Link>
-                    <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link href='' className='hover:!bg-hover-1'>
                       {t('Groups')}
                     </Link>
-                    <Link href='' className='hover:!bg-hover-1 text-black/90 dark:text-white/90'>
+                    <Link href='' className='hover:!bg-hover-1'>
                       {t('Manage Sections')}
                     </Link>
                   </nav>

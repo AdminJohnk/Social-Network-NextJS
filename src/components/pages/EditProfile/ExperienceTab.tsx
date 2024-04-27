@@ -36,16 +36,6 @@ export default function ExperienceTab() {
 
   return (
     <div>
-      {/* <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
-      >
-        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground-1 shadow-lg rounded-md outline-none'>
-          <AddNewExperience handleClose={handleClose} />
-        </div>
-      </Modal> */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>
           <div className='size-6 flex-center bg-foreground-2 hover:bg-hover-1 duration-300 rounded-full mb-4'>

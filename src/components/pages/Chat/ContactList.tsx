@@ -39,7 +39,7 @@ export default function ContactList({ contacts }: IContactListProps) {
         type: 'private',
         members: [userFriend]
       })
-      .then((res) => {
+      .then(res => {
         chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
         mutateReceiveConversation(res.data.metadata);
         router.push(`/messages/${res.data.metadata._id}`);
@@ -59,7 +59,7 @@ export default function ContactList({ contacts }: IContactListProps) {
 
     setIsLoadingSearch(false);
     setSearchFriends(
-      contacts.filter((contact) => {
+      contacts.filter(contact => {
         const name = contact.name
           .normalize('NFD')
           .replace(/[\u0300-\u036f]/g, '')
@@ -77,7 +77,10 @@ export default function ContactList({ contacts }: IContactListProps) {
     <div className='flex flex-col'>
       <div className='p-4'>
         <div className='flex mt-2 items-center justify-between'>
-          <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'> {t('Contacts')} </h2>
+          <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'>
+            {' '}
+            {t('Contacts')}{' '}
+          </h2>
           {/* <!-- right action buttons --> */}
           <div className='flex items-center gap-2.5'>
             <div className='cursor-pointer' onClick={() => {}}>
@@ -95,7 +98,7 @@ export default function ContactList({ contacts }: IContactListProps) {
             type='text'
             placeholder={t('Search')}
             className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
-            onChange={(e) => {
+            onChange={e => {
               setSearch(e.target.value);
               if (!isLoadingSearch) setIsLoadingSearch(true);
             }}
@@ -113,19 +116,22 @@ export default function ContactList({ contacts }: IContactListProps) {
                 width={500}
                 height={500}
               />
-              <span className='whitespace-nowrap'>{t('Not found any friends')}</span>
+              <span>{t('Not found any friends')}</span>
             </div>
           ) : (
-            searchFriends.map((item) => {
+            searchFriends.map(item => {
               return (
                 <div
                   className='user flex items-center cursor-pointer p-4 rounded-xl hover:bg-hover-1'
                   key={item._id}
-                  onClick={() => HandleOnClick(item._id)}>
+                  onClick={() => HandleOnClick(item._id)}
+                >
                   <div className='avatar relative'>
                     <AvatarMessage key={item._id} user={item} />
                   </div>
-                  <div className='name text-center ml-2 font-bold'>{item.name}</div>
+                  <div className='name text-center ml-2 font-bold'>
+                    {item.name}
+                  </div>
                 </div>
               );
             })
