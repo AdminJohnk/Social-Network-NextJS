@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useThemeMode } from 'flowbite-react';
 import { Editor as EditorProps, EditorContent } from '@tiptap/react';
 import {
   MdFormatBold,
@@ -18,10 +19,8 @@ import { IoCodeSlashOutline, IoHappy } from 'react-icons/io5';
 import { GoChevronDown } from 'react-icons/go';
 import Picker from '@emoji-mart/react';
 import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
 import Popover from '@/components/ui/popover-v2';
 import { IEmoji } from '@/types';
-import { useThemeMode } from 'flowbite-react';
 import { useCustomEditor } from '@/hooks/special';
 
 const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
@@ -269,8 +268,6 @@ interface EditorContentProps {
 }
 
 export default function Editor({ setEditor }: EditorContentProps) {
-  const t = useTranslations();
-
   const editor = useCustomEditor({
     editable: true,
     editorProps: {

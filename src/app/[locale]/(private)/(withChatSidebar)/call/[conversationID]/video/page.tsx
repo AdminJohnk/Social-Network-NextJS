@@ -16,11 +16,10 @@ const serverUrl = process.env.NEXT_PUBLIC_LIVEKIT_SERVER;
 export interface IVideoCallProps {
   params: {
     conversationID: string;
-  }
+  };
 }
 
 const VideoCall = ({ params: { conversationID } }: IVideoCallProps) => {
-
   const { dataMessageCall: dataVideo } = useMessageCall(conversationID, 'video');
 
   const { chatSocket } = useSocketStore();

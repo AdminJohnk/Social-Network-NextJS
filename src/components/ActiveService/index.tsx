@@ -102,24 +102,27 @@ export const ChatService = () => {
   const [callType, setCallType] = useState<string>();
   const [isMissed, setIsMissed] = useState(false);
 
-  const handleSendEndCall = useCallback((data: ISocketCall, type: string, status: string) => {
-    const message = {
-      _id: uuidv4().replace(/-/g, ''),
-      conversation_id: data?.conversation_id,
-      sender: {
-        _id: data?.author._id,
-        user_image: data?.author.user_image,
-        name: data?.author.name
-      },
-      isSending: true,
-      content: `${capitalizeFirstLetter(type)} call ${status}`,
-      type: type,
-      createdAt: new Date()
-    };
+  const handleSendEndCall = useCallback(
+    (data: ISocketCall, type: 'video' | 'voice', status: 'missed' | 'ended') => {
+      const message = {
+        _id: uuidv4().replace(/-/g, ''),
+        conversation_id: data?.conversation_id,
+        sender: {
+          _id: data?.author._id,
+          user_image: data?.author.user_image,
+          name: data?.author.name
+        },
+        isSending: true,
+        content: `${capitalizeFirstLetter(type)} call ${status}`,
+        type: type,
+        createdAt: new Date()
+      };
 
-    mutateSendMessage(message as unknown as IMessage);
-    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: data?.conversation_id, message });
-  }, []);
+      mutateSendMessage(message as unknown as IMessage);
+      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: data?.conversation_id, message });
+    },
+    []
+  );
 
   useEffect(() => {
     chatSocket.emit(Socket.SETUP, currentUserInfo._id);

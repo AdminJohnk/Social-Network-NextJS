@@ -18,9 +18,9 @@ export interface IVoiceCallProps {
     conversationID: string;
   };
 }
+
 const VoiceCall = ({ params: { conversationID } }: IVoiceCallProps) => {
   const { dataMessageCall: dataAudio } = useMessageCall(conversationID, 'audio');
-
   const { chatSocket } = useSocketStore();
 
   const onDisconnected = () => {

@@ -162,7 +162,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       [isNextMesGroup, isPrevMesGroup]
     );
 
-    const roundedCornerStyle = useCallback(() => {
+    const roundedCornerStyle = useMemo(() => {
       if (isOwn) {
         if (isNextMesGroup && isPrevMesGroup) return 'rounded-s-[1.5rem] rounded-e-[0.75rem]';
         if (isNextMesGroup && !isPrevMesGroup)
@@ -261,7 +261,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               <div
                 className={cn(
                   'max-w-2xl whitespace-pre-wrap',
-                  roundedCornerStyle(),
+                  roundedCornerStyle,
                   checkContentType(content) === 'emoji' ? 'text-4xl' : 'px-4 py-2 bg-foreground-2'
                 )}
                 data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
@@ -288,7 +288,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
             <div
               className={cn(
                 'max-w-2xl whitespace-pre-wrap',
-                roundedCornerStyle(),
+                roundedCornerStyle,
                 checkContentType(content) === 'emoji'
                   ? 'text-4xl'
                   : 'px-4 py-2 bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
@@ -339,7 +339,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 </div>
               )}
               <div
-                className={cn('max-w-sm', roundedCornerStyle())}
+                className={cn('max-w-sm', roundedCornerStyle)}
                 data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
                   isOwn ? 'left' : 'right'
                 }; delay: 200;offset:6`}>
@@ -439,7 +439,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               <div
                 className={cn(
                   'flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
-                  roundedCornerStyle()
+                  roundedCornerStyle
                 )}
                 data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
                   isOwn ? 'left' : 'right'
@@ -483,7 +483,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 <div
                   className={cn(
                     'flex items-center cursor-pointer hover:scale-[103%] max-w-sm bg-foreground-2 px-4 py-2 !my-[1px]',
-                    roundedCornerStyle()
+                    roundedCornerStyle
                   )}
                   data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
                     isOwn ? 'left' : 'right'

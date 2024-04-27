@@ -3,7 +3,9 @@
 import Image from 'next/image';
 import { Link, usePathname } from '@/navigation';
 import { useTranslations } from 'next-intl';
+import { Children, useMemo } from 'react';
 
+import { useConversationsData, useCurrentUserInfo } from '@/hooks/query';
 import { Sidebar } from '@/lib/navigator/Sidebar';
 import { cn } from '@/lib/utils';
 
@@ -11,28 +13,47 @@ export default function MainNavigate() {
   const t = useTranslations();
   const pathName = usePathname();
 
+  const { currentUserInfo } = useCurrentUserInfo();
+  const { conversations } = useConversationsData();
+
+  const notSeenCount = useMemo(() => {
+    if (!currentUserInfo || !conversations) return 0;
+    return conversations.reduce((count, conversation) => {
+      if (
+        conversation.seen.some((user) => user._id === currentUserInfo._id) ||
+        conversation.lastMessage?.sender?._id === currentUserInfo._id ||
+        !conversation.lastMessage
+      )
+        return count;
+
+      return count + 1;
+    }, 0);
+  }, [conversations, currentUserInfo]);
+
   return (
     <nav id='side'>
       <ul>
-        {Sidebar.map((item, index) => {
-          return (
-            <li
-              key={index}
-              id={cn(item.showMore && 'show_more')}
-              className={cn(item.showMore && '!hidden', 'my-1')}>
+        {Children.toArray(
+          Sidebar.map((item) => (
+            <li id={cn(item.showMore && 'show_more')} className={cn(item.showMore && '!hidden', 'my-1')}>
               <Link
                 href={item.href}
                 className={cn(
-                  'duration-300',
+                  'duration-300 flex-between',
                   (pathName === item.href || (pathName.startsWith(item.href) && item.href !== '/')) &&
                     'bg-foreground-1'
                 )}>
-                <Image src={item.image} alt={item.label} width={24} height={24} />
-                <span> {t(item.label)} </span>
+                <div className='flex-start gap-3'>
+                  <Image src={item.image} alt={item.label} width={24} height={24} />
+                  <span> {t(item.label)} </span>
+                </div>
+                {item.href === '/messages' && notSeenCount > 0 && (
+                  <span className='bg-red-700 rounded-md px-1'>{notSeenCount}</span>
+                )}
               </Link>
             </li>
-          );
-        })}
+          ))
+        )}
       </ul>
 
       {/* <button

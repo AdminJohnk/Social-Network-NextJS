@@ -358,7 +358,7 @@ export interface ISocketCall {
   user_id: string;
   user_name: string;
   user_image: string;
-  members: string[];
+  members: IUserInfo[];
   token: string;
   first_call: boolean;
   type: 'missed' | 'ended';
