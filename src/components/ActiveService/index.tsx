@@ -162,14 +162,14 @@ export const ChatService = () => {
         mutateConversation({ ...conversation, typeUpdate: 'remove_admin' });
       });
       chatSocket.on(Socket.VIDEO_CALL, (data: ISocketCall) => {
-        soundCall();
+        soundCall({ forceSoundEnabled: true });
         setOpenCall(true);
         setDataCall(data);
         setCallType('video');
         setIsMissed(false);
       });
       chatSocket.on(Socket.VOICE_CALL, (data: ISocketCall) => {
-        soundCall();
+        soundCall({ forceSoundEnabled: true });
         setOpenCall(true);
         setDataCall(data);
         setCallType('voice');

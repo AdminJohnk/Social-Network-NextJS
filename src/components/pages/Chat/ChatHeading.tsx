@@ -2,19 +2,17 @@
 
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { IoChevronBackOutline } from 'react-icons/io5';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { isThisWeek, isThisYear } from 'date-fns';
 import { Skeleton } from '@mui/material';
-import { useQueryClient } from '@tanstack/react-query';
 
-import { queryCache, useCurrentConversationData, useCurrentUserInfo, useMessagesOption } from '@/hooks/query';
+import { useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
 import { Link } from '@/navigation';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { IUserInfo } from '@/types';
 import { useSocketStore } from '@/store/socket';
 import { audioCall, videoChat } from '@/lib/utils/call';
-import { useSendMessage } from '@/hooks/mutation';
 
 export interface IChatHeadingProps {
   conversationID: string;
@@ -25,10 +23,6 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
   const t = useTranslations();
   const now = useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
-
-  const queryClient = useQueryClient();
-
-  const { chatSocket } = useSocketStore();
 
   const handleDateTime = useCallback((date: string) => {
     const messageDate = new Date(date).getTime();
@@ -92,18 +86,6 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
       return activeUser?.is_online ? t('Online') : t('Last seen at') + ' ' + handleDateTime(lastOnline);
     }
   }, [currentConversation, activeUser, members, currentUserInfo, now, otherUser]);
-
-  const { mutateSendMessage } = useSendMessage();
-
-  useEffect(() => {
-    return () => {
-      if (queryCache.find({ queryKey: ['messages', conversationID] })?.getObserversCount() ?? 0 === 0) {
-        // remove all pages of messages from cache except the first page
-        queryClient.removeQueries({ queryKey: ['messages', conversationID], exact: true });
-        queryClient.prefetchInfiniteQuery(useMessagesOption(conversationID));
-      }
-    };
-  }, []);
 
   return (
     <>
