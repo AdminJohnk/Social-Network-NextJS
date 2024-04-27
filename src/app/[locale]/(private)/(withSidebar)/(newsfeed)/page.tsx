@@ -24,7 +24,7 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
           <CreateStory />
         </div>
         <div className='newsfeed-content mt-14 max-md:mt-0 flex w-full' id='newsfeed'>
-          <div className='post w-3/5 max-lg:w-full px-9'>
+          <div className='post w-3/5 max-lg:w-full px-9 max-md:px-2'>
             <div className='new-post mb-8'>
               <NewPost />
               <CreateNewPost />

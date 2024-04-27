@@ -14,6 +14,7 @@ import { PopoverContent, Popover, PopoverTrigger } from '@/components/ui/popover
 import Language from '@/components/shared/Header/Language';
 import ContactList from './ContactList';
 import Logo from '@/components/shared/Logo';
+import CalledList from './CalledList';
 
 export interface IChatSideBarProps {
   conversationID: string | undefined;
@@ -69,7 +70,7 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
         return <ContactList contacts={contacts} />;
       case 2:
         // return <CalledList />;
-        return <>missing call</>;
+        return <CalledList />;
       default:
         return <></>;
     }

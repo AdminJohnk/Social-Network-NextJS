@@ -6,7 +6,7 @@ import { Link } from '@/navigation';
 import { IoIosMore } from 'react-icons/io';
 import { FiSend } from 'react-icons/fi';
 import { GoShare } from 'react-icons/go';
-import { IoHeart } from 'react-icons/io5';
+import { IoHeart, IoLockClosed } from 'react-icons/io5';
 import { FaCommentDots } from 'react-icons/fa';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
@@ -32,8 +32,8 @@ export default function Post({ post, feature }: IPostProps) {
     post.type === 'Post'
       ? post.post_attributes.content
       : post.post_attributes.post
-      ? post.post_attributes.post.post_attributes.content
-      : '';
+        ? post.post_attributes.post.post_attributes.content
+        : '';
   const [contentTiptap, setContentTiptap] = useState(content);
   const [expanded, setExpanded] = useState(false);
 
@@ -88,8 +88,8 @@ export default function Post({ post, feature }: IPostProps) {
     post.type === 'Post'
       ? post.post_attributes.images
       : post.post_attributes.post
-      ? post.post_attributes.post.post_attributes.images
-      : [];
+        ? post.post_attributes.post.post_attributes.images
+        : [];
 
   const ownerPost: IUserInfo = post?.post_attributes?.owner_post as IUserInfo;
 
@@ -160,8 +160,13 @@ export default function Post({ post, feature }: IPostProps) {
               </div>
             </div>
           ) : (
-            <div className='my-4 flex-center'>
-              <div className='text-text-2 h3-semibold'>{t('This post is no longer available')}</div>
+            <div className='my-4 flex gap-1 px-2'>
+              <div className='m-1'>
+                <IoLockClosed className='text-text-2 size-7' /></div>
+              <div className="flex flex-col">
+                <div className='text-text-2 h4-semibold max-md:h5-semibold'>{t('This content is not currently visible')}</div>
+                <div className='text-text-2'>{t('This error is often caused by the owner only sharing the content with a small group')}, {t('changing who can see it')}, {t('or deleting the content')}.</div>
+              </div>
             </div>
           ))}
         {content.length > 0 && (
