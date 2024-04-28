@@ -2,6 +2,7 @@
 
 import { ChatService, PresenceService } from '@/components/ActiveService';
 import LoadingLogo from '@/components/shared/LoadingLogo';
+import PhotoProvider from '@/components/shared/PhotoProvider';
 import { useCurrentUserInfo } from '@/hooks/query';
 
 export interface IPrivateLayoutProps {
@@ -16,11 +17,11 @@ export default function PrivateLayout({ children }: IPrivateLayoutProps) {
       {isLoadingCurrentUserInfo ? (
         <LoadingLogo />
       ) : (
-        <>
+        <PhotoProvider>
           <ChatService />
           <PresenceService />
           {children}
-        </>
+        </PhotoProvider>
       )}
     </>
   );

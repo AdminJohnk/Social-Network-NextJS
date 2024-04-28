@@ -7,15 +7,13 @@ export interface IPhoToProviderProps {
   children: React.ReactNode;
 }
 
-export default function PhoToProvider({ children }: IPhoToProviderProps) {
+export default function PhotoProvider({ children }: IPhoToProviderProps) {
   let fullScreen = false;
   return (
     <PhotoView
       speed={() => 500}
-      easing={type =>
-        type === 2
-          ? 'cubic-bezier(0.36, 0, 0.66, -0.56)'
-          : 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+      easing={(type) =>
+        type === 2 ? 'cubic-bezier(0.36, 0, 0.66, -0.56)' : 'cubic-bezier(0.34, 1.56, 0.64, 1)'
       }
       toolbarRender={({ onScale, scale, rotate, onRotate }) => {
         return (
@@ -25,16 +23,13 @@ export default function PhoToProvider({ children }: IPhoToProviderProps) {
             <LuRotateCw onClick={() => onRotate(rotate + 90)} />
             <GoScreenFull
               onClick={() => {
-                fullScreen
-                  ? document.exitFullscreen()
-                  : document.documentElement.requestFullscreen();
+                fullScreen ? document.exitFullscreen() : document.documentElement.requestFullscreen();
                 fullScreen = !fullScreen;
               }}
             />
           </div>
         );
-      }}
-    >
+      }}>
       {children}
     </PhotoView>
   );
