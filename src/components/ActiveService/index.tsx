@@ -15,7 +15,7 @@ import {
   useReceiveDissolveGroup,
   useReceiveLeaveGroup,
   useReceiveMessage,
-  useReceiveSeenConversation,
+  useReceiveSeenMessage,
   useSendMessage
 } from '@/hooks/mutation';
 import { useSocketStore } from '@/store/socket';
@@ -93,7 +93,7 @@ export const ChatService = () => {
   const { mutateReceiveConversation } = useReceiveConversation();
   const { mutateReceiveLeaveGroup } = useReceiveLeaveGroup();
   const { mutateReceiveDissolveGroup } = useReceiveDissolveGroup();
-  const { mutateReceiveSeenConversation } = useReceiveSeenConversation();
+  const { mutateReceiveSeenMessage } = useReceiveSeenMessage();
   const { mutateReceiveMessage } = useReceiveMessage(currentUserInfo._id);
   const { mutateConversation } = useMutateConversation(currentUserInfo._id || '');
 
@@ -140,8 +140,8 @@ export const ChatService = () => {
     chatSocket.on(Socket.PRIVATE_MSG, (message: IMessage) => {
       mutateReceiveMessage(message);
     });
-    chatSocket.on(Socket.SEEN_MSG, (conversation: IConversation) => {
-      mutateReceiveSeenConversation(conversation);
+    chatSocket.on(Socket.SEEN_MSG, (data: { conversation: IConversation; message: IMessage }) => {
+      mutateReceiveSeenMessage(data);
     });
     chatSocket.on(Socket.CHANGE_CONVERSATION_IMAGE, (conversation: IConversation) => {
       mutateConversation({ ...conversation, typeUpdate: 'image' });

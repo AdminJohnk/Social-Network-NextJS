@@ -103,6 +103,7 @@ export default function MessageList({ conversationID, currentConversation, other
     ) {
       chatSocket.emit(Socket.SEEN_MSG, {
         conversationID,
+        messageID: currentConversation.lastMessage._id,
         userID: currentUserInfo._id
       });
     }
@@ -223,7 +224,6 @@ export default function MessageList({ conversationID, currentConversation, other
                 type={currentConversation.type}
                 isLastMes={index === messArr.length - 1}
                 message={message}
-                seen={currentConversation.lastMessage.seen}
                 isAdmin={isAdmin(message.sender._id)}
                 isCreator={isCreator(message.sender._id)}
                 isPrevMesGroup={isPrevMesGroup(message, index, messArr)}
@@ -257,13 +257,17 @@ export default function MessageList({ conversationID, currentConversation, other
             </div>
           </div>
 
-          <Dialog open={openReCall.open} onOpenChange={() => setOpenReCall((prev) => ({ ...prev, open: false }))}>
+          <Dialog
+            open={openReCall.open}
+            onOpenChange={() => setOpenReCall((prev) => ({ ...prev, open: false }))}>
             <DialogContent className='bg-background-1 max-w-[600px] border-none'>
               <DialogHeader>
                 <DialogTitle>{openReCall.type === 'video' ? t('Video Call') : t('Voice Call')}</DialogTitle>
               </DialogHeader>
-              <div className="flex-center">
-                {openReCall.type === 'video' ? t('Call the group to start a new video call') : t('Call the group to start a new voice call')}
+              <div className='flex-center'>
+                {openReCall.type === 'video'
+                  ? t('Call the group to start a new video call')
+                  : t('Call the group to start a new voice call')}
               </div>
               <DialogFooter>
                 <Button

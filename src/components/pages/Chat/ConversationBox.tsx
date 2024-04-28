@@ -24,7 +24,6 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
 
-  // const isSeen = conversation.lastMessage.seen.some((user) => user._id === currentUserInfo._id);
   const isGroup = conversation.type === 'group';
   const isLastMessageFromCurrentUser =
     conversation.lastMessage && conversation.lastMessage.sender._id === currentUserInfo._id;

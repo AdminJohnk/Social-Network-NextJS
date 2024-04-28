@@ -518,8 +518,7 @@ export const useSendMessage = () => {
         if (index !== -1) {
           newData[index] = {
             ...newData[index],
-            lastMessage: message,
-            seen: []
+            lastMessage: message
           };
         }
 
@@ -535,8 +534,7 @@ export const useSendMessage = () => {
 
         return {
           ...oldData,
-          lastMessage: message,
-          seen: []
+          lastMessage: message
         };
       });
     }
@@ -589,8 +587,7 @@ export const useReceiveMessage = (currentUserID: string, conversationID?: string
 
           newData[index] = {
             ...newData[index],
-            lastMessage: message,
-            seen: []
+            lastMessage: message
           };
 
           newData.sort((a, b) => {
@@ -608,8 +605,7 @@ export const useReceiveMessage = (currentUserID: string, conversationID?: string
 
         return {
           ...oldData,
-          lastMessage: message,
-          seen: []
+          lastMessage: message
         };
       });
 
@@ -705,15 +701,16 @@ export const useReceiveConversation = () => {
 };
 
 /**
- * The `useReceiveSeenConversation` function is a custom hook in TypeScript that handles the mutation
+ * The `useReceiveSeenMessage` function is a custom hook in TypeScript that handles the mutation
  * of a conversation's "seen" status and updates the query data accordingly.
  */
-export const useReceiveSeenConversation = () => {
+export const useReceiveSeenMessage = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
-    mutationFn: async (conversation: IConversation) => await Promise.resolve(conversation),
-    onSuccess(conversation) {
+    mutationFn: async (data: { conversation: IConversation; message: IMessage }) =>
+      await Promise.resolve(data),
+    onSuccess({ conversation, message }) {
       queryClient.setQueryData<IConversation[]>(['conversations'], (oldData) => {
         if (!oldData) return;
 
@@ -724,7 +721,7 @@ export const useReceiveSeenConversation = () => {
         if (index !== -1) {
           newData[index] = {
             ...newData[index],
-            seen: conversation.seen
+            lastMessage: message
           };
         }
 
@@ -736,17 +733,46 @@ export const useReceiveSeenConversation = () => {
 
         return {
           ...oldData,
-          seen: conversation.seen
+          lastMessage: message
         };
       });
+
+      queryClient.setQueryData<InfiniteData<IMessage[], number>>(
+        ['messages', conversation._id],
+        (oldData) => {
+          if (!oldData) return;
+
+          const newPages = [...oldData.pages];
+
+          const pageIndex = newPages.findIndex((page) => page.some((item) => item._id === message._id));
+
+          if (pageIndex !== -1) {
+            const newPage = newPages[pageIndex].map((msg) => {
+              if (msg._id === message._id) {
+                return { ...msg, seen: message.seen };
+              }
+              return msg;
+            });
+
+            newPages[pageIndex] = newPage;
+
+            return {
+              ...oldData,
+              pages: newPages
+            };
+          }
+
+          return oldData;
+        }
+      );
     }
   });
 
   return {
-    mutateReceiveSeenConversation: mutateAsync,
-    isLoadingReceiveSeenConversation: isPending,
-    isErrorReceiveSeenConversation: isError,
-    isSuccessReceiveSeenConversation: isSuccess,
+    mutateReceiveSeenMessage: mutateAsync,
+    isLoadingReceiveSeenMessage: isPending,
+    isErrorReceiveSeenMessage: isError,
+    isSuccessReceiveSeenMessage: isSuccess,
     conversation: variables
   };
 };
