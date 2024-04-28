@@ -12,7 +12,6 @@ export default function Modal({
   open,
   handleClose
 }: IModalProps) {
-  console.log('open', open);
 
   return (
     <ModalMui

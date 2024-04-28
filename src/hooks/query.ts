@@ -776,14 +776,14 @@ export const useGetUsersByName = (keyword: string) => {
   };
 };
 
-export const useGetPostsByTitle = (keyword: string) => {
+export const useGetPostsBySearchKey = (keyword: string) => {
   const { data, isPending, isError, isFetching } = useInfiniteQuery({
-    queryKey: ['postByTitle', keyword],
+    queryKey: ['postBySearchKey', keyword],
     queryFn: async ({ pageParam }) => {
       if (!keyword) {
         return [];
       }
-      const { data } = await postService.getPostsByTitle(keyword, pageParam);
+      const { data } = await postService.getPostsBySearchKey(keyword, pageParam);
       return data.metadata;
     },
     initialPageParam: 1,
@@ -800,10 +800,10 @@ export const useGetPostsByTitle = (keyword: string) => {
   });
 
   return {
-    isLoadingPostsByTitle: isPending,
-    isErrorPostsByTitle: isError,
-    postsByTitle: data!,
-    isFetchingPostsByTitle: isFetching
+    isLoadingPostsBySearchKey: isPending,
+    isErrorPostsBySearchKey: isError,
+    postsBySearchKey: data!,
+    isFetchingPostsBySearchKey: isFetching
   };
 };
 

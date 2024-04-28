@@ -519,7 +519,7 @@ export const useSendMessage = () => {
           newData[index] = {
             ...newData[index],
             lastMessage: message,
-            seen: []
+            // seen: []
           };
         }
 
@@ -536,7 +536,7 @@ export const useSendMessage = () => {
         return {
           ...oldData,
           lastMessage: message,
-          seen: []
+          // seen: []
         };
       });
     }
@@ -590,7 +590,7 @@ export const useReceiveMessage = (currentUserID: string, conversationID?: string
           newData[index] = {
             ...newData[index],
             lastMessage: message,
-            seen: []
+            // seen: []
           };
 
           newData.sort((a, b) => {
@@ -724,7 +724,7 @@ export const useReceiveSeenConversation = () => {
         if (index !== -1) {
           newData[index] = {
             ...newData[index],
-            seen: conversation.seen
+            // seen: conversation.seen
           };
         }
 
@@ -736,7 +736,7 @@ export const useReceiveSeenConversation = () => {
 
         return {
           ...oldData,
-          seen: conversation.seen
+          // seen: conversation.seen
         };
       });
     }

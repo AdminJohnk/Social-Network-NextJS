@@ -88,6 +88,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     }, []);
 
     const seenList = useMemo(() => {
+      if (!seen) return [];
       return seen.filter((user) => user._id !== message.sender._id).map((user) => user.user_image);
     }, [seen, message]);
 
