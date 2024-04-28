@@ -773,7 +773,7 @@ export const useReceiveSeenMessage = () => {
     isLoadingReceiveSeenMessage: isPending,
     isErrorReceiveSeenMessage: isError,
     isSuccessReceiveSeenMessage: isSuccess,
-    conversation: variables
+    data: variables
   };
 };
 
