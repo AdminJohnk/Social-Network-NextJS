@@ -1,0 +1,106 @@
+'use client';
+
+import { useRef } from 'react';
+import { useTranslations } from 'next-intl';
+import { CircularProgress } from '@mui/material';
+
+import { useCurrentUserInfo, useGetPostsBySearchKey, useGetUsersByName } from '@/hooks/query';
+import Post from '@/components/shared/Post';
+import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
+import FriendButton from '@/components/pages/Profile/FriendButton';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import HoverUser from '@/components/shared/Post/HoverUser';
+
+
+export interface ISearchProps {
+}
+
+export default function Search({ }: ISearchProps) {
+  const t = useTranslations();
+
+  const { currentUserInfo } = useCurrentUserInfo();
+
+  const searchValue = new URLSearchParams(window.location.search).get('search') || '';
+
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  const { postsBySearchKey, isLoadingPostsBySearchKey, isFetchingPostsBySearchKey } = useGetPostsBySearchKey(searchValue);
+  const { usersByName, isLoadingUsersByName } = useGetUsersByName(searchValue);
+
+  return (
+    <>
+      {isLoadingPostsBySearchKey || isLoadingUsersByName ? (
+        <div className='flex justify-center items-center h-96'>
+          <div className='flex flex-col items-center'>
+            <CircularProgress />
+            <span className='mt-4'>Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <div className='ms-60 mt-16 max-lg:ms-0'>
+          <div className='px-2 pt-10 2xl:px-32 xl:px-24 lg:px-14'>
+            <div className='mt-14 max-md:mt-0 flex-col flex-center w-full *:mb-6'>
+              {usersByName.length > 0 && (
+                <div className='w-3/5 max-lg:w-full px-9 max-md:px-2'>
+                  <div className='bg-foreground-1 rounded-lg p-4'>
+                    <span className='text-text-2'>{t('People')}</span>
+                    <div className='mt-4'>
+                      {usersByName.map((item) => {
+                        return (
+                          <>
+                            <div key={item._id} className='*:mb-2 flex-between'>
+                              <div key={item._id} className='flex items-center gap-4'>
+                                <HoverUser user={item}>
+                                  <AvatarMessage user={item} />
+                                </HoverUser>
+                                <div className='flex flex-col'>
+                                  <HoverUser user={item}>
+                                    <span className='font-bold hover:underline'>{item.name}</span>
+                                  </HoverUser>
+                                  <span className='font-semibold text-text-2'>{item.email}</span>
+                                </div>
+                              </div>
+                              <div>
+                                <FriendButton profileID={item._id} />
+                              </div>
+                            </div>
+                          </>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+              {postsBySearchKey.length > 0 && (
+                <div className='w-3/5 max-lg:w-full px-9 max-md:px-2'>
+                  {postsBySearchKey.map((item, index) => {
+                    return (
+                      <div key={item._id} className='*:mb-6'>
+                        {index === postsBySearchKey.length - 3 && (
+                          <div className='absolute max-h-[130rem] w-full -z-10' ref={bottomRef} />
+                        )}
+                        <Post key={item._id} post={item} />
+                      </div>
+                    );
+                  })}
+                  {isFetchingPostsBySearchKey && (
+                    <div className='flex flex-col items-center'>
+                      <CircularProgress />
+                      <span className='mt-4'>Loading...</span>
+                    </div>
+                  )}
+                </div>
+              )}
+              {usersByName.length === 0 && postsBySearchKey.length === 0 && (
+                <div className='w-3/5 max-lg:w-full px-9 max-md:px-2 flex-center'>
+                  <span className='bg-foreground-1 w-full text-center rounded-lg p-4 text-text-2'>No result found!!!</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+    </>
+  );
+}
