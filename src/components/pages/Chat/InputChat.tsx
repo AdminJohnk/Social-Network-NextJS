@@ -96,6 +96,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
         type: 'text',
         isSending: true,
         content: content,
+        seen: [],
         createdAt: new Date()
       };
 
@@ -139,6 +140,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
       type: 'text',
       // type: 'icon',
       isSending: true,
+      seen: [],
       content: '❤️',
       createdAt: new Date()
     };

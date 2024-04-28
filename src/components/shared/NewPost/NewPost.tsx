@@ -51,7 +51,7 @@ export default function NewPost({ profileID }: INewPostProps) {
         </div>
       </DialogTrigger>
       <DialogContent className='bg-background-1 p-0 max-w-[600px] border-none'>
-        <CreateNewPost />
+        <CreateNewPost handleClose={()=>setOpen(false)}/>
       </DialogContent>
     </Dialog>
   );
