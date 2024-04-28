@@ -401,7 +401,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             <li>
               <button
                 type='button'
-                className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
+                className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-red-50 text-red-500'
                 onClick={() => {
                   if (user._id === currentUserInfo._id) {
                     mutateLeaveGroup(conversationID);

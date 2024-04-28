@@ -7,6 +7,10 @@ import { CircularProgress } from '@mui/material';
 import { useCurrentUserInfo, useGetPostsBySearchKey, useGetUsersByName } from '@/hooks/query';
 import Post from '@/components/shared/Post';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
+import FriendButton from '@/components/pages/Profile/FriendButton';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import HoverUser from '@/components/shared/Post/HoverUser';
+
 
 export interface ISearchProps {
 }
@@ -43,12 +47,24 @@ export default function Search({ }: ISearchProps) {
                     <div className='mt-4'>
                       {usersByName.map((item) => {
                         return (
-                          <div className='*:mb-2'>
-                            <div key={item._id} className='flex items-center gap-4'>
-                              <AvatarMessage user={item} />
-                              <span>{item.name}</span>
+                          <>
+                            <div key={item._id} className='*:mb-2 flex-between'>
+                              <div key={item._id} className='flex items-center gap-4'>
+                                <HoverUser user={item}>
+                                  <AvatarMessage user={item} />
+                                </HoverUser>
+                                <div className='flex flex-col'>
+                                  <HoverUser user={item}>
+                                    <span className='font-bold hover:underline'>{item.name}</span>
+                                  </HoverUser>
+                                  <span className='font-semibold text-text-2'>{item.email}</span>
+                                </div>
+                              </div>
+                              <div>
+                                <FriendButton profileID={item._id} />
+                              </div>
                             </div>
-                          </div>
+                          </>
                         );
                       })}
                     </div>
