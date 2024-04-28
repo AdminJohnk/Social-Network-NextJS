@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PostPrivacy from '@/components/shared/PostPrivacy';
 import Editor from '@/components/shared/Editor/Editor';
 import { useTranslations } from 'next-intl';
 
-import { IoImage, IoVideocam } from 'react-icons/io5';
+import { IoImage } from 'react-icons/io5';
 import { Visibility } from '@/types';
 import { Editor as EditorProps } from '@tiptap/react';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,11 @@ import { CircularProgress } from '@mui/material';
 import { useCreatePost } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 
-export default function CreateNewPost() {
+interface ICreateNewPostProps {
+  handleClose: () => void;
+}
+
+export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
   const t = useTranslations();
 
   const { mutateCreatePost } = useCreatePost();
@@ -45,7 +49,7 @@ export default function CreateNewPost() {
         onSuccess() {
           showSuccessToast(t('Post created successfully!'));
           editor?.commands.clearContent();
-          UIkit.modal('#create-status').hide();
+          handleClose();
         },
         onError() {
           showErrorToast('Something went wrong! Please try again.');

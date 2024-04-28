@@ -114,6 +114,7 @@ export const ChatService = () => {
         },
         isSending: true,
         content: `${capitalizeFirstLetter(type)} call ${status}`,
+        seen: [],
         type: type,
         createdAt: new Date()
       };

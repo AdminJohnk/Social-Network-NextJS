@@ -80,6 +80,7 @@ export default function ContextMenuConversationBox({
                 name: currentUserInfo.name
               },
               isSending: true,
+              seen: [],
               type: 'notification',
               action: 'leave_conversation',
               createdAt: new Date()

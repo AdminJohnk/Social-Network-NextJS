@@ -38,11 +38,7 @@ import {
   DialogFooter
 } from '@/components/ui/dialog';
 import { messageService } from '@/services/MessageService';
-import {
-  useCurrentConversationData,
-  useCurrentUserInfo,
-  useMessagesImage
-} from '@/hooks/query';
+import { useCurrentConversationData, useCurrentUserInfo, useMessagesImage } from '@/hooks/query';
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
 import { IMessage, IUserInfo } from '@/types';
@@ -50,11 +46,7 @@ import { getImageURL } from '@/lib/utils';
 import MembersToGroup from './Modal/MembersToGroup';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
-import {
-  useLeaveGroup,
-  useReceiveConversation,
-  useSendMessage
-} from '@/hooks/mutation';
+import { useLeaveGroup, useReceiveConversation, useSendMessage } from '@/hooks/mutation';
 import { Button } from '@/components/ui/button';
 import { ProfileUpload } from '@/components/ui/upload-image';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
@@ -135,11 +127,9 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
   const { currentUserInfo } = useCurrentUserInfo();
 
-  const { currentConversation, isLoadingCurrentConversation } =
-    useCurrentConversationData(conversationID);
+  const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID);
 
-  const { messagesImage, isLoadingMessagesImage } =
-    useMessagesImage(conversationID);
+  const { messagesImage, isLoadingMessagesImage } = useMessagesImage(conversationID);
 
   const [openChangeAvatar, setOpenChangeAvatar] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
@@ -174,9 +164,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   }, []);
 
   const otherUser = useMemo(() => {
-    return currentConversation?.members?.filter(
-      member => member._id !== currentUserInfo._id
-    )[0];
+    return currentConversation?.members?.filter((member) => member._id !== currentUserInfo._id)[0];
   }, [currentUserInfo, currentConversation?.members]);
 
   const downloadImage = async (url?: string) => {
@@ -202,8 +190,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   const listItems = useCallback(
     (items: IMessage[], description: string, isLoading: boolean) => {
       const firstFourImagesWithInfo = items
-        .map(item =>
-          item.images!.map(imageUrl => ({
+        .map((item) =>
+          item.images!.map((imageUrl) => ({
             image: imageUrl,
             sender: item.sender,
             createdAt: item.createdAt
@@ -225,10 +213,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
           ) : (
             <>
               {firstFourImagesWithInfo.map((image, index) => (
-                <div
-                  className='flex justify-between items-center mb-2 ml-2'
-                  key={index}
-                >
+                <div className='flex justify-between items-center mb-2 ml-2' key={index}>
                   <div className='left flex justify-between items-center'>
                     <div className='image mr-2 flex rounded-xl h-14 w-14 overflow-hidden'>
                       <Image
@@ -241,32 +226,28 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     </div>
                     <div className='info'>
                       <div className='name font-bold'>{image?.sender.name}</div>
-                      <div className='date'>
-                        {handleDateTime(image.createdAt!)}
-                      </div>
+                      <div className='date'>{handleDateTime(image.createdAt!)}</div>
                     </div>
                   </div>
                   <div
                     className='cursor-pointer mr-2'
                     onClick={() => {
                       void downloadImage(image.image);
-                    }}
-                  >
+                    }}>
                     <FaDownload />
                   </div>
                 </div>
               ))}
               {items
                 .slice(0, 4)
-                .map(item => item.images)
+                .map((item) => item.images)
                 .flat().length > 4 && (
                 <div className='flex items-end justify-end text-sm mt-2 mr-2 underline'>
                   <p
                     className='cursor-pointer'
                     onClick={() => {
                       changeConversationOption('image');
-                    }}
-                  >
+                    }}>
                     See all
                   </p>
                 </div>
@@ -276,12 +257,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
         </div>
       );
     },
-    [
-      currentConversation,
-      isLoadingCurrentConversation,
-      messagesImage,
-      isLoadingMessagesImage
-    ]
+    [currentConversation, isLoadingCurrentConversation, messagesImage, isLoadingMessagesImage]
   );
 
   const listImages = (items: IMessage[]) => {
@@ -294,25 +270,19 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
   // filter members in friends but not in conversation
   const members = useMemo(() => {
-    return friends?.filter(friend => {
-      return !currentConversation?.members.some(
-        member => member._id === friend._id
-      );
+    return friends?.filter((friend) => {
+      return !currentConversation?.members.some((member) => member._id === friend._id);
     });
   }, [friends, currentConversation?.members]);
 
   const memberOptions = useCallback(
     (user: IUserInfo) => {
       const isMe = user._id === currentUserInfo._id;
-      const isAdmin = currentConversation.admins.some(
-        admin => admin._id === user._id
-      );
+      const isAdmin = currentConversation.admins.some((admin) => admin._id === user._id);
 
       const isMeCreator = currentConversation?.creator === currentUserInfo._id;
       const isMeAdmin =
-        currentConversation?.admins.some(
-          admin => admin._id === currentUserInfo._id
-        ) || isMeCreator;
+        currentConversation?.admins.some((admin) => admin._id === currentUserInfo._id) || isMeCreator;
 
       return (
         <ul>
@@ -322,40 +292,35 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 type='button'
                 className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
                 onClick={() => {
-                  void messageService
-                    .commissionAdmin(currentConversation._id, user._id)
-                    .then(res => {
-                      chatSocket.emit(
-                        Socket.COMMISSION_ADMIN,
-                        res.data.metadata
-                      );
+                  void messageService.commissionAdmin(currentConversation._id, user._id).then((res) => {
+                    chatSocket.emit(Socket.COMMISSION_ADMIN, res.data.metadata);
 
-                      const message = {
-                        _id: uuidv4().replace(/-/g, ''),
-                        conversation_id: conversationID,
-                        sender: {
-                          _id: currentUserInfo._id,
-                          user_image: currentUserInfo.user_image,
-                          name: currentUserInfo.name
-                        },
-                        isSending: true,
-                        type: 'notification',
-                        action: 'promote_admin',
-                        target: {
-                          _id: user._id,
-                          name: user.name
-                        },
-                        createdAt: new Date()
-                      };
+                    const message = {
+                      _id: uuidv4().replace(/-/g, ''),
+                      conversation_id: conversationID,
+                      sender: {
+                        _id: currentUserInfo._id,
+                        user_image: currentUserInfo.user_image,
+                        name: currentUserInfo.name
+                      },
+                      isSending: true,
+                      type: 'notification',
+                      action: 'promote_admin',
+                      target: {
+                        _id: user._id,
+                        name: user.name
+                      },
+                      seen: [],
+                      createdAt: new Date()
+                    };
 
-                      mutateSendMessage(message as unknown as IMessage);
-                      chatSocket.emit(Socket.PRIVATE_MSG, {
-                        conversationID,
-                        message
-                      });
+                    mutateSendMessage(message as unknown as IMessage);
+                    chatSocket.emit(Socket.PRIVATE_MSG, {
+                      conversationID,
+                      message
                     });
-                }}
-              >
+                  });
+                }}>
                 <FaUserShield className='text-2xl' />
                 <span>{t('Commission as administrator')}</span>
               </button>
@@ -367,40 +332,35 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 type='button'
                 className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
                 onClick={() => {
-                  void messageService
-                    .removeAdmin(currentConversation._id, user._id)
-                    .then(res => {
-                      chatSocket.emit(
-                        Socket.DECOMMISSION_ADMIN,
-                        res.data.metadata
-                      );
+                  void messageService.removeAdmin(currentConversation._id, user._id).then((res) => {
+                    chatSocket.emit(Socket.DECOMMISSION_ADMIN, res.data.metadata);
 
-                      const message = {
-                        _id: uuidv4().replace(/-/g, ''),
-                        conversation_id: conversationID,
-                        sender: {
-                          _id: currentUserInfo._id,
-                          user_image: currentUserInfo.user_image,
-                          name: currentUserInfo.name
-                        },
-                        isSending: true,
-                        type: 'notification',
-                        action: 'revoke_admin',
-                        target: {
-                          _id: user._id,
-                          name: user.name
-                        },
-                        createdAt: new Date()
-                      };
+                    const message = {
+                      _id: uuidv4().replace(/-/g, ''),
+                      conversation_id: conversationID,
+                      sender: {
+                        _id: currentUserInfo._id,
+                        user_image: currentUserInfo.user_image,
+                        name: currentUserInfo.name
+                      },
+                      isSending: true,
+                      type: 'notification',
+                      action: 'revoke_admin',
+                      target: {
+                        _id: user._id,
+                        name: user.name
+                      },
+                      seen: [],
+                      createdAt: new Date()
+                    };
 
-                      mutateSendMessage(message as unknown as IMessage);
-                      chatSocket.emit(Socket.PRIVATE_MSG, {
-                        conversationID,
-                        message
-                      });
+                    mutateSendMessage(message as unknown as IMessage);
+                    chatSocket.emit(Socket.PRIVATE_MSG, {
+                      conversationID,
+                      message
                     });
-                }}
-              >
+                  });
+                }}>
                 <FaUserSlash className='text-2xl' />
                 <span>{t('Revoke administrator')}</span>
               </button>
@@ -417,18 +377,13 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       type: 'private',
                       members: [user._id]
                     })
-                    .then(res => {
-                      chatSocket.emit(
-                        Socket.NEW_CONVERSATION,
-                        res.data.metadata
-                      );
+                    .then((res) => {
+                      chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
                       mutateReceiveConversation(res.data.metadata);
                       router.push(`/messages/${res.data.metadata._id}`);
                     });
-                }}
-              >
-                <FaCommentDots className='text-2xl' />{' '}
-                <span>{t('Message')}</span>
+                }}>
+                <FaCommentDots className='text-2xl' /> <span>{t('Message')}</span>
               </button>
             </li>
           )}
@@ -438,8 +393,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
               className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
               onClick={() => {
                 router.push(`/profile/${user._id}`);
-              }}
-            >
+              }}>
               <FaUser className='text-2xl' /> <span>{t('View profile')}</span>
             </button>
           </li>
@@ -462,6 +416,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       isSending: true,
                       type: 'notification',
                       action: 'leave_conversation',
+                      seen: [],
                       createdAt: new Date()
                     };
 
@@ -471,78 +426,63 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       message
                     });
                   } else {
-                    void messageService
-                      .removeMember(currentConversation._id, user._id)
-                      .then(res => {
-                        chatSocket.emit(Socket.REMOVE_MEMBER, {
-                          ...res.data.metadata,
-                          remove_userID: user._id
-                        });
-
-                        const message = {
-                          _id: uuidv4().replace(/-/g, ''),
-                          conversation_id: conversationID,
-                          sender: {
-                            _id: currentUserInfo._id,
-                            user_image: currentUserInfo.user_image,
-                            name: currentUserInfo.name
-                          },
-                          isSending: true,
-                          type: 'notification',
-                          action: 'remove_member',
-                          target: {
-                            _id: user._id,
-                            name: user.name
-                          },
-                          createdAt: new Date()
-                        };
-
-                        mutateSendMessage(message as unknown as IMessage);
-                        chatSocket.emit(Socket.PRIVATE_MSG, {
-                          conversationID,
-                          message
-                        });
+                    void messageService.removeMember(currentConversation._id, user._id).then((res) => {
+                      chatSocket.emit(Socket.REMOVE_MEMBER, {
+                        ...res.data.metadata,
+                        remove_userID: user._id
                       });
+
+                      const message = {
+                        _id: uuidv4().replace(/-/g, ''),
+                        conversation_id: conversationID,
+                        sender: {
+                          _id: currentUserInfo._id,
+                          user_image: currentUserInfo.user_image,
+                          name: currentUserInfo.name
+                        },
+                        isSending: true,
+                        type: 'notification',
+                        action: 'remove_member',
+                        target: {
+                          _id: user._id,
+                          name: user.name
+                        },
+                        seen: [],
+                        createdAt: new Date()
+                      };
+
+                      mutateSendMessage(message as unknown as IMessage);
+                      chatSocket.emit(Socket.PRIVATE_MSG, {
+                        conversationID,
+                        message
+                      });
+                    });
                   }
-                }}
-              >
+                }}>
                 {isMe ? (
                   <FaRightFromBracket className='text-2xl' />
                 ) : (
                   isMeAdmin && <FaUserSlash className='text-2xl' />
                 )}
-                <span>
-                  {isMe ? t('Leave group') : isMeAdmin && t('Remove member')}
-                </span>
+                <span>{isMe ? t('Leave group') : isMeAdmin && t('Remove member')}</span>
               </button>
             </li>
           )}
         </ul>
       );
     },
-    [
-      currentConversation?.admins,
-      currentConversation?.creator,
-      currentUserInfo,
-      members,
-      conversationID
-    ]
+    [currentConversation?.admins, currentConversation?.creator, currentUserInfo, members, conversationID]
   );
 
   const listMembers = useCallback(() => {
     return (
       <div className='ml-1 mb-2 w-full flex flex-col items-center'>
         <div className='listUser flex flex-col w-full pl-3 overflow-auto'>
-          {currentConversation?.members.map(member => {
-            const isAdmin = currentConversation.admins.some(
-              admin => admin._id === member._id
-            );
+          {currentConversation?.members.map((member) => {
+            const isAdmin = currentConversation.admins.some((admin) => admin._id === member._id);
             const isCreator = currentConversation.creator === member._id;
             return (
-              <div
-                key={member._id}
-                className='mt-3 w-full flex flex-row justify-between items-center'
-              >
+              <div key={member._id} className='mt-3 w-full flex flex-row justify-between items-center'>
                 <div className='user flex items-center' key={member._id}>
                   {/* <Tooltip
                         arrow
@@ -575,14 +515,10 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   <Link
                     href={`/profile/${member._id}`}
                     className='relative'
-                    data-uk-tooltip={`title: ${member.name}; pos: left; offset:6`}
-                  >
+                    data-uk-tooltip={`title: ${member.name}; pos: left; offset:6`}>
                     <AvatarMessage key={member._id} user={member} />
                   </Link>
-                  <Link
-                    href={`/profile/${member._id}`}
-                    className='flex flex-col text-left ml-2 font-bold'
-                  >
+                  <Link href={`/profile/${member._id}`} className='flex flex-col text-left ml-2 font-bold'>
                     <div className='flex flex-row items-center gap-2'>
                       <span>{member.name}</span>
                       {isAdmin &&
@@ -617,8 +553,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   </button>
                   <div
                     className='min-w-[260px] !w-fit'
-                    data-uk-dropdown='pos: left-top; shift: false; flip: false; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click; offset:10'
-                  >
+                    data-uk-dropdown='pos: left-top; shift: false; flip: false; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click; offset:10'>
                     {memberOptions(member)}
                   </div>
                 </div>
@@ -626,15 +561,11 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             );
           })}
         </div>
-        {currentConversation.admins.some(
-          admin => admin._id === currentUserInfo._id
-        ) && (
+        {currentConversation.admins.some((admin) => admin._id === currentUserInfo._id) && (
           <Dialog open={openAddMember} onOpenChange={setOpenAddMember}>
             <DialogTrigger className='add-member mt-3 w-full flex items-center flex-row cursor-pointer pl-3 pr-5 py-2 rounded-xl hover:bg-hover-1 select-none'>
               <FaPlusCircle className='text-2xl' />
-              <span className='text-sm font-medium text-left ml-2 select-none'>
-                {t('Add members')}
-              </span>
+              <span className='text-sm font-medium text-left ml-2 select-none'>{t('Add members')}</span>
             </DialogTrigger>
             <DialogContent className='bg-background-1 max-w-[600px] border-none'>
               <DialogHeader>
@@ -676,7 +607,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
     messageService
       .changeConversationName(conversationID, groupName!)
-      .then(res => {
+      .then((res) => {
         setIsLoadingChangeName(false);
         const message = {
           _id: uuidv4().replace(/-/g, ''),
@@ -689,6 +620,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
           isSending: true,
           type: 'notification',
           action: 'change_name',
+          seen: [],
           content: groupName,
           createdAt: new Date()
         };
@@ -698,7 +630,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
         chatSocket.emit(Socket.CHANGE_CONVERSATION_NAME, res.data.metadata);
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => {
         setIsLoadingChangeName(false);
         setOpenChangeName(false);
@@ -725,7 +657,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
     messageService
       .changeConversationImage(conversationID, fileAvatar!)
-      .then(res => {
+      .then((res) => {
         setIsLoadingChangeAvatar(false);
         const message = {
           _id: uuidv4().replace(/-/g, ''),
@@ -738,6 +670,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
           isSending: true,
           type: 'notification',
           action: 'change_avatar',
+          seen: [],
           createdAt: new Date()
         };
 
@@ -746,7 +679,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
 
         chatSocket.emit(Socket.CHANGE_CONVERSATION_IMAGE, res.data.metadata);
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => {
         setIsLoadingChangeAvatar(false);
         setOpenChangeAvatar(false);
@@ -774,11 +707,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 />
               ) : (
                 <Link href={`/profile/${otherUser._id}`}>
-                  <AvatarMessage
-                    key={otherUser._id}
-                    user={otherUser}
-                    size={96}
-                  />
+                  <AvatarMessage key={otherUser._id} user={otherUser} size={96} />
                 </Link>
               )}
               {currentConversation.type === 'group' ? (
@@ -806,8 +735,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   <div className='mt-5'>
                     <Link
                       href={`/profile/${otherUser._id}`}
-                      className='inline-block rounded-full px-4 py-1.5 text-sm font-semibold bg-foreground-2'
-                    >
+                      className='inline-block rounded-full px-4 py-1.5 text-sm font-semibold bg-foreground-2'>
                       {t('View profile')}
                     </Link>
                   </div>
@@ -824,18 +752,14 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                     className='back-button w-8 h-8 flex justify-center items-center mx-2 rounded-full bg-none hover:bg-hover-1 border-none shadow-none'
                     onClick={() => {
                       setEnableSeeAll(false);
-                    }}
-                  >
+                    }}>
                     <FaArrowLeft className='text-lg' />
                   </button>
                   <span className='font-bold text-lg'>Medias</span>
                 </div>
-                {messagesImage.map(item =>
+                {messagesImage.map((item) =>
                   item.images?.map((image, index) => (
-                    <div
-                      className='fileContent flex justify-between items-center mb-2 ml-2'
-                      key={index}
-                    >
+                    <div className='fileContent flex justify-between items-center mb-2 ml-2' key={index}>
                       <div className='left flex justify-between items-center'>
                         <div className='image mr-2 flex rounded-xl h-14 w-14 overflow-hidden'>
                           <Image
@@ -847,20 +771,15 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                           />
                         </div>
                         <div className='info'>
-                          <div className='name font-bold'>
-                            {item?.sender.name}
-                          </div>
-                          <div className='date'>
-                            {handleDateTime(item.createdAt!)}
-                          </div>
+                          <div className='name font-bold'>{item?.sender.name}</div>
+                          <div className='date'>{handleDateTime(item.createdAt!)}</div>
                         </div>
                       </div>
                       <div
                         className='right cursor-pointer mr-2'
                         onClick={() => {
                           void downloadImage(image);
-                        }}
-                      >
+                        }}>
                         <FaDownload />
                       </div>
                     </div>
@@ -883,56 +802,37 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                   <li className='uk-parent'>
                     <Link
                       href=''
-                      className='flex items-center justify-between gap-5 rounded-md p-3 w-full hover:bg-hover-1 group'
-                    >
+                      className='flex items-center justify-between gap-5 rounded-md p-3 w-full hover:bg-hover-1 group'>
                       <div className='flex flex-row gap-5'>
-                        <IoSettingsOutline className='text-2xl' />{' '}
-                        {t('Customize conversation')}
+                        <IoSettingsOutline className='text-2xl' /> {t('Customize conversation')}
                       </div>
                       <FaChevronDown className='mr-2 duration-300 group-aria-expanded:rotate-180' />
                     </Link>
                     <ul className='pl-5 my-1 space-y-0 text-sm'>
                       <li>
-                        <Dialog
-                          open={openChangeAvatar}
-                          onOpenChange={setOpenChangeAvatar}
-                        >
+                        <Dialog open={openChangeAvatar} onOpenChange={setOpenChangeAvatar}>
                           <DialogTrigger className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1 select-none'>
                             <IoImageOutline className='text-2xl' />
-                            <span className='select-none'>
-                              {t('Change group image')}
-                            </span>
+                            <span className='select-none'>{t('Change group image')}</span>
                           </DialogTrigger>
                           <DialogContent className='bg-background-1 max-w-[600px] border-none'>
                             <DialogHeader>
-                              <DialogTitle>
-                                {t('Change group image')}
-                              </DialogTitle>
+                              <DialogTitle>{t('Change group image')}</DialogTitle>
                             </DialogHeader>
-                            <ProfileUpload
-                              fieldChange={setFileAvatar}
-                              mediaURL={avatar}
-                            />
+                            <ProfileUpload fieldChange={setFileAvatar} mediaURL={avatar} />
                             <DialogFooter>
                               <Button
                                 variant={'destructive'}
                                 className='button lg:px-6 text-white max-md:flex-1'
-                                onClick={() => setOpenChangeAvatar(false)}
-                              >
+                                onClick={() => setOpenChangeAvatar(false)}>
                                 {t('Cancel')}
                               </Button>
                               <Button
                                 className='button lg:px-6 text-white max-md:flex-1'
                                 onClick={onSubmitChangeAvatar}
-                                disabled={
-                                  isChangedAvatar || isLoadingChangeAvatar
-                                }
-                              >
+                                disabled={isChangedAvatar || isLoadingChangeAvatar}>
                                 {isLoadingChangeAvatar && (
-                                  <CircularProgress
-                                    size={20}
-                                    className='!text-text-1 mr-2'
-                                  />
+                                  <CircularProgress size={20} className='!text-text-1 mr-2' />
                                 )}
                                 {t('Save')}
                               </Button>
@@ -941,49 +841,35 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                         </Dialog>
                       </li>
                       <li>
-                        <Dialog
-                          open={openChangeName}
-                          onOpenChange={setOpenChangeName}
-                        >
+                        <Dialog open={openChangeName} onOpenChange={setOpenChangeName}>
                           <DialogTrigger className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1 select-none'>
                             <IoPersonOutline className='text-2xl' />
-                            <span className='select-none'>
-                              {t('Change group name')}
-                            </span>
+                            <span className='select-none'>{t('Change group name')}</span>
                           </DialogTrigger>
                           <DialogContent className='bg-background-1 max-w-[600px] border-none'>
                             <DialogHeader>
-                              <DialogTitle>
-                                {t('Change group name')}
-                              </DialogTitle>
+                              <DialogTitle>{t('Change group name')}</DialogTitle>
                             </DialogHeader>
                             <input
                               type='text'
                               defaultValue={currentConversation.name}
                               placeholder={t("Group's name")}
                               className='w-full !py-2 rounded-lg bg-foreground-1'
-                              onChange={event =>
-                                setGroupName(event.currentTarget.value)
-                              }
+                              onChange={(event) => setGroupName(event.currentTarget.value)}
                             />
                             <DialogFooter>
                               <Button
                                 variant={'destructive'}
                                 className='button lg:px-6 text-white max-md:flex-1'
-                                onClick={() => setOpenChangeName(false)}
-                              >
+                                onClick={() => setOpenChangeName(false)}>
                                 {t('Cancel')}
                               </Button>
                               <Button
                                 className='button lg:px-6 text-white max-md:flex-1'
                                 onClick={onSubmitChangeName}
-                                disabled={isChangedName || isLoadingChangeName}
-                              >
+                                disabled={isChangedName || isLoadingChangeName}>
                                 {isLoadingChangeName && (
-                                  <CircularProgress
-                                    size={20}
-                                    className='!text-text-1 mr-2'
-                                  />
+                                  <CircularProgress size={20} className='!text-text-1 mr-2' />
                                 )}
                                 {t('Save')}
                               </Button>
@@ -1004,23 +890,19 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 <li className='uk-parent'>
                   <Link
                     href=''
-                    className='flex items-center justify-between gap-5 rounded-md p-3 w-full hover:bg-hover-1 group'
-                  >
+                    className='flex items-center justify-between gap-5 rounded-md p-3 w-full hover:bg-hover-1 group'>
                     <div className='flex flex-row gap-5'>
                       <IoImageOutline className='text-2xl' /> {t('Images')}
                     </div>
                     <FaChevronDown className='mr-2 duration-300 group-aria-expanded:rotate-180' />
                   </Link>
-                  <ul className='pl-5 my-1 space-y-0 text-sm'>
-                    {listImages(messagesImage || [])}
-                  </ul>
+                  <ul className='pl-5 my-1 space-y-0 text-sm'>{listImages(messagesImage || [])}</ul>
                 </li>
                 {currentConversation.type === 'group' && (
                   <li className='uk-parent'>
                     <Link
                       href=''
-                      className='flex items-center justify-between gap-5 rounded-md p-3 w-full hover:bg-hover-1 group'
-                    >
+                      className='flex items-center justify-between gap-5 rounded-md p-3 w-full hover:bg-hover-1 group'>
                       <div className='flex flex-row gap-5'>
                         <IoPersonOutline className='text-2xl' /> {t('Members')}
                       </div>
@@ -1032,8 +914,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 <li>
                   <button
                     type='button'
-                    className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'
-                  >
+                    className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-hover-1'>
                     <IoStopCircleOutline className='text-2xl' /> {t('Block')}
                   </button>
                 </li>
@@ -1055,6 +936,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                           isSending: true,
                           type: 'notification',
                           action: 'leave_conversation',
+                          seen: [],
                           createdAt: new Date()
                         };
 
@@ -1063,18 +945,15 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                           conversationID,
                           message
                         });
-                      }}
-                    >
-                      <FaRightFromBracket className='text-2xl' />{' '}
-                      {t('Leave group')}
+                      }}>
+                      <FaRightFromBracket className='text-2xl' /> {t('Leave group')}
                     </button>
                   </li>
                 )}
                 <li>
                   <button
                     type='button'
-                    className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-red-50 text-red-500'
-                  >
+                    className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-red-50 text-red-500'>
                     <IoTrashOutline className='text-2xl' /> {t('Delete chat')}
                   </button>
                 </li>
@@ -1085,8 +964,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             <button
               type='button'
               className='absolute top-0 right-0 m-4 p-2 hover:bg-hover-1 rounded-full'
-              data-uk-toggle='target: .right; cls: hidden'
-            >
+              data-uk-toggle='target: .right; cls: hidden'>
               <IoClose className='text-2xl flex' />
             </button>
 
@@ -1096,8 +974,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
       </div>
       <div
         className='bg-slate-100/40 backdrop-blur absolute w-full h-full dark:bg-slate-800/40'
-        data-uk-toggle='target: .right;cls: hidden'
-      ></div>
+        data-uk-toggle='target: .right;cls: hidden'></div>
     </div>
   );
 }
