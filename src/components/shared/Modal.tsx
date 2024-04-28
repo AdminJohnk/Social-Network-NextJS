@@ -10,12 +10,13 @@ export interface IModalProps extends ModalProps {
 export default function Modal({
   componentModal,
   open,
-  handleClose
+  handleClose,
+  ...props
 }: IModalProps) {
-  console.log('open', open);
 
   return (
     <ModalMui
+      {...props}
       open={open}
       onClose={handleClose}
       aria-labelledby='modal-modal-title'

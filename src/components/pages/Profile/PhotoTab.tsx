@@ -1,13 +1,11 @@
 'use client';
 
 import Nodata from '@/components/shared/Nodata';
-import PhoToProvider from '@/components/shared/PhoToProvider';
 import { useGetAllImages } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
+import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
-import { PhotoView } from 'react-photo-view';
-import 'react-photo-view/dist/react-photo-view.css';
+import ImageGallery from '@/components/shared/ImageGallery';
 
 export interface IPhotoTabProps {
   profileID: string;
@@ -15,11 +13,6 @@ export interface IPhotoTabProps {
 
 export default function PhotoTab({ profileID }: IPhotoTabProps) {
   const { allImages, isLoadingAllImages } = useGetAllImages(profileID);
-
-  // Modal
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <div className='bg-foreground-1 my-8 w-full rounded-md'>
@@ -32,28 +25,25 @@ export default function PhotoTab({ profileID }: IPhotoTabProps) {
           ></Nodata>
         </div>
       ) : (
-        <div className='flex-center flex-wrap px-10 py-8 gap-10 w-full'>
-          <PhoToProvider>
+        <div className='w-full py-6 px-5'>
+          <ImageGallery elementClassNames='all-image-post'>
             {allImages?.map((image, index) => (
-              <div
+              <Link
                 key={index}
-                className='w-[calc(25%-2.5rem)] cursor-pointer'
-                onClick={() => {
-                  handleOpen();
-                }}
+                href={getImageURL(image)}
+                className='group relative h-40 w-full rounded-lg overflow-hidden bg-background-1'
               >
-                <PhotoView key={index} src={getImageURL(image, 'default')}>
-                  <Image
-                    className='rounded-md w-full h-[150px] object-cover'
-                    src={getImageURL(image, 'post_mini')}
-                    alt='image'
-                    width={500}
-                    height={500}
-                  />
-                </PhotoView>
-              </div>
+                <Image
+                  src={getImageURL(image)}
+                  className='w-full h-full object-cover img-responsive'
+                  width={1500}
+                  height={1500}
+                  alt=''
+                  priority
+                />
+              </Link>
             ))}
-          </PhoToProvider>
+          </ImageGallery>
         </div>
       )}
     </div>
