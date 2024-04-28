@@ -1,16 +1,18 @@
 'use client';
 
 import { useRef } from 'react';
-import { useCurrentUserInfo, useGetPostsBySearchKey, useGetUsersByName } from '@/hooks/query';
+import { useTranslations } from 'next-intl';
 import { CircularProgress } from '@mui/material';
+
+import { useCurrentUserInfo, useGetPostsBySearchKey, useGetUsersByName } from '@/hooks/query';
 import Post from '@/components/shared/Post';
-import { getImageURL } from '@/lib/utils';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 
 export interface ISearchProps {
 }
 
 export default function Search({ }: ISearchProps) {
+  const t = useTranslations();
 
   const { currentUserInfo } = useCurrentUserInfo();
 
@@ -37,13 +39,15 @@ export default function Search({ }: ISearchProps) {
               {usersByName.length > 0 && (
                 <div className='w-3/5 max-lg:w-full px-9 max-md:px-2'>
                   <div className='bg-foreground-1 rounded-lg p-4'>
-                    <span className='text-text-2'>Users</span>
+                    <span className='text-text-2'>{t('People')}</span>
                     <div className='mt-4'>
                       {usersByName.map((item) => {
                         return (
-                          <div key={item._id} className='flex items-center gap-4'>
-                            <AvatarMessage user={item} />
-                            <span>{item.name}</span>
+                          <div className='*:mb-2'>
+                            <div key={item._id} className='flex items-center gap-4'>
+                              <AvatarMessage user={item} />
+                              <span>{item.name}</span>
+                            </div>
                           </div>
                         );
                       })}
