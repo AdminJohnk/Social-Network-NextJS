@@ -277,7 +277,6 @@ export interface IConversation {
   members: IUserInfo[];
   name: string;
   lastMessage: IMessage;
-  seen: IUserInfo[];
   creator: string;
   admins: IUserInfo[];
   image?: string;
@@ -321,6 +320,7 @@ export interface IMessage {
   conversation_id: string;
   type: TypeofMessage;
   sender: IUserInfo;
+  seen: IUserInfo[];
   content: string;
   action: TypeofAction;
   target?: IUserInfo;
@@ -340,6 +340,7 @@ export interface ICalled {
   content: string;
   conversation_id: IConversation;
   sender: IUserInfo;
+  seen: IUserInfo[];
   type: TypeofMessage;
   createdAt: string;
 }

@@ -99,14 +99,14 @@ export default function MessageList({ conversationID, currentConversation, other
     if (
       messages.length > 0 &&
       messages[messages.length - 1].sender._id !== currentUserInfo._id &&
-      !currentConversation.seen.some((user) => user._id === currentUserInfo._id)
+      !currentConversation.lastMessage.seen.some((user) => user._id === currentUserInfo._id)
     ) {
       chatSocket.emit(Socket.SEEN_MSG, {
         conversationID,
         userID: currentUserInfo._id
       });
     }
-  }, [currentConversation.seen, conversationID, messages]);
+  }, [currentConversation.lastMessage.seen, conversationID, messages]);
 
   useEffect(() => {
     if (isSeen) {
@@ -223,7 +223,7 @@ export default function MessageList({ conversationID, currentConversation, other
                 type={currentConversation.type}
                 isLastMes={index === messArr.length - 1}
                 message={message}
-                seen={currentConversation.seen}
+                seen={currentConversation.lastMessage.seen}
                 isAdmin={isAdmin(message.sender._id)}
                 isCreator={isCreator(message.sender._id)}
                 isPrevMesGroup={isPrevMesGroup(message, index, messArr)}

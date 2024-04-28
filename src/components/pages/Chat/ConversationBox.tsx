@@ -24,7 +24,7 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
 
-  const isSeen = conversation.seen.some((user) => user._id === currentUserInfo._id);
+  // const isSeen = conversation.lastMessage.seen.some((user) => user._id === currentUserInfo._id);
   const isGroup = conversation.type === 'group';
   const isLastMessageFromCurrentUser =
     conversation.lastMessage && conversation.lastMessage.sender._id === currentUserInfo._id;
@@ -60,8 +60,8 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   const hasSeen = useMemo(() => {
     if (!conversation.lastMessage) return false;
 
-    return conversation.seen.some((user) => user._id === currentUserInfo._id);
-  }, [conversation.lastMessage, conversation.seen, currentUserInfo]);
+    return conversation.lastMessage.seen.some((user) => user._id === currentUserInfo._id);
+  }, [conversation.lastMessage, conversation.lastMessage.seen, currentUserInfo]);
 
   const switchNoti = useCallback((message: IMessage) => {
     if (!message) return;
