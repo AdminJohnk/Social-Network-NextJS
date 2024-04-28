@@ -39,7 +39,7 @@ export default function ContextMenuConversationBox({
   const isGroup = conversation.type === 'group';
   const isSeen =
     conversation.lastMessage.sender._id === currentUserInfo._id ||
-    conversation.seen.some((seen) => seen._id === currentUserInfo._id);
+    conversation.lastMessage.seen.some((seen) => seen._id === currentUserInfo._id);
 
   const otherUser = useMemo(() => {
     if (isGroup) return;

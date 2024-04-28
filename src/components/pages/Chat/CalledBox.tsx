@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
+import { FaPhone, FaVideo } from 'react-icons/fa6';
 
 import { ICalled } from '@/types';
 import AvatarGroup from './Avatar/AvatarGroup';
 import AvatarMessage from './Avatar/AvatarMessage';
-import { useCurrentConversationData, useCurrentUserInfo } from '@/hooks/query';
-import { FaPhone, FaVideo } from 'react-icons/fa6';
+import { useCurrentUserInfo } from '@/hooks/query';
 import { audioCall, videoChat } from '@/lib/utils/call';
 import { capitalizeFirstLetter } from '@/lib/utils/convertText';
 import { getDateMonth } from '@/lib/utils/formatDateTime';
@@ -15,16 +15,17 @@ export interface ICalledBoxProps {
 }
 
 export default function CalledBox({ called }: ICalledBoxProps) {
+  console.log(called);
   const { currentUserInfo } = useCurrentUserInfo();
   const otherUser = useMemo(() => {
     return called.conversation_id?.members?.filter((member) => member._id !== currentUserInfo?._id)[0];
   }, [currentUserInfo, called.conversation_id]);
 
   const isSeen = useMemo(() => {
-    if (!called.conversation_id.lastMessage) return false;
+    if (!called.conversation_id.lastMessage) return true;
 
-    return called.conversation_id.seen.some((user) => { user._id === currentUserInfo._id });
-  }, [called.conversation_id.lastMessage, called.conversation_id.seen, currentUserInfo]);
+    return called.seen.some((user) => { console.log(user); return user._id === currentUserInfo._id });
+  }, [called.seen, currentUserInfo]);
 
   const stateCalled = (senderId: string) => {
     if (called.content.includes('missed')) {
@@ -127,7 +128,7 @@ export default function CalledBox({ called }: ICalledBoxProps) {
             </div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-            <div className={cn('flex items-center gap-2 truncate text-sm', isSeen ? 'font-extrabold' : 'text-text-2')}>
+            <div className={cn('flex items-center gap-2 truncate text-sm', !isSeen ? 'font-extrabold' : 'text-text-2')}>
               {notification[called.type][stateCalled(called.sender._id)]}
               <span>{capitalizeFirstLetter(stateCalled(called.sender._id))}</span>
               &nbsp; •<span>{getDateMonth(called.createdAt)}</span>
