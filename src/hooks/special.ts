@@ -10,7 +10,9 @@ import { Link } from '@tiptap/extension-link';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import { useTranslations } from 'next-intl';
 import { Highlight } from '@tiptap/extension-highlight';
-import { lowlight } from 'lowlight';
+import { createLowlight, common } from 'lowlight';
+
+const lowlight = createLowlight(common);
 
 /**
  * The `useDebounce` function is a custom hook in TypeScript that returns a debounced value based on
