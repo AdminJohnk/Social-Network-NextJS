@@ -20,7 +20,7 @@ export default function MainNavigate() {
     if (!currentUserInfo || !conversations) return 0;
     return conversations.reduce((count, conversation) => {
       if (
-        conversation.seen.some((user) => user._id === currentUserInfo._id) ||
+        conversation.lastMessage.seen.some((user) => user._id === currentUserInfo._id) ||
         conversation.lastMessage?.sender?._id === currentUserInfo._id ||
         !conversation.lastMessage
       )

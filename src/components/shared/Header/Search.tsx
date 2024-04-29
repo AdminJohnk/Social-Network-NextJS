@@ -85,7 +85,14 @@ export default function SearchHeader() {
           type='text'
           placeholder={`${t('Search Friends, Posts')}..`}
           className='w-full !pl-10 !font-normal !bg-transparent h-12 !text-sm border-none'
-          onChange={(e) => setSearch(e.target.value.trim())}
+          onChange={(e) => {
+            setSearch(e.target.value.trim());
+          }}
+          onKeyUp={(e) => {
+            if (e.key === 'Enter') {
+              getSearchPage(search);
+            }
+          }}
         />
       </div>
       <div
@@ -164,7 +171,7 @@ export default function SearchHeader() {
                   </div>
                 ) : users.length === 0 ? (
                   <div className='flex-center w-full h-full p-5'>
-                    {t('Cannot find anyone named')} "{searchDebounce}"
+                    {t('Cannot find anyone named')} &quot;{searchDebounce}&quot;
                   </div>
                 ) : (
                   users.map((user) => (
@@ -194,7 +201,7 @@ export default function SearchHeader() {
                   <IoSearchOutline className='text-xl' />
                 </div>
                 <div className='name text-center ml-2'>
-                  {t('Search for')} "{searchDebounce}"
+                  {t('Search for')} &quot;{searchDebounce}&quot;
                 </div>
               </div>
             </>

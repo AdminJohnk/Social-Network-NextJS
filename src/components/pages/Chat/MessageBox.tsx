@@ -19,7 +19,6 @@ export interface IReCallProps {
 
 export interface IMessageBoxProps {
   message: IMessage;
-  seen: IUserInfo[];
   isPrevMesGroup: boolean;
   isNextMesGroup: boolean;
   isLastMes: boolean;
@@ -33,7 +32,17 @@ export interface IMessageBoxProps {
 
 const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
   (
-    { message, isLastMes, seen, isNextMesGroup, isPrevMesGroup, isMoreThan10Min, isAdmin, type, isCreator, setOpenReCall },
+    {
+      message,
+      isLastMes,
+      isNextMesGroup,
+      isPrevMesGroup,
+      isMoreThan10Min,
+      isAdmin,
+      type,
+      isCreator,
+      setOpenReCall
+    },
     ref
   ) => {
     const t = useTranslations();
@@ -41,6 +50,8 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     const format = useFormatter();
 
     const { currentUserInfo } = useCurrentUserInfo();
+
+    const seen = message.seen;
 
     const handleFirstName = useCallback((name: string) => {
       const arr = name.split(' ');
@@ -88,6 +99,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     }, []);
 
     const seenList = useMemo(() => {
+      if (!seen) return [];
       return seen.filter((user) => user._id !== message.sender._id).map((user) => user.user_image);
     }, [seen, message]);
 
@@ -203,7 +215,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
         [0x1f1e6, 0x1f1ff] // Enclosed Characters
       ];
 
-      for (let i = 0; i < content.length;) {
+      for (let i = 0; i < content.length; ) {
         const char = content.codePointAt(i)!;
 
         let isEmoji = false;
@@ -271,8 +283,9 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   roundedCornerStyle,
                   checkContentType(content) === 'emoji' ? 'text-4xl' : 'px-4 py-2 bg-foreground-2'
                 )}
-                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
-                  }; delay: 200;offset:6`}>
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
+                  isOwn ? 'left' : 'right'
+                }; delay: 200;offset:6`}>
                 <Anchorme
                   linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
                   truncate={30}
@@ -299,8 +312,9 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   ? 'text-4xl'
                   : 'px-4 py-2 bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
               )}
-              data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
-                }; delay: 200;offset:6`}>
+              data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
+                isOwn ? 'left' : 'right'
+              }; delay: 200;offset:6`}>
               <Anchorme
                 linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
                 truncate={30}
@@ -436,7 +450,6 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       );
     };
 
-
     const messageCall = () => {
       return (
         <>
@@ -447,14 +460,15 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   'flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
                   roundedCornerStyle
                 )}
-                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
-                  }; delay: 200;offset:6`}
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
+                  isOwn ? 'left' : 'right'
+                }; delay: 200;offset:6`}
                 onClick={() => {
                   if (type === 'group') {
                     if (message.type === 'voice') {
-                      setOpenReCall({ open: true, type: 'voice' })
+                      setOpenReCall({ open: true, type: 'voice' });
                     } else {
-                      setOpenReCall({ open: true, type: 'video' })
+                      setOpenReCall({ open: true, type: 'video' });
                     }
                   } else {
                     if (message.type === 'video') {
@@ -505,14 +519,15 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                     'flex items-center cursor-pointer hover:scale-[103%] max-w-sm bg-foreground-2 px-4 py-2 !my-[1px]',
                     roundedCornerStyle
                   )}
-                  data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
-                    }; delay: 200;offset:6`}
+                  data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
+                    isOwn ? 'left' : 'right'
+                  }; delay: 200;offset:6`}
                   onClick={() => {
                     if (type === 'group') {
                       if (message.type === 'voice') {
-                        setOpenReCall({ open: true, type: 'voice' })
+                        setOpenReCall({ open: true, type: 'voice' });
                       } else {
-                        setOpenReCall({ open: true, type: 'video' })
+                        setOpenReCall({ open: true, type: 'video' });
                       }
                     } else {
                       if (message.type === 'video') {
@@ -653,5 +668,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     );
   }
 );
+
+MessageBox.displayName = 'MessageBox';
 
 export default MessageBox;

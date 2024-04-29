@@ -16,8 +16,6 @@ export default function BlogInputComment() {
           placeholder='Add Comment....'
           rows={1}
           className='w-full resize-none !bg-transparent px-4 py-2 !border-transparent !ring-transparent placeholder:text-text-1 placeholder:base-regular'
-          aria-haspopup='true'
-          aria-expanded='false'
         />
         <div className='!top-2 pr-2 uk-drop' data-uk-drop='pos: bottom-right; mode: click'>
           <div

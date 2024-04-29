@@ -24,7 +24,6 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   useNow({ updateInterval: 1000 * 30 });
   const format = useFormatter();
 
-  const isSeen = conversation.seen.some((user) => user._id === currentUserInfo._id);
   const isGroup = conversation.type === 'group';
   const isLastMessageFromCurrentUser =
     conversation.lastMessage && conversation.lastMessage.sender._id === currentUserInfo._id;
@@ -60,8 +59,8 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   const hasSeen = useMemo(() => {
     if (!conversation.lastMessage) return false;
 
-    return conversation.seen.some((user) => user._id === currentUserInfo._id);
-  }, [conversation.lastMessage, conversation.seen, currentUserInfo]);
+    return conversation.lastMessage.seen.some((user) => user._id === currentUserInfo._id);
+  }, [conversation.lastMessage, conversation.lastMessage.seen, currentUserInfo]);
 
   const switchNoti = useCallback((message: IMessage) => {
     if (!message) return;
@@ -119,11 +118,14 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
         )}
         <div className='flex-1 min-w-0'>
           <div className='flex items-center gap-2 mb-1.5'>
-            <div className='mr-auto text-sm text-black dark:text-white font-medium'>
+            <div className='mr-auto text-sm text-black dark:text-white font-medium line-clamp-1'>
               {conversation.name || otherUser!.name}
             </div>
             <div className='text-xs font-light text-gray-500 dark:text-white/70'>
-              {format.relativeTime(new Date(conversation?.lastMessage?.createdAt || conversation.createdAt), new Date())}
+              {format.relativeTime(
+                new Date(conversation?.lastMessage?.createdAt || conversation.createdAt),
+                new Date()
+              )}
             </div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>

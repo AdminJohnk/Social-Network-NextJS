@@ -115,7 +115,8 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
             target: {
               _id: member._id,
               name: member.name
-            }
+            },
+            seen: []
           };
 
           mutateSendMessage(message as unknown as IMessage);
@@ -183,7 +184,7 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
               </div>
             ) : users.length == 0 ? (
               <div className='w-full h-full flex items-center justify-center'>
-                <div className='font-bold text-sm py-2'>You don't have any friends anymore :(</div>
+                <div className='font-bold text-sm py-2'>You don`&apos;t have any friends anymore :(</div>
               </div>
             ) : members.length == 0 ? (
               <div className='w-full h-full flex items-center justify-center'>

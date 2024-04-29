@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { IoChevronDownOutline, IoSearchOutline } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 import { CircularProgress } from '@mui/material';
+import Image from 'next/image';
 
 import RightActionButtons from './RightActionButtons';
 import HeadingTitle from './HeadingTitle';
@@ -94,7 +95,7 @@ function ConversationList({ conversationID }: IConversationListProps) {
         </div>
       </div>
       <div className='space-y-2 p-2 overflow-y-auto custom-scrollbar-fg'>
-        {isLoadingConversations ? (
+        {isLoadingConversations || !searchConversation ? (
           <div className='w-full flex-center py-10'>
             <CircularProgress size={20} className='!text-text-1' />
           </div>
@@ -102,8 +103,19 @@ function ConversationList({ conversationID }: IConversationListProps) {
           <div className='w-full flex-center py-10'>
             <CircularProgress size={20} className='!text-text-1' />
           </div>
+        ) : searchConversation.length === 0 ? (
+          <div className='flex-center flex-col gap-4'>
+            <Image
+              className='h-24 !text-white'
+              src='/images/no-data.svg'
+              alt={t('Not found any conversations')}
+              width={500}
+              height={500}
+            />
+            <span className='text-center'>{t('Not found any conversations')}</span>
+          </div>
         ) : (
-          searchConversation?.map((conversation) => (
+          searchConversation.map((conversation) => (
             <div
               key={conversation._id}
               className={cn('rounded-xl', conversationID === conversation._id && 'bg-hover-2')}>
