@@ -4,6 +4,7 @@ import { Flowbite } from 'flowbite-react';
 import { Link } from '@/navigation';
 
 export default function NotFound() {
+  
   return (
     <html className='global'>
       <body>
@@ -15,10 +16,10 @@ export default function NotFound() {
                   404
                 </h1>
                 <p className='mb-4 text-3xl tracking-tight font-bold md:text-4xl text-text-1'>
-                  Something's missing.
+                  Something&apos;s missing.
                 </p>
                 <p className='mb-4 text-lg font-light text-text-2'>
-                  Sorry, we can't find that page. You'll find lots to explore on the home page.
+                  Sorry, we can&apos;t find that page. You&apos;ll find lots to explore on the home page.
                 </p>
                 <Link
                   href='/'

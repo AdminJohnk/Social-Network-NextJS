@@ -33,7 +33,7 @@ export default function ComCategory() {
                     className='h-36 w-full object-cover'
                   />
                   <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                    <div className='p-5 text-lg leading-3'>Shopping'</div>
+                    <div className='p-5 text-lg leading-3'>Shopping</div>
                   </div>
                 </div>
               </Link>

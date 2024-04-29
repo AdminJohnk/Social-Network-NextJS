@@ -13,7 +13,7 @@ export default function About() {
       </div>
       <ul className='text-gray-700 space-y-4 mt-2 mb-1 text-sm dark:text-white'>
         <li>
-          This group, it's not a group of Dr. Adan Adam, and she don't know about it , it's a group for
+          This group, it`&apos;s not a group of Dr. Adan Adam, and she don`&apos;t know about it , it`&apos;s a group for
           people.
         </li>
         <li className='flex items-start gap-3'>
@@ -32,7 +32,7 @@ export default function About() {
           </svg>
           <div>
             <span className='font-semibold text-text-1'>Public </span>
-            <p> Anyone can see who's in the group and what they post.</p>
+            <p> Anyone can see who&apos;s in the group and what they post.</p>
           </div>
         </li>
         <li className='flex items-start gap-3'>

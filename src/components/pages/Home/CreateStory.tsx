@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { IoImage, IoTimeOutline } from 'react-icons/io5';
 
 export default function CreateStory() {
@@ -43,12 +44,14 @@ export default function CreateStory() {
                 <span className='text-white mt-2'>{t('Upload image')}</span>
               </label>
 
-              <img
+              <Image
                 id='createStatusImage'
                 src='#'
                 alt='Uploaded Image'
                 style={{ display: 'none' }}
                 className='w-full h-full absolute object-cover'
+                height={1000}
+                width={1000}
               />
             </div>
           </div>

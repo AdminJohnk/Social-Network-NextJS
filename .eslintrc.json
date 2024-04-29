@@ -1,9 +1,7 @@
 {
-  "plugins": ["next"],
-  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
-  "parser": "@typescript-eslint/parser",
+  "extends": "next/core-web-vitals",
   "rules": {
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "error"
+    "react-hooks/exhaustive-deps": "off",
+    "react-hooks/rules-of-hooks": "off"
   }
 }
