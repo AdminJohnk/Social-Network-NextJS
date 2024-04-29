@@ -102,14 +102,14 @@ export const useUpdatePost = () => {
       const { data } = await postService.updatePost(post.id, post.postUpdate);
       return data.metadata;
     },
-    onSuccess(updatedPost) {
+    async onSuccess(updatedPost) {
+      const session = await getSession();
       queryClient.invalidateQueries({
         queryKey: ['posts', updatedPost.post_attributes.user._id]
       });
-
       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
-
       queryClient.invalidateQueries({ queryKey: ['post', updatedPost._id] });
+      queryClient.invalidateQueries({ queryKey: ['allImages', session?.id] });
     }
   });
   return {

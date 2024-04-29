@@ -90,6 +90,7 @@ export default function Cover({ profileID }: ICoverProps) {
               src='/images/avatars/profile-cover.jpg'
               alt=''
               className='h-full w-full object-cover inset-0'
+              priority
             />
             <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10' />
 
@@ -113,6 +114,7 @@ export default function Cover({ profileID }: ICoverProps) {
                     src={getImageURL(otherUserInfo?.user_image) || '/images/avatars/avatar-6.jpg'}
                     alt=''
                     className='lg:size-48 size-28 object-cover'
+                    priority
                   />
                 </div>
                 {isMe && (

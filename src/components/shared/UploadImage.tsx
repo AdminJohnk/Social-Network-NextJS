@@ -1,4 +1,4 @@
-import {  getImageURL } from '@/lib/utils';
+import { getImageURL } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { IoImage } from 'react-icons/io5';
@@ -13,21 +13,30 @@ export interface IUploadImageProps {
   setImagesOfS3: (images: File[]) => void;
 }
 
-export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOfS3 }: IUploadImageProps) {
+export default function UploadImage({
+  imagesOfPost,
+  setImagesOfPost,
+  setImagesOfS3
+}: IUploadImageProps) {
   const t = useTranslations();
 
   const [imagesPost, setImagesPost] = useState<string[]>(imagesOfPost || []);
   const [images, setImages] = useState<ImageListType>([]);
 
+  const maxNumber = 10;
+  const [currentNumber, setCurrentNumber] = useState<number>(
+    imagesPost.length + images.length
+  );
+
   useEffect(() => {
     setImagesOfPost(imagesPost);
-    const files = images.map((image) => image.file);
+    const files = images.map(image => image.file);
     setImagesOfS3(files as File[]);
   }, [imagesPost, images]);
 
-  const maxNumber = 5 - imagesPost.length;
   const onChange = (imageList: ImageListType) => {
     setImages(imageList);
+    setCurrentNumber(imagesPost.length + imageList.length);
   };
 
   const convertByte = (bytes: number) => {
@@ -43,9 +52,10 @@ export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOf
         multiple
         value={images}
         onChange={onChange}
-        maxNumber={maxNumber}
+        maxNumber={maxNumber - imagesPost.length}
         dataURLKey='data_url'
-        acceptType={['jpg', 'jpeg', 'png', 'gif']}>
+        acceptType={['jpg', 'jpeg', 'png', 'gif']}
+      >
         {({
           imageList,
           onImageUpload,
@@ -68,25 +78,27 @@ export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOf
               <button
                 type='button'
                 className='flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:border-sky-900'
-                onClick={onImageUpload}>
+                onClick={onImageUpload}
+              >
                 <IoImage className='text-base' />
                 {t('Image')}
               </button>
-              <div>Max: 5</div>
+              <div>Number: {currentNumber + '/' + maxNumber}</div>
               {(images.length > 0 || imagesPost.length > 0) && (
                 <button
                   className='text-1 flex-start py-1 px-2 rounded-full'
                   onClick={() => {
                     onImageRemoveAll();
                     setImagesPost([]);
-                  }}>
+                  }}
+                >
                   <span>{t('Remove all')}</span>
                   <IoCloseOutline className='size-5' />
                 </button>
               )}
             </div>
             <div className='mt-4 ms-2 *:mb-3'>
-              {images.map((image, index) => (
+              {imageList.toReversed().map((image, index) => (
                 <div key={index} className='image-item flex-start'>
                   <Image
                     src={image.data_url}
@@ -101,7 +113,10 @@ export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOf
                         {
                           // max 30 characters + '...' + file extension
                           (image.file?.name.length as number) > 33
-                            ? `${image.file?.name.slice(0, 30)}... ${image.file?.name.slice(
+                            ? `${image.file?.name.slice(
+                                0,
+                                30
+                              )}... ${image.file?.name.slice(
                                 image.file?.name.length - 4
                               )}`
                             : image.file?.name
@@ -109,13 +124,19 @@ export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOf
                             : ''
                         }
                       </div>
-                      <div className='text-text-2'>{convertByte(image.file?.size || 0) || ''}</div>
+                      <div className='text-text-2'>
+                        {convertByte(image.file?.size || 0) || ''}
+                      </div>
                     </div>
                     <div className='image-item__btn-wrapper flex flex-col gap-2 *:p-1 *:text-1'>
                       <button onClick={() => onImageUpdate(index)}>
                         <FaEdit />
                       </button>
-                      <button onClick={() => onImageRemove(index)}>
+                      <button
+                        onClick={() =>
+                          onImageRemove(imageList.length - index - 1)
+                        }
+                      >
                         <FaTrash />
                       </button>
                     </div>
@@ -124,7 +145,7 @@ export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOf
               ))}
             </div>
             <div className='mt-4 ms-2 *:mb-3'>
-              {imagesPost.map((image, index) => (
+              {imagesPost.toReversed().map((image, index) => (
                 <div key={index} className='image-item flex-start'>
                   <Image
                     src={getImageURL(image, 'post_mini')}
@@ -139,7 +160,9 @@ export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOf
                         {
                           // max 30 characters + '...' + file extension
                           (image.length as number) > 33
-                            ? `${image.slice(0, 30)}... ${image.slice(image.length - 4)}`
+                            ? `${image.slice(0, 30)}... ${image.slice(
+                                image.length - 4
+                              )}`
                             : image
                             ? image
                             : ''
@@ -149,8 +172,15 @@ export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOf
                     <div className='image-item__btn-wrapper flex flex-col gap-2 *:p-1 *:text-1'>
                       <button
                         onClick={() => {
-                          setImagesPost(imagesPost.filter((_, i) => i !== index));
-                        }}>
+                          setImagesPost(
+                            imagesPost
+                              .toReversed()
+                              .filter((_, indexPost) => indexPost !== index)
+                              .toReversed()
+                          );
+                          setCurrentNumber(currentNumber - 1);
+                        }}
+                      >
                         <FaTrash />
                       </button>
                     </div>

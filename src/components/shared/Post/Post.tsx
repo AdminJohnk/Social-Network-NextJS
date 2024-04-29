@@ -21,6 +21,7 @@ import ShowContent from '../ShowContent/ShowContent';
 import CreateNewPostShare from '../CreateNewPostShare/CreateNewPostShare';
 import Modal from '@/components/shared/Modal';
 import { useCurrentUserInfo } from '@/hooks/query';
+import ImagePost from '../ImagePost';
 
 export interface IPostProps {
   post: IPost;
@@ -33,8 +34,8 @@ export default function Post({ post, feature }: IPostProps) {
     post.type === 'Post'
       ? post.post_attributes.content
       : post.post_attributes.post
-        ? post.post_attributes.post.post_attributes.content
-        : '';
+      ? post.post_attributes.post.post_attributes.content
+      : '';
   const [contentTiptap, setContentTiptap] = useState(content);
   const [expanded, setExpanded] = useState(false);
 
@@ -101,8 +102,8 @@ export default function Post({ post, feature }: IPostProps) {
     post.type === 'Post'
       ? post.post_attributes.images
       : post.post_attributes.post
-        ? post.post_attributes.post.post_attributes.images
-        : [];
+      ? post.post_attributes.post.post_attributes.images
+      : [];
 
   const ownerPost: IUserInfo = post?.post_attributes?.owner_post as IUserInfo;
 
@@ -172,8 +173,8 @@ export default function Post({ post, feature }: IPostProps) {
         {post.type === 'Share' &&
           (content.length > 0 ? (
             <div
-            className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}
-          >
+              className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}
+            >
               <Link href={`/profile/${ownerPost._id}`}>
                 <Avatar src={getImageURL(ownerPost.user_image)} />
               </Link>
@@ -184,7 +185,7 @@ export default function Post({ post, feature }: IPostProps) {
                 <Link
                   href={`/posts/${post.post_attributes.post!._id}`}
                   className='small-bold text-text-2 hover:underline hover:text-text-1'
-              >
+                >
                   {handleDateTime(post.post_attributes.post!.createdAt)}
                 </Link>
               </div>
@@ -192,10 +193,19 @@ export default function Post({ post, feature }: IPostProps) {
           ) : (
             <div className='my-4 flex gap-1 px-2'>
               <div className='m-1'>
-                <IoLockClosed className='text-text-2 size-7' /></div>
-              <div className="flex flex-col">
-                <div className='text-text-2 h4-semibold max-md:h5-semibold'>{t('This content is not currently visible')}</div>
-                <div className='text-text-2'>{t('This error is often caused by the owner only sharing the content with a small group')}, {t('changing who can see it')}, {t('or deleting the content')}.</div>
+                <IoLockClosed className='text-text-2 size-7' />
+              </div>
+              <div className='flex flex-col'>
+                <div className='text-text-2 h4-semibold max-md:h5-semibold'>
+                  {t('This content is not currently visible')}
+                </div>
+                <div className='text-text-2'>
+                  {t(
+                    'This error is often caused by the owner only sharing the content with a small group'
+                  )}
+                  , {t('changing who can see it')},{' '}
+                  {t('or deleting the content')}.
+                </div>
               </div>
             </div>
           ))}
@@ -206,24 +216,25 @@ export default function Post({ post, feature }: IPostProps) {
               <div
                 className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
                 onClick={() => setExpanded(!expanded)}
-            >
+              >
                 {expanded ? t('Read less') : t('Read more')}
               </div>
             )}
             {images.length !== 0 && (
-              <div className='flex flex-wrap mb-5'>
-              {images.map((image, index) => (
-                <div key={index} className='mt-4'>
-                    <Image
-                      className='rounded-lg w-full h-full object-cover'
-                      src={getImageURL(image)}
-                      width={1500}
-                      height={1500}
-                      alt='image'
-                    />
-                </div>
-              ))}
-              </div>
+              // <div className='flex flex-wrap mb-5'>
+              // {images.map((image, index) => (
+              //   <div key={index} className='mt-4'>
+              //       <Image
+              //         className='rounded-lg w-full h-full object-cover'
+              //         src={getImageURL(image)}
+              //         width={1500}
+              //         height={1500}
+              //         alt='image'
+              //       />
+              //   </div>
+              // ))}
+              // </div>
+              <ImagePost images={images}/>
             )}
           </div>
         )}
@@ -231,7 +242,7 @@ export default function Post({ post, feature }: IPostProps) {
       {feature !== 'sharing' && (
         <div
           className={cn(
-            'react flex-between mt-4',
+            'flex-between mt-4',
             post.type === 'Share' && 'mt-4'
           )}
         >

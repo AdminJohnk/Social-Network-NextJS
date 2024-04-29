@@ -112,7 +112,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
         )}
         {/* Add To Favorite */}
         <div
-          className='flex w-fit gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
+          className='flex w-fit min-w-full gap-3 p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close'
           onClick={() => {
             setIsSaved(!is_saved);
             mutateSavePost(post._id);
