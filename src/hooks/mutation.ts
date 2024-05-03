@@ -1,6 +1,5 @@
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getSession } from 'next-auth/react';
-import useSound from 'use-sound';
 
 import { postService } from '@/services/PostService';
 import { userService } from '@/services/UserService';
@@ -556,16 +555,9 @@ export const useSendMessage = () => {
  * used to determine whether to play a sound notification or not.
  */
 export const useReceiveMessage = (currentUserID: string, conversationID?: string) => {
-  // const NotiMessage = new Audio('/sounds/sound-noti-message.wav');
-  // const PopMessage = new Audio('/sounds/bubble-popping-short.mp3');
-  // NotiMessage.volume = 0.3;
-
-  const [playNoti] = useSound('/sounds/sound-noti-message.wav', {
-    volume: 0.3
-  });
-  const [playPop] = useSound('/sounds/bubble-popping-short.mp3', {
-    volume: 0.3
-  });
+  const NotiMessage = new Audio('/sounds/sound-noti-message.wav');
+  const PopMessage = new Audio('/sounds/bubble-popping-short.mp3');
+  NotiMessage.volume = 0.3;
 
   const queryClient = useQueryClient();
 
@@ -582,8 +574,8 @@ export const useReceiveMessage = (currentUserID: string, conversationID?: string
         if (index !== -1) {
           if (conversationID) {
             if (currentUserID !== message.sender._id) {
-              if (conversationID === message.conversation_id) playPop();
-              else playNoti();
+              if (conversationID === message.conversation_id) PopMessage.play();
+              else NotiMessage.play();
             }
           }
 

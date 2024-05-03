@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import useSound from 'use-sound';
 import { useTranslations } from 'next-intl';
 import { v4 as uuidv4 } from 'uuid';
 import { FaPhone, FaVideo } from 'react-icons/fa6';
@@ -83,7 +82,8 @@ export const PresenceService = () => {
 export const ChatService = () => {
   const t = useTranslations();
   const { chatSocket } = useSocketStore();
-  const [soundCall, exposedSound] = useSound('/sounds/sound-noti-call.wav', { volume: 0.3 });
+  const notiCall = new Audio('/sounds/sound-noti-call.wav');
+  notiCall.volume = 0.3;
 
   const queryClient = useQueryClient();
 
@@ -165,14 +165,16 @@ export const ChatService = () => {
       mutateConversation({ ...conversation, typeUpdate: 'remove_admin' });
     });
     chatSocket.on(Socket.VIDEO_CALL, (data: ISocketCall) => {
-      soundCall();
+      notiCall.currentTime = 0;
+      notiCall.play();
       setOpenCall(true);
       setDataCall(data);
       setCallType('video');
       setIsMissed(false);
     });
     chatSocket.on(Socket.VOICE_CALL, (data: ISocketCall) => {
-      soundCall();
+      notiCall.currentTime = 0;
+      notiCall.play();
       setOpenCall(true);
       setDataCall(data);
       setCallType('voice');
@@ -181,7 +183,7 @@ export const ChatService = () => {
     chatSocket.on(Socket.END_VIDEO_CALL, (data: ISocketCall) => {
       queryClient.invalidateQueries({ queryKey: ['called'] });
       if (openCall) {
-        exposedSound.stop();
+        notiCall.pause();
         setDataCall(data);
         setCallType('video');
         setIsMissed(true);
@@ -190,7 +192,7 @@ export const ChatService = () => {
     chatSocket.on(Socket.END_VOICE_CALL, (data: ISocketCall) => {
       queryClient.invalidateQueries({ queryKey: ['called'] });
       if (openCall) {
-        exposedSound.stop();
+        notiCall.pause();
         setDataCall(data);
         setCallType('voice');
         setIsMissed(true);
@@ -269,7 +271,7 @@ export const ChatService = () => {
                 callType === 'video'
                   ? chatSocket.emit(Socket.LEAVE_VIDEO_CALL, { ...dataCall, type: 'missed' })
                   : chatSocket.emit(Socket.LEAVE_VOICE_CALL, { ...dataCall, type: 'missed' });
-                exposedSound.stop();
+                notiCall.pause();
                 setOpenCall(false);
               }
             }}>
