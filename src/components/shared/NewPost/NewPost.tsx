@@ -5,8 +5,8 @@ import { FaImages } from 'react-icons/fa';
 import { RiLiveFill } from 'react-icons/ri';
 import { useState } from 'react';
 
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import CreateNewPost from '@/components/pages/Home/CreateNewPost';
+import Modal from '@/components/shared/Modal';
 import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
 
 export interface INewPostProps {
@@ -24,8 +24,8 @@ export default function NewPost({ profileID }: INewPostProps) {
   const isMe = currentUserInfo._id === profileID;
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger
+    <div>
+      <div
         className='new-post w-full px-4 py-5 bg-foreground-1 flex-between gap-1 rounded-lg'
         onClick={() => setOpen(true)}>
         <div className='text-center py-2 bg-foreground-2 basis-9/12 rounded-lg hover:bg-hover-2 cursor-pointer duration-300'>
@@ -49,10 +49,10 @@ export default function NewPost({ profileID }: INewPostProps) {
           data-uk-toggle='target: #create-status'>
           <RiLiveFill className='size-5 text-pink-1' />
         </div>
-      </DialogTrigger>
-      <DialogContent className='bg-background-1 p-0 max-w-[600px] border-none'>
-        <CreateNewPost handleClose={()=>setOpen(false)}/>
-      </DialogContent>
-    </Dialog>
+      </div>
+      <Modal open={open} handleClose={() => setOpen(false)}>
+        <CreateNewPost handleClose={() => setOpen(false)} />
+      </Modal>
+    </div>
   );
 }

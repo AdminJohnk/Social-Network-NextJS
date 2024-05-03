@@ -687,8 +687,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   }, [fileAvatar]);
 
   return (
-    <div className='right w-full h-full absolute top-0 right-0 z-[9999] hidden transition-transform'>
-      <div className='uk-animation-slide-right-medium w-[360px] border-l shadow-lg h-screen bg-background-1 absolute right-0 top-0 z-[9999] dark:border-slate-700 custom-scrollbar-bg overflow-y-scroll'>
+    <div className='right w-full h-full absolute top-0 right-0 z-50 hidden transition-transform'>
+      <div className='uk-animation-slide-right-medium w-[360px] border-l shadow-lg h-screen bg-background-1 absolute right-0 top-0 z-50 dark:border-slate-700 custom-scrollbar-bg overflow-y-scroll'>
         {isLoadingCurrentConversation ? (
           <div className='flex-center p-1'>
             <CircularProgress size={20} className='!text-text-1' />

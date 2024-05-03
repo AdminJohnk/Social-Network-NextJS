@@ -12,18 +12,20 @@ import { cn, getImageURL } from '@/lib/utils';
 import { useDragScroll } from '@/hooks/special';
 
 export interface IPhotoProviderProps {
+  index?: number;
   images: string[];
   visible: boolean;
   onClose: () => void;
 }
 
-export default function PhotoProvider({ images, visible, onClose }: IPhotoProviderProps) {
+export default function PhotoProvider({ index = 0, images, visible, onClose }: IPhotoProviderProps) {
   const [fullScreen, setFullScreen] = useState(false);
 
   const [slider] = useDragScroll();
 
   return (
     <PhotoSlider
+      index={index}
       visible={visible}
       onClose={onClose}
       images={images.map((item) => ({ src: getImageURL(item), key: item }))}

@@ -188,11 +188,11 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
         {/* Type Text */}
         <div className='flex-start gap-2 *:p-1 *:text-1'>
           <div>
-            <div className='flex-start gap-2'>
+            <div className='flex-start gap-2 select-none'>
               {typeText[typeNumber].node}
               <GoChevronDown className='size-4' />
             </div>
-            <div data-uk-drop='pos: bottom-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
+            <div data-uk-drop='offset: 6; pos: bottom-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
               <div className='p-2 bg-foreground-1 rounded-lg shadow-lg'>
                 {typeText.map((item, index) => (
                   <div
