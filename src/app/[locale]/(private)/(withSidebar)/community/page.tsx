@@ -8,11 +8,10 @@ import ComMineList from '@/components/pages/Community/ComMineList';
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import ComSuggestion from '@/components/pages/Community/ComSuggestion';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
 import { BsPlusCircleFill } from 'react-icons/bs';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import CreateNewCommunity from '@/components/pages/Community/CreateNewCommunity';
 import Modal from '@/components/shared/Modal';
+import { IoAdd } from 'react-icons/io5';
 
 export interface ICommunityProps {
   params: {
@@ -22,11 +21,7 @@ export interface ICommunityProps {
 
 export default function Community({ params: { locale } }: ICommunityProps) {
   const t = useTranslations();
-
-  // Modal
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-0'>
@@ -36,16 +31,17 @@ export default function Community({ params: { locale } }: ICommunityProps) {
             <div className='page-heading'>
               <div className='flex-start gap-3'>
                 <h1 className='page-title'> {t('Communities')} </h1>
-                <BsPlusCircleFill
-                  className='size-5 text-1'
-                  onClick={handleOpen}
-                />
-                <Modal
-                  componentModal={<CreateNewCommunity />}
-                  open={open}
-                  handleClose={handleClose}
-                  children={<></>}
-                />
+                <span className='p-1 rounded-full bg-foreground-1'>
+                  <IoAdd
+                    className='size-5 text-1'
+                    onClick={() => {
+                      setOpen(true);
+                    }}
+                  />
+                </span>
+                <Modal open={open} handleClose={() => setOpen(false)}>
+                  <CreateNewCommunity />
+                </Modal>
               </div>
 
               <Tabs id='community-tabs' disableChevron>

@@ -20,7 +20,10 @@ export interface ICreateNewPostShareProps {
   post: IPost;
 }
 
-export default function CreateNewPostShare({ handleClose, post }: ICreateNewPostShareProps) {
+export default function CreateNewPostShare({
+  handleClose,
+  post
+}: ICreateNewPostShareProps) {
   const t = useTranslations();
   const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo();
   const { mutateSharePost } = useSharePost();
@@ -60,52 +63,75 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
   }, []);
 
   return (
-      <div className='w-[690px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg p-7 animate-fade-up'>
-        {isLoadingCurrentUserInfo ? (
-          <div className='flex-between'>
-            <div className='flex-start gap-3'>
-              <Skeleton className='bg-foreground-2' variant='circular' width={40} height={40} />
-              <div className='flex flex-col'>
-                <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1.5rem' }} />
-                <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1rem' }} />
-              </div>
-            </div>
-            <div>
-              <Skeleton className='bg-foreground-2' variant='circular' width={25} height={25} />
+    <div className='w-[690px] max-h-[600px] overflow-y-scroll bg-foreground-1 custom-scrollbar-fg p-7 animate-fade-up'>
+      {isLoadingCurrentUserInfo ? (
+        <div className='flex-between'>
+          <div className='flex-start gap-3'>
+            <Skeleton
+              className='bg-foreground-2'
+              variant='circular'
+              width={40}
+              height={40}
+            />
+            <div className='flex flex-col'>
+              <Skeleton
+                className='bg-foreground-2 w-36'
+                variant='text'
+                sx={{ fontSize: '1.5rem' }}
+              />
+              <Skeleton
+                className='bg-foreground-2 w-36'
+                variant='text'
+                sx={{ fontSize: '1rem' }}
+              />
             </div>
           </div>
-        ) : (
           <div>
-            <div className='flex-start'>
-              <Link href={`/profile/${currentUserInfo._id}`}>
-                <Avatar src={getImageURL(currentUserInfo.user_image)} />
+            <Skeleton
+              className='bg-foreground-2'
+              variant='circular'
+              width={25}
+              height={25}
+            />
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className='flex-start'>
+            <Link href={`/profile/${currentUserInfo._id}`}>
+              <Avatar src={getImageURL(currentUserInfo.user_image)} />
+            </Link>
+            <div className='flex flex-col ms-3'>
+              <Link
+                href={`/profile/${currentUserInfo._id}`}
+                className='base-bold'
+              >
+                {currentUserInfo.name}
               </Link>
-              <div className='flex flex-col ms-3'>
-                <Link href={`/profile/${currentUserInfo._id}`} className='base-bold'>
-                  {currentUserInfo.name}
-                </Link>
-              </div>
-            </div>
-            <div className='space-y-5 mt-3 p-2'>
-              <Editor setEditor={setEditor} />
             </div>
           </div>
-        )}
-
-        <Post post={post} feature='sharing' />
-
-        <div className='flex-between mt-6'>
-          <PostPrivacy setPrivacy={setPrivacy} />
-          <Button
-            type='submit'
-            className='button lg:px-6 text-white max-md:flex-1'
-            disabled={isLoading}
-            onClick={onSubmit}
-          >
-            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
-            {t('Share')} <span className='ripple-overlay'></span>
-          </Button>
+          <div className='space-y-5 mt-3 p-2'>
+            <Editor setEditor={setEditor} />
+          </div>
         </div>
+      )}
+
+      <Post post={post} feature='sharing' />
+
+      <div className='flex-between mt-6'>
+        <PostPrivacy setPrivacy={setPrivacy} />
+        <Button
+          type='submit'
+          className='button lg:px-6 text-white max-md:flex-1'
+          disabled={isLoading}
+          onClick={onSubmit}
+        >
+          {isLoading && (
+            <CircularProgress size={20} className='!text-text-1 mr-2' />
+          )}
+          {t('Share')} <span className='ripple-overlay'></span>
+        </Button>
       </div>
+    </div>
   );
 }
