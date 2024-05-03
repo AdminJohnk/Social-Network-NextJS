@@ -94,6 +94,7 @@
   "art": "art",
   "design": "design",
   "Num Friends": "{count, plural,=0 {0 friend} =1 {1 friend} other {# friends}}",
+  "Num mutual friends": "{count, plural, =0 {No mutual friends} =1 {1 mutual friend} other {# mutual friends}}",
   "Find Friend": "Find Friend",
   "Updated xx day ago": "{count, plural, =0 {Updated recently} =1 {Updated 1 day ago} other {Updated # days ago}}",
   "Updated xx month ago": "{count, plural, =0 {Updated recently} =1 {Updated 1 month ago} other {Updated # months ago}}",

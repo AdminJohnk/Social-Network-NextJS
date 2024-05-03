@@ -10,6 +10,7 @@ import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import FriendButton from '@/components/pages/Profile/FriendButton';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import HoverUser from '@/components/shared/Post/HoverUser';
+import { useRouter } from '@/navigation';
 
 
 export interface ISearchProps {
@@ -17,6 +18,7 @@ export interface ISearchProps {
 
 export default function Search({ }: ISearchProps) {
   const t = useTranslations();
+  const router = useRouter();
 
   const { currentUserInfo } = useCurrentUserInfo();
 
@@ -51,11 +53,19 @@ export default function Search({ }: ISearchProps) {
                             <div key={item._id} className='*:mb-2 flex-between'>
                               <div key={item._id} className='flex items-center gap-4'>
                                 <HoverUser user={item}>
-                                  <AvatarMessage user={item} />
+                                  <div className='cursor-pointer' onClick={() => {
+                                    router.push(`/profile/${item._id}`);
+                                  }}>
+                                    <AvatarMessage user={item} />
+                                  </div>
                                 </HoverUser>
                                 <div className='flex flex-col'>
                                   <HoverUser user={item}>
-                                    <span className='font-bold hover:underline'>{item.name}</span>
+                                    <span className='font-bold cursor-pointer hover:underline' onClick={() => {
+                                      router.push(`/profile/${item._id}`);
+                                    }}>
+                                      {item.name}
+                                    </span>
                                   </HoverUser>
                                   <span className='font-semibold text-text-2'>{item.email}</span>
                                 </div>

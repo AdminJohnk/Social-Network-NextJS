@@ -79,6 +79,7 @@
   "art": "nghệ thuật",
   "design": "thiết kế",
   "Num Friends": "{count, plural, other {# bạn bè}}",
+  "Num mutual friends": "{count, plural, other {# bạn chung}}",
   "Find Friend": "Tìm bạn",
   "Updated xx day ago": "{count, plural, other {Cập nhật cách đây # ngày}}",
   "Updated xx month ago": "{count, plural, other {Cập nhật cách đây # tháng}}",

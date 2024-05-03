@@ -79,6 +79,7 @@
   "art": "艺术",
   "design": "设计",
   "Num Friends": "{count, plural, other {# 个好友}}",
+  "Num mutual friends": "{count, plural, other {# 个共同好友}}",
   "Find Friend": "找朋友",
   "Updated xx day ago": "{count, plural, other {# 天前更新}}",
   "Updated xx month ago": "{count, plural, other {# 月前更新}}",
