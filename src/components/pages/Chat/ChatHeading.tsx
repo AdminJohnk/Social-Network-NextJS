@@ -100,9 +100,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
               <IoChevronBackOutline className='text-2xl -ml-4' />
             </button>
 
-            <div
-              className='relative cursor-pointer max-md:hidden'
-              data-uk-toggle='target: .right ; cls: hidden'>
+            <div className='relative cursor-pointer max-md:hidden'>
               <Skeleton
                 variant='rectangular'
                 width={40}
@@ -111,7 +109,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
               />
               <div className='w-3 h-3 bg-teal-500 rounded-full absolute -right-1 -bottom-0.5 m-px'></div>
             </div>
-            <div className='cursor-pointer' data-uk-toggle='target: .right ; cls: hidden'>
+            <div className='cursor-pointer'>
               <div className='text-base font-bold'>
                 <Skeleton variant='text' width={90} sx={{ fontSize: '1rem' }} />
               </div>
@@ -218,7 +216,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
             <button
               type='button'
               className='hover:bg-hover-1 p-1.5 rounded-full'
-              data-uk-toggle='target: .right ; cls: hidden'>
+              data-uk-toggle='target: .right; animation: uk-animation-slide-right-medium'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'

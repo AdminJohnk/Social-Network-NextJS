@@ -17,7 +17,6 @@ import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import UploadImage from '@/components/shared/UploadImage';
 import PostTemplate from '@/components/shared/PostTemplate';
 
-
 interface ICreateNewPostProps {
   handleClose: () => void;
 }
@@ -60,7 +59,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
           handleClose();
         },
         onError() {
-          showErrorToast('Something went wrong! Please try again.');
+          showErrorToast('Something went wrong! Please try again!');
         },
         onSettled() {
           setIsLoading(false);
@@ -72,9 +71,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
   return (
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[650px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
-        <h2 className='text-sm font-medium text-text-1'>
-          {t('Create Post')}
-        </h2>
+        <h2 className='text-sm font-medium text-text-1'>{t('Create Post')}</h2>
       </div>
 
       <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg'>
@@ -129,16 +126,10 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
         <div className='flex items-center gap-2'>
           <Button
             type='button'
-            className={cn(
-              'button lg:px-6 text-white max-md:flex-1',
-              isLoading && 'select-none'
-            )}
+            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
             disabled={isLoading}
-            onClick={handleSubmit}
-          >
-            {isLoading && (
-              <CircularProgress size={20} className='!text-text-1 mr-2' />
-            )}
+            onClick={handleSubmit}>
+            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
             {t('Create')} <span className='ripple-overlay'></span>
           </Button>
         </div>

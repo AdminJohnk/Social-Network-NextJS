@@ -25,6 +25,7 @@ import { cn } from '@/lib/utils';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 import Textarea from '@/components/ui/textarea';
 import { IEmoji, IMessage, IUserInfo } from '@/types';
+import { showErrorToast } from '@/components/ui/toast';
 
 export interface IInputChatProps {
   conversationID: string | undefined;
@@ -58,10 +59,10 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted: onDrop,
-    onDropRejected: () => {
-      //   form.setError("image", {
-      //     message: "This photo is too large. Please try another one.",
-      //   });
+    onDropRejected: (files) => {
+      files.forEach((file) => {
+        showErrorToast(`${t('Cannot upload')} ${file.file.name}`);
+      });
     },
     accept: {
       'image/png': ['.png'],
@@ -69,11 +70,9 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
       'image/jpeg': ['.jpeg', '.jpg']
     },
     maxSize: 1024 * 1024 * 10,
-    multiple: false,
+    multiple: true,
     onError: (error) => {
-      //   form.setError("image", {
-      //     message: error.message,
-      //   });
+      showErrorToast(error.message);
     }
   });
 
@@ -120,6 +119,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
           name: currentUserInfo.name
         },
         type: 'image',
+        seen: [],
         createdAt: new Date()
       };
       chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message: newMessage });

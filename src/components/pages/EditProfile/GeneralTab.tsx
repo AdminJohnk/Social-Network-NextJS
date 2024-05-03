@@ -62,7 +62,7 @@ export default function GeneralTab() {
           showSuccessToast(t('Your profile has been updated successfully!'));
         },
         onError() {
-          showErrorToast('Something went wrong! Please try again.');
+          showErrorToast('Something went wrong! Please try again!');
         },
         onSettled() {
           setIsLoading(false);
