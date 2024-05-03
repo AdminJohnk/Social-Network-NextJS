@@ -60,7 +60,7 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
   }, []);
 
   return (
-      <div className='w-[630px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg p-7 animate-fade-up'>
+      <div className='w-[690px] max-h-[600px] overflow-y-scroll custom-scrollbar-fg p-7 animate-fade-up'>
         {isLoadingCurrentUserInfo ? (
           <div className='flex-between'>
             <div className='flex-start gap-3'>

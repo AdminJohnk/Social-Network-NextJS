@@ -22,8 +22,10 @@ import { cn } from '@/lib/utils';
 import Popover from '@/components/ui/popover-v2';
 import { IEmoji } from '@/types';
 import { useCustomEditor } from '@/hooks/special';
+import { useTranslations } from 'next-intl';
 
 const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
+  const t = useTranslations();
   const [typeNumber, setTypeNumber] = useState(0);
   const { mode } = useThemeMode();
 
@@ -55,7 +57,7 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
       node: (
         <div className='flex-start gap-1.5'>
           <FiAlignCenter className='size-5' />
-          <span>Normal</span>
+          <span>{t('Normal')}</span>
         </div>
       ),
       callback: () => {
@@ -68,46 +70,52 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
       node: (
         <div className='flex-start gap-1.5'>
           <LuHeading1 className='size-5' />
-          <span>Heading 1</span>
+          <span>{t('Heading 1')}</span>
         </div>
       ),
       callback: () => {
         editor?.chain().focus().toggleHeading({ level: 1 }).run();
       },
-      className: editor?.isActive('heading', { level: 1 }) ? 'text-primary-500' : ''
+      className: editor?.isActive('heading', { level: 1 })
+        ? 'text-primary-500'
+        : ''
     },
     {
       // Heading 2
       node: (
         <div className='flex-start gap-1.5'>
           <LuHeading2 className='size-5' />
-          <span>Heading 2</span>
+          <span>{t('Heading 2')}</span>
         </div>
       ),
       callback: () => {
         editor?.chain().focus().toggleHeading({ level: 2 }).run();
       },
-      className: editor?.isActive('heading', { level: 2 }) ? 'text-primary-500' : ''
+      className: editor?.isActive('heading', { level: 2 })
+        ? 'text-primary-500'
+        : ''
     },
     {
       // Heading 3
       node: (
         <div className='flex-start gap-1.5'>
           <LuHeading3 className='size-5' />
-          <span>Heading 3</span>
+          <span>{t('Heading 3')}</span>
         </div>
       ),
       callback: () => {
         editor?.chain().focus().toggleHeading({ level: 3 }).run();
       },
-      className: editor?.isActive('heading', { level: 3 }) ? 'text-primary-500' : ''
+      className: editor?.isActive('heading', { level: 3 })
+        ? 'text-primary-500'
+        : ''
     },
     {
       // Code Block
       node: (
         <div className='flex-start gap-1.5'>
           <IoCodeSlashOutline className='size-5' />
-          <span>Code Block</span>
+          <span>{t('Code Block')}</span>
         </div>
       ),
       callback: () => {
@@ -124,13 +132,15 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
           <button
             type='button'
             onClick={() => editor?.chain().focus().undo().run()}
-            disabled={!editor?.can().chain().focus().undo().run()}>
+            disabled={!editor?.can().chain().focus().undo().run()}
+          >
             <FaUndo className='size-4' />
           </button>
           <button
             type='button'
             onClick={() => editor?.chain().focus().redo().run()}
-            disabled={!editor?.can().chain().focus().redo().run()}>
+            disabled={!editor?.can().chain().focus().redo().run()}
+          >
             <FaRedo className='size-4' />
           </button>
         </div>
@@ -139,31 +149,36 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
           <button
             onClick={() => editor?.chain().focus().toggleBold().run()}
             disabled={!editor?.can().chain().focus().toggleBold().run()}
-            className={editor?.isActive('bold') ? 'text-primary-500' : ''}>
+            className={editor?.isActive('bold') ? 'text-primary-500' : ''}
+          >
             <MdFormatBold className='size-5' />
           </button>
           <button
             onClick={() => editor?.chain().focus().toggleItalic().run()}
             disabled={!editor?.can().chain().focus().toggleItalic().run()}
-            className={editor?.isActive('italic') ? 'text-primary-500' : ''}>
+            className={editor?.isActive('italic') ? 'text-primary-500' : ''}
+          >
             <MdFormatItalic className='size-5' />
           </button>
           <button
             onClick={() => editor?.commands.toggleUnderline()}
             disabled={!editor?.can().chain().focus().toggleUnderline().run()}
-            className={editor?.isActive('underline') ? 'text-primary-500' : ''}>
+            className={editor?.isActive('underline') ? 'text-primary-500' : ''}
+          >
             <MdFormatUnderlined className='size-5' />
           </button>
           <button
             onClick={() => editor?.chain().focus().toggleStrike().run()}
             disabled={!editor?.can().chain().focus().toggleStrike().run()}
-            className={editor?.isActive('strike') ? 'text-primary-500' : ''}>
+            className={editor?.isActive('strike') ? 'text-primary-500' : ''}
+          >
             <MdFormatStrikethrough className='size-5' />
           </button>
           <button
             onClick={() => editor?.chain().focus().toggleHighlight().run()}
             disabled={!editor?.can().chain().focus().toggleHighlight().run()}
-            className={editor?.isActive('highlight') ? 'text-primary-500' : ''}>
+            className={editor?.isActive('highlight') ? 'text-primary-500' : ''}
+          >
             <FaPen className='size-5' />
           </button>
         </div>
@@ -173,14 +188,18 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
           <button
             onClick={() => editor?.chain().focus().toggleBulletList().run()}
             disabled={!editor?.can().chain().focus().toggleBulletList().run()}
-            className={editor?.isActive('bulletList') ? 'text-primary-500' : ''}>
+            className={editor?.isActive('bulletList') ? 'text-primary-500' : ''}
+          >
             <MdFormatListBulleted className='size-5' />
           </button>
           {/* Numbered List */}
           <button
             onClick={() => editor?.chain().focus().toggleOrderedList().run()}
             disabled={!editor?.can().chain().focus().toggleOrderedList().run()}
-            className={editor?.isActive('orderedList') ? 'text-primary-500' : ''}>
+            className={
+              editor?.isActive('orderedList') ? 'text-primary-500' : ''
+            }
+          >
             <MdFormatListNumbered className='size-5' />
           </button>
         </div>
@@ -198,13 +217,14 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
                   <div
                     key={index}
                     className={cn(
-                      'p-2.5 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close',
+                      'px-2.5 py-2 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close',
                       item.className
                     )}
                     onClick={() => {
                       item.callback();
                       selectTypeNumber();
-                    }}>
+                    }}
+                  >
                     {item.node}
                   </div>
                 ))}
@@ -229,7 +249,8 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
                     .run();
                 }
               }
-            }}>
+            }}
+          >
             <MdLink className='size-5' />
           </button>
           {/* Add Youtube */}
@@ -243,7 +264,8 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
                   .setYoutubeVideo({ src: url as string })
                   .run();
               }
-            }}>
+            }}
+          >
             <FaYoutube className='size-5' />
           </button>
           {/* Add Emoji */}
@@ -253,12 +275,18 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
             hoverContent={
               <Picker
                 data={async () => {
-                  const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
+                  const response = await fetch(
+                    'https://cdn.jsdelivr.net/npm/@emoji-mart/data'
+                  );
 
                   return response.json();
                 }}
                 onEmojiSelect={(emoji: IEmoji) => {
-                  editor?.chain().focus().insertContent({ type: 'text', text: emoji.native }).run();
+                  editor
+                    ?.chain()
+                    .focus()
+                    .insertContent({ type: 'text', text: emoji.native })
+                    .run();
                 }}
                 theme={mode}
               />
@@ -296,7 +324,10 @@ export default function Editor({ setEditor, content }: EditorContentProps) {
   return (
     <div>
       <MenuBar editor={editor} />
-      <EditorContent className='my-5 px-2 *:outline-none overflow-hidden' editor={editor} />
+      <EditorContent
+        className='my-5 px-2 *:outline-none overflow-hidden'
+        editor={editor}
+      />
     </div>
   );
 }

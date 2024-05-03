@@ -22,6 +22,7 @@ import CreateNewPostShare from '../CreateNewPostShare/CreateNewPostShare';
 import Modal from '@/components/shared/Modal';
 import { useCurrentUserInfo } from '@/hooks/query';
 import ImagePost from '../ImagePost';
+import PostSkeleton from './PostSkeleton';
 
 export interface IPostProps {
   post: IPost;
@@ -31,10 +32,10 @@ export interface IPostProps {
 export default function Post({ post, feature }: IPostProps) {
   const t = useTranslations();
   const content =
-    post.type === 'Post'
-      ? post.post_attributes.content
-      : post.post_attributes.post
-      ? post.post_attributes.post.post_attributes.content
+    post?.type === 'Post'
+      ? post?.post_attributes.content
+      : post?.post_attributes.post
+      ? post?.post_attributes.post.post_attributes.content
       : '';
   const [contentTiptap, setContentTiptap] = useState(content);
   const [expanded, setExpanded] = useState(false);
@@ -99,15 +100,15 @@ export default function Post({ post, feature }: IPostProps) {
   }, []);
 
   const images: string[] =
-    post.type === 'Post'
-      ? post.post_attributes.images
-      : post.post_attributes.post
-      ? post.post_attributes.post.post_attributes.images
+    post?.type === 'Post'
+      ? post?.post_attributes.images
+      : post?.post_attributes.post
+      ? post?.post_attributes.post.post_attributes.images
       : [];
 
   const ownerPost: IUserInfo = post?.post_attributes?.owner_post as IUserInfo;
 
-  const isMyPost = post.post_attributes.user._id === currentUserInfo._id;
+  const isMyPost = post?.post_attributes.user._id === currentUserInfo._id;
 
   useEffect(() => {
     if (isMoreThan500 && !expanded)
@@ -121,178 +122,195 @@ export default function Post({ post, feature }: IPostProps) {
   const handleClose = () => setOpen(false);
 
   return (
-    <div className='post bg-foreground-1 rounded-lg p-4'>
-      <div className='flex-between'>
-        <div className='flex-start'>
-          <Link href={`/profile/${post.post_attributes.user._id}`}>
-            <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
-          </Link>
-          <div className='flex flex-col ms-3'>
-            <Link
-              href={`/profile/${post.post_attributes.user._id}`}
-              className='base-bold'
-            >
-              {post.post_attributes.user.name}
-            </Link>
-            <Link
-              href={`/posts/${post._id}`}
-              className='small-bold text-text-2 hover:underline hover:text-text-1'
-            >
-              {handleDateTime(post.createdAt)}
-            </Link>
-          </div>
-        </div>
-        {feature !== 'sharing' && (
-          <div className='popover'>
-            <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
-              <IoIosMore className='size-6' />
-            </div>
-            <div
-              className='!w-fit'
-              data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'
-            >
-              <PostMoreChoose
-                feature={feature}
-                post={post}
-                isMyPost={isMyPost}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-      {post.type === 'Share' && (
-        <div className='my-4 content-share'>
-          <ShowContent content={post?.post_attributes?.content_share} />
-        </div>
-      )}
-      <div
-        className={cn(
-          post.type === 'Share' && 'border border-border-1 rounded-lg'
-        )}
-      >
-        {post.type === 'Share' &&
-          (content.length > 0 ? (
-            <div
-              className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}
-            >
-              <Link href={`/profile/${ownerPost._id}`}>
-                <Avatar src={getImageURL(ownerPost.user_image)} />
+    <>
+      {!post ? (
+        <PostSkeleton />
+      ) : (
+        <div className='post bg-foreground-1 rounded-lg p-4'>
+          <div className='flex-between'>
+            <div className='flex-start'>
+              <Link href={`/profile/${post.post_attributes.user._id}`}>
+                <Avatar
+                  src={getImageURL(post.post_attributes.user.user_image)}
+                />
               </Link>
               <div className='flex flex-col ms-3'>
-                <Link href={`/profile/${ownerPost._id}`} className='base-bold'>
-                  {ownerPost.name}
+                <Link
+                  href={`/profile/${post.post_attributes.user._id}`}
+                  className='base-bold'
+                >
+                  {post.post_attributes.user.name}
                 </Link>
                 <Link
-                  href={`/posts/${post.post_attributes.post!._id}`}
+                  href={`/posts/${post._id}`}
                   className='small-bold text-text-2 hover:underline hover:text-text-1'
                 >
-                  {handleDateTime(post.post_attributes.post!.createdAt)}
+                  {handleDateTime(post.createdAt)}
                 </Link>
               </div>
             </div>
-          ) : (
-            <div className='my-4 flex gap-1 px-2'>
-              <div className='m-1'>
-                <IoLockClosed className='text-text-2 size-7' />
-              </div>
-              <div className='flex flex-col'>
-                <div className='text-text-2 h4-semibold max-md:h5-semibold'>
-                  {t('This content is not currently visible')}
+            {feature !== 'sharing' && (
+              <div className='popover'>
+                <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
+                  <IoIosMore className='size-6' />
                 </div>
-                <div className='text-text-2'>
-                  {t(
-                    'This error is often caused by the owner only sharing the content with a small group'
-                  )}
-                  , {t('changing who can see it')},{' '}
-                  {t('or deleting the content')}.
+                <div
+                  className='!w-fit'
+                  data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'
+                >
+                  <PostMoreChoose
+                    feature={feature}
+                    post={post}
+                    isMyPost={isMyPost}
+                  />
                 </div>
               </div>
-            </div>
-          ))}
-        {content.length > 0 && (
-          <div className={cn('mt-4', post.type === 'Share' && 'px-5')}>
-            <ShowContent content={contentTiptap} />
-            {isMoreThan500 && (
-              <div
-                className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
-                onClick={() => setExpanded(!expanded)}
-              >
-                {expanded ? t('Read less') : t('Read more')}
-              </div>
-            )}
-            {images.length !== 0 && (
-              // <div className='flex flex-wrap mb-5'>
-              // {images.map((image, index) => (
-              //   <div key={index} className='mt-4'>
-              //       <Image
-              //         className='rounded-lg w-full h-full object-cover'
-              //         src={getImageURL(image)}
-              //         width={1500}
-              //         height={1500}
-              //         alt='image'
-              //       />
-              //   </div>
-              // ))}
-              // </div>
-              <ImagePost images={images}/>
             )}
           </div>
-        )}
-      </div>
-      {feature !== 'sharing' && (
-        <div
-          className={cn(
-            'flex-between mt-4',
-            post.type === 'Share' && 'mt-4'
+          {post.type === 'Share' && (
+            <div className='my-4 content-share'>
+              <ShowContent content={post?.post_attributes?.content_share} />
+            </div>
           )}
-        >
-          <div className='left flex gap-5'>
-            <div className='flex gap-3'>
-              <span className='p-1 bg-foreground-2 rounded-full'>
-                <IoHeart className='size-4 text-red-600 cursor-pointer' />
-              </span>
-              <span>{post.post_attributes.like_number}</span>
-            </div>
-            <div className='flex gap-3'>
-              <span className='p-1 bg-foreground-2 rounded-full'>
-                <FaCommentDots className='size-4 cursor-pointer' />
-              </span>
-              <span>{post.post_attributes.comment_number}</span>
-            </div>
-          </div>
-          <div className='right flex-start gap-5'>
-            <span>
-              <FiSend className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer' />
-            </span>
-            {post.type === 'Post' && (
-              <span>
-                <GoShare
-                  className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
-                  onClick={handleOpen}
-                />
-                <Modal
-                  componentModal={
-                    <CreateNewPostShare handleClose={handleClose} post={post} />
-                  }
-                  open={open}
-                  handleClose={handleClose}
-                  children={<></>}
-                />
-              </span>
+          <div
+            className={cn(
+              post.type === 'Share' && 'border border-border-1 rounded-lg'
+            )}
+          >
+            {post.type === 'Share' &&
+              (content.length > 0 ? (
+                <div
+                  className={cn(
+                    'mt-4 flex-start',
+                    post.type === 'Share' && 'px-5'
+                  )}
+                >
+                  <Link href={`/profile/${ownerPost._id}`}>
+                    <Avatar src={getImageURL(ownerPost.user_image)} />
+                  </Link>
+                  <div className='flex flex-col ms-3'>
+                    <Link
+                      href={`/profile/${ownerPost._id}`}
+                      className='base-bold'
+                    >
+                      {ownerPost.name}
+                    </Link>
+                    <Link
+                      href={`/posts/${post.post_attributes.post!._id}`}
+                      className='small-bold text-text-2 hover:underline hover:text-text-1'
+                    >
+                      {handleDateTime(post.post_attributes.post!.createdAt)}
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <div className='my-4 flex gap-1 px-2'>
+                  <div className='m-1'>
+                    <IoLockClosed className='text-text-2 size-7' />
+                  </div>
+                  <div className='flex flex-col'>
+                    <div className='text-text-2 h4-semibold max-md:h5-semibold'>
+                      {t('This content is not currently visible')}
+                    </div>
+                    <div className='text-text-2'>
+                      {t(
+                        'This error is often caused by the owner only sharing the content with a small group'
+                      )}
+                      , {t('changing who can see it')},{' '}
+                      {t('or deleting the content')}.
+                    </div>
+                  </div>
+                </div>
+              ))}
+            {content.length > 0 && (
+              <div className={cn('mt-4', post.type === 'Share' && 'px-5')}>
+                <ShowContent content={contentTiptap} />
+                {isMoreThan500 && (
+                  <div
+                    className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
+                    onClick={() => setExpanded(!expanded)}
+                  >
+                    {expanded ? t('Read less') : t('Read more')}
+                  </div>
+                )}
+                {images.length !== 0 && (
+                  // <div className='flex flex-wrap mb-5'>
+                  // {images.map((image, index) => (
+                  //   <div key={index} className='mt-4'>
+                  //       <Image
+                  //         className='rounded-lg w-full h-full object-cover'
+                  //         src={getImageURL(image)}
+                  //         width={1500}
+                  //         height={1500}
+                  //         alt='image'
+                  //       />
+                  //   </div>
+                  // ))}
+                  // </div>
+                  <ImagePost images={images} />
+                )}
+              </div>
             )}
           </div>
+          {feature !== 'sharing' && (
+            <div
+              className={cn(
+                'flex-between mt-4',
+                post.type === 'Share' && 'mt-4'
+              )}
+            >
+              <div className='left flex gap-5'>
+                <div className='flex gap-3'>
+                  <span className='p-1 bg-foreground-2 rounded-full'>
+                    <IoHeart className='size-4 text-red-600 cursor-pointer' />
+                  </span>
+                  <span>{post.post_attributes.like_number}</span>
+                </div>
+                <div className='flex gap-3'>
+                  <span className='p-1 bg-foreground-2 rounded-full'>
+                    <FaCommentDots className='size-4 cursor-pointer' />
+                  </span>
+                  <span>{post.post_attributes.comment_number}</span>
+                </div>
+              </div>
+              <div className='right flex-start gap-5'>
+                <span>
+                  <FiSend className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer' />
+                </span>
+                {post.type === 'Post' && (
+                  <span>
+                    <GoShare
+                      className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
+                      onClick={handleOpen}
+                    />
+                    <Modal
+                      componentModal={
+                        <CreateNewPostShare
+                          handleClose={handleClose}
+                          post={post}
+                        />
+                      }
+                      open={open}
+                      handleClose={handleClose}
+                      children={<></>}
+                    />
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+          {feature !== 'sharing' && (
+            <div>
+              <div className='comment-list mt-7'>
+                <CommentList postID={post._id} />
+              </div>
+              <div className='mt-8'>
+                <InputComment postID={post._id} />
+              </div>
+            </div>
+          )}
         </div>
       )}
-      {feature !== 'sharing' && (
-        <div>
-          <div className='comment-list mt-7'>
-            <CommentList postID={post._id} />
-          </div>
-          <div className='mt-8'>
-            <InputComment postID={post._id} />
-          </div>
-        </div>
-      )}
-    </div>
+    </>
   );
 }

@@ -31,7 +31,7 @@ export default function ImageGallery({
     <LightGallery
       {...props}
       speed={400}
-      licenseKey='your_license_key'
+      licenseKey='12345_example'
       mode='lg-slide'
       elementClassNames={elementClassNames}
       plugins={[

@@ -84,7 +84,7 @@ export default function MessagesHeader() {
     if (!currentUserInfo || !conversations) return 0;
     return conversations.reduce((count, conversation) => {
       if (
-        conversation.seen.some((user) => user._id === currentUserInfo._id) ||
+        conversation.seen?.some((user) => user._id === currentUserInfo._id) ||
         conversation.lastMessage?.sender?._id === currentUserInfo._id ||
         !conversation.lastMessage
       )
@@ -153,7 +153,7 @@ export default function MessagesHeader() {
                 const hasSeen = () => {
                   if (!conversation.lastMessage) return false;
 
-                  return conversation.seen.some((user) => user._id === currentUserInfo._id);
+                  return conversation.seen?.some((user) => user._id === currentUserInfo._id);
                 };
 
                 const lastMessageText = () => {

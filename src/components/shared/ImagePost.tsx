@@ -13,7 +13,7 @@ export default function ImagePost({ images }: IImagePostProps) {
       <ImageGallery
         elementClassNames={`image-post-${Math.min(images.length, 5)}`}
       >
-        {images.toReversed().map((image, index) => (
+        {images.map((image, index) => (
           <Link
             key={index}
             href={getImageURL(image)}
