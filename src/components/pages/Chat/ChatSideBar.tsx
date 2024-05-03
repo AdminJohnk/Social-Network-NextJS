@@ -104,13 +104,13 @@ export default function ChatSideBar({
   }, [optionIndex, OptionRender]);
 
   return (
-    <div className='fixed bg-background-1 top-0 left-0 z-50 pt-2 h-dvh overflow-hidden transition-transform lg:duration-500 max-lg:w-full max-lg:-translate-x-full'>
-      <div className='option flex flex-col h-full items-center justify-between'>
-        <div className='flex flex-col items-center'>
+    <div className='fixed bg-background-1 md:top-0 left-0 max-md:bottom-0 z-50 pt-2 h-dvh max-md:h-[140px] overflow-hidden transition-transform lg:duration-500 max-lg:w-full'>
+      <div className='option flex flex-col max-md:flex-row h-full items-center justify-between'>
+        <div className='flex flex-col max-md:flex-row items-center'>
           <Link href='/' className='icon_logo'>
             <Logo />
           </Link>
-          <div className='max-md/2:pt-0 pt-6'>
+          <div className='flex flex-col max-md:flex-row max-md/2:pt-0 pt-6'>
             {options.map((option, index) => (
               <div
                 key={index}

@@ -177,7 +177,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
   }, [textareaRef.current]);
 
   return (
-    <div className='absolute w-full bottom-2.5'>
+    <div className='absolute w-full bottom-2.5 max-md:bottom-0'>
       <div className='relative -top-20 left-0 z-30'>
         {files.length > 0 && (
           <div className='absolute overflow-auto w-[99.4%] h-20 flex px-4 pt-2 gap-5 z-10 bg-gradient-to-t via-white from-white via-30% from-30% dark:from-slate-900 dark:via-slate-900 custom-scrollbar-fg'>

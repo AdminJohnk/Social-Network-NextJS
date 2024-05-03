@@ -75,9 +75,8 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
         const memberCount = currentConversation.members.length;
         const activeMemberCount = membersActive.length;
 
-        return `${memberCount} ${t('members')} - ${
-          activeMemberCount === 1 ? t('Only you') : activeMemberCount
-        } ${t('online')}`;
+        return `${memberCount} ${t('members')} - ${activeMemberCount === 1 ? t('Only you') : activeMemberCount
+          } ${t('online')}`;
       }
 
       const lastOnline =
