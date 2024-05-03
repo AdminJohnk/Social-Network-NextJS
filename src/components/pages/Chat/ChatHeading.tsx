@@ -75,9 +75,8 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
         const memberCount = currentConversation.members.length;
         const activeMemberCount = membersActive.length;
 
-        return `${memberCount} ${t('members')} - ${
-          activeMemberCount === 1 ? t('Only you') : activeMemberCount
-        } ${t('online')}`;
+        return `${memberCount} ${t('members')} - ${activeMemberCount === 1 ? t('Only you') : activeMemberCount
+          } ${t('online')}`;
       }
 
       const lastOnline =
@@ -100,9 +99,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
               <IoChevronBackOutline className='text-2xl -ml-4' />
             </button>
 
-            <div
-              className='relative cursor-pointer max-md:hidden'
-              data-uk-toggle='target: .right ; cls: hidden'>
+            <div className='relative cursor-pointer max-md:hidden'>
               <Skeleton
                 variant='rectangular'
                 width={40}

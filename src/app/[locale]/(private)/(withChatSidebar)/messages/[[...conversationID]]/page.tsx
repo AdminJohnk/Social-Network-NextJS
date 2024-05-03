@@ -9,6 +9,7 @@ import ChatSideBar from '@/components/pages/Chat/ChatSideBar';
 import { useRouter } from '@/navigation';
 import { useCurrentConversationData } from '@/hooks/query';
 import NoConversationSelected from '@/components/pages/Chat/NoConversationSelected';
+import { cn } from '@/lib/utils';
 
 export interface IMessageProps {
   params: {
@@ -46,7 +47,9 @@ const Message = ({ params: { conversationID } }: IMessageProps) => {
             <div className='md:w-[360px] relative border-r dark:border-slate-700'>
               <div
                 id='side-chat'
-                className='top-0 left-0 max-md:fixed max-md:w-5/6 h-dvh z-50 max-md:shadow max-md:-translate-x-full bg-background-1'>
+                className={cn('top-0 left-0 max-md:fixed max-md:w-5/6 h-dvh z-50 max-md:shadow bg-background-1 duration-300',
+                  ID && 'max-md:-translate-x-full'
+                )}>
                 {/* <!-- conversations list --> */}
                 {select}
               </div>
@@ -54,7 +57,9 @@ const Message = ({ params: { conversationID } }: IMessageProps) => {
               {/* <!-- overlay --> */}
               <div
                 id='side-chat'
-                className='bg-slate-100/40 backdrop-blur w-full h-full dark:bg-slate-800/40 z-40 fixed inset-0 max-md:-translate-x-full md:hidden'
+                className={cn('bg-slate-100/40 backdrop-blur w-full h-full dark:bg-slate-800/40 z-40 fixed inset-0 md:hidden',
+                  ID && 'max-md:-translate-x-full'
+                )}
                 data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'
               />
             </div>
