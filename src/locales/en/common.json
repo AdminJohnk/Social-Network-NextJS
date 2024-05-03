@@ -66,6 +66,10 @@
   "Message": "Message",
   "Report": "Report",
   "Share profile": "Share profile",
+  "No image found": "No image found",
+  "Something's missing": "Something's missing.",
+  "Sorry, we can't find that page You'll find lots to explore on the home page": "Sorry, we can't find that page. You'll find lots to explore on the home page.",
+  "Back to Homepage": "Back to Homepage",
   "Not found any conversations": "Not found any conversations",
   "Select a conversation to start chatting": "Select a conversation to start chatting",
   "Shared post successfully!": "Shared post successfully!",
@@ -172,7 +176,7 @@
   "Write your message": "Write your message",
   "Categories": "Categories",
   "Delicious Foods": "Delicious Foods",
-  "Health ": "Health ",
+  "Health": "Health",
   "members": "members",
   "Join": "Join",
   "Graphic Design": "Graphic Design",
@@ -329,5 +333,8 @@
   "Decline": "Decline",
   "Contacts": "Contacts",
   "Post updated successfully!": "Post updated successfully!",
-  "Remove all": "Remove all"
+  "Remove all": "Remove all",
+  "Remove From Favorite": "Remove From Favorite",
+  "Update": "Update",
+  "Edit Status": "Edit Status"
 }

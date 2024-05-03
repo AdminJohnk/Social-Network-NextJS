@@ -669,4 +669,6 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
   }
 );
 
+MessageBox.displayName = 'MessageBox';
+
 export default MessageBox;

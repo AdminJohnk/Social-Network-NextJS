@@ -240,11 +240,14 @@ export default function MessageList({ conversationID, currentConversation, other
               const index = typingUsers.findIndex((user) => user === member._id);
               if (index !== -1) {
                 return (
-                  <img
+                  <Image
                     key={member._id}
                     className='rounded-full bg-border-1 border-2 border-solid -top-2 absolute h-6 w-6 overflow-hidden'
                     src={getImageURL(member.user_image, 'avatar_mini')}
                     style={{ left: `${index * 30 + typingUsers.length * 10}px` }}
+                    alt={member.name}
+                    width={500}
+                    height={500}
                   />
                 );
               }

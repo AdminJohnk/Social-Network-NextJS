@@ -9,7 +9,7 @@ export interface IPostMoreChooseProps extends PopoverProps {
   hoverContent: React.ReactNode;
 }
 
-export default function Popover({ mainContent, hoverContent }: IPostMoreChooseProps) {
+export default function Popover({ mainContent, hoverContent, ...props }: IPostMoreChooseProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -29,6 +29,7 @@ export default function Popover({ mainContent, hoverContent }: IPostMoreChoosePr
         {mainContent}
       </button>
       <PopoverMUI
+        {...props}
         classes={{
           paper: '!bg-transparent'
         }}

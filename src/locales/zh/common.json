@@ -127,6 +127,7 @@
   "List Friends": "好友列表",
   "Add": "添加",
   "Select a conversation to start chatting": "选择一个对话开始聊天",
+  "No image found": "未找到图片",
   "Only you": "只有你",
   "Add members": "添加成员",
   "Group creator": "群组创建者",
@@ -170,6 +171,9 @@
   "Write your message": "写下您的消息",
   "Categories": "分类",
   "Delicious Foods": "美味食品",
+  "Something's missing": "有些东西丢失了。",
+  "Sorry, we can't find that page You'll find lots to explore on the home page": "抱歉，我们找不到该页面。您将在主页上找到很多探索内容。",
+  "Back to Homepage": "返回主页",
   "Health": "健康",
   "members": "成员",
   "Join": "加入",
@@ -329,5 +333,8 @@
   "Show less": "显示更少",
   "Contacts": "联系人",
   "Post updated successfully!": "帖子更新成功!",
-  "Remove all": "全部移除"
+  "Remove all": "全部移除",
+  "Remove From Favorite": "从收藏夹中移除",
+  "Update": "更新",
+  "Edit Status": "编辑状态"
 }

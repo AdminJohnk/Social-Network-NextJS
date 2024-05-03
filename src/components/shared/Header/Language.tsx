@@ -35,9 +35,7 @@ export default function Language({
   const params = new URLSearchParams(searchParams.toString()).toString();
 
   const onSelectChange = (nextLocale: string) => {
-    startTransition(() => {
-      router.replace(`${pathname}?${params || ''}`, { locale: nextLocale });
-    });
+    startTransition(() => router.replace(`${pathname}?${params || ''}`, { locale: nextLocale }));
   };
 
   return (
