@@ -18,7 +18,7 @@ export default function ComMineList() {
             <h4 className='card-title'> {t('Delicious Foods')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href=''> {t('Health')} </Link>
+            <Link href=''> {t('Health ')} </Link>
             <div className='md:block hidden'>·</div>
             <div>42k {t('members')} </div>
           </div>
@@ -44,7 +44,7 @@ export default function ComMineList() {
             <h4 className='card-title'> {t('Graphic Design')} </h4>
           </Link>
           <div className='card-list-info font-normal mt-1'>
-            <Link href=''> {t('Health')} </Link>
+            <Link href=''> {t('Health ')} </Link>
             <div className='md:block hidden'>·</div>
             <div>42k {t('members')} </div>
           </div>

@@ -50,7 +50,7 @@ export default function NewPost({ profileID }: INewPostProps) {
           <RiLiveFill className='size-5 text-pink-1' />
         </div>
       </DialogTrigger>
-      <DialogContent className='bg-background-1 p-0 max-w-[600px] border-none'>
+      <DialogContent className='bg-background-1 p-0 border-none'>
         <CreateNewPost handleClose={()=>setOpen(false)}/>
       </DialogContent>
     </Dialog>

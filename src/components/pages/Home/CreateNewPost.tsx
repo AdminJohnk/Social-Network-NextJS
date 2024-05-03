@@ -6,6 +6,7 @@ import Editor from '@/components/shared/Editor/Editor';
 import { useTranslations } from 'next-intl';
 
 import { IoImage } from 'react-icons/io5';
+import { BsListTask } from 'react-icons/bs';
 import { Visibility } from '@/types';
 import { Editor as EditorProps } from '@tiptap/react';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,9 @@ import { cn } from '@/lib/utils';
 import { CircularProgress } from '@mui/material';
 import { useCreatePost } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import UploadImage from '@/components/shared/UploadImage';
+import PostTemplate from '@/components/shared/PostTemplate';
+
 
 interface ICreateNewPostProps {
   handleClose: () => void;
@@ -28,8 +32,12 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [images, setImages] = useState<File[]>([]);
+
   const handleSubmit = async () => {
     const content = editor?.getHTML() as string;
+    // console.log(content);
+    // return;
     setIsLoading(true);
 
     if (!editor?.getText().trim()) {
@@ -62,29 +70,38 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
   };
 
   return (
-    <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg md:w-[600px] w-full'>
-      <div className='text-center py-4 border-b border-border-1'>
-        <h2 className='text-sm font-medium text-text-1'>{t('Create Status')}</h2>
+    <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[650px] animate-fade-up'>
+      <div className='text-center py-4 border-b mb-0 border-border-1'>
+        <h2 className='text-sm font-medium text-text-1'>
+          {t('Create Post')}
+        </h2>
       </div>
 
-      <div className='space-y-5 mt-3 p-2'>
-        <Editor setEditor={setEditor} />
-      </div>
+      <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg'>
+        <div className='space-y-5 mt-3 p-2'>
+          <Editor setEditor={setEditor} />
+        </div>
 
-      <div className='flex items-center gap-2 text-sm py-2 px-4 font-medium flex-wrap'>
-        <button
+        <div className='*:mb-3 text-sm py-2 px-4 font-medium'>
+          <div>
+            <PostTemplate editor={editor} />
+          </div>
+          <UploadImage setImagesOfS3={setImages} />
+          {/* <button
           type='button'
-          className='flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:border-sky-900'>
+          className='flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:border-sky-900'
+        >
           <IoImage className='text-base' />
           {t('Image')}
-        </button>
-        {/* <button
-            type='button'
-            className='flex items-center gap-1.5 bg-teal-50 text-teal-600 rounded-full py-1 px-2 border-2 border-teal-100 dark:bg-teal-950 dark:border-teal-900'>
-            <IoVideocam className='text-base' />
-            {t('Video')}
-          </button> */}
-        {/* <button
+        </button> */}
+          {/* <button
+          type='button'
+          className='flex items-center gap-1.5 bg-teal-50 text-teal-600 rounded-full py-1 px-2 border-2 border-teal-100 dark:bg-teal-950 dark:border-teal-900'
+        >
+          <BsListTask className='text-base' />
+          {t('Video')}
+        </button> */}
+          {/* <button
             type='button'
             className='flex items-center gap-1.5 bg-orange-50 text-orange-600 rounded-full py-1 px-2 border-2 border-orange-100 dark:bg-yellow-950 dark:border-yellow-900'
           >
@@ -104,6 +121,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
           >
             <IoEllipsisHorizontal />
           </button> */}
+        </div>
       </div>
 
       <div className='p-5 flex justify-between items-center'>
@@ -111,10 +129,16 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
         <div className='flex items-center gap-2'>
           <Button
             type='button'
-            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+            className={cn(
+              'button lg:px-6 text-white max-md:flex-1',
+              isLoading && 'select-none'
+            )}
             disabled={isLoading}
-            onClick={handleSubmit}>
-            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+            onClick={handleSubmit}
+          >
+            {isLoading && (
+              <CircularProgress size={20} className='!text-text-1 mr-2' />
+            )}
             {t('Create')} <span className='ripple-overlay'></span>
           </Button>
         </div>

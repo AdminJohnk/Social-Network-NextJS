@@ -7,10 +7,18 @@ import { useTranslations } from 'next-intl';
 import { useThemeMode } from 'flowbite-react';
 
 import { Link } from '@/navigation';
-import { useConversationsData, useCurrentUserInfo, useGetCalled } from '@/hooks/query';
+import {
+  useConversationsData,
+  useCurrentUserInfo,
+  useGetCalled
+} from '@/hooks/query';
 import { cn } from '@/lib/utils';
 import ConversationList from './ConversationList';
-import { PopoverContent, Popover, PopoverTrigger } from '@/components/ui/popover';
+import {
+  PopoverContent,
+  Popover,
+  PopoverTrigger
+} from '@/components/ui/popover';
 import Language from '@/components/shared/Header/Language';
 import ContactList from './ContactList';
 import Logo from '@/components/shared/Logo';
@@ -21,7 +29,10 @@ export interface IChatSideBarProps {
   setSideBarSelect: (list: ReactElement) => void;
 }
 
-export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatSideBarProps) {
+export default function ChatSideBar({
+  conversationID,
+  setSideBarSelect
+}: IChatSideBarProps) {
   const t = useTranslations();
   const { toggleMode, mode } = useThemeMode();
 
@@ -56,9 +67,21 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
   const [optionIndex, setOptionIndex] = useState(0);
 
   const options = [
-    { name: 'new message', icon: <FaComment className='text-2xl' />, count: notSeenCount },
-    { name: 'contact', icon: <FaUser className='text-2xl' />, count: contactCount },
-    { name: 'missing call', icon: <FaVideo className='text-2xl' />, count: calledList?.length || 0 }
+    {
+      name: 'new message',
+      icon: <FaComment className='text-2xl' />,
+      count: notSeenCount
+    },
+    {
+      name: 'contact',
+      icon: <FaUser className='text-2xl' />,
+      count: contactCount
+    },
+    {
+      name: 'missing call',
+      icon: <FaVideo className='text-2xl' />,
+      count: calledList?.length || 0
+    }
   ];
 
   const OptionRender = useMemo(() => {
@@ -91,14 +114,19 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
             {options.map((option, index) => (
               <div
                 key={index}
-                className={cn('optionItem flex p-4 rounded-xl transition-colors', option.name)}
-                onClick={() => setOptionIndex(index)}>
+                className={cn(
+                  'optionItem flex p-4 rounded-xl transition-colors',
+                  option.name
+                )}
+                onClick={() => setOptionIndex(index)}
+              >
                 <button
                   type='button'
                   className={cn(
                     'relative inline-flex items-center p-3 text-sm font-medium text-center text-text-1 rounded-lg hover:bg-hover-1',
                     index === optionIndex && 'bg-hover-1'
-                  )}>
+                  )}
+                >
                   {option.icon}
                   {option.count > 0 && (<div className='absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900'>
                     {option.count}
@@ -122,7 +150,11 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
                   <IoMoonOutline className='size-5' />
                   {t('Night Mode')}
                   <label className='switch ml-auto cursor-pointer'>
-                    <input type='checkbox' checked={mode === 'dark'} onChange={toggleMode} />
+                    <input
+                      type='checkbox'
+                      checked={mode === 'dark'}
+                      onChange={toggleMode}
+                    />
                     <span className='switch-button !relative'></span>
                   </label>
                 </div>

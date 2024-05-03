@@ -14,8 +14,11 @@ export interface IConversationBoxProps {
   conversation: IConversation;
 }
 
-export default function ConversationBox({ conversation }: IConversationBoxProps) {
-  if (!conversation.lastMessage && conversation.type === 'private') return <></>;
+export default function ConversationBox({
+  conversation
+}: IConversationBoxProps) {
+  if (!conversation.lastMessage && conversation.type === 'private')
+    return <></>;
 
   const t = useTranslations();
 
@@ -26,12 +29,15 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
   const isGroup = conversation.type === 'group';
   const isLastMessageFromCurrentUser =
-    conversation.lastMessage && conversation.lastMessage.sender._id === currentUserInfo._id;
+    conversation.lastMessage &&
+    conversation.lastMessage.sender._id === currentUserInfo._id;
 
   const otherUser = useMemo(() => {
     if (isGroup) return;
 
-    return conversation.members.find((member) => member._id !== currentUserInfo._id);
+    return conversation.members.find(
+      member => member._id !== currentUserInfo._id
+    );
   }, [currentUserInfo, conversation?.members]);
 
   const isOwn = useMemo(() => {
@@ -40,7 +46,8 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
   const senderName = useMemo(() => {
     if (isOwn) {
-      if (conversation.lastMessage?.type === 'notification') return t('You') + ' ';
+      if (conversation.lastMessage?.type === 'notification')
+        return t('You') + ' ';
       else return t('You') + ': ';
     }
 
@@ -49,7 +56,8 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
 
     const arr = lastMessageSenderName.split(' ');
 
-    if (conversation.lastMessage?.type === 'notification') return arr[arr.length - 1] + ' ';
+    if (conversation.lastMessage?.type === 'notification')
+      return arr[arr.length - 1] + ' ';
 
     if (conversation.type === 'private') return '';
 
@@ -66,10 +74,16 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
     if (!message) return;
     switch (message.action) {
       case 'add_member':
-        if (message.target) return t('added') + ' ' + message.target.name + ' ' + t('to the group');
+        if (message.target)
+          return (
+            t('added') + ' ' + message.target.name + ' ' + t('to the group')
+          );
         break;
       case 'remove_member':
-        if (message.target) return t('removed') + ' ' + message.target.name + ' ' + t('from the group');
+        if (message.target)
+          return (
+            t('removed') + ' ' + message.target.name + ' ' + t('from the group')
+          );
         break;
       case 'change_name':
         return t('changed the group name to') + ' ' + message.content;
@@ -78,10 +92,24 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
       case 'leave_conversation':
         return t('left the conversation');
       case 'promote_admin':
-        if (message.target) return t('promoted') + ' ' + message.target.name + ' ' + t('to administrator');
+        if (message.target)
+          return (
+            t('promoted') +
+            ' ' +
+            message.target.name +
+            ' ' +
+            t('to administrator')
+          );
         break;
       case 'revoke_admin':
-        if (message.target) return t('revoked') + ' ' + message.target.name + ' ' + t('as administrator');
+        if (message.target)
+          return (
+            t('revoked') +
+            ' ' +
+            message.target.name +
+            ' ' +
+            t('as administrator')
+          );
         break;
       default:
         return t(message.content);
@@ -89,14 +117,20 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
   }, []);
 
   const lastMessageText = useMemo(() => {
-    if (conversation.lastMessage?.images?.length! > 0) return t('Sent an image');
+    if (conversation.lastMessage?.images?.length! > 0)
+      return t('Sent an image');
 
-    if (conversation.lastMessage?.type === 'voice' || conversation.lastMessage?.type === 'video')
+    if (
+      conversation.lastMessage?.type === 'voice' ||
+      conversation.lastMessage?.type === 'video'
+    )
       return t('The call has ended');
 
-    if (conversation.lastMessage?.type === 'notification') return switchNoti(conversation.lastMessage);
+    if (conversation.lastMessage?.type === 'notification')
+      return switchNoti(conversation.lastMessage);
 
-    if (conversation.lastMessage?.content) return conversation.lastMessage?.content;
+    if (conversation.lastMessage?.content)
+      return conversation.lastMessage?.content;
 
     return t('Start a conversation');
   }, [conversation.lastMessage]);
@@ -105,7 +139,8 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
     <ContextMenuConversationBox conversation={conversation}>
       <Link
         href={`/messages/${conversation._id}`}
-        className='relative flex items-center gap-4 px-2 py-3 duration-200 rounded-xl hover:bg-hover-1'>
+        className='relative flex items-center gap-4 px-2 py-3 duration-200 rounded-xl hover:bg-hover-1'
+      >
         {conversation.type === 'group' ? (
           <AvatarGroup
             key={conversation._id}
@@ -129,7 +164,12 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
             </div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-            <span className={cn('truncate text-sm', !isOwn && !hasSeen ? 'font-extrabold' : 'text-text-2')}>
+            <span
+              className={cn(
+                'truncate text-sm',
+                !isOwn && !hasSeen ? 'font-extrabold' : 'text-text-2'
+              )}
+            >
               {senderName + lastMessageText}
             </span>
           </div>
