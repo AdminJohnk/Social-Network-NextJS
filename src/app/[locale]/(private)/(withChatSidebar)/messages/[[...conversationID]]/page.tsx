@@ -35,12 +35,12 @@ const Message = ({ params: { conversationID } }: IMessageProps) => {
   };
 
   return (
-    <div id='wrapper' className='divide-x divide-foreground-2'>
+    <div id='wrapper' className='divide-x relative divide-foreground-2'>
       <ChatSideBar conversationID={ID} setSideBarSelect={handleSelect} />
       {/* <!-- main contents --> */}
       {/* <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]"> */}
       <main className='md:ml-[80px]'>
-        <div className='mx-auto h-screen relative shadow-lg overflow-hidden border-border-1'>
+        <div className='mx-auto h-screen shadow-lg overflow-hidden border-border-1'>
           <div className='flex bg-background-1'>
             {/* <!-- sidebar --> */}
             <div className='md:w-[360px] relative border-r dark:border-slate-700'>
@@ -60,7 +60,7 @@ const Message = ({ params: { conversationID } }: IMessageProps) => {
             </div>
 
             {!ID && <NoConversationSelected />}
-            
+
             {!isErrorCurrentConversation && (
               <>
                 {/* <!-- message center --> */}
