@@ -9,7 +9,7 @@ import { IoCloseOutline } from 'react-icons/io5';
 
 export interface IUploadImageProps {
   imagesOfPost?: string[];
-  setImagesOfPost: (images: string[]) => void;
+  setImagesOfPost?: (images: string[]) => void;
   setImagesOfS3: (images: File[]) => void;
 }
 
@@ -29,7 +29,7 @@ export default function UploadImage({
   );
 
   useEffect(() => {
-    setImagesOfPost(imagesPost);
+    setImagesOfPost && setImagesOfPost(imagesPost);
     const files = images.map(image => image.file);
     setImagesOfS3(files as File[]);
   }, [imagesPost, images]);
@@ -47,7 +47,7 @@ export default function UploadImage({
   };
 
   return (
-    <div className='App'>
+    <div>
       <ImageUploading
         multiple
         value={images}
@@ -77,13 +77,15 @@ export default function UploadImage({
             <div className='flex-start gap-3'>
               <button
                 type='button'
-                className='flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:border-sky-900'
+                className='flex items-center gap-1.5 bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'
                 onClick={onImageUpload}
               >
                 <IoImage className='text-base' />
                 {t('Image')}
               </button>
-              <div>Number: {currentNumber + '/' + maxNumber}</div>
+              <div>
+                {t('Quantity')} {': '} {currentNumber + '/' + maxNumber}
+              </div>
               {(images.length > 0 || imagesPost.length > 0) && (
                 <button
                   className='text-1 flex-start py-1 px-2 rounded-full'
