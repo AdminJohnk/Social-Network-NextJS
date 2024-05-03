@@ -68,7 +68,7 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
             key={user._id}
             className={cn('absolute inline-block rounded-full overflow-hidden', positionMap[index])}
             style={{ width: size / 2, height: size / 2 }}>
-            {index < 4 ? (
+            {index < 3 ? (
               <Image
                 width={500}
                 height={500}
@@ -85,7 +85,7 @@ const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview 
                   style={{
                     fontSize: size / 4
                   }}>
-                  {users.length - 4}
+                  {users.length - 3}
                 </div>
               </span>
             )}

@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { getImageURL } from '@/lib/utils';
+import Image from 'next/image';
 
 interface IProfileUpload {
   fieldChange: (files: File) => void;
@@ -50,10 +51,13 @@ export const ProfileUpload = ({ fieldChange, mediaURL }: IProfileUpload) => {
       <input {...getInputProps()} className='cursor-pointer' />
 
       <div className='flex-center cursor-pointer gap-6'>
-        <img
+        <Image
           src={fileUrl || '/images/DefaultAvatar/Empty_Group_Image.png'}
           alt='image'
           className='size-24 rounded-full object-cover object-top'
+          height={500}
+          width={500}
+          priority
         />
         <Button type='button' className='small-regular md:base-semibold'>
           {t('Choose image')}

@@ -31,6 +31,7 @@ import { RiArrowGoBackFill } from 'react-icons/ri';
 import { CircularProgress } from '@mui/material';
 import { MdCancel } from 'react-icons/md';
 import { getImageURL } from '@/lib/utils';
+import FriendButton from './FriendButton';
 
 export interface ICoverProps {
   profileID: string;
@@ -145,126 +146,7 @@ export default function Cover({ profileID }: ICoverProps) {
                   </Link>
                 </Button>
               )}
-              {!isFriend && !sentRequest && !receivedRequest && !isMe && (
-                <Button
-                  variant='main'
-                  preIcon={
-                    isLoading ? (
-                      <CircularProgress size={17} className='!text-text-1' />
-                    ) : (
-                      <IoAddCircle className='text-xl' />
-                    )
-                  }
-                  onClick={() => {
-                    setIsLoading(true);
-                    mutateAddFriendUser(profileID, {
-                      onSettled: () => {
-                        setIsLoading(false);
-                      }
-                    });
-                  }}>
-                  {t('Add Friend')}
-                </Button>
-              )}
-              {sentRequest && !isMe && (
-                <Button
-                  variant='main'
-                  preIcon={
-                    isLoading ? (
-                      <CircularProgress size={17} className='!text-text-1' />
-                    ) : (
-                      <MdCancel className='text-xl' />
-                    )
-                  }
-                  onClick={() => {
-                    setIsLoading(true);
-                    mutateCancelFriendUser(profileID, {
-                      onSettled: () => {
-                        setIsLoading(false);
-                      }
-                    });
-                  }}>
-                  {t('Cancel Request')}
-                </Button>
-              )}
-              {receivedRequest && !isMe && (
-                <div>
-                  <Button
-                    variant='main'
-                    preIcon={
-                      isLoading ? (
-                        <CircularProgress size={17} className='!text-text-1' />
-                      ) : (
-                        <RiArrowGoBackFill className='text-xl' />
-                      )
-                    }>
-                    <span className='text-sm'> {t('Response')} </span>
-                  </Button>
-                  <div
-                    className='w-[240px] !bg-foreground-1'
-                    data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                    <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
-                      <div
-                        className='uk-drop-close'
-                        onClick={() => {
-                          setIsLoading(true);
-                          mutateAcceptFriendUser(profileID, {
-                            onSettled: () => {
-                              setIsLoading(false);
-                            }
-                          });
-                        }}>
-                        <span className='text-sm'>{t('Accept')}</span>
-                      </div>
-                      <div
-                        className='uk-drop-close'
-                        onClick={() => {
-                          setIsLoading(true);
-                          mutateDeclineFriendUser(profileID, {
-                            onSettled: () => {
-                              setIsLoading(false);
-                            }
-                          });
-                        }}>
-                        <span className='text-sm'>{t('Decline')}</span>
-                      </div>
-                    </nav>
-                  </div>
-                </div>
-              )}
-              {isFriend && !isMe && (
-                <div>
-                  <Button
-                    variant='main'
-                    preIcon={
-                      isLoading ? (
-                        <CircularProgress size={17} className='!text-text-1' />
-                      ) : (
-                        <FaCheckCircle className='text-xl' />
-                      )
-                    }>
-                    <span className='text-sm'> {t('Friend')} </span>
-                  </Button>
-                  <div
-                    className='w-[240px] !bg-foreground-1'
-                    data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                    <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
-                      <div
-                        className='uk-drop-close'
-                        onClick={() => {
-                          setIsLoading(true);
-                          mutateDeleteFriendUser(profileID, {
-                            onSettled: () => {
-                              setIsLoading(false);
-                            }
-                          });
-                        }}>
-                        <span className='text-sm'>{t('Unfriend')}</span>
-                      </div>
-                    </nav>
-                  </div>
-                </div>
-              )}
+              <FriendButton profileID={profileID} />
 
               <div>
                 <Button

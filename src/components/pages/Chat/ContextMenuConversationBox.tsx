@@ -39,7 +39,9 @@ export default function ContextMenuConversationBox({
   const isGroup = conversation.type === 'group';
   const isSeen =
     conversation.lastMessage.sender._id === currentUserInfo._id ||
-    conversation.seen?.some(seen => seen._id === currentUserInfo._id);
+    conversation.lastMessage.seen.some(
+      seen => seen._id === currentUserInfo._id
+    );
 
   const otherUser = useMemo(() => {
     if (isGroup) return;
@@ -90,9 +92,10 @@ export default function ContextMenuConversationBox({
                 name: currentUserInfo.name
               },
               isSending: true,
+              seen: [],
               type: 'notification',
               action: 'leave_conversation',
-              createdAt: new Date()
+              createdAt: new Date().toISOString()
             };
 
             mutateSendMessage(message as unknown as IMessage);

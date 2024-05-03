@@ -29,13 +29,13 @@ export default function Community({ params: { locale } }: ICommunityProps) {
           >
             <div className='flex-1 xl:space-y-6 space-y-3'>
               <NewPost />
+              {/* <Post />
               <Post />
               <Post />
               <Post />
               <Post />
               <Post />
-              <Post />
-              <Post />
+              <Post /> */}
               <PostSkeleton />
             </div>
             <div className='lg:w-[400px]'>

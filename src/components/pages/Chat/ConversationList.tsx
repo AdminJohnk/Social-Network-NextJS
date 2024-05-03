@@ -4,14 +4,18 @@ import { useEffect, useState } from 'react';
 import { IoChevronDownOutline, IoSearchOutline } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 import { CircularProgress } from '@mui/material';
+import Image from 'next/image';
 
 import RightActionButtons from './RightActionButtons';
 import HeadingTitle from './HeadingTitle';
 import ConversationBox from './ConversationBox';
 import { useConversationsData, useCurrentUserInfo } from '@/hooks/query';
-import { IConversation } from '@/types';
-import { cn } from '@/lib/utils';
 import { useDebounce } from '@/hooks/special';
+import { useReceiveMessage } from '@/hooks/mutation';
+import { useSocketStore } from '@/store/socket';
+import { cn } from '@/lib/utils';
+import { Socket } from '@/lib/utils/constants/SettingSystem';
+import { IConversation, IMessage } from '@/types';
 
 interface IConversationListProps {
   conversationID?: string;
@@ -23,11 +27,25 @@ function ConversationList({ conversationID }: IConversationListProps) {
   const { conversations, isLoadingConversations } = useConversationsData();
   const [searchConversation, setSearchConversation] = useState<IConversation[]>(conversations);
 
+  const { chatSocket } = useSocketStore();
+
   const { currentUserInfo } = useCurrentUserInfo();
+
+  const { mutateReceiveMessage } = useReceiveMessage(currentUserInfo._id, conversationID);
 
   const [search, setSearch] = useState('');
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const searchDebounce = useDebounce(search, 500);
+
+  useEffect(() => {
+    chatSocket.on(Socket.PRIVATE_MSG, (message: IMessage) => {
+      mutateReceiveMessage(message);
+    });
+
+    return () => {
+      chatSocket.off(Socket.PRIVATE_MSG);
+    };
+  }, []);
 
   useEffect(() => {
     setSearchConversation(conversations);
@@ -94,7 +112,7 @@ function ConversationList({ conversationID }: IConversationListProps) {
         </div>
       </div>
       <div className='space-y-2 p-2 overflow-y-auto custom-scrollbar-fg'>
-        {isLoadingConversations ? (
+        {isLoadingConversations || !searchConversation ? (
           <div className='w-full flex-center py-10'>
             <CircularProgress size={20} className='!text-text-1' />
           </div>
@@ -102,8 +120,19 @@ function ConversationList({ conversationID }: IConversationListProps) {
           <div className='w-full flex-center py-10'>
             <CircularProgress size={20} className='!text-text-1' />
           </div>
+        ) : searchConversation.length === 0 ? (
+          <div className='flex-center flex-col gap-4'>
+            <Image
+              className='h-24 !text-white'
+              src='/images/no-data.svg'
+              alt={t('Not found any conversations')}
+              width={500}
+              height={500}
+            />
+            <span className='text-center'>{t('Not found any conversations')}</span>
+          </div>
         ) : (
-          searchConversation?.map((conversation) => (
+          searchConversation.map((conversation) => (
             <div
               key={conversation._id}
               className={cn('rounded-xl', conversationID === conversation._id && 'bg-hover-2')}>

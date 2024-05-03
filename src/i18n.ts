@@ -5,7 +5,7 @@ import { LIST_LANGUAGE } from '@/lib/utils/constants/SettingSystem';
 export const locales = LIST_LANGUAGE;
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale)) notFound();
+  if (!locales.includes(locale as any)) notFound();
 
   return {
     messages: (await import(`./locales/${locale}/common.json`)).default,

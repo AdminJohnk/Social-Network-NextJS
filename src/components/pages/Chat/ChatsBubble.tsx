@@ -1,6 +1,6 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
+// import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
@@ -19,7 +19,7 @@ export interface IChatsBubbleProps {
 
 export default function ChatsBubble({ conversationID }: IChatsBubbleProps) {
   const t = useTranslations();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   if (conversationID === undefined) return <></>;
 

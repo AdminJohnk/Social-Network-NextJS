@@ -111,8 +111,7 @@ export default function Post({ post, feature }: IPostProps) {
   const isMyPost = post?.post_attributes.user._id === currentUserInfo._id;
 
   useEffect(() => {
-    if (isMoreThan500 && !expanded)
-      setContentTiptap(content.slice(0, 500) + '...');
+    if (isMoreThan500 && !expanded) setContentTiptap(content.slice(0, 500) + '...');
     else setContentTiptap(content);
   }, [expanded, content, isMoreThan500]);
 

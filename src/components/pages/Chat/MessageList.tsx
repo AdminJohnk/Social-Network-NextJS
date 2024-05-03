@@ -99,14 +99,15 @@ export default function MessageList({ conversationID, currentConversation, other
     if (
       messages.length > 0 &&
       messages[messages.length - 1].sender._id !== currentUserInfo._id &&
-      !currentConversation.seen.some((user) => user._id === currentUserInfo._id)
+      !currentConversation.lastMessage.seen.some((user) => user._id === currentUserInfo._id)
     ) {
       chatSocket.emit(Socket.SEEN_MSG, {
         conversationID,
+        messageID: currentConversation.lastMessage._id,
         userID: currentUserInfo._id
       });
     }
-  }, [currentConversation.seen, conversationID, messages]);
+  }, [currentConversation.lastMessage.seen, conversationID, messages]);
 
   useEffect(() => {
     if (isSeen) {
@@ -223,7 +224,6 @@ export default function MessageList({ conversationID, currentConversation, other
                 type={currentConversation.type}
                 isLastMes={index === messArr.length - 1}
                 message={message}
-                seen={currentConversation.seen}
                 isAdmin={isAdmin(message.sender._id)}
                 isCreator={isCreator(message.sender._id)}
                 isPrevMesGroup={isPrevMesGroup(message, index, messArr)}
@@ -240,11 +240,14 @@ export default function MessageList({ conversationID, currentConversation, other
               const index = typingUsers.findIndex((user) => user === member._id);
               if (index !== -1) {
                 return (
-                  <img
+                  <Image
                     key={member._id}
                     className='rounded-full bg-border-1 border-2 border-solid -top-2 absolute h-6 w-6 overflow-hidden'
                     src={getImageURL(member.user_image, 'avatar_mini')}
                     style={{ left: `${index * 30 + typingUsers.length * 10}px` }}
+                    alt={member.name}
+                    width={500}
+                    height={500}
                   />
                 );
               }
@@ -257,13 +260,17 @@ export default function MessageList({ conversationID, currentConversation, other
             </div>
           </div>
 
-          <Dialog open={openReCall.open} onOpenChange={() => setOpenReCall((prev) => ({ ...prev, open: false }))}>
+          <Dialog
+            open={openReCall.open}
+            onOpenChange={() => setOpenReCall((prev) => ({ ...prev, open: false }))}>
             <DialogContent className='bg-background-1 max-w-[600px] border-none'>
               <DialogHeader>
                 <DialogTitle>{openReCall.type === 'video' ? t('Video Call') : t('Voice Call')}</DialogTitle>
               </DialogHeader>
-              <div className="flex-center">
-                {openReCall.type === 'video' ? t('Call the group to start a new video call') : t('Call the group to start a new voice call')}
+              <div className='flex-center'>
+                {openReCall.type === 'video'
+                  ? t('Call the group to start a new video call')
+                  : t('Call the group to start a new voice call')}
               </div>
               <DialogFooter>
                 <Button

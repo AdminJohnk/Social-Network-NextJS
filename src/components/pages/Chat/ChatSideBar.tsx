@@ -45,8 +45,8 @@ export default function ChatSideBar({
     if (!currentUserInfo || !conversations) return 0;
     return conversations.reduce((count, conversation) => {
       if (
-        conversation.seen?.some(user => user._id === currentUserInfo._id) ||
-        conversation.lastMessage?.sender?._id === currentUserInfo._id ||
+        conversation.lastMessage.seen.some((user) => user._id === currentUserInfo._id) ||
+        conversation.lastMessage.sender._id === currentUserInfo._id ||
         !conversation.lastMessage
       )
         return count;
@@ -128,9 +128,10 @@ export default function ChatSideBar({
                   )}
                 >
                   {option.icon}
-                  <div className='absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900'>
+                  {option.count > 0 && (<div className='absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900'>
                     {option.count}
                   </div>
+                  )}
                 </button>
               </div>
             ))}
