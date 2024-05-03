@@ -16,7 +16,7 @@ export default function ImagePost({ images }: IImagePostProps) {
 
       {images.toReversed().map((image, index) => (
         <div
-          key={index}
+          key={image}
           className={cn(
             'group relative rounded-lg overflow-hidden bg-background-1 hover:cursor-pointer',
             index > 3 && 'hidden'

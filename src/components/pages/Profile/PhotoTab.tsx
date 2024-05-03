@@ -6,7 +6,6 @@ import { getImageURL } from '@/lib/utils';
 import Image from 'next/image';
 import { useState } from 'react';
 import PhotoProvider from '@/components/shared/PhotoProvider';
-import 'react-photo-view/dist/react-photo-view.css';
 
 export interface IPhotoTabProps {
   profileID: string;
