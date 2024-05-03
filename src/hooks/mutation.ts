@@ -580,9 +580,11 @@ export const useReceiveMessage = (currentUserID: string, conversationID?: string
         const index = newData.findIndex((item) => item._id === message.conversation_id);
 
         if (index !== -1) {
-          if (currentUserID !== message.sender._id) {
-            if (conversationID === message.conversation_id) playPop();
-            else playNoti();
+          if (conversationID) {
+            if (currentUserID !== message.sender._id) {
+              if (conversationID === message.conversation_id) playPop();
+              else playNoti();
+            }
           }
 
           newData[index] = {

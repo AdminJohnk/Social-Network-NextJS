@@ -10,9 +10,12 @@ import RightActionButtons from './RightActionButtons';
 import HeadingTitle from './HeadingTitle';
 import ConversationBox from './ConversationBox';
 import { useConversationsData, useCurrentUserInfo } from '@/hooks/query';
-import { IConversation } from '@/types';
-import { cn } from '@/lib/utils';
 import { useDebounce } from '@/hooks/special';
+import { useReceiveMessage } from '@/hooks/mutation';
+import { useSocketStore } from '@/store/socket';
+import { cn } from '@/lib/utils';
+import { Socket } from '@/lib/utils/constants/SettingSystem';
+import { IConversation, IMessage } from '@/types';
 
 interface IConversationListProps {
   conversationID?: string;
@@ -24,11 +27,25 @@ function ConversationList({ conversationID }: IConversationListProps) {
   const { conversations, isLoadingConversations } = useConversationsData();
   const [searchConversation, setSearchConversation] = useState<IConversation[]>(conversations);
 
+  const { chatSocket } = useSocketStore();
+
   const { currentUserInfo } = useCurrentUserInfo();
+
+  const { mutateReceiveMessage } = useReceiveMessage(currentUserInfo._id, conversationID);
 
   const [search, setSearch] = useState('');
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const searchDebounce = useDebounce(search, 500);
+
+  useEffect(() => {
+    chatSocket.on(Socket.PRIVATE_MSG, (message: IMessage) => {
+      mutateReceiveMessage(message);
+    });
+
+    return () => {
+      chatSocket.off(Socket.PRIVATE_MSG);
+    };
+  }, []);
 
   useEffect(() => {
     setSearchConversation(conversations);
