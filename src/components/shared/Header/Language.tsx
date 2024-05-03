@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useTransition } from 'react';
 import { IoLanguage, IoLanguageOutline } from 'react-icons/io5';
 import { useTranslations, useLocale } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
@@ -30,13 +30,12 @@ export default function Language({
   const t = useTranslations();
   const searchParams = useSearchParams();
   const locale = useLocale();
-  const [isPending, setIsPending] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const params = new URLSearchParams(searchParams.toString()).toString();
 
   const onSelectChange = (nextLocale: string) => {
-    setIsPending(true);
-    router.replace(`${pathname}?${params || ''}`, { locale: nextLocale });
+    startTransition(() => router.replace(`${pathname}?${params || ''}`, { locale: nextLocale }));
   };
 
   return (

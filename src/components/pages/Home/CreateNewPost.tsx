@@ -63,7 +63,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
 
   return (
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg md:w-[600px] w-full'>
-      <div className='text-center py-4 border-b mb-0 border-border-1'>
+      <div className='text-center py-4 border-b border-border-1'>
         <h2 className='text-sm font-medium text-text-1'>{t('Create Status')}</h2>
       </div>
 

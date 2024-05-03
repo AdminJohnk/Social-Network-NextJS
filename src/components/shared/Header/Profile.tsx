@@ -27,9 +27,7 @@ export default function ProfileHeader() {
   return (
     <>
       {isLoadingCurrentUserInfo ? (
-        <>
-          <Skeleton variant='circular' className='sm:w-9 sm:h-9 w-7 h-7 bg-foreground-1' />
-        </>
+        <Skeleton variant='circular' className='sm:w-9 sm:h-9 w-7 h-7 bg-foreground-1' />
       ) : (
         <>
           <div
@@ -46,27 +44,29 @@ export default function ProfileHeader() {
           <div
             className='hidden bg-foreground-2 rounded-lg drop-shadow-xl w-64 border-border-1'
             data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
-            <Link href={`/profile/${currentUserInfo._id}`}>
-              <div className='p-4 py-5 flex items-center gap-4'>
-                <Image
-                  src={getImageURL(currentUserInfo.user_image) || '/images/home/avatar-2.jpg'}
-                  alt=''
-                  className='w-10 h-10 rounded-full shadow object-cover'
-                  width={200}
-                  height={200}
-                />
-                <div className='flex-1'>
-                  <h4 className='text-sm font-medium text-text-1'>{currentUserInfo.name || 'User Name'}</h4>
-                  <div className='text-sm mt-1 text-blue-600 font-light dark:text-white/70'>
-                    {currentUserInfo.email || '@username'}
-                  </div>
-                </div>
+            <Link
+              href={`/profile/${currentUserInfo._id}`}
+              className='relative p-4 py-5 flex items-center gap-4'>
+              <Image
+                src={getImageURL(currentUserInfo.user_image) || '/images/home/avatar-2.jpg'}
+                alt=''
+                className='w-10 h-10 rounded-full shadow object-cover'
+                width={200}
+                height={200}
+              />
+              <div className='flex-1 overflow-hidden text-ellipsis whitespace-nowrap'>
+                <h4 className='text-sm font-medium text-text-1 truncate'>
+                  {currentUserInfo.name || 'User Name'}
+                </h4>
+                <h6 className='text-sm mt-1 text-blue-600 font-light dark:text-white/70 truncate'>
+                  {currentUserInfo.email || '@username'}
+                </h6>
               </div>
             </Link>
 
             <hr className='border-border-1' />
 
-            <nav className='p-2 text-sm text-black font-normal dark:text-white'>
+            <nav className='p-2 text-sm font-normal text-text-1'>
               <Link href={`/profile/${currentUserInfo._id}`}>
                 <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
                   <CgProfile className='size-6' />

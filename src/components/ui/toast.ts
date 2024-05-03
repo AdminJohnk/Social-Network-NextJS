@@ -1,7 +1,6 @@
 import { Bounce, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-export const showSuccessToast = (mes: string) => {
+export const showSuccessToast = (mes: string) =>
   toast.success(mes, {
     position: 'top-right',
     autoClose: 3000,
@@ -14,9 +13,8 @@ export const showSuccessToast = (mes: string) => {
     transition: Bounce,
     className: 'top-12'
   });
-};
 
-export const showErrorToast = (mes: string) => {
+export const showErrorToast = (mes: string) =>
   toast.error(mes, {
     position: 'top-right',
     autoClose: 3000,
@@ -29,4 +27,3 @@ export const showErrorToast = (mes: string) => {
     transition: Bounce,
     className: 'top-12'
   });
-};
