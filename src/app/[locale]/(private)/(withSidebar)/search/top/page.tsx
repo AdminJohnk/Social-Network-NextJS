@@ -20,8 +20,6 @@ export default function Search({ }: ISearchProps) {
   const t = useTranslations();
   const router = useRouter();
 
-  const { currentUserInfo } = useCurrentUserInfo();
-
   const searchValue = new URLSearchParams(window.location.search).get('search') || '';
 
   const bottomRef = useRef<HTMLDivElement>(null);
