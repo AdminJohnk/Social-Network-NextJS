@@ -75,8 +75,9 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
         const memberCount = currentConversation.members.length;
         const activeMemberCount = membersActive.length;
 
-        return `${memberCount} ${t('members')} - ${activeMemberCount === 1 ? t('Only you') : activeMemberCount
-          } ${t('online')}`;
+        return `${memberCount} ${t('members')} - ${
+          activeMemberCount === 1 ? t('Only you') : activeMemberCount
+        } ${t('online')}`;
       }
 
       const lastOnline =
@@ -89,7 +90,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
   return (
     <>
       {isFetchingCurrentConversation ? (
-        <div className='flex items-center justify-between gap-2 w- px-6 py-3.5 z-10 border-b dark:border-slate-700 uk-animation-slide-top-medium'>
+        <div className='flex items-center justify-between gap-2 w-full px-6 py-3.5 z-10 border-b dark:border-slate-700 uk-animation-slide-top-medium'>
           <div className='flex items-center sm:gap-4 gap-2'>
             {/* <!-- toggle for mobile --> */}
             <button
@@ -146,7 +147,7 @@ export default function ChatHeading({ conversationID, otherUser }: IChatHeadingP
           </div>
         </div>
       ) : (
-        <div className='flex items-center justify-between gap-2 w- px-6 py-3.5 z-10 border-b dark:border-slate-700 uk-animation-slide-top-medium'>
+        <div className='flex items-center justify-between gap-2 w-full px-6 py-3.5 z-10 border-b dark:border-slate-700 uk-animation-slide-top-medium'>
           <div className='flex items-center sm:gap-4 gap-2'>
             {/* <!-- toggle for mobile --> */}
             <button

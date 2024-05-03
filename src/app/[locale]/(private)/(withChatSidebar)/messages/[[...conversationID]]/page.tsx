@@ -10,6 +10,7 @@ import { useRouter } from '@/navigation';
 import { useCurrentConversationData } from '@/hooks/query';
 import NoConversationSelected from '@/components/pages/Chat/NoConversationSelected';
 import { cn } from '@/lib/utils';
+import { FaX } from 'react-icons/fa6';
 
 export interface IMessageProps {
   params: {
@@ -36,8 +37,7 @@ const Message = ({ params: { conversationID } }: IMessageProps) => {
   };
 
   return (
-    <div id='wrapper' className='divide-x relative divide-foreground-2'>
-      <ChatSideBar conversationID={ID} setSideBarSelect={handleSelect} />
+    <div id='wrapper' className='relative'>
       {/* <!-- main contents --> */}
       {/* <main className="2xl:ml-[290px] xl:ml-[240px] md:ml-[73px]"> */}
       <main className='md:ml-[80px]'>
@@ -47,17 +47,27 @@ const Message = ({ params: { conversationID } }: IMessageProps) => {
             <div className='md:w-[360px] relative border-r dark:border-slate-700'>
               <div
                 id='side-chat'
-                className={cn('top-0 left-0 max-md:fixed max-md:w-5/6 h-dvh z-50 max-md:shadow bg-background-1 duration-300',
+                className={cn(
+                  'top-0 left-0 max-md:fixed max-md:w-full h-dvh z-50 max-md:shadow bg-background-1 duration-300',
                   ID && 'max-md:-translate-x-full'
                 )}>
+                <ChatSideBar conversationID={ID} setSideBarSelect={handleSelect} />
                 {/* <!-- conversations list --> */}
                 {select}
+                {/* <!-- mobile toggle menu --> */}
+                <button
+                  type='button'
+                  className='absolute right-1 top-1 md:hidden'
+                  data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'>
+                  <FaX />
+                </button>
               </div>
 
               {/* <!-- overlay --> */}
               <div
                 id='side-chat'
-                className={cn('bg-slate-100/40 backdrop-blur w-full h-full dark:bg-slate-800/40 z-40 fixed inset-0 md:hidden',
+                className={cn(
+                  'bg-slate-100/40 backdrop-blur w-full h-full dark:bg-slate-800/40 z-40 fixed inset-0 md:hidden',
                   ID && 'max-md:-translate-x-full'
                 )}
                 data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'

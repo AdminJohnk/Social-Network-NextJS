@@ -1,16 +1,16 @@
-import { forwardRef, useCallback, useMemo, useState } from 'react';
+import { forwardRef, useCallback, useMemo } from 'react';
 import { Anchorme, LinkComponentProps } from 'react-anchorme';
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import { FaCrown, FaShieldHalved } from 'react-icons/fa6';
-import { ImageList, ImageListItem } from '@mui/material';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
 
 import { cn, getImageURL } from '@/lib/utils';
-import { IMessage, IUserInfo, TypeofConversation } from '@/types';
+import { IMessage, TypeofConversation } from '@/types';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { audioCall, videoChat } from '@/lib/utils/call';
+import ImageMessage from './ImageMessage';
 
 export interface IReCallProps {
   open: boolean;
@@ -279,7 +279,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               )}
               <div
                 className={cn(
-                  'max-w-2xl whitespace-pre-wrap',
+                  'max-w-2xl max-md:max-w-64 whitespace-pre-wrap break-words',
                   roundedCornerStyle,
                   checkContentType(content) === 'emoji' ? 'text-4xl' : 'px-4 py-2 bg-foreground-2'
                 )}
@@ -306,7 +306,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           <div className='flex gap-2 flex-row-reverse items-end'>
             <div
               className={cn(
-                'max-w-2xl whitespace-pre-wrap',
+                'max-w-2xl max-md:max-w-64 whitespace-pre-wrap break-words',
                 roundedCornerStyle,
                 checkContentType(content) === 'emoji'
                   ? 'text-4xl'
@@ -362,7 +362,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
                   isOwn ? 'left' : 'right'
                 }; delay: 200;offset:6`}>
-                {content.length > 1 ? (
+                {/* {content.length > 1 ? (
                   <ImageList
                     sx={{ width: content.length == 2 ? 326 : 490, height: 'auto' }}
                     cols={content.length == 2 ? 2 : 3}
@@ -397,7 +397,8 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                       </div>
                     </div>
                   </Link>
-                )}
+                )} */}
+                <ImageMessage images={content} />
               </div>
             </div>
           </div>
@@ -409,7 +410,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       return (
         <>
           <div className='flex gap-2 flex-row-reverse items-end'>
-            {content.length > 1 ? (
+            {/* {content.length > 1 ? (
               <ImageList
                 sx={{ width: content.length == 2 ? 326 : 490, height: 'auto' }}
                 cols={content.length == 2 ? 2 : 3}
@@ -444,7 +445,10 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
+            <div className='max-w-sm'>
+              <ImageMessage images={content} />
+            </div>
           </div>
         </>
       );
