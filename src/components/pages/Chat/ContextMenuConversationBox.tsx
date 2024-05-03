@@ -82,7 +82,8 @@ export default function ContextMenuConversationBox({
               isSending: true,
               seen: [],
               type: 'notification',
-              action: 'leave_conversation'
+              action: 'leave_conversation',
+              createdAt: new Date().toISOString()
             };
 
             mutateSendMessage(message as unknown as IMessage);

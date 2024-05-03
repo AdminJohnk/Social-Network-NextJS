@@ -116,7 +116,8 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
               _id: member._id,
               name: member.name
             },
-            seen: []
+            seen: [],
+            createdAt: new Date().toISOString()
           };
 
           mutateSendMessage(message as unknown as IMessage);
