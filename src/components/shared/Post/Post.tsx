@@ -129,21 +129,15 @@ export default function Post({ post, feature }: IPostProps) {
           <div className='flex-between'>
             <div className='flex-start'>
               <Link href={`/profile/${post.post_attributes.user._id}`}>
-                <Avatar
-                  src={getImageURL(post.post_attributes.user.user_image)}
-                />
+                <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
               </Link>
               <div className='flex flex-col ms-3'>
-                <Link
-                  href={`/profile/${post.post_attributes.user._id}`}
-                  className='base-bold'
-                >
+                <Link href={`/profile/${post.post_attributes.user._id}`} className='base-bold'>
                   {post.post_attributes.user.name}
                 </Link>
                 <Link
                   href={`/posts/${post._id}`}
-                  className='small-bold text-text-2 hover:underline hover:text-text-1'
-                >
+                  className='small-bold text-text-2 hover:underline hover:text-text-1'>
                   {handleDateTime(post.createdAt)}
                 </Link>
               </div>
@@ -155,13 +149,8 @@ export default function Post({ post, feature }: IPostProps) {
                 </div>
                 <div
                   className='!w-fit'
-                  data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'
-                >
-                  <PostMoreChoose
-                    feature={feature}
-                    post={post}
-                    isMyPost={isMyPost}
-                  />
+                  data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
+                  <PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />
                 </div>
               </div>
             )}
@@ -171,33 +160,20 @@ export default function Post({ post, feature }: IPostProps) {
               <ShowContent content={post?.post_attributes?.content_share} />
             </div>
           )}
-          <div
-            className={cn(
-              post.type === 'Share' && 'border border-border-1 rounded-lg'
-            )}
-          >
+          <div className={cn(post.type === 'Share' && 'border border-border-1 rounded-lg')}>
             {post.type === 'Share' &&
               (content.length > 0 ? (
-                <div
-                  className={cn(
-                    'mt-4 flex-start',
-                    post.type === 'Share' && 'px-5'
-                  )}
-                >
+                <div className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}>
                   <Link href={`/profile/${ownerPost._id}`}>
                     <Avatar src={getImageURL(ownerPost.user_image)} />
                   </Link>
                   <div className='flex flex-col ms-3'>
-                    <Link
-                      href={`/profile/${ownerPost._id}`}
-                      className='base-bold'
-                    >
+                    <Link href={`/profile/${ownerPost._id}`} className='base-bold'>
                       {ownerPost.name}
                     </Link>
                     <Link
                       href={`/posts/${post.post_attributes.post!._id}`}
-                      className='small-bold text-text-2 hover:underline hover:text-text-1'
-                    >
+                      className='small-bold text-text-2 hover:underline hover:text-text-1'>
                       {handleDateTime(post.post_attributes.post!.createdAt)}
                     </Link>
                   </div>
@@ -215,8 +191,7 @@ export default function Post({ post, feature }: IPostProps) {
                       {t(
                         'This error is often caused by the owner only sharing the content with a small group'
                       )}
-                      , {t('changing who can see it')},{' '}
-                      {t('or deleting the content')}.
+                      , {t('changing who can see it')}, {t('or deleting the content')}.
                     </div>
                   </div>
                 </div>
@@ -227,8 +202,7 @@ export default function Post({ post, feature }: IPostProps) {
                 {isMoreThan500 && (
                   <div
                     className='clickMore my-3 text-text-2 cursor-pointer hover:text-text-1 duration-500'
-                    onClick={() => setExpanded(!expanded)}
-                  >
+                    onClick={() => setExpanded(!expanded)}>
                     {expanded ? t('Read less') : t('Read more')}
                   </div>
                 )}
@@ -252,12 +226,7 @@ export default function Post({ post, feature }: IPostProps) {
             )}
           </div>
           {feature !== 'sharing' && (
-            <div
-              className={cn(
-                'flex-between mt-4',
-                post.type === 'Share' && 'mt-4'
-              )}
-            >
+            <div className={cn('flex-between mt-4', post.type === 'Share' && 'mt-4')}>
               <div className='left flex gap-5'>
                 <div className='flex gap-3'>
                   <span className='p-1 bg-foreground-2 rounded-full'>
@@ -282,17 +251,9 @@ export default function Post({ post, feature }: IPostProps) {
                       className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
                       onClick={handleOpen}
                     />
-                    <Modal
-                      componentModal={
-                        <CreateNewPostShare
-                          handleClose={handleClose}
-                          post={post}
-                        />
-                      }
-                      open={open}
-                      handleClose={handleClose}
-                      children={<></>}
-                    />
+                    <Modal open={open} handleClose={handleClose}>
+                      <CreateNewPostShare handleClose={handleClose} post={post} />
+                    </Modal>
                   </span>
                 )}
               </div>
