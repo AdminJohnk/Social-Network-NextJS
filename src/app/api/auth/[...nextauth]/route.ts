@@ -98,12 +98,7 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user, session, trigger }) {
       if (user) {
-        return {
-          ...token,
-          ...user,
-          ...session,
-          access_token_expiry: Date.now() + 60 * 60 * 24 * 1000 * 2
-        };
+        return { ...token, ...user, ...session };
       }
       if (trigger === 'update' && session) {
         return { ...token, ...session };
