@@ -310,8 +310,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                         _id: user._id,
                         name: user.name
                       },
-                      seen: [],
-                      createdAt: new Date()
+                      seen: []
                     };
 
                     mutateSendMessage(message as unknown as IMessage);
@@ -350,8 +349,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                         _id: user._id,
                         name: user.name
                       },
-                      seen: [],
-                      createdAt: new Date()
+                      seen: []
                     };
 
                     mutateSendMessage(message as unknown as IMessage);
@@ -416,8 +414,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                       isSending: true,
                       type: 'notification',
                       action: 'leave_conversation',
-                      seen: [],
-                      createdAt: new Date()
+                      seen: []
                     };
 
                     mutateSendMessage(message as unknown as IMessage);
@@ -447,8 +444,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                           _id: user._id,
                           name: user.name
                         },
-                        seen: [],
-                        createdAt: new Date()
+                        seen: []
                       };
 
                       mutateSendMessage(message as unknown as IMessage);
@@ -621,8 +617,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
           type: 'notification',
           action: 'change_name',
           seen: [],
-          content: groupName,
-          createdAt: new Date()
+          content: groupName
         };
 
         mutateSendMessage(message as unknown as IMessage);
@@ -670,8 +665,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
           isSending: true,
           type: 'notification',
           action: 'change_avatar',
-          seen: [],
-          createdAt: new Date()
+          seen: []
         };
 
         mutateSendMessage(message as unknown as IMessage);
@@ -936,8 +930,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                           isSending: true,
                           type: 'notification',
                           action: 'leave_conversation',
-                          seen: [],
-                          createdAt: new Date()
+                          seen: []
                         };
 
                         mutateSendMessage(message as unknown as IMessage);
