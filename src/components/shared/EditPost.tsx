@@ -82,7 +82,7 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
     );
   };
   return (
-    <div className='w-[600px] mx-auto bg-background-1 shadow-xl rounded-lg animate-fade-up'>
+    <div className='w-[670px] mx-auto bg-background-1 shadow-xl rounded-lg animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
         <h2 className='text-sm font-medium text-text-1'>{t('Edit Status')}</h2>
       </div>

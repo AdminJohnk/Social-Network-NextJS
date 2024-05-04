@@ -8,6 +8,7 @@ import { Youtube } from '@tiptap/extension-youtube';
 import { EditorOptions, useEditor } from '@tiptap/react';
 import { Link } from '@tiptap/extension-link';
 import { Placeholder } from '@tiptap/extension-placeholder';
+import { Image } from '@tiptap/extension-image';
 import { useTranslations } from 'next-intl';
 import { Highlight } from '@tiptap/extension-highlight';
 import { createLowlight, common } from 'lowlight';
@@ -43,7 +44,11 @@ export const useDebounce = <T>(value: T, delay: number): T => {
  * The `useCustomEditor` function in TypeScript is a custom editor hook that initializes an editor with
  * specified extensions and content.
  */
-export const useCustomEditor = ({ content, extensions = [], ...props }: Partial<EditorOptions>) => {
+export const useCustomEditor = ({
+  content,
+  extensions = [],
+  ...props
+}: Partial<EditorOptions>) => {
   const t = useTranslations();
 
   const editor = useEditor(
@@ -64,6 +69,7 @@ export const useCustomEditor = ({ content, extensions = [], ...props }: Partial<
           ccLanguage: 'en'
         }),
         Highlight,
+        Image,
         CodeBlockLowlight.configure({ lowlight })
       ].concat(extensions),
       ...props
@@ -108,7 +114,9 @@ export const useDragScroll = (): [(nodeEle: HTMLElement | null) => void] => {
       };
 
       const handleMove = (e: MouseEvent | TouchEvent) => {
-        const point = isTouch ? (e as TouchEvent).touches[0] : (e as MouseEvent);
+        const point = isTouch
+          ? (e as TouchEvent).touches[0]
+          : (e as MouseEvent);
         const dx = point.clientX - startPos.x;
         const dy = point.clientY - startPos.y;
         node!.scrollTop = startPos.top - dy;
@@ -117,8 +125,14 @@ export const useDragScroll = (): [(nodeEle: HTMLElement | null) => void] => {
       };
 
       const handleEnd = () => {
-        document.removeEventListener(isTouch ? 'touchmove' : 'mousemove', handleMove);
-        document.removeEventListener(isTouch ? 'touchend' : 'mouseup', handleEnd);
+        document.removeEventListener(
+          isTouch ? 'touchmove' : 'mousemove',
+          handleMove
+        );
+        document.removeEventListener(
+          isTouch ? 'touchend' : 'mouseup',
+          handleEnd
+        );
         setCursor(node!, 'grab', '');
       };
 
