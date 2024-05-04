@@ -136,7 +136,6 @@ export interface IUserInfo {
 }
 
 export interface TypeOfLink {
-  address: string;
   title: string;
   description: string;
   image: string;

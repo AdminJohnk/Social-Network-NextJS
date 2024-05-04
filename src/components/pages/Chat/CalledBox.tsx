@@ -15,7 +15,6 @@ export interface ICalledBoxProps {
 }
 
 export default function CalledBox({ called }: ICalledBoxProps) {
-  console.log(called);
   const { currentUserInfo } = useCurrentUserInfo();
   const otherUser = useMemo(() => {
     return called.conversation_id?.members?.filter((member) => member._id !== currentUserInfo?._id)[0];

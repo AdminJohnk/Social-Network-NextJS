@@ -66,7 +66,8 @@ export const useCustomEditor = ({
         Youtube.configure({
           width: 440,
           height: 300,
-          ccLanguage: 'en'
+          ccLanguage: 'en',
+          addPasteHandler: false
         }),
         Highlight,
         Image,

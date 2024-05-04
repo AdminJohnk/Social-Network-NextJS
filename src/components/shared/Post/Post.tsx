@@ -39,8 +39,26 @@ export default function Post({ post, feature }: IPostProps) {
       ? post?.post_attributes.post.post_attributes.content
       : '';
 
-  // get the first link tag
-  const url = content.match(/<a[^>]*>([^<]+)<\/a>/)?.[1];
+  // const regex = /<a[^>]*>([^<]+)<\/a>/g;
+  let match;
+  // let url;
+
+  // while ((match = regex.exec(content)) !== null) {
+  //   url = match;
+  // }
+
+  // url = url?.[1];
+
+  const regex = /<a[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g;
+  let urls = []; // Array to store all extracted URLs
+
+  while ((match = regex.exec(content)) !== null) {
+    urls.push(match[1]); // Extract and store URL directly
+  }
+
+  const url = urls[urls.length - 1];
+
+  // const url = content.match(/<a[^>]*>([^<]+)<\/a>/)?.[1];
 
   const [contentTiptap, setContentTiptap] = useState(content);
   const [expanded, setExpanded] = useState(false);
