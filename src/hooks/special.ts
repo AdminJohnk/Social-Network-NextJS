@@ -62,7 +62,8 @@ export const useCustomEditor = ({ content, extensions = [], ...props }: Partial<
         Youtube.configure({
           width: 440,
           height: 300,
-          ccLanguage: 'en'
+          ccLanguage: 'en',
+          addPasteHandler: false
         }),
         Highlight,
         Image,

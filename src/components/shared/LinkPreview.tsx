@@ -1,78 +1,45 @@
 'use client';
 
-import Link from 'next/link';
-import { JSDOM } from 'jsdom';
-import axios from 'axios';
-
-const extractMetaTags = async (url: string) => {
-  try {
-    const response = await axios.get(url);
-    const dom = new JSDOM(response.data);
-    const document = dom.window.document;
-    const metaTags = Array.from(document.querySelectorAll('meta')).reduce(
-      (tags: any, meta) => {
-        const name =
-          meta.getAttribute('name') ||
-          meta.getAttribute('property') ||
-          meta.getAttribute('itemprop');
-        const content = meta.getAttribute('content');
-
-        if (name && content) {
-          tags[name] = content;
-        }
-
-        return tags;
-      },
-      {}
-    );
-
-    return {
-      title:
-        document.title || metaTags['og:title'] || metaTags['twitter:title'],
-      description:
-        metaTags.description ||
-        metaTags['og:description'] ||
-        metaTags['twitter:description'],
-      image: metaTags.image || metaTags['og:image'] || metaTags['twitter:image']
-    };
-  } catch (error) {
-    console.error('Error fetching Open Graph details', error);
-  }
-};
+import { useLinkPreview } from '@/hooks/query';
+import { getImageURL } from '@/lib/utils';
+import { Link } from '@/navigation';
+import Image from 'next/image';
 
 export interface ILinkPreviewProps {
   url: string;
 }
 
-export default async function LinkPreview({ url }: ILinkPreviewProps) {
-  const data = await extractMetaTags(url);
+export default function LinkPreview({ url }: ILinkPreviewProps) {
+  const { linkPreview: link } = useLinkPreview(url);
 
-  if (!data) {
-    return <p>Failed to fetch link preview.</p>;
-  }
   return (
-    <Link
-      href={'http://www.google.com'}
-      target='_blank'
-      className='text-black  w-[50%] h-[200px] cursor-pointer flex items-center bg-[#f3f3f3] gap-3 text-left border-white border-[2px]'
-      style={{
-        textDecoration: 'none'
-      }}
-    >
-      <div className='object-cover h-full'>
-        <img
-          src={data.image}
-          alt='Link Preview'
-          className='object-cover h-full w-[340px] m-0'
-        />
-      </div>
-      <div className='p-4 w-[60%]'>
-        <h3 className='text-3xl font-bold leading-[2rem] mb-2 '>
-          {data.title}
-        </h3>
-        <p className='text-base  line-clamp-3 mb-2 '>{data.description}</p>
-        <span className='mt-3 opacity-50 text-xs'>&nbsp;{url}</span>
-      </div>
-    </Link>
+    <div>
+      {link && (
+        <Link href={url} target='_blank' className='text-text-2'>
+          <div className='contentLink flex mt-5 px-3 py-3 cursor-pointer bg-foreground-2'>
+            <div className='left w-4/5 p-2'>
+              <div className='mb-2 font-semibold text-text-1'>
+                {link.title?.length > 100
+                  ? link.title.slice(0, 100) + '...'
+                  : link.title}
+              </div>
+              <>
+                {link.description?.length > 100
+                  ? link.description.slice(0, 100) + '...'
+                  : link.description}
+              </>
+            </div>
+            <Image
+              src={getImageURL(link.image) || '/images/no-image.png'}
+              alt='pic link'
+              className='w-1/5 rounded-md'
+              width={1000}
+              height={1000}
+              priority
+            />
+          </div>
+        </Link>
+      )}
+    </div>
   );
 }
