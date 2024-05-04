@@ -25,6 +25,7 @@ import { cn } from '@/lib/utils';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 import Textarea from '@/components/ui/textarea';
 import { IEmoji, IMessage, IUserInfo } from '@/types';
+import { showErrorToast } from '@/components/ui/toast';
 
 export interface IInputChatProps {
   conversationID: string | undefined;
@@ -58,10 +59,10 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
 
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted: onDrop,
-    onDropRejected: () => {
-      //   form.setError("image", {
-      //     message: "This photo is too large. Please try another one.",
-      //   });
+    onDropRejected: (files) => {
+      files.forEach((file) => {
+        showErrorToast(`${t('Cannot upload')} ${file.file.name}`);
+      });
     },
     accept: {
       'image/png': ['.png'],
@@ -69,11 +70,9 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
       'image/jpeg': ['.jpeg', '.jpg']
     },
     maxSize: 1024 * 1024 * 10,
-    multiple: false,
+    multiple: true,
     onError: (error) => {
-      //   form.setError("image", {
-      //     message: error.message,
-      //   });
+      showErrorToast(error.message);
     }
   });
 
@@ -120,6 +119,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
           name: currentUserInfo.name
         },
         type: 'image',
+        seen: [],
         createdAt: new Date()
       };
       chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message: newMessage });
@@ -177,7 +177,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
   }, [textareaRef.current]);
 
   return (
-    <div className='absolute w-full bottom-2.5'>
+    <div className='absolute w-full bottom-0'>
       <div className='relative -top-20 left-0 z-30'>
         {files.length > 0 && (
           <div className='absolute overflow-auto w-[99.4%] h-20 flex px-4 pt-2 gap-5 z-10 bg-gradient-to-t via-white from-white via-30% from-30% dark:from-slate-900 dark:via-slate-900 custom-scrollbar-fg'>
@@ -281,9 +281,9 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
             setCursor(cursorPosition || 0);
           }}
           onKeyUp={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
             if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              e.stopPropagation();
               handleSubmit(messageContent);
               return;
             }

@@ -72,7 +72,11 @@
   "Back to Homepage": "Back to Homepage",
   "Not found any conversations": "Not found any conversations",
   "Select a conversation to start chatting": "Select a conversation to start chatting",
+  "Post created successfully!": "Post created successfully!",
+  "Please enter some text!": "Please enter some text!",
+  "Something went wrong! Please try again!": "Something went wrong! Please try again!!",
   "Shared post successfully!": "Shared post successfully!",
+  "Cannot upload": "Cannot upload",
   "Block": "Block",
   "Timeline": "Timeline",
   "Friends": "Friends",
@@ -393,4 +397,3 @@
   "Bug": "Bug",
   "Create Community": "Create Community"
 }
-

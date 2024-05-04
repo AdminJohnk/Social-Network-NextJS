@@ -687,8 +687,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   }, [fileAvatar]);
 
   return (
-    <div className='right w-full h-full absolute top-0 right-0 z-50 hidden transition-transform'>
-      <div className='uk-animation-slide-right-medium w-[360px] border-l shadow-lg h-screen bg-background-1 absolute right-0 top-0 z-50 dark:border-slate-700 custom-scrollbar-bg overflow-y-scroll'>
+    <div className='right w-full h-full absolute top-0 right-0 z-50' hidden>
+      <div className='w-[360px] max-md:w-full border-l shadow-lg h-screen bg-background-1 absolute right-0 top-0 z-50 dark:border-slate-700 custom-scrollbar-bg overflow-y-scroll'>
         {isLoadingCurrentConversation ? (
           <div className='flex-center p-1'>
             <CircularProgress size={20} className='!text-text-1' />
@@ -964,7 +964,7 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
             <button
               type='button'
               className='absolute top-0 right-0 m-4 p-2 hover:bg-hover-1 rounded-full'
-              data-uk-toggle='target: .right; cls: hidden'>
+              data-uk-toggle='target: .right; animation: uk-animation-slide-right-medium'>
               <IoClose className='text-2xl flex' />
             </button>
 
@@ -974,7 +974,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
       </div>
       <div
         className='bg-slate-100/40 backdrop-blur absolute w-full h-full dark:bg-slate-800/40'
-        data-uk-toggle='target: .right;cls: hidden'></div>
+        data-uk-toggle='target: .right; animation: uk-animation-slide-right-medium'
+      />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { IoChevronDownOutline, IoSearchOutline } from 'react-icons/io5';
+import { IoSearchOutline } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 import { CircularProgress } from '@mui/material';
 import Image from 'next/image';
@@ -82,17 +82,8 @@ function ConversationList({ conversationID }: IConversationListProps) {
         <div className='flex mt-2 items-center justify-between'>
           <HeadingTitle />
           {/* <!-- right action buttons --> */}
-          <div className='flex items-center gap-2.5'>
-            <RightActionButtons />
 
-            {/* <!-- mobile toggle menu --> */}
-            <button
-              type='button'
-              className='md:hidden'
-              data-uk-toggle='target: #side-chat ; cls: max-md:-translate-x-full'>
-              <IoChevronDownOutline />
-            </button>
-          </div>
+          <RightActionButtons />
         </div>
 
         {/* <!-- search --> */}

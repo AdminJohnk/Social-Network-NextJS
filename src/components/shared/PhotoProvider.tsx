@@ -5,6 +5,7 @@ import { BsZoomIn, BsZoomOut } from 'react-icons/bs';
 import { LuRotateCcw, LuRotateCw } from 'react-icons/lu';
 import { GoScreenFull } from 'react-icons/go';
 import { useState } from 'react';
+import { CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import 'react-photo-view/dist/react-photo-view.css';
 
@@ -12,21 +13,24 @@ import { cn, getImageURL } from '@/lib/utils';
 import { useDragScroll } from '@/hooks/special';
 
 export interface IPhotoProviderProps {
-  index?: number;
   images: string[];
   visible: boolean;
   onClose: () => void;
 }
 
-export default function PhotoProvider({ index = 0, images, visible, onClose }: IPhotoProviderProps) {
+export default function PhotoProvider({ images, visible, onClose }: IPhotoProviderProps) {
   const [fullScreen, setFullScreen] = useState(false);
 
   const [slider] = useDragScroll();
 
   return (
     <PhotoSlider
-      index={index}
       visible={visible}
+      loadingElement={
+        <div className='w-full flex-center py-10'>
+          <CircularProgress size={20} className='!text-text-1' />
+        </div>
+      }
       onClose={onClose}
       images={images.map((item) => ({ src: getImageURL(item), key: item }))}
       speed={() => 500}
