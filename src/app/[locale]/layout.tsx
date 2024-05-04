@@ -1,9 +1,10 @@
 import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { Flowbite, ThemeModeScript } from 'flowbite-react';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
+import { unstable_noStore } from 'next/cache';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import '@/app/animate.css';
@@ -29,9 +30,10 @@ export const metadata: Metadata = {
     'Devhub is a social network for developers to share and stay up to date with the latest trends in the tech industry.'
 };
 
-export default function LocaleLayout({ children, params: { locale } }: ILocaleLayoutProps) {
+export default async function LocaleLayout({ children, params: { locale } }: ILocaleLayoutProps) {
+  unstable_noStore();
   unstable_setRequestLocale(locale);
-  const message = useMessages();
+  const message = await getMessages({ locale });
 
   return (
     <html lang={locale} suppressHydrationWarning>
