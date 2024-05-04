@@ -80,9 +80,8 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@types/highlight.js": "^10.1.0",
     "@types/jsdom": "^21.1.6",
-    "@types/lodash": "^4.17.0",
+    "@types/lodash": "^4.17.1",
     "@types/node": "^20.12.8",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",

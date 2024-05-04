@@ -239,7 +239,7 @@ export default function Post({ post, feature }: IPostProps) {
                   </div>
                 )}
                 {images.length !== 0 && <ImagePost images={images} />}
-                {images.length === 0 && url && <LinkPreview url={url} />}
+                {/* {images.length === 0 && url && <LinkPreview url={url} />} */}
               </div>
             )}
           </div>

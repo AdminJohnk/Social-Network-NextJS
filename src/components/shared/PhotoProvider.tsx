@@ -10,7 +10,7 @@ import Image from 'next/image';
 import 'react-photo-view/dist/react-photo-view.css';
 
 import { cn, getImageURL } from '@/lib/utils';
-import { useDragScroll } from '@/hooks/special';
+import { Tabs, TabTitle } from '../ui/tabs';
 
 export interface IPhotoProviderProps {
   images: string[];
@@ -20,8 +20,6 @@ export interface IPhotoProviderProps {
 
 export default function PhotoProvider({ images, visible, onClose }: IPhotoProviderProps) {
   const [fullScreen, setFullScreen] = useState(false);
-
-  const [slider] = useDragScroll();
 
   return (
     <PhotoSlider
@@ -33,13 +31,13 @@ export default function PhotoProvider({ images, visible, onClose }: IPhotoProvid
       }
       onClose={onClose}
       images={images.map((item) => ({ src: getImageURL(item), key: item }))}
-      speed={() => 500}
+      photoWrapClassName='flex-center mb-24 mt-11'
       easing={(type) =>
         type === 2 ? 'cubic-bezier(0.36, 0, 0.66, -0.56)' : 'cubic-bezier(0.34, 1.56, 0.64, 1)'
       }
       toolbarRender={({ onScale, scale, rotate, onRotate }) => {
         return (
-          <div className='flex gap-5 *:size-6  text-text-2 hover:text-text-1 cursor-pointer duration-300'>
+          <div className='flex gap-5 *:size-6 text-text-2 hover:*:text-text-1 *:cursor-pointer duration-300'>
             <BsZoomIn onClick={() => onScale(scale + 1)} />
             <BsZoomOut onClick={() => onScale(scale - 1)} />
             <LuRotateCcw onClick={() => onRotate(rotate - 90)} />
@@ -55,27 +53,25 @@ export default function PhotoProvider({ images, visible, onClose }: IPhotoProvid
       }}
       overlayRender={({ images, index, onIndexChange }) => {
         return (
-          <div
-            ref={slider}
-            className='grid grid-flow-col items-center overflow-auto cursor-grab touch-none justify-center gap-5 absolute left-0 bottom-0 w-full z-50 h-24 bg-black/50 custom-scrollbar-none'>
-            {images.map((item, i) => (
-              <div
-                key={i}
-                className={cn(
-                  'cursor-pointer rounded-md w-20 h-20 overflow-hidden',
-                  i === index && 'ring-2 ring-border-2'
-                )}
-                onClick={() => onIndexChange(i)}>
-                <Image
-                  src={item.src!}
-                  className='w-20 h-20 object-cover'
-                  width={500}
-                  height={500}
-                  alt='image'
-                  priority
-                />
-              </div>
-            ))}
+          <div className='flex-center cursor-grab touch-none absolute left-0 bottom-0 w-full z-50 h-24 bg-black/50 custom-scrollbar-none'>
+            <Tabs id='images-tabs' navClassName='pt-0' active={index}>
+              {images.map((item, i) => (
+                <TabTitle key={i}>
+                  <Image
+                    src={item.src!}
+                    className={cn(
+                      'cursor-pointer rounded-md w-20 h-20 object-cover',
+                      i === index && 'ring-2 ring-border-2'
+                    )}
+                    onClick={() => onIndexChange(i)}
+                    width={500}
+                    height={500}
+                    alt='image'
+                    priority
+                  />
+                </TabTitle>
+              ))}
+            </Tabs>
           </div>
         );
       }}

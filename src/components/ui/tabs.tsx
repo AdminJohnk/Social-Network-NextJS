@@ -16,6 +16,7 @@ interface ITabsProps {
 }
 
 function Tabs(props: ITabsProps) {
+  const makeColor = false;
   return (
     <div className={cn('relative -mb-px px-2', props.rootClassName)} data-uk-slider='finite: true'>
       <nav className={cn('overflow-hidden uk-slider-container pt-2', props.navClassName)}>
@@ -38,7 +39,8 @@ function Tabs(props: ITabsProps) {
           <Link
             href=''
             className={cn(
-              'absolute -translate-y-1/2 top-1/2 left-0 flex items-center w-20 h-full p-2.5 justify-start rounded-xl bg-gradient-to-r from-white via-white dark:from-dark-1 dark:via-dark-1',
+              'absolute -translate-y-1/2 top-1/2 left-0 flex items-center w-20 h-full p-2.5 justify-start rounded-xl',
+              makeColor && 'bg-gradient-to-r from-white via-white dark:from-dark-1 dark:via-dark-1',
               props.backChevronClassName
             )}
             data-uk-slider-item='previous'>
@@ -47,7 +49,8 @@ function Tabs(props: ITabsProps) {
           <Link
             href=''
             className={cn(
-              'absolute right-0 -translate-y-1/2 top-1/2 flex items-center w-20 h-full p-2.5 justify-end rounded-xl bg-gradient-to-l from-white via-white dark:from-dark-1 dark:via-dark-1',
+              'absolute right-0 -translate-y-1/2 top-1/2 flex items-center w-20 h-full p-2.5 justify-end rounded-xl',
+              makeColor && 'bg-gradient-to-l from-white via-white dark:from-dark-1 dark:via-dark-1',
               props.forwardChevronClassName
             )}
             data-uk-slider-item='next'>

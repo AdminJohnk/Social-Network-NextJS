@@ -97,7 +97,7 @@ export default function Cover({ profileID }: ICoverProps) {
           <div
             id='profile-tabs'
             className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'
-            data-uk-sticky='offset:50; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl animation:uk-animation-slide-top ; media: 992'>
+            data-uk-sticky='start: 100; offset: 50; cls-active: bg-foreground-1 shadow rounded-b-2xl backdrop-blur-xl z-10; animation: uk-animation-slide-top; media: 1024'>
             <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
               {isMe && (
                 <Button
