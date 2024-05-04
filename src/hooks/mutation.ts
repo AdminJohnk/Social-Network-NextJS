@@ -201,6 +201,32 @@ export const useSharePost = () => {
 };
 
 /**
+ * The `useDeleteSharedPost` function is a custom hook that handles the logic for deleting a shared post,
+ * including making the API call and updating the cache.
+ */
+export const userDeleteSharedPost = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (post: ISharePost) => {
+      await postService.deleteSharedPost(post);
+    },
+    async onSuccess() {
+      const session = await getSession();
+
+      queryClient.invalidateQueries({ queryKey: ['posts', session?.id] });
+      queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
+    }
+  });
+  return {
+    mutateDeleteSharedPost: mutateAsync,
+    isLoadingDeleteSharedPost: isPending,
+    isErrorDeleteSharedPost: isError,
+    isSuccessDeleteSharedPost: isSuccess
+  };
+};
+
+/**
  * The `useSavePost` function is a custom hook that handles saving a post, invalidating the post query
  * cache on success.
  */

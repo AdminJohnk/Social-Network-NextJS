@@ -159,6 +159,7 @@ export interface ISharePost {
   visibility?: Visibility;
   owner_post: string;
   content_share?: string;
+  shared_post?: string;
 }
 
 type TypeofPost = 'Post' | 'Share';
