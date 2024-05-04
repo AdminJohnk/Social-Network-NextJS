@@ -233,7 +233,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
             id='disable-close-on-select'
             disableCloseOnSelect
             renderInput={params => (
-              <InputStyle {...params} />
+              <InputStyle />
             )}
             sx={{}}
           />

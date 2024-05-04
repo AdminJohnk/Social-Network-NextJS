@@ -12,7 +12,7 @@ import { Editor as EditorProps } from '@tiptap/react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CircularProgress } from '@mui/material';
-import { useCreatePost } from '@/hooks/mutation';
+import { useCreatePost, useUploadImages } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import UploadImage from '@/components/shared/UploadImage';
 import PostTemplate from '@/components/shared/PostTemplate';
@@ -33,6 +33,16 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
 
   const [images, setImages] = useState<File[]>([]);
 
+  const { mutateUploadImages } = useUploadImages();
+
+  const handleUploadImages = async () => {
+    const formData = new FormData();
+    images.forEach((image) => {
+      formData.append('images', image);
+    });
+    return await mutateUploadImages(formData);
+  };
+
   const handleSubmit = async () => {
     const content = editor?.getHTML() as string;
     // console.log(content);
@@ -45,11 +55,13 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
       return;
     }
 
+    const imagesUploaded = await handleUploadImages();
+
     mutateCreatePost(
       {
         title: '',
         content: content || '',
-        images: [],
+        images: imagesUploaded,
         visibility: privacy
       },
       {
@@ -69,7 +81,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
   };
 
   return (
-    <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[650px] animate-fade-up'>
+    <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[670px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
         <h2 className='text-sm font-medium text-text-1'>{t('Create Post')}</h2>
       </div>
