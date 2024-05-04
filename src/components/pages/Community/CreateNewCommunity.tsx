@@ -1,7 +1,7 @@
 import { InputStyle, LabelStyle } from '@/components/shared/InputStyle';
 import TextareaV2 from '@/components/ui/textarea-v2';
 import { useTranslations } from 'next-intl';
-import { IoHappy, IoHappyOutline } from 'react-icons/io5';
+import { IoAdd, IoHappy, IoHappyOutline } from 'react-icons/io5';
 import Picker from '@emoji-mart/react';
 import { useRef, useState } from 'react';
 import { useThemeMode } from 'flowbite-react';
@@ -9,12 +9,18 @@ import { IEmoji } from '@/types';
 import Popover from '@/components/ui/popover-v2';
 import { PiHashLight } from 'react-icons/pi';
 import { IoMdClose } from 'react-icons/io';
+import { FiMinus } from 'react-icons/fi';
+import { Autocomplete, TextField } from '@mui/material';
+import { useSession } from 'next-auth/react';
+import { useCurrentUserInfo } from '@/hooks/query';
 
 export interface ICreateNewCommunityProps {}
 
 export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
   const t = useTranslations();
   const { mode } = useThemeMode();
+
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const [description, setDescription] = useState('');
   const [cursorDes, setCursorDes] = useState(0);
@@ -23,6 +29,45 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
   const [cursorAbout, setCursorAbout] = useState(0);
 
   const [hashTagList, setHashTagList] = useState<string[]>([]);
+  const [rules, setRules] = useState<[]>([]);
+
+  const [ruleInputs, setRuleInputs] = useState<JSX.Element[]>([]);
+
+  const ruleInputHTML: any = (index: number) => {
+    return (
+      <div>
+        <div className='flex'>
+          <span
+            className='p-0.5 rounded-full bg-foreground-1'
+            onClick={() => {
+              const newRuleInputs = ruleInputs.filter((_, i) => i !== index);
+              setRuleInputs(newRuleInputs);
+            }}
+          >
+            <FiMinus className='size-5 text-1' />
+          </span>
+        </div>
+        <div className='relative mb-5 mt-4'>
+          <InputStyle />
+          <LabelStyle>Title {index + 1}: </LabelStyle>
+        </div>
+        <div className='relative'>
+          <InputStyle />
+          <LabelStyle>Description {index + 1}: </LabelStyle>
+        </div>
+      </div>
+    );
+  };
+
+  const top100Films = [
+    { title: 'The Shawshank Redemption', year: 1994 },
+    { title: 'The Godfather', year: 1972 },
+    { title: 'The Godfather: Part II', year: 1974 },
+    { title: 'The Dark Knight', year: 2008 },
+    { title: '12 Angry Men', year: 1957 },
+    { title: "Schindler's List", year: 1993 },
+    { title: 'Pulp Fiction', year: 1994 }
+  ];
 
   return (
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[650px] animate-fade-up'>
@@ -163,6 +208,35 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
               />
             </span>
           ))}
+        </div>
+        <div className='flex-start gap-2'>
+          <span className='text-sm'>Rules</span>
+          <span className='p-0.5 rounded-full bg-foreground-1'>
+            <IoAdd
+              className='size-5 text-1'
+              onClick={() => {
+                setRuleInputs([
+                  ...ruleInputs,
+                  ruleInputHTML(ruleInputs.length)
+                ]);
+              }}
+            />
+          </span>
+        </div>
+        <div className='render-rule-input mx-3 *:mb-8'>
+          {ruleInputs.map((_, index) => ruleInputHTML(index))}
+        </div>
+        <div className='member'>
+          <Autocomplete
+            options={top100Films}
+            getOptionLabel={option => option.title}
+            id='disable-close-on-select'
+            disableCloseOnSelect
+            renderInput={params => (
+              <InputStyle {...params} />
+            )}
+            sx={{}}
+          />
         </div>
       </div>
 
