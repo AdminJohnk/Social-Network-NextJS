@@ -7,6 +7,8 @@ import { useRef, useState } from 'react';
 import { useThemeMode } from 'flowbite-react';
 import { IEmoji } from '@/types';
 import Popover from '@/components/ui/popover-v2';
+import { PiHashLight } from 'react-icons/pi';
+import { IoMdClose } from 'react-icons/io';
 
 export interface ICreateNewCommunityProps {}
 
@@ -20,20 +22,22 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
   const [about, setAbout] = useState('');
   const [cursorAbout, setCursorAbout] = useState(0);
 
-  //   name, description, about, tags, members, admins, rules
+  const [hashTagList, setHashTagList] = useState<string[]>([]);
 
   return (
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[650px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
-        <h2 className='text-sm font-medium text-text-1'>{t('Create Post')}</h2>
+        <h2 className='text-sm font-medium text-text-1'>
+          {t('Create Community')}
+        </h2>
       </div>
 
-      <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg px-5 py-4'>
-        <div className='relative'>
+      <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
+        <div className='relative !mt-3'>
           <InputStyle />
           <LabelStyle>Community Name</LabelStyle>
         </div>
-        <div className='mt-7 flex-between'>
+        <div className='flex-between'>
           <TextareaV2
             label='Description'
             value={description}
@@ -81,7 +85,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
             />
           </div>
         </div>
-        <div className='mt-7 flex-between'>
+        <div className='flex-between'>
           <TextareaV2
             label='About'
             value={about}
@@ -128,6 +132,37 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
               }
             />
           </div>
+        </div>
+        <div className='relative'>
+          <InputStyle
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                setHashTagList([...hashTagList, e.currentTarget.value]);
+                e.currentTarget.value = '';
+              }
+            }}
+          />
+          <LabelStyle>Hashtag</LabelStyle>
+        </div>
+        <div className='render-hashtag flex-start flex-wrap gap-3'>
+          {hashTagList.map((tag, index) => (
+            <span
+              key={index}
+              className='hashtag px-3 py-1.5 bg-1 flex-start rounded-full'
+            >
+              <PiHashLight className='size-4 me-1' />
+              <span>{tag}</span>
+              <IoMdClose
+                className='size-4 ms-1 hover:text-red-500 duration-300'
+                onClick={() => {
+                  const newHashTagList = hashTagList.filter(
+                    (_, i) => i !== index
+                  );
+                  setHashTagList(newHashTagList);
+                }}
+              />
+            </span>
+          ))}
         </div>
       </div>
 
