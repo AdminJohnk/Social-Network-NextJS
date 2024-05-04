@@ -20,7 +20,7 @@ export interface IEditPostProps {
 
 export default function EditPost({ post, handleClose }: IEditPostProps) {
   const t = useTranslations();
-  const [privacy, setPrivacy] = useState<Visibility>('public');
+  const [privacy, setPrivacy] = useState<Visibility>(post.visibility || 'public');
   const [editor, setEditor] = useState<EditorProps>();
   const [ImagesPost, setImagesPost] = useState<string[]>([]);
   const [images, setImages] = useState<File[]>([]);
@@ -102,7 +102,7 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
       </div>
 
       <div className='p-5 flex justify-between items-center'>
-        <PostPrivacy setPrivacy={setPrivacy} />
+        <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />
         <div className='flex items-center gap-2'>
           <Button
             type='button'

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
+import { createLowlight, all } from 'lowlight';
 import { StarterKit } from '@tiptap/starter-kit';
 import { Underline } from '@tiptap/extension-underline';
 import { Youtube } from '@tiptap/extension-youtube';
@@ -11,9 +12,8 @@ import { Placeholder } from '@tiptap/extension-placeholder';
 import { Image } from '@tiptap/extension-image';
 import { useTranslations } from 'next-intl';
 import { Highlight } from '@tiptap/extension-highlight';
-import { createLowlight, common } from 'lowlight';
 
-const lowlight = createLowlight(common);
+const lowlight = createLowlight(all);
 
 /**
  * The `useDebounce` function is a custom hook in TypeScript that returns a debounced value based on

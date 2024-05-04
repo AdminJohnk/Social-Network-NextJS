@@ -54,7 +54,13 @@ export default function PhotoProvider({ images, visible, onClose }: IPhotoProvid
       overlayRender={({ images, index, onIndexChange }) => {
         return (
           <div className='flex-center cursor-grab touch-none absolute left-0 bottom-0 w-full z-50 h-24 bg-black/50 custom-scrollbar-none'>
-            <Tabs id='images-tabs' navClassName='pt-0' active={index}>
+            <Tabs
+              id='images-tabs'
+              rootClassName='px-8'
+              backChevronClassName='-left-3'
+              forwardChevronClassName='-right-3'
+              navClassName='pt-0'
+              active={index}>
               {images.map((item, i) => (
                 <TabTitle key={i}>
                   <Image
