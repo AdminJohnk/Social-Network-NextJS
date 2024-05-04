@@ -210,7 +210,7 @@ export default function Cover({ profileID }: ICoverProps) {
               </div>
             </div>
 
-            <nav className='flex rounded-xl -mb-px font-medium text-[15px] max-md:w-full max-md:overflow-x-auto max-md:custom-scrollbar-fg'>
+            <nav className='flex rounded-xl -mb-px font-medium text-[15px] max-md:w-full max-md:overflow-x-auto max-md:overflow-y-hidden max-md:custom-scrollbar-fg'>
               <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Timeline')}</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Friends')}</TabTitle>

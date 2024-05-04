@@ -1,13 +1,14 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { CiFlag1 } from 'react-icons/ci';
 import { IoOpenOutline, IoTrashOutline, IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { FiEdit } from 'react-icons/fi';
+
 import { IPost } from '@/types';
 import { IFeaturePost } from '@/types';
-import { useDeletePost, useSavePost, useSharePost } from '@/hooks/mutation';
-import { useEffect, useState } from 'react';
+import { useDeletePost, userDeleteSharedPost, useSavePost } from '@/hooks/mutation';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -35,7 +36,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
 
   const { mutateSavePost } = useSavePost();
   const { mutateDeletePost } = useDeletePost();
-  const { mutateSharePost } = useSharePost();
+  const { mutateDeleteSharedPost } = userDeleteSharedPost();
 
   const [is_saved, setIsSaved] = useState(post.is_saved);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -70,8 +71,9 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
         }
       });
     } else {
-      mutateSharePost(
+      mutateDeleteSharedPost(
         {
+          shared_post: post._id,
           post: post.post_attributes.post?._id as string,
           owner_post: post.post_attributes.owner_post?._id as string
         },
