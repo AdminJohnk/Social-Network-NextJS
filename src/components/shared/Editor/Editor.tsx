@@ -291,6 +291,7 @@ interface EditorContentProps {
 
 export default function Editor({ setEditor, content }: EditorContentProps) {
   const editor = useCustomEditor({
+    autofocus: 'end',
     editable: true,
     editorProps: {
       attributes: {

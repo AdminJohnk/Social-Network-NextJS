@@ -258,7 +258,7 @@ export const useSavePost = () => {
 export const useCommentPost = () => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+  const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
     mutationFn: async (commentData: ICreateComment) => {
       await postService.createComment(commentData);
     },
@@ -280,6 +280,7 @@ export const useCommentPost = () => {
     }
   });
   return {
+    comment: variables,
     mutateCommentPost: mutateAsync,
     isLoadingCommentPost: isPending,
     isErrorCommentPost: isError,

@@ -162,7 +162,6 @@ export default function Post({ post, feature }: IPostProps) {
                 <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
                   <Link href={`/posts/${post._id}`}>{handleDateTime(post.createdAt)}</Link>
                   <span>•</span>
-
                   {post.visibility === 'public' ? (
                     <MdPublic className='size-4' />
                   ) : post.visibility === 'friend' ? (
@@ -186,10 +185,12 @@ export default function Post({ post, feature }: IPostProps) {
               </div>
             )}
           </div>
-          {post.type === 'Share' && (
+          {post.type === 'Share' && post.post_attributes.content_share ? (
             <div className='my-4 content-share'>
-              <ShowContent content={post?.post_attributes?.content_share} />
+              <ShowContent content={post.post_attributes.content_share} />
             </div>
+          ) : (
+            <div className='my-4' />
           )}
           <div className={cn(post.type === 'Share' && 'border border-border-1 rounded-lg')}>
             {post.type === 'Share' &&
@@ -202,11 +203,19 @@ export default function Post({ post, feature }: IPostProps) {
                     <Link href={`/profile/${ownerPost._id}`} className='base-bold'>
                       {ownerPost.name}
                     </Link>
-                    <Link
-                      href={`/posts/${post.post_attributes.post!._id}`}
-                      className='small-bold text-text-2 hover:underline hover:text-text-1'>
-                      {handleDateTime(post.post_attributes.post!.createdAt)}
-                    </Link>
+                    <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
+                      <Link href={`/posts/${post.post_attributes.post!._id}`}>
+                        {handleDateTime(post.post_attributes.post!.createdAt)}
+                      </Link>
+                      <span>•</span>
+                      {post.post_attributes.post!.visibility === 'public' ? (
+                        <MdPublic className='size-4' />
+                      ) : post.post_attributes.post!.visibility === 'friend' ? (
+                        <FaUserFriends className='size-4' />
+                      ) : (
+                        <IoMdLock className='size-4' />
+                      )}
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -247,31 +256,40 @@ export default function Post({ post, feature }: IPostProps) {
               <div className='left flex gap-5'>
                 <div className='flex gap-3'>
                   <span className='p-1 bg-foreground-2 rounded-full'>
-                    <IoHeart className='size-4 text-red-600 cursor-pointer' />
+                    <IoHeart
+                      className='size-4 text-red-600 cursor-pointer'
+                      data-uk-tooltip={`title: ${t('Like')}; pos: top; offset:6`}
+                    />
                   </span>
                   <span>{post.post_attributes.like_number}</span>
                 </div>
                 <div className='flex gap-3'>
                   <span className='p-1 bg-foreground-2 rounded-full'>
-                    <FaCommentDots className='size-4 cursor-pointer' />
+                    <FaCommentDots
+                      className='size-4 cursor-pointer'
+                      data-uk-tooltip={`title: ${t('Comments')}; pos: top; offset:6`}
+                    />
                   </span>
                   <span>{post.post_attributes.comment_number}</span>
                 </div>
               </div>
               <div className='right flex-start gap-5'>
-                <span>
-                  <FiSend className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer' />
-                </span>
+                <FiSend
+                  className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
+                  data-uk-tooltip={`title: ${t('Send in chat')}; pos: top; offset:6`}
+                />
+
                 {post.type === 'Post' && (
-                  <span>
+                  <>
                     <GoShare
                       className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
                       onClick={handleOpen}
+                      data-uk-tooltip={`title: ${t('Share')}; pos: top; offset:6`}
                     />
                     <Modal open={open} handleClose={handleClose}>
                       <CreateNewPostShare handleClose={handleClose} post={post} />
                     </Modal>
-                  </span>
+                  </>
                 )}
               </div>
             </div>
@@ -282,7 +300,7 @@ export default function Post({ post, feature }: IPostProps) {
                 <CommentList postID={post._id} />
               </div>
               <div className='mt-8'>
-                <InputComment postID={post._id} />
+                <InputComment postID={post._id} owner_post={post.post_attributes.user._id} />
               </div>
             </div>
           )}

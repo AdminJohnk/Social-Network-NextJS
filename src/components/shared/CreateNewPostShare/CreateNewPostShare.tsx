@@ -32,7 +32,11 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
 
   async function onSubmit() {
     setIsLoading(true);
-    const content = editor?.getHTML() as string;
+    let content = editor?.getHTML() as string;
+
+    if (!editor?.getText().trim()) {
+      content = '';
+    }
 
     mutateSharePost(
       {
@@ -60,7 +64,7 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
   }, []);
 
   return (
-    <div className='w-[740px] max-h-[600px] overflow-y-scroll bg-foreground-1 custom-scrollbar-fg p-7 animate-fade-up'>
+    <div className='w-[740px] max-h-[600px] overflow-y-scroll bg-foreground-1 rounded-lg custom-scrollbar-fg p-7 animate-fade-up'>
       {isLoadingCurrentUserInfo ? (
         <div className='flex-between'>
           <div className='flex-start gap-3'>

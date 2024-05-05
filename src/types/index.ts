@@ -203,7 +203,7 @@ export interface ILikePost {
   owner_post: IUserInfo;
 }
 
-type TypeofComment = 'parent' | 'child';
+export type TypeofComment = 'parent' | 'child';
 
 export interface ICreateComment {
   type: TypeofComment;

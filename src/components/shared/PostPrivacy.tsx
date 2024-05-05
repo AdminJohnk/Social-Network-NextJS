@@ -67,7 +67,7 @@ export default function PostPrivacy({ privacy, setPrivacy }: IPostPrivacyProps) 
             <input
               type='radio'
               name='radio-status'
-              id='monthly'
+              id='monthly1'
               className='peer appearance-none hidden'
               checked={privacy === 'private'}
               readOnly
