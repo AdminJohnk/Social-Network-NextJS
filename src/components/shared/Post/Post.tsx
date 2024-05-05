@@ -310,7 +310,7 @@ export default function Post({ post, feature }: IPostProps) {
           {feature !== 'sharing' && (
             <div>
               <div className='comment-list mt-7'>
-                <CommentList postID={post._id} />
+                <CommentList postID={post._id} comment_number={post.post_attributes.comment_number} />
               </div>
               <div className='mt-8'>
                 <InputComment postID={post._id} owner_post={post.post_attributes.user._id} />
