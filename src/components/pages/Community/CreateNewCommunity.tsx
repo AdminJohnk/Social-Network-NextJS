@@ -13,6 +13,8 @@ import { FiMinus } from 'react-icons/fi';
 import { Autocomplete, TextField } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useCurrentUserInfo } from '@/hooks/query';
+import { cn } from '@/lib/utils';
+import AutoCompleteStyle from '@/components/shared/InputStyle/AutoCompleteStyle';
 
 export interface ICreateNewCommunityProps {}
 
@@ -42,8 +44,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
             onClick={() => {
               const newRuleInputs = ruleInputs.filter((_, i) => i !== index);
               setRuleInputs(newRuleInputs);
-            }}
-          >
+            }}>
             <FiMinus className='size-5 text-1' />
           </span>
         </div>
@@ -70,9 +71,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
   return (
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[650px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
-        <h2 className='text-sm font-medium text-text-1'>
-          {t('Create Community')}
-        </h2>
+        <h2 className='text-sm font-medium text-text-1'>{t('Create Community')}</h2>
       </div>
 
       <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
@@ -83,18 +82,18 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
           <TextareaV2
             label='Description'
             value={description}
-            onChange={e => {
+            onChange={(e) => {
               setDescription(e.currentTarget.value);
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursorDes(cursorPosition || 0);
             }}
-            onClick={e => {
+            onClick={(e) => {
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursorDes(cursorPosition || 0);
             }}
-            onKeyUp={e => {
+            onKeyUp={(e) => {
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursorDes(cursorPosition || 0);
@@ -107,18 +106,14 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
               hoverContent={
                 <Picker
                   data={async () => {
-                    const response = await fetch(
-                      'https://cdn.jsdelivr.net/npm/@emoji-mart/data'
-                    );
+                    const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
                     return response.json();
                   }}
                   onEmojiSelect={(emoji: IEmoji) => {
                     setCursorDes(cursorDes + emoji.native.length);
                     setDescription(
-                      description.slice(0, cursorDes) +
-                        emoji.native +
-                        description.slice(cursorDes)
+                      description.slice(0, cursorDes) + emoji.native + description.slice(cursorDes)
                     );
                   }}
                   theme={mode}
@@ -131,18 +126,18 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
           <TextareaV2
             label='About'
             value={about}
-            onChange={e => {
+            onChange={(e) => {
               setAbout(e.currentTarget.value);
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursorAbout(cursorPosition || 0);
             }}
-            onClick={e => {
+            onClick={(e) => {
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursorAbout(cursorPosition || 0);
             }}
-            onKeyUp={e => {
+            onKeyUp={(e) => {
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursorAbout(cursorPosition || 0);
@@ -155,19 +150,13 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
               hoverContent={
                 <Picker
                   data={async () => {
-                    const response = await fetch(
-                      'https://cdn.jsdelivr.net/npm/@emoji-mart/data'
-                    );
+                    const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
                     return response.json();
                   }}
                   onEmojiSelect={(emoji: IEmoji) => {
                     setCursorAbout(cursorAbout + emoji.native.length);
-                    setAbout(
-                      about.slice(0, cursorAbout) +
-                        emoji.native +
-                        about.slice(cursorAbout)
-                    );
+                    setAbout(about.slice(0, cursorAbout) + emoji.native + about.slice(cursorAbout));
                   }}
                   theme={mode}
                 />
@@ -178,7 +167,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
         <div className='relative'>
           <InputStyle
             label='Hashtag'
-            onKeyDown={e => {
+            onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 setHashTagList([...hashTagList, e.currentTarget.value]);
                 e.currentTarget.value = '';
@@ -188,18 +177,13 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
         </div>
         <div className='render-hashtag flex-start flex-wrap gap-3'>
           {hashTagList.map((tag, index) => (
-            <span
-              key={index}
-              className='hashtag px-3 py-1.5 bg-1 flex-start rounded-full'
-            >
+            <span key={index} className='hashtag px-3 py-1.5 bg-1 flex-start rounded-full'>
               <PiHashLight className='size-4 me-1' />
               <span>{tag}</span>
               <IoMdClose
                 className='size-4 ms-1 hover:text-red-500 duration-300'
                 onClick={() => {
-                  const newHashTagList = hashTagList.filter(
-                    (_, i) => i !== index
-                  );
+                  const newHashTagList = hashTagList.filter((_, i) => i !== index);
                   setHashTagList(newHashTagList);
                 }}
               />
@@ -212,10 +196,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
             <IoAdd
               className='size-5 text-1'
               onClick={() => {
-                setRuleInputs([
-                  ...ruleInputs,
-                  ruleInputHTML(ruleInputs.length)
-                ]);
+                setRuleInputs([...ruleInputs, ruleInputHTML(ruleInputs.length)]);
               }}
             />
           </span>
@@ -224,14 +205,15 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
           {ruleInputs.map((_, index) => ruleInputHTML(index))}
         </div>
         <div className='member'>
-          <Autocomplete
+          {/* <Autocomplete
             options={top100Films}
-            getOptionLabel={option => option.title}
+            getOptionLabel={(option) => option.title}
             id='disable-close-on-select'
             disableCloseOnSelect
             renderInput={params => <InputStyle label=''/>}
             sx={{}}
-          />
+          /> */}
+          <AutoCompleteStyle />
         </div>
       </div>
 

@@ -104,6 +104,9 @@ export default function UploadImage({
                 <div key={index} className='image-item flex-start'>
                   <Image
                     src={image.data_url}
+                    onError={() => {
+                      onImageRemove(imageList.length - index - 1);
+                    }}
                     className='me-3 w-[50px] h-[50px] rounded-md object-contain'
                     alt='image'
                     width={300}
@@ -116,14 +119,14 @@ export default function UploadImage({
                           // max 30 characters + '...' + file extension
                           (image.file?.name.length as number) > 33
                             ? `${image.file?.name.slice(
-                                0,
-                                30
-                              )}... ${image.file?.name.slice(
-                                image.file?.name.length - 4
-                              )}`
+                              0,
+                              30
+                            )}... ${image.file?.name.slice(
+                              image.file?.name.length - 4
+                            )}`
                             : image.file?.name
-                            ? image.file?.name
-                            : ''
+                              ? image.file?.name
+                              : ''
                         }
                       </div>
                       <div className='text-text-2'>
@@ -163,11 +166,11 @@ export default function UploadImage({
                           // max 30 characters + '...' + file extension
                           (image.length as number) > 33
                             ? `${image.slice(0, 30)}... ${image.slice(
-                                image.length - 4
-                              )}`
+                              image.length - 4
+                            )}`
                             : image
-                            ? image
-                            : ''
+                              ? image
+                              : ''
                         }
                       </div>
                     </div>

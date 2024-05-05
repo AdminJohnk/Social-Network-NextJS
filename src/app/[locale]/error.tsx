@@ -1,19 +1,18 @@
 'use client';
 
-import { useEffect } from 'react';
 import { signOut } from 'next-auth/react';
 
+import Logo from '@/components/shared/Logo';
 import { ErrorResponse } from '@/types';
 
 export default function Error({ error }: { error: ErrorResponse & { digest?: string }; reset: () => void }) {
-  useEffect(() => {
-    if (
-      error?.response?.data?.message?.includes('invalid') ||
-      error?.response?.data?.message?.includes('expired')
-    ) {
-      signOut();
-    }
-  }, [error]);
+  if (
+    error?.response?.data?.message?.includes('invalid') ||
+    error?.response?.data?.message?.includes('expired')
+  ) {
+    signOut();
+    return <Logo />;
+  }
 
   return <div className='flex-center h1-bold w-full h-full'>Lỗi mẹ rồi, ok!!!!</div>;
 }

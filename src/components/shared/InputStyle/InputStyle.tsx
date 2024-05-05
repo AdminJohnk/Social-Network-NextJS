@@ -1,24 +1,27 @@
+import { forwardRef } from 'react';
+
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
 export interface IInputStyleProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
 }
 
-export default function InputStyle({
+const InputStyle = forwardRef<HTMLInputElement, IInputStyleProps>(({
   label,
   maxLength,
   className,
   onChange,
   ...props
-}: IInputStyleProps) {
+}, ref) => {
   const [count, setCount] = useState<number>(0);
 
   return (
     <div className='relative'>
       <input
-        {...props}
+        ref={ref}
+      {...props}
         maxLength={maxLength}
         className={cn(
           'border-gray-200 text-blue-gray-700 disabled:bg-blue-gray-50 peer h-full w-full border-b bg-transparent pb-1.5 pt-4 font-sans text-[1rem] font-normal outline outline-0 transition-all placeholder:opacity-0 focus:border-violet-500 focus:outline-0 focus:placeholder:opacity-100 disabled:border-0 text-text-1',
@@ -47,4 +50,8 @@ export default function InputStyle({
       </label>
     </div>
   );
-}
+});
+
+InputStyle.displayName = 'InputStyle';
+
+export default InputStyle;

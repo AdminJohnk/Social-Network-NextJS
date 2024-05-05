@@ -6,13 +6,7 @@ export interface IModalProps extends ModalProps {
   handleClose: () => void;
 }
 
-export default function Modal({
-  children,
-  open,
-  handleClose,
-  ...props
-}: IModalProps) {
-
+export default function Modal({ children, open, handleClose, ...props }: IModalProps) {
   return (
     <ModalMui
       {...props}
@@ -20,7 +14,7 @@ export default function Modal({
       onClose={handleClose}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
-    >
+      sx={{ backgroundColor: 'transparent' }}>
       <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg rounded-md outline-none'>
         {children}
       </div>

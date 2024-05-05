@@ -97,8 +97,9 @@ export default function SearchHeader() {
       </div>
       <div
         id='search-box2'
-        className='hidden !z-10'
-        data-uk-drop='pos: bottom-center; animation: uk-animation-slide-bottom-small; mode:click; animate-out: true'>
+        className='!z-10'
+        data-uk-drop='pos: bottom-center; animation: uk-animation-slide-bottom-small; mode:click; animate-out: true'
+        hidden>
         <div className='xl:w-[694px] sm:w-96 lg:w-[574px] bg-foreground-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
           {searchDebounce === '' ? (
             isLoadingSearchLogs || isLoadingDeleteSearchLog ? (

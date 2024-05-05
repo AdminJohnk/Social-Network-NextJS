@@ -42,6 +42,9 @@ class PostService extends BaseService {
   sharePost = (sharepost: ISharePost) => {
     return this.post(`/posts/share`, sharepost);
   };
+  deleteSharedPost = (sharepost: ISharePost) => {
+    return this.delete(`/posts/shared/delete`, sharepost);
+  };
   likePost = (post: ISharePost) => {
     return this.put(`/users/likepost`, post);
   };

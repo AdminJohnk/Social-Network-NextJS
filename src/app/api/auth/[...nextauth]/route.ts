@@ -22,15 +22,6 @@ const handler = NextAuth({
             password: credentials.password
           });
 
-          // If no error and we have user data, return it
-          if (data.status !== 200) {
-            if (data.status === 401) {
-              throw new Error('Password is incorrect!');
-            } else {
-              throw new Error('Email not exists!');
-            }
-          }
-
           // res.status === 200
           if (data) {
             const tokens = data.metadata.tokens;
