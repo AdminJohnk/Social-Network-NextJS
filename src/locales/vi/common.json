@@ -399,5 +399,9 @@
   "Call to Action": "Lời kêu gọi hành động",
   "Hashtags": "Hashtags",
   "Bug": "Lỗi",
-  "Create Community": "Tạo cộng đồng"
+  "Create Community": "Tạo cộng đồng",
+  "Please enter a title": "Vui lòng nhập tiêu đề",
+  "Please enter a description": "Vui lòng nhập mô tả",
+  "Please upload a cover image": "Vui lòng tải lên một hình ảnh bìa",
+  "Please select a level": "Vui lòng chọn một cấp độ"
 }

@@ -9,6 +9,7 @@ import {
   ICreateLikeComment,
   ICreatePost,
   ICreateSearchLog,
+  ICreateSeries,
   IMessage,
   IResetPassword,
   ISharePost,
@@ -25,6 +26,7 @@ import { usePathname, useRouter } from '@/navigation';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 import { imageService } from '@/services/ImageService';
+import { seriesService } from '@/services/SeriesService';
 
 // ----------------------------- MUTATIONS -----------------------------
 
@@ -1302,3 +1304,19 @@ export const useUploadImages = () => {
     isSuccessUploadImages: isSuccess
   };
 };
+
+export const useCreateSeries = () => {
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreateSeries) => {
+      const { data: series } = await seriesService.createSeries(data);
+      return series.metadata;
+    }
+  });
+
+  return {
+    mutateCreateSeries: mutateAsync,
+    isLoadingCreateSeries: isPending,
+    isErrorCreateSeries: isError,
+    isSuccessCreateSeries: isSuccess
+  };
+}

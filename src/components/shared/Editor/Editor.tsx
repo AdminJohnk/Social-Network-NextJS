@@ -121,7 +121,7 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
 
   return (
     <div>
-      <div className='flex-start px-2'>
+      <div className='flex-start'>
         <div className='flex-start gap-2 *:p-1 *:text-text-1'>
           <button
             type='button'
@@ -287,9 +287,14 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
 interface EditorContentProps {
   setEditor?: (editor: EditorProps) => void;
   content?: string;
+  placeholder?: string;
 }
 
-export default function Editor({ setEditor, content }: EditorContentProps) {
+export default function Editor({
+  setEditor,
+  content,
+  placeholder
+}: EditorContentProps) {
   const editor = useCustomEditor({
     autofocus: 'end',
     editable: true,
@@ -298,7 +303,8 @@ export default function Editor({ setEditor, content }: EditorContentProps) {
         class: 'max-h-[350px] overflow-y-scroll custom-scrollbar-bg'
       }
     },
-    content
+    content,
+    placeholder
   });
 
   useEffect(() => {

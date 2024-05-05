@@ -49,12 +49,10 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
           </span>
         </div>
         <div className='relative mb-5 mt-4'>
-          <InputStyle />
-          <LabelStyle>Title {index + 1}: </LabelStyle>
+          <InputStyle label={`Title ${index + 1}: `} />
         </div>
         <div className='relative'>
-          <InputStyle />
-          <LabelStyle>Description {index + 1}: </LabelStyle>
+          <InputStyle label={`Description ${index + 1}: `} />
         </div>
       </div>
     );
@@ -78,8 +76,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
 
       <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
         <div className='relative !mt-3'>
-          <InputStyle />
-          <LabelStyle>Community Name</LabelStyle>
+          <InputStyle label='Community Name' />
         </div>
         <div className='flex-between'>
           <TextareaV2
@@ -169,6 +166,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
         </div>
         <div className='relative'>
           <InputStyle
+            label='Hashtag'
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 setHashTagList([...hashTagList, e.currentTarget.value]);
@@ -176,7 +174,6 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
               }
             }}
           />
-          <LabelStyle>Hashtag</LabelStyle>
         </div>
         <div className='render-hashtag flex-start flex-wrap gap-3'>
           {hashTagList.map((tag, index) => (
@@ -213,11 +210,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
             getOptionLabel={(option) => option.title}
             id='disable-close-on-select'
             disableCloseOnSelect
-            renderInput={(params) => (
-              <div ref={params.InputProps.ref}>
-                <InputStyle {...params.inputProps} type='text' />
-              </div>
-            )}
+            renderInput={params => <InputStyle label=''/>}
             sx={{}}
           /> */}
           <AutoCompleteStyle />

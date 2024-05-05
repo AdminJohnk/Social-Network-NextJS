@@ -67,7 +67,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
           handleClose();
         },
         onError() {
-          showErrorToast('Something went wrong! Please try again!');
+          showErrorToast(t('Something went wrong! Please try again!'));
         },
         onSettled() {
           setIsLoading(false);
@@ -83,8 +83,8 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
       </div>
 
       <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg'>
-        <div className='mt-3 p-2'>
-          <Editor setEditor={setEditor} />
+        <div className='mt-3 ps-4'>
+          <Editor setEditor={setEditor}/>
         </div>
 
         <div className='*:mb-3 text-sm py-2 px-4 font-medium'>

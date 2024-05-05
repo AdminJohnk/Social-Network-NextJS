@@ -73,7 +73,7 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
           handleClose();
         },
         onError() {
-          showErrorToast('Something went wrong! Please try again!');
+          showErrorToast(t('Something went wrong! Please try again!'));
         },
         onSettled() {
           setIsLoading(false);

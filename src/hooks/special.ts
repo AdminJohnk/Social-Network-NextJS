@@ -42,7 +42,12 @@ export const useDebounce = <T>(value: T, delay: number): T => {
  * The `useCustomEditor` function in TypeScript is a custom editor hook that initializes an editor with
  * specified extensions and content.
  */
-export const useCustomEditor = ({ content, extensions = [], ...props }: Partial<EditorOptions>) => {
+export const useCustomEditor = ({
+  content,
+  placeholder,
+  extensions = [],
+  ...props
+}: Partial<EditorOptions> & { placeholder?: string }) => {
   const t = useTranslations();
 
   const editor = useEditor(
@@ -55,7 +60,7 @@ export const useCustomEditor = ({ content, extensions = [], ...props }: Partial<
         Underline,
         Link,
         Placeholder.configure({
-          placeholder: t('What do you have in mind?')
+          placeholder: placeholder || t('What do you have in mind?')
         }),
         Youtube.configure({
           width: 440,
