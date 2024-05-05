@@ -395,5 +395,9 @@
   "Call to Action": "Call to Action",
   "Hashtags": "Hashtags",
   "Bug": "Bug",
-  "Create Community": "Create Community"
+  "Create Community": "Create Community",
+  "Please enter a title": "Please enter a title", 
+  "Please enter a description": "Please enter a description",
+  "Please upload a cover image": "Please upload a cover image",
+  "Please select a level": "Please select a level"
 }

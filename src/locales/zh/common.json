@@ -395,5 +395,9 @@
   "Call to Action": "号召行动",
   "Hashtags": "主题标签",
   "Bug": "错误",
-  "Create Community": "创建社区"
+  "Create Community": "创建社区",
+  "Please enter a title": "请输入标题",
+  "Please enter a description": "请输入描述",
+  "Please upload a cover image": "请上传封面图片",
+  "Please select a level": "请选择一个级别"
 }

@@ -46,9 +46,10 @@ export const useDebounce = <T>(value: T, delay: number): T => {
  */
 export const useCustomEditor = ({
   content,
+  placeholder,
   extensions = [],
   ...props
-}: Partial<EditorOptions>) => {
+}: Partial<EditorOptions> & { placeholder?: string }) => {
   const t = useTranslations();
 
   const editor = useEditor(
@@ -61,7 +62,7 @@ export const useCustomEditor = ({
         Underline,
         Link,
         Placeholder.configure({
-          placeholder: t('What do you have in mind?')
+          placeholder: placeholder || t('What do you have in mind?')
         }),
         Youtube.configure({
           width: 440,

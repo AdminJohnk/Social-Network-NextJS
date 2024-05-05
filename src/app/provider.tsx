@@ -22,7 +22,7 @@ export function QueryProvider({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <HydrationBoundary>{children}</HydrationBoundary>
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
+      {/* <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' /> */}
     </QueryClientProvider>
   );
 }

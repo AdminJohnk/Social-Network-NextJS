@@ -12,7 +12,7 @@ import {
   MdFormatUnderlined,
   MdLink
 } from 'react-icons/md';
-import { FaUndo, FaRedo, FaYoutube, FaPen, FaFileImage  } from 'react-icons/fa';
+import { FaUndo, FaRedo, FaYoutube, FaPen, FaFileImage } from 'react-icons/fa';
 import { FiAlignCenter } from 'react-icons/fi';
 import { LuHeading1, LuHeading2, LuHeading3 } from 'react-icons/lu';
 import { IoCodeSlashOutline, IoHappy } from 'react-icons/io5';
@@ -127,7 +127,7 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
 
   return (
     <div>
-      <div className='flex-start px-2'>
+      <div className='flex-start'>
         <div className='flex-start gap-2 *:p-1 *:text-text-1'>
           <button
             type='button'
@@ -314,9 +314,14 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
 interface EditorContentProps {
   setEditor?: (editor: EditorProps) => void;
   content?: string;
+  placeholder?: string;
 }
 
-export default function Editor({ setEditor, content }: EditorContentProps) {
+export default function Editor({
+  setEditor,
+  content,
+  placeholder
+}: EditorContentProps) {
   const editor = useCustomEditor({
     editable: true,
     editorProps: {
@@ -324,7 +329,8 @@ export default function Editor({ setEditor, content }: EditorContentProps) {
         class: 'max-h-[350px] overflow-y-scroll custom-scrollbar-bg'
       }
     },
-    content
+    content,
+    placeholder
   });
 
   useEffect(() => {

@@ -4,9 +4,6 @@ import { useState } from 'react';
 import PostPrivacy from '@/components/shared/PostPrivacy';
 import Editor from '@/components/shared/Editor/Editor';
 import { useTranslations } from 'next-intl';
-
-import { IoImage } from 'react-icons/io5';
-import { BsListTask } from 'react-icons/bs';
 import { Visibility } from '@/types';
 import { Editor as EditorProps } from '@tiptap/react';
 import { Button } from '@/components/ui/button';
@@ -71,7 +68,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
           handleClose();
         },
         onError() {
-          showErrorToast('Something went wrong! Please try again!');
+          showErrorToast(t('Something went wrong! Please try again!'));
         },
         onSettled() {
           setIsLoading(false);
@@ -87,8 +84,8 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
       </div>
 
       <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg'>
-        <div className='space-y-5 mt-3 p-2'>
-          <Editor setEditor={setEditor} />
+        <div className='space-y-5 mt-3 ps-4'>
+          <Editor setEditor={setEditor}/>
         </div>
 
         <div className='*:mb-3 text-sm py-2 px-4 font-medium'>
