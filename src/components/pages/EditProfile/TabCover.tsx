@@ -1,8 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { useCallback, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { Avatar } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 
 import { useCurrentUserInfo } from '@/hooks/query';
@@ -11,9 +11,12 @@ import { Tabs, TabTitle } from '@/components/ui/tabs';
 import { usePathname, useRouter } from '@/navigation';
 import TabCoverSkeleton from './TabCoverSkeleton';
 import Divider from '@/components/shared/Divider';
-import Image from 'next/image';
 
-export default function TabCover() {
+interface ITabCoverProps {
+  tabParam: string;
+}
+
+export default function TabCover({ tabParam }: ITabCoverProps) {
   const t = useTranslations();
   const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo();
   const router = useRouter();
@@ -21,7 +24,6 @@ export default function TabCover() {
   const searchParams = useSearchParams();
 
   const tab = useMemo(() => {
-    const tabParam = searchParams.get('tab') || 'general';
     switch (tabParam) {
       case 'social-links':
         return 1;
@@ -39,9 +41,9 @@ export default function TabCover() {
   }, []);
 
   const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+    (value: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set('tab', value);
 
       return params.toString();
     },
@@ -100,37 +102,37 @@ export default function TabCover() {
           <Tabs id='setting_tab' disableChevron active={tab}>
             <TabTitle
               onClick={() => {
-                router.push(pathname + '?' + createQueryString('tab', 'general'));
+                router.push(pathname + '?' + createQueryString('general'));
               }}>
               {t('General')}
             </TabTitle>
             <TabTitle
               onClick={() => {
-                router.push(pathname + '?' + createQueryString('tab', 'social-links'));
+                router.push(pathname + '?' + createQueryString('social-links'));
               }}>
               {t('Social links')}
             </TabTitle>
             <TabTitle
               onClick={() => {
-                router.push(pathname + '?' + createQueryString('tab', 'expertise'));
+                router.push(pathname + '?' + createQueryString('expertise'));
               }}>
               {t('Expertise')}
             </TabTitle>
             <TabTitle
               onClick={() => {
-                router.push(pathname + '?' + createQueryString('tab', 'experience'));
+                router.push(pathname + '?' + createQueryString('experience'));
               }}>
               {t('Experience')}
             </TabTitle>
             <TabTitle
               onClick={() => {
-                router.push(pathname + '?' + createQueryString('tab', 'repository'));
+                router.push(pathname + '?' + createQueryString('repository'));
               }}>
               {t('Repository')}
             </TabTitle>
             <TabTitle
               onClick={() => {
-                router.push(pathname + '?' + createQueryString('tab', 'password'));
+                router.push(pathname + '?' + createQueryString('password'));
               }}>
               {t('Password')}
             </TabTitle>

@@ -36,7 +36,7 @@ export default function ProfileHeader() {
         <>
           <div
             className='rounded-full relative bg-foreground-1 cursor-pointer shrink-0'
-            data-uk-tooltip={`title: ${t('Account')}; pos: bottom; offset:6`}>
+            data-uk-tooltip={`title: ${t('Account')}; pos: bottom; offset:6; delay: 300`}>
             <Image
               src={getImageURL(currentUserInfo.user_image) || '/images/home/avatar-2.jpg'}
               alt=''
@@ -48,7 +48,7 @@ export default function ProfileHeader() {
           <div
             id='profile-dropdown'
             className='hidden bg-foreground-2 rounded-lg drop-shadow-xl w-64 border-border-1'
-            data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
+            data-uk-drop='offset:10;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
             <Link
               href={`/profile/${currentUserInfo._id}`}
               className='relative p-4 py-5 flex items-center gap-4'
@@ -111,6 +111,8 @@ export default function ProfileHeader() {
                 </div>
               </button>
             </nav>
+
+            <div className='w-3 h-3 absolute -top-1.5 right-3 bg-foreground-2 border-l border-t rotate-45 max-md:hidden dark:border-transparent'></div>
           </div>
         </>
       )}

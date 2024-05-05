@@ -41,7 +41,9 @@ export default function Language({
       <button
         type='button'
         className={cn('sm:p-2 p-1 rounded-full relative sm:bg-foreground-1', className)}
-        data-uk-tooltip={tooltip ? `title: ${t('Change language')}; pos: bottom; offset:6` : undefined}>
+        data-uk-tooltip={
+          tooltip ? `title: ${t('Change language')}; pos: bottom; offset:6; delay: 300` : undefined
+        }>
         <IoLanguage className='w-5 h-5 max-sm:hidden' />
         <IoLanguageOutline className='sm:hidden text-2xl' />
         {withText && t('Change language')}

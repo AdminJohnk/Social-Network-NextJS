@@ -7,13 +7,16 @@ export interface IEditProfileProps {
   params: {
     locale: string;
   };
+  searchParams: {
+    tab: string;
+  };
 }
 
-export default function EditProfile({ params: { locale } }: IEditProfileProps) {
+export default function EditProfile({ params: { locale }, searchParams: { tab } }: IEditProfileProps) {
   unstable_setRequestLocale(locale);
   return (
     <div className='flex flex-1 mt-16 *:w-full *:max-w-2xl flex-col items-center gap-3 px-5 py-10 md:p-14 custom-scrollbar-bg overflow-scroll'>
-      <TabCover />
+      <TabCover tabParam={tab} />
       <TabContent />
     </div>
   );
