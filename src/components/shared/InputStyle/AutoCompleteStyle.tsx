@@ -170,7 +170,7 @@ export default function AutoCompleteStyle() {
         <LabelStyle {...getInputLabelProps()}>Customized hook</LabelStyle>
         <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
           {value.map((option: FilmOptionType, index: number) => (
-            <StyledTag label={option.title} {...getTagProps({ index })} />
+            <StyledTag label={option.title} {...getTagProps({ index })} key={index} />
           ))}
           <InputStyle {...getInputProps()} />
         </InputWrapper>

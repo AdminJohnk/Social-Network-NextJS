@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 export interface IInputStyleProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
 }
 
 const InputStyle = forwardRef<HTMLInputElement, IInputStyleProps>(({
