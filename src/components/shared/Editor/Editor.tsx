@@ -12,7 +12,7 @@ import {
   MdFormatUnderlined,
   MdLink
 } from 'react-icons/md';
-import { FaUndo, FaRedo, FaYoutube, FaPen } from 'react-icons/fa';
+import { FaUndo, FaRedo, FaYoutube, FaPen, FaFileImage } from 'react-icons/fa';
 import { FiAlignCenter } from 'react-icons/fi';
 import { LuHeading1, LuHeading2, LuHeading3 } from 'react-icons/lu';
 import { IoCodeSlashOutline, IoHappy } from 'react-icons/io5';
@@ -220,7 +220,7 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
                 editor?.chain().focus().unsetLink().run();
               } else {
                 const url = window.prompt('Enter the URL');
-                if (url) {
+                if (url && url.trim() !== '') {
                   editor
                     ?.chain()
                     .focus()
@@ -236,7 +236,7 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
           <button
             onClick={() => {
               const url = window.prompt('Enter the Youtube URL');
-              if (url) {
+              if (url && url.trim() !== '') {
                 editor
                   ?.chain()
                   .focus()
@@ -245,6 +245,20 @@ const MenuBar = ({ editor }: { editor: EditorProps | null }) => {
               }
             }}>
             <FaYoutube className='size-5' />
+          </button>
+          {/* Add Image */}
+          <button
+            onClick={() => {
+              const url = window.prompt('Enter the Image URL');
+              if (url && url.trim() !== '') {
+                editor
+                  ?.chain()
+                  .focus()
+                  .setImage({ src: url as string })
+                  .run();
+              }
+            }}>
+            <FaFileImage className='size-5' />
           </button>
           {/* Add Emoji */}
           <Popover

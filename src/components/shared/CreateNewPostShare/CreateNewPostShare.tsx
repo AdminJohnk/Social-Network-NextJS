@@ -20,16 +20,13 @@ export interface ICreateNewPostShareProps {
   post: IPost;
 }
 
-export default function CreateNewPostShare({
-  handleClose,
-  post
-}: ICreateNewPostShareProps) {
+export default function CreateNewPostShare({ handleClose, post }: ICreateNewPostShareProps) {
   const t = useTranslations();
   const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo();
   const { mutateSharePost } = useSharePost();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [privacy, setPrivacy] = useState<Visibility>('public');
+  const [privacy, setPrivacy] = useState<Visibility>(post.visibility || 'public');
 
   const [editor, setEditor] = useState<EditorProps>();
 
@@ -63,36 +60,18 @@ export default function CreateNewPostShare({
   }, []);
 
   return (
-    <div className='w-[690px] max-h-[600px] overflow-y-scroll bg-foreground-1 custom-scrollbar-fg p-7 animate-fade-up'>
+    <div className='w-[740px] max-h-[600px] overflow-y-scroll bg-foreground-1 custom-scrollbar-fg p-7 animate-fade-up'>
       {isLoadingCurrentUserInfo ? (
         <div className='flex-between'>
           <div className='flex-start gap-3'>
-            <Skeleton
-              className='bg-foreground-2'
-              variant='circular'
-              width={40}
-              height={40}
-            />
+            <Skeleton className='bg-foreground-2' variant='circular' width={40} height={40} />
             <div className='flex flex-col'>
-              <Skeleton
-                className='bg-foreground-2 w-36'
-                variant='text'
-                sx={{ fontSize: '1.5rem' }}
-              />
-              <Skeleton
-                className='bg-foreground-2 w-36'
-                variant='text'
-                sx={{ fontSize: '1rem' }}
-              />
+              <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1.5rem' }} />
+              <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1rem' }} />
             </div>
           </div>
           <div>
-            <Skeleton
-              className='bg-foreground-2'
-              variant='circular'
-              width={25}
-              height={25}
-            />
+            <Skeleton className='bg-foreground-2' variant='circular' width={25} height={25} />
           </div>
         </div>
       ) : (
@@ -102,10 +81,7 @@ export default function CreateNewPostShare({
               <Avatar src={getImageURL(currentUserInfo.user_image)} />
             </Link>
             <div className='flex flex-col ms-3'>
-              <Link
-                href={`/profile/${currentUserInfo._id}`}
-                className='base-bold'
-              >
+              <Link href={`/profile/${currentUserInfo._id}`} className='base-bold'>
                 {currentUserInfo.name}
               </Link>
             </div>
@@ -119,16 +95,13 @@ export default function CreateNewPostShare({
       <Post post={post} feature='sharing' />
 
       <div className='flex-between mt-6'>
-        <PostPrivacy setPrivacy={setPrivacy} />
+        <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />
         <Button
           type='submit'
           className='button lg:px-6 text-white max-md:flex-1'
           disabled={isLoading}
-          onClick={onSubmit}
-        >
-          {isLoading && (
-            <CircularProgress size={20} className='!text-text-1 mr-2' />
-          )}
+          onClick={onSubmit}>
+          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
           {t('Share')} <span className='ripple-overlay'></span>
         </Button>
       </div>

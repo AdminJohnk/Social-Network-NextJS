@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { BsListTask } from 'react-icons/bs';
 import { Editor as EditorProps } from '@tiptap/react';
+import Image from 'next/image';
 
 export interface IPostTemplateProps {
   editor: EditorProps | undefined;
@@ -9,38 +10,29 @@ export interface IPostTemplateProps {
 export default function PostTemplate({ editor }: IPostTemplateProps) {
   const t = useTranslations();
 
-
-  const BugTemplate: string = `<p>******* ${t(
-    'Bug Report'
-  )} *******</p><p><strong>${t('Title')}:</strong></p><p><strong>${t(
-    'Severity'
-  )}:</strong></p><p><strong>${t('Version')}:</strong></p><p><strong>${t(
-    'Operating System'
-  )}:</strong></p><p><strong>${t('Browser')}:</strong></p><p><strong>${t(
-    'Detailed Description'
-  )}:</strong></p><ul><li><p><strong>${t(
+  const BugTemplate: string = `<p>******* ${t('Bug Report')} *******</p><p><strong>${t(
+    'Title'
+  )}:</strong></p><p><strong>${t('Severity')}:</strong></p><p><strong>${t(
+    'Version'
+  )}:</strong></p><p><strong>${t('Operating System')}:</strong></p><p><strong>${t(
+    'Browser'
+  )}:</strong></p><p><strong>${t('Detailed Description')}:</strong></p><ul><li><p><strong>${t(
     'Steps to reproduce the bug'
   )}:</strong></p><ol><li><p>&nbsp;</p></li><li><p>&nbsp;</p></li><li><p>&nbsp;</p></li></ol></li><li><p><strong>${t(
     'Expected Behavior'
-  )}:</strong></p></li><li><p><strong>${t(
-    'Actual Behavior'
-  )}:</strong></p></li><li><p><strong>${t(
+  )}:</strong></p></li><li><p><strong>${t('Actual Behavior')}:</strong></p></li><li><p><strong>${t(
     'Outcome'
-  )}:</strong></p></li></ul><p><strong>${t(
-    'Code/Screenshots/Videos'
-  )}:</strong></p><p>[${t(
+  )}:</strong></p></li></ul><p><strong>${t('Code/Screenshots/Videos')}:</strong></p><p>[${t(
     'Attach code or screenshots or screencast videos of the bug if available'
   )}]</p><pre><code></code></pre><p><strong>${t(
     'Additional Information'
   )}:</strong></p><ul><li><p>&nbsp;</p></li><li><p>&nbsp;</p></li></ul><p><strong>${t(
     'Contact'
-  )}:</strong></p><ul><li><p>[${t('Your Name')}]</p></li><li><p>[${t(
-    'Your Email'
-  )}]</p></li></ul>`;
+  )}:</strong></p><ul><li><p>[${t('Your Name')}]</p></li><li><p>[${t('Your Email')}]</p></li></ul>`;
 
-  const TaskTemplate: string = `<p>******* ${t(
-    'Task'
-  )} *******</p><p><strong>${t('Title')}: </strong></p><p><strong>${t(
+  const TaskTemplate: string = `<p>******* ${t('Task')} *******</p><p><strong>${t(
+    'Title'
+  )}: </strong></p><p><strong>${t(
     'Description'
   )}:</strong></p><ul><li><p></p></li><li><p></p></li><li><p></p></li></ul><p><strong>${t(
     'Priority'
@@ -54,22 +46,18 @@ export default function PostTemplate({ editor }: IPostTemplateProps) {
     'Link to issues related to the task (if applicable)'
   )}]</p></li></ul><p><strong>${t('Resources')}:</strong></p><ul><li><p>[${t(
     'Link to resources related to the task (if applicable)'
-  )}]</p></li></ul><p><strong>${t('Progress')}:</strong></p><ul><li><p>[${t(
-    'Not Started'
-  )}, ${t('In Progress')}, ${t('Completed')}]
+  )}]</p></li></ul><p><strong>${t('Progress')}:</strong></p><ul><li><p>[${t('Not Started')}, ${t(
+    'In Progress'
+  )}, ${t('Completed')}]
   </p></li></ul><p><strong>${t('Notes')}:</strong></p><ul><li><p>[${t(
     'Record any additional information related to the task'
   )}]</p></li></ul>`;
 
-  const ExpertiseTemplate: string = `<p><strong>${t(
-    'Title'
-  )}:</strong> </p><p><strong>${t('Introduction')}:</strong></p><ul><li><p>${t(
-    'Introduce yourself (name, expertise, experience)'
-  )}</p></li><li><p>${t(
+  const ExpertiseTemplate: string = `<p><strong>${t('Title')}:</strong> </p><p><strong>${t(
+    'Introduction'
+  )}:</strong></p><ul><li><p>${t('Introduce yourself (name, expertise, experience)')}</p></li><li><p>${t(
     'Introduce the topic you want to share'
-  )}</p></li><li><p>${t(
-    'Reason for choosing to share this topic'
-  )}</p></li></ul><p><strong>${t(
+  )}</p></li><li><p>${t('Reason for choosing to share this topic')}</p></li></ul><p><strong>${t(
     'Main Content'
   )}:</strong></p><ul><li><p><strong>${t(
     'Section 1'
@@ -87,35 +75,34 @@ export default function PostTemplate({ editor }: IPostTemplateProps) {
     <div>
       <button
         type='button'
-        className='flex items-center gap-1.5 bg-teal-50 hover:bg-teal-200 text-teal-600 rounded-full py-1 px-2 border-2 border-teal-100 dark:bg-teal-950 dark:hover:bg-teal-900 dark:border-teal-900'
-      >
+        className='flex items-center gap-1.5 bg-teal-50 hover:bg-teal-200 text-teal-600 rounded-full py-1 px-2 border-2 border-teal-100 dark:bg-teal-950 dark:hover:bg-teal-900 dark:border-teal-900'>
         <BsListTask className='text-base' />
         {t('Template')}
       </button>
-      <div data-uk-drop='pos: right-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
+      <div data-uk-drop='offset: 6; pos: right-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
         <div className='p-2 bg-foreground-1 rounded-lg shadow-lg *:px-4 *:py-1.5 hover:*:bg-hover-1 *:cursor-pointer *:rounded-lg'>
           <div
-            className='uk-drop-close'
+            className='flex-start gap-3 uk-drop-close'
             onClick={() => {
               editor?.commands.insertContent(BugTemplate);
-            }}
-          >
+            }}>
+            <Image className='size-6' src='/images/new-post/bug.svg' width={50} height={50} alt='bug icon' priority />
             {t('Bug')}
           </div>
           <div
-            className='uk-drop-close'
+            className='flex-start gap-3 uk-drop-close'
             onClick={() => {
               editor?.commands.insertContent(TaskTemplate);
-            }}
-          >
+            }}>
+            <Image className='size-6' src='/images/new-post/task.svg' width={50} height={50} alt='task icon' priority />
             {t('Task')}
           </div>
           <div
-            className='uk-drop-close'
+            className='flex-start gap-3 uk-drop-close'
             onClick={() => {
               editor?.commands.insertContent(ExpertiseTemplate);
-            }}
-          >
+            }}>
+            <Image className='size-6' src='/images/new-post/work.svg' width={50} height={50} alt='work icon' priority />
             {t('Expertise')}
           </div>
         </div>

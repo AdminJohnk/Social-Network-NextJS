@@ -1,15 +1,16 @@
 'use client';
 
 import { Avatar } from '@mui/material';
-import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoIosMore } from 'react-icons/io';
 import { FiSend } from 'react-icons/fi';
 import { GoShare } from 'react-icons/go';
 import { IoHeart, IoLockClosed } from 'react-icons/io5';
-import { FaCommentDots } from 'react-icons/fa';
+import { FaCommentDots, FaUserFriends } from 'react-icons/fa';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
+import { MdPublic } from 'react-icons/md';
+import { IoMdLock } from 'react-icons/io';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
 
 import CommentList from '@/components/shared/CommentList';
@@ -23,6 +24,7 @@ import Modal from '@/components/shared/Modal';
 import { useCurrentUserInfo } from '@/hooks/query';
 import ImagePost from '../ImagePost';
 import PostSkeleton from './PostSkeleton';
+import LinkPreview from '../LinkPreview';
 
 export interface IPostProps {
   post: IPost;
@@ -37,6 +39,28 @@ export default function Post({ post, feature }: IPostProps) {
       : post?.post_attributes.post
       ? post?.post_attributes.post.post_attributes.content
       : '';
+
+  // const regex = /<a[^>]*>([^<]+)<\/a>/g;
+  let match;
+  // let url;
+
+  // while ((match = regex.exec(content)) !== null) {
+  //   url = match;
+  // }
+
+  // url = url?.[1];
+
+  const regex = /<a[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g;
+  let urls = []; // Array to store all extracted URLs
+
+  while ((match = regex.exec(content)) !== null) {
+    urls.push(match[1]); // Extract and store URL directly
+  }
+
+  const url = urls[urls.length - 1];
+
+  // const url = content.match(/<a[^>]*>([^<]+)<\/a>/)?.[1];
+
   const [contentTiptap, setContentTiptap] = useState(content);
   const [expanded, setExpanded] = useState(false);
 
@@ -131,15 +155,22 @@ export default function Post({ post, feature }: IPostProps) {
               <Link href={`/profile/${post.post_attributes.user._id}`}>
                 <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
               </Link>
-              <div className='flex flex-col ms-3'>
+              <div className='flex gap-1 flex-col ms-3'>
                 <Link href={`/profile/${post.post_attributes.user._id}`} className='base-bold'>
                   {post.post_attributes.user.name}
                 </Link>
-                <Link
-                  href={`/posts/${post._id}`}
-                  className='small-bold text-text-2 hover:underline hover:text-text-1'>
-                  {handleDateTime(post.createdAt)}
-                </Link>
+                <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
+                  <Link href={`/posts/${post._id}`}>{handleDateTime(post.createdAt)}</Link>
+                  <span>•</span>
+
+                  {post.visibility === 'public' ? (
+                    <MdPublic className='size-4' />
+                  ) : post.visibility === 'friend' ? (
+                    <FaUserFriends className='size-4' />
+                  ) : (
+                    <IoMdLock className='size-4' />
+                  )}
+                </div>
               </div>
             </div>
             {feature !== 'sharing' && (
@@ -206,22 +237,8 @@ export default function Post({ post, feature }: IPostProps) {
                     {expanded ? t('Read less') : t('Read more')}
                   </div>
                 )}
-                {images.length !== 0 && (
-                  // <div className='flex flex-wrap mb-5'>
-                  // {images.map((image, index) => (
-                  //   <div key={index} className='mt-4'>
-                  //       <Image
-                  //         className='rounded-lg w-full h-full object-cover'
-                  //         src={getImageURL(image)}
-                  //         width={1500}
-                  //         height={1500}
-                  //         alt='image'
-                  //       />
-                  //   </div>
-                  // ))}
-                  // </div>
-                  <ImagePost images={images} />
-                )}
+                {images.length !== 0 && <ImagePost images={images} />}
+                {images.length === 0 && url && <LinkPreview url={url} />}
               </div>
             )}
           </div>

@@ -24,6 +24,10 @@ export default function ProfileHeader() {
     setModeTheme(mode);
   }, [mode]);
 
+  const closeProfileDropdown = () => {
+    UIkit.drop('#profile-dropdown').hide();
+  };
+
   return (
     <>
       {isLoadingCurrentUserInfo ? (
@@ -42,11 +46,13 @@ export default function ProfileHeader() {
             />
           </div>
           <div
+            id='profile-dropdown'
             className='hidden bg-foreground-2 rounded-lg drop-shadow-xl w-64 border-border-1'
             data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
             <Link
               href={`/profile/${currentUserInfo._id}`}
-              className='relative p-4 py-5 flex items-center gap-4'>
+              className='relative p-4 py-5 flex items-center gap-4'
+              onClick={closeProfileDropdown}>
               <Image
                 src={getImageURL(currentUserInfo.user_image) || '/images/home/avatar-2.jpg'}
                 alt=''
@@ -68,13 +74,17 @@ export default function ProfileHeader() {
 
             <nav className='p-2 text-sm font-normal text-text-1'>
               <Link href={`/profile/${currentUserInfo._id}`}>
-                <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
+                <div
+                  className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'
+                  onClick={closeProfileDropdown}>
                   <CgProfile className='size-6' />
                   {t('My Profile')}
                 </div>
               </Link>
               <Link href='/edit-profile'>
-                <div className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'>
+                <div
+                  className='flex items-center gap-2.5 hover:bg-hover-1 p-2 px-2.5 rounded-md'
+                  onClick={closeProfileDropdown}>
                   <IoSettingsOutline className='size-6' />
                   {t('Account Settings')}
                 </div>

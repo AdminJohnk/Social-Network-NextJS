@@ -5,10 +5,9 @@ import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/navigation';
-import { FaCheckCircle, FaPencilAlt } from 'react-icons/fa';
+import { FaPencilAlt } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 import {
-  IoAddCircle,
   IoCamera,
   IoChatboxEllipsesOutline,
   IoChevronDown,
@@ -18,18 +17,8 @@ import {
   IoStopCircleOutline,
   IoVideocamOutline
 } from 'react-icons/io5';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  useAcceptFriendUser,
-  useAddFriendUser,
-  useCancelFriendUser,
-  useDeclineFriendUser,
-  useDeleteFriendUser
-} from '@/hooks/mutation';
-import { RiArrowGoBackFill } from 'react-icons/ri';
-import { CircularProgress } from '@mui/material';
-import { MdCancel } from 'react-icons/md';
 import { getImageURL } from '@/lib/utils';
 import FriendButton from './FriendButton';
 
@@ -45,33 +34,7 @@ export default function Cover({ profileID }: ICoverProps) {
 
   const isMe = currentUserInfo._id === profileID;
 
-  const { mutateAddFriendUser } = useAddFriendUser();
-
-  const { mutateAcceptFriendUser } = useAcceptFriendUser();
-
-  const { mutateCancelFriendUser } = useCancelFriendUser();
-
-  const { mutateDeclineFriendUser } = useDeclineFriendUser();
-
-  const { mutateDeleteFriendUser } = useDeleteFriendUser();
-
   const isFriend = currentUserInfo.friends?.some((friend) => friend._id === profileID);
-
-  const sentRequest = useMemo(() => {
-    if (currentUserInfo && otherUserInfo) {
-      return currentUserInfo.requestSent.indexOf(otherUserInfo._id) !== -1;
-    }
-    return false;
-  }, [currentUserInfo, otherUserInfo]);
-
-  const receivedRequest = useMemo(() => {
-    if (currentUserInfo && otherUserInfo) {
-      return currentUserInfo.requestReceived.indexOf(otherUserInfo._id) !== -1;
-    }
-    return false;
-  }, [currentUserInfo, otherUserInfo]);
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     UIkit.sticky('#profile-tabs')?.$emit('update');
@@ -134,7 +97,7 @@ export default function Cover({ profileID }: ICoverProps) {
           <div
             id='profile-tabs'
             className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'
-            data-uk-sticky='offset:50; cls-active: bg-foreground-1 shadow rounded-b-2xl z-50 backdrop-blur-xl animation:uk-animation-slide-top ; media: 992'>
+            data-uk-sticky='start: 100; offset: 50; cls-active: bg-foreground-1 shadow rounded-b-2xl backdrop-blur-xl z-10; animation: uk-animation-slide-top; media: 1024'>
             <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
               {isMe && (
                 <Button
@@ -210,7 +173,7 @@ export default function Cover({ profileID }: ICoverProps) {
               </div>
             </div>
 
-            <nav className='flex rounded-xl -mb-px font-medium text-[15px] max-md:w-full max-md:overflow-x-auto max-md:overflow-y-hidden max-md:custom-scrollbar-fg'>
+            <nav className='flex rounded-xl -mb-px font-medium text-[15px]'>
               <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Timeline')}</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Friends')}</TabTitle>

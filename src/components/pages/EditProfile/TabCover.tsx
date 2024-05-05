@@ -11,6 +11,7 @@ import { Tabs, TabTitle } from '@/components/ui/tabs';
 import { usePathname, useRouter } from '@/navigation';
 import TabCoverSkeleton from './TabCoverSkeleton';
 import Divider from '@/components/shared/Divider';
+import Image from 'next/image';
 
 export default function TabCover() {
   const t = useTranslations();
@@ -57,13 +58,19 @@ export default function TabCover() {
             <div className='flex-start gap-4 p-8'>
               <div className='relative md:w-20 md:h-20 w-12 h-12 shrink-0'>
                 <label htmlFor='file' className='cursor-pointer'>
-                  <Avatar sx={{ width: 80, height: 80 }} src={getImageURL(currentUserInfo.user_image)} />
+                  <Image
+                    className='object-cover overflow-hidden rounded-full md:w-20 md:h-20 w-12 h-12'
+                    src={getImageURL(currentUserInfo.user_image)}
+                    alt={currentUserInfo.user_image}
+                    height={500}
+                    width={500}
+                  />
                   <input type='file' id='file' className='hidden' />
                 </label>
 
                 <label
                   htmlFor='file'
-                  className='md:p-1 p-0.5 rounded-full bg-slate-600 md:border-4 border-white absolute -bottom-2 -right-2 cursor-pointer dark:border-slate-700'>
+                  className='md:p-1 p-0.5 rounded-full bg-slate-600 md:border-4 border-white absolute md:-bottom-2 -bottom-1 md:-right-2 -right-1 cursor-pointer dark:border-slate-700'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'

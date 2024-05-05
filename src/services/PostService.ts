@@ -8,7 +8,8 @@ import {
   ILikeComment,
   IPost,
   IResponse,
-  ISharePost
+  ISharePost,
+  TypeOfLink
 } from '@/types';
 import { BaseService } from './BaseService';
 
@@ -84,6 +85,10 @@ class PostService extends BaseService {
 
   getAllImages = (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
     return this.get(`/posts/images/${userID}`);
+  };
+
+  getLinkPreview = (url: string): Promise<AxiosResponse<IResponse<TypeOfLink>>> => {
+    return this.get(`/posts/link-preview?url=${url}`);
   };
 }
 
