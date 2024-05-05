@@ -25,6 +25,7 @@ import { useCurrentUserInfo } from '@/hooks/query';
 import ImagePost from '../ImagePost';
 import PostSkeleton from './PostSkeleton';
 import LinkPreview from '../LinkPreview';
+import ShowUsersAndGroupsToSendPost from './ShowUsersAndGroupsToSendPost';
 
 export interface IPostProps {
   post: IPost;
@@ -143,6 +144,10 @@ export default function Post({ post, feature }: IPostProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [openSendMessage, setOpenSendMessage] = useState(false);
+  const handleOpenSendMessage = () => setOpenSendMessage(true);
+  const handleCloseSendMessage = () => setOpenSendMessage(false);
 
   return (
     <>
@@ -274,11 +279,19 @@ export default function Post({ post, feature }: IPostProps) {
                 </div>
               </div>
               <div className='right flex-start gap-5'>
-                <FiSend
-                  className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
-                  data-uk-tooltip={`title: ${t('Send in chat')}; pos: top; offset:6`}
-                />
-
+                <>
+                  <FiSend
+                    className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
+                    data-uk-tooltip={`title: ${t('Send in chat')}; pos: top; offset:6`}
+                    onClick={handleOpenSendMessage}
+                  />
+                  <Modal open={openSendMessage} handleClose={handleCloseSendMessage}>
+                    <ShowUsersAndGroupsToSendPost
+                      post_id={post.type === 'Share' ? post.post_attributes.post?._id! : post._id}
+                      content={content}
+                    />
+                  </Modal>
+                </>
                 {post.type === 'Post' && (
                   <>
                     <GoShare
