@@ -27,7 +27,7 @@ export default function ImageMessage({ images }: IImageMessageProps) {
           onClick={() => setVisible(true)}>
           <Image
             src={getImageURL(image)}
-            className='max-h-52 max-w-64 max-w- w-full h-full object-cover img-responsive'
+            className='max-h-52 max-w-64 w-full h-full object-cover img-responsive'
             width={1500}
             height={1500}
             alt={image}
