@@ -13,6 +13,10 @@ class SeriesService extends BaseService {
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
     return this.post(`/series/create`, data);
   };
+
+  getAllSeries = (pageParam: number): Promise<AxiosResponse<IResponse<ISeries[]>>> => {
+    return this.get(`/series/all?page=${pageParam}`);
+  };
 }
 
 export const seriesService = new SeriesService();

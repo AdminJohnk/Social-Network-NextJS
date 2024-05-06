@@ -403,5 +403,11 @@
   "Please enter a title": "Vui lòng nhập tiêu đề",
   "Please enter a description": "Vui lòng nhập mô tả",
   "Please upload a cover image": "Vui lòng tải lên một hình ảnh bìa",
-  "Please select a level": "Vui lòng chọn một cấp độ"
+  "Please select a level": "Vui lòng chọn một cấp độ",
+  "Publish Series": "Xuất bản loạt bài viết",
+  "Introduction to the series": "Giới thiệu về loạt bài viết",
+  "Create Series": "Tạo loạt bài viết",
+  "Please introduce your series": "Vui lòng giới thiệu loạt bài viết của bạn",
+  "Series": "Loạt bài viết",
+  "Series created successfully!": "Loạt bài viết đã được tạo thành công!"
 }
