@@ -29,23 +29,23 @@ export interface IShowUsersAndGroupsToSendPostProps {
   content: string;
 }
 
-export default function ShowUsersAndGroupsToSendPost({ post_id, content }: IShowUsersAndGroupsToSendPostProps) {
+export default function ShowUsersAndGroupsToSendPost({
+  post_id,
+  content
+}: IShowUsersAndGroupsToSendPostProps) {
   const t = useTranslations();
 
   const { post, isLoadingPost } = usePostData(post_id);
 
   const { currentUserInfo } = useCurrentUserInfo();
   const members = useMemo(() => {
-    return currentUserInfo.members ?? []
+    return currentUserInfo.members ?? [];
   }, [currentUserInfo.members]);
-
 
   const [checkList, setCheckList] = useState<Record<string, boolean>>({});
   const [checkedUsers, setCheckedUsers] = useState<IUserInfo[]>([]);
 
   const { conversations, isLoadingConversations } = useConversationsData();
-
-
 
   const groups = useMemo(() => {
     return conversations.filter((conversation) => conversation.type === 'group');
@@ -226,111 +226,112 @@ export default function ShowUsersAndGroupsToSendPost({ post_id, content }: IShow
               <div className='flex-center p-1'>
                 <CircularProgress size={20} className='!text-text-1' />
               </div>
-            ) : conversations.length > 0 && (
-              <>
-                <div className='font-bold text-lg text-left'>{t('Recent')}</div>
-                <div className='flex flex-col gap-5'>
-                  {conversations.slice(0, 5).map((conversation) => {
-                    const isGroup = conversation.type === 'group';
-                    const otherUser = conversation.members.find((member) => member._id !== currentUserInfo._id);
+            ) : (
+              conversations.length > 0 && (
+                <div className='space-y-4'>
+                  <div className='font-bold text-lg text-left'>{t('Recent')}</div>
+                  <div className='flex flex-col gap-5'>
+                    {conversations.slice(0, 5).map((conversation) => {
+                      const isGroup = conversation.type === 'group';
+                      const otherUser = conversation.members.find(
+                        (member) => member._id !== currentUserInfo._id
+                      );
 
-                    return (
-                      <div
-                        className='conversation flex items-center justify-between'
-                        key={conversation._id}
-                      >
-                        <div className='info flex items-center'>
-                          <div className='avatar relative'>
-                            {!isGroup ?
-                              (
+                      return (
+                        <div
+                          className='conversation flex items-center justify-between'
+                          key={conversation._id}>
+                          <div className='info flex items-center'>
+                            <div className='avatar relative'>
+                              {!isGroup ? (
                                 <AvatarMessage key={otherUser!._id} user={otherUser!} />
-                              ) :
-                              (
+                              ) : (
                                 <AvatarGroup
                                   key={conversation._id}
                                   users={conversation.members}
-                                  image={conversation.image} />
+                                  image={conversation.image}
+                                />
                               )}
+                            </div>
+                            <div className='name text-center ml-2 font-bold'>
+                              {conversation.name || otherUser!.name}
+                            </div>
                           </div>
-                          <div className='name text-center ml-2 font-bold'>{conversation.name || otherUser!.name}</div>
+                          <Button
+                            className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                            onClick={() => {
+                              handleSubmit(messageContent, conversation._id);
+                            }}>
+                            {t('Send')}
+                          </Button>
                         </div>
-                        <Button className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                      );
+                    })}
+                  </div>
+                </div>
+              )
+            )}
+
+            {isLoadingSearch ? (
+              <div className='flex-center p-1'>
+                <CircularProgress size={20} className='!text-text-1' />
+              </div>
+            ) : (
+              groups.length > 0 && (
+                <div className='space-y-4'>
+                  <div className='font-bold text-lg text-left mt-5'>{t('Groups')}</div>
+                  <div className='flex flex-col gap-5'>
+                    {groups.map((group) => (
+                      <div className='group flex items-center justify-between' key={group._id}>
+                        <div className='info flex items-center'>
+                          <div className='avatar relative'>
+                            <AvatarGroup key={group._id} users={group.members} image={group.image} />
+                          </div>
+                          <div className='name text-center ml-2 font-bold'>{group.name}</div>
+                        </div>
+                        <Button
+                          className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
                           onClick={() => {
-                            handleSubmit(messageContent, conversation._id);
+                            handleSubmit(messageContent, group._id);
                           }}>
                           {t('Send')}
                         </Button>
                       </div>
-                    )
-                  })}
+                    ))}
+                  </div>
                 </div>
-              </>
+              )
             )}
 
             {isLoadingSearch ? (
               <div className='flex-center p-1'>
                 <CircularProgress size={20} className='!text-text-1' />
               </div>
-            ) : groups.length > 0 && (
-              <>
-                <div className='font-bold text-lg text-left mt-5'>{t('Groups')}</div>
-                <div className='flex flex-col gap-5'>
-                  {groups.map((group) => (
-                    <div
-                      className='group flex items-center justify-between'
-                      key={group._id}
-                    >
-                      <div className='info flex items-center'>
-                        <div className='avatar relative'>
-                          <AvatarGroup
-                            key={group._id}
-                            users={group.members}
-                            image={group.image}
-                          />
+            ) : (
+              members.length > 0 && (
+                <div className='space-y-4'>
+                  <div className='font-bold text-lg text-left mt-5'>{t('Contacts')}</div>
+                  <div className='flex flex-col gap-5'>
+                    {members.map((user) => (
+                      <div className='user flex items-center justify-between' key={user._id}>
+                        <div className='info flex items-center'>
+                          <div className='avatar relative'>
+                            <AvatarMessage key={user._id} user={user} />
+                          </div>
+                          <div className='name text-center ml-2 font-bold'>{user.name}</div>
                         </div>
-                        <div className='name text-center ml-2 font-bold'>{group.name}</div>
+                        <Button
+                          className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                          onClick={() => {
+                            handleSubmit(messageContent, user._id);
+                          }}>
+                          {t('Send')}
+                        </Button>
                       </div>
-                      <Button className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                        onClick={() => {
-                          handleSubmit(messageContent, group._id);
-                        }}>
-                        {t('Send')}
-                      </Button>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </>
-            )}
-
-            {isLoadingSearch ? (
-              <div className='flex-center p-1'>
-                <CircularProgress size={20} className='!text-text-1' />
-              </div>
-            ) : members.length > 0 && (
-              <>
-                <div className='font-bold text-lg text-left mt-5'>{t('Contacts')}</div>
-                <div className='flex flex-col gap-5'>
-                  {members.map((user) => (
-                    <div
-                      className='user flex items-center justify-between'
-                      key={user._id}
-                    >
-                      <div className='info flex items-center'>
-                        <div className='avatar relative'>
-                          <AvatarMessage key={user._id} user={user} />
-                        </div>
-                        <div className='name text-center ml-2 font-bold'>{user.name}</div>
-                      </div>
-                      <Button className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                        onClick={() => {
-                          handleSubmit(messageContent, user._id);
-                        }}>
-                        {t('Send')}
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </>
+              )
             )}
           </div>
         </div>

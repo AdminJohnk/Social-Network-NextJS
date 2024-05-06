@@ -26,7 +26,7 @@ export default function CommentList({ postID, comment_number }: ICommentListProp
     <div>
       {comment && comment.post === postID && (
         <div className='flex-start opacity-70 mb-3'>
-          <Avatar src={getImageURL(currentUserInfo.user_image)} sx={{ width: 24, height: 24 }} />
+          <Avatar src={getImageURL(currentUserInfo.user_image)} sx={{ width: 30, height: 30 }} />
           <div className='flex flex-col ms-3'>
             <div className='flex-start gap-3'>
               <span className='base-bold'>{currentUserInfo.name}</span>
