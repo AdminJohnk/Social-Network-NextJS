@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useMemo } from 'react';
 import { Anchorme, LinkComponentProps } from 'react-anchorme';
-import { Link } from '@/navigation';
+import { Link, useRouter } from '@/navigation';
 import Image from 'next/image';
 import { FaCrown, FaShieldHalved } from 'react-icons/fa6';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
@@ -8,9 +8,11 @@ import { isThisWeek, isThisYear, isToday } from 'date-fns';
 
 import { cn, getImageURL } from '@/lib/utils';
 import { IMessage, TypeofConversation } from '@/types';
-import { useCurrentUserInfo } from '@/hooks/query';
+import { useCurrentUserInfo, usePostData } from '@/hooks/query';
 import { audioCall, videoChat } from '@/lib/utils/call';
 import ImageMessage from './ImageMessage';
+import { Avatar, CircularProgress } from '@mui/material';
+import ShowContent from '@/components/shared/ShowContent/ShowContent';
 
 export interface IReCallProps {
   open: boolean;
@@ -48,6 +50,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     const t = useTranslations();
     useNow({ updateInterval: 1000 * 30 });
     const format = useFormatter();
+    const router = useRouter();
 
     const { currentUserInfo } = useCurrentUserInfo();
 
@@ -215,7 +218,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
         [0x1f1e6, 0x1f1ff] // Enclosed Characters
       ];
 
-      for (let i = 0; i < content.length; ) {
+      for (let i = 0; i < content.length;) {
         const char = content.codePointAt(i)!;
 
         let isEmoji = false;
@@ -283,9 +286,8 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   roundedCornerStyle,
                   checkContentType(content) === 'emoji' ? 'text-4xl' : 'px-4 py-2 bg-foreground-2'
                 )}
-                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
-                  isOwn ? 'left' : 'right'
-                }; delay: 200;offset:6`}>
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                  }; delay: 200;offset:6`}>
                 <Anchorme
                   linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
                   truncate={30}
@@ -312,9 +314,8 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   ? 'text-4xl'
                   : 'px-4 py-2 bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow'
               )}
-              data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
-                isOwn ? 'left' : 'right'
-              }; delay: 200;offset:6`}>
+              data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                }; delay: 200;offset:6`}>
               <Anchorme
                 linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
                 truncate={30}
@@ -328,6 +329,188 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
       );
     };
 
+    const receivePost = (content: string) => {
+      const { post, isLoadingPost } = message.type === 'post' ? usePostData(message.post_id || '') : { post: null, isLoadingPost: true };
+      return (
+        <div
+          className={cn('flex gap-3 items-end', type === 'group' && !isOwn && !isPrevMesGroup ? '' : '')}>
+          {(!isNextMesGroup && isPrevMesGroup) || (!isNextMesGroup && !isPrevMesGroup) ? (
+            <Link
+              href={`/profile/${message.sender._id}`}
+              data-uk-tooltip={`title: ${message.sender.name}; pos: left; offset:6`}>
+              <Image
+                width={500}
+                height={500}
+                src={getImageURL(message.sender.user_image, 'avatar_mini')!}
+                alt=''
+                className='w-9 h-9 rounded-full shadow'
+              />
+            </Link>
+          ) : (
+            <div className='w-9 h-9 rounded-full' />
+          )}
+          <div className={cn('relative', type === 'group' && !isOwn && !isPrevMesGroup && 'mt-7')}>
+            {type === 'group' && !isOwn && !isPrevMesGroup && (
+              <div className='text-sm ml-2 mt-2 absolute -top-7 left-0'>
+                <Link href={`/profile/${message.sender._id}`} className='flex flex-row gap-1'>
+                  {handleFirstName(message.sender.name)}
+                  {isAdmin &&
+                    (isCreator ? (
+                      <FaCrown
+                        className='ml-1 text-base'
+                        data-uk-tooltip={`title: ${t('Group creator')}; pos: top-left; delay: 200;offset:6`}
+                      />
+                    ) : (
+                      <FaShieldHalved
+                        className='ml-1'
+                        data-uk-tooltip={`title: ${t('Administrator')}; pos: top-left; delay: 200;offset:6`}
+                      />
+                    ))}
+                </Link>
+              </div>
+            )}
+            <div
+              className={cn(
+                'max-w-2xl max-md:max-w-64 bg-foreground-2 whitespace-pre-wrap break-words',
+                roundedCornerStyle
+              )}
+              data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                }; delay: 200;offset:6`}>
+              <div className={cn(content && 'px-4 py-2')}>
+                <Anchorme
+                  linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
+                  truncate={30}
+                  target='_blank'
+                  rel='noreferrer noopener'>
+                  {content}
+                </Anchorme>
+              </div>
+              {isLoadingPost ? (
+                <div className={cn('bg-foreground-2 px-4 py-2', roundedCornerStyle)}>
+                  <div className='flex-start gap-3'>
+                    <CircularProgress size={20} className='!text-text-1' />
+                  </div>
+                </div>
+              ) : (
+                <div className={cn(
+                  'bg-foreground-2 px-4 py-2 cursor-pointer',
+                  roundedCornerStyle,
+                  content && 'rounded-t-none')}
+                  onClick={() => {
+                    router.push(`/posts/${post!._id}`);
+                  }}>
+                  <div className='flex-start py-2'>
+                    <Avatar src={getImageURL(post!.post_attributes.user.user_image)} />
+                    <div className='ms-3'>
+                      {post!.post_attributes.user.name}
+                    </div>
+                  </div>
+                  <div className='flex flex-col items-start'>
+                    {post!.post_attributes.images.length > 0 ? (
+                      <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                        <Image
+                          width={500}
+                          height={500}
+                          src={getImageURL(post!.post_attributes.images[0])}
+                          alt={post!.post_attributes.images[0]}
+                          className='w-full h-full object-cover'
+                        />
+                      </div>
+                    ) : (
+                      <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                        <Image
+                          width={500}
+                          height={500}
+                          src={getImageURL(post!.post_attributes.user.user_image)}
+                          alt={post!.post_attributes.images[0]}
+                          className='w-full h-full object-cover'
+                        />
+                      </div>
+                    )}
+                    <div className='w-full'>
+                      <ShowContent content={post!.post_attributes.content.length > 25 ? post!.post_attributes.content.slice(0, 25) + '...' : post!.post_attributes.content} />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )
+    };
+
+    const sendPost = (content: string) => {
+      const { post, isLoadingPost } = message.type === 'post' ? usePostData(message.post_id || '') : { post: null, isLoadingPost: true };
+      return (
+        <div className='flex gap-2 flex-row-reverse items-end'>
+          <div
+            className={cn(
+              'max-w-2xl max-md:max-w-64 whitespace-pre-wrap break-words bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
+              roundedCornerStyle
+            )}
+            data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+              }; delay: 200;offset:6`}>
+            <div className={cn(content && 'px-4 py-2')}>
+              <Anchorme
+                linkComponent={(props: LinkComponentProps) => <a className='underline' {...props} />}
+                truncate={30}
+                target='_blank'
+                rel='noreferrer noopener'>
+                {content}
+              </Anchorme>
+            </div>
+            {isLoadingPost ? (
+              <div className={cn('bg-foreground-2 px-4 py-2', roundedCornerStyle)}>
+                <div className='flex-start gap-3'>
+                  <CircularProgress size={20} className='!text-text-1' />
+                </div>
+              </div>
+            ) : (
+              <div className={cn(
+                'bg-foreground-2 px-4 py-2 cursor-pointer',
+                roundedCornerStyle,
+                content && 'rounded-t-none')}
+                onClick={() => {
+                  router.push(`/posts/${post!._id}`);
+                }}>
+                <div className='flex-start py-2'>
+                  <Avatar src={getImageURL(post!.post_attributes.user.user_image)} />
+                  <div className='ms-3'>
+                    {post!.post_attributes.user.name}
+                  </div>
+                </div>
+                <div className='flex flex-col items-start'>
+                  {post!.post_attributes.images.length > 0 ? (
+                    <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                      <Image
+                        width={500}
+                        height={500}
+                        src={getImageURL(post!.post_attributes.images[0])}
+                        alt={post!.post_attributes.images[0]}
+                        className='w-full h-full object-cover'
+                      />
+                    </div>
+                  ) : (
+                    <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                      <Image
+                        width={500}
+                        height={500}
+                        src={getImageURL(post!.post_attributes.user.user_image)}
+                        alt={post!.post_attributes.images[0]}
+                        className='w-full h-full object-cover'
+                      />
+                    </div>
+                  )}
+                  <div className='w-full'>
+                    <ShowContent content={post!.post_attributes.content.length > 25 ? post!.post_attributes.content.slice(0, 25) + '...' : post!.post_attributes.content} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
     const receivedMedia = (content: string[]) => {
       return (
         <>
@@ -359,9 +542,8 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
               )}
               <div
                 className={cn('max-w-sm', roundedCornerStyle)}
-                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
-                  isOwn ? 'left' : 'right'
-                }; delay: 200;offset:6`}>
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                  }; delay: 200;offset:6`}>
                 {/* {content.length > 1 ? (
                   <ImageList
                     sx={{ width: content.length == 2 ? 326 : 490, height: 'auto' }}
@@ -464,9 +646,8 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   'flex items-center cursor-pointer hover:scale-[103%] px-4 py-2 max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow',
                   roundedCornerStyle
                 )}
-                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
-                  isOwn ? 'left' : 'right'
-                }; delay: 200;offset:6`}
+                data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                  }; delay: 200;offset:6`}
                 onClick={() => {
                   if (type === 'group') {
                     if (message.type === 'voice') {
@@ -523,9 +704,8 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                     'flex items-center cursor-pointer hover:scale-[103%] max-w-sm bg-foreground-2 px-4 py-2 !my-[1px]',
                     roundedCornerStyle
                   )}
-                  data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${
-                    isOwn ? 'left' : 'right'
-                  }; delay: 200;offset:6`}
+                  data-uk-tooltip={`title: ${handleDateTime(message.createdAt)}; delay: 500; pos: ${isOwn ? 'left' : 'right'
+                    }; delay: 200;offset:6`}
                   onClick={() => {
                     if (type === 'group') {
                       if (message.type === 'voice') {
@@ -602,6 +782,12 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
           return receivedMedia(message.images!);
         } else {
           return sentMedia(message.images!);
+        }
+      } else if (message.type === 'post') {
+        if (!isOwn) {
+          return receivePost(message.content);
+        } else {
+          return sendPost(message.content);
         }
       } else if (message.type === 'voice' || message.type === 'video') {
         return messageCall();
