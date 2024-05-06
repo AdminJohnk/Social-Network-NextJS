@@ -17,6 +17,7 @@ import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import ShowContent from '../ShowContent/ShowContent';
+import AvatarGroup from '@/components/pages/Chat/Avatar/AvatarGroup';
 
 export interface IShowUsersAndGroupsToSendPostProps {
   post_id: string;
@@ -112,7 +113,7 @@ export default function ShowUsersAndGroupsToSendPost({ post_id, content }: IShow
     );
   }, []);
   return (
-    <div className='w-[740px] max-h-[600px] overflow-y-scroll bg-foreground-1 custom-scrollbar-fg p-7 animate-fade-up rounded-lg'>
+    <div className='w-[740px] overflow-y-scroll bg-foreground-1 custom-scrollbar-fg p-7 animate-fade-up rounded-lg'>
       <div>
         <div className='flex flex-col w-full gap-5'>
           <div className='font-bold text-lg text-center'>{t('Share')}</div>
@@ -193,34 +194,105 @@ export default function ShowUsersAndGroupsToSendPost({ post_id, content }: IShow
               }}
             />
           </div>
-          <div className='list-users flex flex-col w-full max-h-80 overflow-auto gap-5 custom-scrollbar-fg'>
+          <div className='list-users flex flex-col w-full max-h-80 overflow-auto custom-scrollbar-fg'>
             {isLoadingSearch ? (
               <div className='flex-center p-1'>
                 <CircularProgress size={20} className='!text-text-1' />
               </div>
-            ) : members.length == 0 ? (
-              <div className='w-full h-full flex items-center justify-center'>
-                <div className='font-bold text-sm py-2'>{t('Not found any friends')}</div>
-              </div>
-            ) : (
-              members.map((user) => (
-                <div
-                  className='user flex items-center justify-between cursor-pointer'
-                  key={user._id}
-                  onClick={() => HandleOnClick(user._id)}
-                >
-                  <div className='info flex items-center'>
-                    <div className='avatar relative'>
-                      <AvatarMessage key={user._id} user={user} />
+            ) : conversations.length > 0 && (
+              <>
+                <div className='font-bold text-lg text-left'>{t('Recent')}</div>
+                <div className='flex flex-col gap-5'>
+                  {conversations.slice(0, 5).map((conversation) => (
+                    <div
+                      className='conversation flex items-center justify-between'
+                      key={conversation._id}
+                    >
+                      <div className='info flex items-center'>
+                        <div className='avatar relative'>
+                          {conversation.type !== 'group' ?
+                            (
+                              <Avatar src={getImageURL(conversation.cover_image)} />
+                            ) :
+                            (
+                              <AvatarGroup
+                                key={conversation._id}
+                                users={conversation.members}
+                                image={conversation.image} />
+                            )}
+                        </div>
+                        <div className='name text-center ml-2 font-bold'>{conversation.name}</div>
+                      </div>
+                      <Button className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                        onClick={() => { }}>
+                        {t('Send')}
+                      </Button>
                     </div>
-                    <div className='name text-center ml-2 font-bold'>{user.name}</div>
-                  </div>
-                  <Button className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                    onClick={() => { }}>
-                    {t('Send')}
-                  </Button>
+                  ))}
                 </div>
-              ))
+              </>
+            )}
+
+            {isLoadingSearch ? (
+              <div className='flex-center p-1'>
+                <CircularProgress size={20} className='!text-text-1' />
+              </div>
+            ) : groups.length > 0 && (
+              <>
+                <div className='font-bold text-lg text-left mt-3'>{t('Groups')}</div>
+                <div className='flex flex-col gap-5'>
+                  {groups.map((group) => (
+                    <div
+                      className='group flex items-center justify-between'
+                      key={group._id}
+                    >
+                      <div className='info flex items-center'>
+                        <div className='avatar relative'>
+                          <AvatarGroup
+                            key={group._id}
+                            users={group.members}
+                            image={group.image}
+                          />
+                        </div>
+                        <div className='name text-center ml-2 font-bold'>{group.name}</div>
+                      </div>
+                      <Button className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                        onClick={() => { }}>
+                        {t('Send')}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {isLoadingSearch ? (
+              <div className='flex-center p-1'>
+                <CircularProgress size={20} className='!text-text-1' />
+              </div>
+            ) : members.length > 0 && (
+              <>
+                <div className='font-bold text-lg text-left mt-3'>{t('Contacts')}</div>
+                <div className='flex flex-col gap-5'>
+                  {members.map((user) => (
+                    <div
+                      className='user flex items-center justify-between'
+                      key={user._id}
+                    >
+                      <div className='info flex items-center'>
+                        <div className='avatar relative'>
+                          <AvatarMessage key={user._id} user={user} />
+                        </div>
+                        <div className='name text-center ml-2 font-bold'>{user.name}</div>
+                      </div>
+                      <Button className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                        onClick={() => { }}>
+                        {t('Send')}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </div>
