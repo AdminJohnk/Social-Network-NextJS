@@ -317,7 +317,8 @@ type TypeofMessage =
   | 'audio'
   | 'file'
   | 'voice'
-  | 'video';
+  | 'video'
+  | 'post';
 type TypeofAction =
   | 'promote_admin'
   | 'revoke_admin'
