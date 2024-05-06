@@ -3,9 +3,8 @@
 import { useTransition } from 'react';
 import { IoLanguage, IoLanguageOutline } from 'react-icons/io5';
 import { useTranslations, useLocale } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
 
-import { usePathname, useRouter } from '@/navigation';
+import { useRouter } from '@/navigation';
 import { cn } from '@/lib/utils';
 
 interface ILanguageProps {
@@ -26,17 +25,14 @@ export default function Language({
   tooltip = true
 }: ILanguageProps) {
   const router = useRouter();
-  const pathname = usePathname();
   const t = useTranslations();
-  const searchParams = useSearchParams();
   const locale = useLocale();
   const [isPending, startTransition] = useTransition();
 
-  const params = new URLSearchParams(searchParams.toString()).toString();
-
   const onSelectChange = (nextLocale: string) => {
     startTransition(() => {
-      router.replace(`${pathname}?${params || ''}`, { locale: nextLocale });
+      document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
+      router.refresh();
     });
   };
 
@@ -45,7 +41,9 @@ export default function Language({
       <button
         type='button'
         className={cn('sm:p-2 p-1 rounded-full relative sm:bg-foreground-1', className)}
-        data-uk-tooltip={tooltip ? `title: ${t('Change language')}; pos: bottom; offset:6` : undefined}>
+        data-uk-tooltip={
+          tooltip ? `title: ${t('Change language')}; pos: bottom; offset:6; delay: 300` : undefined
+        }>
         <IoLanguage className='w-5 h-5 max-sm:hidden' />
         <IoLanguageOutline className='sm:hidden text-2xl' />
         {withText && t('Change language')}

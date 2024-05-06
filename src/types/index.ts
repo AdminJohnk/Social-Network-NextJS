@@ -163,6 +163,7 @@ export interface ISharePost {
   visibility?: Visibility;
   owner_post: string;
   content_share?: string;
+  shared_post?: string;
 }
 
 type TypeofPost = 'Post' | 'Share';
@@ -207,7 +208,7 @@ export interface ILikePost {
   owner_post: IUserInfo;
 }
 
-type TypeofComment = 'parent' | 'child';
+export type TypeofComment = 'parent' | 'child';
 
 export interface ICreateComment {
   type: TypeofComment;

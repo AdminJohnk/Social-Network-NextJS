@@ -14,7 +14,7 @@ export default function ImagePost({ images }: IImagePostProps) {
     <div className={`mb-5 w-full image-post-${Math.min(images.length, 5)}`}>
       <PhotoProvider images={images || []} visible={visible} onClose={() => setVisible(false)} />
 
-      {images.toReversed().map((image, index) => (
+      {images.map((image, index) => (
         <div
           key={image}
           className={cn(

@@ -45,9 +45,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, preIcon, sufIcon, ...props }, ref) => {
     return (
       <button className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
-        {preIcon && <span className='mr-1.5 text-xl max-lg:!mr-0'>{preIcon}</span>}
+        {preIcon && <span className='mr-1.5 text-xl max-lg:!mr-1'>{preIcon}</span>}
         {props.children}
-        {sufIcon && <span className='ml-1.5 text-xl max-lg:!mr-0'>{sufIcon}</span>}
+        {sufIcon && <span className='ml-1.5 text-xl max-lg:!mr-1'>{sufIcon}</span>}
       </button>
     );
   }

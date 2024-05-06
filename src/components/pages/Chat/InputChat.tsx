@@ -51,7 +51,7 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
     (acceptedFiles: FileWithPath[]) => {
       if (acceptedFiles) {
         setFiles([...files, ...Array.from(acceptedFiles)]);
-        UIkit.drop('#message__wrap_show').hide();
+        UIkit.drop('#message__wrap_show').hide(false);
       }
     },
     [files]

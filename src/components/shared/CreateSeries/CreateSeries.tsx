@@ -212,7 +212,7 @@ export default function CreateSeries({ handleClose }: ICreateSeriesProps) {
       </div>
 
       <div className='p-5 flex justify-between items-center'>
-        <PostPrivacy setPrivacy={setPrivacy} />
+        <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />
         <div className='flex items-center gap-2'>
           <Button
             type='button'

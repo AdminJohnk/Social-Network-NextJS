@@ -21,7 +21,7 @@ export default function NotificationsHeader() {
       <button
         type='button'
         className='sm:p-2 p-1 rounded-full relative sm:bg-foreground-1'
-        data-uk-tooltip={`title: ${t('Notifications')}; pos: bottom; offset:6`}>
+        data-uk-tooltip={`title: ${t('Notifications')}; pos: bottom; offset:6; delay: 300`}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
