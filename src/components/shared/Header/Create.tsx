@@ -15,7 +15,7 @@ import {
 } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 import Modal from '../Modal';
-import CreateSeries from '../CreateSeries/CreateSeries';
+import CreateSeries from '../CreateEditSeries/CreateEditSeries';
 import { useState } from 'react';
 
 export default function CreateHeader() {

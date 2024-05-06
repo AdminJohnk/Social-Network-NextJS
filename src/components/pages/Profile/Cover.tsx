@@ -1,7 +1,11 @@
 'use client';
 
 import { TabTitle, Tabs } from '@/components/ui/tabs';
-import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
+import {
+  useCurrentUserInfo,
+  useOtherUserInfo,
+  useUserPostsData
+} from '@/hooks/query';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/navigation';
@@ -34,7 +38,9 @@ export default function Cover({ profileID }: ICoverProps) {
 
   const isMe = currentUserInfo._id === profileID;
 
-  const isFriend = currentUserInfo.friends?.some((friend) => friend._id === profileID);
+  const isFriend = currentUserInfo.friends?.some(
+    friend => friend._id === profileID
+  );
 
   useEffect(() => {
     UIkit.sticky('#profile-tabs')?.$emit('update');
@@ -74,7 +80,10 @@ export default function Cover({ profileID }: ICoverProps) {
                   <Image
                     width={500}
                     height={500}
-                    src={getImageURL(otherUserInfo?.user_image) || '/images/avatars/avatar-6.jpg'}
+                    src={
+                      getImageURL(otherUserInfo?.user_image) ||
+                      '/images/avatars/avatar-6.jpg'
+                    }
                     alt=''
                     className='lg:size-48 size-28 object-cover'
                     priority
@@ -83,27 +92,39 @@ export default function Cover({ profileID }: ICoverProps) {
                 {isMe && (
                   <button
                     type='button'
-                    className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
-                    <IoCamera className='text-2xl md hydrated' aria-label='camera' />
+                    className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'
+                  >
+                    <IoCamera
+                      className='text-2xl md hydrated'
+                      aria-label='camera'
+                    />
                   </button>
                 )}
               </div>
-              <h3 className='md:text-3xl text-base font-bold text-text-1'>{otherUserInfo?.name}</h3>
+              <h3 className='md:text-3xl text-base font-bold text-text-1'>
+                {otherUserInfo?.name}
+              </h3>
               <p
                 className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'
-                dangerouslySetInnerHTML={{ __html: otherUserInfo?.about }}></p>
+                dangerouslySetInnerHTML={{ __html: otherUserInfo?.about }}
+              ></p>
             </div>
           </div>
           <div
             id='profile-tabs'
             className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'
-            data-uk-sticky='start: 100; offset: 50; cls-active: bg-foreground-1 shadow rounded-b-2xl backdrop-blur-xl z-10; animation: uk-animation-slide-top; media: 1024'>
+            data-uk-sticky='start: 100; offset: 50; cls-active: bg-foreground-1 shadow rounded-b-2xl backdrop-blur-xl z-10; animation: uk-animation-slide-top; media: 1024'
+          >
             <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
               {isMe && (
                 <Button
                   variant='main'
-                  className='button bg-foreground-2 hover:bg-hover-2 text-text-1 py-2 px-3.5 max-md:flex-1'>
-                  <Link href={'/edit-profile'} className='flex items-center gap-2'>
+                  className='button bg-foreground-2 hover:bg-hover-2 text-text-1 py-2 px-3.5 max-md:flex-1'
+                >
+                  <Link
+                    href={'/edit-profile'}
+                    className='flex items-center gap-2'
+                  >
                     <FaPencilAlt className='text-lg' />
                     <span className='text-sm'> {t('Edit Profile')} </span>
                   </Link>
@@ -114,12 +135,14 @@ export default function Cover({ profileID }: ICoverProps) {
               <div>
                 <Button
                   variant='main'
-                  className='rounded-lg bg-foreground-2 hover:bg-hover-2 flex px-2.5 py-2'>
+                  className='rounded-lg bg-foreground-2 hover:bg-hover-2 flex px-2.5 py-2'
+                >
                   <IoEllipsisHorizontal className='text-xl' />
                 </Button>
                 <div
                   className='w-[240px] !bg-foreground-1 hidden'
-                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
+                >
                   {isMe ? (
                     <nav>
                       <Link href='' className='hover:!bg-hover-1'>
@@ -164,7 +187,10 @@ export default function Cover({ profileID }: ICoverProps) {
                         {t('Share profile')}
                       </Link>
                       <hr />
-                      <Link href='' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
+                      <Link
+                        href=''
+                        className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'
+                      >
                         <IoStopCircleOutline className='text-xl' /> {t('Block')}
                       </Link>
                     </nav>
@@ -174,25 +200,44 @@ export default function Cover({ profileID }: ICoverProps) {
             </div>
 
             <nav className='flex rounded-xl -mb-px font-medium text-[15px]'>
-              <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Timeline')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Friends')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Photos')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Repositories')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Groups')}</TabTitle>
+              <Tabs
+                id='tabs-profile'
+                navClassName='!pt-0 !rounded-sm'
+                disableChevron
+              >
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
+                  {t('Timeline')}
+                </TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
+                  {t('Friends')}
+                </TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
+                  {t('Series')}
+                </TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
+                  {t('Photos')}
+                </TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
+                  {t('Repositories')}
+                </TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
+                  {t('Groups')}
+                </TabTitle>
               </Tabs>
 
               {/* <!-- dropdown --> */}
               <div>
                 <Link
                   href=''
-                  className='font-semibold hover:bg-hover-1 hover:text-blue-400 hover:rounded-sm inline-flex items-center gap-2 p-3 leading-8 -ml-2 select-none'>
+                  className='font-semibold hover:bg-hover-1 hover:text-blue-400 hover:rounded-sm inline-flex items-center gap-2 p-3 leading-8 -ml-2 select-none'
+                >
                   {t('More')}
                   <IoChevronDown />
                 </Link>
                 <div
                   className='md:w-[240px] w-screen !bg-foreground-1 hidden'
-                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:-4'>
+                  data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:-4'
+                >
                   <nav className='text-[15px]'>
                     <Link href='' className='hover:!bg-hover-1'>
                       {t('Likes')}

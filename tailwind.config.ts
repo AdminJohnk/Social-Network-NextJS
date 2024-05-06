@@ -91,7 +91,8 @@ const config: Config = {
         }
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif']
+        inter: ['Inter', 'sans-serif'],
+        'open-sans': ['Open Sans', 'sans-serif']
       }
     }
   },

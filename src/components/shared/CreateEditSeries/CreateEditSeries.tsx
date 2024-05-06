@@ -13,19 +13,19 @@ import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
 import { cn } from '@/lib/utils';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import {
-  useCreateSeries,
-  useUploadImage,
-  useUploadImages
-} from '@/hooks/mutation';
-import { TypeOfLevel, Visibility } from '@/types';
+import { useCreateSeries, useUploadImage } from '@/hooks/mutation';
+import { ICreateSeries, TypeOfLevel, Visibility } from '@/types';
 import PostPrivacy from '../PostPrivacy';
 
-export interface ICreateSeriesProps {
+export interface ICreateEditSeriesProps {
   handleClose: () => void;
+  dataEdit?: ICreateSeries;
 }
 
-export default function CreateSeries({ handleClose }: ICreateSeriesProps) {
+export default function CreateEditSeries({
+  handleClose,
+  dataEdit
+}: ICreateEditSeriesProps) {
   const t = useTranslations();
 
   const { mutateCreateSeries } = useCreateSeries();
@@ -125,7 +125,7 @@ export default function CreateSeries({ handleClose }: ICreateSeriesProps) {
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[800px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
         <h2 className='text-sm font-medium text-text-1'>
-          {t('Create Series')}
+          {!dataEdit ? t('Create Series') : t('Update Series')}
         </h2>
       </div>
 
@@ -134,6 +134,7 @@ export default function CreateSeries({ handleClose }: ICreateSeriesProps) {
           <InputStyle
             maxLength={100}
             label='Title'
+            defaultValue={dataEdit?.title}
             onChange={e => {
               setTitle(e.currentTarget.value);
             }}
@@ -142,6 +143,7 @@ export default function CreateSeries({ handleClose }: ICreateSeriesProps) {
         <TextareaV2
           label='Description'
           maxLength={250}
+          defaultValue={dataEdit?.description}
           onChange={e => {
             setDescription(e.currentTarget.value);
           }}
@@ -201,12 +203,18 @@ export default function CreateSeries({ handleClose }: ICreateSeriesProps) {
           </ImageUploading>
         </div>
         <div className='level'>
-          <Select data={levelList} label={labelSelect} setSelect={setLevel} />
+          <Select
+            data={levelList}
+            label={labelSelect}
+            setSelect={setLevel}
+            defaultValue={dataEdit?.level}
+          />
         </div>
         <div className='editor space-y-5'>
           <Editor
             setEditor={setEditor}
             placeholder={t('Introduction to the series')}
+            content={dataEdit?.introduction || ''}
           />
         </div>
       </div>
