@@ -58,15 +58,15 @@ export default function CreateSeries({ handleClose }: ICreateSeriesProps) {
   };
 
   const handleSubmit = async () => {
-    console.log('title:: ', title);
-    console.log('description:: ', description);
-    console.log('level:: ', level);
+    // console.log('title:: ', title);
+    // console.log('description:: ', description);
+    // console.log('level:: ', level);
     // console.log('cover_image:: ', imagesUploaded.key);
-    console.log('introduction:: ', editor?.getHTML());
-    console.log('visibility:: ', privacy);
-    return;
+    // console.log('introduction:: ', editor?.getHTML());
+    // console.log('visibility:: ', privacy);
+    // return;
 
-    // setIsLoading(true);
+    setIsLoading(true);
 
     if (!title) {
       showErrorToast(t('Please enter a title'));
@@ -80,12 +80,8 @@ export default function CreateSeries({ handleClose }: ICreateSeriesProps) {
       showErrorToast(t('Please upload a cover image'));
       setIsLoading(false);
       return;
-    } else if (!level) {
-      showErrorToast(t('Please select a level'));
-      setIsLoading(false);
-      return;
     } else if (!editor?.getText().trim()) {
-      showErrorToast(t('Please enter some text!'));
+      showErrorToast(t('Please introduce your series'));
       setIsLoading(false);
       return;
     }
@@ -210,7 +206,7 @@ export default function CreateSeries({ handleClose }: ICreateSeriesProps) {
         <div className='editor space-y-5'>
           <Editor
             setEditor={setEditor}
-            placeholder={t('Introduction to the series...')}
+            placeholder={t('Introduction to the series')}
           />
         </div>
       </div>
