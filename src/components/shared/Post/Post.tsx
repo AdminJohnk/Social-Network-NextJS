@@ -39,8 +39,8 @@ export default function Post({ post, feature }: IPostProps) {
     post?.type === 'Post'
       ? post?.post_attributes.content
       : post?.post_attributes.post
-        ? post?.post_attributes.post.post_attributes.content
-        : '';
+      ? post?.post_attributes.post.post_attributes.content
+      : '';
 
   // const regex = /<a[^>]*>([^<]+)<\/a>/g;
   let match;
@@ -129,8 +129,8 @@ export default function Post({ post, feature }: IPostProps) {
     post?.type === 'Post'
       ? post?.post_attributes.images
       : post?.post_attributes.post
-        ? post?.post_attributes.post.post_attributes.images
-        : [];
+      ? post?.post_attributes.post.post_attributes.images
+      : [];
 
   const ownerPost: IUserInfo = post?.post_attributes?.owner_post as IUserInfo;
 
@@ -297,7 +297,7 @@ export default function Post({ post, feature }: IPostProps) {
                     />
                     <Modal open={openSendMessage} handleClose={handleCloseSendMessage}>
                       <ShowUsersAndGroupsToSendPost
-                      key={post._id}
+                        key={post._id}
                         post_id={post.type === 'Share' ? post.post_attributes.post?._id! : post._id}
                         content={content}
                       />

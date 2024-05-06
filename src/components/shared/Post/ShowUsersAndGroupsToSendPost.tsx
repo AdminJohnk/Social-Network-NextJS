@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useFormatter, useTranslations } from 'next-intl';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
 import { IoSearchOutline } from 'react-icons/io5';
@@ -14,20 +14,28 @@ import Image from 'next/image';
 import { useConversationsData, useCurrentUserInfo, useMessages, usePostData } from '@/hooks/query';
 import { Avatar, CircularProgress } from '@mui/material';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
-import { IMessage } from '@/types';
+import { IConversation, IMessage, IUserInfo } from '@/types';
 import { Button } from '@/components/ui/button';
 import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
 import ShowContent from '../ShowContent/ShowContent';
 import AvatarGroup from '@/components/pages/Chat/Avatar/AvatarGroup';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
-import { useSendMessage } from '@/hooks/mutation';
+import { useReceiveConversation, useSendMessage } from '@/hooks/mutation';
 import { useSocketStore } from '@/store/socket';
+import { messageService } from '@/services/MessageService';
+import { useDebounce } from '@/hooks/special';
 
 export interface IShowUsersAndGroupsToSendPostProps {
   post_id: string;
   content: string;
 }
+
+type Results = {
+  recentConversations: IConversation[];
+  groups: IConversation[];
+  members: IUserInfo[];
+};
 
 export default function ShowUsersAndGroupsToSendPost({
   post_id,
@@ -41,15 +49,69 @@ export default function ShowUsersAndGroupsToSendPost({
   const members = useMemo(() => {
     return currentUserInfo.members ?? [];
   }, [currentUserInfo.members]);
-  const { conversations, isLoadingConversations } = useConversationsData();
+  const { conversations } = useConversationsData();
 
-  const [recentConversations] = useState(conversations && conversations.length > 0 ? conversations.slice(0, 5) : []);
+  const recentConversations = useMemo(
+    () => (conversations && conversations.length > 0 ? conversations.slice(0, 5) : []),
+    []
+  );
 
   const groups = useMemo(() => {
     return conversations.filter((conversation) => conversation.type === 'group');
   }, []);
 
+  const [results, setResults] = useState<Results>({
+    recentConversations: recentConversations,
+    groups: groups,
+    members: members
+  });
+
+  const [search, setSearch] = useState('');
+  const searchDebounce = useDebounce(search, 500);
+
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
+
+  useEffect(() => {
+    if (!searchDebounce) {
+      setIsLoadingSearch(false);
+      setResults({
+        recentConversations: recentConversations,
+        groups: groups,
+        members: members
+      });
+      return;
+    }
+
+    setIsLoadingSearch(true);
+
+    setResults({
+      recentConversations: conversations.filter((conversation) => {
+        const otherUser = conversation.members.find((member) => member._id !== currentUserInfo._id);
+
+        return (conversation.name || otherUser!.name)
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .includes(searchDebounce.toLowerCase());
+      }),
+      groups: groups.filter((group) =>
+        group.name
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .includes(searchDebounce.toLowerCase())
+      ),
+      members: members.filter((member) =>
+        member.name
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .includes(searchDebounce.toLowerCase())
+      )
+    });
+
+    setIsLoadingSearch(false);
+  }, [searchDebounce]);
 
   const format = useFormatter();
   const handleDateTime = useCallback((date: string) => {
@@ -106,9 +168,52 @@ export default function ShowUsersAndGroupsToSendPost({
 
   const [id, setId] = useState(uuidv4().replace(/-/g, ''));
   const { mutateSendMessage } = useSendMessage();
+  const { mutateReceiveConversation } = useReceiveConversation();
+
+  const [sent, setSent] = useState([] as string[]);
   const [messageContent, setMessage] = useState('');
 
   const { chatSocket } = useSocketStore();
+
+  const handleSubmitContact = (content: string, user: string) => {
+    if (!user) return;
+
+    setMessage('');
+
+    messageService
+      .createConversation({
+        type: 'private',
+        members: [user]
+      })
+      .then((res) => {
+        chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
+        mutateReceiveConversation(res.data.metadata);
+
+        const ID = res.data.metadata._id;
+
+        setSent([...sent, user]);
+
+        const message = {
+          _id: id,
+          conversation_id: ID,
+          sender: {
+            _id: currentUserInfo._id,
+            user_image: currentUserInfo.user_image,
+            name: currentUserInfo.name
+          },
+          type: 'post',
+          isSending: true,
+          content: content || '',
+          post_id: post_id,
+          seen: [],
+          createdAt: new Date()
+        };
+
+        setId(uuidv4().replace(/-/g, ''));
+        mutateSendMessage(message as unknown as IMessage);
+        chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
+      });
+  };
 
   const handleSubmit = async (content: string, ID: string) => {
     if (!ID) return;
@@ -137,13 +242,17 @@ export default function ShowUsersAndGroupsToSendPost({
     chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
   };
 
-  const [sent, setSent] = useState([] as string[]);
-
-  const sending = (conversationID: string) => {
-    // const { messages, isLoadingMessages } = useMessages(conversationID);
-    // return !isLoadingMessages ? messages[messages.length - 1]?.isSending : true;
-    return false;
-  }
+  const sending = (conversationOrUserID: string) => {
+    const conversation = conversations.find((conversation) => conversation._id === conversationOrUserID);
+    if (!conversation) {
+      const foundConversations = conversations.filter((conversation) => conversation.type === 'private');
+      const foundConversation = foundConversations.find((conversation) =>
+        conversation.members.find((member) => member._id === conversationOrUserID)
+      );
+      return foundConversation?.lastMessage.isSending;
+    }
+    return conversation?.lastMessage.isSending;
+  };
 
   return (
     <div className='w-[740px] max-h-[780px] overflow-y-scroll bg-foreground-1 custom-scrollbar-fg p-7 animate-fade-up rounded-lg'>
@@ -221,8 +330,8 @@ export default function ShowUsersAndGroupsToSendPost({
               placeholder={t('Search')}
               className='w-full !pl-10 !py-2 rounded-lg bg-foreground-1'
               onChange={(e) => {
-                // setSearch(e.target.value);
-                // if (!isLoadingSearch) setIsLoadingSearch(true);
+                setSearch(e.target.value);
+                if (!isLoadingSearch) setIsLoadingSearch(true);
               }}
             />
           </div>
@@ -232,124 +341,141 @@ export default function ShowUsersAndGroupsToSendPost({
                 <CircularProgress size={20} className='!text-text-1' />
               </div>
             ) : (
-              recentConversations.length > 0 && (
-                <div className='space-y-4'>
-                  <div className='font-bold text-lg text-left'>{t('Recent')}</div>
-                  <div className='flex flex-col gap-5'>
-                    {recentConversations.map((conversation) => {
-                      const isGroup = conversation.type === 'group';
-                      const otherUser = conversation.members.find(
-                        (member) => member._id !== currentUserInfo._id
-                      );
+              <>
+                {results.recentConversations.length > 0 && (
+                  <div className='space-y-4'>
+                    <div className='font-bold text-lg text-left'>{t('Recent')}</div>
+                    <div className='flex flex-col gap-5'>
+                      {results.recentConversations.map((conversation) => {
+                        const isGroup = conversation.type === 'group';
+                        const otherUser = conversation.members.find(
+                          (member) => member._id !== currentUserInfo._id
+                        );
 
-                      return (
-                        <div
-                          className='conversation flex items-center justify-between'
-                          key={conversation._id + '_recent'}>
-                          <div className='info flex items-center'>
-                            <div className='avatar relative'>
-                              {!isGroup ? (
-                                <AvatarMessage key={otherUser!._id} user={otherUser!} />
-                              ) : (
-                                <AvatarGroup
-                                  key={conversation._id}
-                                  users={conversation.members}
-                                  image={conversation.image}
-                                />
-                              )}
+                        return (
+                          <div
+                            className='conversation flex items-center justify-between'
+                            key={conversation._id + '_recent'}>
+                            <div className='info flex items-center'>
+                              <div className='avatar relative'>
+                                {!isGroup ? (
+                                  <AvatarMessage key={otherUser!._id} user={otherUser!} />
+                                ) : (
+                                  <AvatarGroup
+                                    key={conversation._id}
+                                    users={conversation.members}
+                                    image={conversation.image}
+                                  />
+                                )}
+                              </div>
+                              <div className='name text-center ml-2 font-bold'>
+                                {conversation.name || otherUser!.name}
+                              </div>
                             </div>
-                            <div className='name text-center ml-2 font-bold'>
-                              {conversation.name || otherUser!.name}
-                            </div>
-                          </div>
-                          <Button
                             {!sent.includes(conversation._id) ? (
-                          className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                              onClick={() => {
-                                handleSubmit(messageContent, conversation._id);
-                              }}>
-                              {t('Send')}
-                            </Button>
-                          ) : (
-                          sending(conversation._id)
-                            ? (
-                              <Button disabled className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1' >
+                              <Button
+                                className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                                onClick={() => {
+                                  handleSubmit(messageContent, conversation._id);
+                                }}>
+                                {t('Send')}
+                              </Button>
+                            ) : sending(conversation._id) ? (
+                              <Button
+                                disabled
+                                className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
                                 <CircularProgress size={20} className='!text-text-1' />
                               </Button>
                             ) : (
-                              <Button disabled className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1' >
+                              <Button
+                                disabled
+                                className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
                                 {t('Sent')}
                               </Button>
-                            )
-                        )}
-                      </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )
-            )}
-
-            {isLoadingSearch ? (
-              <div className='flex-center p-1'>
-                <CircularProgress size={20} className='!text-text-1' />
-              </div>
-            ) : (
-              groups.length > 0 && (
-                <div className='space-y-4'>
-                  <div className='font-bold text-lg text-left mt-5'>{t('Groups')}</div>
-                  <div className='flex flex-col gap-5'>
-                    {groups.map((group) => (
-                      <div className='group flex items-center justify-between' key={group._id + '_group'}>
-                        <div className='info flex items-center'>
-                          <div className='avatar relative'>
-                            <AvatarGroup key={group._id} users={group.members} image={group.image} />
+                            )}
                           </div>
-                          <div className='name text-center ml-2 font-bold'>{group.name}</div>
-                        </div>
-                        <Button
-                          className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                          onClick={() => {
-                            handleSubmit(messageContent, group._id);
-                          }}>
-                          {t('Send')}
-                        </Button>
-                      </div>
-                    ))}
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              )
-            )}
-
-            {isLoadingSearch ? (
-              <div className='flex-center p-1'>
-                <CircularProgress size={20} className='!text-text-1' />
-              </div>
-            ) : (
-              members.length > 0 && (
-                <div className='space-y-4'>
-                  <div className='font-bold text-lg text-left mt-5'>{t('Contacts')}</div>
-                  <div className='flex flex-col gap-5'>
-                    {members.map((user) => (
-                      <div className='user flex items-center justify-between' key={user._id + '_user'}>
-                        <div className='info flex items-center'>
-                          <div className='avatar relative'>
-                            <AvatarMessage key={user._id} user={user} />
+                )}
+                {results.groups.length > 0 && (
+                  <div className='space-y-4'>
+                    <div className='font-bold text-lg text-left mt-5'>{t('Groups')}</div>
+                    <div className='flex flex-col gap-5'>
+                      {results.groups.map((group) => (
+                        <div className='group flex items-center justify-between' key={group._id + '_group'}>
+                          <div className='info flex items-center'>
+                            <div className='avatar relative'>
+                              <AvatarGroup key={group._id} users={group.members} image={group.image} />
+                            </div>
+                            <div className='name text-center ml-2 font-bold'>{group.name}</div>
                           </div>
-                          <div className='name text-center ml-2 font-bold'>{user.name}</div>
+                          {!sent.includes(group._id) ? (
+                            <Button
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                              onClick={() => {
+                                handleSubmit(messageContent, group._id);
+                              }}>
+                              {t('Send')}
+                            </Button>
+                          ) : sending(group._id) ? (
+                            <Button
+                              disabled
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
+                              <CircularProgress size={20} className='!text-text-1' />
+                            </Button>
+                          ) : (
+                            <Button
+                              disabled
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
+                              {t('Sent')}
+                            </Button>
+                          )}
                         </div>
-                        <Button
-                          className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                          onClick={() => {
-                            handleSubmit(messageContent, user._id);
-                          }}>
-                          {t('Send')}
-                        </Button>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )
+                )}
+                {results.members.length > 0 && (
+                  <div className='space-y-4'>
+                    <div className='font-bold text-lg text-left mt-5'>{t('Contacts')}</div>
+                    <div className='flex flex-col gap-5'>
+                      {results.members.map((user) => (
+                        <div className='user flex items-center justify-between' key={user._id + '_user'}>
+                          <div className='info flex items-center'>
+                            <div className='avatar relative'>
+                              <AvatarMessage key={user._id} user={user} />
+                            </div>
+                            <div className='name text-center ml-2 font-bold'>{user.name}</div>
+                          </div>
+                          {!sent.includes(user._id) ? (
+                            <Button
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                              onClick={() => {
+                                handleSubmitContact(messageContent, user._id);
+                              }}>
+                              {t('Send')}
+                            </Button>
+                          ) : sending(user._id) ? (
+                            <Button
+                              disabled
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
+                              <CircularProgress size={20} className='!text-text-1' />
+                            </Button>
+                          ) : (
+                            <Button
+                              disabled
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
+                              {t('Sent')}
+                            </Button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
