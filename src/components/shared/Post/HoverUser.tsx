@@ -26,31 +26,40 @@ export default function HoverUser({ children, user }: IHoverUserProps) {
 
   const mutualFriends = useMemo(() => {
     if (!otherUserInfo?.friends) return [];
-    return otherUserInfo?.friends.filter(friend => { return currentUserInfo?.friends?.findIndex(f => f._id === friend._id) !== -1 });
-  }, [otherUserInfo?.friends, currentUserInfo?.friends])
+    return otherUserInfo?.friends.filter((friend) => {
+      return currentUserInfo?.friends?.findIndex((f) => f._id === friend._id) !== -1;
+    });
+  }, [otherUserInfo?.friends, currentUserInfo?.friends]);
 
   return (
     <HoverCard openDelay={100} closeDelay={10}>
-      <HoverCardTrigger>
-        {children}
-      </HoverCardTrigger>
-      <HoverCardContent className='border-border-1 bg-foreground-1 flex flex-col gap-3 !w-fit'>
+      <HoverCardTrigger>{children}</HoverCardTrigger>
+      <HoverCardContent className='border-border-1 bg-foreground-1 flex flex-col gap-3 !w-fit' side='top'>
         <div className='flex items-start gap-4'>
           <AvatarMessage size={50} user={user} />
           <div className='flex flex-col'>
-            <span className='font-bold cursor-pointer hover:underline' onClick={() => {
-              router.push(`/profile/${user._id}`);
-            }}>{user.name}</span>
+            <span
+              className='font-bold cursor-pointer hover:underline'
+              onClick={() => {
+                router.push(`/profile/${user._id}`);
+              }}>
+              {user.name}
+            </span>
             <span className='font-semibold text-text-2'>{user.email}</span>
             <div className='flex flex-col mt-2'>
               <div className='flex items-center gap-2'>
                 <FaUserFriends className='text-xl' />
-                <span className='text-text-1'>{t('Num mutual friends', { count: mutualFriends?.length || 0 })}</span>
+                <span className='text-text-1'>
+                  {t('Num mutual friends', { count: mutualFriends?.length || 0 })}
+                </span>
               </div>
 
               <div className='flex mt-0.5 w-full h-8'>
                 {mutualFriends?.slice(0, 5).map((friend, index) => (
-                  <Link key={friend._id} href={`/profile/${friend._id}`} className={cn(index !== 0 && '-ml-2')} >
+                  <Link
+                    key={friend._id}
+                    href={`/profile/${friend._id}`}
+                    className={cn(index !== 0 && '-ml-2')}>
                     <Image
                       width={200}
                       height={200}
@@ -68,9 +77,7 @@ export default function HoverUser({ children, user }: IHoverUserProps) {
           <FriendButton profileID={user._id} />
           <Button
             variant='main'
-            preIcon={
-              <IoChatboxEllipsesOutline className='text-xl' />
-            }
+            preIcon={<IoChatboxEllipsesOutline className='text-xl' />}
             onClick={() => {
               router.push(`/messages/${user._id}`);
             }}>

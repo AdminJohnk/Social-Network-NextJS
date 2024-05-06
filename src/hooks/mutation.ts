@@ -633,7 +633,7 @@ export const useReceiveMessage = (
 
               newData[index] = {
                 ...newData[index],
-                lastMessage: message
+                lastMessage:  {...message,isSending: false  }
               };
 
               newData.sort((a, b) => {
@@ -654,7 +654,7 @@ export const useReceiveMessage = (
 
             return {
               ...oldData,
-              lastMessage: message
+              lastMessage: {...message,isSending: false  }
             };
           }
         );

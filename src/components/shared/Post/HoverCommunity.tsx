@@ -23,10 +23,8 @@ export default function HoverCommunity({ children, user }: IHoverCommunityProps)
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(user._id);
   return (
     <HoverCard openDelay={100} closeDelay={10}>
-      <HoverCardTrigger>
-        {children}
-      </HoverCardTrigger>
-      <HoverCardContent className='border-border-1 bg-foreground-1 flex flex-col gap-3 !w-fit'>
+      <HoverCardTrigger>{children}</HoverCardTrigger>
+      <HoverCardContent className='border-border-1 bg-foreground-1 flex flex-col gap-3 !w-fit' side='top'>
         <div className='flex items-start gap-4'>
           <AvatarMessage size={50} user={user} />
           <div className='flex flex-col'>
@@ -41,7 +39,10 @@ export default function HoverCommunity({ children, user }: IHoverCommunityProps)
 
               <div className='flex mt-0.5 w-full h-8'>
                 {otherUserInfo?.friends.slice(0, 5).map((friend, index) => (
-                  <Link key={friend._id} href={`/profile/${friend._id}`} className={cn(index !== 0 && '-ml-2')} >
+                  <Link
+                    key={friend._id}
+                    href={`/profile/${friend._id}`}
+                    className={cn(index !== 0 && '-ml-2')}>
                     <Image
                       width={200}
                       height={200}
@@ -59,9 +60,7 @@ export default function HoverCommunity({ children, user }: IHoverCommunityProps)
           <FriendButton profileID={user._id} />
           <Button
             variant='main'
-            preIcon={
-              <IoChatboxEllipsesOutline className='text-xl' />
-            }
+            preIcon={<IoChatboxEllipsesOutline className='text-xl' />}
             onClick={() => {
               router.push(`/messages/${user._id}`);
             }}>
