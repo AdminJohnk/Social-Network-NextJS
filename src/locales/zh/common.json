@@ -399,5 +399,11 @@
   "Please enter a title": "请输入标题",
   "Please enter a description": "请输入描述",
   "Please upload a cover image": "请上传封面图片",
-  "Please select a level": "请选择一个级别"
+  "Please select a level": "请选择一个级别",
+  "Publish Series": "发布系列",
+  "Introduction to the series": "系列介绍",
+  "Create Series": "创建系列",
+  "Please introduce your series": "请介绍您的系列",
+  "Series": "系列",
+  "Series created successfully!": "系列创建成功!"
 }

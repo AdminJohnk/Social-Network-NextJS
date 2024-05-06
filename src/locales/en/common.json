@@ -67,7 +67,7 @@
   "Report": "Report",
   "Share profile": "Share profile",
   "No image found": "No image found",
-  "Something's missing": "Something's missing.",
+  "Something's missing": "Something's missing",
   "Sorry, we can't find that page You'll find lots to explore on the home page": "Sorry, we can't find that page. You'll find lots to explore on the home page.",
   "Back to Homepage": "Back to Homepage",
   "Not found any conversations": "Not found any conversations",
@@ -396,8 +396,14 @@
   "Hashtags": "Hashtags",
   "Bug": "Bug",
   "Create Community": "Create Community",
-  "Please enter a title": "Please enter a title", 
+  "Please enter a title": "Please enter a title",
   "Please enter a description": "Please enter a description",
   "Please upload a cover image": "Please upload a cover image",
-  "Please select a level": "Please select a level"
+  "Please select a level": "Please select a level",
+  "Publish Series": "Publish Series",
+  "Introduction to the series": "Introduction to the series",
+  "Create Series": "Create Series",
+  "Please introduce your series": "Please introduce your series",
+  "Series": "Series",
+  "Series created successfully!": "Series created successfully!"
 }

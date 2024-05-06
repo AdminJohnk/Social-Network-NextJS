@@ -14,6 +14,7 @@ import { messageService } from '@/services/MessageService';
 import { communityService } from '@/services/CommunityService';
 import { searchLogService } from '@/services/SearchLogService';
 import { ApplyDefaults } from '@/lib/utils';
+import { seriesService } from '@/services/SeriesService';
 
 // ---------------------------FETCH HOOKS---------------------------
 
@@ -929,5 +930,46 @@ export const useLinkPreview = (url: string) => {
     isErrorLinkPreview: isError,
     linkPreview: data!,
     isFetchingLinkPreview: isFetching
+  };
+};
+
+export const useGetAllSeries = (userID: string) => {
+  const {
+    data,
+    isPending,
+    isError,
+    isFetching,
+    refetch,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage
+  } = useInfiniteQuery({
+    queryKey: ['allSeries', userID],
+    queryFn: async ({ pageParam }) => {
+      const { data } = await seriesService.getAllSeries(pageParam);
+      return data.metadata;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, _, lastPageParam) => {
+      if (lastPage.length < 5) {
+        return undefined;
+      }
+      return lastPageParam + 1;
+    },
+    select: data => {
+      return data.pages.flat();
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllSeries: isPending,
+    isErrorAllSeries: isError,
+    allSeries: data!,
+    isFetchingAllSeries: isFetching,
+    refetchAllSeries: refetch,
+    hasNextSeries: hasNextPage,
+    fetchNextSeries: fetchNextPage,
+    isFetchingNextSeries: isFetchingNextPage
   };
 };
