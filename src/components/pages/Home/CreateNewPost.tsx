@@ -35,7 +35,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
 
   const handleUploadImages = async () => {
     const formData = new FormData();
-    images.forEach((image) => {
+    images.forEach(image => {
       formData.append('images', image);
     });
     return await mutateUploadImages(formData);
@@ -43,6 +43,8 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
 
   const handleSubmit = async () => {
     const content = editor?.getHTML() as string;
+    console.log(content);
+    return;
     setIsLoading(true);
 
     if (!editor?.getText().trim()) {
@@ -84,7 +86,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
 
       <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg'>
         <div className='mt-3 ps-4'>
-          <Editor setEditor={setEditor}/>
+          <Editor setEditor={setEditor} />
         </div>
 
         <div className='*:mb-3 text-sm py-2 px-4 font-medium'>
@@ -98,10 +100,16 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
         <div className='flex items-center gap-2'>
           <Button
             type='button'
-            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+            className={cn(
+              'button lg:px-6 text-white max-md:flex-1',
+              isLoading && 'select-none'
+            )}
             disabled={isLoading}
-            onClick={handleSubmit}>
-            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+            onClick={handleSubmit}
+          >
+            {isLoading && (
+              <CircularProgress size={20} className='!text-text-1 mr-2' />
+            )}
             {t('Create')} <span className='ripple-overlay'></span>
           </Button>
         </div>

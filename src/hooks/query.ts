@@ -951,7 +951,7 @@ export const useGetAllSeries = (userID: string) => {
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage.length < 5) {
+      if (lastPage.length < 10) {
         return undefined;
       }
       return lastPageParam + 1;
@@ -971,5 +971,24 @@ export const useGetAllSeries = (userID: string) => {
     hasNextSeries: hasNextPage,
     fetchNextSeries: fetchNextPage,
     isFetchingNextSeries: isFetchingNextPage
+  };
+};
+
+export const useGetSeriesByID = (seriesID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['series', seriesID],
+    queryFn: async () => {
+      const { data } = await seriesService.getSeriesByID(seriesID);
+      return data.metadata;
+    },
+    staleTime: Infinity,
+    enabled: !!seriesID
+  });
+
+  return {
+    isLoadingSeries: isPending,
+    isErrorSeries: isError,
+    series: data!,
+    isFetchingSeries: isFetching
   };
 };
