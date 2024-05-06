@@ -11,10 +11,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Image from 'next/image';
 
-import { useConversationsData, useCurrentUserInfo, usePostData } from '@/hooks/query';
+import { useConversationsData, useCurrentUserInfo, useMessages, usePostData } from '@/hooks/query';
 import { Avatar, CircularProgress } from '@mui/material';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
-import { IMessage, IPost, IUserInfo } from '@/types';
+import { IMessage } from '@/types';
 import { Button } from '@/components/ui/button';
 import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
@@ -41,11 +41,9 @@ export default function ShowUsersAndGroupsToSendPost({
   const members = useMemo(() => {
     return currentUserInfo.members ?? [];
   }, [currentUserInfo.members]);
-
-  const [checkList, setCheckList] = useState<Record<string, boolean>>({});
-  const [checkedUsers, setCheckedUsers] = useState<IUserInfo[]>([]);
-
   const { conversations, isLoadingConversations } = useConversationsData();
+
+  const [recentConversations] = useState(conversations && conversations.length > 0 ? conversations.slice(0, 5) : []);
 
   const groups = useMemo(() => {
     return conversations.filter((conversation) => conversation.type === 'group');
@@ -116,30 +114,37 @@ export default function ShowUsersAndGroupsToSendPost({
     if (!ID) return;
 
     setMessage('');
+    setSent([...sent, ID]);
 
-    if (content.trim() !== '' || content.trim().length !== 0) {
-      const message = {
-        _id: id,
-        conversation_id: ID,
-        sender: {
-          _id: currentUserInfo._id,
-          user_image: currentUserInfo.user_image,
-          name: currentUserInfo.name
-        },
-        type: 'post',
-        isSending: true,
-        content: content,
-        post_id: post_id,
-        seen: [],
-        createdAt: new Date()
-      };
+    const message = {
+      _id: id,
+      conversation_id: ID,
+      sender: {
+        _id: currentUserInfo._id,
+        user_image: currentUserInfo.user_image,
+        name: currentUserInfo.name
+      },
+      type: 'post',
+      isSending: true,
+      content: content || '',
+      post_id: post_id,
+      seen: [],
+      createdAt: new Date()
+    };
 
-      setId(uuidv4().replace(/-/g, ''));
-      mutateSendMessage(message as unknown as IMessage);
-      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
-      chatSocket.emit(Socket.STOP_TYPING, { conversationID: ID, userID: currentUserInfo._id, members });
-    }
+    setId(uuidv4().replace(/-/g, ''));
+    mutateSendMessage(message as unknown as IMessage);
+    chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
   };
+
+  const [sent, setSent] = useState([] as string[]);
+
+  const sending = (conversationID: string) => {
+    // const { messages, isLoadingMessages } = useMessages(conversationID);
+    // return !isLoadingMessages ? messages[messages.length - 1]?.isSending : true;
+    return false;
+  }
+
   return (
     <div className='w-[740px] max-h-[780px] overflow-y-scroll bg-foreground-1 custom-scrollbar-fg p-7 animate-fade-up rounded-lg'>
       <div>
@@ -227,11 +232,11 @@ export default function ShowUsersAndGroupsToSendPost({
                 <CircularProgress size={20} className='!text-text-1' />
               </div>
             ) : (
-              conversations.length > 0 && (
+              recentConversations.length > 0 && (
                 <div className='space-y-4'>
                   <div className='font-bold text-lg text-left'>{t('Recent')}</div>
                   <div className='flex flex-col gap-5'>
-                    {conversations.slice(0, 5).map((conversation) => {
+                    {recentConversations.map((conversation) => {
                       const isGroup = conversation.type === 'group';
                       const otherUser = conversation.members.find(
                         (member) => member._id !== currentUserInfo._id
@@ -240,7 +245,7 @@ export default function ShowUsersAndGroupsToSendPost({
                       return (
                         <div
                           className='conversation flex items-center justify-between'
-                          key={conversation._id}>
+                          key={conversation._id + '_recent'}>
                           <div className='info flex items-center'>
                             <div className='avatar relative'>
                               {!isGroup ? (
@@ -258,13 +263,26 @@ export default function ShowUsersAndGroupsToSendPost({
                             </div>
                           </div>
                           <Button
-                            className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                            onClick={() => {
-                              handleSubmit(messageContent, conversation._id);
-                            }}>
-                            {t('Send')}
-                          </Button>
-                        </div>
+                            {!sent.includes(conversation._id) ? (
+                          className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
+                              onClick={() => {
+                                handleSubmit(messageContent, conversation._id);
+                              }}>
+                              {t('Send')}
+                            </Button>
+                          ) : (
+                          sending(conversation._id)
+                            ? (
+                              <Button disabled className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1' >
+                                <CircularProgress size={20} className='!text-text-1' />
+                              </Button>
+                            ) : (
+                              <Button disabled className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1' >
+                                {t('Sent')}
+                              </Button>
+                            )
+                        )}
+                      </div>
                       );
                     })}
                   </div>
@@ -282,7 +300,7 @@ export default function ShowUsersAndGroupsToSendPost({
                   <div className='font-bold text-lg text-left mt-5'>{t('Groups')}</div>
                   <div className='flex flex-col gap-5'>
                     {groups.map((group) => (
-                      <div className='group flex items-center justify-between' key={group._id}>
+                      <div className='group flex items-center justify-between' key={group._id + '_group'}>
                         <div className='info flex items-center'>
                           <div className='avatar relative'>
                             <AvatarGroup key={group._id} users={group.members} image={group.image} />
@@ -313,7 +331,7 @@ export default function ShowUsersAndGroupsToSendPost({
                   <div className='font-bold text-lg text-left mt-5'>{t('Contacts')}</div>
                   <div className='flex flex-col gap-5'>
                     {members.map((user) => (
-                      <div className='user flex items-center justify-between' key={user._id}>
+                      <div className='user flex items-center justify-between' key={user._id + '_user'}>
                         <div className='info flex items-center'>
                           <div className='avatar relative'>
                             <AvatarMessage key={user._id} user={user} />

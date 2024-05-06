@@ -204,6 +204,9 @@ export default function MessagesHeader() {
                   if (conversation.lastMessage?.type === 'notification')
                     return switchNoti(conversation.lastMessage);
 
+                  if (conversation.lastMessage?.type === 'post')
+                    return t('Sent an attachment');
+
                   if (conversation.lastMessage?.content)
                     return conversation.lastMessage?.content;
 
