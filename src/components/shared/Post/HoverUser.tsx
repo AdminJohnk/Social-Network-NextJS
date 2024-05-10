@@ -35,7 +35,7 @@ export default function HoverUser({ children, user }: IHoverUserProps) {
 
   return (
     <HoverCard openDelay={100} closeDelay={10}>
-      <HoverCardTrigger>{children}</HoverCardTrigger>
+      <HoverCardTrigger asChild>{children}</HoverCardTrigger>
       <HoverCardContent className='border-border-1 bg-foreground-1 flex flex-col gap-3 !w-fit' side='top'>
         <div className='flex items-start gap-4'>
           <AvatarMessage size={50} user={user} />

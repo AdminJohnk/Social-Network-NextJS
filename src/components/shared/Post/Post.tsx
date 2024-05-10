@@ -27,6 +27,7 @@ import PostSkeleton from './PostSkeleton';
 import LinkPreview from '../LinkPreview';
 import ShowUsersAndGroupsToSendPost from './ShowUsersAndGroupsToSendPost';
 import HoverUser from './HoverUser';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export interface IPostProps {
   post: IPost;
@@ -195,9 +196,9 @@ export default function Post({ post, feature }: IPostProps) {
               </div>
             )}
           </div>
-          {post.type === 'Share' && post.post_attributes.content_share ? (
+          {post.type === 'Share' && post.post_attributes.content ? (
             <div className='my-4 content-share'>
-              <ShowContent content={post.post_attributes.content_share} />
+              <ShowContent content={post.post_attributes.content} />
             </div>
           ) : (
             <div className='my-4' />
@@ -269,32 +270,36 @@ export default function Post({ post, feature }: IPostProps) {
             <div className={cn('flex-between mt-4', post.type === 'Share' && 'mt-4')}>
               <div className='left flex-start gap-5'>
                 <div className='flex-start gap-3'>
-                  <span className='p-1 bg-foreground-2 rounded-full'>
-                    <IoHeart
-                      className='size-4 text-red-600 cursor-pointer'
-                      data-uk-tooltip={`title: ${t('Like')}; pos: top; offset:6; delay: 300`}
-                    />
-                  </span>
+                  <Tooltip>
+                    <TooltipTrigger className='p-1 bg-foreground-2 rounded-full'>
+                      <IoHeart className='size-4 text-red-600 cursor-pointer' />
+                    </TooltipTrigger>
+                    <TooltipContent className='font-semibold'>{t('Like')}</TooltipContent>
+                  </Tooltip>
                   <span>{post.post_attributes.like_number}</span>
                 </div>
                 <div className='flex-start gap-3'>
-                  <span className='p-1 bg-foreground-2 rounded-full'>
-                    <FaCommentDots
-                      className='size-4 cursor-pointer'
-                      data-uk-tooltip={`title: ${t('Comments')}; pos: top; offset:6; delay: 300`}
-                    />
-                  </span>
+                  <Tooltip>
+                    <TooltipTrigger className='p-1 bg-foreground-2 rounded-full'>
+                      <FaCommentDots className='size-4 cursor-pointer' />
+                    </TooltipTrigger>
+                    <TooltipContent className='font-semibold'>{t('Comment')}</TooltipContent>
+                  </Tooltip>
                   <span>{post.post_attributes.comment_number}</span>
                 </div>
               </div>
               <div className='right flex-start gap-5'>
                 {content.length > 0 && (
                   <div>
-                    <FiSend
-                      className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
-                      data-uk-tooltip={`title: ${t('Send in chat')}; pos: top; offset:6; delay: 300`}
-                      onClick={handleOpenSendMessage}
-                    />
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <FiSend
+                          className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
+                          onClick={handleOpenSendMessage}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent className='font-semibold'>{t('Send in chat')}</TooltipContent>
+                    </Tooltip>
                     <Modal open={openSendMessage} handleClose={handleCloseSendMessage}>
                       <ShowUsersAndGroupsToSendPost
                         key={post._id}
@@ -306,11 +311,15 @@ export default function Post({ post, feature }: IPostProps) {
                 )}
                 {post.type === 'Post' && (
                   <div>
-                    <GoShare
-                      className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
-                      onClick={handleOpenShare}
-                      data-uk-tooltip={`title: ${t('Share')}; pos: top; offset:6; delay: 300`}
-                    />
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <GoShare
+                          className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
+                          onClick={handleOpenShare}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent className='font-semibold'>{t('Share')}</TooltipContent>
+                    </Tooltip>
                     <Modal open={openShare} handleClose={handleCloseShare}>
                       <CreateNewPostShare handleClose={handleCloseShare} post={post} />
                     </Modal>

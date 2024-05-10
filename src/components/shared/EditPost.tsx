@@ -89,10 +89,7 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
 
       <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg'>
         <div className='space-y-5 mt-3 p-2'>
-          <Editor
-            setEditor={setEditor}
-            content={post.type === 'Post' ? post.post_attributes.content : post.post_attributes.content_share}
-          />
+          <Editor setEditor={setEditor} content={post.post_attributes.content} />
         </div>
 
         <div className='flex items-center gap-2 text-sm py-2 px-4 font-medium flex-wrap'>
