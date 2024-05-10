@@ -13,6 +13,7 @@ import { audioCall, videoChat } from '@/lib/utils/call';
 import ImageMessage from './ImageMessage';
 import { Avatar, CircularProgress } from '@mui/material';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
+import { IoLockClosed } from 'react-icons/io5';
 
 export interface IReCallProps {
   open: boolean;
@@ -330,7 +331,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     };
 
     const receivePost = (content: string) => {
-      const { post, isLoadingPost } = message.type === 'post' ? usePostData(message.post_id || '') : { post: null, isLoadingPost: true };
+      const { post, isLoadingPost } = message.type === 'post' ? usePostData(message.post_id || '') : { post: undefined, isLoadingPost: true };
       return (
         <div
           className={cn('flex gap-3 items-end', type === 'group' && !isOwn && !isPrevMesGroup ? '' : '')}>
@@ -391,47 +392,71 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                     <CircularProgress size={20} className='!text-text-1' />
                   </div>
                 </div>
-              ) : (
+              ) : post && Object.keys(post).length !== 0 ? (
                 <div className={cn(
                   'bg-foreground-2 px-4 py-2 cursor-pointer',
                   roundedCornerStyle,
                   content && 'rounded-t-none')}
                   onClick={() => {
-                    router.push(`/posts/${post!._id}`);
+                    router.push(`/posts/${post._id}`);
                   }}>
                   <div className='flex-start py-2'>
                     <Avatar src={getImageURL(post!.post_attributes.user.user_image)} />
                     <div className='ms-3'>
-                      {post!.post_attributes.user.name}
+                      {post.post_attributes.user.name}
                     </div>
                   </div>
                   <div className='flex flex-col items-start'>
-                    {post!.post_attributes.images.length > 0 ? (
-                      <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                    {post.post_attributes.images.length > 0 ? (
+                      <div key={post.post_attributes.images[0]} className='relative max-w-fit w-72 h-7w-72 -mx-4'>
                         <Image
                           width={500}
                           height={500}
                           src={getImageURL(post!.post_attributes.images[0])}
-                          alt={post!.post_attributes.images[0]}
+                          alt={post.post_attributes.images[0]}
                           className='w-full h-full object-cover'
                         />
                       </div>
                     ) : (
-                      <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                      <div key={post.post_attributes.images[0]} className='relative max-w-fit w-72 h-7w-72 -mx-4'>
                         <Image
                           width={500}
                           height={500}
                           src={getImageURL(post!.post_attributes.user.user_image)}
-                          alt={post!.post_attributes.images[0]}
+                          alt={post.post_attributes.images[0]}
                           className='w-full h-full object-cover'
                         />
                       </div>
                     )}
                     <div className='w-full'>
-                      <ShowContent content={post!.post_attributes.content.length > 25 ? post!.post_attributes.content.slice(0, 25) + '...' : post!.post_attributes.content} />
+                      <ShowContent content={post.post_attributes.content.length > 25 ? post!.post_attributes.content.slice(0, 25) + '...' : post!.post_attributes.content} />
                     </div>
                   </div>
                 </div>
+              ) : (
+                <div className={cn(
+                  'bg-foreground-2 px-4 py-2 cursor-pointer',
+                  roundedCornerStyle,
+                  content && 'rounded-t-none')}
+                >
+                  <div className='my-4 flex gap-1 px-2'>
+                    <div className='m-1'>
+                      <IoLockClosed className='text-text-2 size-7' />
+                    </div>
+                    <div className='flex flex-col'>
+                      <div className='text-text-2 h4-semibold max-md:h5-semibold'>
+                        {t('This content is not currently visible')}
+                      </div>
+                      <div className='text-text-2'>
+                        {t(
+                          'This error is often caused by the owner only sharing the content with a small group'
+                        )}
+                        , {t('changing who can see it')}, {t('or deleting the content')}.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               )}
             </div>
           </div>
@@ -440,7 +465,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
     };
 
     const sendPost = (content: string) => {
-      const { post, isLoadingPost } = message.type === 'post' ? usePostData(message.post_id || '') : { post: null, isLoadingPost: true };
+      const { post, isLoadingPost } = message.type === 'post' ? usePostData(message.post_id || '') : { post: undefined, isLoadingPost: true };
       return (
         <div className='flex gap-2 flex-row-reverse items-end'>
           <div
@@ -465,44 +490,67 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   <CircularProgress size={20} className='!text-text-1' />
                 </div>
               </div>
-            ) : (
+            ) : post && Object.keys(post).length !== 0 ? (
               <div className={cn(
                 'bg-foreground-2 px-4 py-2 cursor-pointer',
                 roundedCornerStyle,
                 content && 'rounded-t-none')}
                 onClick={() => {
-                  router.push(`/posts/${post!._id}`);
+                  router.push(`/posts/${post._id}`);
                 }}>
                 <div className='flex-start py-2'>
                   <Avatar src={getImageURL(post!.post_attributes.user.user_image)} />
                   <div className='ms-3'>
-                    {post!.post_attributes.user.name}
+                    {post.post_attributes.user.name}
                   </div>
                 </div>
                 <div className='flex flex-col items-start'>
-                  {post!.post_attributes.images.length > 0 ? (
-                    <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                  {post.post_attributes.images.length > 0 ? (
+                    <div key={post.post_attributes.images[0]} className='relative max-w-fit w-72 h-7w-72 -mx-4'>
                       <Image
                         width={500}
                         height={500}
                         src={getImageURL(post!.post_attributes.images[0])}
-                        alt={post!.post_attributes.images[0]}
+                        alt={post.post_attributes.images[0]}
                         className='w-full h-full object-cover'
                       />
                     </div>
                   ) : (
-                    <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                    <div key={post.post_attributes.images[0]} className='relative max-w-fit w-72 h-7w-72 -mx-4'>
                       <Image
                         width={500}
                         height={500}
                         src={getImageURL(post!.post_attributes.user.user_image)}
-                        alt={post!.post_attributes.images[0]}
+                        alt={post.post_attributes.images[0]}
                         className='w-full h-full object-cover'
                       />
                     </div>
                   )}
                   <div className='w-full'>
-                    <ShowContent content={post!.post_attributes.content.length > 25 ? post!.post_attributes.content.slice(0, 25) + '...' : post!.post_attributes.content} />
+                    <ShowContent content={post.post_attributes.content.length > 25 ? post!.post_attributes.content.slice(0, 25) + '...' : post!.post_attributes.content} />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className={cn(
+                'bg-foreground-2 px-4 py-2 cursor-pointer',
+                roundedCornerStyle,
+                content && 'rounded-t-none')}
+              >
+                <div className='my-4 flex gap-1 px-2'>
+                  <div className='m-1'>
+                    <IoLockClosed className='text-text-2 size-7' />
+                  </div>
+                  <div className='flex flex-col'>
+                    <div className='text-text-2 h4-semibold max-md:h5-semibold'>
+                      {t('This content is not currently visible')}
+                    </div>
+                    <div className='text-text-2'>
+                      {t(
+                        'This error is often caused by the owner only sharing the content with a small group'
+                      )}
+                      , {t('changing who can see it')}, {t('or deleting the content')}.
+                    </div>
                   </div>
                 </div>
               </div>
