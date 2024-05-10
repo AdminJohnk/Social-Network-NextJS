@@ -211,9 +211,9 @@ export default function Cover({ profileID }: ICoverProps) {
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>
                   {t('Friends')}
                 </TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
+                {/* <TabTitle className='hover:bg-hover-1 !rounded-sm'>
                   {t('Series')}
-                </TabTitle>
+                </TabTitle> */}
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>
                   {t('Photos')}
                 </TabTitle>

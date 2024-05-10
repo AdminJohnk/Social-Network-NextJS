@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { IoCloseOutline, IoMenuOutline } from 'react-icons/io5';
+import Logo from '../Logo';
 
 export default function LogoHeader() {
   return (
@@ -13,39 +14,9 @@ export default function LogoHeader() {
           <IoCloseOutline className='hidden text-2xl group-aria-expanded:block' />
         </button>
         <div id='logo'>
-          <Link href=''>
-            <Image
-              src='/images/home/logo.png'
-              alt=''
-              className='w-28 md:block hidden dark:!hidden'
-              width={200}
-              height={100}
-              priority
-            />
-            <Image
-              src='/images/home/logo-light.png'
-              alt=''
-              className='dark:md:block hidden w-28'
-              width={200}
-              height={100}
-              priority
-            />
-            <Image
-              src='/images/home/logo-mobile.png'
-              className='hidden max-md:block w-20 dark:!hidden'
-              alt=''
-              width={200}
-              height={100}
-              priority
-            />
-            <Image
-              src='/images/home/logo-mobile-light.png'
-              className='hidden dark:max-md:block w-20'
-              alt=''
-              width={200}
-              height={100}
-              priority
-            />
+          <Link href='/' className='flex-start'>
+            <Logo className='text-2xl' rootClassName='icon_logo_mini' />
+            <h1 className='text-2xl font-semibold ml-2 select-none cursor-default max-md:hidden'>DevHub</h1>
           </Link>
         </div>
       </div>

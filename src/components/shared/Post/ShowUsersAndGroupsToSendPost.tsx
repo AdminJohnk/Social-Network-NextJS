@@ -167,6 +167,7 @@ export default function ShowUsersAndGroupsToSendPost({
   }, []);
 
   const [id, setId] = useState(uuidv4().replace(/-/g, ''));
+  const [isLoading, setIsLoading] = useState(false);
   const { mutateSendMessage } = useSendMessage();
   const { mutateReceiveConversation } = useReceiveConversation();
 
@@ -179,6 +180,7 @@ export default function ShowUsersAndGroupsToSendPost({
     if (!user) return;
 
     setMessage('');
+    setIsLoading(true);
 
     messageService
       .createConversation({
@@ -237,6 +239,7 @@ export default function ShowUsersAndGroupsToSendPost({
       createdAt: new Date()
     };
 
+    setIsLoading(false);
     setId(uuidv4().replace(/-/g, ''));
     mutateSendMessage(message as unknown as IMessage);
     chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: ID, message });
@@ -374,6 +377,7 @@ export default function ShowUsersAndGroupsToSendPost({
                             </div>
                             {!sent.includes(conversation._id) ? (
                               <Button
+                                disabled={isLoading}
                                 className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
                                 onClick={() => {
                                   handleSubmit(messageContent, conversation._id);
@@ -413,6 +417,7 @@ export default function ShowUsersAndGroupsToSendPost({
                           </div>
                           {!sent.includes(group._id) ? (
                             <Button
+                              disabled={isLoading}
                               className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
                               onClick={() => {
                                 handleSubmit(messageContent, group._id);
@@ -451,6 +456,7 @@ export default function ShowUsersAndGroupsToSendPost({
                           </div>
                           {!sent.includes(user._id) ? (
                             <Button
+                              disabled={isLoading}
                               className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
                               onClick={() => {
                                 handleSubmitContact(messageContent, user._id);

@@ -31,6 +31,8 @@ export default function HoverUser({ children, user }: IHoverUserProps) {
     });
   }, [otherUserInfo?.friends, currentUserInfo?.friends]);
 
+  const isMe = currentUserInfo._id === user._id;
+
   return (
     <HoverCard openDelay={100} closeDelay={10}>
       <HoverCardTrigger>{children}</HoverCardTrigger>
@@ -54,7 +56,7 @@ export default function HoverUser({ children, user }: IHoverUserProps) {
                 </span>
               </div>
 
-              <div className='flex mt-0.5 w-full h-8'>
+              <div className='flex-start mt-0.5 w-full h-8'>
                 {mutualFriends?.slice(0, 5).map((friend, index) => (
                   <Link
                     key={friend._id}
@@ -73,17 +75,19 @@ export default function HoverUser({ children, user }: IHoverUserProps) {
             </div>
           </div>
         </div>
-        <div className='flex gap-2 w-fit'>
-          <FriendButton profileID={user._id} />
-          <Button
-            variant='main'
-            preIcon={<IoChatboxEllipsesOutline className='text-xl' />}
-            onClick={() => {
-              router.push(`/messages/${user._id}`);
-            }}>
-            {t('Message')}
-          </Button>
-        </div>
+        {!isMe && (
+          <div className='flex gap-2 w-fit'>
+            <FriendButton profileID={user._id} />
+            <Button
+              variant='main'
+              preIcon={<IoChatboxEllipsesOutline className='text-xl' />}
+              onClick={() => {
+                router.push(`/messages/${user._id}`);
+              }}>
+              {t('Message')}
+            </Button>
+          </div>
+        )}
       </HoverCardContent>
     </HoverCard>
   );
