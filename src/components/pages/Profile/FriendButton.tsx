@@ -26,6 +26,8 @@ export default function FriendButton({ profileID }: IFriendButtonProps) {
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
   const { currentUserInfo } = useCurrentUserInfo();
 
+  const isMe = currentUserInfo._id === profileID;
+
   const { mutateAddFriendUser } = useAddFriendUser();
 
   const { mutateAcceptFriendUser } = useAcceptFriendUser();

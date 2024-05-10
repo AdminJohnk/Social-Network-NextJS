@@ -6,7 +6,7 @@ import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import FriendButton from '@/components/pages/Profile/FriendButton';
 import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { useOtherUserInfo } from '@/hooks/query';
+import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
 import { Link, useRouter } from '@/navigation';
 import { IUserInfo } from '@/types';
@@ -20,7 +20,12 @@ export interface IHoverCommunityProps {
 export default function HoverCommunity({ children, user }: IHoverCommunityProps) {
   const t = useTranslations();
   const router = useRouter();
-  const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(user._id);
+  const { otherUserInfo } = useOtherUserInfo(user._id);
+  
+  const { currentUserInfo } = useCurrentUserInfo();
+
+  const isMe = currentUserInfo._id === user._id;
+
   return (
     <HoverCard openDelay={100} closeDelay={10}>
       <HoverCardTrigger>{children}</HoverCardTrigger>
@@ -56,17 +61,19 @@ export default function HoverCommunity({ children, user }: IHoverCommunityProps)
             </div>
           </div>
         </div>
-        <div className='flex gap-2 w-fit'>
-          <FriendButton profileID={user._id} />
-          <Button
-            variant='main'
-            preIcon={<IoChatboxEllipsesOutline className='text-xl' />}
-            onClick={() => {
-              router.push(`/messages/${user._id}`);
-            }}>
-            {t('Message')}
-          </Button>
-        </div>
+        {!isMe && (
+          <div className='flex gap-2 w-fit'>
+            <FriendButton profileID={user._id} />
+            <Button
+              variant='main'
+              preIcon={<IoChatboxEllipsesOutline className='text-xl' />}
+              onClick={() => {
+                router.push(`/messages/${user._id}`);
+              }}>
+              {t('Message')}
+            </Button>
+          </div>
+        )}
       </HoverCardContent>
     </HoverCard>
   );
