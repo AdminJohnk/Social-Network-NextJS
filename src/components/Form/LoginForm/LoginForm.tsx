@@ -128,7 +128,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
           </div>
           <div className='loginTool mt-10 w-full flex flex-col gap-3'>
             <Button
-              variant={'ghost'}
+              variant='outline'
               className='flex-center w-full mb-5 hover:bg-blue-400 '
               disabled={isLoading}
               onClick={() => signIn('google')}>
@@ -138,7 +138,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
               <span>Continue with Gmail</span>
             </Button>
             <Button
-              variant={'ghost'}
+              variant='outline'
               className='flex-center w-full mb-5 hover:bg-blue-400'
               disabled={isLoading}
               onClick={() => signIn('github')}>

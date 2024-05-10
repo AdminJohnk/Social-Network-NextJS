@@ -12,6 +12,7 @@ import '@/app/uk.css';
 import '@/app/globals.css';
 
 import { QueryProvider, SessionProvider } from '@/app/provider';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { locales } from '@/i18n';
 import { cn } from '@/lib/utils';
 
@@ -49,7 +50,7 @@ export default async function LocaleLayout({ children, params: { locale } }: ILo
           <SessionProvider>
             <NextIntlClientProvider messages={message} locale={locale}>
               <Flowbite>
-                {children}
+                <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
                 <ToastContainer />
               </Flowbite>
             </NextIntlClientProvider>

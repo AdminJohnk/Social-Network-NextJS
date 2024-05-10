@@ -43,7 +43,7 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
         post: post._id,
         visibility: privacy,
         owner_post: post.post_attributes.user._id,
-        content_share: content
+        content
       },
       {
         onSuccess: () => {
