@@ -39,8 +39,8 @@ export default function Post({ post, feature }: IPostProps) {
     post?.type === 'Post'
       ? post?.post_attributes.content
       : post?.post_attributes.post
-      ? post?.post_attributes.post.post_attributes.content
-      : '';
+        ? post?.post_attributes.post.post_attributes.content
+        : '';
 
   // const regex = /<a[^>]*>([^<]+)<\/a>/g;
   let match;
@@ -129,8 +129,8 @@ export default function Post({ post, feature }: IPostProps) {
     post?.type === 'Post'
       ? post?.post_attributes.images
       : post?.post_attributes.post
-      ? post?.post_attributes.post.post_attributes.images
-      : [];
+        ? post?.post_attributes.post.post_attributes.images
+        : [];
 
   const ownerPost: IUserInfo = post?.post_attributes?.owner_post as IUserInfo;
 

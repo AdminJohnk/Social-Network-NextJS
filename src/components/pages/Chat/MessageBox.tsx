@@ -407,7 +407,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                   </div>
                   <div className='flex flex-col items-start'>
                     {post!.post_attributes.images.length > 0 ? (
-                      <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                      <div key={post!.post_attributes.images[0]} className='relative max-w-fit w-72 h-7w-72 -mx-4'>
                         <Image
                           width={500}
                           height={500}
@@ -417,7 +417,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                         />
                       </div>
                     ) : (
-                      <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                      <div key={post!.post_attributes.images[0]} className='relative max-w-fit w-72 h-7w-72 -mx-4'>
                         <Image
                           width={500}
                           height={500}
@@ -481,7 +481,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                 </div>
                 <div className='flex flex-col items-start'>
                   {post!.post_attributes.images.length > 0 ? (
-                    <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                    <div key={post!.post_attributes.images[0]} className='relative max-w-fit w-72 h-7w-72 -mx-4'>
                       <Image
                         width={500}
                         height={500}
@@ -491,7 +491,7 @@ const MessageBox = forwardRef<HTMLDivElement, IMessageBoxProps>(
                       />
                     </div>
                   ) : (
-                    <div key={post!.post_attributes.images[0]} className='relative w-72 h-7w-72 -mx-4'>
+                    <div key={post!.post_attributes.images[0]} className='relative max-w-fit w-72 h-7w-72 -mx-4'>
                       <Image
                         width={500}
                         height={500}
