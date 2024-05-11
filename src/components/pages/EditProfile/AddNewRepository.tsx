@@ -1,6 +1,6 @@
 'use client';
 
-import { useCurrentUserInfo, useGetRepository } from '@/hooks/query';
+import { useCurrentUserInfo, useGetRepositories } from '@/hooks/query';
 import { useSession } from 'next-auth/react';
 import { useMemo, useState } from 'react';
 import GithubColors from 'github-colors';
@@ -22,7 +22,7 @@ export default function AddNewRepository({ handleClose }: IAddNewRepositoryProps
   const t = useTranslations();
   const { data: session } = useSession();
 
-  const { repositories, isLoadingRepositories } = useGetRepository(session?.repos_url || '');
+  const { repositories, isLoadingRepositories } = useGetRepositories(session?.repos_url || '');
 
   const { currentUserInfo } = useCurrentUserInfo();
   const [newRepositories, setNewRepositories] = useState<IRepository[]>(currentUserInfo.repositories);

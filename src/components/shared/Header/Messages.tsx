@@ -174,7 +174,7 @@ export default function MessagesHeader() {
             </div>
           ) : (
             <div className='p-2 pt-0 pr-1 space-y-2 dark:text-white/80'>
-              {searchConversation?.slice(0, 5).map(conversation => {
+              {searchConversation?.map(conversation => {
                 const isGroup = conversation.type === 'group';
                 const otherUser = conversation.members.find(
                   member => member._id !== currentUserInfo._id
