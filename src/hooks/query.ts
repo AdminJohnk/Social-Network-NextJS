@@ -946,7 +946,7 @@ export const useGetAllSeries = (userID: string) => {
   } = useInfiniteQuery({
     queryKey: ['allSeries', userID],
     queryFn: async ({ pageParam }) => {
-      const { data } = await seriesService.getAllSeries(pageParam);
+      const { data } = await seriesService.getAllSeries(userID, pageParam);
       return data.metadata;
     },
     initialPageParam: 1,

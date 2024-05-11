@@ -15,9 +15,10 @@ class SeriesService extends BaseService {
   };
 
   getAllSeries = (
+    profileID: string,
     pageParam: number
   ): Promise<AxiosResponse<IResponse<ISeries[]>>> => {
-    return this.get(`/series/all?page=${pageParam}`);
+    return this.get(`/series/all/${profileID}?page=${pageParam}`);
   };
 
   getSeriesByID = (id: string): Promise<AxiosResponse<IResponse<ISeries>>> => {
