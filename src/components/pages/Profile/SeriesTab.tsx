@@ -7,12 +7,15 @@ import { getImageURL } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { FaRegCircle } from 'react-icons/fa';
 import { Link } from '@/navigation';
+import Nodata from '@/components/shared/Nodata';
+import { useTranslations } from 'next-intl';
 
 export interface ISeriesTabProps {
   profileID: string;
 }
 
 export default function SeriesTab({ profileID }: ISeriesTabProps) {
+  const t = useTranslations();
   const { allSeries, isFetchingNextSeries, hasNextSeries, isLoadingAllSeries } =
     useGetAllSeries(profileID);
 
@@ -20,6 +23,9 @@ export default function SeriesTab({ profileID }: ISeriesTabProps) {
 
   return (
     <div className='bg-foreground-1 my-8 w-full rounded-md px-20 py-8'>
+      {allSeries?.length === 0 && (
+        <Nodata width={150} height={150} title={t('No series found')}></Nodata>
+      )}
       {allSeries?.map((series, index) => {
         const description =
           series.description.length > 150
