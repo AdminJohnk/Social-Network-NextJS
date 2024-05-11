@@ -18,6 +18,8 @@ const imageOptions: Record<string, string> = {
 const ImageURL = (src: string, option: option) => {
   if (src.includes('http')) return src;
 
+  if (src.includes('data:image')) return src;
+
   const query = imageOptions[option] || '';
   return `https://ik.imagekit.io/admintck/${src}${query}`;
 };

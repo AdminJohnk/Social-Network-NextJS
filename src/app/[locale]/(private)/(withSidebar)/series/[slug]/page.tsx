@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { useGetSeriesByID } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
-import { ICreateSeries } from '@/types';
+import { ICreateSeries, IUpdateSeries } from '@/types';
 import { Avatar } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -29,9 +29,10 @@ export default function Series({ params: { slug } }: ISeriesProps) {
 
   const author = series?.user;
 
-  const dataEdit: ICreateSeries = useMemo(() => {
-    if (!series) return {} as ICreateSeries;
+  const dataEdit: IUpdateSeries = useMemo(() => {
+    if (!series) return {} as IUpdateSeries;
     return {
+      id: series._id,
       title: series.title,
       description: series.description,
       introduction: series.introduction,
@@ -59,8 +60,8 @@ export default function Series({ params: { slug } }: ISeriesProps) {
       </Modal>
       <div className='max-w-[730px] mx-auto'>
         <Image
-          src={getImageURL(series?.cover_image, 'post') || ''}
-          className='rounded-lg object-fill w-full h-[370px]'
+          src={getImageURL(series?.cover_image) || '/images/no-image.png'}
+          className='rounded-lg w-full object-fill h-[370px]'
           width={1500}
           height={1500}
           alt='cover-image'

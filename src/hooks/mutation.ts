@@ -20,6 +20,7 @@ import {
   ISocketCall,
   IUpdateConversation,
   IUpdatePost,
+  IUpdateSeries,
   IUserInfo,
   IUserUpdate
 } from '@/types';
@@ -264,27 +265,29 @@ export const useSavePost = () => {
 export const useCommentPost = () => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation({
-    mutationFn: async (commentData: ICreateComment) => {
-      await postService.createComment(commentData);
-    },
-    async onSuccess(_, newComment) {
-      const session = await getSession();
-      queryClient.invalidateQueries({
-        queryKey: ['comments', newComment.post]
-      });
+  const { mutateAsync, isPending, isError, isSuccess, variables } = useMutation(
+    {
+      mutationFn: async (commentData: ICreateComment) => {
+        await postService.createComment(commentData);
+      },
+      async onSuccess(_, newComment) {
+        const session = await getSession();
+        queryClient.invalidateQueries({
+          queryKey: ['comments', newComment.post]
+        });
 
-      queryClient.invalidateQueries({
-        queryKey: ['childComments', newComment.parent]
-      });
+        queryClient.invalidateQueries({
+          queryKey: ['childComments', newComment.parent]
+        });
 
-      queryClient.invalidateQueries({ queryKey: ['post', newComment.post] });
+        queryClient.invalidateQueries({ queryKey: ['post', newComment.post] });
 
-      queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
+        queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
 
-      queryClient.invalidateQueries({ queryKey: ['posts', session?.id] });
+        queryClient.invalidateQueries({ queryKey: ['posts', session?.id] });
+      }
     }
-  });
+  );
   return {
     comment: variables,
     mutateCommentPost: mutateAsync,
@@ -1463,9 +1466,23 @@ export const useCreateSeries = () => {
   };
 };
 
+export const useUpdateSeries = () => {
+  const queryClient = useQueryClient();
 
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdateSeries) => {
+      const { data: series } = await seriesService.updateSeries(data);
+      return series.metadata;
+    },
+    onSuccess(_, updateSeries) {
+      queryClient.invalidateQueries({ queryKey: ['series', updateSeries.id] });
+    }
+  });
 
-
-
-
-
+  return {
+    mutateUpdateSeries: mutateAsync,
+    isLoadingUpdateSeries: isPending,
+    isErrorUpdateSeries: isError,
+    isSuccessUpdateSeries: isSuccess
+  };
+};
