@@ -254,6 +254,7 @@ export default function CreateEditSeries({
                       width={1500}
                       height={1500}
                       alt='image'
+                      priority
                     />
                   </div>
                 )}

@@ -60,8 +60,8 @@ export default function Series({ params: { slug } }: ISeriesProps) {
       </Modal>
       <div className='max-w-[730px] mx-auto'>
         <Image
-          src={getImageURL(series?.cover_image, 'post') || ''}
-          className='rounded-lg object-fill w-full h-[370px]'
+          src={getImageURL(series?.cover_image) || '/images/no-image.png'}
+          className='rounded-lg w-full object-fill h-[370px]'
           width={1500}
           height={1500}
           alt='cover-image'
