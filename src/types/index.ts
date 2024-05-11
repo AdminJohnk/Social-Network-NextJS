@@ -469,6 +469,16 @@ export interface ICreateSeries {
   visibility: Visibility;
 }
 
+export interface IUpdateSeries {
+  id: string;
+  title: string;
+  description: string;
+  level: TypeOfLevel;
+  cover_image: string;
+  introduction: string;
+  visibility: Visibility;
+}
+
 export interface ISeriesPost {
   title: string;
   content: string;

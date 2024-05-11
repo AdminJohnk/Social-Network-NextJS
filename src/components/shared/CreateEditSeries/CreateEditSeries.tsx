@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Editor as EditorProps } from '@tiptap/react';
 import Editor from '../Editor/Editor';
@@ -11,15 +11,21 @@ import { IoClose } from 'react-icons/io5';
 import Select from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
-import { cn } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { useCreateSeries, useUploadImage } from '@/hooks/mutation';
-import { ICreateSeries, TypeOfLevel, Visibility } from '@/types';
+import {
+  useCreateSeries,
+  useDeleteImage,
+  useUpdateSeries,
+  useUploadImage
+} from '@/hooks/mutation';
+import { ICreateSeries, IUpdateSeries, TypeOfLevel, Visibility } from '@/types';
 import PostPrivacy from '../PostPrivacy';
+import { set } from 'lodash';
 
 export interface ICreateEditSeriesProps {
   handleClose: () => void;
-  dataEdit?: ICreateSeries;
+  dataEdit?: IUpdateSeries;
 }
 
 export default function CreateEditSeries({
@@ -29,14 +35,17 @@ export default function CreateEditSeries({
   const t = useTranslations();
 
   const { mutateCreateSeries } = useCreateSeries();
+  const { mutateUpdateSeries } = useUpdateSeries();
 
   const [privacy, setPrivacy] = useState<Visibility>('public');
 
   const [editor, setEditor] = useState<EditorProps>();
   const [images, setImages] = useState<ImageListType>([]);
+  const [changeImage, setChangeImage] = useState<boolean>(false);
 
   const onChange = (imageList: ImageListType) => {
     setImages(imageList);
+    dataEdit && setChangeImage(true);
   };
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -49,6 +58,7 @@ export default function CreateEditSeries({
   const [description, setDescription] = useState('');
 
   const { mutateUploadImage } = useUploadImage();
+  const { mutateDeleteImage } = useDeleteImage();
 
   const handleUploadImages = async () => {
     const formData = new FormData();
@@ -56,6 +66,16 @@ export default function CreateEditSeries({
 
     return await mutateUploadImage(formData);
   };
+
+  useEffect(() => {
+    if (dataEdit) {
+      setTitle(dataEdit.title);
+      setDescription(dataEdit.description);
+      setImages([{ data_url: dataEdit.cover_image }]);
+      setLevel(dataEdit.level);
+      setPrivacy(dataEdit.visibility);
+    }
+  }, [dataEdit]);
 
   const handleSubmit = async () => {
     // console.log('title:: ', title);
@@ -86,7 +106,11 @@ export default function CreateEditSeries({
       return;
     }
 
-    const imagesUploaded = await handleUploadImages();
+    let imagesUploaded;
+
+    if (changeImage || !dataEdit) {
+      imagesUploaded = await handleUploadImages();
+    }
 
     // console.log('title:: ', title);
     // console.log('description:: ', description);
@@ -96,29 +120,61 @@ export default function CreateEditSeries({
     // console.log('visibility:: ', privacy);
     // return;
 
-    mutateCreateSeries(
-      {
-        title,
-        description,
-        level,
-        cover_image: imagesUploaded.key,
-        introduction: editor?.getHTML() as string,
-        visibility: privacy
-      },
-      {
-        onSuccess() {
-          showSuccessToast(t('Series created successfully!'));
-          editor?.commands.clearContent();
-          handleClose();
+    // Create Series
+    if (!dataEdit) {
+      mutateCreateSeries(
+        {
+          title,
+          description,
+          level,
+          cover_image: imagesUploaded?.key!,
+          introduction: editor?.getHTML() as string,
+          visibility: privacy
         },
-        onError() {
-          showErrorToast(t('Something went wrong! Please try again!'));
-        },
-        onSettled() {
-          setIsLoading(false);
+        {
+          onSuccess() {
+            showSuccessToast(t('Series created successfully!'));
+            editor?.commands.clearContent();
+            handleClose();
+          },
+          onError() {
+            showErrorToast(t('Something went wrong! Please try again!'));
+          },
+          onSettled() {
+            setIsLoading(false);
+          }
         }
-      }
-    );
+      );
+    } else {
+      // Update Series
+      changeImage && (await mutateDeleteImage([dataEdit.cover_image]));
+      mutateUpdateSeries(
+        {
+          id: dataEdit.id,
+          title,
+          description,
+          level,
+          cover_image: changeImage
+            ? imagesUploaded?.key!
+            : dataEdit.cover_image,
+          introduction: editor?.getHTML() as string,
+          visibility: privacy
+        },
+        {
+          onSuccess() {
+            showSuccessToast(t('Series updated successfully!'));
+            editor?.commands.clearContent();
+            handleClose();
+          },
+          onError() {
+            showErrorToast(t('Something went wrong! Please try again!'));
+          },
+          onSettled() {
+            setIsLoading(false);
+          }
+        }
+      );
+    }
   };
 
   return (
@@ -153,7 +209,7 @@ export default function CreateEditSeries({
             multiple
             value={images}
             onChange={onChange}
-            maxNumber={1}
+            maxNumber={images.length > 0 ? 0 : 1}
             dataURLKey='data_url'
             acceptType={['jpg', 'jpeg', 'png', 'gif']}
           >
@@ -190,8 +246,11 @@ export default function CreateEditSeries({
                 {imageList.length > 0 && (
                   <div className='mt-5'>
                     <Image
-                      className=''
-                      src={imageList[0]?.data_url || ''}
+                      className='w-[90%]'
+                      src={
+                        getImageURL(images[0]?.data_url) ||
+                        '/images/no-image.png'
+                      }
                       width={1500}
                       height={1500}
                       alt='image'
@@ -215,6 +274,7 @@ export default function CreateEditSeries({
             setEditor={setEditor}
             placeholder={t('Introduction to the series')}
             content={dataEdit?.introduction || ''}
+            autofocus={false}
           />
         </div>
       </div>
@@ -234,7 +294,8 @@ export default function CreateEditSeries({
             {isLoading && (
               <CircularProgress size={20} className='!text-text-1 mr-2' />
             )}
-            {t('Publish Series')} <span className='ripple-overlay'></span>
+            {dataEdit ? t('Update Series') : t('Publish Series')}
+            <span className='ripple-overlay'></span>
           </Button>
         </div>
       </div>
