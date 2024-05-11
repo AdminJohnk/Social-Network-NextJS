@@ -865,25 +865,33 @@ export const useLinkPreview = (url: string) => {
 };
 
 export const useGetAllSeries = (userID: string) => {
-  const { data, isPending, isError, isFetching, refetch, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      queryKey: ['allSeries', userID],
-      queryFn: async ({ pageParam }) => {
-        const { data } = await seriesService.getAllSeries(pageParam);
-        return data.metadata;
-      },
-      initialPageParam: 1,
-      getNextPageParam: (lastPage, _, lastPageParam) => {
-        if (lastPage.length < 10) {
-          return undefined;
-        }
-        return lastPageParam + 1;
-      },
-      select: (data) => {
-        return data.pages.flat();
-      },
-      staleTime: Infinity
-    });
+  const {
+    data,
+    isPending,
+    isError,
+    isFetching,
+    refetch,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage
+  } = useInfiniteQuery({
+    queryKey: ['allSeries', userID],
+    queryFn: async ({ pageParam }) => {
+      const { data } = await seriesService.getAllSeries(userID, pageParam);
+      return data.metadata;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, _, lastPageParam) => {
+      if (lastPage.length < 10) {
+        return undefined;
+      }
+      return lastPageParam + 1;
+    },
+    select: data => {
+      return data.pages.flat();
+    },
+    staleTime: Infinity
+  });
 
   return {
     isLoadingAllSeries: isPending,
