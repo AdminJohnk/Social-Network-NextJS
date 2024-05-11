@@ -6,7 +6,7 @@ import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import FriendButton from '@/components/pages/Profile/FriendButton';
 import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { useOtherUserInfo } from '@/hooks/query';
+import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
 import { Link, useRouter } from '@/navigation';
 import { IUserInfo } from '@/types';
@@ -20,13 +20,16 @@ export interface IHoverCommunityProps {
 export default function HoverCommunity({ children, user }: IHoverCommunityProps) {
   const t = useTranslations();
   const router = useRouter();
-  const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(user._id);
+  const { otherUserInfo } = useOtherUserInfo(user._id);
+  
+  const { currentUserInfo } = useCurrentUserInfo();
+
+  const isMe = currentUserInfo._id === user._id;
+
   return (
     <HoverCard openDelay={100} closeDelay={10}>
-      <HoverCardTrigger>
-        {children}
-      </HoverCardTrigger>
-      <HoverCardContent className='border-border-1 bg-foreground-1 flex flex-col gap-3 !w-fit'>
+      <HoverCardTrigger>{children}</HoverCardTrigger>
+      <HoverCardContent className='border-border-1 bg-foreground-1 flex flex-col gap-3 !w-fit' side='top'>
         <div className='flex items-start gap-4'>
           <AvatarMessage size={50} user={user} />
           <div className='flex flex-col'>
@@ -41,7 +44,10 @@ export default function HoverCommunity({ children, user }: IHoverCommunityProps)
 
               <div className='flex mt-0.5 w-full h-8'>
                 {otherUserInfo?.friends.slice(0, 5).map((friend, index) => (
-                  <Link key={friend._id} href={`/profile/${friend._id}`} className={cn(index !== 0 && '-ml-2')} >
+                  <Link
+                    key={friend._id}
+                    href={`/profile/${friend._id}`}
+                    className={cn(index !== 0 && '-ml-2')}>
                     <Image
                       width={200}
                       height={200}
@@ -55,19 +61,19 @@ export default function HoverCommunity({ children, user }: IHoverCommunityProps)
             </div>
           </div>
         </div>
-        <div className='flex gap-2 w-fit'>
-          <FriendButton profileID={user._id} />
-          <Button
-            variant='main'
-            preIcon={
-              <IoChatboxEllipsesOutline className='text-xl' />
-            }
-            onClick={() => {
-              router.push(`/messages/${user._id}`);
-            }}>
-            {t('Message')}
-          </Button>
-        </div>
+        {!isMe && (
+          <div className='flex gap-2 w-fit'>
+            <FriendButton profileID={user._id} />
+            <Button
+              variant='main'
+              preIcon={<IoChatboxEllipsesOutline className='text-xl' />}
+              onClick={() => {
+                router.push(`/messages/${user._id}`);
+              }}>
+              {t('Message')}
+            </Button>
+          </div>
+        )}
       </HoverCardContent>
     </HoverCard>
   );

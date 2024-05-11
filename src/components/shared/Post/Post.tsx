@@ -26,6 +26,8 @@ import ImagePost from '../ImagePost';
 import PostSkeleton from './PostSkeleton';
 import LinkPreview from '../LinkPreview';
 import ShowUsersAndGroupsToSendPost from './ShowUsersAndGroupsToSendPost';
+import HoverUser from './HoverUser';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export interface IPostProps {
   post: IPost;
@@ -141,9 +143,9 @@ export default function Post({ post, feature }: IPostProps) {
   }, [expanded, content, isMoreThan500]);
 
   // Modal
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openShare, setOpenShare] = useState(false);
+  const handleOpenShare = () => setOpenShare(true);
+  const handleCloseShare = () => setOpenShare(false);
 
   const [openSendMessage, setOpenSendMessage] = useState(false);
   const handleOpenSendMessage = () => setOpenSendMessage(true);
@@ -157,13 +159,17 @@ export default function Post({ post, feature }: IPostProps) {
         <div className='post bg-foreground-1 rounded-lg p-4'>
           <div className='flex-between'>
             <div className='flex-start'>
-              <Link href={`/profile/${post.post_attributes.user._id}`}>
-                <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
-              </Link>
-              <div className='flex gap-1 flex-col ms-3'>
-                <Link href={`/profile/${post.post_attributes.user._id}`} className='base-bold'>
-                  {post.post_attributes.user.name}
+              <HoverUser user={post.post_attributes.user}>
+                <Link href={`/profile/${post.post_attributes.user._id}`}>
+                  <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
                 </Link>
+              </HoverUser>
+              <div className='flex gap-1 flex-col ms-3'>
+                <HoverUser user={post.post_attributes.user}>
+                  <Link href={`/profile/${post.post_attributes.user._id}`} className='base-bold'>
+                    {post.post_attributes.user.name}
+                  </Link>
+                </HoverUser>
                 <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
                   <Link href={`/posts/${post._id}`}>{handleDateTime(post.createdAt)}</Link>
                   <span>•</span>
@@ -190,9 +196,9 @@ export default function Post({ post, feature }: IPostProps) {
               </div>
             )}
           </div>
-          {post.type === 'Share' && post.post_attributes.content_share ? (
+          {post.type === 'Share' && post.post_attributes.content ? (
             <div className='my-4 content-share'>
-              <ShowContent content={post.post_attributes.content_share} />
+              <ShowContent content={post.post_attributes.content} />
             </div>
           ) : (
             <div className='my-4' />
@@ -201,13 +207,17 @@ export default function Post({ post, feature }: IPostProps) {
             {post.type === 'Share' &&
               (content.length > 0 ? (
                 <div className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}>
-                  <Link href={`/profile/${ownerPost._id}`}>
-                    <Avatar src={getImageURL(ownerPost.user_image)} />
-                  </Link>
-                  <div className='flex flex-col ms-3'>
-                    <Link href={`/profile/${ownerPost._id}`} className='base-bold'>
-                      {ownerPost.name}
+                  <HoverUser user={ownerPost}>
+                    <Link href={`/profile/${ownerPost._id}`}>
+                      <Avatar src={getImageURL(ownerPost.user_image)} />
                     </Link>
+                  </HoverUser>
+                  <div className='flex flex-col ms-3'>
+                    <HoverUser user={ownerPost}>
+                      <Link href={`/profile/${ownerPost._id}`} className='base-bold'>
+                        {ownerPost.name}
+                      </Link>
+                    </HoverUser>
                     <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
                       <Link href={`/posts/${post.post_attributes.post!._id}`}>
                         {handleDateTime(post.post_attributes.post!.createdAt)}
@@ -258,51 +268,62 @@ export default function Post({ post, feature }: IPostProps) {
           </div>
           {feature !== 'sharing' && (
             <div className={cn('flex-between mt-4', post.type === 'Share' && 'mt-4')}>
-              <div className='left flex gap-5'>
-                <div className='flex gap-3'>
-                  <span className='p-1 bg-foreground-2 rounded-full'>
-                    <IoHeart
-                      className='size-4 text-red-600 cursor-pointer'
-                      data-uk-tooltip={`title: ${t('Like')}; pos: top; offset:6`}
-                    />
-                  </span>
+              <div className='left flex-start gap-5'>
+                <div className='flex-start gap-3'>
+                  <Tooltip>
+                    <TooltipTrigger className='p-1 bg-foreground-2 rounded-full'>
+                      <IoHeart className='size-4 text-red-600 cursor-pointer' />
+                    </TooltipTrigger>
+                    <TooltipContent className='font-semibold'>{t('Like')}</TooltipContent>
+                  </Tooltip>
                   <span>{post.post_attributes.like_number}</span>
                 </div>
-                <div className='flex gap-3'>
-                  <span className='p-1 bg-foreground-2 rounded-full'>
-                    <FaCommentDots
-                      className='size-4 cursor-pointer'
-                      data-uk-tooltip={`title: ${t('Comments')}; pos: top; offset:6`}
-                    />
-                  </span>
+                <div className='flex-start gap-3'>
+                  <Tooltip>
+                    <TooltipTrigger className='p-1 bg-foreground-2 rounded-full'>
+                      <FaCommentDots className='size-4 cursor-pointer' />
+                    </TooltipTrigger>
+                    <TooltipContent className='font-semibold'>{t('Comment')}</TooltipContent>
+                  </Tooltip>
                   <span>{post.post_attributes.comment_number}</span>
                 </div>
               </div>
               <div className='right flex-start gap-5'>
-                <>
-                  <FiSend
-                    className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
-                    data-uk-tooltip={`title: ${t('Send in chat')}; pos: top; offset:6`}
-                    onClick={handleOpenSendMessage}
-                  />
-                  <Modal open={openSendMessage} handleClose={handleCloseSendMessage}>
-                    <ShowUsersAndGroupsToSendPost
-                      post_id={post.type === 'Share' ? post.post_attributes.post?._id! : post._id}
-                      content={content}
-                    />
-                  </Modal>
-                </>
-                {post.type === 'Post' && (
-                  <>
-                    <GoShare
-                      className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
-                      onClick={handleOpen}
-                      data-uk-tooltip={`title: ${t('Share')}; pos: top; offset:6`}
-                    />
-                    <Modal open={open} handleClose={handleClose}>
-                      <CreateNewPostShare handleClose={handleClose} post={post} />
+                {content.length > 0 && (
+                  <div>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <FiSend
+                          className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
+                          onClick={handleOpenSendMessage}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent className='font-semibold'>{t('Send in chat')}</TooltipContent>
+                    </Tooltip>
+                    <Modal open={openSendMessage} handleClose={handleCloseSendMessage}>
+                      <ShowUsersAndGroupsToSendPost
+                        key={post._id}
+                        post_id={post.type === 'Share' ? post.post_attributes.post?._id! : post._id}
+                        content={content}
+                      />
                     </Modal>
-                  </>
+                  </div>
+                )}
+                {post.type === 'Post' && (
+                  <div>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <GoShare
+                          className='size-5 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
+                          onClick={handleOpenShare}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent className='font-semibold'>{t('Share')}</TooltipContent>
+                    </Tooltip>
+                    <Modal open={openShare} handleClose={handleCloseShare}>
+                      <CreateNewPostShare handleClose={handleCloseShare} post={post} />
+                    </Modal>
+                  </div>
                 )}
               </div>
             </div>

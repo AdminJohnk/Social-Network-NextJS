@@ -95,12 +95,7 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact =
-  | 'facebook'
-  | 'instagram'
-  | 'twitter'
-  | 'github'
-  | 'linkedin';
+export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -162,7 +157,7 @@ export interface ISharePost {
   post: string;
   visibility?: Visibility;
   owner_post: string;
-  content_share?: string;
+  content?: string;
   shared_post?: string;
 }
 
@@ -184,7 +179,6 @@ export interface IPost {
     //if type is share
     post?: IPost;
     owner_post?: IUserInfo;
-    content_share: string;
 
     likes: ILikePost[];
     comments: ICommentPost[];
@@ -310,14 +304,7 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage =
-  | 'text'
-  | 'image'
-  | 'notification'
-  | 'audio'
-  | 'file'
-  | 'voice'
-  | 'video';
+type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video' | 'post';
 type TypeofAction =
   | 'promote_admin'
   | 'revoke_admin'
@@ -334,6 +321,7 @@ export interface IMessage {
   sender: IUserInfo;
   seen: IUserInfo[];
   content: string;
+  post_id?: string;
   action: TypeofAction;
   target?: IUserInfo;
   isSending?: boolean;
@@ -384,10 +372,7 @@ export type ModalType =
   | {
       destroy: () => void;
       update: (configUpdate: any | ((prevConfig: any) => any)) => void;
-      then<T>(
-        resolve: (confirmed: boolean) => T,
-        reject: VoidFunction
-      ): Promise<T>;
+      then<T>(resolve: (confirmed: boolean) => T, reject: VoidFunction): Promise<T>;
     }
   | undefined;
 
@@ -450,13 +435,7 @@ export interface ISearchLog {
   createdAt: string;
 }
 
-export type IFeaturePost =
-  | 'detail'
-  | 'sharing'
-  | 'newsfeed'
-  | 'modal'
-  | 'profile'
-  | 'favorite';
+export type IFeaturePost = 'detail' | 'sharing' | 'newsfeed' | 'modal' | 'profile' | 'favorite';
 
 export type TypeOfLevel = 'beginner' | 'intermediate' | 'advanced';
 

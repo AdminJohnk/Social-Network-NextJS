@@ -85,6 +85,15 @@ export const ChatService = () => {
   const notiCall = new Audio('/sounds/sound-noti-call.wav');
   notiCall.volume = 0.3;
 
+  const playNoti = useCallback(() => {
+    notiCall.currentTime = 0;
+    notiCall.play();
+  }, [notiCall]);
+
+  const pauseNoti = useCallback(() => {
+    notiCall.pause();
+  }, [notiCall]);
+
   const queryClient = useQueryClient();
 
   const { currentUserInfo } = useCurrentUserInfo();
@@ -165,16 +174,14 @@ export const ChatService = () => {
       mutateConversation({ ...conversation, typeUpdate: 'remove_admin' });
     });
     chatSocket.on(Socket.VIDEO_CALL, (data: ISocketCall) => {
-      notiCall.currentTime = 0;
-      notiCall.play();
+      playNoti();
       setOpenCall(true);
       setDataCall(data);
       setCallType('video');
       setIsMissed(false);
     });
     chatSocket.on(Socket.VOICE_CALL, (data: ISocketCall) => {
-      notiCall.currentTime = 0;
-      notiCall.play();
+      playNoti();
       setOpenCall(true);
       setDataCall(data);
       setCallType('voice');
@@ -182,20 +189,26 @@ export const ChatService = () => {
     });
     chatSocket.on(Socket.END_VIDEO_CALL, (data: ISocketCall) => {
       queryClient.invalidateQueries({ queryKey: ['called'] });
+      setIsMissed(true);
+      pauseNoti();
       if (openCall) {
-        notiCall.pause();
         setDataCall(data);
-        setCallType('video');
-        setIsMissed(true);
+        setCallType(undefined);
+      } else {
+        setDataCall(undefined);
+        setCallType(undefined);
       }
     });
     chatSocket.on(Socket.END_VOICE_CALL, (data: ISocketCall) => {
       queryClient.invalidateQueries({ queryKey: ['called'] });
+      pauseNoti();
+      setIsMissed(true);
       if (openCall) {
-        notiCall.pause();
         setDataCall(data);
-        setCallType('voice');
-        setIsMissed(true);
+        setCallType(undefined);
+      } else {
+        setDataCall(undefined);
+        setCallType(undefined);
       }
     });
     chatSocket.on(Socket.SEND_END_VIDEO_CALL, (data: ISocketCall) => {
@@ -225,7 +238,7 @@ export const ChatService = () => {
       chatSocket.off(Socket.SEND_END_VIDEO_CALL);
       chatSocket.off(Socket.SEND_END_VOICE_CALL);
     };
-  }, []);
+  }, [openCall, notiCall, isMissed]);
 
   return (
     <Dialog open={openCall} onOpenChange={setOpenCall}>
@@ -265,20 +278,21 @@ export const ChatService = () => {
         </div>
         <DialogFooter>
           <Button
+            type='button'
             onClick={() => {
-              if (isMissed) setOpenCall(false);
-              else {
+              if (!isMissed) {
                 callType === 'video'
                   ? chatSocket.emit(Socket.LEAVE_VIDEO_CALL, { ...dataCall, type: 'missed' })
                   : chatSocket.emit(Socket.LEAVE_VOICE_CALL, { ...dataCall, type: 'missed' });
-                notiCall.pause();
-                setOpenCall(false);
               }
+              pauseNoti();
+              setOpenCall(false);
             }}>
             {isMissed ? t('Close') : t('Decline')}
           </Button>
           {!isMissed && (
             <Button
+              type='button'
               onClick={() => {
                 callType === 'video'
                   ? videoChat(dataCall!.conversation_id)

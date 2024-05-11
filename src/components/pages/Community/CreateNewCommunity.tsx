@@ -1,20 +1,16 @@
-import { InputStyle, LabelStyle } from '@/components/shared/InputStyle';
+import { InputStyle } from '@/components/shared/InputStyle';
 import TextareaV2 from '@/components/ui/textarea-v2';
 import { useTranslations } from 'next-intl';
-import { IoAdd, IoHappy, IoHappyOutline } from 'react-icons/io5';
+import { IoAdd, IoHappyOutline } from 'react-icons/io5';
 import Picker from '@emoji-mart/react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useThemeMode } from 'flowbite-react';
 import { IEmoji } from '@/types';
 import Popover from '@/components/ui/popover-v2';
 import { PiHashLight } from 'react-icons/pi';
 import { IoMdClose } from 'react-icons/io';
 import { FiMinus } from 'react-icons/fi';
-import { Autocomplete, TextField } from '@mui/material';
-import { useSession } from 'next-auth/react';
 import { useCurrentUserInfo } from '@/hooks/query';
-import { cn } from '@/lib/utils';
-import AutoCompleteStyle from '@/components/shared/InputStyle/AutoCompleteStyle';
 
 export interface ICreateNewCommunityProps {}
 
@@ -204,17 +200,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
         <div className='render-rule-input mx-3 *:mb-8'>
           {ruleInputs.map((_, index) => ruleInputHTML(index))}
         </div>
-        <div className='member'>
-          {/* <Autocomplete
-            options={top100Films}
-            getOptionLabel={(option) => option.title}
-            id='disable-close-on-select'
-            disableCloseOnSelect
-            renderInput={params => <InputStyle label=''/>}
-            sx={{}}
-          /> */}
-          <AutoCompleteStyle />
-        </div>
+        <div className='member'></div>
       </div>
 
       <div className='p-5 flex justify-between items-center'></div>

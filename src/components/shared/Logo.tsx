@@ -1,9 +1,16 @@
-import { FaSnowflake } from "react-icons/fa";
+import { FaSnowflake } from 'react-icons/fa';
 
-export default function Logo() {
+import { cn } from '@/lib/utils';
+
+interface ILogoProps {
+  className?: string;
+  rootClassName?: string;
+}
+
+export default function Logo({ className, rootClassName }: ILogoProps) {
   return (
-    <div className='icon_logo'>
-      <FaSnowflake className='text-3xl' />
+    <div className={cn('icon_logo', rootClassName)}>
+      <FaSnowflake className={cn('text-3xl text-center', className)} />
     </div>
   );
 }

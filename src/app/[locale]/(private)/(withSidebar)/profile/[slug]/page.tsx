@@ -25,7 +25,7 @@ export default function Profile({ params: { slug, locale } }: IProfileProps) {
         <TabsContent id='tabs-profile' className='!border-none'>
           <TimelineTab profileID={slug} />
           <FriendTab profileID={slug}/>
-          <SeriesTab profileID={slug}/>
+          {/* <SeriesTab profileID={slug}/> */}
           <PhotoTab profileID={slug}/>
           <RepositoryTab profileID={slug} />
         </TabsContent>
