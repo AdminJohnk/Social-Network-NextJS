@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { ICreateSeries, IResponse, ISeries } from '@/types';
+import { ICreateSeries, IResponse, ISeries, IUpdateSeries } from '@/types';
 import { BaseService } from './BaseService';
 
 class SeriesService extends BaseService {
@@ -22,6 +22,12 @@ class SeriesService extends BaseService {
 
   getSeriesByID = (id: string): Promise<AxiosResponse<IResponse<ISeries>>> => {
     return this.get(`/series/find/${id}`);
+  };
+
+  updateSeries = (
+    data: IUpdateSeries
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/update/${data.id}`, data);
   };
 }
 
