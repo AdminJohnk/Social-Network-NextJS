@@ -16,8 +16,8 @@ export default function Header() {
             <SearchHeader />
             <div className='flex items-center sm:gap-4 gap-2 absolute right-5 top-1/2 -translate-y-1/2 text-text-1'>
               <CreateHeader />
-              <NotificationsHeader />
               <MessagesHeader />
+              <NotificationsHeader />
               <Language />
               <ProfileHeader />
             </div>

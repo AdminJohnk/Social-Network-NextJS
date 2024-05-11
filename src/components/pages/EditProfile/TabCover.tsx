@@ -66,6 +66,7 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
                     alt={currentUserInfo.user_image}
                     height={500}
                     width={500}
+                    priority
                   />
                   <input type='file' id='file' className='hidden' />
                 </label>
