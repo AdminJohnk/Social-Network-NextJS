@@ -109,7 +109,7 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
                   type='button'
                   className={cn(
                     'relative inline-flex items-center p-3 text-sm font-medium text-center text-text-1 rounded-lg hover:bg-hover-1',
-                    index === optionIndex && 'bg-hover-1'
+                    index === optionIndex && 'bg-foreground-1'
                   )}>
                   {option.icon}
                   {option.count > 0 && (

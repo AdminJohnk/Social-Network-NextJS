@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { Button } from '@/components/ui/button';
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
-import * as z from 'zod';
+import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userSocialTabSchema } from '@/lib/schema';

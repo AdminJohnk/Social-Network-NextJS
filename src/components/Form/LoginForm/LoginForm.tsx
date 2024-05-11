@@ -1,6 +1,6 @@
 'use client';
 
-import * as z from 'zod';
+import { z } from 'zod';
 import { useState } from 'react';
 import { FaSnowflake, FaSpinner } from 'react-icons/fa';
 import { Link } from '@/navigation';

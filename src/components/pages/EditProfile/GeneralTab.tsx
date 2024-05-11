@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { useUpdateUser } from '@/hooks/mutation';
 import { useMemo, useState } from 'react';
-import * as z from 'zod';
+import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userGeneralTabSchema } from '@/lib/schema';
@@ -87,11 +87,7 @@ export default function GeneralTab() {
               className='w-full rounded-lg bg-foreground-2 border-none'
               {...register('name')}
             />
-            {errors.name && (
-              <p className='p-1 text-xs text-red-600'>
-                {t(errors.name.message)}
-              </p>
-            )}
+            {errors.name && <p className='p-1 text-xs text-red-600'>{t(errors.name.message)}</p>}
           </div>
         </div>
 
@@ -107,11 +103,7 @@ export default function GeneralTab() {
               className='w-full rounded-lg bg-foreground-2 border-none'
               {...register('alias')}
             />
-            {errors.alias && (
-              <p className='p-1 text-xs text-red-600'>
-                {t(errors.alias.message)}
-              </p>
-            )}
+            {errors.alias && <p className='p-1 text-xs text-red-600'>{t(errors.alias.message)}</p>}
           </div>
         </div>
 
@@ -127,11 +119,7 @@ export default function GeneralTab() {
               placeholder='Write something about yourself...'
               {...register('about')}
             />
-            {errors.about && (
-              <p className='p-1 text-xs text-red-600'>
-                {t(errors.about.message)}
-              </p>
-            )}
+            {errors.about && <p className='p-1 text-xs text-red-600'>{t(errors.about.message)}</p>}
           </div>
         </div>
       </div>
@@ -142,11 +130,8 @@ export default function GeneralTab() {
             'button lg:px-6 text-white max-md:flex-1',
             (!isChanged || isLoading) && 'select-none'
           )}
-          disabled={!isChanged || isLoading}
-        >
-          {isLoading && (
-            <CircularProgress size={20} className='!text-text-1 mr-2' />
-          )}
+          disabled={!isChanged || isLoading}>
+          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
           {t('Save')} <span className='ripple-overlay'></span>
         </Button>
       </div>

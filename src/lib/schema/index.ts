@@ -1,9 +1,22 @@
 import { z } from 'zod';
 
 export const userAuthSchema = z.object({
-  email: z.string().min(3, { message: 'Username must be at least 3 characters' }),
+  email: z.string().email({ message: 'Invalid email' }),
   password: z.string().min(6, { message: 'Password must be at least 6 characters' })
 });
+
+export const userRegisterSchema = z
+  .object({
+    name: z.string().min(3, { message: 'Name must be at least 3 characters' }),
+    alias: z.string().min(3, { message: 'Alias must be at least 5 characters' }),
+    email: z.string().email({ message: 'Invalid email' }),
+    password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
+    repeatPassword: z.string().min(6, { message: 'Password must be at least 6 characters' })
+  })
+  .refine((data) => data.password === data.repeatPassword, {
+    message: 'Passwords do not match',
+    path: ['repeatPassword']
+  });
 
 export const userGeneralTabSchema = z.object({
   name: z.string().min(3, { message: 'Name must be at least 3 characters' }),

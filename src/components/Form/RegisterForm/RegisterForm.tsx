@@ -1,10 +1,21 @@
-import { Link } from '@/navigation';
+'use client';
+
+import { z } from 'zod';
+import { Link, useRouter } from '@/navigation';
+import { useState } from 'react';
 import { ClassValue } from 'clsx';
-import { FaSnowflake } from 'react-icons/fa';
+import { FaSnowflake, FaSpinner } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { userRegisterSchema } from '@/lib/schema';
+import { authService } from '@/services/AuthService';
+
+type FormData = z.infer<typeof userRegisterSchema>;
 
 export interface IRegisterFormProps {
   className: string;
@@ -15,6 +26,51 @@ const classStyleInput: ClassValue =
 
 export default function RegisterForm(props: IRegisterFormProps) {
   const t = useTranslations();
+
+  const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors }
+  } = useForm<FormData>({
+    resolver: zodResolver(userRegisterSchema)
+  });
+
+  const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
+
+    await authService
+      .register({
+        name: data.name,
+        alias: data.alias,
+        email: data.email,
+        password: data.password,
+        confirm: data.repeatPassword
+      })
+      .then(async () => {
+        await signIn('credentials', {
+          email: data.email,
+          password: data.password
+        });
+      })
+      .catch((error) => {
+        if (error.response.data.message === 'Email already exists') {
+          setError('email', {
+            message: 'Email already exists'
+          });
+        }
+        if (error.response.data.message === 'Alias already exists') {
+          setError('alias', {
+            message: 'Alias already exists'
+          });
+        }
+      })
+      .finally(() => setIsLoading(false));
+  };
 
   return (
     <div className={cn(props.className, 'flex-center')}>
@@ -28,7 +84,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
             <div className='h3-bold text-text-1 my-3'>{t('Create an account')}</div>
           </div>
         </div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className='mb-5'>
             <label htmlFor='name' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
               {t('Name')}
@@ -38,9 +94,10 @@ export default function RegisterForm(props: IRegisterFormProps) {
               id='name'
               className={cn(classStyleInput)}
               placeholder='John Smith'
-              autoComplete='one-time-code'
-              required
+              autoComplete='name'
+              {...register('name')}
             />
+            {errors.name && <p className='p-1 text-xs text-red-600'>{errors.name.message}</p>}
           </div>
           <div className='mb-5'>
             <label htmlFor='alias' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
@@ -51,9 +108,10 @@ export default function RegisterForm(props: IRegisterFormProps) {
               id='alias'
               className={cn(classStyleInput)}
               placeholder={t('johnsmith (without spacing)')}
-              autoComplete='one-time-code'
-              required
+              autoComplete='alias'
+              {...register('alias')}
             />
+            {errors.alias && <p className='p-1 text-xs text-red-600'>{errors.alias.message}</p>}
           </div>
           <div className='mb-5'>
             <label htmlFor='email' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
@@ -64,9 +122,10 @@ export default function RegisterForm(props: IRegisterFormProps) {
               id='email'
               className={cn(classStyleInput)}
               placeholder='johnsmith@example.com'
-              autoComplete='one-time-code'
-              required
+              autoComplete='email'
+              {...register('email')}
             />
+            {errors.email && <p className='p-1 text-xs text-red-600'>{errors.email.message}</p>}
           </div>
           <div className='mb-5'>
             <label
@@ -79,9 +138,10 @@ export default function RegisterForm(props: IRegisterFormProps) {
               id='password'
               className={cn(classStyleInput)}
               placeholder='******'
-              autoComplete='one-time-code'
-              required
+              autoComplete='password'
+              {...register('password')}
             />
+            {errors.password && <p className='p-1 text-xs text-red-600'>{errors.password.message}</p>}
           </div>
           <div className='mb-5'>
             <label
@@ -94,11 +154,17 @@ export default function RegisterForm(props: IRegisterFormProps) {
               id='repeat-password'
               className={cn(classStyleInput)}
               placeholder='******'
-              autoComplete='one-time-code'
-              required
+              autoComplete='repeat-password'
+              {...register('repeatPassword')}
             />
+            {errors.repeatPassword && (
+              <p className='p-1 text-xs text-red-600'>{errors.repeatPassword.message}</p>
+            )}
           </div>
-          <Button className='w-full mb-5'>{t('Sign up')}</Button>
+          <Button className='w-full mb-5' disabled={isLoading}>
+            {isLoading && <FaSpinner className='animate-spin mr-2' />}
+            {t('Sign up')}
+          </Button>
         </form>
         <div className='max-w-sm flex-center'>
           <div className='flex-start'>

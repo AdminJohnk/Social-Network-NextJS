@@ -48,31 +48,33 @@ export default function HoverUser({ children, user }: IHoverUserProps) {
               {user.name}
             </span>
             <span className='font-semibold text-text-2'>{user.email}</span>
-            <div className='flex flex-col mt-2'>
-              <div className='flex items-center gap-2'>
-                <FaUserFriends className='text-xl' />
-                <span className='text-text-1'>
-                  {t('Num mutual friends', { count: mutualFriends?.length || 0 })}
-                </span>
-              </div>
+            {!isMe && (
+              <div className='flex flex-col mt-2'>
+                <div className='flex items-center gap-2'>
+                  <FaUserFriends className='text-xl' />
+                  <span className='text-text-1'>
+                    {t('Num mutual friends', { count: mutualFriends?.length || 0 })}
+                  </span>
+                </div>
 
-              <div className='flex-start mt-0.5 w-full h-8'>
-                {mutualFriends?.slice(0, 5).map((friend, index) => (
-                  <Link
-                    key={friend._id}
-                    href={`/profile/${friend._id}`}
-                    className={cn(index !== 0 && '-ml-2')}>
-                    <Image
-                      width={200}
-                      height={200}
-                      src={getImageURL(friend.user_image)}
-                      alt={friend.name}
-                      className='object-cover w-6 h-6 rounded-full inset-0 hover:'
-                    />
-                  </Link>
-                ))}
+                <div className='flex-start mt-0.5 w-full h-8'>
+                  {mutualFriends?.slice(0, 5).map((friend, index) => (
+                    <Link
+                      key={friend._id}
+                      href={`/profile/${friend._id}`}
+                      className={cn(index !== 0 && '-ml-2')}>
+                      <Image
+                        width={200}
+                        height={200}
+                        src={getImageURL(friend.user_image)}
+                        alt={friend.name}
+                        className='object-cover w-6 h-6 rounded-full inset-0 hover:'
+                      />
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         {!isMe && (
