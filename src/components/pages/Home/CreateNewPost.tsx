@@ -46,8 +46,11 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
     const content = editor?.getHTML() as string;
     // console.log(content);
     // return;
+    setIsLoading(true);
 
-    const hashtag = content.match(/#\w+/g) || [];
+    // get hashtags from content
+    const hashtags = content.match(/#[a-zA-Z0-9]+/g) || [];
+    const uniqueHashtags = Array.from(new Set(hashtags));
 
     if (!editor?.getText().trim()) {
       showErrorToast('Please enter some text!');
@@ -63,7 +66,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
         content: content || '',
         images: imagesUploaded,
         visibility: privacy,
-        hashtags: hashtag!
+        hashtags: uniqueHashtags
       },
       {
         onSuccess() {

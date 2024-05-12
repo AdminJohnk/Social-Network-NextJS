@@ -808,6 +808,38 @@ export const useGetPostsBySearchKey = (keyword: string) => {
   };
 };
 
+export const useGetPostsByHashtag = (hashtag: string) => {
+  const { data, isPending, isError, isFetching } = useInfiniteQuery({
+    queryKey: ['postByHashtag', hashtag],
+    queryFn: async ({ pageParam }) => {
+      if (!hashtag) {
+        return [];
+      }
+      const { data } = await postService.getPostByHashtag(hashtag, pageParam);
+      return data.metadata;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, _, lastPageParam) => {
+      if (lastPage.length < 5) {
+        return undefined;
+      }
+      return lastPageParam + 1;
+    },
+    select: (data) => {
+      return data.pages.flat();
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingPostsByHashtag: isPending,
+    isErrorPostsByHashtag: isError,
+    postsByHashtag: data!,
+    isFetchingPostsByHashtag: isFetching
+  };
+
+}
+
 export const useGetSearchLogs = () => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['searchLogs'],
