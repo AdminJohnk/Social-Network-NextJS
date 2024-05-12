@@ -4,18 +4,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { CircularProgress } from '@mui/material';
 import { debounce } from 'lodash';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import MessageBox from './MessageBox';
 import { useCurrentUserInfo, useMessages } from '@/hooks/query';
 import { IConversation, IMessage, IUserInfo } from '@/types';
 import { useSocketStore } from '@/store/socket';
-import { Socket } from '@/lib/utils/constants/SettingSystem';
-import { getImageURL } from '@/lib/utils';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { FaPhone, FaVideo } from 'react-icons/fa';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { useTranslations } from 'next-intl';
+import ChatWelcome from './ChatWelcome';
+import { cn, getImageURL } from '@/lib/utils';
+import { Socket } from '@/lib/utils/constants/SettingSystem';
 import { audioCall, videoChat } from '@/lib/utils/call';
 
 export interface IMessageListProps {
@@ -40,7 +40,7 @@ export default function MessageList({ conversationID, currentConversation, other
 
   const { currentUserInfo } = useCurrentUserInfo();
 
-  const { activeMembers: members, chatSocket } = useSocketStore();
+  const { chatSocket } = useSocketStore();
 
   const isAdmin = useCallback(
     (userID: string) => {
@@ -93,7 +93,6 @@ export default function MessageList({ conversationID, currentConversation, other
   const [count, setCount] = useState(0);
   const [typingUsers, setTypingUsers] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const activeUser = members.find((member) => member._id === otherUser._id);
 
   const seenMessage = useCallback(() => {
     if (
@@ -137,6 +136,8 @@ export default function MessageList({ conversationID, currentConversation, other
     [bottomRef.current]
   );
 
+  const [scrollPosition, setScrollPosition] = useState(0);
+
   useEffect(() => {
     if (!messages) return;
     if (count === 0) {
@@ -145,16 +146,17 @@ export default function MessageList({ conversationID, currentConversation, other
       return;
     }
     if (messages.length - count === 1) scrollToBottom('auto');
+
     // if load more message => keep scroll position
     if (messages.length - count > 1) {
-      if (messageRef.current) {
-        messageRef.current.scrollTop = messageRef.current.scrollHeight - scrollPosition;
+      const element = messageRef.current;
+      if (element) {
+        element.scrollTop = element.scrollHeight - scrollPosition;
       }
     }
+
     setCount(messages.length);
   }, [messages]);
-
-  const [scrollPosition, setScrollPosition] = useState(0);
 
   const fetchPreMessages = useCallback(() => {
     if (!isFetchingPreviousPage && messages && hasPreviousMessages) {
@@ -216,8 +218,21 @@ export default function MessageList({ conversationID, currentConversation, other
         </div>
       ) : (
         <>
-          <div className='text-sm font-medium'>
+          <div
+            ref={messageRef}
+            className={cn(
+              'w-full ps-5 pe-2 pt-10 overflow-auto h-[calc(100vh-125px)] custom-scrollbar-fg',
+              typingUsers.length ? 'pb-6' : 'pb-1'
+            )}>
+            {!hasPreviousMessages && (
+              <ChatWelcome currentConversation={currentConversation} otherUser={otherUser} />
+            )}
             <div className='pt-1' ref={topRef} />
+            {isFetchingPreviousPage && (
+              <div className='flex-center p-1'>
+                <CircularProgress size={20} className='!text-text-1' />
+              </div>
+            )}
             {messages.map((message, index, messArr) => (
               <MessageBox
                 key={conversationID + '|' + message._id}
@@ -242,7 +257,7 @@ export default function MessageList({ conversationID, currentConversation, other
                 return (
                   <Image
                     key={member._id}
-                    className='rounded-full bg-border-1 border-2 border-solid -top-2 absolute h-6 w-6 overflow-hidden'
+                    className='rounded-full border-border-1 border-2 border-solid -top-2 absolute h-6 w-6 overflow-hidden'
                     src={getImageURL(member.user_image, 'avatar_mini')}
                     style={{ left: `${index * 30 + typingUsers.length * 10}px` }}
                     alt={member.name}
@@ -254,7 +269,7 @@ export default function MessageList({ conversationID, currentConversation, other
               return null;
             })}
             <div
-              className='typing-indicator rounded-full'
+              className='typing-indicator rounded-full bg-foreground-2'
               style={{ left: `${typingUsers.length * 30 + typingUsers.length * 10}px` }}>
               <div /> <div /> <div />
             </div>

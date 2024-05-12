@@ -295,7 +295,7 @@ export default function MessagesHeader() {
         </div>
 
         <Link href='/messages'>
-          <div className='text-center py-4 border-t border-border-1 text-sm font-medium text-blue-600 dark:text-white hover:underline'>
+          <div className='text-center py-4 border-t border-border-1 text-sm font-medium text-blue-600 hover:underline'>
             {t('See all messages')}
           </div>
         </Link>
