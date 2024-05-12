@@ -1,31 +1,95 @@
 'use client';
 
 import EditButton from '@/components/pages/Series/EditButton';
-import CreateEditSeries from '@/components/shared/CreateEditSeries/CreateEditSeries';
 import Divider from '@/components/shared/Divider';
 import Modal from '@/components/shared/Modal';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { Button } from '@/components/ui/button';
-import { useGetSeriesByID } from '@/hooks/query';
+import { useCurrentUserInfo, useGetSeriesByID } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
-import { ICreateSeries, IUpdateSeries } from '@/types';
+import { ISeriesPost, IUpdateSeries, IUpdateSeriesPost } from '@/types';
 import { Avatar } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
-import { FaPen, FaRegCircle } from 'react-icons/fa';
+import { FaPen, FaPencilAlt, FaRegCircle } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
+import { IoAdd } from 'react-icons/io5';
+import CreateEditSeries from '@/components/pages/Series/CreateEditSeries';
+import CreateEditPostSeries from '@/components/pages/Series/CreateEditPostSeries';
+
+export interface IPostItemProps {
+  post: ISeriesPost;
+  series_id: string;
+  isMe: boolean;
+}
+
+export function PostItem({ post, series_id, isMe }: IPostItemProps) {
+  const [openEditPost, setOpenEditPost] = useState(false);
+
+  return (
+    <div key={post._id} className='flex items-center w-full'>
+      <FaRegCircle className='text-blue-500 size-3' />
+      <div className='ms-3 text-text-2'>
+        <div className='flex-start gap-3'>
+          <Link
+            href={`/series/${series_id}/posts/${post._id}`}
+            className='h5-semibold  cursor-pointer'
+          >
+            {post.title}
+          </Link>
+          {isMe && (
+            <>
+              <FaPencilAlt
+                className='size-4 text-1'
+                onClick={() => {
+                  setOpenEditPost(true);
+                }}
+              />
+              <Modal
+                open={openEditPost}
+                handleClose={() => setOpenEditPost(false)}
+              >
+                <CreateEditPostSeries
+                  handleClose={() => setOpenEditPost(false)}
+                  series_id={series_id}
+                  dataEdit={
+                    {
+                      id: post._id,
+                      series_id: series_id,
+                      title: post.title,
+                      description: post.description,
+                      cover_image: post.cover_image,
+                      content: post.content,
+                      read_time: post.read_time,
+                      visibility: post.visibility
+                    } as IUpdateSeriesPost
+                  }
+                />
+              </Modal>
+            </>
+          )}
+        </div>
+        <p className='small-regular'>{post.read_time}</p>
+      </div>
+    </div>
+  );
+}
 
 export interface ISeriesProps {
   params: {
-    slug: string;
+    seriesID: string;
   };
 }
 
-export default function Series({ params: { slug } }: ISeriesProps) {
-  const { series } = useGetSeriesByID(slug);
+export default function Series({ params: { seriesID } }: ISeriesProps) {
   const t = useTranslations();
+
+  const { series } = useGetSeriesByID(seriesID);
+  const { currentUserInfo } = useCurrentUserInfo();
+
+  const isMe = series?.user?._id === currentUserInfo?._id || false;
 
   const author = series?.user;
 
@@ -43,18 +107,21 @@ export default function Series({ params: { slug } }: ISeriesProps) {
   }, [series]);
 
   // Modal
-  const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openAddPost, setOpenAddPost] = useState(false);
 
   return (
     <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
-      <EditButton
-        onClick={() => {
-          setOpen(true);
-        }}
-      />
-      <Modal open={open} handleClose={() => setOpen(false)}>
+      {isMe && (
+        <EditButton
+          onClick={() => {
+            setOpenEdit(true);
+          }}
+        />
+      )}
+      <Modal open={openEdit} handleClose={() => setOpenEdit(false)}>
         <CreateEditSeries
-          handleClose={() => setOpen(false)}
+          handleClose={() => setOpenEdit(false)}
           dataEdit={dataEdit}
         />
       </Modal>
@@ -68,35 +135,49 @@ export default function Series({ params: { slug } }: ISeriesProps) {
           priority
         />
         <div className='h3-semibold mt-7'>{series?.title}</div>
-        <div className='text-text-2 text-[0.9rem] text-pretty mt-4'>
+        <div className='text-text-2 text-[1rem] text-pretty mt-4'>
           {series?.description}
         </div>
         <Button className='w-full my-7 py-3'>Start Series</Button>
         <div>
-          <div className='base-semibold'>{t('Series Content')}</div>
+          <div className='base-semibold flex-start gap-2'>
+            <span>{t('Series Content')}</span>
+            {isMe && (
+              <>
+                <span className='p-0.5 rounded-full bg-foreground-1'>
+                  <IoAdd
+                    className='size-5 text-1'
+                    onClick={() => {
+                      setOpenAddPost(true);
+                    }}
+                  />
+                </span>
+                {/* Add Post */}
+                <Modal
+                  open={openAddPost}
+                  handleClose={() => setOpenAddPost(false)}
+                >
+                  <CreateEditPostSeries
+                    handleClose={() => setOpenAddPost(false)}
+                    series_id={series?._id}
+                  />
+                </Modal>
+              </>
+            )}
+          </div>
           <div className='space-y-5 mt-6'>
-            <div className='flex items-center w-full cursor-pointer'>
-              <FaRegCircle className='text-blue-500 size-3' />
-              <div className='ms-3'>
-                <h2 className='h5-semibold text-text-2'>
-                  What is a Blockchain?
-                </h2>
-                <p className='small-regular text-text-2'>2 min read</p>
-              </div>
-            </div>
-            <div className='flex items-center w-full cursor-pointer'>
-              <FaRegCircle className='text-blue-500 size-3' />
-              <div className='ms-3'>
-                <h2 className='h5-semibold text-text-2'>
-                  Ethereum and the Future of the Internet
-                </h2>
-                <p className='small-regular text-text-2'>2 min read</p>
-              </div>
-            </div>
+            {series?.posts.map(post => (
+              <PostItem
+                key={post._id}
+                post={post}
+                series_id={series._id}
+                isMe={isMe}
+              />
+            ))}
           </div>
         </div>
         <Divider className='mt-8 mb-6' />
-        <div className='text-pretty text-[0.9rem] leading-relaxed'>
+        <div className='text-pretty text-[1rem] leading-relaxed'>
           <ShowContent content={series?.introduction} />
         </div>
         <div className='author mt-10 flex-between'>
@@ -109,9 +190,9 @@ export default function Series({ params: { slug } }: ISeriesProps) {
                 <div>{author?.name}</div>{' '}
               </Link>
               {author?.experiences?.length > 0 && (
-                <div className='small-regular text-text-2'>
-                  {author?.experiences[0].position_name} at{' '}
-                  {author?.experiences[0].company_name}
+                <div className='small-regular text-text-2 space-x-1'>
+                  <span>{author?.experiences[0].position_name} at</span>
+                  <span>{author?.experiences[0].company_name}</span>
                 </div>
               )}
             </div>

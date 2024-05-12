@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Editor as EditorProps } from '@tiptap/react';
-import Editor from '../Editor/Editor';
+import Editor from '@/components/shared/Editor/Editor';
 import TextareaV2 from '@/components/ui/textarea-v2';
-import { InputStyle, LabelStyle } from '../InputStyle';
+import { InputStyle } from '@/components/shared/InputStyle';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { IoImage } from 'react-icons/io5';
 import Image from 'next/image';
@@ -19,9 +19,8 @@ import {
   useUpdateSeries,
   useUploadImage
 } from '@/hooks/mutation';
-import { ICreateSeries, IUpdateSeries, TypeOfLevel, Visibility } from '@/types';
-import PostPrivacy from '../PostPrivacy';
-import { set } from 'lodash';
+import { IUpdateSeries, TypeOfLevel, Visibility } from '@/types';
+import PostPrivacy from '@/components/shared/PostPrivacy';
 
 export interface ICreateEditSeriesProps {
   handleClose: () => void;
