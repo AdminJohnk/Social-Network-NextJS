@@ -30,6 +30,7 @@ export interface IGithubLogin {
 
 export interface IUserRegister extends IUserLogin {
   name: string;
+  alias: string;
   confirm: string;
 }
 

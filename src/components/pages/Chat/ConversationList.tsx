@@ -126,7 +126,7 @@ function ConversationList({ conversationID }: IConversationListProps) {
           searchConversation.map((conversation) => (
             <div
               key={conversation._id}
-              className={cn('rounded-xl', conversationID === conversation._id && 'bg-hover-2')}>
+              className={cn('rounded-xl', conversationID === conversation._id && 'bg-foreground-1')}>
               <ConversationBox key={conversation._id} conversation={conversation} />
             </div>
           ))
