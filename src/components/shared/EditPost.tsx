@@ -87,7 +87,7 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
         <h2 className='text-sm font-medium text-text-1'>{t('Edit Status')}</h2>
       </div>
 
-      <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg'>
+      <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg'>
         <div className='space-y-5 mt-3 p-2'>
           <Editor setEditor={setEditor} content={post.post_attributes.content} />
         </div>

@@ -416,5 +416,17 @@
   "Update Series": "Cập nhật series",
   "Series updated successfully!": "Series đã được cập nhật thành công!",
   "No series found": "Không tìm thấy series",
-  "No friend found": "Không tìm thấy bạn bè"
+  "No friend found": "Không tìm thấy bạn bè",
+  "Emoji": "Biểu tượng cảm xúc",
+  "Youtube": "Youtube",
+  "Link": "Liên kết",
+  "Ordered List": "Danh sách có thứ tự",
+  "Bullet List": "Danh sách không có thứ tự",
+  "Highlight": "Nổi bật",
+  "Strike": "Gạch ngang",
+  "Underline": "Gạch chân",
+  "Italic": "In nghiêng",
+  "Bold": "In đậm",
+  "Redo": "Tái thực hiện",
+  "Undo": "Hoàn tác"
 }

@@ -1,6 +1,6 @@
 import { InputStyle } from '@/components/shared/InputStyle';
 import TextareaV2 from '@/components/ui/textarea-v2';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { IoAdd, IoHappyOutline } from 'react-icons/io5';
 import Picker from '@emoji-mart/react';
 import { useState } from 'react';
@@ -16,6 +16,7 @@ export interface ICreateNewCommunityProps {}
 
 export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
   const t = useTranslations();
+  const locale = useLocale();
   const { mode } = useThemeMode();
 
   const { currentUserInfo } = useCurrentUserInfo();
@@ -70,7 +71,7 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
         <h2 className='text-sm font-medium text-text-1'>{t('Create Community')}</h2>
       </div>
 
-      <div className='max-h-[490px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
+      <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
         <div className='relative !mt-3'>
           <InputStyle label='Community Name' />
         </div>
@@ -97,14 +98,20 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
           />
           <div className='ms-2'>
             <Popover
-              open={false}
               mainContent={<IoHappyOutline className='text-2xl' />}
               hoverContent={
                 <Picker
                   data={async () => {
                     const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
-                    return response.json();
+                    return await response.json();
+                  }}
+                  i18n={async () => {
+                    const response = await fetch(
+                      `https://cdn.jsdelivr.net/npm/@emoji-mart/data/i18n/${locale}.json`
+                    );
+
+                    return await response.json();
                   }}
                   onEmojiSelect={(emoji: IEmoji) => {
                     setCursorDes(cursorDes + emoji.native.length);
@@ -141,14 +148,20 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
           />
           <div className='ms-2'>
             <Popover
-              open={false}
               mainContent={<IoHappyOutline className='text-2xl' />}
               hoverContent={
                 <Picker
                   data={async () => {
                     const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
-                    return response.json();
+                    return await response.json();
+                  }}
+                  i18n={async () => {
+                    const response = await fetch(
+                      `https://cdn.jsdelivr.net/npm/@emoji-mart/data/i18n/${locale}.json`
+                    );
+
+                    return await response.json();
                   }}
                   onEmojiSelect={(emoji: IEmoji) => {
                     setCursorAbout(cursorAbout + emoji.native.length);

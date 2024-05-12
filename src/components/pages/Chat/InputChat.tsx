@@ -9,7 +9,7 @@ import {
 } from 'react-icons/io5';
 import { FaGift } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useThemeMode } from 'flowbite-react';
 import Picker from '@emoji-mart/react';
 import { debounce } from 'lodash';
@@ -34,6 +34,7 @@ export interface IInputChatProps {
 
 export default function InputChat({ conversationID, members }: IInputChatProps) {
   const t = useTranslations();
+  const locale = useLocale();
   const { mode } = useThemeMode();
 
   const { currentUserInfo } = useCurrentUserInfo();
@@ -246,7 +247,14 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
                 data={async () => {
                   const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
-                  return response.json();
+                  return await response.json();
+                }}
+                i18n={async () => {
+                  const response = await fetch(
+                    `https://cdn.jsdelivr.net/npm/@emoji-mart/data/i18n/${locale}.json`
+                  );
+
+                  return await response.json();
                 }}
                 onEmojiSelect={(emoji: IEmoji) => {
                   setCursor(cursor + emoji.native.length);

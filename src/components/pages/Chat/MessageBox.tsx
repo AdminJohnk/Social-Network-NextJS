@@ -4,6 +4,7 @@ import { Link, useRouter } from '@/navigation';
 import Image from 'next/image';
 import { FaCrown, FaShieldHalved } from 'react-icons/fa6';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
+import { IoLockClosed } from 'react-icons/io5';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
 
 import { cn, getImageURL } from '@/lib/utils';
@@ -13,7 +14,6 @@ import { audioCall, videoChat } from '@/lib/utils/call';
 import ImageMessage from './ImageMessage';
 import { Avatar, CircularProgress } from '@mui/material';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
-import { IoLockClosed } from 'react-icons/io5';
 
 export interface IReCallProps {
   open: boolean;

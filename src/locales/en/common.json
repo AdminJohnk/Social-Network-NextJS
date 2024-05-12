@@ -416,5 +416,17 @@
   "Update Series": "Update Series",
   "Series updated successfully!": "Series updated successfully!",
   "No series found": "No series found",
-  "No friend found": "No friend found"
+  "No friend found": "No friend found",
+  "Emoji": "Emoji",
+  "Youtube": "Youtube",
+  "Link": "Link",
+  "Ordered List": "Ordered List",
+  "Bullet List": "Bullet List",
+  "Highlight": "Highlight",
+  "Strike": "Strike",
+  "Underline": "Underline",
+  "Italic": "Italic",
+  "Bold": "Bold",
+  "Redo": "Redo",
+  "Undo": "Undo"
 }

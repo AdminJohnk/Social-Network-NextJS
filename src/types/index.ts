@@ -348,11 +348,13 @@ export interface ICalled {
 
 export interface IEmoji {
   id: string;
+  aliases: string[];
   name: string;
   native: string;
   unified: string;
   keywords: string[];
   shortcodes: string;
+  skin: number;
 }
 
 export interface ISocketCall {

@@ -416,5 +416,17 @@
   "Update Series": "更新系列",
   "Series updated successfully!": "系列更新成功!",
   "No series found": "未找到系列",
-  "No friend found": "未找到朋友"
+  "No friend found": "未找到朋友",
+  "Emoji": "表情符号",
+  "Youtube": "Youtube",
+  "Link": "链接",
+  "Ordered List": "有序列表",
+  "Bullet List": "无序列表",
+  "Highlight": "高亮显示",
+  "Strike": "删除线",
+  "Underline": "下划线",
+  "Italic": "斜体",
+  "Bold": "粗体",
+  "Redo": "重做",
+  "Undo": "撤销"
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
-import { lowlight } from 'lowlight';
+import { createLowlight, common } from 'lowlight';
 import { StarterKit } from '@tiptap/starter-kit';
 import { Underline } from '@tiptap/extension-underline';
 import { Youtube } from '@tiptap/extension-youtube';
@@ -49,6 +49,7 @@ export const useCustomEditor = ({
   ...props
 }: Partial<EditorOptions> & { placeholder?: string }) => {
   const t = useTranslations();
+  const lowlight = createLowlight(common);
 
   const editor = useEditor(
     {
@@ -76,10 +77,6 @@ export const useCustomEditor = ({
     },
     []
   );
-
-  useEffect(() => {
-    if (editor && content) editor.commands.setContent(content);
-  }, [content]);
 
   return editor;
 };

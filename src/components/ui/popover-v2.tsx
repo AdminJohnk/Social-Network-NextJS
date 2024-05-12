@@ -3,13 +3,22 @@
 import { useState } from 'react';
 import { Popover as PopoverMUI } from '@mui/material';
 import { PopoverProps } from '@mui/material';
+import { cn } from '@/lib/utils';
 
-export interface IPostMoreChooseProps extends PopoverProps {
+export interface IPostMoreChooseProps
+  extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, 'onClick' | 'aria-describedby'> {
   mainContent: React.ReactNode;
   hoverContent: React.ReactNode;
+  popoverOptions?: Omit<PopoverProps, 'open' | 'anchorEl' | 'onClose'>;
 }
 
-export default function Popover({ mainContent, hoverContent, ...props }: IPostMoreChooseProps) {
+export default function Popover({
+  mainContent,
+  hoverContent,
+  popoverOptions,
+  className,
+  ...props
+}: IPostMoreChooseProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -24,12 +33,11 @@ export default function Popover({ mainContent, hoverContent, ...props }: IPostMo
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <div className='flex-center'>
+    <div className={cn('flex-center', className)} {...props}>
       <button type='button' aria-describedby={id} onClick={handleClick}>
         {mainContent}
       </button>
       <PopoverMUI
-        {...props}
         classes={{
           paper: '!bg-transparent'
         }}
@@ -41,7 +49,8 @@ export default function Popover({ mainContent, hoverContent, ...props }: IPostMo
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left'
-        }}>
+        }}
+        {...popoverOptions}>
         {hoverContent}
       </PopoverMUI>
     </div>
