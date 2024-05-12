@@ -1,3 +1,5 @@
+import { MentionOptions } from '@tiptap/extension-mention';
+
 export interface ErrorResponse extends Error {
   response: {
     data: {
@@ -96,12 +98,7 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact =
-  | 'facebook'
-  | 'instagram'
-  | 'twitter'
-  | 'github'
-  | 'linkedin';
+export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -313,15 +310,7 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage =
-  | 'text'
-  | 'image'
-  | 'notification'
-  | 'audio'
-  | 'file'
-  | 'voice'
-  | 'video'
-  | 'post';
+type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video' | 'post';
 type TypeofAction =
   | 'promote_admin'
   | 'revoke_admin'
@@ -391,10 +380,7 @@ export type ModalType =
   | {
       destroy: () => void;
       update: (configUpdate: any | ((prevConfig: any) => any)) => void;
-      then<T>(
-        resolve: (confirmed: boolean) => T,
-        reject: VoidFunction
-      ): Promise<T>;
+      then<T>(resolve: (confirmed: boolean) => T, reject: VoidFunction): Promise<T>;
     }
   | undefined;
 
@@ -457,13 +443,7 @@ export interface ISearchLog {
   createdAt: string;
 }
 
-export type IFeaturePost =
-  | 'detail'
-  | 'sharing'
-  | 'newsfeed'
-  | 'modal'
-  | 'profile'
-  | 'favorite';
+export type IFeaturePost = 'detail' | 'sharing' | 'newsfeed' | 'modal' | 'profile' | 'favorite';
 
 export type TypeOfLevel = 'beginner' | 'intermediate' | 'advanced';
 
@@ -560,3 +540,9 @@ export interface ISeries {
   }[];
   createdAt: string;
 }
+
+export type SuggestionOptions = MentionOptions['suggestion'];
+
+export type RenderFunctionType = NonNullable<SuggestionOptions['render']>;
+
+export type OnKeyDownProps = Parameters<NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>>[0];

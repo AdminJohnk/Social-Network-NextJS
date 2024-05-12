@@ -338,9 +338,16 @@ interface EditorContentProps {
   content?: string;
   placeholder?: string;
   autofocus?: FocusPosition;
+  dataSuggestions?: string[];
 }
 
-export default function Editor({ setEditor, content, placeholder, autofocus = 'end' }: EditorContentProps) {
+export default function Editor({
+  setEditor,
+  content,
+  placeholder,
+  autofocus = 'end',
+  dataSuggestions
+}: EditorContentProps) {
   const editor = useCustomEditor({
     autofocus,
     editable: true,
@@ -350,7 +357,8 @@ export default function Editor({ setEditor, content, placeholder, autofocus = 'e
       }
     },
     content,
-    placeholder
+    placeholder,
+    dataSuggestions
   });
 
   useEffect(() => {

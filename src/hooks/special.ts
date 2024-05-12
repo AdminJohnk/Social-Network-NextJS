@@ -6,12 +6,14 @@ import { createLowlight, common } from 'lowlight';
 import { StarterKit } from '@tiptap/starter-kit';
 import { Underline } from '@tiptap/extension-underline';
 import { Youtube } from '@tiptap/extension-youtube';
-import { EditorOptions, useEditor } from '@tiptap/react';
+import { Mention } from '@tiptap/extension-mention';
+import { EditorOptions, mergeAttributes, useEditor } from '@tiptap/react';
 import { Link } from '@tiptap/extension-link';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import { Image } from '@tiptap/extension-image';
 import { useTranslations } from 'next-intl';
 import { Highlight } from '@tiptap/extension-highlight';
+import { suggestions } from '@/lib/utils/constants/suggests';
 
 /**
  * The `useDebounce` function is a custom hook in TypeScript that returns a debounced value based on
@@ -46,8 +48,9 @@ export const useCustomEditor = ({
   content,
   placeholder,
   extensions = [],
+  dataSuggestions = ['haha', 'hihi', 'huhu'],
   ...props
-}: Partial<EditorOptions> & { placeholder?: string }) => {
+}: Partial<EditorOptions> & { placeholder?: string; dataSuggestions?: string[] }) => {
   const t = useTranslations();
   const lowlight = createLowlight(common);
 
@@ -56,13 +59,27 @@ export const useCustomEditor = ({
       content,
       extensions: [
         StarterKit.configure({
-          codeBlock: false
+          codeBlock: false,
+          heading: { levels: [1, 2, 3] }
         }),
         Underline,
-        Link,
-        Placeholder.configure({
-          placeholder: placeholder || t('What do you have in mind?')
+        Mention.configure({
+          renderHTML({ options, node }) {
+            return [
+              'a',
+              mergeAttributes(
+                { href: `/hashtag/${node.attrs.label ?? node.attrs.id}` },
+                { 'data-mention': 'hashtag' },
+                { target: '_blank' },
+                options.HTMLAttributes
+              ),
+              `${options.suggestion.char}${node.attrs.label ?? node.attrs.id}`
+            ];
+          },
+          suggestion: suggestions({ data: dataSuggestions })
         }),
+        Link,
+        Placeholder.configure({ placeholder: placeholder || t('What do you have in mind?') }),
         Youtube.configure({
           width: 440,
           height: 300,

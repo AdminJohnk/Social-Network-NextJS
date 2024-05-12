@@ -49,7 +49,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
     setIsLoading(true);
 
     // get hashtags from content
-    const hashtags = content.match(/#[a-zA-Z0-9]+/g) || [];
+    const hashtags = content.match(/#[a-zA-Z0-9]+/g);
     const uniqueHashtags = Array.from(new Set(hashtags));
 
     if (!editor?.getText().trim()) {
@@ -66,7 +66,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
         content: content || '',
         images: imagesUploaded,
         visibility: privacy,
-        hashtags: uniqueHashtags
+        hashtags: hashtags ? uniqueHashtags : undefined
       },
       {
         onSuccess() {
