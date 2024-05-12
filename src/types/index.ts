@@ -95,7 +95,12 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
+export type IKeyContact =
+  | 'facebook'
+  | 'instagram'
+  | 'twitter'
+  | 'github'
+  | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -146,6 +151,7 @@ export interface ICreatePost {
   content: string;
   visibility: Visibility;
   images?: (string | undefined)[];
+  hashtags?: string[];
 }
 
 export interface IUpdatePost {
@@ -304,7 +310,15 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video' | 'post';
+type TypeofMessage =
+  | 'text'
+  | 'image'
+  | 'notification'
+  | 'audio'
+  | 'file'
+  | 'voice'
+  | 'video'
+  | 'post';
 type TypeofAction =
   | 'promote_admin'
   | 'revoke_admin'
@@ -372,7 +386,10 @@ export type ModalType =
   | {
       destroy: () => void;
       update: (configUpdate: any | ((prevConfig: any) => any)) => void;
-      then<T>(resolve: (confirmed: boolean) => T, reject: VoidFunction): Promise<T>;
+      then<T>(
+        resolve: (confirmed: boolean) => T,
+        reject: VoidFunction
+      ): Promise<T>;
     }
   | undefined;
 
@@ -435,7 +452,13 @@ export interface ISearchLog {
   createdAt: string;
 }
 
-export type IFeaturePost = 'detail' | 'sharing' | 'newsfeed' | 'modal' | 'profile' | 'favorite';
+export type IFeaturePost =
+  | 'detail'
+  | 'sharing'
+  | 'newsfeed'
+  | 'modal'
+  | 'profile'
+  | 'favorite';
 
 export type TypeOfLevel = 'beginner' | 'intermediate' | 'advanced';
 
@@ -458,12 +481,34 @@ export interface IUpdateSeries {
   visibility: Visibility;
 }
 
+export interface ICreateSeriesPost {
+  series_id: string;
+  title: string;
+  description: string;
+  cover_image: string;
+  content: string;
+  read_time: string;
+  visibility: Visibility;
+}
+
+export interface IUpdateSeriesPost {
+  id: string;
+  series_id: string;
+  title: string;
+  description: string;
+  cover_image: string;
+  content: string;
+  read_time: string;
+  visibility: Visibility;
+}
+
 export interface ISeriesPost {
+  _id: string;
   title: string;
   content: string;
   cover_image: string;
   description: string;
-  read_time: number;
+  read_time: string;
   likes: IUserInfo[];
   saves: IUserInfo[];
   comments: {
@@ -480,6 +525,7 @@ export interface ISeriesPost {
       createdAt: string;
     }[];
   }[];
+  visibility: Visibility;
   createdAt: string;
 }
 
@@ -490,7 +536,7 @@ export interface ISeries {
   description: string;
   introduction: string;
   visibility: Visibility;
-  post: ISeriesPost[];
+  posts: ISeriesPost[];
   cover_image: string;
   level: TypeOfLevel;
   rating: {

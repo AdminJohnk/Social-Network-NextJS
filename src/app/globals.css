@@ -439,6 +439,10 @@
     @apply text-[30px] font-bold leading-[140%];
   }
 
+  .h2-semibold {
+    @apply text-[30px] font-semibold leading-[140%];
+  }
+
   .h3-bold {
     @apply text-[24px] font-bold leading-[140%];
   }

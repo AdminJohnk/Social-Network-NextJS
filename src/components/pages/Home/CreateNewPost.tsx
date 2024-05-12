@@ -42,10 +42,12 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
   };
 
   const handleSubmit = async () => {
-    const content = editor?.getHTML() as string;
-    console.log(content);
-    return;
     setIsLoading(true);
+    const content = editor?.getHTML() as string;
+    // console.log(content);
+    // return;
+
+    const hashtag = content.match(/#\w+/g) || [];
 
     if (!editor?.getText().trim()) {
       showErrorToast('Please enter some text!');
@@ -60,7 +62,8 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
         title: '',
         content: content || '',
         images: imagesUploaded,
-        visibility: privacy
+        visibility: privacy,
+        hashtags: hashtag!
       },
       {
         onSuccess() {

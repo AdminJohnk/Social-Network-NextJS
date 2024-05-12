@@ -14,6 +14,7 @@ import {
   ICreatePost,
   ICreateSearchLog,
   ICreateSeries,
+  ICreateSeriesPost,
   IMessage,
   IResetPassword,
   ISharePost,
@@ -21,6 +22,7 @@ import {
   IUpdateConversation,
   IUpdatePost,
   IUpdateSeries,
+  IUpdateSeriesPost,
   IUserInfo,
   IUserUpdate
 } from '@/types';
@@ -636,7 +638,7 @@ export const useReceiveMessage = (
 
               newData[index] = {
                 ...newData[index],
-                lastMessage:  {...message,isSending: false  }
+                lastMessage: { ...message, isSending: false }
               };
 
               newData.sort((a, b) => {
@@ -657,7 +659,7 @@ export const useReceiveMessage = (
 
             return {
               ...oldData,
-              lastMessage: {...message,isSending: false  }
+              lastMessage: { ...message, isSending: false }
             };
           }
         );
@@ -1484,5 +1486,47 @@ export const useUpdateSeries = () => {
     isLoadingUpdateSeries: isPending,
     isErrorUpdateSeries: isError,
     isSuccessUpdateSeries: isSuccess
+  };
+};
+
+export const useAddPostToSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreateSeriesPost) => {
+      const { data: series } = await seriesService.addPostToSeries(data);
+      return series.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateAddPostToSeries: mutateAsync,
+    isLoadingAddPostToSeries: isPending,
+    isErrorAddPostToSeries: isError,
+    isSuccessAddPostToSeries: isSuccess
+  };
+};
+
+export const updatePostToSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdateSeriesPost) => {
+      const { data: series } = await seriesService.updatePostToSeries(data);
+      return series.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateUpdatePostToSeries: mutateAsync,
+    isLoadingUpdatePostToSeries: isPending,
+    isErrorUpdatePostToSeries: isError,
+    isSuccessUpdatePostToSeries: isSuccess
   };
 };

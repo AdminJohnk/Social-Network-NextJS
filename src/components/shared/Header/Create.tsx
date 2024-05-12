@@ -15,7 +15,7 @@ import {
 } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 import Modal from '../Modal';
-import CreateSeries from '../CreateEditSeries/CreateEditSeries';
+import CreateEditSeries from '@/components/pages/Series/CreateEditSeries';
 import { useState } from 'react';
 
 export default function CreateHeader() {
@@ -80,7 +80,7 @@ export default function CreateHeader() {
                 </div>
               </li>
               <Modal open={open} handleClose={() => setOpen(false)}>
-                <CreateSeries handleClose={() => setOpen(false)} />
+                <CreateEditSeries handleClose={() => setOpen(false)} />
               </Modal>
               <li className='min-w-28 uk-drop-close'>
                 <div className='p-3 px-4 rounded-lg text-pink-600 bg-foreground-1'>
