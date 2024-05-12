@@ -90,6 +90,10 @@ class PostService extends BaseService {
   getLinkPreview = (url: string): Promise<AxiosResponse<IResponse<TypeOfLink>>> => {
     return this.get(`/posts/link-preview?url=${url}`);
   };
+
+  getPostByHashtag = (hashtag: string, page: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
+    return this.get(`/posts/hashtag/${hashtag}?page=${page}`);
+  };
 }
 
 export const postService = new PostService();

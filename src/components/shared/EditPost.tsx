@@ -54,6 +54,13 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
       return;
     }
 
+    // get hashtags from content
+    const hashtags = content.match(/#[a-zA-Z0-9]+/g) || [];
+    const uniqueHashtags = Array.from(new Set(hashtags));
+
+    // remove hashtags that are not in the content
+    const rmHashtags = post.post_attributes.hashtags.filter((tag) => !uniqueHashtags.includes(tag));
+
     const imagesUploaded = await handleUploadImages();
     handleDeleteImage();
 
@@ -64,7 +71,9 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
           title: '',
           content: content || '',
           images: ImagesPost.concat(imagesUploaded || []),
-          visibility: privacy
+          visibility: privacy,
+          rmHashtags: rmHashtags,
+          hashtags: uniqueHashtags
         }
       },
       {

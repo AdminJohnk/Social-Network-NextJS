@@ -147,6 +147,8 @@ export interface ICreatePost {
   content: string;
   visibility: Visibility;
   images?: (string | undefined)[];
+  hashtags?: string[];
+  rmHashtags?: string[];
 }
 
 export interface IUpdatePost {
@@ -184,6 +186,7 @@ export interface IPost {
     likes: ILikePost[];
     comments: ICommentPost[];
     shares: ISharePost[];
+    hashtags: string[];
 
     view_number: number;
     like_number: number;
