@@ -381,24 +381,22 @@ export const useChildCommentsData = (commentID: string, postID: string) => {
  * - `repository` is an object that contains information about the repository.
  * - `isFetchingRepository` is a boolean that indicates whether the query is currently fetching.
  */
-export const useGetRepository = (link: string) => {
+export const useGetRepositories = (link: string) => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['repository', link],
     queryFn: async () => {
       const { data } = await userService.getRepository(link);
-      const newRepos = data?.map((repo) => {
-        return {
-          id: repo.id,
-          name: repo.name,
-          private: repo.private,
-          html_url: repo.html_url,
-          watchers_count: repo.watchers_count,
-          forks_count: repo.forks_count,
-          stargazers_count: repo.stargazers_count,
-          languages: repo.language
-        };
-      });
-      return newRepos;
+
+      return data?.map((repo) => ({
+        id: repo.id,
+        name: repo.name,
+        private: repo.private,
+        html_url: repo.html_url,
+        watchers_count: repo.watchers_count,
+        forks_count: repo.forks_count,
+        stargazers_count: repo.stargazers_count,
+        languages: repo.language
+      }));
     },
     staleTime: Infinity
   });
@@ -865,33 +863,25 @@ export const useLinkPreview = (url: string) => {
 };
 
 export const useGetAllSeries = (userID: string) => {
-  const {
-    data,
-    isPending,
-    isError,
-    isFetching,
-    refetch,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage
-  } = useInfiniteQuery({
-    queryKey: ['allSeries', userID],
-    queryFn: async ({ pageParam }) => {
-      const { data } = await seriesService.getAllSeries(userID, pageParam);
-      return data.metadata;
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage.length < 10) {
-        return undefined;
-      }
-      return lastPageParam + 1;
-    },
-    select: data => {
-      return data.pages.flat();
-    },
-    staleTime: Infinity
-  });
+  const { data, isPending, isError, isFetching, refetch, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['allSeries', userID],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await seriesService.getAllSeries(userID, pageParam);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < 10) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
 
   return {
     isLoadingAllSeries: isPending,

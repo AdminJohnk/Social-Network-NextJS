@@ -178,9 +178,7 @@ export default function Cover({ profileID }: ICoverProps) {
               <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Timeline')}</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Friends')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-                  {t('Series')}
-                </TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Series')}</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Photos')}</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Repositories')}</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Groups')}</TabTitle>

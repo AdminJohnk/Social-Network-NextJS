@@ -7,11 +7,13 @@ import Modal from '@mui/material/Modal';
 import { useSession } from 'next-auth/react';
 import { useRouter as useRouterNext } from 'next/navigation';
 import { Link, useRouter } from '@/navigation';
+import { CircularProgress } from '@mui/material';
+import { BiSolidEdit } from 'react-icons/bi';
 
 import { useCurrentUserInfo } from '@/hooks/query';
 import RepositoryItem from '@/components/shared/Repository/Repository';
+import { Button } from '@/components/ui/button';
 import AddNewRepository from './AddNewRepository';
-import { BiSolidEdit } from 'react-icons/bi';
 
 export default function RepositoryTab() {
   const t = useTranslations();
@@ -22,17 +24,22 @@ export default function RepositoryTab() {
   const routerNext = useRouterNext();
 
   const [isLoginGithub, setIsLoginGithub] = useState<boolean>(false);
-  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     if (searchParams.get('repoUrl')) {
-      (async () =>
-        await update({
-          ...session,
-          repos_url: searchParams.get('repoUrl'),
-          user_github_name: searchParams.get('userGithubName'),
-          user_github_link: searchParams.get('userGithubLink')
-        }).then(() => router.replace('/edit-profile?tab=repository')))();
+      (async () => {
+        if (
+          searchParams.get('repoUrl') &&
+          searchParams.get('userGithubName') &&
+          searchParams.get('userGithubLink')
+        ) 
+          await update({
+            ...session,
+            repos_url: searchParams.get('repoUrl'),
+            user_github_name: searchParams.get('userGithubName'),
+            user_github_link: searchParams.get('userGithubLink')
+          }).then(() => router.replace('/edit-profile?tab=repository'));
+      })();
     }
   }, [searchParams]);
 
@@ -41,6 +48,9 @@ export default function RepositoryTab() {
       setIsLoginGithub(true);
     }
   }, [session]);
+
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
+  const [isLoadingLogout, setIsLoadingLogout] = useState(false);
 
   // Modal
   const [open, setOpen] = useState(false);
@@ -62,34 +72,37 @@ export default function RepositoryTab() {
               </Link>
             </div>
             <span className='mx-2'>|</span>
-            <button
-              className='hover:text-text-1 cursor-pointer duration-300'
-              disabled={isDisabled}
-              onClick={() => {
-                update({
+            <Button
+              variant='destructive'
+              disabled={isLoadingLogout}
+              onClick={async () => {
+                setIsLoadingLogout(true);
+                await update({
                   repos_url: '',
                   user_github_name: '',
                   user_github_link: ''
+                }).then(() => {
+                  setIsLoadingLogout(false);
+                  setIsLoginGithub(false);
                 });
-                setIsDisabled(true);
-                setIsLoginGithub(false);
               }}>
+              {isLoadingLogout && <CircularProgress size={20} className='!text-text-1 mr-2' />}
               Logout
-            </button>
+            </Button>
             <span className='ml-auto' onClick={handleOpen}>
               <BiSolidEdit className='size-5 hover:text-text-1 duration-300 cursor-pointer' />
             </span>
           </div>
         ) : (
-          <button
-            className='px-3 py-2 rounded-md cursor-pointer duration-300 bg-foreground-2 hover:bg-hover-2'
-            disabled={isDisabled}
+          <Button
+            disabled={isLoadingLogin}
             onClick={() => {
+              setIsLoadingLogin(true);
               routerNext.push('/api/repo-github');
-              setIsDisabled(true);
             }}>
+            {isLoadingLogin && <CircularProgress size={20} className='!text-text-1 mr-2' />}
             Login GitHub
-          </button>
+          </Button>
         )}
         <Modal
           open={open}
@@ -105,9 +118,7 @@ export default function RepositoryTab() {
         {currentUserInfo.repositories?.length === 0 ? (
           <>No repos</>
         ) : (
-          currentUserInfo.repositories.map((item, index) => {
-            return <RepositoryItem item={item} key={index} />;
-          })
+          currentUserInfo.repositories.map((item, index) => <RepositoryItem item={item} key={index} />)
         )}
       </div>
     </div>

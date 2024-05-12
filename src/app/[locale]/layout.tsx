@@ -49,7 +49,7 @@ export default async function LocaleLayout({ children, params: { locale } }: ILo
         <QueryProvider>
           <SessionProvider>
             <NextIntlClientProvider messages={message} locale={locale}>
-              <Flowbite>
+              <Flowbite theme={{ mode: 'dark' }}>
                 <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
                 <ToastContainer />
               </Flowbite>
