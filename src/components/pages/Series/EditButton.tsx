@@ -17,7 +17,7 @@ export default function EditButton({ className, ...props }: IEditButtonProps) {
       }
     >
       <div className='p-3 bg-2 rounded-full'>
-        <FaPencilAlt className='size-6 text-text-1' />
+        <FaPencilAlt className='size-5 text-text-1' />
       </div>
     </span>
   );

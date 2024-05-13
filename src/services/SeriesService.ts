@@ -55,6 +55,10 @@ class SeriesService extends BaseService {
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
     return this.delete(`/series/delete-post/${post.series_id}/${post.id}`);
   };
+
+  deleteSeries = (id: string): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.delete(`/series/delete/${id}`);
+  };
 }
 
 export const seriesService = new SeriesService();

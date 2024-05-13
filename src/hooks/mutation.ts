@@ -1490,6 +1490,28 @@ export const useUpdateSeries = () => {
   };
 };
 
+export const useDeleteSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (seriesID: string) => {
+      const { data: series } = await seriesService.deleteSeries(seriesID);
+      return series.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series] });
+    }
+  });
+
+  return {
+    mutateDeleteSeries: mutateAsync,
+    isLoadingDeleteSeries: isPending,
+    isErrorDeleteSeries: isError,
+    isSuccessDeleteSeries: isSuccess
+  };
+
+}
+
 export const useAddPostToSeries = () => {
   const queryClient = useQueryClient();
 

@@ -418,5 +418,17 @@
   "No series found": "未找到系列",
   "Publish Post": "发布帖子",
   "Add Post": "添加帖子",
-  "Failed to delete post!": "删除帖子失败!"
+  "Failed to delete post!": "删除帖子失败!",
+  "Are you absolutely sure delete this series?": "您确定要删除这个系列吗?",
+  "You will not be able to recover series after deletion!": "删除后您将无法恢复系列!",
+  "Series deleted successfully!": "系列删除成功!",
+  "Failed to delete series!": "删除系列失败!",
+  "Level": "级别",
+  "Date Published": "发布日期",
+  "Ratings & Reviews": "评分和评论",
+  "Based on": "基于",
+  "Reviews": "评论",
+  "Write Review": "写评论",
+  "Start Series": "开始系列",
+  "at": "在"
 }

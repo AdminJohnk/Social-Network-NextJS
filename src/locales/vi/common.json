@@ -418,5 +418,17 @@
   "No series found": "Không tìm thấy series",
   "Publish Post": "Xuất bản bài viết",
   "Add Post": "Thêm bài viết",
-  "Failed to delete post!": "Không thể xóa bài viết!"
+  "Failed to delete post!": "Không thể xóa bài viết!",
+  "Are you absolutely sure delete this series?": "Bạn có chắc chắn muốn xóa series này không?",
+  "You will not be able to recover series after deletion!": "Bạn sẽ không thể khôi phục series sau khi xóa!",
+  "Series deleted successfully!": "Series đã được xóa thành công!",
+  "Failed to delete series!": "Không thể xóa series!",
+  "Level": "Cấp độ",
+  "Date Published": "Ngày xuất bản",
+  "Ratings & Reviews": "Đánh giá & Nhận xét",
+  "Based on": "Dựa trên",
+  "Reviews": "Nhận xét",
+  "Write Review": "Viết nhận xét",
+  "Start Series": "Bắt đầu series",
+  "at": "tại"
 }

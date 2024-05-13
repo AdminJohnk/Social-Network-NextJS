@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import { BiSolidTrashAlt } from 'react-icons/bi';
 import {  FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 
 export interface IDeleteButtonProps
@@ -16,7 +17,7 @@ export default function DeleteButton({ className, ...props }: IDeleteButtonProps
       }
     >
       <div className='p-3 bg-2 rounded-full'>
-        <FaTrashAlt className='size-5 text-text-1' />
+        <BiSolidTrashAlt  className='size-5 text-text-1' />
       </div>
     </span>
   );
