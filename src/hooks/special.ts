@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
 import { createLowlight, common } from 'lowlight';
+import { HorizontalRule } from '@tiptap/extension-horizontal-rule'
 import { StarterKit } from '@tiptap/starter-kit';
 import { Underline } from '@tiptap/extension-underline';
 import { Youtube } from '@tiptap/extension-youtube';
@@ -62,6 +63,7 @@ export const useCustomEditor = ({
           codeBlock: false,
           heading: { levels: [1, 2, 3] }
         }),
+        HorizontalRule,
         Underline,
         Mention.configure({
           renderHTML({ options, node }) {

@@ -9,6 +9,7 @@ import { IUserInfo } from '@/types';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import FriendButton from './FriendButton';
 
 interface IRenderFriendItemProps {
   friend: IUserInfo;
@@ -48,25 +49,7 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
           )}
         </div>
       </div>
-      {isFriend ? (
-        <Button
-          variant={'main'}
-          onClick={() => {
-            setIsFriend(!isFriend);
-            mutateDeleteFriendUser(friend._id);
-          }}>
-          {t('Unfriend')}
-        </Button>
-      ) : (
-        <Button
-          variant={'main'}
-          onClick={() => {
-            setIsFriend(isFriend);
-            mutateAddFriendUser(friend._id);
-          }}>
-          {t('Add Friend')}
-        </Button>
-      )}
+      <FriendButton profileID={friend._id} />
     </div>
   );
 }

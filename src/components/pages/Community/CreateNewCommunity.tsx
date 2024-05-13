@@ -11,10 +11,11 @@ import { PiHashLight } from 'react-icons/pi';
 import { IoMdClose } from 'react-icons/io';
 import { FiMinus } from 'react-icons/fi';
 import { useCurrentUserInfo } from '@/hooks/query';
+import AddMemberToCommunity from '@/components/shared/Community/AddMemberToCommunity';
 
 export interface ICreateNewCommunityProps {}
 
-export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
+export default function CreateNewCommunity({}: ICreateNewCommunityProps) {
   const t = useTranslations();
   const locale = useLocale();
   const { mode } = useThemeMode();
@@ -213,7 +214,9 @@ export default function CreateNewCommunity(props: ICreateNewCommunityProps) {
         <div className='render-rule-input mx-3 *:mb-8'>
           {ruleInputs.map((_, index) => ruleInputHTML(index))}
         </div>
-        <div className='member'></div>
+        <div className='member'>
+          <AddMemberToCommunity />
+        </div>
       </div>
 
       <div className='p-5 flex justify-between items-center'></div>
