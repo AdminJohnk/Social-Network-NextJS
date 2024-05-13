@@ -40,8 +40,8 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
     return await mutateUploadImages(formData);
   };
 
-  const handleDeleteImage = async () => {
-    await mutateDeleteImage(post.post_attributes.images.filter((image) => !ImagesPost.includes(image)));
+  const handleDeleteImage = async (oldImages: string[]) => {
+    await mutateDeleteImage(oldImages.filter((image) => !ImagesPost.includes(image)));
   };
 
   const handleSubmit = async () => {
@@ -66,7 +66,7 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
     const rmHashtags = post.post_attributes.hashtags?.filter((tag) => !uniqueHashtags.includes(tag));
 
     const imagesUploaded = await handleUploadImages();
-    handleDeleteImage();
+    const oldImages = post.post_attributes.images;
 
     mutateUpdatePost(
       {
@@ -83,6 +83,7 @@ export default function EditPost({ post, handleClose }: IEditPostProps) {
       {
         onSuccess() {
           showSuccessToast(t('Post updated successfully!'));
+          handleDeleteImage(oldImages);
           handleClose();
         },
         onError() {
