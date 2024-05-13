@@ -82,7 +82,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
             showSuccessToast(t('Post deleted successfully!'));
           },
           onError() {
-            showErrorToast('Failed to delete post!');
+            showErrorToast(t('Failed to delete post!'));
           },
           onSettled() {
             setIsLoading(false);

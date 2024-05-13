@@ -19,6 +19,7 @@ import { IoHeartOutline } from 'react-icons/io5';
 import { BiCommentDetail } from 'react-icons/bi';
 import { FiFileText } from 'react-icons/fi';
 import { CiBookmark, CiShare2 } from 'react-icons/ci';
+import { IUpdateSeriesPost } from '@/types';
 
 export interface IPostSeriesProps {
   params: {
@@ -49,6 +50,7 @@ export default function PostSeries({
     <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
       {isMe && (
         <EditButton
+          className='fixed top-1/2 right-4 z-50'
           onClick={() => {
             setOpenEdit(true);
           }}
@@ -58,6 +60,18 @@ export default function PostSeries({
         <CreateEditPostSeries
           handleClose={() => setOpenEdit(false)}
           series_id={seriesID}
+          dataEdit={
+            {
+              id: post?._id,
+              series_id: seriesID,
+              title: post?.title,
+              description: post?.description,
+              cover_image: post?.cover_image,
+              content: post?.content,
+              read_time: post?.read_time,
+              visibility: post?.visibility
+            } as IUpdateSeriesPost
+          }
         />
       </Modal>
       <div className='max-w-[730px] mx-auto'>

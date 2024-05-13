@@ -417,5 +417,6 @@
   "Series updated successfully!": "Series đã được cập nhật thành công!",
   "No series found": "Không tìm thấy series",
   "Publish Post": "Xuất bản bài viết",
-  "Add Post": "Thêm bài viết"
+  "Add Post": "Thêm bài viết",
+  "Failed to delete post!": "Không thể xóa bài viết!"
 }

@@ -6,18 +6,30 @@ import Modal from '@/components/shared/Modal';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { Button } from '@/components/ui/button';
 import { useCurrentUserInfo, useGetSeriesByID } from '@/hooks/query';
-import { getImageURL } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
 import { ISeriesPost, IUpdateSeries, IUpdateSeriesPost } from '@/types';
-import { Avatar } from '@mui/material';
+import { Avatar, CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
-import { FaPen, FaPencilAlt, FaRegCircle } from 'react-icons/fa';
+import { FaPen, FaPencilAlt, FaRegCircle, FaTrashAlt } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
-import { IoAdd } from 'react-icons/io5';
+import { IoAdd, IoTrashOutline } from 'react-icons/io5';
 import CreateEditSeries from '@/components/pages/Series/CreateEditSeries';
 import CreateEditPostSeries from '@/components/pages/Series/CreateEditPostSeries';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
+import { useDeleteImage, useDeletePostToSeries } from '@/hooks/mutation';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import DeleteButton from '@/components/pages/Series/DeleteButton';
 
 export interface IPostItemProps {
   post: ISeriesPost;
@@ -26,7 +38,39 @@ export interface IPostItemProps {
 }
 
 export function PostItem({ post, series_id, isMe }: IPostItemProps) {
+  const t = useTranslations();
+
   const [openEditPost, setOpenEditPost] = useState(false);
+
+  const { mutateDeletePostToSeries } = useDeletePostToSeries();
+  const { mutateDeleteImage } = useDeleteImage();
+
+  // Modal Delete Post
+  const [openDeletePost, setOpenDeletePost] = useState(false);
+  const handleOpenDeletePost = () => setOpenDeletePost(true);
+  const handleCloseDeletePost = () => setOpenDeletePost(false);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleDeletePost = () => {
+    setIsLoading(true);
+    mutateDeletePostToSeries(
+      { id: post._id, series_id },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('Post deleted successfully!'));
+          mutateDeleteImage([post.cover_image]);
+        },
+        onError: () => {
+          showErrorToast('Failed to delete post!');
+        },
+        onSettled() {
+          setIsLoading(false);
+          handleCloseDeletePost();
+        }
+      }
+    );
+  };
 
   return (
     <div key={post._id} className='flex items-center w-full'>
@@ -40,35 +84,83 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
             {post.title}
           </Link>
           {isMe && (
-            <>
-              <FaPencilAlt
-                className='size-4 text-1'
-                onClick={() => {
-                  setOpenEditPost(true);
-                }}
-              />
-              <Modal
-                open={openEditPost}
-                handleClose={() => setOpenEditPost(false)}
-              >
-                <CreateEditPostSeries
-                  handleClose={() => setOpenEditPost(false)}
-                  series_id={series_id}
-                  dataEdit={
-                    {
-                      id: post._id,
-                      series_id: series_id,
-                      title: post.title,
-                      description: post.description,
-                      cover_image: post.cover_image,
-                      content: post.content,
-                      read_time: post.read_time,
-                      visibility: post.visibility
-                    } as IUpdateSeriesPost
-                  }
+            <div className='flex-start gap-2'>
+              <div>
+                <FaPencilAlt
+                  className='size-4 text-1'
+                  onClick={() => {
+                    setOpenEditPost(true);
+                  }}
                 />
-              </Modal>
-            </>
+                <Modal
+                  open={openEditPost}
+                  handleClose={() => setOpenEditPost(false)}
+                >
+                  <CreateEditPostSeries
+                    handleClose={() => setOpenEditPost(false)}
+                    series_id={series_id}
+                    dataEdit={
+                      {
+                        id: post._id,
+                        series_id: series_id,
+                        title: post.title,
+                        description: post.description,
+                        cover_image: post.cover_image,
+                        content: post.content,
+                        read_time: post.read_time,
+                        visibility: post.visibility
+                      } as IUpdateSeriesPost
+                    }
+                  />
+                </Modal>
+              </div>
+              <AlertDialog
+                open={openDeletePost}
+                onOpenChange={setOpenDeletePost}
+              >
+                <AlertDialogTrigger
+                  className='w-full text-1 uk-drop-close'
+                  onClick={handleOpenDeletePost}
+                >
+                  <FaTrashAlt className='size-4 text-1' />
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      {t('Are you absolutely sure delete this post?')}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      {t(
+                        'You will not be able to recover post after deletion!'
+                      )}
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <Button
+                      variant='destructive'
+                      className={cn(isLoading && 'select-none')}
+                      disabled={isLoading}
+                      onClick={handleCloseDeletePost}
+                    >
+                      {t('Cancel')}
+                    </Button>
+                    <Button
+                      className={cn(isLoading && 'select-none')}
+                      disabled={isLoading}
+                      onClick={handleDeletePost}
+                    >
+                      {isLoading && (
+                        <CircularProgress
+                          size={20}
+                          className='!text-text-1 mr-2'
+                        />
+                      )}
+                      {t('Delete')}
+                    </Button>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           )}
         </div>
         <p className='small-regular'>{post.read_time}</p>
@@ -113,11 +205,20 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
   return (
     <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
       {isMe && (
-        <EditButton
-          onClick={() => {
-            setOpenEdit(true);
-          }}
-        />
+        <>
+          <EditButton
+            className='fixed top-[20%] right-4 z-50'
+            onClick={() => {
+              setOpenEdit(true);
+            }}
+          />
+          <DeleteButton
+            className='fixed top-[calc(20%+5rem)] right-4 z-50'
+            onClick={() => {
+              setOpenEdit(true);
+            }}
+          />
+        </>
       )}
       <Modal open={openEdit} handleClose={() => setOpenEdit(false)}>
         <CreateEditSeries

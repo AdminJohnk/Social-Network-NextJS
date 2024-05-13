@@ -417,5 +417,6 @@
   "Series updated successfully!": "Series updated successfully!",
   "No series found": "No series found",
   "Publish Post": "Publish Post",
-  "Add Post": "Add Post"
+  "Add Post": "Add Post",
+  "Failed to delete post!": "Failed to delete post!"
 }
