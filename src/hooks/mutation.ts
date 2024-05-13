@@ -15,6 +15,7 @@ import {
   ICreateSearchLog,
   ICreateSeries,
   ICreateSeriesPost,
+  IDeleteSeriesPost,
   IMessage,
   IResetPassword,
   ISharePost,
@@ -1528,5 +1529,26 @@ export const updatePostToSeries = () => {
     isLoadingUpdatePostToSeries: isPending,
     isErrorUpdatePostToSeries: isError,
     isSuccessUpdatePostToSeries: isSuccess
+  };
+};
+
+export const useDeletePostToSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IDeleteSeriesPost) => {
+      const { data: series } = await seriesService.deletePostToSeries(data);
+      return series.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateDeletePostToSeries: mutateAsync,
+    isLoadingDeletePostToSeries: isPending,
+    isErrorDeletePostToSeries: isError,
+    isSuccessDeletePostToSeries: isSuccess
   };
 };

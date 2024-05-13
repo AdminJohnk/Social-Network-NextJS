@@ -487,6 +487,11 @@ export interface IUpdateSeriesPost {
   visibility: Visibility;
 }
 
+export interface IDeleteSeriesPost {
+  id: string;
+  series_id: string;
+}
+
 export interface ISeriesPost {
   _id: string;
   title: string;
