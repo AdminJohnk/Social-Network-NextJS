@@ -149,7 +149,6 @@ export default function CreateEditSeries({
       );
     } else {
       // Update Series
-      changeImage && (await mutateDeleteImage([dataEdit.cover_image]));
       mutateUpdateSeries(
         {
           id: dataEdit.id,
@@ -163,8 +162,9 @@ export default function CreateEditSeries({
           visibility: privacy
         },
         {
-          onSuccess() {
+          async onSuccess() {
             showSuccessToast(t('Series updated successfully!'));
+            changeImage && (mutateDeleteImage([dataEdit.cover_image]));
             editor?.commands.clearContent();
             handleClose();
           },

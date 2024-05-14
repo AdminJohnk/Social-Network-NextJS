@@ -1,10 +1,8 @@
 'use client';
 
-import { TabTitle, Tabs } from '@/components/ui/tabs';
-import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { Link } from '@/navigation';
 import { FaPencilAlt } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 import {
@@ -13,14 +11,24 @@ import {
   IoChevronDown,
   IoEllipsisHorizontal,
   IoFlagOutline,
+  IoImageOutline,
   IoShareOutline,
   IoStopCircleOutline,
   IoVideocamOutline
 } from 'react-icons/io5';
-import { useEffect } from 'react';
+import { CircularProgress } from '@mui/material';
+
+import { Link } from '@/navigation';
+import { TabTitle, Tabs } from '@/components/ui/tabs';
+import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
 import { Button } from '@/components/ui/button';
-import { getImageURL } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import FriendButton from './FriendButton';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ProfileUpload } from '@/components/ui/upload-image';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { imageService } from '@/services/ImageService';
+import { useDeleteImage, useUpdateUser } from '@/hooks/mutation';
 
 export interface ICoverProps {
   profileID: string;
@@ -28,6 +36,9 @@ export interface ICoverProps {
 
 export default function Cover({ profileID }: ICoverProps) {
   const t = useTranslations();
+  const { mutateUpdateUser } = useUpdateUser();
+  const { mutateDeleteImage } = useDeleteImage();
+
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
   const { currentUserInfo } = useCurrentUserInfo();
   const { userPosts } = useUserPostsData(profileID);
@@ -39,6 +50,87 @@ export default function Cover({ profileID }: ICoverProps) {
   useEffect(() => {
     UIkit.sticky('#profile-tabs')?.$emit('update');
   }, [userPosts]);
+  const [isLoadingChangeCover, setIsLoadingChangeCover] = useState<boolean>(false);
+  const [cover, setCover] = useState('/images/avatars/profile-cover.jpg');
+  const [fileCover, setFileCover] = useState<File>();
+
+
+  const handleCoverImage = useCallback((image: File) => {
+    if (!image) return;
+    setCover(URL.createObjectURL(image));
+    setFileCover(image);
+  }, []);
+
+  const [openChangeAvatar, setOpenChangeAvatar] = useState(false);
+
+  const [avatar, setAvatar] = useState('');
+  const [fileAvatar, setFileAvatar] = useState<File>();
+
+  useEffect(() => {
+    if (currentUserInfo?.user_image) {
+      setAvatar(getImageURL(currentUserInfo.user_image));
+    }
+    if (currentUserInfo?.cover_image) {
+      setCover(getImageURL(currentUserInfo.cover_image));
+    }
+  }, [currentUserInfo]);
+
+  const [isLoadingChangeAvatar, setIsLoadingChangeAvatar] = useState(false);
+  const isChangedAvatar = useMemo(() => {
+    return !fileAvatar;
+  }, [fileAvatar]);
+
+  const handleUploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    const { data } = await imageService.uploadImage(formData);
+    return {
+      url: data.metadata,
+      status: 'done'
+    };
+  };
+
+  const onSubmit = async () => {
+    const formData = new FormData();
+    if (fileAvatar) {
+      setIsLoadingChangeAvatar(true);
+      const res = await handleUploadImage(fileAvatar);
+      formData.append('userImage', res.url.key);
+      // if (initialAvatar) await handleRemoveImage(initialAvatar);
+    }
+
+    if (fileCover) {
+      setIsLoadingChangeCover(true);
+      const res = await handleUploadImage(fileCover);
+      formData.append('coverImage', res.url.key);
+    }
+
+    const oldAvatar = currentUserInfo.user_image;
+    const oldCover = currentUserInfo.cover_image;
+
+    mutateUpdateUser({
+      user_image: formData.get('userImage')?.toString(),
+      cover_image: formData.get('coverImage')?.toString(),
+    },
+      {
+        onSuccess() {
+          showSuccessToast(t('Your profile has been updated successfully!'));
+          fileAvatar && (mutateDeleteImage([oldAvatar]));
+          fileCover && (mutateDeleteImage([oldCover]));
+          setFileAvatar(undefined);
+          setFileCover(undefined);
+          setOpenChangeAvatar(false);
+
+        },
+        onError() {
+          showErrorToast(t('Something went wrong! Please try again!'));
+        },
+        onSettled() {
+          setIsLoadingChangeAvatar(false);
+          setIsLoadingChangeCover(false);
+        }
+      });
+  };
 
   return (
     <>
@@ -50,7 +142,7 @@ export default function Cover({ profileID }: ICoverProps) {
             <Image
               width={1000}
               height={1000}
-              src='/images/avatars/profile-cover.jpg'
+              src={cover}
               alt=''
               className='h-full w-full object-cover inset-0'
               priority
@@ -60,9 +152,40 @@ export default function Cover({ profileID }: ICoverProps) {
             {isMe && (
               <div className='absolute bottom-0 right-0 m-4 z-20'>
                 <div className='flex items-center gap-3'>
-                  <button className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
-                    {t('Edit')}
-                  </button>
+                  <label htmlFor='cover_image' className='cursor-pointer'>
+                    <div className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
+                      {t('Edit')}
+                    </div>
+                    <input
+                      type='file'
+                      id='cover_image'
+                      className='hidden'
+                      accept='image/*'
+                      disabled={isLoadingChangeCover}
+                      onChange={(e) => handleCoverImage(e.currentTarget.files?.[0]!)}
+                    />
+                  </label>
+                  {fileCover && (
+                    <>
+                      <Button
+                        variant={'destructive'}
+                        onClick={() => {
+                          setCover(getImageURL(currentUserInfo.cover_image) || '/images/avatars/profile-cover.jpg');
+                          setFileCover(undefined);
+                        }}
+                        className='button'
+                        disabled={isLoadingChangeCover}>
+                        {t('Cancel')}
+                      </Button>
+                      <Button
+                        onClick={onSubmit}
+                        className={cn('button', isLoadingChangeCover && 'select-none')}
+                        disabled={isLoadingChangeCover}>
+                        {isLoadingChangeCover && <CircularProgress size={15} className='!text-text-1 mr-2' />}
+                        {t('Save')}
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -74,18 +197,45 @@ export default function Cover({ profileID }: ICoverProps) {
                   <Image
                     width={500}
                     height={500}
-                    src={getImageURL(otherUserInfo?.user_image) || '/images/avatars/avatar-6.jpg'}
+                    src={getImageURL(avatar) || '/images/avatars/avatar-6.jpg'}
                     alt=''
                     className='lg:size-48 size-28 object-cover'
                     priority
                   />
                 </div>
-                {isMe && (
+                {isMe && (<>
                   <button
                     type='button'
+                    onClick={() => setOpenChangeAvatar(true)}
                     className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
                     <IoCamera className='text-2xl md hydrated' aria-label='camera' />
                   </button>
+                  <Dialog open={openChangeAvatar} onOpenChange={setOpenChangeAvatar}>
+                    <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+                      <DialogHeader>
+                        <DialogTitle>{t('Change your avatar')}</DialogTitle>
+                      </DialogHeader>
+                      <ProfileUpload fieldChange={setFileAvatar} mediaURL={avatar} />
+                      <DialogFooter>
+                        <Button
+                          variant={'destructive'}
+                          className='button lg:px-6 text-white max-md:flex-1'
+                          onClick={() => setOpenChangeAvatar(false)}>
+                          {t('Cancel')}
+                        </Button>
+                        <Button
+                          className='button lg:px-6 text-white max-md:flex-1'
+                          onClick={onSubmit}
+                          disabled={isChangedAvatar || isLoadingChangeAvatar}>
+                          {isLoadingChangeAvatar && (
+                            <CircularProgress size={20} className='!text-text-1 mr-2' />
+                          )}
+                          {t('Save')}
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </>
                 )}
               </div>
               <h3 className='md:text-3xl text-base font-bold text-text-1'>{otherUserInfo?.name}</h3>

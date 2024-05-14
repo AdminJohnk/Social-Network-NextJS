@@ -6,12 +6,13 @@ import { Editor as EditorProps, EditorContent, FocusPosition } from '@tiptap/rea
 import {
   MdFormatBold,
   MdFormatItalic,
-  MdFormatStrikethrough,
+  MdHorizontalRule,
   MdFormatListBulleted,
   MdFormatListNumbered,
   MdFormatUnderlined,
   MdLink
 } from 'react-icons/md';
+import { VscHorizontalRule } from "react-icons/vsc";
 import { FaUndo, FaRedo, FaYoutube, FaPen, FaFileImage } from 'react-icons/fa';
 import { FiAlignCenter } from 'react-icons/fi';
 import { LuHeading1, LuHeading2, LuHeading3 } from 'react-icons/lu';
@@ -174,13 +175,13 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
           <MdFormatUnderlined className='size-5' />
         </Toggle>
         <Toggle
-          value='strike'
+          value='horizontal_rule'
           size='sm'
-          pressed={editor.isActive('strike')}
-          onClick={() => editor.chain().focus().toggleStrike().run()}
-          disabled={!editor.can().chain().focus().toggleStrike().run()}
-          data-uk-tooltip={`title: ${t('Strike')}; pos: top; offset:6; delay: 300`}>
-          <MdFormatStrikethrough className='size-5' />
+          pressed={editor.isActive('horizontal_rule')}
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+          disabled={!editor.can().chain().focus().setHorizontalRule().run()}
+          data-uk-tooltip={`title: ${t('Horizon Rule')}; pos: top; offset:6; delay: 300`}>
+          <MdHorizontalRule className='size-5' />
         </Toggle>
         <Toggle
           value='highlight'

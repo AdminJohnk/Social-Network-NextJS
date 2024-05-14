@@ -153,7 +153,6 @@ export default function CreateEditPostSeries({
       );
     } else {
       // Update Post
-      changeImage && (await mutateDeleteImage([dataEdit.cover_image]));
       mutateUpdatePostToSeries(
         {
           id: dataEdit.id,
@@ -170,6 +169,7 @@ export default function CreateEditPostSeries({
         {
           onSuccess() {
             showSuccessToast(t('Post updated successfully!'));
+            changeImage && (mutateDeleteImage([dataEdit.cover_image]));
             editor?.commands.clearContent();
             handleClose();
           },
