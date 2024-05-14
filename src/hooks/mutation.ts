@@ -15,6 +15,7 @@ import {
   ICreateSearchLog,
   ICreateSeries,
   ICreateSeriesPost,
+  IDeleteSeriesPost,
   IMessage,
   IResetPassword,
   ISharePost,
@@ -1489,6 +1490,28 @@ export const useUpdateSeries = () => {
   };
 };
 
+export const useDeleteSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (seriesID: string) => {
+      const { data: series } = await seriesService.deleteSeries(seriesID);
+      return series.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series] });
+    }
+  });
+
+  return {
+    mutateDeleteSeries: mutateAsync,
+    isLoadingDeleteSeries: isPending,
+    isErrorDeleteSeries: isError,
+    isSuccessDeleteSeries: isSuccess
+  };
+
+}
+
 export const useAddPostToSeries = () => {
   const queryClient = useQueryClient();
 
@@ -1528,5 +1551,26 @@ export const updatePostToSeries = () => {
     isLoadingUpdatePostToSeries: isPending,
     isErrorUpdatePostToSeries: isError,
     isSuccessUpdatePostToSeries: isSuccess
+  };
+};
+
+export const useDeletePostToSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IDeleteSeriesPost) => {
+      const { data: series } = await seriesService.deletePostToSeries(data);
+      return series.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateDeletePostToSeries: mutateAsync,
+    isLoadingDeletePostToSeries: isPending,
+    isErrorDeletePostToSeries: isError,
+    isSuccessDeletePostToSeries: isSuccess
   };
 };

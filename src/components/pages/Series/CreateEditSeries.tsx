@@ -21,6 +21,7 @@ import {
 } from '@/hooks/mutation';
 import { IUpdateSeries, TypeOfLevel, Visibility } from '@/types';
 import PostPrivacy from '@/components/shared/PostPrivacy';
+import { useRouter } from 'next/navigation'
 
 export interface ICreateEditSeriesProps {
   handleClose: () => void;
@@ -32,6 +33,7 @@ export default function CreateEditSeries({
   dataEdit
 }: ICreateEditSeriesProps) {
   const t = useTranslations();
+  const router = useRouter()
 
   const { mutateCreateSeries } = useCreateSeries();
   const { mutateUpdateSeries } = useUpdateSeries();
@@ -131,7 +133,8 @@ export default function CreateEditSeries({
           visibility: privacy
         },
         {
-          onSuccess() {
+          onSuccess(data) {
+            router.push(`/series/${data._id}`);
             showSuccessToast(t('Series created successfully!'));
             editor?.commands.clearContent();
             handleClose();

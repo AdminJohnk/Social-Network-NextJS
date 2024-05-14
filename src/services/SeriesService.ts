@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import {
   ICreateSeries,
   ICreateSeriesPost,
+  IDeleteSeriesPost,
   IResponse,
   ISeries,
   IUpdateSeries
@@ -47,7 +48,17 @@ class SeriesService extends BaseService {
     post: ICreateSeriesPost
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
     return this.put(`/series/update-post/${post.series_id}`, post);
-  }
+  };
+
+  deletePostToSeries = (
+    post: IDeleteSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.delete(`/series/delete-post/${post.series_id}/${post.id}`);
+  };
+
+  deleteSeries = (id: string): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.delete(`/series/delete/${id}`);
+  };
 }
 
 export const seriesService = new SeriesService();

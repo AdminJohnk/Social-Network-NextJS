@@ -1,13 +1,13 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { FaPen, FaPencilAlt } from 'react-icons/fa';
-import { IoArrowUpCircleOutline } from 'react-icons/io5';
+import { BiSolidTrashAlt } from 'react-icons/bi';
+import {  FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 
-export interface IEditButtonProps
+export interface IDeleteButtonProps
   extends React.HTMLAttributes<HTMLDivElement> {}
 
-export default function EditButton({ className, ...props }: IEditButtonProps) {
+export default function DeleteButton({ className, ...props }: IDeleteButtonProps) {
   return (
     <span
       {...props}
@@ -17,7 +17,7 @@ export default function EditButton({ className, ...props }: IEditButtonProps) {
       }
     >
       <div className='p-3 bg-2 rounded-full'>
-        <FaPencilAlt className='size-5 text-text-1' />
+        <BiSolidTrashAlt  className='size-5 text-text-1' />
       </div>
     </span>
   );

@@ -105,3 +105,13 @@ export const getDateMonth = (date: string | number | Date) => {
 
   return format(commentDate, 'MMM dd, yyyy');
 };
+
+// 29 Jun, 2022
+export const getFormattedDate = (date: string | number | Date) => {
+  if (!date) {
+    return '';
+  }
+  const commentDate = new Date(date);
+
+  return format(commentDate, 'dd MMM, yyyy');
+}

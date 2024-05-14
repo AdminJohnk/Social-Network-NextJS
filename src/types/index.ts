@@ -487,6 +487,11 @@ export interface IUpdateSeriesPost {
   visibility: Visibility;
 }
 
+export interface IDeleteSeriesPost {
+  id: string;
+  series_id: string;
+}
+
 export interface ISeriesPost {
   _id: string;
   title: string;
@@ -525,11 +530,11 @@ export interface ISeries {
   cover_image: string;
   level: TypeOfLevel;
   rating: {
-    start_1: number;
-    start_2: number;
-    start_3: number;
-    start_4: number;
-    start_5: number;
+    star_1: number;
+    star_2: number;
+    star_3: number;
+    star_4: number;
+    star_5: number;
     avg: number;
   };
   reviews: {

@@ -9,9 +9,9 @@ import Modal from '@/components/shared/Modal';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { Button } from '@/components/ui/button';
 import { useCurrentUserInfo, useGetSeriesByID } from '@/hooks/query';
-import { getImageURL } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
-import { Avatar } from '@mui/material';
+import { Avatar, CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Editor as EditorProps } from '@tiptap/react';
@@ -19,6 +19,21 @@ import { IoHeartOutline } from 'react-icons/io5';
 import { BiCommentDetail } from 'react-icons/bi';
 import { FiFileText } from 'react-icons/fi';
 import { CiBookmark, CiShare2 } from 'react-icons/ci';
+import { IUpdateSeriesPost } from '@/types';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
+import DeleteButton from '@/components/pages/Series/DeleteButton';
+import { useDeleteImage, useDeletePostToSeries } from '@/hooks/mutation';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { useRouter } from 'next/navigation'
+
 
 export interface IPostSeriesProps {
   params: {
@@ -31,16 +46,46 @@ export default function PostSeries({
   params: { seriesID, postID }
 }: IPostSeriesProps) {
   const t = useTranslations();
+  const router = useRouter()
 
   const { series } = useGetSeriesByID(seriesID);
   const post = series?.posts.find(p => p._id === postID);
   const author = series?.user;
 
   const { currentUserInfo } = useCurrentUserInfo();
-
   const isMe = series?.user?._id === currentUserInfo?._id || false;
-
   const [editor, setEditor] = useState<EditorProps>();
+
+  const { mutateDeletePostToSeries } = useDeletePostToSeries();
+  const { mutateDeleteImage } = useDeleteImage();
+
+  // Delete Post
+  const [openDeletePost, setOpenDeletePost] = useState(false);
+  const handleOpenDeletePost = () => setOpenDeletePost(true);
+  const handleCloseDeletePost = () => setOpenDeletePost(false);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleDeletePost = () => {
+    setIsLoading(true);
+    mutateDeletePostToSeries(
+      { id: postID, series_id: seriesID },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('Post deleted successfully!'));
+          mutateDeleteImage([post?.cover_image!]);
+          router.push(`/series/${seriesID}`);
+        },
+        onError: () => {
+          showErrorToast(t('Something went wrong! Please try again!'));
+        },
+        onSettled() {
+          setIsLoading(false);
+          handleCloseDeletePost();
+        }
+      }
+    );
+  };
 
   // Modal
   const [openEdit, setOpenEdit] = useState(false);
@@ -48,16 +93,69 @@ export default function PostSeries({
   return (
     <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
       {isMe && (
-        <EditButton
-          onClick={() => {
-            setOpenEdit(true);
-          }}
-        />
+        <>
+          <EditButton
+            className='fixed top-[20%] right-4 z-50'
+            onClick={() => {
+              setOpenEdit(true);
+            }}
+          />
+          <AlertDialog open={openDeletePost} onOpenChange={setOpenDeletePost}>
+            <AlertDialogTrigger
+              className='w-full text-1 uk-drop-close'
+              onClick={handleOpenDeletePost}
+            >
+              <DeleteButton className='fixed top-[calc(20%+4rem)] right-4 z-50' />
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  {t('Are you absolutely sure delete this series?')}
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  {t('You will not be able to recover series after deletion!')}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <Button
+                  variant='destructive'
+                  className={cn(isLoading && 'select-none')}
+                  disabled={isLoading}
+                  onClick={handleCloseDeletePost}
+                >
+                  {t('Cancel')}
+                </Button>
+                <Button
+                  className={cn(isLoading && 'select-none')}
+                  disabled={isLoading}
+                  onClick={handleDeletePost}
+                >
+                  {isLoading && (
+                    <CircularProgress size={20} className='!text-text-1 mr-2' />
+                  )}
+                  {t('Delete')}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </>
       )}
       <Modal open={openEdit} handleClose={() => setOpenEdit(false)}>
         <CreateEditPostSeries
           handleClose={() => setOpenEdit(false)}
           series_id={seriesID}
+          dataEdit={
+            {
+              id: post?._id,
+              series_id: seriesID,
+              title: post?.title,
+              description: post?.description,
+              cover_image: post?.cover_image,
+              content: post?.content,
+              read_time: post?.read_time,
+              visibility: post?.visibility
+            } as IUpdateSeriesPost
+          }
         />
       </Modal>
       <div className='max-w-[730px] mx-auto'>
@@ -120,7 +218,7 @@ export default function PostSeries({
               </Link>
               {author?.experiences?.length > 0 && (
                 <div className='small-regular text-text-2 space-x-1'>
-                  <span>{author?.experiences[0].position_name} at</span>
+                  <span>{author?.experiences[0].position_name} {t('at')}</span>
                   <span>{author?.experiences[0].company_name}</span>
                 </div>
               )}
