@@ -12,7 +12,6 @@ import {
   MdFormatUnderlined,
   MdLink
 } from 'react-icons/md';
-import { VscHorizontalRule } from "react-icons/vsc";
 import { FaUndo, FaRedo, FaYoutube, FaPen, FaFileImage } from 'react-icons/fa';
 import { FiAlignCenter } from 'react-icons/fi';
 import { LuHeading1, LuHeading2, LuHeading3 } from 'react-icons/lu';
@@ -52,9 +51,7 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
   }, [editor]);
 
   useEffect(() => {
-    editor.on('selectionUpdate', () => {
-      selectTypeNumber();
-    });
+    editor.on('selectionUpdate', selectTypeNumber);
   }, [editor]);
 
   const typeText = [

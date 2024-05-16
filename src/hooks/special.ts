@@ -1,19 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { EditorOptions, mergeAttributes, useEditor } from '@tiptap/react';
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
 import { createLowlight, common } from 'lowlight';
-import { HorizontalRule } from '@tiptap/extension-horizontal-rule'
 import { StarterKit } from '@tiptap/starter-kit';
 import { Underline } from '@tiptap/extension-underline';
 import { Youtube } from '@tiptap/extension-youtube';
 import { Mention } from '@tiptap/extension-mention';
-import { EditorOptions, mergeAttributes, useEditor } from '@tiptap/react';
 import { Link } from '@tiptap/extension-link';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import { Image } from '@tiptap/extension-image';
-import { useTranslations } from 'next-intl';
 import { Highlight } from '@tiptap/extension-highlight';
+
 import { suggestions } from '@/lib/utils/constants/suggests';
 
 /**
@@ -58,12 +58,22 @@ export const useCustomEditor = ({
   const editor = useEditor(
     {
       content,
+      onUpdate: ({ editor }) => {
+        const lastChar = editor.getText().slice(-1);
+        if (lastChar === ' ' || lastChar === '\n') {
+          return;
+        } else {
+          const regex = /#([^<\s]+?)(?=<| |$)/g; // Adjusted regex to include space or end of line
+          const content = editor.getHTML();
+          const newContent = content.replace(regex, '<a href="/hashtag/$1">#$1</a>');
+          editor.commands.setContent(newContent);
+        }
+      },
       extensions: [
         StarterKit.configure({
           codeBlock: false,
           heading: { levels: [1, 2, 3] }
         }),
-        HorizontalRule,
         Underline,
         Mention.configure({
           renderHTML({ options, node }) {

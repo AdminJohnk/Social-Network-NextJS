@@ -1,5 +1,5 @@
 import { ReactRenderer } from '@tiptap/react';
-import tippy, { Instance } from 'tippy.js';
+import tippy, { GetReferenceClientRect, Instance } from 'tippy.js';
 
 import {
   ISuggestionListHandle,
@@ -16,7 +16,10 @@ interface ISuggestions {
 export const suggestions = ({ data = [], char = '#' }: ISuggestions): SuggestionOptions => ({
   char,
   items: ({ query }) => {
-    return [...data].filter((item) => item.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5);
+    const filteredData = data
+      .filter((item) => item.toLowerCase().startsWith(query.toLowerCase()))
+      .slice(0, 5);
+    return filteredData.length > 0 ? filteredData : [query];
   },
   render: () => {
     let component: ReactRenderer<ISuggestionListHandle, ISuggestionListProps>;
@@ -34,7 +37,7 @@ export const suggestions = ({ data = [], char = '#' }: ISuggestions): Suggestion
         }
 
         popup = tippy('body', {
-          getReferenceClientRect: props.clientRect as any,
+          getReferenceClientRect: props.clientRect as GetReferenceClientRect,
           appendTo: () => document.body,
           content: component.element,
           showOnCreate: true,
