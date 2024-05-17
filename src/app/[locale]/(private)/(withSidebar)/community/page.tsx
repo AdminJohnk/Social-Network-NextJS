@@ -7,7 +7,7 @@ import ComMineList from '@/components/pages/Community/ComMineList';
 import ComSuggestion from '@/components/pages/Community/ComSuggestion';
 import Header from '@/components/pages/Community/Header';
 
-export interface ICommunityProps {
+interface ICommunityProps {
   params: {
     locale: string;
   };

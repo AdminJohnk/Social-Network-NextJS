@@ -9,6 +9,9 @@ class CommunityService extends BaseService {
   getCommunityByID = (id: String): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.get(`/communities/${id}`);
   };
+  getCommunitiesByUserID = (id: String): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
+    return this.get(`/communities/user/${id}`);
+  };
   createCommunity = (data: ICreateCommunity): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.post('/communities/create', data);
   };

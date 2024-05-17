@@ -3,7 +3,7 @@ import TextareaV2 from '@/components/ui/textarea-v2';
 import { useLocale, useTranslations } from 'next-intl';
 import { IoAdd, IoClose, IoHappyOutline, IoImage } from 'react-icons/io5';
 import Picker from '@emoji-mart/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useThemeMode } from 'flowbite-react';
 import { ICreateCommunity, IEmoji, IUserInfo } from '@/types';
 import Popover from '@/components/ui/popover-v2';
@@ -15,15 +15,16 @@ import AddMemberToCommunity from '@/components/shared/Community/AddMemberToCommu
 import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
 import { cn, getImageURL } from '@/lib/utils';
-import { useCreateCommunity, useUploadImage } from '@/hooks/mutation';
+import { useCreateCommunity, useUpdateCommunity, useUploadImage } from '@/hooks/mutation';
 import ReactImageUploading, { ImageListType } from 'react-images-uploading';
 import Image from 'next/image';
 
-interface ICreateNewCommunityProps {
+interface ICreateEditCommunityProps {
   handleClose: () => void;
+  dataEdit?: Omit<ICreateCommunity, 'members'> & { _id: string; members: IUserInfo[] };
 }
 
-export default function CreateNewCommunity({ handleClose }: ICreateNewCommunityProps) {
+export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEditCommunityProps) {
   const t = useTranslations();
   const locale = useLocale();
   const { mode } = useThemeMode();
@@ -31,14 +32,12 @@ export default function CreateNewCommunity({ handleClose }: ICreateNewCommunityP
   const { currentUserInfo } = useCurrentUserInfo();
 
   const { mutateCreateCommunity } = useCreateCommunity();
+  const { mutateUpdateCommunity } = useUpdateCommunity();
   const { mutateUploadImage } = useUploadImage();
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [name, setName] = useState('');
-
-  const [description, setDescription] = useState('');
-  const [cursorDes, setCursorDes] = useState(0);
 
   const [about, setAbout] = useState('');
   const [cursorAbout, setCursorAbout] = useState(0);
@@ -50,9 +49,22 @@ export default function CreateNewCommunity({ handleClose }: ICreateNewCommunityP
   const [membersCom, setMembersCom] = useState<IUserInfo[]>([]);
 
   const [images, setImages] = useState<ImageListType>([]);
+  const [changeImage, setChangeImage] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (dataEdit) {
+      setName(dataEdit.name);
+      setAbout(dataEdit.about);
+      setHashTagList(dataEdit.tags);
+      setRuleInputs(dataEdit.rules.map((_, index) => ruleInputHTML(index)));
+      setMembersCom(dataEdit.members);
+      setImages([{ data_url: dataEdit.image }]);
+    }
+  }, [dataEdit]);
 
   const onChange = (imageList: ImageListType) => {
     setImages(imageList);
+    dataEdit && setChangeImage(true);
   };
 
   const handleUploadImages = async () => {
@@ -95,81 +107,63 @@ export default function CreateNewCommunity({ handleClose }: ICreateNewCommunityP
       content: ruleInputs[index].props.children[4].props.children[0].props.value
     }));
 
-    const data = {
-      name,
-      description,
-      about,
-      tags: hashTagList,
-      rules,
-      image: await handleUploadImages().then((res) => res.key),
-      members: membersCom.map((member) => member._id),
-      visibility: 'public'
-    } satisfies ICreateCommunity;
+    let imagesUploaded;
 
-    await mutateCreateCommunity(data)
-      .then(() => handleClose())
-      .finally(() => setIsLoading(false));
+    if (changeImage || !dataEdit) {
+      imagesUploaded = await handleUploadImages();
+    }
+
+    if (!dataEdit) {
+      const data = {
+        name,
+        about,
+        tags: hashTagList,
+        rules,
+        image: imagesUploaded?.key!,
+        members: membersCom.map((member) => member._id),
+        visibility: 'public'
+      } satisfies ICreateCommunity;
+
+      await mutateCreateCommunity(data, {
+        onSuccess: () => handleClose(),
+        onSettled: () => setIsLoading(false)
+      });
+    } else {
+      const data = {
+        name,
+        about,
+        tags: hashTagList,
+        rules,
+        image: imagesUploaded?.key!,
+        members: membersCom.map((member) => member._id),
+        visibility: 'public'
+      } satisfies ICreateCommunity;
+
+      await mutateUpdateCommunity(
+        { id: dataEdit._id, ...data },
+        {
+          onSuccess: () => handleClose(),
+          onSettled: () => setIsLoading(false)
+        }
+      );
+    }
   };
 
   return (
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[650px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
-        <h2 className='text-sm font-medium text-text-1'>{t('Create Community')}</h2>
+        <h2 className='text-sm font-medium text-text-1'>
+          {!dataEdit ? t('Create Community') : t('Edit Community')}
+        </h2>
       </div>
 
       <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
         <div className='relative !mt-3'>
-          <InputStyle label='Community Name' onChange={(e) => setName(e.currentTarget.value)} />
-        </div>
-        <div className='flex-between'>
-          <TextareaV2
-            label='Description'
-            value={description}
-            onChange={(e) => {
-              setDescription(e.currentTarget.value);
-              // get cursor position
-              const cursorPosition = e.currentTarget.selectionStart;
-              setCursorDes(cursorPosition || 0);
-            }}
-            onClick={(e) => {
-              // get cursor position
-              const cursorPosition = e.currentTarget.selectionStart;
-              setCursorDes(cursorPosition || 0);
-            }}
-            onKeyUp={(e) => {
-              // get cursor position
-              const cursorPosition = e.currentTarget.selectionStart;
-              setCursorDes(cursorPosition || 0);
-            }}
+          <InputStyle
+            label='Community Name'
+            onChange={(e) => setName(e.currentTarget.value)}
+            defaultValue={dataEdit?.name}
           />
-          <div className='ms-2'>
-            <Popover
-              mainContent={<IoHappyOutline className='text-2xl' />}
-              hoverContent={
-                <Picker
-                  data={async () => {
-                    const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
-
-                    return await response.json();
-                  }}
-                  i18n={async () => {
-                    const response = await fetch(
-                      `https://cdn.jsdelivr.net/npm/@emoji-mart/data/i18n/${locale}.json`
-                    );
-
-                    return await response.json();
-                  }}
-                  onEmojiSelect={(emoji: IEmoji) => {
-                    setCursorDes(cursorDes + emoji.native.length);
-                    setDescription(
-                      description.slice(0, cursorDes) + emoji.native + description.slice(cursorDes)
-                    );
-                  }}
-                  theme={mode}
-                />
-              }
-            />
-          </div>
         </div>
         <div className='flex-between'>
           <TextareaV2
@@ -260,18 +254,21 @@ export default function CreateNewCommunity({ handleClose }: ICreateNewCommunityP
           {ruleInputs.map((_, index) => ruleInputHTML(index))}
         </div>
         <div className='member'>
-          <AddMemberToCommunity members={members} setMembers={setMembersCom} />
+          <AddMemberToCommunity
+            members={members}
+            setMembers={setMembersCom}
+            defaultMembers={dataEdit?.members}
+          />
         </div>
         <div className='upload-image-button'>
           <ReactImageUploading
             value={images}
             onChange={onChange}
-            maxNumber={images.length > 0 ? 0 : 1}
             dataURLKey='data_url'
-            acceptType={['jpg', 'jpeg', 'png', 'gif']}>
+            acceptType={['jpg', 'jpeg', 'png', 'gif', 'webp']}>
             {({ imageList, onImageUpload, onImageRemoveAll }) => (
               <div>
-                <div className='mb-3'>Add a cover image for your series</div>
+                <div className='mb-3'>Add a cover image for your community</div>
                 <div className='flex-start gap-4'>
                   <button
                     type='button'
@@ -290,7 +287,6 @@ export default function CreateNewCommunity({ handleClose }: ICreateNewCommunityP
                 {imageList.length > 0 && (
                   <div className='mt-5'>
                     <Image
-                      className='w-[90%]'
                       src={getImageURL(images[0]?.data_url) || '/images/no-image.png'}
                       width={1500}
                       height={1500}

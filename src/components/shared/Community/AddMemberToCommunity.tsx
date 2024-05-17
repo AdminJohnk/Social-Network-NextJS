@@ -11,22 +11,27 @@ import { Avatar } from '@mui/material';
 export interface IAddMemberToCommunityProps {
   members: IUserInfo[];
   setMembers: (members: IUserInfo[]) => void;
+  defaultMembers?: IUserInfo[];
 }
 
-export default function AddMemberToCommunity({ members, setMembers }: IAddMemberToCommunityProps) {
+export default function AddMemberToCommunity({
+  members,
+  setMembers,
+  defaultMembers = []
+}: IAddMemberToCommunityProps) {
   return (
     <Autocomplete
       multiple
-      autoComplete
       options={members}
       getOptionLabel={(option) => option.name}
+      defaultValue={defaultMembers}
       clearIcon={<IoClose className='!size-4 !text-text-1' />}
       popupIcon={<IoChevronDown className='!size-4 !text-text-1' />}
       onChange={(_, value) => setMembers(value)}
       renderTags={(value, getTagProps) =>
         value.map((option, index) => (
           <Chip
-            key={index}
+            key={option._id}
             variant='outlined'
             label={option.name}
             {...omit(getTagProps({ index }), ['key'])}

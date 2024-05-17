@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { IoAdd } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 
-import CreateNewCommunity from './CreateNewCommunity';
+import CreateEditCommunity from './CreateEditCommunity';
 import Modal from '@/components/shared/Modal';
 import { Tabs, TabTitle } from '@/components/ui/tabs';
 
@@ -20,7 +20,7 @@ export default function Header() {
           <IoAdd className='size-5 text-1' onClick={() => setOpen(true)} />
         </span>
         <Modal open={open} handleClose={() => setOpen(false)}>
-          <CreateNewCommunity handleClose={() => setOpen(false)} />
+          <CreateEditCommunity handleClose={() => setOpen(false)} />
         </Modal>
       </div>
 

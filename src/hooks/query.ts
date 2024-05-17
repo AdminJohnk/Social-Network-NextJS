@@ -717,6 +717,25 @@ export const useGetCommunityByID = (id: string) => {
   };
 };
 
+export const useGetCommunitiesByUserID = (userID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['communities', userID],
+    queryFn: async () => {
+      const { data } = await communityService.getCommunitiesByUserID(userID);
+      return data.metadata;
+    },
+    staleTime: Infinity,
+    enabled: !!userID
+  });
+
+  return {
+    isLoadingCommunities: isPending,
+    isErrorMessageCall: isError,
+    communities: data!,
+    isFetchingMessageCall: isFetching
+  };
+}
+   
 export const useGetNoti = (userID: number) => {
   const { data, isPending, isError, isFetching } = useInfiniteQuery({
     queryKey: ['noti', userID],

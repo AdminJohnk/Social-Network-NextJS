@@ -388,7 +388,6 @@ export type Visibility = 'public' | 'private' | 'member' | 'friend';
 
 export interface ICreateCommunity {
   name: string;
-  description: string;
   about: string;
   tags: string[];
   image: string;
@@ -401,8 +400,8 @@ export interface ICreateCommunity {
 }
 
 export interface ICommunity {
+  _id: string;
   name: string;
-  description: string;
   image: string;
   cover_image: string;
   about: string;
