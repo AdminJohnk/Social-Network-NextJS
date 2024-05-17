@@ -19,9 +19,13 @@ import { RiArrowGoBackFill } from 'react-icons/ri';
 
 export interface IFriendButtonProps {
   profileID: string;
+  variant?: 'main' | 'default';
 }
 
-export default function FriendButton({ profileID }: IFriendButtonProps) {
+export default function FriendButton({
+  profileID,
+  variant = 'main'
+}: IFriendButtonProps) {
   const t = useTranslations();
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
   const { currentUserInfo } = useCurrentUserInfo();
@@ -38,7 +42,9 @@ export default function FriendButton({ profileID }: IFriendButtonProps) {
 
   const { mutateDeleteFriendUser } = useDeleteFriendUser();
 
-  const isFriend = currentUserInfo.friends?.some((friend) => friend._id === profileID);
+  const isFriend = currentUserInfo.friends?.some(
+    friend => friend._id === profileID
+  );
 
   const sentRequest = useMemo(() => {
     if (currentUserInfo && otherUserInfo) {
@@ -64,7 +70,7 @@ export default function FriendButton({ profileID }: IFriendButtonProps) {
         <>
           {!isFriend && !sentRequest && !receivedRequest && (
             <Button
-              variant='main'
+              variant={variant}
               preIcon={
                 isLoading ? (
                   <CircularProgress size={17} className='!text-text-1' />
@@ -79,13 +85,14 @@ export default function FriendButton({ profileID }: IFriendButtonProps) {
                     setIsLoading(false);
                   }
                 });
-              }}>
+              }}
+            >
               {t('Add Friend')}
             </Button>
           )}
           {sentRequest && (
             <Button
-              variant='main'
+              variant={variant}
               preIcon={
                 isLoading ? (
                   <CircularProgress size={17} className='!text-text-1' />
@@ -100,26 +107,29 @@ export default function FriendButton({ profileID }: IFriendButtonProps) {
                     setIsLoading(false);
                   }
                 });
-              }}>
+              }}
+            >
               {t('Cancel Request')}
             </Button>
           )}
           {receivedRequest && (
             <div>
               <Button
-                variant='main'
+                variant={variant}
                 preIcon={
                   isLoading ? (
                     <CircularProgress size={17} className='!text-text-1' />
                   ) : (
                     <RiArrowGoBackFill className='text-xl' />
                   )
-                }>
+                }
+              >
                 <span className='text-sm'> {t('Response')} </span>
               </Button>
               <div
                 className='w-[240px] !bg-foreground-1'
-                data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
+              >
                 <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
                   <div
                     className='uk-drop-close'
@@ -130,7 +140,8 @@ export default function FriendButton({ profileID }: IFriendButtonProps) {
                           setIsLoading(false);
                         }
                       });
-                    }}>
+                    }}
+                  >
                     <span className='text-sm'>{t('Accept')}</span>
                   </div>
                   <div
@@ -142,7 +153,8 @@ export default function FriendButton({ profileID }: IFriendButtonProps) {
                           setIsLoading(false);
                         }
                       });
-                    }}>
+                    }}
+                  >
                     <span className='text-sm'>{t('Decline')}</span>
                   </div>
                 </nav>
@@ -152,19 +164,21 @@ export default function FriendButton({ profileID }: IFriendButtonProps) {
           {isFriend && (
             <div>
               <Button
-                variant='main'
+                variant={variant}
                 preIcon={
                   isLoading ? (
                     <CircularProgress size={17} className='!text-text-1' />
                   ) : (
                     <FaCheckCircle className='text-xl' />
                   )
-                }>
+                }
+              >
                 <span className='text-sm'> {t('Friend')} </span>
               </Button>
               <div
                 className='w-[240px] !bg-foreground-1'
-                data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'
+              >
                 <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
                   <div
                     className='uk-drop-close'
@@ -175,7 +189,8 @@ export default function FriendButton({ profileID }: IFriendButtonProps) {
                           setIsLoading(false);
                         }
                       });
-                    }}>
+                    }}
+                  >
                     <span className='text-sm'>{t('Unfriend')}</span>
                   </div>
                 </nav>

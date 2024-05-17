@@ -98,7 +98,12 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
+export type IKeyContact =
+  | 'facebook'
+  | 'instagram'
+  | 'twitter'
+  | 'github'
+  | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -310,7 +315,15 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video' | 'post';
+type TypeofMessage =
+  | 'text'
+  | 'image'
+  | 'notification'
+  | 'audio'
+  | 'file'
+  | 'voice'
+  | 'video'
+  | 'post';
 type TypeofAction =
   | 'promote_admin'
   | 'revoke_admin'
@@ -380,7 +393,10 @@ export type ModalType =
   | {
       destroy: () => void;
       update: (configUpdate: any | ((prevConfig: any) => any)) => void;
-      then<T>(resolve: (confirmed: boolean) => T, reject: VoidFunction): Promise<T>;
+      then<T>(
+        resolve: (confirmed: boolean) => T,
+        reject: VoidFunction
+      ): Promise<T>;
     }
   | undefined;
 
@@ -457,7 +473,13 @@ export interface ISearchLog {
   createdAt: string;
 }
 
-export type IFeaturePost = 'detail' | 'sharing' | 'newsfeed' | 'modal' | 'profile' | 'favorite';
+export type IFeaturePost =
+  | 'detail'
+  | 'sharing'
+  | 'newsfeed'
+  | 'modal'
+  | 'profile'
+  | 'favorite';
 
 export type TypeOfLevel = 'beginner' | 'intermediate' | 'advanced';
 
@@ -486,7 +508,7 @@ export interface ICreateSeriesPost {
   description: string;
   cover_image: string;
   content: string;
-  read_time: string;
+  read_time: number;
   visibility: Visibility;
 }
 
@@ -497,7 +519,7 @@ export interface IUpdateSeriesPost {
   description: string;
   cover_image: string;
   content: string;
-  read_time: string;
+  read_time: number;
   visibility: Visibility;
 }
 
@@ -506,13 +528,38 @@ export interface IDeleteSeriesPost {
   series_id: string;
 }
 
+export interface ICreateReviewSeries {
+  series_id: string;
+  content: string;
+  rating: number;
+}
+
+export interface IDeleteReviewSeries {
+  series_id: string;
+  review_id: string;
+}
+
+export interface IReview {
+  _id: string;
+  user: IUserInfo;
+  content: string;
+  rating: number;
+  createdAt: string;
+}
+
+export interface ICreateCommentPostSeries {
+  series_id: string;
+  post_id: string;
+  content: string;
+}
+
 export interface ISeriesPost {
   _id: string;
   title: string;
   content: string;
   cover_image: string;
   description: string;
-  read_time: string;
+  read_time: number;
   likes: IUserInfo[];
   saves: IUserInfo[];
   comments: {
@@ -551,12 +598,7 @@ export interface ISeries {
     star_5: number;
     avg: number;
   };
-  reviews: {
-    user: IUserInfo;
-    content: string;
-    rating: number;
-    createdAt: string;
-  }[];
+  reviews: IReview[];
   createdAt: string;
 }
 
@@ -564,4 +606,6 @@ export type SuggestionOptions = MentionOptions['suggestion'];
 
 export type RenderFunctionType = NonNullable<SuggestionOptions['render']>;
 
-export type OnKeyDownProps = Parameters<NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>>[0];
+export type OnKeyDownProps = Parameters<
+  NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>
+>[0];

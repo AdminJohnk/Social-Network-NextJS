@@ -7,11 +7,14 @@ import {
   IConversation,
   ICreateComment,
   ICreateCommunity,
+  ICreateCommentPostSeries,
   ICreateLikeComment,
   ICreatePost,
+  ICreateReviewSeries,
   ICreateSearchLog,
   ICreateSeries,
   ICreateSeriesPost,
+  IDeleteReviewSeries,
   IDeleteSeriesPost,
   IMessage,
   IResetPassword,
@@ -1492,3 +1495,66 @@ export const useJoinCommunity = () => {
     isSuccessJoinCommunity: isSuccess
   };
 };
+
+export const useReviewSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreateReviewSeries) => {
+      const { data: review } = await seriesService.reviewSeries(data);
+      return review.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateReviewSeries: mutateAsync,
+    isLoadingReviewSeries: isPending,
+    isErrorReviewSeries: isError,
+    isSuccessReviewSeries: isSuccess
+  };
+};
+
+export const useDeleteReviewSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IDeleteReviewSeries) => {
+      const { data: review } = await seriesService.deleteReviewSeries(data);
+      return review.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateDeleteReviewSeries: mutateAsync,
+    isLoadingDeleteReviewSeries: isPending,
+    isErrorDeleteReviewSeries: isError,
+    isSuccessDeleteReviewSeries: isSuccess
+  };
+};
+
+export const useCommentPostSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreateCommentPostSeries) => {
+      const { data: comment } = await seriesService.commentPostSeries(data);
+      return comment.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateCommentPostSeries: mutateAsync,
+    isLoadingCommentPostSeries: isPending,
+    isErrorCommentPostSeries: isError,
+    isSuccessCommentPostSeries: isSuccess
+  };
+}

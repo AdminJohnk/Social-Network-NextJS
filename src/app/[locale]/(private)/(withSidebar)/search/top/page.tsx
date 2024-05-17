@@ -4,27 +4,29 @@ import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { CircularProgress } from '@mui/material';
 
-import { useCurrentUserInfo, useGetPostsBySearchKey, useGetUsersByName } from '@/hooks/query';
+import { useGetPostsBySearchKey, useGetUsersByName } from '@/hooks/query';
 import Post from '@/components/shared/Post';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import FriendButton from '@/components/pages/Profile/FriendButton';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import HoverUser from '@/components/shared/Post/HoverUser';
 import { useRouter } from '@/navigation';
 
+export interface ISearchProps {}
 
-export interface ISearchProps {
-}
-
-export default function Search({ }: ISearchProps) {
+export default function Search({}: ISearchProps) {
   const t = useTranslations();
   const router = useRouter();
 
-  const searchValue = new URLSearchParams(window.location.search).get('search') || '';
+  const searchValue =
+    new URLSearchParams(window.location.search).get('search') || '';
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const { postsBySearchKey, isLoadingPostsBySearchKey, isFetchingPostsBySearchKey } = useGetPostsBySearchKey(searchValue);
+  const {
+    postsBySearchKey,
+    isLoadingPostsBySearchKey,
+    isFetchingPostsBySearchKey
+  } = useGetPostsBySearchKey(searchValue);
   const { usersByName, isLoadingUsersByName } = useGetUsersByName(searchValue);
 
   return (
@@ -45,27 +47,38 @@ export default function Search({ }: ISearchProps) {
                   <div className='bg-foreground-1 rounded-lg p-4'>
                     <span className='text-text-2'>{t('People')}</span>
                     <div className='mt-4'>
-                      {usersByName.map((item) => {
+                      {usersByName.map(item => {
                         return (
                           <>
                             <div key={item._id} className='*:mb-2 flex-between'>
-                              <div key={item._id} className='flex items-center gap-4'>
+                              <div
+                                key={item._id}
+                                className='flex items-center gap-4'
+                              >
                                 <HoverUser user={item}>
-                                  <div className='cursor-pointer' onClick={() => {
-                                    router.push(`/profile/${item._id}`);
-                                  }}>
+                                  <div
+                                    className='cursor-pointer'
+                                    onClick={() => {
+                                      router.push(`/profile/${item._id}`);
+                                    }}
+                                  >
                                     <AvatarMessage user={item} />
                                   </div>
                                 </HoverUser>
                                 <div className='flex flex-col'>
                                   <HoverUser user={item}>
-                                    <span className='font-bold cursor-pointer hover:underline' onClick={() => {
-                                      router.push(`/profile/${item._id}`);
-                                    }}>
+                                    <span
+                                      className='font-bold cursor-pointer hover:underline'
+                                      onClick={() => {
+                                        router.push(`/profile/${item._id}`);
+                                      }}
+                                    >
                                       {item.name}
                                     </span>
                                   </HoverUser>
-                                  <span className='font-semibold text-text-2'>{item.email}</span>
+                                  <span className='font-semibold text-text-2'>
+                                    {item.email}
+                                  </span>
                                 </div>
                               </div>
                               <div>
@@ -85,7 +98,10 @@ export default function Search({ }: ISearchProps) {
                     return (
                       <div key={item._id} className='*:mb-6'>
                         {index === postsBySearchKey.length - 3 && (
-                          <div className='absolute max-h-[130rem] w-full -z-10' ref={bottomRef} />
+                          <div
+                            className='absolute max-h-[130rem] w-full -z-10'
+                            ref={bottomRef}
+                          />
                         )}
                         <Post key={item._id} post={item} />
                       </div>
@@ -101,14 +117,15 @@ export default function Search({ }: ISearchProps) {
               )}
               {usersByName.length === 0 && postsBySearchKey.length === 0 && (
                 <div className='w-3/5 max-lg:w-full px-9 max-md:px-2 flex-center'>
-                  <span className='bg-foreground-1 w-full text-center rounded-lg p-4 text-text-2'>No result found!!!</span>
+                  <span className='bg-foreground-1 w-full text-center rounded-lg p-4 text-text-2'>
+                    No result found!!!
+                  </span>
                 </div>
               )}
             </div>
           </div>
         </div>
       )}
-
     </>
   );
 }

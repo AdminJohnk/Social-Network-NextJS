@@ -30,10 +30,17 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import DeleteButton from '@/components/pages/Series/DeleteButton';
-import { useDeleteImage, useDeletePostToSeries } from '@/hooks/mutation';
+import {
+  useCommentPostSeries,
+  useDeleteImage,
+  useDeletePostToSeries
+} from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { useRouter } from 'next/navigation'
-
+import { useRouter } from 'next/navigation';
+import { FaSwatchbook } from 'react-icons/fa';
+import { SiGoogledocs } from 'react-icons/si';
+import { getFormattedDate } from '@/lib/utils/formatDateTime';
+import FriendButton from '@/components/pages/Profile/FriendButton';
 
 export interface IPostSeriesProps {
   params: {
@@ -46,10 +53,14 @@ export default function PostSeries({
   params: { seriesID, postID }
 }: IPostSeriesProps) {
   const t = useTranslations();
-  const router = useRouter()
+  const router = useRouter();
 
   const { series } = useGetSeriesByID(seriesID);
   const post = series?.posts.find(p => p._id === postID);
+  const indexPost = series?.posts.findIndex(p => p._id === postID);
+  // Get the following post
+  const nextPost = series?.posts[indexPost + 1];
+
   const author = series?.user;
 
   const { currentUserInfo } = useCurrentUserInfo();
@@ -58,11 +69,39 @@ export default function PostSeries({
 
   const { mutateDeletePostToSeries } = useDeletePostToSeries();
   const { mutateDeleteImage } = useDeleteImage();
+  const { mutateCommentPostSeries } = useCommentPostSeries();
 
   // Delete Post
   const [openDeletePost, setOpenDeletePost] = useState(false);
   const handleOpenDeletePost = () => setOpenDeletePost(true);
   const handleCloseDeletePost = () => setOpenDeletePost(false);
+
+  const [isLoadingDis, setIsLoadingDis] = useState<boolean>(false);
+
+  const handlePostDiscussion = () => {
+    setIsLoadingDis(true);
+    const content: string = editor?.getHTML() || '';
+
+    mutateCommentPostSeries(
+      {
+        series_id: seriesID,
+        post_id: postID,
+        content
+      },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('Comment posted successfully!'));
+          editor?.commands.clearContent();
+        },
+        onError: () => {
+          showErrorToast(t('Something went wrong! Please try again!'));
+        },
+        onSettled() {
+          setIsLoadingDis(false);
+        }
+      }
+    );
+  };
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -159,6 +198,23 @@ export default function PostSeries({
         />
       </Modal>
       <div className='max-w-[730px] mx-auto'>
+        <div className='mb-5 flex-start gap-3'>
+          <Link
+            href={`/series/${seriesID}`}
+            className='flex-start gap-2 text-1'
+          >
+            <FaSwatchbook className='size-5' />
+            <span className='base-semibold'>{series?.title}</span>
+          </Link>
+          <span className='text-xl'>/</span>
+          <Link
+            href={`/series/${seriesID}/posts/${postID}`}
+            className='flex-start gap-2 text-1'
+          >
+            <SiGoogledocs className='size-5' />
+            <span className='base-semibold'>{post?.title}</span>
+          </Link>
+        </div>
         <Image
           src={getImageURL(post?.cover_image) || '/images/no-image.png'}
           className='rounded-lg w-full object-fill h-[370px]'
@@ -177,19 +233,25 @@ export default function PostSeries({
               <FiFileText className='size-3' />
               <span className='base-semibold '>Blog</span>
             </div>
-            <div>{'29 June, 2022'}</div>
+            <div>{getFormattedDate(post?.createdAt!)}</div>
             <span>•</span>
-            <div>{post?.read_time}</div>
+            <div>{post?.read_time + ' min read'}</div>
           </div>
           <div className='flex-start gap-3'>
             <div className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'>
               <IoHeartOutline className='size-4' />
               <span>16</span>
             </div>
-            <div className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'>
+            <a
+              href={'#discussion'}
+              className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
+              onClick={() => {
+                editor?.commands.focus();
+              }}
+            >
               <BiCommentDetail className='size-4' />
               <span>3</span>
-            </div>
+            </a>
             <CiBookmark className='size-4 cursor-pointer hover:text-yellow-400 duration-300' />
             <CiShare2 className='size-4 cursor-pointer text-1' />
           </div>
@@ -204,7 +266,7 @@ export default function PostSeries({
             </div>
           </div>
         </div>
-        <div className='text-pretty text-[1rem] leading-relaxed'>
+        <div className='text-pretty text-[1rem] leading-relaxed my-5 px-2'>
           <ShowContent content={post?.content!} />
         </div>
         <div className='author mt-10 flex-between'>
@@ -218,22 +280,46 @@ export default function PostSeries({
               </Link>
               {author?.experiences?.length > 0 && (
                 <div className='small-regular text-text-2 space-x-1'>
-                  <span>{author?.experiences[0].position_name} {t('at')}</span>
+                  <span>
+                    {author?.experiences[0].position_name} {t('at')}
+                  </span>
                   <span>{author?.experiences[0].company_name}</span>
                 </div>
               )}
             </div>
           </div>
-          <Button>Follow</Button>
+          {!isMe && <FriendButton profileID={author?._id} variant='default' />}
         </div>
-        <div className='mt-10 space-y-2 py-5 px-5 bg-2 rounded-lg'>
-          <div className='base-semibold text-end'>Next</div>
-          <div className='base-bold text-end'>
-            Ethereum and the Future of the Internet
+        <div className='flex-end text-text-2'>
+          <div className='flex-start gap-3'>
+            <div className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'>
+              <IoHeartOutline className='size-4' />
+              <span>16</span>
+            </div>
+            <a
+              href={'#discussion'}
+              className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
+              onClick={() => {
+                editor?.commands.focus();
+              }}
+            >
+              <BiCommentDetail className='size-4' />
+              <span>3</span>
+            </a>
+            <CiBookmark className='size-4 cursor-pointer hover:text-yellow-400 duration-300' />
+            <CiShare2 className='size-4 cursor-pointer text-1' />
           </div>
         </div>
+        {nextPost && (
+          <div className='mt-10 space-y-2 py-5 px-5 bg-2 rounded-lg'>
+            <div className='base-semibold text-end'>Next</div>
+            <div className='base-bold text-end'>{nextPost?.title}</div>
+          </div>
+        )}
         <div className='mt-10'>
-          <div className='base-bold'>Discussion</div>
+          <div className='base-bold' id='#discussion'>
+            Discussion
+          </div>
           <div className='editor space-y-5 px-2 py-3 border border-border-1 rounded-lg mt-3'>
             <Editor
               setEditor={setEditor}
@@ -241,28 +327,46 @@ export default function PostSeries({
               autofocus={false}
             />
           </div>
+          <div className='flex-end'>
+            <Button
+              className={cn('mt-3', isLoadingDis && 'select-none')}
+              disabled={isLoadingDis}
+              onClick={() => handlePostDiscussion()}
+            >
+              {isLoadingDis && (
+                <CircularProgress size={20} className='!text-text-1 mr-2' />
+              )}
+              {t('Post Discussion')}
+            </Button>
+          </div>
           <div className='mt-7'>
-            <div className='flex gap-4'>
-              <Avatar />
-              <div className='flex-col'>
-                <div className='flex-start gap-2'>
-                  <div className='base-semibold'>John Doe</div>
-                  <div className='small-regular text-text-2'>29 Jun, 2022</div>
-                </div>
-                <div className='text-text-2 mt-1 mb-2'>Thanks for sharing</div>
-                <div className='text-text-2 flex-start gap-4'>
-                  <div className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'>
-                    <IoHeartOutline className='size-4' />
-                    <span>2</span>
-                    <span>{t('Likes')}</span>
+            {post?.comments.map((comment, index) => (
+              <div key={index} className='flex gap-4'>
+                <Avatar src={getImageURL(comment.user.user_image)} />
+                <div className='flex-col'>
+                  <div className='flex-start gap-2'>
+                    <div className='base-semibold'>{comment.user.name}</div>
+                    <div className='small-regular text-text-2'>
+                      {getFormattedDate(comment.createdAt)}
+                    </div>
                   </div>
-                  <div className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300s'>
-                    <BiCommentDetail className='size-4' />
-                    <span>0</span>
+                  <div className='text-text-2 mt-1 mb-2'>
+                    <ShowContent content={comment.content} />
+                  </div>
+                  <div className='flex-start gap-4'>
+                    <div className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'>
+                      <IoHeartOutline className='size-4' />
+                      <span>{comment.like.length}</span>
+                      <span>{t('Likes')}</span>
+                    </div>
+                    <div className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'>
+                      <BiCommentDetail className='size-4' />
+                      <span>{comment.child.length}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

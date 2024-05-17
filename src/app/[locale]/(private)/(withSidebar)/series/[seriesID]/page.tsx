@@ -8,16 +8,25 @@ import { Button } from '@/components/ui/button';
 import { useCurrentUserInfo, useGetSeriesByID } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
-import { ISeriesPost, IUpdateSeries, IUpdateSeriesPost } from '@/types';
+import { IUpdateSeries } from '@/types';
 import { Avatar, CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
-import { FaPen, FaPencilAlt, FaRegCircle } from 'react-icons/fa';
+import { FaPen, FaStarHalfAlt } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import { IoAdd } from 'react-icons/io5';
 import CreateEditSeries from '@/components/pages/Series/CreateEditSeries';
 import CreateEditPostSeries from '@/components/pages/Series/CreateEditPostSeries';
+import FriendButton from '@/components/pages/Profile/FriendButton';
+
+import { useDeleteImage, useDeleteSeries } from '@/hooks/mutation';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { useRouter } from 'next/navigation';
+import { getFormattedDate } from '@/lib/utils/formatDateTime';
+import WriteReview from '@/components/pages/Series/WriteReview';
+import { PostItem } from '@/components/pages/Series/PostItem';
+import ReviewItem from '@/components/pages/Series/ReviewItem';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -27,154 +36,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
-import {
-  useDeleteImage,
-  useDeletePostToSeries,
-  useDeleteSeries
-} from '@/hooks/mutation';
-import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import DeleteButton from '@/components/pages/Series/DeleteButton';
-import { BiSolidTrashAlt } from 'react-icons/bi';
-import { useRouter } from 'next/navigation';
-import { getFormattedDate } from '@/lib/utils/formatDateTime';
-
-export interface IPostItemProps {
-  post: ISeriesPost;
-  series_id: string;
-  isMe: boolean;
-}
-
-export function PostItem({ post, series_id, isMe }: IPostItemProps) {
-  const t = useTranslations();
-
-  const [openEditPost, setOpenEditPost] = useState(false);
-
-  const { mutateDeletePostToSeries } = useDeletePostToSeries();
-  const { mutateDeleteImage } = useDeleteImage();
-
-  // Dialog Delete Post
-  const [openDeletePost, setOpenDeletePost] = useState(false);
-  const handleOpenDeletePost = () => setOpenDeletePost(true);
-  const handleCloseDeletePost = () => setOpenDeletePost(false);
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleDeletePost = () => {
-    setIsLoading(true);
-    mutateDeletePostToSeries(
-      { id: post._id, series_id },
-      {
-        onSuccess: () => {
-          showSuccessToast(t('Post deleted successfully!'));
-          mutateDeleteImage([post.cover_image]);
-        },
-        onError: () => {
-          showErrorToast(t('Something went wrong! Please try again!'));
-        },
-        onSettled() {
-          setIsLoading(false);
-          handleCloseDeletePost();
-        }
-      }
-    );
-  };
-
-  return (
-    <div key={post._id} className='flex items-center w-full'>
-      <FaRegCircle className='text-blue-500 size-3' />
-      <div className='ms-3 text-text-2'>
-        <div className='flex-start gap-3'>
-          <Link
-            href={`/series/${series_id}/posts/${post._id}`}
-            className='h5-semibold  cursor-pointer'
-          >
-            {post.title}
-          </Link>
-          {isMe && (
-            <div className='flex-start gap-2'>
-              <div>
-                <FaPencilAlt
-                  className='size-4 text-1'
-                  onClick={() => {
-                    setOpenEditPost(true);
-                  }}
-                />
-                <Modal
-                  open={openEditPost}
-                  handleClose={() => setOpenEditPost(false)}
-                >
-                  <CreateEditPostSeries
-                    handleClose={() => setOpenEditPost(false)}
-                    series_id={series_id}
-                    dataEdit={
-                      {
-                        id: post._id,
-                        series_id: series_id,
-                        title: post.title,
-                        description: post.description,
-                        cover_image: post.cover_image,
-                        content: post.content,
-                        read_time: post.read_time,
-                        visibility: post.visibility
-                      } as IUpdateSeriesPost
-                    }
-                  />
-                </Modal>
-              </div>
-              <AlertDialog
-                open={openDeletePost}
-                onOpenChange={setOpenDeletePost}
-              >
-                <AlertDialogTrigger
-                  className='w-full text-1 uk-drop-close'
-                  onClick={handleOpenDeletePost}
-                >
-                  <BiSolidTrashAlt className='size-5 text-1' />
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      {t('Are you absolutely sure delete this post?')}
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      {t(
-                        'You will not be able to recover post after deletion!'
-                      )}
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <Button
-                      variant='destructive'
-                      className={cn(isLoading && 'select-none')}
-                      disabled={isLoading}
-                      onClick={handleCloseDeletePost}
-                    >
-                      {t('Cancel')}
-                    </Button>
-                    <Button
-                      className={cn(isLoading && 'select-none')}
-                      disabled={isLoading}
-                      onClick={handleDeletePost}
-                    >
-                      {isLoading && (
-                        <CircularProgress
-                          size={20}
-                          className='!text-text-1 mr-2'
-                        />
-                      )}
-                      {t('Delete')}
-                    </Button>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
-          )}
-        </div>
-        <p className='small-regular'>{post.read_time}</p>
-      </div>
-    </div>
-  );
-}
 
 export interface ISeriesProps {
   params: {
@@ -219,6 +81,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
   // Modal
   const [openEdit, setOpenEdit] = useState(false);
   const [openAddPost, setOpenAddPost] = useState(false);
+  const [openReview, setOpenReview] = useState(false);
 
   // Dialog Delete Series
   const [openDeleteSeries, setOpenDeleteSeries] = useState(false);
@@ -358,7 +221,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
           </div>
         </div>
         <Divider className='mt-8 mb-6' />
-        <div className='text-pretty text-[1rem] leading-relaxed'>
+        <div className='text-pretty text-[1rem] leading-relaxed my-5 px-2'>
           <ShowContent content={series?.introduction} />
         </div>
         <div className='author mt-10 flex-between'>
@@ -380,7 +243,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
               )}
             </div>
           </div>
-          <Button>Follow</Button>
+          {!isMe && <FriendButton profileID={author?._id} variant='default' />}
         </div>
         <Divider className='mt-12 mb-6' />
         <div className='info flex-around mt-10'>
@@ -403,15 +266,19 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
               {series?.rating.avg % 1 === 0 ? (
                 <div className='text-[60px]'>{series?.rating.avg}.0</div>
               ) : (
-                <div className='text-[60px]'>{series?.rating.avg}</div>
+                <div className='text-[60px]'>
+                  {series?.rating.avg.toFixed(1)}
+                </div>
               )}
               <div className='flex-start *:size-5 *:text-yellow-400 gap-2'>
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
+                {Array.from({ length: Math.floor(series?.rating.avg) }).map(
+                  (_, index) => {
+                    return <FaStar key={index} />;
+                  }
+                )}
+                {series?.rating.avg % 1 > 0 && <FaStarHalfAlt />}
               </div>
+
               <div className='mt-3 text-text-2'>{`${t(
                 'Based on'
               )} ${numberReview} ${t('Reviews')}`}</div>
@@ -419,32 +286,57 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
             <div className='col-span-3 space-y-2'>
               <div className='flex-start gap-4'>
                 <span className='text-text-2'>5</span>
-                <div className='h-2 rounded-full bg-gray-200 w-full'>
-                  <div className='h-2 rounded-full bg-yellow-400 w-[50%]'></div>
+                <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                  <div
+                    className='h-2 rounded-full bg-yellow-400'
+                    style={{
+                      width: `${(series?.rating.star_5 / numberReview) * 100}%`
+                    }}
+                  ></div>
                 </div>
               </div>
               <div className='flex-start gap-4'>
                 <span className='text-text-2'>4</span>
-                <div className='h-2 rounded-full bg-gray-200 w-full'>
-                  <div className='h-2 rounded-full bg-yellow-400 w-[50%]'></div>
+                <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                  <div
+                    className='h-2 rounded-full bg-yellow-400'
+                    style={{
+                      width: `${(series?.rating.star_4 / numberReview) * 100}%`
+                    }}
+                  ></div>
                 </div>
               </div>
               <div className='flex-start gap-4'>
                 <span className='text-text-2'>3</span>
-                <div className='h-2 rounded-full bg-gray-200 w-full'>
-                  <div className='h-2 rounded-full bg-yellow-400 w-[50%]'></div>
+                <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                  <div
+                    className='h-2 rounded-full bg-yellow-400'
+                    style={{
+                      width: `${(series?.rating.star_3 / numberReview) * 100}%`
+                    }}
+                  ></div>
                 </div>
               </div>
               <div className='flex-start gap-4'>
                 <span className='text-text-2'>2</span>
-                <div className='h-2 rounded-full bg-gray-200 w-full'>
-                  <div className='h-2 rounded-full bg-yellow-400 w-[50%]'></div>
+                <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                  <div
+                    className='h-2 rounded-full bg-yellow-400'
+                    style={{
+                      width: `${(series?.rating.star_2 / numberReview) * 100}%`
+                    }}
+                  ></div>
                 </div>
               </div>
               <div className='flex-start gap-4'>
                 <span className='text-text-2'>1</span>
-                <div className='h-2 rounded-full bg-gray-200 w-full'>
-                  <div className='h-2 rounded-full bg-yellow-400 w-[50%]'></div>
+                <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                  <div
+                    className='h-2 rounded-full bg-yellow-400'
+                    style={{
+                      width: `${(series?.rating.star_1 / numberReview) * 100}%`
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -453,27 +345,22 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
         <Button
           className='w-full my-9 py-2'
           preIcon={<FaPen className='size-4' />}
+          onClick={() => setOpenReview(true)}
         >
           {t('Write Review')}
         </Button>
+        <Modal open={openReview} handleClose={() => setOpenReview(false)}>
+          <WriteReview
+            handleClose={() => setOpenReview(false)}
+            series_id={seriesID}
+          />
+        </Modal>
         <div className='render-review'>
-          <div className='flex gap-4'>
-            <Avatar />
-            <div className='flex-col'>
-              <div className='flex-start gap-2'>
-                <div className='base-semibold'>John Doe</div>
-                <div className='small-regular text-text-2'>29 Jun, 2022</div>
-              </div>
-              <div className='text-text-2 mt-1 mb-2'>Thanks for sharing</div>
-              <div className='flex-start *:size-4 *:text-yellow-400 gap-2'>
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-              </div>
-            </div>
-          </div>
+          {series?.reviews
+            .sort((a, b) => b.rating - a.rating)
+            .map((review, index) => (
+              <ReviewItem key={index} review={review} series_id={seriesID} />
+            ))}
         </div>
       </div>
     </div>

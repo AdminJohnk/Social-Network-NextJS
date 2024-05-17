@@ -77,7 +77,7 @@ export default function CreateEditPostSeries({
     const noOfWords = content.split(/\s/g).length;
     const minutes = noOfWords / wordsPerMinute;
     const readTime = Math.ceil(minutes);
-    return `${readTime} min read`;
+    return readTime;
   };
 
   const handleSubmit = async () => {

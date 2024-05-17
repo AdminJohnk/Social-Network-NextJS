@@ -15,5 +15,5 @@ export default function ShowContent({ content }: IShowContentProps) {
     if (editor) editor.commands.setContent(content);
   }, [content]);
 
-  return <EditorContent className='my-5 px-2 *:outline-none overflow-hidden' editor={editor} />;
+  return <EditorContent className='*:outline-none overflow-hidden' editor={editor} />;
 }
