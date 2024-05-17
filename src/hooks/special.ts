@@ -58,17 +58,6 @@ export const useCustomEditor = ({
   const editor = useEditor(
     {
       content,
-      onUpdate: ({ editor }) => {
-        const lastChar = editor.getText().slice(-1);
-        if (lastChar === ' ' || lastChar === '\n') {
-          return;
-        } else {
-          const regex = /#([^<\s]+?)(?=<| |$)/g; // Adjusted regex to include space or end of line
-          const content = editor.getHTML();
-          const newContent = content.replace(regex, '<a href="/hashtag/$1">#$1</a>');
-          editor.commands.setContent(newContent);
-        }
-      },
       extensions: [
         StarterKit.configure({
           codeBlock: false,

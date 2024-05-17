@@ -11,7 +11,6 @@ import {
   IoChevronDown,
   IoEllipsisHorizontal,
   IoFlagOutline,
-  IoImageOutline,
   IoShareOutline,
   IoStopCircleOutline,
   IoVideocamOutline
@@ -24,14 +23,7 @@ import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/
 import { Button } from '@/components/ui/button';
 import { cn, getImageURL } from '@/lib/utils';
 import FriendButton from './FriendButton';
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ProfileUpload } from '@/components/ui/upload-image';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { imageService } from '@/services/ImageService';
@@ -73,13 +65,13 @@ export default function Cover({ profileID }: ICoverProps) {
   const [fileAvatar, setFileAvatar] = useState<File>();
 
   useEffect(() => {
-    if (currentUserInfo?.user_image) {
-      setAvatar(getImageURL(currentUserInfo.user_image));
+    if (otherUserInfo?.user_image) {
+      setAvatar(getImageURL(otherUserInfo.user_image));
     }
-    if (currentUserInfo?.cover_image) {
-      setCover(getImageURL(currentUserInfo.cover_image));
+    if (otherUserInfo?.cover_image) {
+      setCover(getImageURL(otherUserInfo.cover_image));
     }
-  }, [currentUserInfo]);
+  }, [otherUserInfo]);
 
   const [isLoadingChangeAvatar, setIsLoadingChangeAvatar] = useState(false);
   const isChangedAvatar = useMemo(() => {

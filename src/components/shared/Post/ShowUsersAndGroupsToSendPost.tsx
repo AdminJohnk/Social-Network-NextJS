@@ -11,12 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Image from 'next/image';
 
-import {
-  useConversationsData,
-  useCurrentUserInfo,
-  useMessages,
-  usePostData
-} from '@/hooks/query';
+import { useConversationsData, useCurrentUserInfo, usePostData } from '@/hooks/query';
 import { Avatar, CircularProgress } from '@mui/material';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import { IConversation, IMessage, IUserInfo } from '@/types';
@@ -57,15 +52,12 @@ export default function ShowUsersAndGroupsToSendPost({
   const { conversations } = useConversationsData();
 
   const recentConversations = useMemo(
-    () =>
-      conversations && conversations.length > 0
-        ? conversations.slice(0, 5)
-        : [],
+    () => (conversations && conversations.length > 0 ? conversations.slice(0, 5) : []),
     []
   );
 
   const groups = useMemo(() => {
-    return conversations.filter(conversation => conversation.type === 'group');
+    return conversations.filter((conversation) => conversation.type === 'group');
   }, []);
 
   const [results, setResults] = useState<Results>({
@@ -93,10 +85,8 @@ export default function ShowUsersAndGroupsToSendPost({
     setIsLoadingSearch(true);
 
     setResults({
-      recentConversations: conversations.filter(conversation => {
-        const otherUser = conversation.members.find(
-          member => member._id !== currentUserInfo._id
-        );
+      recentConversations: conversations.filter((conversation) => {
+        const otherUser = conversation.members.find((member) => member._id !== currentUserInfo._id);
 
         return (conversation.name || otherUser!.name)
           .normalize('NFD')
@@ -104,14 +94,14 @@ export default function ShowUsersAndGroupsToSendPost({
           .toLowerCase()
           .includes(searchDebounce.toLowerCase());
       }),
-      groups: groups.filter(group =>
+      groups: groups.filter((group) =>
         group.name
           .normalize('NFD')
           .replace(/[\u0300-\u036f]/g, '')
           .toLowerCase()
           .includes(searchDebounce.toLowerCase())
       ),
-      members: members.filter(member =>
+      members: members.filter((member) =>
         member.name
           .normalize('NFD')
           .replace(/[\u0300-\u036f]/g, '')
@@ -197,7 +187,7 @@ export default function ShowUsersAndGroupsToSendPost({
         type: 'private',
         members: [user]
       })
-      .then(res => {
+      .then((res) => {
         chatSocket.emit(Socket.NEW_CONVERSATION, res.data.metadata);
         mutateReceiveConversation(res.data.metadata);
 
@@ -256,15 +246,11 @@ export default function ShowUsersAndGroupsToSendPost({
   };
 
   const sending = (conversationOrUserID: string) => {
-    const conversation = conversations.find(
-      conversation => conversation._id === conversationOrUserID
-    );
+    const conversation = conversations.find((conversation) => conversation._id === conversationOrUserID);
     if (!conversation) {
-      const foundConversations = conversations.filter(
-        conversation => conversation.type === 'private'
-      );
-      const foundConversation = foundConversations.find(conversation =>
-        conversation.members.find(member => member._id === conversationOrUserID)
+      const foundConversations = conversations.filter((conversation) => conversation.type === 'private');
+      const foundConversation = foundConversations.find((conversation) =>
+        conversation.members.find((member) => member._id === conversationOrUserID)
       );
       return foundConversation?.lastMessage.isSending;
     }
@@ -286,21 +272,14 @@ export default function ShowUsersAndGroupsToSendPost({
             <div className='bg-foreground-2 rounded-lg p-4'>
               <div className='flex-start'>
                 <Link href={`/profile/${post!.post_attributes.user._id}`}>
-                  <Avatar
-                    src={getImageURL(post!.post_attributes.user.user_image)}
-                  />
+                  <Avatar src={getImageURL(post!.post_attributes.user.user_image)} />
                 </Link>
                 <div className='flex gap-1 flex-col ms-3'>
-                  <Link
-                    href={`/profile/${post!.post_attributes.user._id}`}
-                    className='base-bold'
-                  >
+                  <Link href={`/profile/${post!.post_attributes.user._id}`} className='base-bold'>
                     {post!.post_attributes.user.name}
                   </Link>
                   <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
-                    <Link href={`/posts/${post!._id}`}>
-                      {handleDateTime(post!.createdAt)}
-                    </Link>
+                    <Link href={`/posts/${post!._id}`}>{handleDateTime(post!.createdAt)}</Link>
                     <span>•</span>
 
                     {post!.visibility === 'public' ? (
@@ -316,26 +295,11 @@ export default function ShowUsersAndGroupsToSendPost({
               <div className=''>
                 <div className='flex-between items-start gap-2'>
                   <div
-                    className={cn(
-                      'my-5 px-2',
-                      post!.post_attributes.images.length > 0
-                        ? 'w-5/6'
-                        : 'w-full'
-                    )}
-                  >
-                    <ShowContent
-                      content={
-                        content.length > 250
-                          ? content.slice(0, 250) + '...'
-                          : content
-                      }
-                    />
+                    className={cn('my-5 px-2', post!.post_attributes.images.length > 0 ? 'w-5/6' : 'w-full')}>
+                    <ShowContent content={content.length > 250 ? content.slice(0, 250) + '...' : content} />
                   </div>
                   {post!.post_attributes.images.length > 0 && (
-                    <div
-                      key={post!.post_attributes.images[0]}
-                      className='relative w-1/6'
-                    >
+                    <div key={post!.post_attributes.images[0]} className='relative w-1/6'>
                       <Image
                         width={500}
                         height={500}
@@ -356,7 +320,7 @@ export default function ShowUsersAndGroupsToSendPost({
               type='text'
               placeholder={t('Please write something for this content') + '...'}
               className='w-full !py-2 rounded-lg bg-foreground-1 border-none active:border-none border focus:ring-0'
-              onChange={e => {
+              onChange={(e) => {
                 setMessage(e.target.value);
               }}
             />
@@ -369,7 +333,7 @@ export default function ShowUsersAndGroupsToSendPost({
               type='text'
               placeholder={t('Search')}
               className='w-full !pl-10 !py-2 rounded-lg bg-foreground-1'
-              onChange={e => {
+              onChange={(e) => {
                 setSearch(e.target.value);
                 if (!isLoadingSearch) setIsLoadingSearch(true);
               }}
@@ -384,28 +348,22 @@ export default function ShowUsersAndGroupsToSendPost({
               <>
                 {results.recentConversations.length > 0 && (
                   <div className='space-y-4'>
-                    <div className='font-bold text-lg text-left'>
-                      {t('Recent')}
-                    </div>
+                    <div className='font-bold text-lg text-left'>{t('Recent')}</div>
                     <div className='flex flex-col gap-5'>
-                      {results.recentConversations.map(conversation => {
+                      {results.recentConversations.map((conversation) => {
                         const isGroup = conversation.type === 'group';
                         const otherUser = conversation.members.find(
-                          member => member._id !== currentUserInfo._id
+                          (member) => member._id !== currentUserInfo._id
                         );
 
                         return (
                           <div
                             className='conversation flex items-center justify-between'
-                            key={conversation._id + '_recent'}
-                          >
+                            key={conversation._id + '_recent'}>
                             <div className='info flex items-center'>
                               <div className='avatar relative'>
                                 {!isGroup ? (
-                                  <AvatarMessage
-                                    key={otherUser!._id}
-                                    user={otherUser!}
-                                  />
+                                  <AvatarMessage key={otherUser!._id} user={otherUser!} />
                                 ) : (
                                   <AvatarGroup
                                     key={conversation._id}
@@ -423,29 +381,20 @@ export default function ShowUsersAndGroupsToSendPost({
                                 disabled={isLoading}
                                 className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
                                 onClick={() => {
-                                  handleSubmit(
-                                    messageContent,
-                                    conversation._id
-                                  );
-                                }}
-                              >
+                                  handleSubmit(messageContent, conversation._id);
+                                }}>
                                 {t('Send')}
                               </Button>
                             ) : sending(conversation._id) ? (
                               <Button
                                 disabled
-                                className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                              >
-                                <CircularProgress
-                                  size={20}
-                                  className='!text-text-1'
-                                />
+                                className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
+                                <CircularProgress size={20} className='!text-text-1' />
                               </Button>
                             ) : (
                               <Button
                                 disabled
-                                className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                              >
+                                className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
                                 {t('Sent')}
                               </Button>
                             )}
@@ -459,22 +408,13 @@ export default function ShowUsersAndGroupsToSendPost({
                   <div className='space-y-4'>
                     <div className='font-bold text-lg text-left mt-5'>{t('Communities')}</div>
                     <div className='flex flex-col gap-5'>
-                      {results.groups.map(group => (
-                        <div
-                          className='group flex items-center justify-between'
-                          key={group._id + '_group'}
-                        >
+                      {results.groups.map((group) => (
+                        <div className='group flex items-center justify-between' key={group._id + '_group'}>
                           <div className='info flex items-center'>
                             <div className='avatar relative'>
-                              <AvatarGroup
-                                key={group._id}
-                                users={group.members}
-                                image={group.image}
-                              />
+                              <AvatarGroup key={group._id} users={group.members} image={group.image} />
                             </div>
-                            <div className='name text-center ml-2 font-bold'>
-                              {group.name}
-                            </div>
+                            <div className='name text-center ml-2 font-bold'>{group.name}</div>
                           </div>
                           {!sent.includes(group._id) ? (
                             <Button
@@ -482,25 +422,19 @@ export default function ShowUsersAndGroupsToSendPost({
                               className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
                               onClick={() => {
                                 handleSubmit(messageContent, group._id);
-                              }}
-                            >
+                              }}>
                               {t('Send')}
                             </Button>
                           ) : sending(group._id) ? (
                             <Button
                               disabled
-                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                            >
-                              <CircularProgress
-                                size={20}
-                                className='!text-text-1'
-                              />
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
+                              <CircularProgress size={20} className='!text-text-1' />
                             </Button>
                           ) : (
                             <Button
                               disabled
-                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                            >
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
                               {t('Sent')}
                             </Button>
                           )}
@@ -511,22 +445,15 @@ export default function ShowUsersAndGroupsToSendPost({
                 )}
                 {results.members.length > 0 && (
                   <div className='space-y-4'>
-                    <div className='font-bold text-lg text-left mt-5'>
-                      {t('Contacts')}
-                    </div>
+                    <div className='font-bold text-lg text-left mt-5'>{t('Contacts')}</div>
                     <div className='flex flex-col gap-5'>
-                      {results.members.map(user => (
-                        <div
-                          className='user flex items-center justify-between'
-                          key={user._id + '_user'}
-                        >
+                      {results.members.map((user) => (
+                        <div className='user flex items-center justify-between' key={user._id + '_user'}>
                           <div className='info flex items-center'>
                             <div className='avatar relative'>
                               <AvatarMessage key={user._id} user={user} />
                             </div>
-                            <div className='name text-center ml-2 font-bold'>
-                              {user.name}
-                            </div>
+                            <div className='name text-center ml-2 font-bold'>{user.name}</div>
                           </div>
                           {!sent.includes(user._id) ? (
                             <Button
@@ -534,25 +461,19 @@ export default function ShowUsersAndGroupsToSendPost({
                               className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
                               onClick={() => {
                                 handleSubmitContact(messageContent, user._id);
-                              }}
-                            >
+                              }}>
                               {t('Send')}
                             </Button>
                           ) : sending(user._id) ? (
                             <Button
                               disabled
-                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                            >
-                              <CircularProgress
-                                size={20}
-                                className='!text-text-1'
-                              />
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
+                              <CircularProgress size={20} className='!text-text-1' />
                             </Button>
                           ) : (
                             <Button
                               disabled
-                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'
-                            >
+                              className='base-bold !bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl items-end mr-1'>
                               {t('Sent')}
                             </Button>
                           )}

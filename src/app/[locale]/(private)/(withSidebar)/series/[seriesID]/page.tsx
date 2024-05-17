@@ -10,7 +10,7 @@ import { cn, getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
 import { IUpdateSeries } from '@/types';
 import { Avatar, CircularProgress } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { useFormatter, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import { FaPen, FaStarHalfAlt } from 'react-icons/fa';
@@ -23,7 +23,6 @@ import FriendButton from '@/components/pages/Profile/FriendButton';
 import { useDeleteImage, useDeleteSeries } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { useRouter } from 'next/navigation';
-import { getFormattedDate } from '@/lib/utils/formatDateTime';
 import WriteReview from '@/components/pages/Series/WriteReview';
 import { PostItem } from '@/components/pages/Series/PostItem';
 import ReviewItem from '@/components/pages/Series/ReviewItem';
@@ -48,6 +47,8 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
   const t = useTranslations();
   const router = useRouter();
 
+  const format = useFormatter();
+
   const { series } = useGetSeriesByID(seriesID);
   const { currentUserInfo } = useCurrentUserInfo();
 
@@ -64,6 +65,13 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
       series?.rating.star_3 +
       series?.rating.star_4 +
       series?.rating.star_5 || 0;
+
+  const numberReviewNonZero: number =
+    series?.rating.star_1 +
+      series?.rating.star_2 +
+      series?.rating.star_3 +
+      series?.rating.star_4 +
+      series?.rating.star_5 || 1;
 
   const dataEdit: IUpdateSeries = useMemo(() => {
     if (!series) return {} as IUpdateSeries;
@@ -94,7 +102,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
     setIsLoading(true);
     mutateDeleteSeries(seriesID, {
       onSuccess: () => {
-        const listImagePost = series?.posts.map(post => post.cover_image);
+        const listImagePost = series?.posts.map((post) => post.cover_image);
         mutateDeleteImage([series?.cover_image, ...listImagePost]);
         showSuccessToast(t('Series deleted successfully!'));
         router.push('/');
@@ -120,21 +128,13 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
             }}
           />
 
-          <AlertDialog
-            open={openDeleteSeries}
-            onOpenChange={setOpenDeleteSeries}
-          >
-            <AlertDialogTrigger
-              className='w-full text-1 uk-drop-close'
-              onClick={handleOpenDeleteSeries}
-            >
+          <AlertDialog open={openDeleteSeries} onOpenChange={setOpenDeleteSeries}>
+            <AlertDialogTrigger className='w-full text-1 uk-drop-close' onClick={handleOpenDeleteSeries}>
               <DeleteButton className='fixed top-[calc(20%+4rem)] right-4 z-50' />
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>
-                  {t('Are you absolutely sure delete this series?')}
-                </AlertDialogTitle>
+                <AlertDialogTitle>{t('Are you absolutely sure delete this series?')}</AlertDialogTitle>
                 <AlertDialogDescription>
                   {t('You will not be able to recover series after deletion!')}
                 </AlertDialogDescription>
@@ -144,18 +144,14 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   variant='destructive'
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
-                  onClick={handleCloseDeleteSeries}
-                >
+                  onClick={handleCloseDeleteSeries}>
                   {t('Cancel')}
                 </Button>
                 <Button
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
-                  onClick={handleDeleteSeries}
-                >
-                  {isLoading && (
-                    <CircularProgress size={20} className='!text-text-1 mr-2' />
-                  )}
+                  onClick={handleDeleteSeries}>
+                  {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
                   {t('Delete')}
                 </Button>
               </AlertDialogFooter>
@@ -164,10 +160,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
         </>
       )}
       <Modal open={openEdit} handleClose={() => setOpenEdit(false)}>
-        <CreateEditSeries
-          handleClose={() => setOpenEdit(false)}
-          dataEdit={dataEdit}
-        />
+        <CreateEditSeries handleClose={() => setOpenEdit(false)} dataEdit={dataEdit} />
       </Modal>
       <div className='max-w-[730px] mx-auto'>
         <Image
@@ -179,9 +172,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
           priority
         />
         <div className='h3-semibold mt-7'>{series?.title}</div>
-        <div className='text-text-2 text-[1rem] text-pretty mt-4'>
-          {series?.description}
-        </div>
+        <div className='text-text-2 text-[1rem] text-pretty mt-4'>{series?.description}</div>
         <Button className='w-full my-7 py-3'>{t('Start Series')}</Button>
         <div>
           <div className='base-semibold flex-start gap-2'>
@@ -197,26 +188,15 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   />
                 </span>
                 {/* Add Post */}
-                <Modal
-                  open={openAddPost}
-                  handleClose={() => setOpenAddPost(false)}
-                >
-                  <CreateEditPostSeries
-                    handleClose={() => setOpenAddPost(false)}
-                    series_id={series?._id}
-                  />
+                <Modal open={openAddPost} handleClose={() => setOpenAddPost(false)}>
+                  <CreateEditPostSeries handleClose={() => setOpenAddPost(false)} series_id={series?._id} />
                 </Modal>
               </>
             )}
           </div>
           <div className='space-y-5 mt-6'>
-            {series?.posts.map(post => (
-              <PostItem
-                key={post._id}
-                post={post}
-                series_id={series._id}
-                isMe={isMe}
-              />
+            {series?.posts.map((post) => (
+              <PostItem key={post._id} post={post} series_id={series._id} isMe={isMe} />
             ))}
           </div>
         </div>
@@ -254,7 +234,11 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
           <div className='flex flex-col gap-2'>
             <span className='base-semibold'>{t('Date Published')}</span>
             <span className='text-text-2'>
-              {getFormattedDate(series?.createdAt)}
+              {format.dateTime(new Date(series?.createdAt), {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+              })}
             </span>
           </div>
         </div>
@@ -266,22 +250,16 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
               {series?.rating.avg % 1 === 0 ? (
                 <div className='text-[60px]'>{series?.rating.avg}.0</div>
               ) : (
-                <div className='text-[60px]'>
-                  {series?.rating.avg.toFixed(1)}
-                </div>
+                <div className='text-[60px]'>{series?.rating.avg.toFixed(1)}</div>
               )}
               <div className='flex-start *:size-5 *:text-yellow-400 gap-2'>
-                {Array.from({ length: Math.floor(series?.rating.avg) }).map(
-                  (_, index) => {
-                    return <FaStar key={index} />;
-                  }
-                )}
+                {Array.from({ length: Math.floor(series?.rating.avg) }).map((_, index) => {
+                  return <FaStar key={index} />;
+                })}
                 {series?.rating.avg % 1 > 0 && <FaStarHalfAlt />}
               </div>
 
-              <div className='mt-3 text-text-2'>{`${t(
-                'Based on'
-              )} ${numberReview} ${t('Reviews')}`}</div>
+              <div className='mt-3 text-text-2'>{`${t('Based on')} ${numberReview} ${t('Reviews')}`}</div>
             </div>
             <div className='col-span-3 space-y-2'>
               <div className='flex-start gap-4'>
@@ -290,9 +268,9 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   <div
                     className='h-2 rounded-full bg-yellow-400'
                     style={{
-                      width: `${(series?.rating.star_5 / numberReview) * 100}%`
+                      width: `${(series?.rating.star_5 / numberReviewNonZero) * 100}%`
                     }}
-                  ></div>
+                  />
                 </div>
               </div>
               <div className='flex-start gap-4'>
@@ -301,9 +279,9 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   <div
                     className='h-2 rounded-full bg-yellow-400'
                     style={{
-                      width: `${(series?.rating.star_4 / numberReview) * 100}%`
+                      width: `${(series?.rating.star_4 / numberReviewNonZero) * 100}%`
                     }}
-                  ></div>
+                  />
                 </div>
               </div>
               <div className='flex-start gap-4'>
@@ -312,9 +290,9 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   <div
                     className='h-2 rounded-full bg-yellow-400'
                     style={{
-                      width: `${(series?.rating.star_3 / numberReview) * 100}%`
+                      width: `${(series?.rating.star_3 / numberReviewNonZero) * 100}%`
                     }}
-                  ></div>
+                  />
                 </div>
               </div>
               <div className='flex-start gap-4'>
@@ -323,9 +301,9 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   <div
                     className='h-2 rounded-full bg-yellow-400'
                     style={{
-                      width: `${(series?.rating.star_2 / numberReview) * 100}%`
+                      width: `${(series?.rating.star_2 / numberReviewNonZero) * 100}%`
                     }}
-                  ></div>
+                  />
                 </div>
               </div>
               <div className='flex-start gap-4'>
@@ -334,9 +312,9 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   <div
                     className='h-2 rounded-full bg-yellow-400'
                     style={{
-                      width: `${(series?.rating.star_1 / numberReview) * 100}%`
+                      width: `${(series?.rating.star_1 / numberReviewNonZero) * 100}%`
                     }}
-                  ></div>
+                  />
                 </div>
               </div>
             </div>
@@ -345,15 +323,11 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
         <Button
           className='w-full my-9 py-2'
           preIcon={<FaPen className='size-4' />}
-          onClick={() => setOpenReview(true)}
-        >
+          onClick={() => setOpenReview(true)}>
           {t('Write Review')}
         </Button>
         <Modal open={openReview} handleClose={() => setOpenReview(false)}>
-          <WriteReview
-            handleClose={() => setOpenReview(false)}
-            series_id={seriesID}
-          />
+          <WriteReview handleClose={() => setOpenReview(false)} series_id={seriesID} />
         </Modal>
         <div className='render-review'>
           {series?.reviews

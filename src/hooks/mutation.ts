@@ -1316,10 +1316,15 @@ export const useUploadImages = () => {
 };
 
 export const useCreateSeries = () => {
+  const queryClient = useQueryClient();
+
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (data: ICreateSeries) => {
       const { data: series } = await seriesService.createSeries(data);
       return series.metadata;
+    },
+    onSuccess(series) {
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
     }
   });
 
@@ -1339,8 +1344,9 @@ export const useUpdateSeries = () => {
       const { data: series } = await seriesService.updateSeries(data);
       return series.metadata;
     },
-    onSuccess(_, updateSeries) {
+    onSuccess(series, updateSeries) {
       queryClient.invalidateQueries({ queryKey: ['series', updateSeries.id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
     }
   });
 
@@ -1360,8 +1366,8 @@ export const useDeleteSeries = () => {
       const { data: series } = await seriesService.deleteSeries(seriesID);
       return series.metadata;
     },
-    onSuccess(_, series) {
-      queryClient.invalidateQueries({ queryKey: ['series', series] });
+    onSuccess(_, seriesID) {
+      queryClient.invalidateQueries({ queryKey: ['series', seriesID] });
     }
   });
 
@@ -1557,4 +1563,4 @@ export const useCommentPostSeries = () => {
     isErrorCommentPostSeries: isError,
     isSuccessCommentPostSeries: isSuccess
   };
-}
+};

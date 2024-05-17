@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { useTranslations } from 'next-intl';
+import { useFormatter, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useDeleteReviewSeries } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
@@ -28,6 +28,8 @@ export interface IReviewItemProps {
 
 export default function ReviewItem({ review, series_id }: IReviewItemProps) {
   const t = useTranslations();
+  const format = useFormatter();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { currentUserInfo } = useCurrentUserInfo();
 
@@ -69,7 +71,11 @@ export default function ReviewItem({ review, series_id }: IReviewItemProps) {
         <div className='flex-start gap-2'>
           <div className='base-semibold'>{review.user.name}</div>
           <div className='small-regular text-text-2'>
-            {getFormattedDate(review.createdAt)}
+            {format.dateTime(new Date(review.createdAt), {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric'
+            })}
           </div>
         </div>
         <div className='text-text-2 mt-1 mb-2'>{review.content}</div>
@@ -84,14 +90,8 @@ export default function ReviewItem({ review, series_id }: IReviewItemProps) {
           <IoIosMore className='size-5 text-1 outline-none' />
           <div data-uk-drop='offset: 4; pos: right-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
             <div className='flex flex-col gap-0.5 p-1 bg-foreground-1 rounded-lg shadow-lg *:px-2.5 *:py-1.5 hover:*:!bg-hover-1 *:cursor-pointer *:rounded-lg *:uk-drop-close'>
-              <AlertDialog
-                open={openDeleteReview}
-                onOpenChange={setOpenDeleteReview}
-              >
-                <AlertDialogTrigger
-                  className='w-full text-1 uk-drop-close'
-                  onClick={handleOpenDeleteReview}
-                >
+              <AlertDialog open={openDeleteReview} onOpenChange={setOpenDeleteReview}>
+                <AlertDialogTrigger className='w-full text-1 uk-drop-close' onClick={handleOpenDeleteReview}>
                   <div className='flex-start gap-2'>
                     <BiSolidTrashAlt className='size-5 text-text-1' />
                     <span>{t('Delete')}</span>
@@ -99,13 +99,9 @@ export default function ReviewItem({ review, series_id }: IReviewItemProps) {
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      {t('Are you absolutely sure delete this review?')}
-                    </AlertDialogTitle>
+                    <AlertDialogTitle>{t('Are you absolutely sure delete this review?')}</AlertDialogTitle>
                     <AlertDialogDescription>
-                      {t(
-                        'You will not be able to recover review after deletion!'
-                      )}
+                      {t('You will not be able to recover review after deletion!')}
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
@@ -113,21 +109,14 @@ export default function ReviewItem({ review, series_id }: IReviewItemProps) {
                       variant='destructive'
                       className={cn(isLoading && 'select-none')}
                       disabled={isLoading}
-                      onClick={handleCloseDeleteReview}
-                    >
+                      onClick={handleCloseDeleteReview}>
                       {t('Cancel')}
                     </Button>
                     <Button
                       className={cn(isLoading && 'select-none')}
                       disabled={isLoading}
-                      onClick={handleDeleteReview}
-                    >
-                      {isLoading && (
-                        <CircularProgress
-                          size={20}
-                          className='!text-text-1 mr-2'
-                        />
-                      )}
+                      onClick={handleDeleteReview}>
+                      {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
                       {t('Delete')}
                     </Button>
                   </AlertDialogFooter>
