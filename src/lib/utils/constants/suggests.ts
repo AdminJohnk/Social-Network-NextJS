@@ -55,7 +55,7 @@ export const suggestions = ({ data = [], char = '#' }: ISuggestions): Suggestion
         }
 
         popup[0].setProps({
-          getReferenceClientRect: props.clientRect as any
+          getReferenceClientRect: props.clientRect as GetReferenceClientRect
         });
       },
 

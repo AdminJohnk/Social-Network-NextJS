@@ -8,10 +8,11 @@ import { OnKeyDownProps } from '@/types';
 export interface ISuggestionListProps {
   items: string[];
   command: (options: { id: string }) => void;
+  query: string;
 }
 
 export interface ISuggestionListHandle {
-  onKeyDown: (event: OnKeyDownProps) => boolean;
+  onKeyDown: (props: OnKeyDownProps) => boolean;
 }
 
 const SuggestionList = forwardRef<ISuggestionListHandle, ISuggestionListProps>((props, ref) => {
@@ -22,6 +23,8 @@ const SuggestionList = forwardRef<ISuggestionListHandle, ISuggestionListProps>((
 
     if (item) {
       props.command({ id: item });
+    } else {
+      props.command({ id: props.query });
     }
   };
 
@@ -42,22 +45,16 @@ const SuggestionList = forwardRef<ISuggestionListHandle, ISuggestionListProps>((
   useImperativeHandle(ref, () => ({
     onKeyDown: ({ event }) => {
       if (event.key === 'ArrowUp') {
-        event.preventDefault();
-        event.stopPropagation();
         upHandler();
         return true;
       }
 
       if (event.key === 'ArrowDown') {
-        event.preventDefault();
-        event.stopPropagation();
         downHandler();
         return true;
       }
 
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        event.stopPropagation();
+      if (event.key === 'Enter' || event.key === ' ') {
         enterHandler();
         return true;
       }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { EditorOptions, mergeAttributes, useEditor } from '@tiptap/react';
+import { mergeAttributes, useEditor, EditorOptions } from '@tiptap/react';
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
 import { createLowlight, common } from 'lowlight';
 import { StarterKit } from '@tiptap/starter-kit';

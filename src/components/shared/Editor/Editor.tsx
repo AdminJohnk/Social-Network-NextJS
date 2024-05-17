@@ -355,18 +355,7 @@ export default function Editor({
     },
     content,
     placeholder,
-    dataSuggestions,
-    onUpdate: ({ editor }) => {
-      const lastChar = editor.getText().slice(-1);
-      if (lastChar === ' ' || lastChar === '\n') {
-        return;
-      } else {
-        const regex = /#([^<\s]+?)(?=<| |$)/g;
-        const content = editor.getHTML();
-        const newContent = content.replace(regex, '<a href="/hashtag/$1">#$1</a>');
-        editor.commands.setContent(newContent);
-      }
-    }
+    dataSuggestions
   });
 
   useEffect(() => {
