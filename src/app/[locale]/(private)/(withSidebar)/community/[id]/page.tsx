@@ -7,6 +7,7 @@ import SuggestGroup from '@/components/pages/Community/Id/SuggestGroup';
 import ComCover from '@/components/pages/Community/Id/ComCover';
 import PostList from '@/components/pages/Community/Id/PostList';
 import { TabsContent } from '@/components/ui/tabs';
+import RequestList from '@/components/pages/Community/Id/RequestList';
 
 export interface ICommunityProps {
   params: {
@@ -37,6 +38,9 @@ export default function Community({ params: { locale, id } }: ICommunityProps) {
                 <SuggestGroup />
               </div>
             </div>
+          </div>
+          <div className='tab-request mt-8'>
+            <RequestList communityID={id} />
           </div>
         </TabsContent>
       </div>
