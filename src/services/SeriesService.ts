@@ -1,8 +1,11 @@
 import { AxiosResponse } from 'axios';
 
 import {
+  ICreateCommentPostSeries,
+  ICreateReviewSeries,
   ICreateSeries,
   ICreateSeriesPost,
+  IDeleteReviewSeries,
   IDeleteSeriesPost,
   IResponse,
   ISeries,
@@ -58,6 +61,24 @@ class SeriesService extends BaseService {
 
   deleteSeries = (id: string): Promise<AxiosResponse<IResponse<ISeries>>> => {
     return this.delete(`/series/delete/${id}`);
+  };
+
+  reviewSeries = (
+    data: ICreateReviewSeries
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/review`, data);
+  };
+
+  deleteReviewSeries = (
+    data: IDeleteReviewSeries
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.delete(`/series/delete-review`, data);
+  };
+
+  commentPostSeries = (
+    data: ICreateCommentPostSeries
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/comment-post`, data);
   };
 }
 
