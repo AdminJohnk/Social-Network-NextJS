@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useThemeMode } from 'flowbite-react';
 import { Editor as EditorProps, EditorContent, FocusPosition } from '@tiptap/react';
 import {
@@ -51,76 +51,74 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
   }, [editor]);
 
   useEffect(() => {
-    editor.on('selectionUpdate', selectTypeNumber);
-  }, [editor]);
+    editor.on('transaction', selectTypeNumber);
+  }, []);
 
-  const typeText = [
-    {
-      // Normal
-      node: (
-        <div className='flex-start gap-1.5'>
-          <FiAlignCenter className='size-5' />
-          <span>{t('Normal')}</span>
-        </div>
-      ),
-      callback: () => {
-        editor.chain().focus().setParagraph().run();
+  const typeText = useMemo(
+    () => [
+      {
+        // Normal
+        node: (
+          <div className='flex-start gap-1.5'>
+            <FiAlignCenter className='size-5' />
+            <span>{t('Normal')}</span>
+          </div>
+        ),
+        callback: () => editor.chain().focus().setParagraph().run(),
+        can: () => editor.can().chain().focus().setParagraph().run(),
+        className: cn(editor.isActive('paragraph') && 'text-primary-500')
       },
-      className: cn(editor.isActive('paragraph') && 'text-primary-500')
-    },
-    {
-      // Heading 1
-      node: (
-        <div className='flex-start gap-1.5'>
-          <LuHeading1 className='size-5' />
-          <span>{t('Heading 1')}</span>
-        </div>
-      ),
-      callback: () => {
-        editor.chain().focus().toggleHeading({ level: 1 }).run();
+      {
+        // Heading 1
+        node: (
+          <div className='flex-start gap-1.5'>
+            <LuHeading1 className='size-5' />
+            <span>{t('Heading 1')}</span>
+          </div>
+        ),
+        callback: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+        can: () => editor.can().chain().focus().toggleHeading({ level: 1 }).run(),
+        className: cn(editor.isActive('heading', { level: 1 }) && 'text-primary-500')
       },
-      className: cn(editor.isActive('heading', { level: 1 }) && 'text-primary-500')
-    },
-    {
-      // Heading 2
-      node: (
-        <div className='flex-start gap-1.5'>
-          <LuHeading2 className='size-5' />
-          <span>{t('Heading 2')}</span>
-        </div>
-      ),
-      callback: () => {
-        editor.chain().focus().toggleHeading({ level: 2 }).run();
+      {
+        // Heading 2
+        node: (
+          <div className='flex-start gap-1.5'>
+            <LuHeading2 className='size-5' />
+            <span>{t('Heading 2')}</span>
+          </div>
+        ),
+        callback: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+        can: () => editor.can().chain().focus().toggleHeading({ level: 2 }).run(),
+        className: cn(editor.isActive('heading', { level: 2 }) && 'text-primary-500')
       },
-      className: cn(editor.isActive('heading', { level: 2 }) && 'text-primary-500')
-    },
-    {
-      // Heading 3
-      node: (
-        <div className='flex-start gap-1.5'>
-          <LuHeading3 className='size-5' />
-          <span>{t('Heading 3')}</span>
-        </div>
-      ),
-      callback: () => {
-        editor.chain().focus().toggleHeading({ level: 3 }).run();
+      {
+        // Heading 3
+        node: (
+          <div className='flex-start gap-1.5'>
+            <LuHeading3 className='size-5' />
+            <span>{t('Heading 3')}</span>
+          </div>
+        ),
+        callback: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+        can: () => editor.can().chain().focus().toggleHeading({ level: 3 }).run(),
+        className: cn(editor.isActive('heading', { level: 3 }) && 'text-primary-500')
       },
-      className: cn(editor.isActive('heading', { level: 3 }) && 'text-primary-500')
-    },
-    {
-      // Code Block
-      node: (
-        <div className='flex-start gap-1.5'>
-          <IoCodeSlashOutline className='size-5' />
-          <span>{t('Code Block')}</span>
-        </div>
-      ),
-      callback: () => {
-        editor.chain().focus().toggleCodeBlock().run();
-      },
-      className: cn(editor.isActive('codeBlock') && 'text-primary-500')
-    }
-  ];
+      {
+        // Code Block
+        node: (
+          <div className='flex-start gap-1.5'>
+            <IoCodeSlashOutline className='size-5' />
+            <span>{t('Code Block')}</span>
+          </div>
+        ),
+        callback: () => editor.chain().focus().toggleCodeBlock().run(),
+        can: () => editor.can().chain().focus().toggleCodeBlock().run(),
+        className: cn(editor.isActive('codeBlock') && 'text-primary-500')
+      }
+    ],
+    [editor]
+  );
 
   return (
     <div className='flex-start'>
@@ -222,21 +220,22 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
           {typeText[typeNumber].node}
           <GoChevronDown className='size-4 group-aria-expanded:rotate-180 duration-300' />
         </button>
-        <div data-uk-drop='offset: 6; pos: bottom-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
-          <div className='p-2 bg-foreground-1 rounded-lg shadow-lg'>
+        <div data-uk-drop='offset: 4; pos: bottom-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
+          <div className='flex-start flex-col gap-0.5 p-2 bg-foreground-1 rounded-lg shadow-lg'>
             {typeText.map((item, index) => (
-              <div
+              <Button
                 key={index}
                 className={cn(
-                  'px-2.5 py-2 hover:bg-hover-1 cursor-pointer rounded-lg uk-drop-close',
+                  'justify-start w-full px-2.5 py-2 !bg-transparent hover:!bg-hover-1 cursor-pointer rounded-lg uk-drop-close',
                   item.className
                 )}
+                disabled={!item.can()}
                 onClick={() => {
                   item.callback();
                   selectTypeNumber();
                 }}>
                 {item.node}
-              </div>
+              </Button>
             ))}
           </div>
         </div>
