@@ -35,7 +35,8 @@ export const ProfileUpload = ({ fieldChange, mediaURL }: IProfileUpload) => {
     accept: {
       'image/png': ['.png'],
       'image/gif': ['.gif'],
-      'image/jpeg': ['.jpeg', '.jpg']
+      'image/jpeg': ['.jpeg', '.jpg'],
+      'image/webp': ['.webp'],
     },
     maxSize: 1024 * 1024 * 10,
     multiple: false,

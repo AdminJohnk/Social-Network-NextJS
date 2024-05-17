@@ -251,6 +251,7 @@ export const useSavePost = () => {
       queryClient.invalidateQueries({ queryKey: ['post', postID] });
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
+      queryClient.invalidateQueries({ queryKey: ['savedPosts'] });
     }
   });
   return {

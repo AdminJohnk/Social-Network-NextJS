@@ -28,10 +28,13 @@ export default function HashTags({ params: { slug } }: IHashTagsProps) {
 			) : (
 				<div className='ms-60 mt-16 max-lg:ms-0'>
 					<div className='px-22xl:px-32 xl:px-24 lg:px-14'>
-						<div className='bg-foreground-2 w-full h-28 flex-center justify-start mt-10 rounded-b-lg'>
-							<span className='text-text-2 text-4xl font-bold ml-8'>{t('Hashtags')}</span>
+						<div className='bg-foreground-2 w-full h-28 flex flex-col items-start justify-center mt-10 rounded-b-lg'>
+							<span className='text-text-2 text-4xl font-bold ml-8'>#{slug}</span>
+							{postsByHashtag.length > 0 && (
+								<span className='text-text-2 text-2xl font-semibold ml-8'>{t('posts', { count: postsByHashtag.length })}</span>
+							)}
 						</div>
-						<div className='mt-6 max-md:mt-0 flex-col flex-center w-full *:mb-6'>
+						<div className='mt-6 max-md:mt-2 flex-col flex-center w-full *:mb-6'>
 							{postsByHashtag.length > 0 && (
 								<div className='w-3/5 max-lg:w-full px-9 max-md:px-2'>
 									{postsByHashtag.map((item, index) => {
