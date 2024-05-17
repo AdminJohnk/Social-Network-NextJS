@@ -1469,3 +1469,24 @@ export const useUpdateCommunity = () => {
     isSuccessUpdateCommunity: isSuccess
   };
 };
+
+export const useJoinCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (communityID: string) => {
+      const { data: community } = await communityService.joinCommunity(communityID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community] });
+    }
+  });
+
+  return {
+    mutateJoinCommunity: mutateAsync,
+    isLoadingJoinCommunity: isPending,
+    isErrorJoinCommunity: isError,
+    isSuccessJoinCommunity: isSuccess
+  };
+};
