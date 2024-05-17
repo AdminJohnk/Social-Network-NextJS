@@ -61,7 +61,7 @@
   "Friends": "好友",
   "Photos": "照片",
   "Videos": "视频",
-  "Groups": "群组",
+  "Community": "社区",
   "Likes": "赞",
   "Music": "音乐",
   "Books": "书籍",
@@ -201,7 +201,9 @@
   " members": " 成员",
   " friend are members": " 好友是成员",
   "About": "关于",
-  "Public group": "公开群组",
+  "Discussion": "讨论",
+  "public community": "公共社区",
+  "private community": "私人社区",
   "likes": "赞",
   "followers": "粉丝",
   "Unfollow": "取消关注",
@@ -445,5 +447,7 @@
   "Italic": "斜体",
   "Bold": "粗体",
   "Redo": "重做",
-  "Undo": "撤销"
+  "Undo": "撤销",
+  "Rule": "规则",
+  "Rules": "规则"
 }

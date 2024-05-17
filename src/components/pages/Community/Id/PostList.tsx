@@ -5,43 +5,41 @@ import { useEffect } from 'react';
 
 import Post from '@/components/shared/Post/Post';
 import { PostSkeleton } from '@/components/shared/Post';
-import { useAllNewsfeedPostsData } from '@/hooks/query';
+import { useAllNewsfeedPostsData, useGetCommunityByID } from '@/hooks/query';
 
-export default function PostList() {
+interface IPostListProps {
+  communityID: string;
+}
+
+export default function PostList({ communityID }: IPostListProps) {
   const [postsRef, inPostsView] = useInView({ threshold: 0 });
 
-  const {
-    allNewsfeedPosts: posts,
-    isFetchingNextNewsfeedPosts: isFetchingNextPosts,
-    fetchNextNewsfeedPosts: fetchNextPosts,
-    hasNextNewsfeedPosts: hasNextPosts,
-    isLoadingAllNewsfeedPosts: isLoading
-  } = useAllNewsfeedPostsData();
+  const { community, isLoadingCommunity } = useGetCommunityByID(communityID);
 
-  useEffect(() => {
-    if (inPostsView && hasNextPosts && !isFetchingNextPosts) {
-      fetchNextPosts();
-    }
-  }, [inPostsView, hasNextPosts, isFetchingNextPosts, fetchNextPosts]);
+  //   useEffect(() => {
+  //     if (inPostsView && hasNextPosts && !isFetchingNextPosts) {
+  //       fetchNextPosts();
+  //     }
+  //   }, [inPostsView, hasNextPosts, isFetchingNextPosts, fetchNextPosts]);
 
   return (
     <>
-      {isLoading ? (
+      {isLoadingCommunity ? (
         <div className='post-skeleton *:mb-6'>
           <PostSkeleton />
         </div>
       ) : (
         <div className='post *:mb-6'>
-          {posts.length ? (
+          {community.posts.length ? (
             <>
-              {posts.map((post) => (
+              {community.posts.map((post) => (
                 <Post key={post._id} post={post} />
               ))}
-              {hasNextPosts && (
+              {/* {hasNextPosts && (
                 <div ref={postsRef}>
                   <PostSkeleton />
                 </div>
-              )}
+              )} */}
             </>
           ) : (
             <div className='flex-center'>
