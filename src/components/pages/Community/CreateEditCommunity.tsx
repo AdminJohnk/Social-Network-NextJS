@@ -257,7 +257,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
           <AddMemberToCommunity
             members={members}
             setMembers={setMembersCom}
-            defaultMembers={dataEdit?.members}
+            defaultMembers={dataEdit?.members?.filter((member) => member._id !== currentUserInfo._id)}
           />
         </div>
         <div className='upload-image-button'>
@@ -268,20 +268,23 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
             acceptType={['jpg', 'jpeg', 'png', 'gif', 'webp']}>
             {({ imageList, onImageUpload, onImageRemoveAll }) => (
               <div>
-                <div className='mb-3'>Add a cover image for your community</div>
+                {!imageList.length && <div className='mb-3'>{t('Add a cover image for your community')}</div>}
                 <div className='flex-start gap-4'>
                   <button
                     type='button'
-                    className='flex items-center gap-1.5 bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'
+                    className='flex-start gap-1.5 bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'
                     onClick={onImageUpload}>
                     <IoImage className='text-base' />
-                    {t('Image')}
+                    <p>{t('Image')}</p>
                   </button>
                   {imageList.length > 0 && (
-                    <div className='flex-start text-1' onClick={onImageRemoveAll}>
-                      <span>Remove</span>
+                    <button
+                      type='button'
+                      className='flex-start bg-foreground-2 hover:bg-hover-2 gap-1.5 rounded-full py-1 px-2 border-2 border-border-1 duration-300'
+                      onClick={onImageRemoveAll}>
+                      <p>{t('Remove')}</p>
                       <IoClose className='size-5' />
-                    </div>
+                    </button>
                   )}
                 </div>
                 {imageList.length > 0 && (
@@ -312,7 +315,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
             onClick={onSubmit}
             disabled={isLoading}>
             {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
-            <div className='font-bold'>{t('Create')}</div>
+            <div className='font-bold'>{!dataEdit ? t('Create') : t('Update')}</div>
           </Button>
         </div>
       </div>

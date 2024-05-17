@@ -1459,6 +1459,7 @@ export const useUpdateCommunity = () => {
     },
     onSuccess(_, updateCommunity) {
       queryClient.invalidateQueries({ queryKey: ['community', updateCommunity.id] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
     }
   });
 
@@ -1480,6 +1481,7 @@ export const useJoinCommunity = () => {
     },
     onSuccess(_, community) {
       queryClient.invalidateQueries({ queryKey: ['community', community] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
     }
   });
 

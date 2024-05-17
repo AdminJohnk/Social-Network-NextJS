@@ -8,6 +8,7 @@ import { FaSearch } from 'react-icons/fa';
 import {
   IoAddOutline,
   IoChatbubbleEllipsesOutline,
+  IoCheckmarkOutline,
   IoEllipsisHorizontal,
   IoFlagOutline,
   IoLinkOutline,
@@ -15,9 +16,10 @@ import {
   IoShareOutline,
   IoStopCircleOutline
 } from 'react-icons/io5';
-import { useGetCommunityByID } from '@/hooks/query';
+import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
 import { useJoinCommunity } from '@/hooks/mutation';
+import { useMemo } from 'react';
 
 interface IComCoverProps {
   communityID: string;
@@ -26,8 +28,19 @@ interface IComCoverProps {
 export default function ComCover({ communityID }: IComCoverProps) {
   const t = useTranslations();
 
+  const { currentUserInfo } = useCurrentUserInfo();
+
   const { community, isLoadingCommunity } = useGetCommunityByID(communityID);
   const { mutateJoinCommunity } = useJoinCommunity();
+
+  const isMember = useMemo(
+    () => community && community.members.some((member) => member._id === currentUserInfo._id),
+    [community]
+  );
+  const isRequested = useMemo(
+    () => community && community.waitlist_users.some((request) => request._id === currentUserInfo._id),
+    [community]
+  );
 
   return (
     <>
@@ -89,10 +102,26 @@ export default function ComCover({ communityID }: IComCoverProps) {
                       ))}
                     </div>
                     <button
-                      onClick={() => mutateJoinCommunity(communityID)}
+                      onClick={() => {
+                        if (isMember) mutateJoinCommunity(communityID);
+                      }}
                       className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
-                      <IoAddOutline className='text-xl' />
-                      <span className='text-sm'> {t('Join')} </span>
+                      {isMember ? (
+                        <>
+                          <IoCheckmarkOutline className='text-xl' />
+                          <span className='text-sm'> {t('Joined')} </span>
+                        </>
+                      ) : isRequested ? (
+                        <>
+                          <IoAddOutline className='text-xl' />
+                          <span>{t('Cancel Request')}</span>
+                        </>
+                      ) : (
+                        <>
+                          <IoAddOutline className='text-xl' />
+                          <span className='text-sm'> {t('Join')} </span>
+                        </>
+                      )}
                     </button>
                     <div>
                       <button
@@ -136,7 +165,7 @@ export default function ComCover({ communityID }: IComCoverProps) {
           </div>
           <div className='flex items-center justify-between  border-t border-gray-100 px-2 dark:border-slate-700'>
             <nav className='flex gap-0.5 rounded-xl overflow-hidden -mb-px text-gray-500 font-medium text-sm overflow-x-auto dark:text-white'>
-              <Tabs id='tabs-community' navClassName='!pt-0'>
+              <Tabs id='tabs-community' navClassName='!pt-0' disableChevron>
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Discussion')}</TabTitle>
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Request')}</TabTitle>
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Files')}</TabTitle>
