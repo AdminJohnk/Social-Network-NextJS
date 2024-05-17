@@ -1,26 +1,41 @@
 import { InputStyle } from '@/components/shared/InputStyle';
 import TextareaV2 from '@/components/ui/textarea-v2';
 import { useLocale, useTranslations } from 'next-intl';
-import { IoAdd, IoHappyOutline } from 'react-icons/io5';
+import { IoAdd, IoClose, IoHappyOutline, IoImage } from 'react-icons/io5';
 import Picker from '@emoji-mart/react';
 import { useState } from 'react';
 import { useThemeMode } from 'flowbite-react';
-import { IEmoji } from '@/types';
+import { ICreateCommunity, IEmoji, IUserInfo } from '@/types';
 import Popover from '@/components/ui/popover-v2';
 import { PiHashLight } from 'react-icons/pi';
 import { IoMdClose } from 'react-icons/io';
 import { FiMinus } from 'react-icons/fi';
 import { useCurrentUserInfo } from '@/hooks/query';
 import AddMemberToCommunity from '@/components/shared/Community/AddMemberToCommunity';
+import { Button } from '@/components/ui/button';
+import { CircularProgress } from '@mui/material';
+import { cn, getImageURL } from '@/lib/utils';
+import { useCreateCommunity, useUploadImage } from '@/hooks/mutation';
+import ReactImageUploading, { ImageListType } from 'react-images-uploading';
+import Image from 'next/image';
 
-export interface ICreateNewCommunityProps {}
+interface ICreateNewCommunityProps {
+  handleClose: () => void;
+}
 
-export default function CreateNewCommunity({}: ICreateNewCommunityProps) {
+export default function CreateNewCommunity({ handleClose }: ICreateNewCommunityProps) {
   const t = useTranslations();
   const locale = useLocale();
   const { mode } = useThemeMode();
 
   const { currentUserInfo } = useCurrentUserInfo();
+
+  const { mutateCreateCommunity } = useCreateCommunity();
+  const { mutateUploadImage } = useUploadImage();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [name, setName] = useState('');
 
   const [description, setDescription] = useState('');
   const [cursorDes, setCursorDes] = useState(0);
@@ -29,11 +44,27 @@ export default function CreateNewCommunity({}: ICreateNewCommunityProps) {
   const [cursorAbout, setCursorAbout] = useState(0);
 
   const [hashTagList, setHashTagList] = useState<string[]>([]);
-  const [rules, setRules] = useState<[]>([]);
 
   const [ruleInputs, setRuleInputs] = useState<JSX.Element[]>([]);
 
-  const ruleInputHTML: any = (index: number) => {
+  const [membersCom, setMembersCom] = useState<IUserInfo[]>([]);
+
+  const [images, setImages] = useState<ImageListType>([]);
+
+  const onChange = (imageList: ImageListType) => {
+    setImages(imageList);
+  };
+
+  const handleUploadImages = async () => {
+    const formData = new FormData();
+    formData.append('image', images[0].file as File);
+
+    return await mutateUploadImage(formData);
+  };
+
+  const members = currentUserInfo?.members || [];
+
+  const ruleInputHTML = (index: number) => {
     return (
       <div>
         <div className='flex'>
@@ -47,24 +78,38 @@ export default function CreateNewCommunity({}: ICreateNewCommunityProps) {
           </span>
         </div>
         <div className='relative mb-5 mt-4'>
-          <InputStyle label={`Title ${index + 1}: `} />
+          <InputStyle label={`${t('Rule')} ${index + 1}: `} />
         </div>
         <div className='relative'>
-          <InputStyle label={`Description ${index + 1}: `} />
+          <InputStyle label={`${t('Description')} ${index + 1}: `} />
         </div>
       </div>
     );
   };
 
-  const top100Films = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-    { title: 'The Godfather: Part II', year: 1974 },
-    { title: 'The Dark Knight', year: 2008 },
-    { title: '12 Angry Men', year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: 'Pulp Fiction', year: 1994 }
-  ];
+  const onSubmit = async () => {
+    setIsLoading(true);
+
+    const rules = ruleInputs.map((_, index) => ({
+      title: ruleInputs[index].props.children[2].props.children[0].props.value,
+      content: ruleInputs[index].props.children[4].props.children[0].props.value
+    }));
+
+    const data = {
+      name,
+      description,
+      about,
+      tags: hashTagList,
+      rules,
+      image: await handleUploadImages().then((res) => res.key),
+      members: membersCom.map((member) => member._id),
+      visibility: 'public'
+    } satisfies ICreateCommunity;
+
+    await mutateCreateCommunity(data)
+      .then(() => handleClose())
+      .finally(() => setIsLoading(false));
+  };
 
   return (
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[650px] animate-fade-up'>
@@ -74,7 +119,7 @@ export default function CreateNewCommunity({}: ICreateNewCommunityProps) {
 
       <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
         <div className='relative !mt-3'>
-          <InputStyle label='Community Name' />
+          <InputStyle label='Community Name' onChange={(e) => setName(e.currentTarget.value)} />
         </div>
         <div className='flex-between'>
           <TextareaV2
@@ -201,7 +246,7 @@ export default function CreateNewCommunity({}: ICreateNewCommunityProps) {
           ))}
         </div>
         <div className='flex-start gap-2'>
-          <span className='text-sm'>Rules</span>
+          <span className='text-sm text-text-2'>Rules</span>
           <span className='p-0.5 rounded-full bg-foreground-1'>
             <IoAdd
               className='size-5 text-1'
@@ -215,11 +260,66 @@ export default function CreateNewCommunity({}: ICreateNewCommunityProps) {
           {ruleInputs.map((_, index) => ruleInputHTML(index))}
         </div>
         <div className='member'>
-          <AddMemberToCommunity />
+          <AddMemberToCommunity members={members} setMembers={setMembersCom} />
+        </div>
+        <div className='upload-image-button'>
+          <ReactImageUploading
+            value={images}
+            onChange={onChange}
+            maxNumber={images.length > 0 ? 0 : 1}
+            dataURLKey='data_url'
+            acceptType={['jpg', 'jpeg', 'png', 'gif']}>
+            {({ imageList, onImageUpload, onImageRemoveAll }) => (
+              <div>
+                <div className='mb-3'>Add a cover image for your series</div>
+                <div className='flex-start gap-4'>
+                  <button
+                    type='button'
+                    className='flex items-center gap-1.5 bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'
+                    onClick={onImageUpload}>
+                    <IoImage className='text-base' />
+                    {t('Image')}
+                  </button>
+                  {imageList.length > 0 && (
+                    <div className='flex-start text-1' onClick={onImageRemoveAll}>
+                      <span>Remove</span>
+                      <IoClose className='size-5' />
+                    </div>
+                  )}
+                </div>
+                {imageList.length > 0 && (
+                  <div className='mt-5'>
+                    <Image
+                      className='w-[90%]'
+                      src={getImageURL(images[0]?.data_url) || '/images/no-image.png'}
+                      width={1500}
+                      height={1500}
+                      alt='image'
+                      priority
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </ReactImageUploading>
+        </div>
+        <div className='flex flex-end mt-2 gap-5'>
+          <Button
+            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+            variant='destructive'
+            onClick={handleClose}
+            disabled={isLoading}>
+            <div className='font-bold'>{t('Cancel')}</div>
+          </Button>
+          <Button
+            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+            onClick={onSubmit}
+            disabled={isLoading}>
+            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+            <div className='font-bold'>{t('Create')}</div>
+          </Button>
         </div>
       </div>
-
-      <div className='p-5 flex justify-between items-center'></div>
     </div>
   );
 }

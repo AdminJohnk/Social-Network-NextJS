@@ -26,6 +26,9 @@
   "Next week": "Tuần tới",
   "Interested": "Quan tâm",
   "Going": "Tham gia",
+  "Discussion": "Thảo luận",
+  "public community": "Nhóm cộng đồng công khai",
+  "private community": "Nhóm cộng đồng riêng tư",
   "Opening": "Đang diễn ra",
   "Lists You May Like": "Các danh sách bạn có thể thích",
   "Find a group by browsing top categories": "Tìm nhóm bằng cách duyệt qua các danh mục hàng đầu",
@@ -61,7 +64,7 @@
   "Friends": "Bạn bè",
   "Photos": "Ảnh",
   "Videos": "Video",
-  "Groups": "Nhóm",
+  "Community": "Cộng đồng",
   "Likes": "Thích",
   "Music": "Nhạc",
   "Books": "Sách",
@@ -203,7 +206,6 @@
   " members": " thành viên",
   " friend are members": " bạn là thành viên",
   "About": "Giới thiệu",
-  "Public group": "Nhóm công khai",
   "likes": "thích",
   "followers": "người theo dõi",
   "Unfollow": "Bỏ theo dõi",
@@ -448,5 +450,7 @@
   "Italic": "In nghiêng",
   "Bold": "In đậm",
   "Redo": "Tái thực hiện",
-  "Undo": "Hoàn tác"
+  "Undo": "Hoàn tác",
+  "Rule": "Quy tắc",
+  "Rules": "Quy tắc"
 }

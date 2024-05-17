@@ -405,7 +405,7 @@ export default function ShowUsersAndGroupsToSendPost({
                 )}
                 {results.groups.length > 0 && (
                   <div className='space-y-4'>
-                    <div className='font-bold text-lg text-left mt-5'>{t('Groups')}</div>
+                    <div className='font-bold text-lg text-left mt-5'>{t('Communities')}</div>
                     <div className='flex flex-col gap-5'>
                       {results.groups.map((group) => (
                         <div className='group flex items-center justify-between' key={group._id + '_group'}>

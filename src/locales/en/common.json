@@ -86,7 +86,7 @@
   "Friends": "Friends",
   "Photos": "Photos",
   "Videos": "Videos",
-  "Groups": "Groups",
+  "Community": "Community",
   "Likes": "Likes",
   "Music": "Music",
   "Books": "Books",
@@ -205,9 +205,11 @@
   "Design": "Design",
   "420k members": "420k members",
   "About": "About",
-  "Public group": "Public group",
   "likes": "likes",
+  "Discussion": "Discussion",
   "followers": "followers",
+  "public community": "Public community",
+  "private community": "Private community",
   "Unfollow": "Unfollow",
   "Share": "Share",
   "Delete": "Delete",
@@ -448,5 +450,7 @@
   "Italic": "Italic",
   "Bold": "Bold",
   "Redo": "Redo",
-  "Undo": "Undo"
+  "Undo": "Undo",
+  "Rule": "Rule",
+  "Rules": "Rules"
 }

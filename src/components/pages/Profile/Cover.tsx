@@ -24,7 +24,14 @@ import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/
 import { Button } from '@/components/ui/button';
 import { cn, getImageURL } from '@/lib/utils';
 import FriendButton from './FriendButton';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
 import { ProfileUpload } from '@/components/ui/upload-image';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { imageService } from '@/services/ImageService';
@@ -53,7 +60,6 @@ export default function Cover({ profileID }: ICoverProps) {
   const [isLoadingChangeCover, setIsLoadingChangeCover] = useState<boolean>(false);
   const [cover, setCover] = useState('/images/avatars/profile-cover.jpg');
   const [fileCover, setFileCover] = useState<File>();
-
 
   const handleCoverImage = useCallback((image: File) => {
     if (!image) return;
@@ -108,19 +114,19 @@ export default function Cover({ profileID }: ICoverProps) {
     const oldAvatar = currentUserInfo.user_image;
     const oldCover = currentUserInfo.cover_image;
 
-    mutateUpdateUser({
-      user_image: formData.get('userImage')?.toString(),
-      cover_image: formData.get('coverImage')?.toString(),
-    },
+    mutateUpdateUser(
+      {
+        user_image: formData.get('userImage')?.toString(),
+        cover_image: formData.get('coverImage')?.toString()
+      },
       {
         onSuccess() {
           showSuccessToast(t('Your profile has been updated successfully!'));
-          fileAvatar && (mutateDeleteImage([oldAvatar]));
-          fileCover && (mutateDeleteImage([oldCover]));
+          fileAvatar && mutateDeleteImage([oldAvatar]);
+          fileCover && mutateDeleteImage([oldCover]);
           setFileAvatar(undefined);
           setFileCover(undefined);
           setOpenChangeAvatar(false);
-
         },
         onError() {
           showErrorToast(t('Something went wrong! Please try again!'));
@@ -129,7 +135,8 @@ export default function Cover({ profileID }: ICoverProps) {
           setIsLoadingChangeAvatar(false);
           setIsLoadingChangeCover(false);
         }
-      });
+      }
+    );
   };
 
   return (
@@ -170,7 +177,9 @@ export default function Cover({ profileID }: ICoverProps) {
                       <Button
                         variant={'destructive'}
                         onClick={() => {
-                          setCover(getImageURL(currentUserInfo.cover_image) || '/images/avatars/profile-cover.jpg');
+                          setCover(
+                            getImageURL(currentUserInfo.cover_image) || '/images/avatars/profile-cover.jpg'
+                          );
                           setFileCover(undefined);
                         }}
                         className='button'
@@ -203,39 +212,40 @@ export default function Cover({ profileID }: ICoverProps) {
                     priority
                   />
                 </div>
-                {isMe && (<>
-                  <button
-                    type='button'
-                    onClick={() => setOpenChangeAvatar(true)}
-                    className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
-                    <IoCamera className='text-2xl md hydrated' aria-label='camera' />
-                  </button>
-                  <Dialog open={openChangeAvatar} onOpenChange={setOpenChangeAvatar}>
-                    <DialogContent className='bg-background-1 max-w-[600px] border-none'>
-                      <DialogHeader>
-                        <DialogTitle>{t('Change your avatar')}</DialogTitle>
-                      </DialogHeader>
-                      <ProfileUpload fieldChange={setFileAvatar} mediaURL={avatar} />
-                      <DialogFooter>
-                        <Button
-                          variant={'destructive'}
-                          className='button lg:px-6 text-white max-md:flex-1'
-                          onClick={() => setOpenChangeAvatar(false)}>
-                          {t('Cancel')}
-                        </Button>
-                        <Button
-                          className='button lg:px-6 text-white max-md:flex-1'
-                          onClick={onSubmit}
-                          disabled={isChangedAvatar || isLoadingChangeAvatar}>
-                          {isLoadingChangeAvatar && (
-                            <CircularProgress size={20} className='!text-text-1 mr-2' />
-                          )}
-                          {t('Save')}
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                </>
+                {isMe && (
+                  <>
+                    <button
+                      type='button'
+                      onClick={() => setOpenChangeAvatar(true)}
+                      className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
+                      <IoCamera className='text-2xl md hydrated' aria-label='camera' />
+                    </button>
+                    <Dialog open={openChangeAvatar} onOpenChange={setOpenChangeAvatar}>
+                      <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+                        <DialogHeader>
+                          <DialogTitle>{t('Change your avatar')}</DialogTitle>
+                        </DialogHeader>
+                        <ProfileUpload fieldChange={setFileAvatar} mediaURL={avatar} />
+                        <DialogFooter>
+                          <Button
+                            variant={'destructive'}
+                            className='button lg:px-6 text-white max-md:flex-1'
+                            onClick={() => setOpenChangeAvatar(false)}>
+                            {t('Cancel')}
+                          </Button>
+                          <Button
+                            className='button lg:px-6 text-white max-md:flex-1'
+                            onClick={onSubmit}
+                            disabled={isChangedAvatar || isLoadingChangeAvatar}>
+                            {isLoadingChangeAvatar && (
+                              <CircularProgress size={20} className='!text-text-1 mr-2' />
+                            )}
+                            {t('Save')}
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </>
                 )}
               </div>
               <h3 className='md:text-3xl text-base font-bold text-text-1'>{otherUserInfo?.name}</h3>
@@ -331,7 +341,7 @@ export default function Cover({ profileID }: ICoverProps) {
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Series')}</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Photos')}</TabTitle>
                 <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Repositories')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Groups')}</TabTitle>
+                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Communities')}</TabTitle>
               </Tabs>
 
               {/* <!-- dropdown --> */}
@@ -362,7 +372,7 @@ export default function Cover({ profileID }: ICoverProps) {
                       {t('Reviews given')}
                     </Link>
                     <Link href='' className='hover:!bg-hover-1'>
-                      {t('Groups')}
+                      {t('Communities')}
                     </Link>
                     <Link href='' className='hover:!bg-hover-1'>
                       {t('Manage Sections')}

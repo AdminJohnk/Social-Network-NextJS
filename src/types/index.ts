@@ -386,6 +386,20 @@ export type ModalType =
 
 export type Visibility = 'public' | 'private' | 'member' | 'friend';
 
+export interface ICreateCommunity {
+  name: string;
+  description: string;
+  about: string;
+  tags: string[];
+  image: string;
+  members: string[];
+  rules: {
+    title: string;
+    content: string;
+  }[];
+  visibility: Visibility;
+}
+
 export interface ICommunity {
   name: string;
   description: string;
@@ -399,6 +413,7 @@ export interface ICommunity {
   }[];
   visibility: Visibility;
   creator: IUserInfo;
+  author: IUserInfo;
   posts: IPost[];
   members: IUserInfo[];
   recently_joined: IUserInfo[];
