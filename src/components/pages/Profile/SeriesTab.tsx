@@ -54,11 +54,10 @@ export default function SeriesTab({ profileID }: ISeriesTabProps) {
               </Link>
               <div className='space-y-4 mt-3'>
                 {series.posts.map((post, index) => (
-                  <Link
-                    key={index}
-                    className='w-full group cursor-pointer'
-                    href={`/series/${series._id}/posts/${post._id}`}>
-                    <div className='flex items-center w-full'>
+                  <div key={index} className='w-full group cursor-pointer'>
+                    <Link
+                      className='flex items-center w-full'
+                      href={`/series/${series._id}/posts/${post._id}`}>
                       <FaRegCircle className='text-blue-500 size-3' />
                       <div className='ms-3'>
                         <h2 className='h5-semibold hover:underline duration-300 group-hover:underline'>
@@ -68,8 +67,8 @@ export default function SeriesTab({ profileID }: ISeriesTabProps) {
                           {post.read_time > 1 ? `${post.read_time} mins read` : `${post.read_time} min read`}
                         </p>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
                 ))}
               </div>
             </div>
