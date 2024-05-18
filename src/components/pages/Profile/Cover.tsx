@@ -16,6 +16,7 @@ import {
   IoVideocamOutline
 } from 'react-icons/io5';
 import { CircularProgress } from '@mui/material';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 
 import { Link } from '@/navigation';
 import { TabTitle, Tabs } from '@/components/ui/tabs';
@@ -49,6 +50,7 @@ export default function Cover({ profileID }: ICoverProps) {
   useEffect(() => {
     UIkit.sticky('#profile-tabs')?.$emit('update');
   }, [userPosts]);
+
   const [isLoadingChangeCover, setIsLoadingChangeCover] = useState<boolean>(false);
   const [cover, setCover] = useState('/images/avatars/profile-cover.jpg');
   const [fileCover, setFileCover] = useState<File>();
@@ -103,8 +105,8 @@ export default function Cover({ profileID }: ICoverProps) {
       formData.append('coverImage', res.url.key);
     }
 
-    const oldAvatar = currentUserInfo.user_image;
-    const oldCover = currentUserInfo.cover_image;
+    const oldAvatar = otherUserInfo.user_image;
+    const oldCover = otherUserInfo.cover_image;
 
     mutateUpdateUser(
       {
@@ -138,39 +140,50 @@ export default function Cover({ profileID }: ICoverProps) {
       ) : (
         <div>
           <div className='relative overflow-hidden w-full lg:h-72 h-48'>
-            <Image
-              width={1000}
-              height={1000}
-              src={cover}
-              alt=''
-              className='h-full w-full object-cover inset-0'
-              priority
-            />
+            <PhotoProvider
+              loadingElement={
+                <div className='w-full flex-center py-10'>
+                  <CircularProgress size={20} className='!text-text-1' />
+                </div>
+              }>
+              <PhotoView src={cover}>
+                <Image
+                  width={1000}
+                  height={1000}
+                  src={cover}
+                  alt='cover'
+                  className='h-full w-full object-cover inset-0 cursor-pointer'
+                  priority
+                />
+              </PhotoView>
+            </PhotoProvider>
+
             <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10' />
 
             {isMe && (
               <div className='absolute bottom-0 right-0 m-4 z-20'>
                 <div className='flex items-center gap-3'>
-                  <label htmlFor='cover_image' className='cursor-pointer'>
-                    <div className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
-                      {t('Edit')}
-                    </div>
-                    <input
-                      type='file'
-                      id='cover_image'
-                      className='hidden'
-                      accept='image/*'
-                      disabled={isLoadingChangeCover}
-                      onChange={(e) => handleCoverImage(e.currentTarget.files?.[0]!)}
-                    />
-                  </label>
-                  {fileCover && (
+                  {!fileCover ? (
+                    <label htmlFor='cover_image' className='cursor-pointer'>
+                      <div className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
+                        {t('Edit')}
+                      </div>
+                      <input
+                        type='file'
+                        id='cover_image'
+                        className='hidden'
+                        accept='image/*'
+                        disabled={isLoadingChangeCover}
+                        onChange={(e) => handleCoverImage(e.currentTarget.files?.[0]!)}
+                      />
+                    </label>
+                  ) : (
                     <>
                       <Button
                         variant={'destructive'}
                         onClick={() => {
                           setCover(
-                            getImageURL(currentUserInfo.cover_image) || '/images/avatars/profile-cover.jpg'
+                            getImageURL(otherUserInfo.cover_image) || '/images/avatars/profile-cover.jpg'
                           );
                           setFileCover(undefined);
                         }}
@@ -195,14 +208,23 @@ export default function Cover({ profileID }: ICoverProps) {
             <div className='flex flex-col justify-center md:items-center lg:-mt-48 -mt-28'>
               <div className='relative lg:size-48 size-28 mb-4 z-10'>
                 <div className='relative overflow-hidden h-full w-full rounded-full md:border-[6px] border-gray-100 shrink-0 dark:border-slate-900 shadow'>
-                  <Image
-                    width={500}
-                    height={500}
-                    src={getImageURL(avatar) || '/images/avatars/avatar-6.jpg'}
-                    alt=''
-                    className='lg:size-48 size-28 object-cover'
-                    priority
-                  />
+                  <PhotoProvider
+                    loadingElement={
+                      <div className='w-full flex-center py-10'>
+                        <CircularProgress size={20} className='!text-text-1' />
+                      </div>
+                    }>
+                    <PhotoView src={getImageURL(avatar) || '/images/avatars/avatar-6.jpg'}>
+                      <Image
+                        width={500}
+                        height={500}
+                        src={getImageURL(avatar) || '/images/avatars/avatar-6.jpg'}
+                        alt='avatar'
+                        className='lg:size-48 size-28 object-cover cursor-pointer'
+                        priority
+                      />
+                    </PhotoView>
+                  </PhotoProvider>
                 </div>
                 {isMe && (
                   <>

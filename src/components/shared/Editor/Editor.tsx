@@ -355,7 +355,28 @@ export default function Editor({
     },
     content,
     placeholder,
-    dataSuggestions
+    dataSuggestions,
+    onUpdate: ({ editor, transaction }) => {
+      if (transaction.getMeta('paste')) {
+        const lastChar = editor.getText().slice(-1);
+        if (lastChar === ' ' || lastChar === '\n') {
+          return;
+        } else {
+          const regex = /#([^<\s]+?)(?=<| |$)/g;
+          const content = editor.getHTML();
+          const matches = content.match(regex);
+          if (matches) {
+            const newContent = content.replace(
+              regex,
+              '<a data-type="mention" data-id="$1" href="/hashtag/$1">#$1</a>'
+            );
+            const position = editor.state.selection.to;
+            editor.commands.setContent(newContent);
+            editor.commands.focus(position);
+          }
+        }
+      }
+    }
   });
 
   useEffect(() => {

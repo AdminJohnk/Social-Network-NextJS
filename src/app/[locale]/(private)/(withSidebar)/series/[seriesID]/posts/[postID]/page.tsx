@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import CreateEditPostSeries from '@/components/pages/Series/CreateEditPostSeries';
 import EditButton from '@/components/pages/Series/EditButton';
-import Divider from '@/components/shared/Divider';
 import Editor from '@/components/shared/Editor/Editor';
 import Modal from '@/components/shared/Modal';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
@@ -30,11 +29,7 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import DeleteButton from '@/components/pages/Series/DeleteButton';
-import {
-  useCommentPostSeries,
-  useDeleteImage,
-  useDeletePostToSeries
-} from '@/hooks/mutation';
+import { useCommentPostSeries, useDeleteImage, useDeletePostToSeries } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { useRouter } from 'next/navigation';
 import { FaSwatchbook } from 'react-icons/fa';
@@ -49,15 +44,13 @@ export interface IPostSeriesProps {
   };
 }
 
-export default function PostSeries({
-  params: { seriesID, postID }
-}: IPostSeriesProps) {
+export default function PostSeries({ params: { seriesID, postID } }: IPostSeriesProps) {
   const t = useTranslations();
   const router = useRouter();
 
   const { series } = useGetSeriesByID(seriesID);
-  const post = series?.posts.find(p => p._id === postID);
-  const indexPost = series?.posts.findIndex(p => p._id === postID);
+  const post = series?.posts.find((p) => p._id === postID);
+  const indexPost = series?.posts.findIndex((p) => p._id === postID);
   // Get the following post
   const nextPost = series?.posts[indexPost + 1];
 
@@ -140,19 +133,14 @@ export default function PostSeries({
             }}
           />
           <AlertDialog open={openDeletePost} onOpenChange={setOpenDeletePost}>
-            <AlertDialogTrigger
-              className='w-full text-1 uk-drop-close'
-              onClick={handleOpenDeletePost}
-            >
+            <AlertDialogTrigger onClick={handleOpenDeletePost} asChild>
               <DeleteButton className='fixed top-[calc(20%+4rem)] right-4 z-50' />
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>
-                  {t('Are you absolutely sure delete this series?')}
-                </AlertDialogTitle>
+                <AlertDialogTitle>{t('Are you absolutely sure delete this post?')}</AlertDialogTitle>
                 <AlertDialogDescription>
-                  {t('You will not be able to recover series after deletion!')}
+                  {t('You will not be able to recover post after deletion!')}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -160,18 +148,14 @@ export default function PostSeries({
                   variant='destructive'
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
-                  onClick={handleCloseDeletePost}
-                >
+                  onClick={handleCloseDeletePost}>
                   {t('Cancel')}
                 </Button>
                 <Button
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
-                  onClick={handleDeletePost}
-                >
-                  {isLoading && (
-                    <CircularProgress size={20} className='!text-text-1 mr-2' />
-                  )}
+                  onClick={handleDeletePost}>
+                  {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
                   {t('Delete')}
                 </Button>
               </AlertDialogFooter>
@@ -199,18 +183,12 @@ export default function PostSeries({
       </Modal>
       <div className='max-w-[730px] mx-auto'>
         <div className='mb-5 flex-start gap-3'>
-          <Link
-            href={`/series/${seriesID}`}
-            className='flex-start gap-2 text-1'
-          >
+          <Link href={`/series/${seriesID}`} className='flex-start gap-2 text-1'>
             <FaSwatchbook className='size-5' />
             <span className='base-semibold'>{series?.title}</span>
           </Link>
           <span className='text-xl'>/</span>
-          <Link
-            href={`/series/${seriesID}/posts/${postID}`}
-            className='flex-start gap-2 text-1'
-          >
+          <Link href={`/series/${seriesID}/posts/${postID}`} className='flex-start gap-2 text-1'>
             <SiGoogledocs className='size-5' />
             <span className='base-semibold'>{post?.title}</span>
           </Link>
@@ -224,9 +202,7 @@ export default function PostSeries({
           priority
         />
         <div className='h2-semibold mt-7'>{post?.title}</div>
-        <div className='text-text-2 text-[1rem] text-pretty mt-4'>
-          {post?.description}
-        </div>
+        <div className='text-text-2 text-[1rem] text-pretty mt-4'>{post?.description}</div>
         <div className='text-text-2 flex-between mt-6 mb-6'>
           <div className='flex-start gap-3'>
             <div className='flex-start gap-2 items-center bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-lg py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'>
@@ -247,8 +223,7 @@ export default function PostSeries({
               className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
               onClick={() => {
                 editor?.commands.focus();
-              }}
-            >
+              }}>
               <BiCommentDetail className='size-4' />
               <span>3</span>
             </a>
@@ -301,8 +276,7 @@ export default function PostSeries({
               className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
               onClick={() => {
                 editor?.commands.focus();
-              }}
-            >
+              }}>
               <BiCommentDetail className='size-4' />
               <span>3</span>
             </a>
@@ -321,21 +295,14 @@ export default function PostSeries({
             Discussion
           </div>
           <div className='editor space-y-5 px-2 py-3 border border-border-1 rounded-lg mt-3'>
-            <Editor
-              setEditor={setEditor}
-              placeholder={t('Write something nice')}
-              autofocus={false}
-            />
+            <Editor setEditor={setEditor} placeholder={t('Write something nice')} autofocus={false} />
           </div>
           <div className='flex-end'>
             <Button
               className={cn('mt-3', isLoadingDis && 'select-none')}
               disabled={isLoadingDis}
-              onClick={() => handlePostDiscussion()}
-            >
-              {isLoadingDis && (
-                <CircularProgress size={20} className='!text-text-1 mr-2' />
-              )}
+              onClick={() => handlePostDiscussion()}>
+              {isLoadingDis && <CircularProgress size={20} className='!text-text-1 mr-2' />}
               {t('Post Discussion')}
             </Button>
           </div>
@@ -346,9 +313,7 @@ export default function PostSeries({
                 <div className='flex-col'>
                   <div className='flex-start gap-2'>
                     <div className='base-semibold'>{comment.user.name}</div>
-                    <div className='small-regular text-text-2'>
-                      {getFormattedDate(comment.createdAt)}
-                    </div>
+                    <div className='small-regular text-text-2'>{getFormattedDate(comment.createdAt)}</div>
                   </div>
                   <div className='text-text-2 mt-1 mb-2'>
                     <ShowContent content={comment.content} />

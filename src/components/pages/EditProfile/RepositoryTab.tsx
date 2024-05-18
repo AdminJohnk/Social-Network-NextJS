@@ -32,7 +32,7 @@ export default function RepositoryTab() {
           searchParams.get('repoUrl') &&
           searchParams.get('userGithubName') &&
           searchParams.get('userGithubLink')
-        ) 
+        )
           await update({
             ...session,
             repos_url: searchParams.get('repoUrl'),
@@ -116,7 +116,10 @@ export default function RepositoryTab() {
       </div>
       <div className='flex flex-wrap justify-between mt-5'>
         {currentUserInfo.repositories?.length === 0 ? (
-          <>No repos</>
+          <div className='flex-center flex-col w-full'>
+            <span className='text-text-2'>{t('No repository found')}</span>
+            <span className='text-text-2'>{t('Please add your repositories')}</span>
+          </div>
         ) : (
           currentUserInfo.repositories.map((item, index) => <RepositoryItem item={item} key={index} />)
         )}

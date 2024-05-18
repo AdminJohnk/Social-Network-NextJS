@@ -1,4 +1,4 @@
-import { NextIntlClientProvider, useMessages } from 'next-intl';
+import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { Flowbite, ThemeModeScript } from 'flowbite-react';
@@ -7,6 +7,7 @@ import Script from 'next/script';
 import { unstable_noStore } from 'next/cache';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import 'react-photo-view/dist/react-photo-view.css';
 import '@/app/animate.css';
 import '@/app/uk.css';
 import '@/app/globals.css';

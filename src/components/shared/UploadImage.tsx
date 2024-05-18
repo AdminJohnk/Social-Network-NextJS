@@ -13,24 +13,18 @@ export interface IUploadImageProps {
   setImagesOfS3: (images: File[]) => void;
 }
 
-export default function UploadImage({
-  imagesOfPost,
-  setImagesOfPost,
-  setImagesOfS3
-}: IUploadImageProps) {
+export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOfS3 }: IUploadImageProps) {
   const t = useTranslations();
 
   const [imagesPost, setImagesPost] = useState<string[]>(imagesOfPost || []);
   const [images, setImages] = useState<ImageListType>([]);
 
   const maxNumber = 10;
-  const [currentNumber, setCurrentNumber] = useState<number>(
-    imagesPost.length + images.length
-  );
+  const [currentNumber, setCurrentNumber] = useState<number>(imagesPost.length + images.length);
 
   useEffect(() => {
     setImagesOfPost && setImagesOfPost(imagesPost);
-    const files = images.map(image => image.file);
+    const files = images.map((image) => image.file);
     setImagesOfS3(files as File[]);
   }, [imagesPost, images]);
 
@@ -54,32 +48,15 @@ export default function UploadImage({
         onChange={onChange}
         maxNumber={maxNumber - imagesPost.length}
         dataURLKey='data_url'
-        acceptType={['jpg', 'jpeg', 'png', 'gif']}
-      >
-        {({
-          imageList,
-          onImageUpload,
-          onImageRemoveAll,
-          onImageUpdate,
-          onImageRemove,
-          isDragging,
-          dragProps
-        }) => (
+        acceptType={['jpg', 'jpeg', 'png', 'gif']}>
+        {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove }) => (
           // write your building UI
           <div className='upload__image-wrapper'>
-            {/* <button
-              className={cn(isDragging && 'text-red-500')}
-              onClick={onImageUpload}
-              {...dragProps}
-            >
-              Click or Drop here
-            </button> */}
             <div className='flex-start gap-3'>
               <button
                 type='button'
                 className='flex items-center gap-1.5 bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'
-                onClick={onImageUpload}
-              >
+                onClick={onImageUpload}>
                 <IoImage className='text-base' />
                 {t('Image')}
               </button>
@@ -92,8 +69,7 @@ export default function UploadImage({
                   onClick={() => {
                     onImageRemoveAll();
                     setImagesPost([]);
-                  }}
-                >
+                  }}>
                   <span>{t('Remove all')}</span>
                   <IoCloseOutline className='size-5' />
                 </button>
@@ -118,30 +94,21 @@ export default function UploadImage({
                         {
                           // max 30 characters + '...' + file extension
                           (image.file?.name.length as number) > 33
-                            ? `${image.file?.name.slice(
-                              0,
-                              30
-                            )}... ${image.file?.name.slice(
-                              image.file?.name.length - 4
-                            )}`
+                            ? `${image.file?.name.slice(0, 30)}... ${image.file?.name.slice(
+                                image.file?.name.length - 4
+                              )}`
                             : image.file?.name
-                              ? image.file?.name
-                              : ''
+                            ? image.file?.name
+                            : ''
                         }
                       </div>
-                      <div className='text-text-2'>
-                        {convertByte(image.file?.size || 0) || ''}
-                      </div>
+                      <div className='text-text-2'>{convertByte(image.file?.size || 0) || ''}</div>
                     </div>
                     <div className='image-item__btn-wrapper flex flex-col gap-2 *:p-1 *:text-1'>
                       <button onClick={() => onImageUpdate(index)}>
                         <FaEdit />
                       </button>
-                      <button
-                        onClick={() =>
-                          onImageRemove(imageList.length - index - 1)
-                        }
-                      >
+                      <button onClick={() => onImageRemove(imageList.length - index - 1)}>
                         <FaTrash />
                       </button>
                     </div>
@@ -165,12 +132,10 @@ export default function UploadImage({
                         {
                           // max 30 characters + '...' + file extension
                           (image.length as number) > 33
-                            ? `${image.slice(0, 30)}... ${image.slice(
-                              image.length - 4
-                            )}`
+                            ? `${image.slice(0, 30)}... ${image.slice(image.length - 4)}`
                             : image
-                              ? image
-                              : ''
+                            ? image
+                            : ''
                         }
                       </div>
                     </div>
@@ -184,8 +149,7 @@ export default function UploadImage({
                               .toReversed()
                           );
                           setCurrentNumber(currentNumber - 1);
-                        }}
-                      >
+                        }}>
                         <FaTrash />
                       </button>
                     </div>

@@ -79,7 +79,9 @@ export const useCustomEditor = ({
           },
           suggestion: suggestions({ data: dataSuggestions })
         }),
-        Link,
+        Link.configure({
+          openOnClick: 'whenNotEditable'
+        }),
         Placeholder.configure({ placeholder: placeholder || t('What do you have in mind?') }),
         Youtube.configure({
           width: 440,

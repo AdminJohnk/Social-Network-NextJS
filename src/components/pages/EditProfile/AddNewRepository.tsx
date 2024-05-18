@@ -126,12 +126,12 @@ export default function AddNewRepository({ handleClose }: IAddNewRepositoryProps
     <div className='w-[600px] p-7 animate-fade-up'>
       {isLoadingRepositories ? (
         <div className='text-center'>
-          <div className='mb-6 h5-semibold'>Select the repositories you want to feature</div>
+          <div className='mb-6 h5-semibold'>{t('Select the repositories you want to feature')}</div>
           <CircularProgress size={30} className='!text-text-1' />
         </div>
       ) : (
         <div>
-          <div className='mb-6 h5-semibold'>Select the repositories you want to feature</div>
+          <div className='mb-6 h5-semibold'>{t('Select the repositories you want to feature')}</div>
           <div className='max-h-[500px] h-fit overflow-y-scroll custom-scrollbar-fg border border-border-1'>
             {repositories?.map((item, index) => {
               return RenderItemRepos(item, index);

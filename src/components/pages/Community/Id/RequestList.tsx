@@ -44,7 +44,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
           showSuccessToast(t('Your profile has been updated successfully!'));
           setUserSentRequest((prev) => prev?.filter((item) => item._id !== user_id));
         },
-        onError: (error) => {
+        onError: () => {
           showErrorToast(t('Something went wrong! Please try again!'));
         },
         onSettled() {
@@ -64,7 +64,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
           showSuccessToast(t('Your profile has been updated successfully!'));
           setUserSentRequest((prev) => prev?.filter((item) => item._id !== user_id));
         },
-        onError: (error) => {
+        onError: () => {
           showErrorToast(t('Something went wrong! Please try again!'));
         },
         onSettled() {

@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
+// import { CircularProgress } from '@mui/material';
 
 import { useCurrentUserInfo } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
@@ -11,12 +12,10 @@ import { Tabs, TabTitle } from '@/components/ui/tabs';
 import { usePathname, useRouter } from '@/navigation';
 import TabCoverSkeleton from './TabCoverSkeleton';
 import Divider from '@/components/shared/Divider';
-import { imageService } from '@/services/ImageService';
 import { useDeleteImage, useUpdateUser } from '@/hooks/mutation';
-import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { Button } from '@/components/ui/button';
-import { set } from 'lodash';
-import { CircularProgress } from '@mui/material';
+// import { imageService } from '@/services/ImageService';
+// import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+// import { Button } from '@/components/ui/button';
 
 interface ITabCoverProps {
   tabParam: string;
@@ -28,7 +27,7 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
   const { mutateDeleteImage } = useDeleteImage();
 
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { currentUserInfo, isLoadingCurrentUserInfo } = useCurrentUserInfo();
   const router = useRouter();
@@ -62,52 +61,52 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
     [searchParams]
   );
 
-  const [avatar, setAvatar] = useState(getImageURL(currentUserInfo.user_image));
-  const [fileAvatar, setFileAvatar] = useState<File>();
+  // const [avatar, setAvatar] = useState(getImageURL(currentUserInfo.user_image));
+  // const [fileAvatar, setFileAvatar] = useState<File>();
 
-  const handleChangeAvatar = useCallback((image: File) => {
-    if (!image) return;
-    setAvatar(URL.createObjectURL(image));
-    setFileAvatar(image);
-  }, []);
+  // const handleChangeAvatar = useCallback((image: File) => {
+  //   if (!image) return;
+  //   setAvatar(URL.createObjectURL(image));
+  //   setFileAvatar(image);
+  // }, []);
 
-  const handleUploadImage = async (file: File) => {
-    const formData = new FormData();
-    formData.append('image', file);
-    const { data } = await imageService.uploadImage(formData);
-    return {
-      url: data.metadata,
-      status: 'done'
-    };
-  };
+  // const handleUploadImage = async (file: File) => {
+  //   const formData = new FormData();
+  //   formData.append('image', file);
+  //   const { data } = await imageService.uploadImage(formData);
+  //   return {
+  //     url: data.metadata,
+  //     status: 'done'
+  //   };
+  // };
 
-  const onSubmit = async () => {
-    setIsLoading(true);
-    const formData = new FormData();
-    if (fileAvatar) {
-      const res = await handleUploadImage(fileAvatar);
-      formData.append('userImage', res.url.key);
-      // if (initialAvatar) await handleRemoveImage(initialAvatar);
-    }
-    const oldAvatar = currentUserInfo.user_image;
+  // const onSubmit = async () => {
+  //   setIsLoading(true);
+  //   const formData = new FormData();
+  //   if (fileAvatar) {
+  //     const res = await handleUploadImage(fileAvatar);
+  //     formData.append('userImage', res.url.key);
+  //     // if (initialAvatar) await handleRemoveImage(initialAvatar);
+  //   }
+  //   const oldAvatar = currentUserInfo.user_image;
 
-    mutateUpdateUser({
-      user_image: formData.get('userImage')?.toString(),
-    },
-      {
-        onSuccess() {
-          showSuccessToast(t('Your profile has been updated successfully!'));
-          fileAvatar && (mutateDeleteImage([oldAvatar]));
-          setFileAvatar(undefined);
-        },
-        onError() {
-          showErrorToast(t('Something went wrong! Please try again!'));
-        },
-        onSettled() {
-          setIsLoading(false);
-        }
-      });
-  };
+  //   mutateUpdateUser({
+  //     user_image: formData.get('userImage')?.toString(),
+  //   },
+  //     {
+  //       onSuccess() {
+  //         showSuccessToast(t('Your profile has been updated successfully!'));
+  //         fileAvatar && (mutateDeleteImage([oldAvatar]));
+  //         setFileAvatar(undefined);
+  //       },
+  //       onError() {
+  //         showErrorToast(t('Something went wrong! Please try again!'));
+  //       },
+  //       onSettled() {
+  //         setIsLoading(false);
+  //       }
+  //     });
+  // };
 
   return (
     <div className='rounded-xl border border-border-1 bg-foreground-1 shadow-sm'>
@@ -118,16 +117,16 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
           <div className='flex relative space-y-4'>
             <div className='flex-start gap-4 p-8'>
               <div className='relative md:w-20 md:h-20 w-12 h-12 shrink-0'>
-                <label htmlFor='file' className='cursor-pointer'>
+                {/* <label htmlFor='file' className='cursor-pointer'> */}
                   <Image
                     className='object-cover overflow-hidden rounded-full md:w-20 md:h-20 w-12 h-12'
-                    src={avatar}
+                    src={getImageURL(currentUserInfo.user_image)}
                     alt={currentUserInfo.user_image}
                     height={500}
                     width={500}
                     priority
                   />
-                  <input
+                  {/* <input
                     type='file'
                     id='file'
                     className='hidden'
@@ -135,9 +134,9 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
                     disabled={isLoading}
                     onChange={(e) => handleChangeAvatar(e.currentTarget.files?.[0]!)}
                   />
-                </label>
+                </label> */}
 
-                <label
+                {/* <label
                   htmlFor='file'
                   className='md:p-1 p-0.5 rounded-full bg-slate-600 md:border-4 border-white absolute md:-bottom-2 -bottom-1 md:-right-2 -right-1 cursor-pointer dark:border-slate-700'>
                   <svg
@@ -153,14 +152,14 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
                   </svg>
 
                   <input id='file' type='file' className='hidden' />
-                </label>
+                </label> */}
               </div>
               <div className='flex flex-col'>
                 <span className='h5-bold mb-2'>{currentUserInfo.name}</span>
                 <span className='small-regular text-text-2'>
                   @{currentUserInfo.alias || currentUserInfo._id}
                 </span>
-                {fileAvatar && (
+                {/* {fileAvatar && (
                   <div className='flex gap-2 mt-2'>
                     <Button
                       variant={'destructive'}
@@ -180,7 +179,7 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
                       {t('Save')}
                     </Button>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>

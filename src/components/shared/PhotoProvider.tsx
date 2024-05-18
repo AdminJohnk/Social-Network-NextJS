@@ -7,7 +7,6 @@ import { GoScreenFull } from 'react-icons/go';
 import { useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import Image from 'next/image';
-import 'react-photo-view/dist/react-photo-view.css';
 
 import { cn, getImageURL } from '@/lib/utils';
 import { Tabs, TabTitle } from '../ui/tabs';
