@@ -326,8 +326,10 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
         </div>
         {nextPost && (
           <div className='mt-10 space-y-2 py-5 px-5 bg-2 rounded-lg'>
-            <div className='base-semibold text-end'>Next</div>
-            <div className='base-bold text-end'>{nextPost?.title}</div>
+            <Link href={`/series/${seriesID}/posts/${nextPost?._id}`}>
+              <div className='base-semibold text-end'>Next</div>
+              <div className='base-bold text-end'>{nextPost?.title}</div>
+            </Link>
           </div>
         )}
         <div className='mt-10'>
