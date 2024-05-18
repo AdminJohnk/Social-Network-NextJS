@@ -448,5 +448,8 @@
   "Undo": "撤销",
   "Review has been submitted!": "评论已提交!",
   "Review deleted successfully!": "评论删除成功!",
-  "Post Discussion": "帖子讨论"
+  "Post Discussion": "帖子讨论",
+  "Comment updated successfully!": "评论更新成功!",
+  "Comment deleted successfully!": "评论删除成功!",
+  "Reply comment successfully!": "回复评论成功!"
 }

@@ -1,4 +1,5 @@
 import { MentionOptions } from '@tiptap/extension-mention';
+import exp from 'constants';
 
 export interface ErrorResponse extends Error {
   response: {
@@ -533,10 +534,86 @@ export interface IReview {
   createdAt: string;
 }
 
-export interface ICreateCommentPostSeries {
+export interface ICreateCommentSeriesPost {
   series_id: string;
   post_id: string;
   content: string;
+}
+
+export interface IUpdateCommentSeriesPost {
+  series_id: string;
+  post_id: string;
+  comment_id: string;
+  content: string;
+}
+
+export interface IDeleteCommentSeriesPost {
+  series_id: string;
+  post_id: string;
+  comment_id: string;
+}
+
+export interface ICreateReplyCommentSeriesPost {
+  series_id: string;
+  post_id: string;
+  comment_id: string;
+  content: string;
+}
+
+export interface IUpdateReplyCommentSeriesPost {
+  series_id: string;
+  post_id: string;
+  comment_id: string;
+  content: string;
+  child_id: string;
+}
+
+export interface IDeleteReplyCommentSeriesPost {
+  series_id: string;
+  post_id: string;
+  comment_id: string;
+  child_id: string;
+}
+
+export interface IChildcommentSeriesPost {
+  _id: string;
+  user: IUserInfo;
+  content: string;
+  like: IUserInfo[];
+  createdAt: string;
+  child: IChildcommentSeriesPost[];
+}
+
+export interface ICommentSeriesPost {
+  _id: string;
+  user: IUserInfo;
+  content: string;
+  like: IUserInfo[];
+  createdAt: string;
+  child: IChildcommentSeriesPost[];
+}
+
+export interface ILikeCommentSeriesPost {
+  series_id: string;
+  post_id: string;
+  comment_id: string;
+}
+
+export interface ILikeReplyCommentSeriesPost {
+  series_id: string;
+  post_id: string;
+  comment_id: string;
+  child_id: string;
+}
+
+export interface ILikeSeriesPost {
+  series_id: string;
+  post_id: string;
+}
+
+export interface ISaveSeriesPost {
+  series_id: string;
+  post_id: string;
 }
 
 export interface ISeriesPost {
@@ -548,20 +625,7 @@ export interface ISeriesPost {
   read_time: number;
   likes: IUserInfo[];
   saves: IUserInfo[];
-  comments: {
-    _id: string;
-    user: IUserInfo;
-    content: string;
-    like: IUserInfo[];
-    createdAt: string;
-    child: {
-      _id: string;
-      user: IUserInfo;
-      content: string;
-      like: IUserInfo[];
-      createdAt: string;
-    }[];
-  }[];
+  comments: ICommentSeriesPost[];
   visibility: Visibility;
   createdAt: string;
 }

@@ -1,8 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { FaPen, FaPencilAlt } from 'react-icons/fa';
-import { IoArrowUpCircleOutline } from 'react-icons/io5';
+import { FaPencilAlt } from 'react-icons/fa';
 
 export interface IEditButtonProps
   extends React.HTMLAttributes<HTMLDivElement> {}

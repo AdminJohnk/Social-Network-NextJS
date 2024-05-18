@@ -67,13 +67,13 @@ export default function Cover({ profileID }: ICoverProps) {
   const [fileAvatar, setFileAvatar] = useState<File>();
 
   useEffect(() => {
-    if (currentUserInfo?.user_image) {
-      setAvatar(getImageURL(currentUserInfo.user_image));
+    if (otherUserInfo?.user_image) {
+      setAvatar(getImageURL(otherUserInfo.user_image));
     }
-    if (currentUserInfo?.cover_image) {
-      setCover(getImageURL(currentUserInfo.cover_image));
+    if (otherUserInfo?.cover_image) {
+      setCover(getImageURL(otherUserInfo.cover_image));
     }
-  }, [currentUserInfo]);
+  }, [otherUserInfo]);
 
   const [isLoadingChangeAvatar, setIsLoadingChangeAvatar] = useState(false);
   const isChangedAvatar = useMemo(() => {

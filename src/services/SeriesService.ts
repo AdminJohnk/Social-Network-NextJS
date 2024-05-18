@@ -1,13 +1,19 @@
 import { AxiosResponse } from 'axios';
 
 import {
-  ICreateCommentPostSeries,
+  ICreateCommentSeriesPost,
+  ICreateReplyCommentSeriesPost,
   ICreateReviewSeries,
   ICreateSeries,
   ICreateSeriesPost,
+  IDeleteCommentSeriesPost,
   IDeleteReviewSeries,
   IDeleteSeriesPost,
+  ILikeCommentSeriesPost,
+  ILikeReplyCommentSeriesPost,
+  ILikeSeriesPost,
   IResponse,
+  ISaveSeriesPost,
   ISeries,
   IUpdateSeries
 } from '@/types';
@@ -76,9 +82,63 @@ class SeriesService extends BaseService {
   };
 
   commentPostSeries = (
-    data: ICreateCommentPostSeries
+    data: ICreateCommentSeriesPost
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
     return this.put(`/series/comment-post`, data);
+  };
+
+  updateCommentPostSeries = (
+    data: ICreateCommentSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/update-comment-post`, data);
+  };
+
+  deleteCommentPostSeries = (
+    data: IDeleteCommentSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.delete(`/series/delete-comment-post`, data);
+  };
+
+  replyCommentPostSeries = (
+    data: ICreateReplyCommentSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/reply-comment-post`, data);
+  };
+
+  updateReplyCommentPostSeries = (
+    data: ICreateReplyCommentSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/update-reply-comment-post`, data);
+  };
+
+  deleteReplyCommentPostSeries = (
+    data: IDeleteCommentSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.delete(`/series/delete-reply-comment-post`, data);
+  };
+
+  likePostSeries = (
+    data: ILikeSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/like-post`, data);
+  };
+
+  likeCommentSeriesPost = (
+    data: ILikeCommentSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/like-comment-post`, data);
+  };
+
+  likeReplyCommentSeriesPost = (
+    data: ILikeReplyCommentSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/like-reply-comment-post`, data);
+  };
+
+  savePostSeries = (
+    data: ISaveSeriesPost
+  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return this.put(`/series/save-post`, data);
   };
 }
 
