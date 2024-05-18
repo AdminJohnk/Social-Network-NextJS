@@ -2,12 +2,14 @@
 
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 import Post from '@/components/shared/Post/Post';
 import { PostSkeleton } from '@/components/shared/Post';
 import { useAllNewsfeedPostsData } from '@/hooks/query';
 
 export default function PostList() {
+  const t = useTranslations();
   const [postsRef, inPostsView] = useInView({ threshold: 0 });
 
   const {
