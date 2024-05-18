@@ -164,14 +164,14 @@ export default function Members({ communityID }: IMembersProps) {
                                 <Button
                                   disabled={isLoadingRevokeAdminCommunity && isUserSelected === member._id}
                                   onClick={() => handleRevokeAdmin(member._id)}
-                                  variant='main'
+                                  variant='ghost'
                                   className='bg-transparent'>
                                   {t('Revoke Admin')}
                                 </Button>
                               ) : (
                                 <Button
                                   disabled={isLoadingPromoteAdminCommunity && isUserSelected === member._id}
-                                  variant='main'
+                                  variant='ghost'
                                   onClick={() => handlePromoteAdmin(member._id)}
                                   className='bg-transparent'>
                                   {isLoadingPromoteAdminCommunity && isUserSelected === member._id && (
@@ -182,9 +182,8 @@ export default function Members({ communityID }: IMembersProps) {
                               )}
                               <Button
                                 disabled={isLoadingDeleteMemberCommunity && isUserSelected === member._id}
-                                variant='main'
-                                onClick={() => handleDeleteMember(member._id)}
-                                className='bg-transparent'>
+                                variant='destructive'
+                                onClick={() => handleDeleteMember(member._id)}>
                                 {t('Remove Member')}
                               </Button>
                             </div>

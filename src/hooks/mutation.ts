@@ -68,7 +68,7 @@ export const useChangePassword = () => {
  * The `useCreatePost` function is a custom hook that handles the creation of a new post, including
  * making an API request and updating the query data for the user's posts and the newsfeed.
  */
-export const useCreatePost = () => {
+export const useCreatePost = (communityID?: string) => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
@@ -80,6 +80,10 @@ export const useCreatePost = () => {
       const session = await getSession();
       queryClient.invalidateQueries({ queryKey: ['posts', session?.id] });
       queryClient.invalidateQueries({ queryKey: ['allNewsfeedPosts'] });
+      if (communityID) {
+        queryClient.invalidateQueries({ queryKey: ['community', communityID] });
+        queryClient.invalidateQueries({ queryKey: ['communities'] });
+      }
     }
   });
   return {

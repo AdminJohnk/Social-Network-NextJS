@@ -23,7 +23,7 @@ interface ICreateNewPostProps {
 export default function CreateNewPost({ handleClose, communityID }: ICreateNewPostProps) {
   const t = useTranslations();
 
-  const { mutateCreatePost } = useCreatePost();
+  const { mutateCreatePost } = useCreatePost(communityID);
 
   const [privacy, setPrivacy] = useState<Visibility>('public');
   const [editor, setEditor] = useState<EditorProps>();
