@@ -8,6 +8,7 @@ import ComCover from '@/components/pages/Community/Id/ComCover';
 import PostList from '@/components/pages/Community/Id/PostList';
 import { TabsContent } from '@/components/ui/tabs';
 import RequestList from '@/components/pages/Community/Id/RequestList';
+import Members from '@/components/pages/Community/Id/Members';
 
 export interface ICommunityProps {
   params: {
@@ -42,6 +43,14 @@ export default function Community({ params: { locale, id } }: ICommunityProps) {
           <div className='tab-request mt-8'>
             <RequestList communityID={id} />
           </div>
+          <div className='files'></div>
+          <div className='photos'></div>
+          <div className="events"></div>
+          <div className="videos"></div>
+          <div className="members">
+            <Members communityID={id} />
+          </div>
+          <div className="medias"></div>
         </TabsContent>
       </div>
     </main>

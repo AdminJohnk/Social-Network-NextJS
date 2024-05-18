@@ -1502,6 +1502,116 @@ export const useJoinCommunity = () => {
   };
 };
 
+export const useAcceptJoinCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async ({ communityID, userID }: { communityID: string; userID: string }) => {
+      const { data: community } = await communityService.acceptJoinRequest(communityID, userID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community.communityID] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
+    }
+  });
+
+  return {
+    mutateAcceptJoinCommunity: mutateAsync,
+    isLoadingAcceptJoinCommunity: isPending,
+    isErrorAcceptJoinCommunity: isError,
+    isSuccessAcceptJoinCommunity: isSuccess
+  };
+};
+
+export const useRejectJoinCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async ({ communityID, userID }: { communityID: string; userID: string }) => {
+      const { data: community } = await communityService.rejectJoinRequest(communityID, userID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community.communityID] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
+    }
+  });
+
+  return {
+    mutateRejectJoinCommunity: mutateAsync,
+    isLoadingRejectJoinCommunity: isPending,
+    isErrorRejectJoinCommunity: isError,
+    isSuccessRejectJoinCommunity: isSuccess
+  };
+};
+
+export const useDeleteMemberCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async ({ communityID, userID }: { communityID: string; userID: string }) => {
+      const { data: community } = await communityService.deleteMember(communityID, userID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community.communityID] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
+    }
+  });
+
+  return {
+    mutateDeleteMemberCommunity: mutateAsync,
+    isLoadingDeleteMemberCommunity: isPending,
+    isErrorDeleteMemberCommunity: isError,
+    isSuccessDeleteMemberCommunity: isSuccess
+  };
+};
+
+export const usePromoteAdminCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async ({ communityID, userID }: { communityID: string; userID: string }) => {
+      const { data: community } = await communityService.promoteAdmin(communityID, userID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community.communityID] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
+    }
+  });
+
+  return {
+    mutatePromoteAdminCommunity: mutateAsync,
+    isLoadingPromoteAdminCommunity: isPending,
+    isErrorPromoteAdminCommunity: isError,
+    isSuccessPromoteAdminCommunity: isSuccess
+  };
+};
+
+export const useRevokeAdminCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async ({ communityID, userID }: { communityID: string; userID: string }) => {
+      const { data: community } = await communityService.revokeAdmin(communityID, userID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community.communityID] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
+    }
+  });
+
+  return {
+    mutateRevokeAdminCommunity: mutateAsync,
+    isLoadingRevokeAdminCommunity: isPending,
+    isErrorRevokeAdminCommunity: isError,
+    isSuccessRevokeAdminCommunity: isSuccess
+  };
+};
+
 export const useReviewSeries = () => {
   const queryClient = useQueryClient();
 

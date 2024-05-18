@@ -1,6 +1,6 @@
 'use client'
 
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useGetCommunityByID } from '@/hooks/query';
 import { IUserInfo } from '@/types';
@@ -9,6 +9,9 @@ import AvatarMessage from '../../Chat/Avatar/AvatarMessage';
 import { useRouter } from '@/navigation';
 import { CircularProgress } from '@mui/material';
 import { Button } from '@/components/ui/button';
+import { useAcceptJoinCommunity, useRejectJoinCommunity } from '@/hooks/mutation';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { cn } from '@/lib/utils';
 
 export interface IRequestListProps {
   communityID: string;
@@ -25,6 +28,53 @@ export default function RequestList({ communityID }: IRequestListProps) {
       setUserSentRequest(community.waitlist_users);
     }
   }, [community]);
+
+  const { mutateAcceptJoinCommunity } = useAcceptJoinCommunity();
+  const { mutateRejectJoinCommunity } = useRejectJoinCommunity();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isUserSelected, setIsUserSelected] = useState<string>();
+
+  const handleAcceptRequest = (user_id: string) => {
+    setIsLoading(true);
+    setIsUserSelected(user_id);
+    mutateAcceptJoinCommunity({ communityID, userID: user_id },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('Your profile has been updated successfully!'));
+          setUserSentRequest((prev) => prev?.filter((item) => item._id !== user_id));
+        },
+        onError: (error) => {
+          showErrorToast(t('Something went wrong! Please try again!'));
+        },
+        onSettled() {
+          setIsLoading(false);
+          setIsUserSelected(undefined);
+        }
+      }
+    );
+  };
+
+  const handleRejectRequest = (user_id: string) => {
+    setIsLoading(true);
+    setIsUserSelected(user_id);
+    mutateRejectJoinCommunity({ communityID, userID: user_id },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('Your profile has been updated successfully!'));
+          setUserSentRequest((prev) => prev?.filter((item) => item._id !== user_id));
+        },
+        onError: (error) => {
+          showErrorToast(t('Something went wrong! Please try again!'));
+        },
+        onSettled() {
+          setIsLoading(false);
+          setIsUserSelected(undefined);
+        }
+      }
+    );
+  }
+
   return (
     <>
       {isLoadingCommunity ? (
@@ -39,7 +89,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
           userSentRequest.map((item) => {
             return (
               <div key={item._id} className='*:mb-2 flex-between'>
-                <div key={item._id} className='flex items-center gap-4'>
+                <div className='flex items-center gap-4'>
                   <HoverUser user={item}>
                     <div className='cursor-pointer' onClick={() => {
                       router.push(`/profile/${item._id}`);
@@ -59,10 +109,20 @@ export default function RequestList({ communityID }: IRequestListProps) {
                   </div>
                 </div>
                 <div className='flex gap-2'>
-                  <Button variant={'destructive'}>
+                  <Button
+                    className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+                    variant={'destructive'}
+                    disabled={isLoading && isUserSelected === item._id}
+                    onClick={() => { handleRejectRequest(item._id) }}>
                     {t('Reject')}
                   </Button>
-                  <Button >
+                  <Button
+                    className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+                    disabled={isLoading && isUserSelected === item._id}
+                    onClick={() => {
+                      handleAcceptRequest(item._id);
+                    }}>
+                    {isLoading && isUserSelected === item._id && <CircularProgress size={20} className='!text-text-1 mr-2' />}
                     {t('Accept')}
                   </Button>
                 </div>

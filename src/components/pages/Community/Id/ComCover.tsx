@@ -42,6 +42,10 @@ export default function ComCover({ communityID }: IComCoverProps) {
     [community]
   );
 
+  const isAdmin = useMemo(() => community && community.admins.some((admin) => admin._id === currentUserInfo._id), [community]);
+
+  const isCreator = useMemo(() => community && community.creator._id === currentUserInfo._id, [community]);
+
   return (
     <>
       {isLoadingCommunity ? (
@@ -103,7 +107,7 @@ export default function ComCover({ communityID }: IComCoverProps) {
                     </div>
                     <button
                       onClick={() => {
-                        if (isMember) mutateJoinCommunity(communityID);
+                        mutateJoinCommunity(communityID);
                       }}
                       className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
                       {isMember ? (
@@ -167,7 +171,9 @@ export default function ComCover({ communityID }: IComCoverProps) {
             <nav className='flex gap-0.5 rounded-xl overflow-hidden -mb-px text-gray-500 font-medium text-sm overflow-x-auto dark:text-white'>
               <Tabs id='tabs-community' navClassName='!pt-0' disableChevron>
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Discussion')}</TabTitle>
-                <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Request')}</TabTitle>
+                {(isAdmin || isCreator) && (
+                  <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Request')}</TabTitle>
+                )}
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Files')}</TabTitle>
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Photos')}</TabTitle>
                 <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Event')}</TabTitle>
