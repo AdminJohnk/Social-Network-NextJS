@@ -40,17 +40,14 @@ export default function Community({ params: { locale, id } }: ICommunityProps) {
               </div>
             </div>
           </div>
-          <div className='tab-request mt-8'>
-            <RequestList communityID={id} />
-          </div>
+          {/* only admin and creator can see request tab */}
+          <RequestList communityID={id} />
           <div className='files'></div>
           <div className='photos'></div>
-          <div className='events'></div>
-          <div className='videos'></div>
-          <div className='members'>
-            <Members communityID={id} />
-          </div>
-          <div className='medias'></div>
+          <div className="events"></div>
+          <div className="videos"></div>
+          <Members communityID={id} />
+          <div className="medias"></div>
         </TabsContent>
       </div>
     </main>
