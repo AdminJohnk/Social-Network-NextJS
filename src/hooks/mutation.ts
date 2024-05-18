@@ -7,21 +7,30 @@ import {
   IConversation,
   ICreateComment,
   ICreateCommunity,
-  ICreateCommentPostSeries,
+  ICreateCommentSeriesPost,
   ICreateLikeComment,
   ICreatePost,
+  ICreateReplyCommentSeriesPost,
   ICreateReviewSeries,
   ICreateSearchLog,
   ICreateSeries,
   ICreateSeriesPost,
+  IDeleteCommentSeriesPost,
+  IDeleteReplyCommentSeriesPost,
   IDeleteReviewSeries,
   IDeleteSeriesPost,
+  ILikeCommentSeriesPost,
+  ILikeReplyCommentSeriesPost,
+  ILikeSeriesPost,
   IMessage,
   IResetPassword,
+  ISaveSeriesPost,
   ISharePost,
   ISocketCall,
+  IUpdateCommentSeriesPost,
   IUpdateConversation,
   IUpdatePost,
+  IUpdateReplyCommentSeriesPost,
   IUpdateSeries,
   IUpdateSeriesPost,
   IUserInfo,
@@ -1658,7 +1667,7 @@ export const useCommentPostSeries = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-    mutationFn: async (data: ICreateCommentPostSeries) => {
+    mutationFn: async (data: ICreateCommentSeriesPost) => {
       const { data: comment } = await seriesService.commentPostSeries(data);
       return comment.metadata;
     },
@@ -1672,5 +1681,193 @@ export const useCommentPostSeries = () => {
     isLoadingCommentPostSeries: isPending,
     isErrorCommentPostSeries: isError,
     isSuccessCommentPostSeries: isSuccess
+  };
+};
+
+export const useUpdateCommentPostSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdateCommentSeriesPost) => {
+      const { data: comment } = await seriesService.updateCommentPostSeries(data);
+      return comment.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateUpdateCommentPostSeries: mutateAsync,
+    isLoadingUpdateCommentPostSeries: isPending,
+    isErrorUpdateCommentPostSeries: isError,
+    isSuccessUpdateCommentPostSeries: isSuccess
+  };
+};
+
+export const useDeleteCommentPostSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IDeleteCommentSeriesPost) => {
+      const { data: comment } = await seriesService.deleteCommentPostSeries(data);
+      return comment.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateDeleteCommentPostSeries: mutateAsync,
+    isLoadingDeleteCommentPostSeries: isPending,
+    isErrorDeleteCommentPostSeries: isError,
+    isSuccessDeleteCommentPostSeries: isSuccess
+  };
+};
+
+export const useReplyCommentPostSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreateReplyCommentSeriesPost) => {
+      const { data: reply } = await seriesService.replyCommentPostSeries(data);
+      return reply.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateReplyCommentPostSeries: mutateAsync,
+    isLoadingReplyCommentPostSeries: isPending,
+    isErrorReplyCommentPostSeries: isError,
+    isSuccessReplyCommentPostSeries: isSuccess
+  };
+};
+
+export const useUpdateReplyCommentPostSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdateReplyCommentSeriesPost) => {
+      const { data: reply } = await seriesService.updateReplyCommentPostSeries(data);
+      return reply.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateUpdateReplyCommentPostSeries: mutateAsync,
+    isLoadingUpdateReplyCommentPostSeries: isPending,
+    isErrorUpdateReplyCommentPostSeries: isError,
+    isSuccessUpdateReplyCommentPostSeries: isSuccess
+  };
+};
+
+export const useDeleteReplyCommentPostSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IDeleteReplyCommentSeriesPost) => {
+      const { data: reply } = await seriesService.deleteReplyCommentPostSeries(data);
+      return reply.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateDeleteReplyCommentPostSeries: mutateAsync,
+    isLoadingDeleteReplyCommentPostSeries: isPending,
+    isErrorDeleteReplyCommentPostSeries: isError,
+    isSuccessDeleteReplyCommentPostSeries: isSuccess
+  };
+};
+export const useLikePostSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ILikeSeriesPost) => {
+      const { data: like } = await seriesService.likePostSeries(data);
+      return like.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateLikePostSeries: mutateAsync,
+    isLoadingLikePostSeries: isPending,
+    isErrorLikePostSeries: isError,
+    isSuccessLikePostSeries: isSuccess
+  };
+};
+
+export const useLikeCommentSeriesPost = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ILikeCommentSeriesPost) => {
+      const { data: like } = await seriesService.likeCommentSeriesPost(data);
+      return like.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateLikeCommentSeriesPost: mutateAsync,
+    isLoadingLikeCommentSeriesPost: isPending,
+    isErrorLikeCommentSeriesPost: isError,
+    isSuccessLikeCommentSeriesPost: isSuccess
+  };
+};
+
+export const useLikeReplyCommentSeriesPost = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ILikeReplyCommentSeriesPost) => {
+      const { data: like } = await seriesService.likeReplyCommentSeriesPost(data);
+      return like.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateLikeReplyCommentSeriesPost: mutateAsync,
+    isLoadingLikeReplyCommentSeriesPost: isPending,
+    isErrorLikeReplyCommentSeriesPost: isError,
+    isSuccessLikeReplyCommentSeriesPost: isSuccess
+  };
+};
+
+export const useSavePostSeries = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ISaveSeriesPost) => {
+      const { data: post } = await seriesService.savePostSeries(data);
+      return post.metadata;
+    },
+    onSuccess(_, series) {
+      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    }
+  });
+
+  return {
+    mutateSavePostSeries: mutateAsync,
+    isLoadingSavePostSeries: isPending,
+    isErrorSavePostSeries: isError,
+    isSuccessSavePostSeries: isSuccess
   };
 };

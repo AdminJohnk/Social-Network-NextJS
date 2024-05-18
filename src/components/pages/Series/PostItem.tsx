@@ -66,7 +66,7 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
   return (
     <div key={post._id} className='flex items-center w-full'>
       <FaRegCircle className='text-blue-500 size-3' />
-      <div className='ms-3 text-text-2'>
+      <div className='ms-3 text-text-2'> 
         <div className='flex-start gap-3'>
           <Link
             href={`/series/${series_id}/posts/${post._id}`}

@@ -331,9 +331,16 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
         </Modal>
         <div className='render-review'>
           {series?.reviews
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+            )
             .sort((a, b) => b.rating - a.rating)
             .map((review, index) => (
-              <ReviewItem key={index} review={review} series_id={seriesID} />
+              <div className='mb-6' key={index}>
+                <ReviewItem  review={review} series_id={seriesID} />
+              </div>
             ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CreateEditPostSeries from '@/components/pages/Series/CreateEditPostSeries';
 import EditButton from '@/components/pages/Series/EditButton';
 import Editor from '@/components/shared/Editor/Editor';
@@ -14,10 +14,10 @@ import { Avatar, CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Editor as EditorProps } from '@tiptap/react';
-import { IoHeartOutline } from 'react-icons/io5';
+import { IoHeartOutline, IoHeartSharp } from 'react-icons/io5';
 import { BiCommentDetail } from 'react-icons/bi';
 import { FiFileText } from 'react-icons/fi';
-import { CiBookmark, CiShare2 } from 'react-icons/ci';
+import { CiShare2 } from 'react-icons/ci';
 import { IUpdateSeriesPost } from '@/types';
 import {
   AlertDialog,
@@ -29,13 +29,17 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import DeleteButton from '@/components/pages/Series/DeleteButton';
-import { useCommentPostSeries, useDeleteImage, useDeletePostToSeries } from '@/hooks/mutation';
+import { useCommentPostSeries, useDeleteImage, useDeletePostToSeries,
+  useLikePostSeries,
+  useSavePostSeries } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { useRouter } from 'next/navigation';
 import { FaSwatchbook } from 'react-icons/fa';
 import { SiGoogledocs } from 'react-icons/si';
 import { getFormattedDate } from '@/lib/utils/formatDateTime';
 import FriendButton from '@/components/pages/Profile/FriendButton';
+import CommentItem from '@/components/pages/Series/CommentItem';
+import { GoBookmark, GoBookmarkFill } from 'react-icons/go';
 
 export interface IPostSeriesProps {
   params: {
@@ -63,6 +67,23 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
   const { mutateDeletePostToSeries } = useDeletePostToSeries();
   const { mutateDeleteImage } = useDeleteImage();
   const { mutateCommentPostSeries } = useCommentPostSeries();
+  const { mutateLikePostSeries } = useLikePostSeries();
+  const { mutateSavePostSeries } = useSavePostSeries();
+
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [numberLikes, setNumberLikes] = useState<number>(0);
+
+  const [isSaved, setIsSaved] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsLiked(
+      post?.likes.some(liker => liker._id === currentUserInfo?._id) || false
+    );
+    setNumberLikes(post?.likes.length || 0);
+    setIsSaved(
+      post?.saves.some(saver => saver._id === currentUserInfo?._id) || false
+    );
+  }, [post]);
 
   // Delete Post
   const [openDeletePost, setOpenDeletePost] = useState(false);
@@ -121,6 +142,57 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
 
   // Modal
   const [openEdit, setOpenEdit] = useState(false);
+
+  const InteractComponent = () => {
+    return (
+      <div className='flex-start gap-3'>
+        <div
+          className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'
+          onClick={() => {
+            setIsLiked(!isLiked);
+            setNumberLikes(isLiked ? numberLikes - 1 : numberLikes + 1);
+            mutateLikePostSeries({
+              series_id: seriesID,
+              post_id: postID
+            });
+          }}
+        >
+          {isLiked ? (
+            <IoHeartSharp className='size-4 text-red-500' />
+          ) : (
+            <IoHeartOutline className='size-4' />
+          )}
+          <span>{numberLikes}</span>
+        </div>
+        <a
+          href={'#discussion'}
+          className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
+          onClick={() => {
+            editor?.commands.focus();
+          }}
+        >
+          <BiCommentDetail className='size-4' />
+          <span>{post?.comments.length}</span>
+        </a>
+        <div
+          onClick={() => {
+            setIsSaved(!isSaved);
+            mutateSavePostSeries({
+              series_id: seriesID,
+              post_id: postID
+            });
+          }}
+        >
+          {isSaved ? (
+            <GoBookmarkFill className='size-4 text-yellow-400 cursor-pointer' />
+          ) : (
+            <GoBookmark className='size-4 cursor-pointer hover:text-yellow-400 duration-300' />
+          )}
+        </div>
+        <CiShare2 className='size-4 cursor-pointer text-1' />
+      </div>
+    );
+  };
 
   return (
     <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
@@ -213,23 +285,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
             <span>•</span>
             <div>{post?.read_time + ' min read'}</div>
           </div>
-          <div className='flex-start gap-3'>
-            <div className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'>
-              <IoHeartOutline className='size-4' />
-              <span>16</span>
-            </div>
-            <a
-              href={'#discussion'}
-              className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
-              onClick={() => {
-                editor?.commands.focus();
-              }}>
-              <BiCommentDetail className='size-4' />
-              <span>3</span>
-            </a>
-            <CiBookmark className='size-4 cursor-pointer hover:text-yellow-400 duration-300' />
-            <CiShare2 className='size-4 cursor-pointer text-1' />
-          </div>
+          <InteractComponent />
         </div>
         <div>
           <div className='small-semibold mb-2 text-text-2'>Contributors</div>
@@ -244,7 +300,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
         <div className='text-pretty text-[1rem] leading-relaxed my-5 px-2'>
           <ShowContent content={post?.content!} />
         </div>
-        <div className='author mt-10 flex-between'>
+        <div className='author mt-10 mb-6 flex-between'>
           <div className='flex-start gap-2'>
             <Link href={`/profile/${author?._id}`}>
               <Avatar src={getImageURL(author?.user_image)} />
@@ -266,23 +322,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
           {!isMe && <FriendButton profileID={author?._id} variant='default' />}
         </div>
         <div className='flex-end text-text-2'>
-          <div className='flex-start gap-3'>
-            <div className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'>
-              <IoHeartOutline className='size-4' />
-              <span>16</span>
-            </div>
-            <a
-              href={'#discussion'}
-              className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
-              onClick={() => {
-                editor?.commands.focus();
-              }}>
-              <BiCommentDetail className='size-4' />
-              <span>3</span>
-            </a>
-            <CiBookmark className='size-4 cursor-pointer hover:text-yellow-400 duration-300' />
-            <CiShare2 className='size-4 cursor-pointer text-1' />
-          </div>
+          <InteractComponent />
         </div>
         {nextPost && (
           <div className='mt-10 space-y-2 py-5 px-5 bg-2 rounded-lg'>
@@ -307,31 +347,21 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
             </Button>
           </div>
           <div className='mt-7'>
-            {post?.comments.map((comment, index) => (
-              <div key={index} className='flex gap-4'>
-                <Avatar src={getImageURL(comment.user.user_image)} />
-                <div className='flex-col'>
-                  <div className='flex-start gap-2'>
-                    <div className='base-semibold'>{comment.user.name}</div>
-                    <div className='small-regular text-text-2'>{getFormattedDate(comment.createdAt)}</div>
-                  </div>
-                  <div className='text-text-2 mt-1 mb-2'>
-                    <ShowContent content={comment.content} />
-                  </div>
-                  <div className='flex-start gap-4'>
-                    <div className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'>
-                      <IoHeartOutline className='size-4' />
-                      <span>{comment.like.length}</span>
-                      <span>{t('Likes')}</span>
-                    </div>
-                    <div className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'>
-                      <BiCommentDetail className='size-4' />
-                      <span>{comment.child.length}</span>
-                    </div>
-                  </div>
+            {post?.comments
+              .sort(
+                (a, b) =>
+                  new Date(b.createdAt).getTime() -
+                  new Date(a.createdAt).getTime()
+              )
+              .map((comment, index) => (
+                <div className='mb-6' key={index}>
+                  <CommentItem
+                    comment={comment}
+                    series_id={seriesID}
+                    post_id={postID}
+                  />
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>

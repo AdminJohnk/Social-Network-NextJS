@@ -65,7 +65,7 @@ export default function ReviewItem({ review, series_id }: IReviewItemProps) {
   };
 
   return (
-    <div className='flex gap-4 mb-6'>
+    <div className='flex gap-4'>
       <Avatar src={getImageURL(review.user.user_image)} />
       <div className='flex-col'>
         <div className='flex-start gap-2'>
