@@ -13,6 +13,7 @@ import { Link, useRouter } from '@/navigation';
 import AvatarMessage from '../../Chat/Avatar/AvatarMessage';
 import { useDeleteMemberCommunity, usePromoteAdminCommunity, useRevokeAdminCommunity } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { IoIosMore } from 'react-icons/io';
 
 export interface IMembersProps {
   communityID: string;
@@ -30,6 +31,8 @@ export default function Members({ communityID }: IMembersProps) {
   const members = useMemo(() => community && community.members, [community]);
 
   const { currentUserInfo } = useCurrentUserInfo();
+
+  const isMe = (userID: string) => currentUserInfo._id === userID;
 
   const isAdmin = useMemo(() => community && community.admins.some((admin) => admin._id === currentUserInfo._id), [community, community?.admins]);
 
@@ -52,7 +55,7 @@ export default function Members({ communityID }: IMembersProps) {
         onSuccess: () => {
           showSuccessToast(t('You have successfully removed the member!'));
         },
-        onError: (error) => {
+        onError: () => {
           showErrorToast(t('Something went wrong! Please try again!'));
         },
         onSettled() {
@@ -69,7 +72,7 @@ export default function Members({ communityID }: IMembersProps) {
         onSuccess: () => {
           showSuccessToast(t('You have successfully promoted the member!'));
         },
-        onError: (error) => {
+        onError: () => {
           showErrorToast(t('Something went wrong! Please try again!'));
         },
         onSettled() {
@@ -123,7 +126,7 @@ export default function Members({ communityID }: IMembersProps) {
                     </HoverUser>
                     <div>
                       <HoverUser user={member}>
-                        <Link href={`profile/${member._id}`} className="text-lg font-semibold hover:underline cursor-pointer">{member.name}</Link>
+                        <Link href={`/profile/${member._id}`} className="text-lg font-semibold hover:underline cursor-pointer">{member.name} {isMe(member._id) && `(${t('You')})`}</Link>
                       </HoverUser>
                       <div className="flex items-center mt-1">
                         <span className="ml-1 text-sm text-gray-400">
@@ -132,31 +135,40 @@ export default function Members({ communityID }: IMembersProps) {
                       </div>
                     </div>
                   </div>
-                  <div className="max-md:flex-col max-md:space-y-1 flex 2xl:space-x-2">
-                    {(isAdmin || isCreator) && memberRole(member._id) === 'Member' && (<>
-                      <Button
-                        disabled={isLoadingDeleteMemberCommunity && isUserSelected === member._id}
-                        variant={'destructive'}
-                        onClick={() => handleDeleteMember(member._id)}>
-                        {t('Remove')}
-                      </Button>
-
-                      <Button
-                        disabled={isLoadingPromoteAdminCommunity && isUserSelected === member._id}
-                        onClick={() => handlePromoteAdmin(member._id)} >
-                        {isLoadingPromoteAdminCommunity && isUserSelected === member._id && <CircularProgress size={20} className='!text-text-1 mr-2' />}
-                        {t('Promote Admin')}
-                      </Button>
-                    </>)}
-                    {isCreator && memberRole(member._id) === 'Admin' && (<>
-                      <Button
-                        disabled={isLoadingRevokeAdminCommunity && isUserSelected === member._id}
-                        onClick={() => handleRevokeAdmin(member._id)}
-                        variant={'destructive'}>
-                        {t('Revoke Admin')}
-                      </Button>
-                    </>)}
-                  </div>
+                  {((isAdmin && memberRole(member._id) === 'Member') || isCreator) && (<>
+                    <div className='popover'>
+                      <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
+                        <IoIosMore className='size-6' />
+                      </div>
+                      <div
+                        className='!w-fit'
+                        data-uk-drop='offset:6;pos: bottom-right; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
+                        <div className='flex flex-col gap-2 bg-foreground-1 p-2 rounded-lg shadow-lg'>
+                          {isCreator && memberRole(member._id) === 'Admin' ? (
+                            <Button
+                              disabled={isLoadingRevokeAdminCommunity && isUserSelected === member._id}
+                              onClick={() => handleRevokeAdmin(member._id)}
+                              variant={'destructive'}>
+                              {t('Revoke Admin')}
+                            </Button>
+                          ) : (
+                            <Button
+                              disabled={isLoadingPromoteAdminCommunity && isUserSelected === member._id}
+                              onClick={() => handlePromoteAdmin(member._id)} >
+                              {isLoadingPromoteAdminCommunity && isUserSelected === member._id && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                              {t('Promote Admin')}
+                            </Button>
+                          )}
+                          <Button
+                            disabled={isLoadingDeleteMemberCommunity && isUserSelected === member._id}
+                            variant={'destructive'}
+                            onClick={() => handleDeleteMember(member._id)}>
+                            {t('Remove')}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </>)}
                 </div>
               </div>
             ))}
