@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useTranslations } from 'next-intl';
 
 import NewPost from '@/components/shared/NewPost/NewPost';
 import Post, { PostSkeleton } from '@/components/shared/Post';
@@ -15,6 +16,7 @@ export interface ITimelineTabProps {
 }
 
 export default function TimelineTab({ profileID }: ITimelineTabProps) {
+  const t = useTranslations();
   const [postsRef, inPostsView] = useInView({ threshold: 0 });
 
   const { isLoadingUserPosts, userPosts, isFetchingNextUserPosts, hasNextUserPosts, fetchNextUserPosts } =
@@ -50,7 +52,7 @@ export default function TimelineTab({ profileID }: ITimelineTabProps) {
             </>
           ) : (
             <div className='flex-center'>
-              <span className='text-text-2'>No post available!!!</span>
+              <span className='text-text-2'>{t('No post available')}</span>
             </div>
           )}
         </div>

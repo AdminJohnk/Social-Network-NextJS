@@ -2,6 +2,7 @@
 
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 import Post from '@/components/shared/Post/Post';
 import { PostSkeleton } from '@/components/shared/Post';
@@ -12,6 +13,7 @@ interface IPostListProps {
 }
 
 export default function PostList({ communityID }: IPostListProps) {
+  const t = useTranslations();
   const [postsRef, inPostsView] = useInView({ threshold: 0 });
 
   const { community, isLoadingCommunity } = useGetCommunityByID(communityID);
@@ -43,7 +45,7 @@ export default function PostList({ communityID }: IPostListProps) {
             </>
           ) : (
             <div className='flex-center'>
-              <span className='text-text-2'>No post available!!!</span>
+              <span className='text-text-2'>{t('No post available')}</span>
             </div>
           )}
         </div>

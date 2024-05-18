@@ -11,9 +11,10 @@ import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
 
 export interface INewPostProps {
   profileID?: string;
+  communityID?: string;
 }
 
-export default function NewPost({ profileID }: INewPostProps) {
+export default function NewPost({ profileID, communityID }: INewPostProps) {
   const t = useTranslations();
 
   const [open, setOpen] = useState(false);
@@ -35,6 +36,8 @@ export default function NewPost({ profileID }: INewPostProps) {
                 ? t('What do you have in mind?')
                 : t('Write some thing for') + ' ' + otherUserInfo?.name + '...'}
             </span>
+          ) : communityID ? (
+            <span> {t('What do you want to share?')} </span>
           ) : (
             <span> {t('What do you have in mind?')} </span>
           )}
@@ -47,7 +50,7 @@ export default function NewPost({ profileID }: INewPostProps) {
         </div>
       </div>
       <Modal open={open} handleClose={() => setOpen(false)}>
-        <CreateNewPost handleClose={() => setOpen(false)} />
+        <CreateNewPost handleClose={() => setOpen(false)} communityID={communityID} />
       </Modal>
     </div>
   );

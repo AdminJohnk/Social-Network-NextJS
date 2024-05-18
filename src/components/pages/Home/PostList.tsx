@@ -45,7 +45,7 @@ export default function PostList() {
             </>
           ) : (
             <div className='flex-center'>
-              <span className='text-text-2'>No post available!!!</span>
+              <span className='text-text-2'>{t('No post available')}</span>
             </div>
           )}
         </div>

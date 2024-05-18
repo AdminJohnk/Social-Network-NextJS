@@ -27,7 +27,7 @@ export default function Community({ params: { locale, id } }: ICommunityProps) {
         <TabsContent id='tabs-community' className='mt-4 !border-none'>
           <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='community-side'>
             <div className='flex-1 xl:space-y-6 space-y-3'>
-              <NewPost />
+              <NewPost communityID={id} />
               <PostList communityID={id} />
             </div>
             <div className='lg:w-[400px]'>
@@ -45,12 +45,12 @@ export default function Community({ params: { locale, id } }: ICommunityProps) {
           </div>
           <div className='files'></div>
           <div className='photos'></div>
-          <div className="events"></div>
-          <div className="videos"></div>
-          <div className="members">
+          <div className='events'></div>
+          <div className='videos'></div>
+          <div className='members'>
             <Members communityID={id} />
           </div>
-          <div className="medias"></div>
+          <div className='medias'></div>
         </TabsContent>
       </div>
     </main>

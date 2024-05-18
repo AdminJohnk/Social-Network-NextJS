@@ -17,9 +17,10 @@ import PostTemplate from '@/components/shared/PostTemplate';
 
 interface ICreateNewPostProps {
   handleClose: () => void;
+  communityID?: string;
 }
 
-export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
+export default function CreateNewPost({ handleClose, communityID }: ICreateNewPostProps) {
   const t = useTranslations();
 
   const { mutateCreatePost } = useCreatePost();
@@ -44,8 +45,6 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
   const handleSubmit = async () => {
     setIsLoading(true);
     const content = editor?.getHTML() as string;
-    // console.log(content);
-    // return;
     setIsLoading(true);
 
     // get hashtags from content
@@ -60,28 +59,55 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
 
     const imagesUploaded = await handleUploadImages();
 
-    mutateCreatePost(
-      {
-        title: '',
-        content: content || '',
-        images: imagesUploaded,
-        visibility: privacy,
-        hashtags: hashtags ? uniqueHashtags : undefined
-      },
-      {
-        onSuccess() {
-          showSuccessToast(t('Post created successfully!'));
-          editor?.commands.clearContent();
-          handleClose();
+    if (communityID) {
+      mutateCreatePost(
+        {
+          title: '',
+          content: content || '',
+          images: imagesUploaded,
+          scope: 'Community',
+          visibility: privacy,
+          community: communityID,
+          hashtags: hashtags ? uniqueHashtags : undefined
         },
-        onError() {
-          showErrorToast(t('Something went wrong! Please try again!'));
-        },
-        onSettled() {
-          setIsLoading(false);
+        {
+          onSuccess() {
+            showSuccessToast(t('Post created successfully!'));
+            editor?.commands.clearContent();
+            handleClose();
+          },
+          onError() {
+            showErrorToast(t('Something went wrong! Please try again!'));
+          },
+          onSettled() {
+            setIsLoading(false);
+          }
         }
-      }
-    );
+      );
+    } else {
+      mutateCreatePost(
+        {
+          title: '',
+          content: content || '',
+          images: imagesUploaded,
+          visibility: privacy,
+          hashtags: hashtags ? uniqueHashtags : undefined
+        },
+        {
+          onSuccess() {
+            showSuccessToast(t('Post created successfully!'));
+            editor?.commands.clearContent();
+            handleClose();
+          },
+          onError() {
+            showErrorToast(t('Something went wrong! Please try again!'));
+          },
+          onSettled() {
+            setIsLoading(false);
+          }
+        }
+      );
+    }
   };
 
   return (
@@ -92,7 +118,7 @@ export default function CreateNewPost({ handleClose }: ICreateNewPostProps) {
 
       <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg'>
         <div className='mt-3 ps-4'>
-          <Editor setEditor={setEditor} />
+          <Editor setEditor={setEditor} placeholder={t('What do you want to share?')} />
         </div>
 
         <div className='*:mb-3 text-sm py-2 px-4 font-medium'>
