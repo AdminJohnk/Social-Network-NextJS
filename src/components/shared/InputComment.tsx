@@ -78,7 +78,7 @@ export default function InputComment({
           disabled={isEmpty || isLoadingCommentPost}
           onClick={handleCommentPost}
           className='px-4 py-1 bg-foreground-2 hover:bg-hover-2 duration-300 rounded-2xl text-center'>
-          {isLoadingCommentPost && <CircularProgress size={16} className='!text-text-1 mr-2' />}{' '}
+          {isLoadingCommentPost && <CircularProgress size={16} className='!text-text-1 mr-2' />}
           {t('Comment')}
         </Button>
       </div>

@@ -127,8 +127,8 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
         </div>
       </div>
 
-      <div className='p-5 flex justify-between items-center'>
-        <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />
+      <div className={cn('p-5 flex-between', communityID && 'flex-end')}>
+        {!communityID && <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />}
         <div className='flex items-center gap-2'>
           <Button
             type='button'

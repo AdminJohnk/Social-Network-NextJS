@@ -17,8 +17,9 @@ import {
 } from 'react-icons/io5';
 import { CircularProgress } from '@mui/material';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { useSearchParams } from 'next/navigation';
 
-import { Link } from '@/navigation';
+import { Link, usePathname, useRouter } from '@/navigation';
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
 import { Button } from '@/components/ui/button';
@@ -32,10 +33,14 @@ import { useDeleteImage, useUpdateUser } from '@/hooks/mutation';
 
 export interface ICoverProps {
   profileID: string;
+  tabParam?: string;
 }
 
-export default function Cover({ profileID }: ICoverProps) {
+export default function Cover({ profileID, tabParam }: ICoverProps) {
   const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { mutateUpdateUser } = useUpdateUser();
   const { mutateDeleteImage } = useDeleteImage();
 
@@ -46,6 +51,33 @@ export default function Cover({ profileID }: ICoverProps) {
   const isMe = currentUserInfo._id === profileID;
 
   const isFriend = currentUserInfo.friends?.some((friend) => friend._id === profileID);
+
+  const createQueryString = useCallback(
+    (value: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set('tab', value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const tab = useMemo(() => {
+    switch (tabParam) {
+      case 'friends':
+        return 1;
+      case 'series':
+        return 2;
+      case 'photos':
+        return 3;
+      case 'repositories':
+        return 4;
+      case 'communities':
+        return 5;
+      default:
+        return 0;
+    }
+  }, []);
 
   useEffect(() => {
     UIkit.sticky('#profile-tabs')?.$emit('update');
@@ -349,13 +381,37 @@ export default function Cover({ profileID }: ICoverProps) {
             </div>
 
             <nav className='flex rounded-xl -mb-px font-medium text-[15px]'>
-              <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Timeline')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Friends')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Series')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Photos')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Repositories')}</TabTitle>
-                <TabTitle className='hover:bg-hover-1 !rounded-sm'>{t('Communities')}</TabTitle>
+              <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron active={tab}>
+                <TabTitle
+                  className='hover:bg-hover-1 !rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('timeline'))}>
+                  {t('Timeline')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:bg-hover-1 !rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('friends'))}>
+                  {t('Friends')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:bg-hover-1 !rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('series'))}>
+                  {t('Series')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:bg-hover-1 !rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('photos'))}>
+                  {t('Photos')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:bg-hover-1 !rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('repositories'))}>
+                  {t('Repositories')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:bg-hover-1 !rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('communities'))}>
+                  {t('Communities')}
+                </TabTitle>
               </Tabs>
 
               {/* <!-- dropdown --> */}

@@ -15,10 +15,9 @@ import PostSkeleton from '@/components/shared/Post/PostSkeleton';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import CreateNewPostShare from '@/components/shared/CreateNewPostShare/CreateNewPostShare';
 
-export interface IPostsListProps {
-}
+export interface IPostsListProps {}
 
-export default function PostsList({ }: IPostsListProps) {
+export default function PostsList({}: IPostsListProps) {
   const { savedPosts, isLoadingSavedPosts } = useSavedPostsData();
 
   useNow({ updateInterval: 1000 * 30 });
@@ -89,9 +88,9 @@ export default function PostsList({ }: IPostsListProps) {
         <div className='post *:mb-6 mt-6 p-6'>
           {savedPosts?.map((post) => {
             return (
-              <div className="card-list bg-foreground-1 p-4 rounded-lg" key={post._id}>
+              <div className='card-list bg-foreground-1 p-4 rounded-lg' key={post._id}>
                 <Link href={`/posts/${post._id}`}>
-                  <div className="card-list-media md:w-[320px] md:h-[180px] sm:aspect-[3/1.2] aspect-[3/1.5]">
+                  <div className='card-list-media md:w-[320px] md:h-[180px] sm:aspect-[3/1.2] aspect-[3/1.5]'>
                     {post!.post_attributes.images.length > 0 ? (
                       <Image
                         width={1000}
@@ -109,26 +108,47 @@ export default function PostsList({ }: IPostsListProps) {
                     )}
                   </div>
                 </Link>
-                <div className="card-list-body relative">
+                <div className='card-list-body relative'>
                   {/* <Link href="#"> <h3 className="card-list-title lg:mt-2 lg:line-clamp-1 !whitespace-nowrap !inline-block"> {<ShowContent content={post.post_attributes.content.length > 250 ? post.post_attributes.content.slice(0, 250) + '...' : post.post_attributes.content} />} </h3> </Link> */}
-                  <p className="card-list-text max-h-20 overflow-hidden"> {<ShowContent content={post.post_attributes.content.length > 250 ? post.post_attributes.content.slice(0, 500) + '...' : post.post_attributes.content} />} </p>
-                  <Link href="timeline.html"> <div className="card-list-link mt-5"> {post.post_attributes.user.name}</div> </Link>
-                  <div className="flex items-center justify-between">
-                    <div className="card-list-info">
+                  <div className='card-list-text max-h-20 overflow-hidden'>
+                    <ShowContent
+                      content={
+                        post.post_attributes.content.length > 250
+                          ? post.post_attributes.content.slice(0, 500) + '...'
+                          : post.post_attributes.content
+                      }
+                    />
+                  </div>
+                  <Link href={`/profile/${post.post_attributes.user._id}`}>
+                    <div className='card-list-link mt-5'> {post.post_attributes.user.name}</div>
+                  </Link>
+                  <div className='flex items-center justify-between'>
+                    <div className='card-list-info'>
                       <div> {handleDateTime(post.createdAt)}</div>
                     </div>
                     <ButtonRemoveSavePost post_id={post._id} />
                   </div>
                   {/* <!-- dropdown menu --> */}
-                  <div className=" absolute top-0 right-0 -m-1">
-                    <button type="button" className="hover:bg-secondery w-10 h-10 rounded-full grid place-items-center"><IoEllipsisHorizontal className="text-2xl" /> </button>
-                    <div className="w-[245px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                  <div className=' absolute top-0 right-0 -m-1'>
+                    <button
+                      type='button'
+                      className='hover:bg-secondery w-10 h-10 rounded-full grid place-items-center'>
+                      <IoEllipsisHorizontal className='text-2xl' />
+                    </button>
+                    <div
+                      className='w-[245px]'
+                      uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click'>
                       <nav>
-                        <div className='flex cursor-pointer hover:bg-hover-1 rounded-lg gap-2 p-2'> <IoFlagOutline className="text-xl" /> Report </div>
+                        <div className='flex cursor-pointer hover:bg-hover-1 rounded-lg gap-2 p-2'>
+                          <IoFlagOutline className='text-xl' /> Report
+                        </div>
                         {post.type === 'Post' && (
                           <div>
-                            <div className='flex cursor-pointer hover:bg-hover-1 rounded-lg gap-2 p-2'
-                              onClick={handleOpenShare}> <IoShareOutline className="text-xl" /> Share </div>
+                            <div
+                              className='flex cursor-pointer hover:bg-hover-1 rounded-lg gap-2 p-2'
+                              onClick={handleOpenShare}>
+                              <IoShareOutline className='text-xl' /> Share
+                            </div>
                             <Modal open={openShare} handleClose={handleCloseShare}>
                               <CreateNewPostShare handleClose={handleCloseShare} post={post} />
                             </Modal>
@@ -139,7 +159,7 @@ export default function PostsList({ }: IPostsListProps) {
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       )}

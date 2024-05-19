@@ -64,9 +64,9 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
             <span>{t('Normal')}</span>
           </div>
         ),
+        className: () => cn(editor.isActive('paragraph') && 'text-primary-500'),
         callback: () => editor.chain().focus().setParagraph().run(),
-        can: () => editor.can().chain().focus().setParagraph().run(),
-        className: cn(editor.isActive('paragraph') && 'text-primary-500')
+        can: () => editor.can().chain().focus().setParagraph().run()
       },
       {
         // Heading 1
@@ -76,9 +76,9 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
             <span>{t('Heading 1')}</span>
           </div>
         ),
+        className: () => cn(editor.isActive('heading', { level: 1 }) && 'text-primary-500'),
         callback: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
-        can: () => editor.can().chain().focus().toggleHeading({ level: 1 }).run(),
-        className: cn(editor.isActive('heading', { level: 1 }) && 'text-primary-500')
+        can: () => editor.can().chain().focus().toggleHeading({ level: 1 }).run()
       },
       {
         // Heading 2
@@ -88,9 +88,9 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
             <span>{t('Heading 2')}</span>
           </div>
         ),
+        className: () => cn(editor.isActive('heading', { level: 2 }) && 'text-primary-500'),
         callback: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
-        can: () => editor.can().chain().focus().toggleHeading({ level: 2 }).run(),
-        className: cn(editor.isActive('heading', { level: 2 }) && 'text-primary-500')
+        can: () => editor.can().chain().focus().toggleHeading({ level: 2 }).run()
       },
       {
         // Heading 3
@@ -100,9 +100,9 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
             <span>{t('Heading 3')}</span>
           </div>
         ),
+        className: () => cn(editor.isActive('heading', { level: 3 }) && 'text-primary-500'),
         callback: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
-        can: () => editor.can().chain().focus().toggleHeading({ level: 3 }).run(),
-        className: cn(editor.isActive('heading', { level: 3 }) && 'text-primary-500')
+        can: () => editor.can().chain().focus().toggleHeading({ level: 3 }).run()
       },
       {
         // Code Block
@@ -112,9 +112,9 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
             <span>{t('Code Block')}</span>
           </div>
         ),
+        className: () => cn(editor.isActive('codeBlock') && 'text-primary-500'),
         callback: () => editor.chain().focus().toggleCodeBlock().run(),
-        can: () => editor.can().chain().focus().toggleCodeBlock().run(),
-        className: cn(editor.isActive('codeBlock') && 'text-primary-500')
+        can: () => editor.can().chain().focus().toggleCodeBlock().run()
       }
     ],
     [editor]
@@ -227,7 +227,7 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
                 key={index}
                 className={cn(
                   'justify-start w-full px-2.5 py-2 !bg-transparent hover:!bg-hover-1 cursor-pointer rounded-lg uk-drop-close',
-                  item.className
+                  item.className()
                 )}
                 disabled={!item.can()}
                 onClick={() => {

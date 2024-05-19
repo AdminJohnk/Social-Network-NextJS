@@ -1515,6 +1515,48 @@ export const useJoinCommunity = () => {
   };
 };
 
+export const useAcceptPostCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: { id: string; post_id: string }) => {
+      const { data: community } = await communityService.acceptPostRequest(data.id, data.post_id);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community.id] });
+    }
+  });
+
+  return {
+    mutateAcceptPostCommunity: mutateAsync,
+    isLoadingAcceptPostCommunity: isPending,
+    isErrorAcceptPostCommunity: isError,
+    isSuccessAcceptPostCommunity: isSuccess
+  };
+};
+
+export const useRejectPostCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: { id: string; post_id: string }) => {
+      const { data: community } = await communityService.rejectPostRequest(data.id, data.post_id);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community.id] });
+    }
+  });
+
+  return {
+    mutateRejectPostCommunity: mutateAsync,
+    isLoadingRejectPostCommunity: isPending,
+    isErrorRejectPostCommunity: isError,
+    isSuccessRejectPostCommunity: isSuccess
+  };
+};
+
 export const useAcceptJoinCommunity = () => {
   const queryClient = useQueryClient();
 

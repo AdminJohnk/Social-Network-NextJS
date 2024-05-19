@@ -6,6 +6,7 @@ import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import Image from 'next/image';
 import { IoCloseOutline } from 'react-icons/io5';
+import { showErrorToast } from '../ui/toast';
 
 export interface IUploadImageProps {
   imagesOfPost?: string[];
@@ -48,6 +49,20 @@ export default function UploadImage({ imagesOfPost, setImagesOfPost, setImagesOf
         onChange={onChange}
         maxNumber={maxNumber - imagesPost.length}
         dataURLKey='data_url'
+        onError={(e) => {
+          if (e) {
+            if (e.maxNumber) {
+              showErrorToast(t('You can only upload 10 images at a time!'));
+            }
+            if (e.maxFileSize) {
+              showErrorToast(t('Your image is too big!'));
+            }
+            if (e.acceptType) {
+              showErrorToast(t('Your file type is not allowed!'));
+            }
+          }
+        }}
+        maxFileSize={1024 * 1024 * 3}
         acceptType={['jpg', 'jpeg', 'png', 'gif']}>
         {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove }) => (
           // write your building UI

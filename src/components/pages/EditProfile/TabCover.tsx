@@ -12,7 +12,7 @@ import { Tabs, TabTitle } from '@/components/ui/tabs';
 import { usePathname, useRouter } from '@/navigation';
 import TabCoverSkeleton from './TabCoverSkeleton';
 import Divider from '@/components/shared/Divider';
-import { useDeleteImage, useUpdateUser } from '@/hooks/mutation';
+// import { useDeleteImage, useUpdateUser } from '@/hooks/mutation';
 // import { imageService } from '@/services/ImageService';
 // import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 // import { Button } from '@/components/ui/button';
@@ -23,9 +23,8 @@ interface ITabCoverProps {
 
 export default function TabCover({ tabParam }: ITabCoverProps) {
   const t = useTranslations();
-  const { mutateUpdateUser } = useUpdateUser();
-  const { mutateDeleteImage } = useDeleteImage();
-
+  // const { mutateUpdateUser } = useUpdateUser();
+  // const { mutateDeleteImage } = useDeleteImage();
 
   // const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -118,15 +117,15 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
             <div className='flex-start gap-4 p-8'>
               <div className='relative md:w-20 md:h-20 w-12 h-12 shrink-0'>
                 {/* <label htmlFor='file' className='cursor-pointer'> */}
-                  <Image
-                    className='object-cover overflow-hidden rounded-full md:w-20 md:h-20 w-12 h-12'
-                    src={getImageURL(currentUserInfo.user_image)}
-                    alt={currentUserInfo.user_image}
-                    height={500}
-                    width={500}
-                    priority
-                  />
-                  {/* <input
+                <Image
+                  className='object-cover overflow-hidden rounded-full md:w-20 md:h-20 w-12 h-12'
+                  src={getImageURL(currentUserInfo.user_image)}
+                  alt={currentUserInfo.user_image}
+                  height={500}
+                  width={500}
+                  priority
+                />
+                {/* <input
                     type='file'
                     id='file'
                     className='hidden'
@@ -187,40 +186,22 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
           <Divider />
 
           <Tabs id='setting_tab' disableChevron active={tab}>
-            <TabTitle
-              onClick={() => {
-                router.push(pathname + '?' + createQueryString('general'));
-              }}>
+            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('general'))}>
               {t('General')}
             </TabTitle>
-            <TabTitle
-              onClick={() => {
-                router.push(pathname + '?' + createQueryString('social-links'));
-              }}>
+            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('social-links'))}>
               {t('Social links')}
             </TabTitle>
-            <TabTitle
-              onClick={() => {
-                router.push(pathname + '?' + createQueryString('expertise'));
-              }}>
+            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('expertise'))}>
               {t('Expertise')}
             </TabTitle>
-            <TabTitle
-              onClick={() => {
-                router.push(pathname + '?' + createQueryString('experience'));
-              }}>
+            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('experience'))}>
               {t('Experience')}
             </TabTitle>
-            <TabTitle
-              onClick={() => {
-                router.push(pathname + '?' + createQueryString('repository'));
-              }}>
+            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('repository'))}>
               {t('Repository')}
             </TabTitle>
-            <TabTitle
-              onClick={() => {
-                router.push(pathname + '?' + createQueryString('password'));
-              }}>
+            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('password'))}>
               {t('Password')}
             </TabTitle>
           </Tabs>

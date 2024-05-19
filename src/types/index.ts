@@ -460,7 +460,7 @@ export interface ISearchLog {
   createdAt: string;
 }
 
-export type IFeaturePost = 'detail' | 'sharing' | 'newsfeed' | 'modal' | 'profile' | 'favorite';
+export type IFeaturePost = 'detail' | 'sharing' | 'newsfeed' | 'modal' | 'profile' | 'favorite' | 'requested' | 'community';
 
 export type TypeOfLevel = 'beginner' | 'intermediate' | 'advanced';
 
