@@ -20,7 +20,7 @@ export default function EditCommunity({ dataEdit }: IEditCommunityProps) {
     <>
       <button
         type='button'
-        className='button bg-foreground-2 hover:bg-hover-2 duration-300 min-w-fit'
+        className='button text-center bg-foreground-2 hover:bg-hover-2 duration-300 min-w-fit'
         onClick={() => setOpen(true)}>
         {t('Edit')}
       </button>

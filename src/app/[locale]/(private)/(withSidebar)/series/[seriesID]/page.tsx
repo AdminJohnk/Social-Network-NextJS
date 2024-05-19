@@ -22,7 +22,7 @@ import FriendButton from '@/components/pages/Profile/FriendButton';
 
 import { useDeleteImage, useDeleteSeries } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { notFound, useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import WriteReview from '@/components/pages/Series/WriteReview';
 import { PostItem } from '@/components/pages/Series/PostItem';
 import ReviewItem from '@/components/pages/Series/ReviewItem';
@@ -36,6 +36,7 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import DeleteButton from '@/components/pages/Series/DeleteButton';
+import { notFound } from 'next/navigation';
 
 export interface ISeriesProps {
   params: {
@@ -47,9 +48,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
   const t = useTranslations();
   const router = useRouter();
 
-  const format = useFormatter();
-
-  const { series,isErrorSeries } = useGetSeriesByID(seriesID);
+  const { series, isErrorSeries } = useGetSeriesByID(seriesID);
   const { currentUserInfo } = useCurrentUserInfo();
 
   const { mutateDeleteSeries } = useDeleteSeries();
@@ -58,6 +57,15 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
   const isMe = series?.user?._id === currentUserInfo?._id || false;
 
   const author = series?.user;
+
+  const getFormattedDate = (date: string) => {
+    const format = useFormatter();
+    return format.dateTime(new Date(date), {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
 
   const numberReview: number =
     series?.rating.star_1 +
@@ -175,7 +183,9 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
         />
         <div className='h3-semibold mt-7'>{series?.title}</div>
         <div className='text-text-2 text-[1rem] text-pretty mt-4'>{series?.description}</div>
-        <Button className='w-full my-7 py-3'>{t('Start Series')}</Button>
+        <Link href={`/series/${seriesID}/posts/${series?.posts[0]?._id}`}>
+          <Button className='w-full my-7 py-3'>{t('Start Series')}</Button>
+        </Link>
         <div>
           <div className='base-semibold flex-start gap-2'>
             <span>{t('Series Content')}</span>
@@ -231,17 +241,13 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
         <div className='info flex-around mt-10'>
           <div className='flex flex-col gap-2'>
             <span className='base-semibold'>{t('Level')}</span>
-            <span className='text-text-2'>Intermediate</span>
+            <span className='text-text-2'>
+              {t(series?.level.charAt(0).toUpperCase() + series?.level.slice(1))}
+            </span>
           </div>
           <div className='flex flex-col gap-2'>
             <span className='base-semibold'>{t('Date Published')}</span>
-            <span className='text-text-2'>
-              {format.dateTime(new Date(series?.createdAt), {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric'
-              })}
-            </span>
+            <span className='text-text-2'>{getFormattedDate(series?.createdAt)}</span>
           </div>
         </div>
         <Divider className='mt-8 mb-12' />
@@ -261,7 +267,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                 {series?.rating.avg % 1 > 0 && <FaStarHalfAlt />}
               </div>
 
-              <div className='mt-3 text-text-2'>{`${t('Based on')} ${numberReview} ${t('Reviews')}`}</div>
+              <div className='mt-3 text-text-2'>{`${t('Based on')} ${numberReview} ${t('reviews')}`}</div>
             </div>
             <div className='col-span-3 space-y-2'>
               <div className='flex-start gap-4'>

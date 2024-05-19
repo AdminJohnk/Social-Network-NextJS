@@ -35,7 +35,7 @@ import { FaXmark } from 'react-icons/fa6';
 import { MdPublic } from 'react-icons/md';
 import { IoMdLock } from 'react-icons/io';
 import { notFound, useSearchParams } from 'next/navigation';
-import { showErrorToast } from '@/components/ui/toast';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 
 interface IComCoverProps {
   communityID: string;
@@ -86,35 +86,23 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
       switch (tabParam) {
         case 'requests':
           return 1;
-        case 'files':
-          return 2;
         case 'photos':
-          return 3;
+          return 2;
         case 'events':
-          return 4;
-        case 'videos':
-          return 5;
+          return 3;
         case 'members':
-          return 6;
-        case 'medias':
-          return 7;
+          return 4;
         default:
           return 0;
       }
     else
       switch (tabParam) {
-        case 'files':
-          return 1;
         case 'photos':
-          return 2;
+          return 1;
         case 'events':
-          return 3;
-        case 'videos':
-          return 4;
+          return 2;
         case 'members':
-          return 5;
-        case 'medias':
-          return 6;
+          return 3;
         default:
           return 0;
       }
@@ -217,16 +205,18 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                     <div className='join-community-button'>
                       <button
                         onClick={() => {
-                          if (!isMember && !isRequested) mutateJoinCommunity(communityID, {
-                            onError: () => {
-                              showErrorToast(t('Something went wrong! Please try again!'));
-                            }
-                          });
-                          if (isRequested) mutateCancelJoinCommunity(communityID, {
-                            onError: () => {
-                              showErrorToast(t('Something went wrong! Please try again!'));
-                            }
-                          });
+                          if (!isMember && !isRequested)
+                            mutateJoinCommunity(communityID, {
+                              onError: () => {
+                                showErrorToast(t('Something went wrong! Please try again!'));
+                              }
+                            });
+                          if (isRequested)
+                            mutateCancelJoinCommunity(communityID, {
+                              onError: () => {
+                                showErrorToast(t('Something went wrong! Please try again!'));
+                              }
+                            });
                         }}
                         className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
                         {!isCreator ? (
@@ -264,7 +254,6 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                             <span className='text-sm'> {t('Edit')} </span>
                           </>
                         )}
-
                       </button>
                       {isMember && !isCreator && (
                         <div
@@ -293,7 +282,10 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                                   onClick={() => setOpenLeaveCommunity(false)}>
                                   {t('Cancel')}
                                 </Button>
-                                <Button disabled={isLoadingLeaveCommunity} variant={'destructive'} onClick={handleLeaveCommunity}>
+                                <Button
+                                  disabled={isLoadingLeaveCommunity}
+                                  variant={'destructive'}
+                                  onClick={handleLeaveCommunity}>
                                   {t('Leave')}
                                 </Button>
                               </AlertDialogFooter>
@@ -310,7 +302,7 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                         <IoEllipsisHorizontal className='text-xl' />
                       </button>
                       <div
-                        className='w-[240px]'
+                        className='!w-fit'
                         data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
                         <nav>
                           <Link href='' className='hover:!bg-hover-1'>
@@ -320,9 +312,15 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                           <Link href='' className='hover:!bg-hover-1'>
                             <IoShareOutline className='text-xl' /> {t('Share')}
                           </Link>
-                          <Link href='' className='hover:!bg-hover-1'>
+                          <button
+                            type='button'
+                            onClick={() => {
+                              navigator.clipboard.writeText(window.location.href);
+                              showSuccessToast(t('Link copied!'));
+                            }}
+                            className='flex-start p-2 gap-3 rounded-lg w-full hover:!bg-hover-1'>
                             <IoLinkOutline className='text-xl' /> {t('Copy link')}
-                          </Link>
+                          </button>
                           <Link href='' className='hover:!bg-hover-1'>
                             <IoChatbubbleEllipsesOutline className='text-xl' />
                             {t('Sort comments')}
@@ -334,7 +332,7 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                           <hr />
                           {isCreator ? (
                             <Link href='' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
-                              <IoTrashOutline className='text-xl' /> {t('Remove Your Community')}
+                              <IoTrashOutline className='text-xl' /> {t('Remove your community')}
                             </Link>
                           ) : (
                             <Link href='' className='text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50'>
@@ -366,11 +364,6 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                 )}
                 <TabTitle
                   className='hover:!bg-hover-1 rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('files'))}>
-                  {t('Files')}
-                </TabTitle>
-                <TabTitle
-                  className='hover:!bg-hover-1 rounded-sm'
                   onClick={() => router.push(pathname + '?' + createQueryString('photos'))}>
                   {t('Photos')}
                 </TabTitle>
@@ -381,18 +374,8 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                 </TabTitle>
                 <TabTitle
                   className='hover:!bg-hover-1 rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('videos'))}>
-                  {t('Video')}
-                </TabTitle>
-                <TabTitle
-                  className='hover:!bg-hover-1 rounded-sm'
                   onClick={() => router.push(pathname + '?' + createQueryString('members'))}>
                   {t('Members')}
-                </TabTitle>
-                <TabTitle
-                  className='hover:!bg-hover-1 rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('medias'))}>
-                  {t('Media')}
                 </TabTitle>
               </Tabs>
             </nav>
@@ -401,9 +384,8 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
               <input placeholder='Search ..' className='!bg-transparent' />
             </div>
           </div>
-        </div >
-      )
-      }
+        </div>
+      )}
     </>
   );
 }

@@ -49,7 +49,7 @@ export default function CreateStory({}: ICreateStoryProps) {
           </div>
         </div>
 
-        <div className='flex justify-between items-center p-5'>
+        <div className='flex-between p-5'>
           <div className='flex items-start gap-2'>
             <IoTimeOutline className='text-3xl text-sky-600 rounded-full bg-blue-50 dark:bg-transparent' />
             <p className='text-sm text-text-3 font-medium'>

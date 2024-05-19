@@ -29,7 +29,7 @@ export default function SearchHeader() {
   const { usersByName, isLoadingUsersByName } = useGetUsersByName(searchDebounce);
 
   const { mutateCreateSearchLog } = useCreateSearchLog();
-  const { mutateDeleteSearchLog, isLoadingDeleteSearchLog } = useDeleteSearchLog();
+  const { mutateDeleteSearchLog } = useDeleteSearchLog();
 
   const handleDeleteSearchLog = (
     e: React.MouseEvent<Element, MouseEvent>,
@@ -102,7 +102,7 @@ export default function SearchHeader() {
         hidden>
         <div className='xl:w-[694px] sm:w-96 lg:w-[574px] bg-foreground-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
           {searchDebounce === '' ? (
-            isLoadingSearchLogs || isLoadingDeleteSearchLog ? (
+            isLoadingSearchLogs ? (
               <div className='flex-center w-full h-full p-5'>
                 <CircularProgress size={20} className='!text-text-1' />
               </div>

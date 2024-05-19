@@ -42,7 +42,7 @@ export default function ComMineList() {
               <div className='flex gap-2 w-full relative'>
                 <Link
                   href={`/community/${community._id}`}
-                  className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white min-w-fit'>
+                  className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white text-center min-w-fit'>
                   {t('View Community')}
                 </Link>
                 {currentUserInfo._id === community.creator._id && <EditCommunity dataEdit={community} />}

@@ -1,10 +1,9 @@
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
-import { getFormattedDate } from '@/lib/utils/formatDateTime';
 import { ICommentSeriesPost } from '@/types';
 import { Avatar, CircularProgress } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { useFormatter, useTranslations } from 'next-intl';
 import { BiCommentDetail, BiSolidTrashAlt } from 'react-icons/bi';
 import { IoIosMore, IoMdSend } from 'react-icons/io';
 import { IoHeartOutline, IoHeartSharp } from 'react-icons/io5';
@@ -52,6 +51,15 @@ export default function CommentItem({
 
   const { currentUserInfo } = useCurrentUserInfo();
   const isAuthor = currentUserInfo?._id === comment.user._id;
+
+  const getFormattedDate = (date: string) => {
+    const format = useFormatter();
+    return format.dateTime(new Date(date), {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
 
   const { mutateUpdateCommentPostSeries } = useUpdateCommentPostSeries();
   const { mutateDeleteCommentPostSeries } = useDeleteCommentPostSeries();
@@ -351,11 +359,11 @@ export default function CommentItem({
                 <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle>
-                      {t('Are you absolutely sure delete this review?')}
+                      {t('Are you absolutely sure delete this comment?')}
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                       {t(
-                        'You will not be able to recover review after deletion!'
+                        'You will not be able to recover comment after deletion!'
                       )}
                     </AlertDialogDescription>
                   </AlertDialogHeader>

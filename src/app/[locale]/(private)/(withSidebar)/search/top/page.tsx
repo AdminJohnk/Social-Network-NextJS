@@ -1,29 +1,48 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
+import { useQueryClient } from '@tanstack/react-query';
 import { CircularProgress } from '@mui/material';
 
-import { useGetPostsBySearchKey, useGetUsersByName } from '@/hooks/query';
 import Post from '@/components/shared/Post';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import FriendButton from '@/components/pages/Profile/FriendButton';
 import HoverUser from '@/components/shared/Post/HoverUser';
 import { useRouter } from '@/navigation';
+import { useCurrentUserInfo, useGetPostsBySearchKey, useGetUsersByName } from '@/hooks/query';
+import { useCreateSearchLog } from '@/hooks/mutation';
 
-export interface ISearchProps {}
+export interface ISearchProps {
+  searchParams: {
+    search: string;
+  };
+}
 
-export default function Search({}: ISearchProps) {
+export default function Search({ searchParams: { search } }: ISearchProps) {
   const t = useTranslations();
+  const queryClient = useQueryClient();
   const router = useRouter();
-
-  const searchValue = new URLSearchParams(window.location.search).get('search') || '';
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  const { currentUserInfo } = useCurrentUserInfo();
   const { postsBySearchKey, isLoadingPostsBySearchKey, isFetchingPostsBySearchKey } =
-    useGetPostsBySearchKey(searchValue);
-  const { usersByName, isLoadingUsersByName } = useGetUsersByName(searchValue);
+    useGetPostsBySearchKey(search);
+  const { usersByName, isLoadingUsersByName } = useGetUsersByName(search);
+
+  const { mutateCreateSearchLog } = useCreateSearchLog();
+
+  useEffect(() => {
+    if (search) {
+      mutateCreateSearchLog({
+        user: currentUserInfo._id,
+        keyword: search.trim()
+      }).then(() => {
+        queryClient.refetchQueries({ queryKey: ['searchLogs'] });
+      });
+    }
+  }, []);
 
   return (
     <>

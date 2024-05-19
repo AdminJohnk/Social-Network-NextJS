@@ -81,7 +81,7 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
                 <div className='flex flex-col gap-0.5 p-1 bg-foreground-1 rounded-lg shadow-lg *:px-2.5 *:py-1.5 hover:*:!bg-hover-1 *:cursor-pointer *:rounded-lg *:uk-drop-close'>
                   <div>
                     <div
-                      className='flex-start gap-2'
+                      className='flex-start gap-2 uk-drop-close'
                       onClick={() => {
                         setOpenEditPost(true);
                       }}
@@ -165,7 +165,7 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
             </div>
           )}
         </div>
-        <p className='small-regular'>{post.read_time + ' min read'}</p>
+        <p className='small-regular'>{post.read_time + t(' min read')}</p>
       </div>
     </div>
   );
