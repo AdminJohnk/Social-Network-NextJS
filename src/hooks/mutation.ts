@@ -1493,6 +1493,27 @@ export const useUpdateCommunity = () => {
   };
 };
 
+export const useCedeCreatorCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: { id: string; user_id: string }) => {
+      const { data: community } = await communityService.cedeCreator(data.id, data.user_id);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community.id] });
+    }
+  });
+
+  return {
+    mutateCedeCreatorCommunity: mutateAsync,
+    isLoadingCedeCreatorCommunity: isPending,
+    isErrorCedeCreatorCommunity: isError,
+    isSuccessCedeCreatorCommunity: isSuccess
+  };
+} 
+
 export const useJoinCommunity = () => {
   const queryClient = useQueryClient();
 

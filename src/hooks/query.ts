@@ -250,8 +250,7 @@ export const usePostData = (postID: string) => {
       const { data } = await postService.getPostByID(postID);
       return data.metadata;
     },
-    staleTime: Infinity,
-    throwOnError: false
+    staleTime: Infinity
   });
 
   return {
@@ -467,7 +466,6 @@ export const useCurrentConversationData = (conversationID: string | undefined) =
       return data.metadata;
     },
     staleTime: Infinity,
-    throwOnError: false,
     enabled: !!conversationID
   });
 
@@ -711,9 +709,9 @@ export const useGetCommunityByID = (id: string) => {
 
   return {
     isLoadingCommunity: isPending,
-    isErrorMessageCall: isError,
+    isErrorCommunity: isError,
     community: data!,
-    isFetchingMessageCall: isFetching
+    isFetchingCommunity: isFetching
   };
 };
 
@@ -730,12 +728,12 @@ export const useGetCommunitiesByUserID = (userID: string) => {
 
   return {
     isLoadingCommunities: isPending,
-    isErrorMessageCall: isError,
+    isErrorCommunities: isError,
     communities: data!,
-    isFetchingMessageCall: isFetching
+    isFetchingCommunities: isFetching
   };
-}
-   
+};
+
 export const useGetNoti = (userID: number) => {
   const { data, isPending, isError, isFetching } = useInfiniteQuery({
     queryKey: ['noti', userID],
@@ -856,8 +854,7 @@ export const useGetPostsByHashtag = (hashtag: string) => {
     postsByHashtag: data!,
     isFetchingPostsByHashtag: isFetching
   };
-
-}
+};
 
 export const useGetSearchLogs = () => {
   const { data, isPending, isError, isFetching } = useQuery({

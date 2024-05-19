@@ -21,13 +21,19 @@ import { cn, getImageURL } from '@/lib/utils';
 import { useJoinCommunity } from '@/hooks/mutation';
 import { useCallback, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { on } from 'events';
-import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle
+} from '@/components/ui/alert-dialog';
 import { CircularProgress } from '@mui/material';
 import { FaXmark } from 'react-icons/fa6';
 import { MdPublic } from 'react-icons/md';
 import { IoMdLock } from 'react-icons/io';
-import { useSearchParams } from 'next/navigation';
+import { notFound, useSearchParams } from 'next/navigation';
 
 interface IComCoverProps {
   communityID: string;
@@ -42,7 +48,7 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
 
   const { currentUserInfo } = useCurrentUserInfo();
 
-  const { community, isLoadingCommunity } = useGetCommunityByID(communityID);
+  const { community, isLoadingCommunity, isErrorCommunity } = useGetCommunityByID(communityID);
   const { mutateJoinCommunity, isLoadingJoinCommunity } = useJoinCommunity();
 
   const isMember = useMemo(
@@ -117,6 +123,10 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
   const handleLeaveCommunity = () => {
     setOpenLeaveCommunity(false);
     mutateJoinCommunity(communityID);
+  };
+
+  if (isErrorCommunity) {
+    notFound();
   }
 
   return (
@@ -202,40 +212,50 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                         className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
                         {isMember ? (
                           <>
-                            {isLoadingJoinCommunity ?
-                              <CircularProgress size={20} className='!text-text-1 mr-2' /> :
-                              <IoCheckmarkOutline className='text-xl' />}
+                            {isLoadingJoinCommunity ? (
+                              <CircularProgress size={20} className='!text-text-1 mr-2' />
+                            ) : (
+                              <IoCheckmarkOutline className='text-xl' />
+                            )}
                             <span className='text-sm'> {t('Joined')} </span>
                           </>
                         ) : isRequested ? (
                           <>
-                            {isLoadingJoinCommunity ?
-                              <CircularProgress size={20} className='!text-text-1 mr-2' /> :
-                              <FaXmark className='text-xl' />}
+                            {isLoadingJoinCommunity ? (
+                              <CircularProgress size={20} className='!text-text-1 mr-2' />
+                            ) : (
+                              <FaXmark className='text-xl' />
+                            )}
                             <span>{t('Cancel Request')}</span>
                           </>
                         ) : (
                           <>
-                            {isLoadingJoinCommunity ?
-                              <CircularProgress size={20} className='!text-text-1 mr-2' /> :
-                              <IoAddOutline className='text-xl' />}
+                            {isLoadingJoinCommunity ? (
+                              <CircularProgress size={20} className='!text-text-1 mr-2' />
+                            ) : (
+                              <IoAddOutline className='text-xl' />
+                            )}
                             <span className='text-sm'> {t('Join')} </span>
                           </>
                         )}
                       </button>
                       {isMember && (
-                        <div className='!w-fit'
+                        <div
+                          className='!w-fit'
                           data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                          <Button
-                            variant={'destructive'}
-                            onClick={() => setOpenLeaveCommunity(true)}
-                          >{t('Leave Group')}</Button>
+                          <Button variant={'destructive'} onClick={() => setOpenLeaveCommunity(true)}>
+                            {t('Leave Group')}
+                          </Button>
                           <AlertDialog open={openLeaveCommunity} onOpenChange={setOpenLeaveCommunity}>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>{t('Are you absolutely sure leave this community?')}</AlertDialogTitle>
+                                <AlertDialogTitle>
+                                  {t('Are you absolutely sure leave this community?')}
+                                </AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  {t('You will not be able to return to the group until approved by the admin!')}
+                                  {t(
+                                    'You will not be able to return to the group until approved by the admin!'
+                                  )}
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
@@ -246,9 +266,7 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                                   onClick={() => setOpenLeaveCommunity(false)}>
                                   {t('Cancel')}
                                 </Button>
-                                <Button
-                                  variant={'destructive'}
-                                  onClick={handleLeaveCommunity}>
+                                <Button variant={'destructive'} onClick={handleLeaveCommunity}>
                                   {t('Leave')}
                                 </Button>
                               </AlertDialogFooter>

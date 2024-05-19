@@ -18,6 +18,9 @@ class CommunityService extends BaseService {
   updateCommunity = (id: string, data: ICreateCommunity): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/update/${id}`, data);
   };
+  cedeCreator = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return this.put(`/communities/cede-creator/${id}`, { user_id });
+  }
   joinCommunity = (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/join/${id}`);
   };

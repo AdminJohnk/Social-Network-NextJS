@@ -12,6 +12,7 @@ import HoverUser from '@/components/shared/Post/HoverUser';
 import { Link, useRouter } from '@/navigation';
 import AvatarMessage from '../../Chat/Avatar/AvatarMessage';
 import {
+  useCedeCreatorCommunity,
   useDeleteMemberCommunity,
   usePromoteAdminCommunity,
   useRevokeAdminCommunity
@@ -32,6 +33,7 @@ export default function Members({ communityID }: IMembersProps) {
   const router = useRouter();
   const { community, isLoadingCommunity } = useGetCommunityByID(communityID);
 
+  const { mutateCedeCreatorCommunity, isLoadingCedeCreatorCommunity } = useCedeCreatorCommunity();
   const { mutateDeleteMemberCommunity, isLoadingDeleteMemberCommunity } = useDeleteMemberCommunity();
   const { mutatePromoteAdminCommunity, isLoadingPromoteAdminCommunity } = usePromoteAdminCommunity();
   const { mutateRevokeAdminCommunity, isLoadingRevokeAdminCommunity } = useRevokeAdminCommunity();
@@ -52,15 +54,31 @@ export default function Members({ communityID }: IMembersProps) {
     [community, community?.creator._id]
   );
 
-  type MemberRole = 'Creator' | 'Admin' | 'Member';
-
-  const memberRole = (userID: string): MemberRole => {
-    if (community && community.creator._id === userID) return 'Creator';
+  const memberRole = (userID: string) => {
+    if (community && community.creator._id === userID) return 'Community Creator';
     if (community && community.admins.some((admin) => admin._id === userID)) return 'Admin';
     return 'Member';
   };
 
   const [isUserSelected, setIsUserSelected] = useState<string>();
+
+  const handleCedeCreator = (userID: string) => {
+    setIsUserSelected(userID);
+    mutateCedeCreatorCommunity(
+      { id: communityID, user_id: userID },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('You have successfully ceded the community creator!'));
+        },
+        onError: () => {
+          showErrorToast(t('Something went wrong! Please try again!'));
+        },
+        onSettled() {
+          setIsUserSelected(undefined);
+        }
+      }
+    );
+  };
 
   const handleDeleteMember = (userID: string) => {
     setIsUserSelected(userID);
@@ -141,12 +159,16 @@ export default function Members({ communityID }: IMembersProps) {
                   <AlertDialogHeader>
                     <DialogTitle>{t('Add members')}</DialogTitle>
                   </AlertDialogHeader>
-                  <AddMemberToCommunity communityID={communityID} handleClose={() => setOpenAddMember(false)}
-                    users={friendsList.filter((friend) => !members?.some((member) => member._id === friend._id))} />
+                  <AddMemberToCommunity
+                    communityID={communityID}
+                    handleClose={() => setOpenAddMember(false)}
+                    users={friendsList.filter(
+                      (friend) => !members?.some((member) => member._id === friend._id)
+                    )}
+                  />
                 </DialogContent>
               </Dialog>
             </span>
-
           </div>
           <div className='mt-4 grid grid-cols-2 max-md:grid-cols-1 gap-4 max-md:gap-2'>
             {members &&
@@ -170,7 +192,7 @@ export default function Members({ communityID }: IMembersProps) {
                           </Link>
                         </HoverUser>
                         <div className='flex items-center mt-1'>
-                          <span className='ml-1 text-sm text-gray-400'>{memberRole(member._id)}</span>
+                          <span className='ml-1 text-sm text-gray-400'>{t(memberRole(member._id))}</span>
                         </div>
                       </div>
                     </div>
@@ -184,6 +206,15 @@ export default function Members({ communityID }: IMembersProps) {
                             className='!w-fit'
                             data-uk-drop='offset:6;pos: left-top;shift: false; flip: false; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
                             <div className='flex flex-col gap-2 bg-foreground-1 p-2 rounded-lg shadow-lg'>
+                              {isCreator && (
+                                <Button
+                                  disabled={isLoadingCedeCreatorCommunity && isUserSelected === member._id}
+                                  onClick={() => handleCedeCreator(member._id)}
+                                  variant='ghost'
+                                  className='bg-transparent'>
+                                  {t('Cede Community Creator')}
+                                </Button>
+                              )}
                               {isCreator && memberRole(member._id) === 'Admin' ? (
                                 <Button
                                   disabled={isLoadingRevokeAdminCommunity && isUserSelected === member._id}
