@@ -128,7 +128,7 @@ export default function Members({ communityID }: IMembersProps) {
             {members &&
               members.map((member) => (
                 <div className='flex-center' key={member._id}>
-                  <div className='flex justify-between items-center rounded-lg bg-foreground-2 w-full p-2'>
+                  <div className='flex-between rounded-lg bg-foreground-2 w-full p-2'>
                     <div className='flex items-center gap-2'>
                       <HoverUser user={member}>
                         <div

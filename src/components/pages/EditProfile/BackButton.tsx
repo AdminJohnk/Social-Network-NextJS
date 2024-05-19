@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { IoArrowBack } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 

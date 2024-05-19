@@ -169,7 +169,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
                 userSentRequest.length > 0 &&
                 userSentRequest.map((user) => (
                   <div className='flex-center' key={user._id}>
-                    <div className='flex justify-between items-center rounded-lg bg-foreground-2 w-full p-2'>
+                    <div className='flex-between rounded-lg bg-foreground-2 w-full p-2'>
                       <div className='flex items-center gap-2'>
                         <HoverUser user={user}>
                           <div

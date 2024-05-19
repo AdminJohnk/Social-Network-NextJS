@@ -20,7 +20,6 @@ export default function WriteReview({
   const t = useTranslations();
 
   const { mutateReviewSeries } = useReviewSeries();
-  const { currentUserInfo } = useCurrentUserInfo();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [numberStar, setNumberStar] = useState<number>(0);
@@ -28,6 +27,16 @@ export default function WriteReview({
 
   const handleSubmit = async () => {
     setIsLoading(true);
+
+    if (numberStar === 0) {
+      showErrorToast(t('Please select your rating!'));
+      setIsLoading(false);
+      return;
+    } else if (review.trim().length === 0) {
+      showErrorToast(t('Please write your review!'));
+      setIsLoading(false);
+      return;
+    }
 
     mutateReviewSeries(
       {
@@ -54,12 +63,12 @@ export default function WriteReview({
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[760px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
         <h2 className='text-sm font-medium text-text-1'>
-          {t('Create Series')}
+          {t('Create Review')}
         </h2>
       </div>
       <div className='max-h-[500px] overflow-y-scroll custom-scrollbar-bg px-5 pt-4 pb-7 *:mt-7'>
         <div className='mb-4'>
-          <div className='mb-3 base-semibold'>Your Rating</div>
+          <div className='mb-3 base-semibold'>{t('Your Rating')}</div>
           <div className='flex-center *:size-10 *:text-yellow-400 gap-4 *:cursor-pointer'>
             {Array.from({ length: 5 }).map((_, index) => {
               return (
@@ -81,7 +90,7 @@ export default function WriteReview({
           </div>
         </div>
         <div>
-          <div className='mb-3 base-semibold'>Leave a Review</div>
+          <div className='mb-3 base-semibold'>{t('Leave a Review')}</div>
           <div>
             <textarea
               className='w-full border border-border-1 rounded-lg p-2 resize-none bg-transparent custom-scrollbar-bg'
@@ -106,7 +115,7 @@ export default function WriteReview({
             {isLoading && (
               <CircularProgress size={20} className='!text-text-1 mr-2' />
             )}
-            {t('Publish Series')} <span className='ripple-overlay'></span>
+            {t('Submit Review')} <span className='ripple-overlay'></span>
           </Button>
         </div>
       </div>
