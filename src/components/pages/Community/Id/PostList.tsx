@@ -48,7 +48,7 @@ export default function PostList({ communityID }: IPostListProps) {
           {community.posts.length ? (
             <>
               {community.posts.map((post) => (
-                <Post key={post._id} post={post} />
+                <Post key={post._id} post={post} feature='community' />
               ))}
               {/* {hasNextPosts && (
                 <div ref={postsRef}>

@@ -8,7 +8,6 @@ import { ClassValue } from 'clsx';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
-import { useRouter } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
@@ -28,8 +27,6 @@ const classStyleInput: ClassValue =
 
 export default function LoginForm({ callbackUrl, className }: IRegisterFormProps) {
   const t = useTranslations();
-
-  const router = useRouter();
 
   const {
     register,
@@ -63,7 +60,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
           });
         }
       } else {
-        router.replace(callbackUrl || '/');
+        window.location.replace(callbackUrl || '/');
       }
     }
 

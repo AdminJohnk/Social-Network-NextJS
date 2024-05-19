@@ -36,7 +36,7 @@ export default function ComMineList() {
                 <Link href=''> {t('Health ')} </Link>
                 <div className='md:block hidden'>·</div>
                 <div>
-                  {community.members.length} {t('members')}{' '}
+                  {community.members.length} {t('members')}
                 </div>
               </div>
               <div className='flex gap-2 w-full relative'>

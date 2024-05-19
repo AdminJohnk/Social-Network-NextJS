@@ -15,15 +15,19 @@ export interface ICommunityProps {
     locale: string;
     id: string;
   };
+  searchParams: {
+    tab: string;
+  };
 }
 
-export default function Community({ params: { locale, id } }: ICommunityProps) {
+export default function Community({ params: { locale, id }, searchParams: { tab } }: ICommunityProps) {
   unstable_setRequestLocale(locale);
 
   return (
     <main className='ms-60 max-lg:ms-0 mt-16'>
       <div className='max-w-[1065px] mx-auto'>
-        <ComCover communityID={id} />
+        <ComCover communityID={id} tabParam={tab} />
+
         <TabsContent id='tabs-community' className='mt-4 !border-none'>
           <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='community-side'>
             <div className='flex-1 xl:space-y-6 space-y-3'>
@@ -44,10 +48,10 @@ export default function Community({ params: { locale, id } }: ICommunityProps) {
           <RequestList communityID={id} />
           <div className='files'></div>
           <div className='photos'></div>
-          <div className="events"></div>
-          <div className="videos"></div>
+          <div className='events'></div>
+          <div className='videos'></div>
           <Members communityID={id} />
-          <div className="medias"></div>
+          <div className='medias'></div>
         </TabsContent>
       </div>
     </main>

@@ -29,9 +29,13 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import DeleteButton from '@/components/pages/Series/DeleteButton';
-import { useCommentPostSeries, useDeleteImage, useDeletePostToSeries,
+import {
+  useCommentPostSeries,
+  useDeleteImage,
+  useDeletePostToSeries,
   useLikePostSeries,
-  useSavePostSeries } from '@/hooks/mutation';
+  useSavePostSeries
+} from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { useRouter } from 'next/navigation';
 import { FaSwatchbook } from 'react-icons/fa';
@@ -76,13 +80,9 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsLiked(
-      post?.likes.some(liker => liker._id === currentUserInfo?._id) || false
-    );
+    setIsLiked(post?.likes.some((liker) => liker._id === currentUserInfo?._id) || false);
     setNumberLikes(post?.likes.length || 0);
-    setIsSaved(
-      post?.saves.some(saver => saver._id === currentUserInfo?._id) || false
-    );
+    setIsSaved(post?.saves.some((saver) => saver._id === currentUserInfo?._id) || false);
   }, [post]);
 
   // Delete Post
@@ -155,13 +155,8 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
               series_id: seriesID,
               post_id: postID
             });
-          }}
-        >
-          {isLiked ? (
-            <IoHeartSharp className='size-4 text-red-500' />
-          ) : (
-            <IoHeartOutline className='size-4' />
-          )}
+          }}>
+          {isLiked ? <IoHeartSharp className='size-4 text-red-500' /> : <IoHeartOutline className='size-4' />}
           <span>{numberLikes}</span>
         </div>
         <a
@@ -169,8 +164,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
           className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
           onClick={() => {
             editor?.commands.focus();
-          }}
-        >
+          }}>
           <BiCommentDetail className='size-4' />
           <span>{post?.comments.length}</span>
         </a>
@@ -181,8 +175,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
               series_id: seriesID,
               post_id: postID
             });
-          }}
-        >
+          }}>
           {isSaved ? (
             <GoBookmarkFill className='size-4 text-yellow-400 cursor-pointer' />
           ) : (
@@ -307,7 +300,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
             </Link>
             <div className='flex-col'>
               <Link href={`/profile/${author?._id}`}>
-                <div>{author?.name}</div>{' '}
+                <div>{author?.name}</div>
               </Link>
               {author?.experiences?.length > 0 && (
                 <div className='small-regular text-text-2 space-x-1'>
@@ -350,18 +343,10 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
           </div>
           <div className='mt-7'>
             {post?.comments
-              .sort(
-                (a, b) =>
-                  new Date(b.createdAt).getTime() -
-                  new Date(a.createdAt).getTime()
-              )
+              .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
               .map((comment, index) => (
                 <div className='mb-6' key={index}>
-                  <CommentItem
-                    comment={comment}
-                    series_id={seriesID}
-                    post_id={postID}
-                  />
+                  <CommentItem comment={comment} series_id={seriesID} post_id={postID} />
                 </div>
               ))}
           </div>

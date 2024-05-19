@@ -34,7 +34,7 @@ export interface IPostProps {
   feature?: IFeaturePost;
 }
 
-export default function Post({ post, feature }: IPostProps) {
+export default function Post({ post, feature = 'detail' }: IPostProps) {
   const t = useTranslations();
   const content =
     post?.type === 'Post'
@@ -156,7 +156,8 @@ export default function Post({ post, feature }: IPostProps) {
       {!post ? (
         <PostSkeleton />
       ) : (
-        <div className='post bg-foreground-1 rounded-lg p-4'>
+        <div
+          className={cn('post bg-foreground-1 rounded-lg p-4', feature === 'requested' && 'bg-foreground-2')}>
           <div className='flex-between'>
             <div className='flex-start'>
               <HoverUser user={post.post_attributes.user}>
@@ -172,18 +173,22 @@ export default function Post({ post, feature }: IPostProps) {
                 </HoverUser>
                 <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
                   <Link href={`/posts/${post._id}`}>{handleDateTime(post.createdAt)}</Link>
-                  <span>•</span>
-                  {post.visibility === 'public' ? (
-                    <MdPublic className='size-4' />
-                  ) : post.visibility === 'friend' ? (
-                    <FaUserFriends className='size-4' />
-                  ) : (
-                    <IoMdLock className='size-4' />
+                  {!(feature === 'requested' || feature === 'community') && (
+                    <>
+                      <span>•</span>
+                      {post.visibility === 'public' ? (
+                        <MdPublic className='size-4' />
+                      ) : post.visibility === 'friend' ? (
+                        <FaUserFriends className='size-4' />
+                      ) : (
+                        <IoMdLock className='size-4' />
+                      )}
+                    </>
                   )}
                 </div>
               </div>
             </div>
-            {feature !== 'sharing' && (
+            {!(feature === 'sharing' || feature === 'requested') && (
               <div className='popover'>
                 <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>
                   <IoIosMore className='size-6' />
@@ -266,7 +271,7 @@ export default function Post({ post, feature }: IPostProps) {
               </div>
             )}
           </div>
-          {feature !== 'sharing' && (
+          {!(feature === 'sharing' || feature === 'requested') && (
             <div className={cn('flex-between mt-4', post.type === 'Share' && 'mt-4')}>
               <div className='left flex-start gap-5'>
                 <div className='flex-start gap-3'>
@@ -328,7 +333,7 @@ export default function Post({ post, feature }: IPostProps) {
               </div>
             </div>
           )}
-          {feature !== 'sharing' && (
+          {!(feature === 'sharing' || feature === 'requested') && (
             <div>
               <div className='comment-list mt-7'>
                 <CommentList postID={post._id} comment_number={post.post_attributes.comment_number} />

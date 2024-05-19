@@ -1,7 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useFormatter, useNow, useTranslations } from 'next-intl';
+import { useEffect, useMemo, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
 import { IPost, IUserInfo } from '@/types';
 import HoverUser from '@/components/shared/Post/HoverUser';
@@ -9,13 +9,16 @@ import AvatarMessage from '../../Chat/Avatar/AvatarMessage';
 import { Link, useRouter } from '@/navigation';
 import { CircularProgress } from '@mui/material';
 import { Button } from '@/components/ui/button';
-import { useAcceptJoinCommunity, useRejectJoinCommunity } from '@/hooks/mutation';
+import {
+  useAcceptJoinCommunity,
+  useAcceptPostCommunity,
+  useRejectJoinCommunity,
+  useRejectPostCommunity
+} from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { cn, getImageURL } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { IoIosMore } from 'react-icons/io';
-import Image from 'next/image';
-import ShowContent from '@/components/shared/ShowContent/ShowContent';
-import { isThisWeek, isThisYear, isToday } from 'date-fns';
+import Post from '@/components/shared/Post';
 
 export interface IRequestListProps {
   communityID: string;
@@ -24,61 +27,6 @@ export interface IRequestListProps {
 export default function RequestList({ communityID }: IRequestListProps) {
   const t = useTranslations();
   const router = useRouter();
-
-  useNow({ updateInterval: 1000 * 30 });
-  const format = useFormatter();
-
-  const handleDateTime = useCallback((date: string) => {
-    const messageDate = new Date(date).getTime();
-
-    // check if today
-    if (isToday(messageDate)) {
-      return format.relativeTime(new Date(date), new Date());
-    }
-
-    // check if this week
-    if (isThisWeek(messageDate, { weekStartsOn: 1 })) {
-      return (
-        format.dateTime(new Date(date), { weekday: 'long' }) +
-        ' • ' +
-        format.dateTime(new Date(date), {
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true
-        })
-      );
-    }
-
-    // check if this year
-    if (isThisYear(messageDate)) {
-      return (
-        format.dateTime(new Date(date), {
-          month: 'long',
-          day: 'numeric'
-        }) +
-        ' • ' +
-        format.dateTime(new Date(date), {
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true
-        })
-      );
-    }
-
-    return (
-      format.dateTime(new Date(date), {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }) +
-      ' • ' +
-      format.dateTime(new Date(date), {
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true
-      })
-    );
-  }, []);
 
   const { community, isLoadingCommunity } = useGetCommunityByID(communityID);
   const [userSentRequest, setUserSentRequest] = useState<IUserInfo[]>();
@@ -101,49 +49,66 @@ export default function RequestList({ communityID }: IRequestListProps) {
     [community, community?.admins]
   );
 
-  const { mutateAcceptJoinCommunity } = useAcceptJoinCommunity();
-  const { mutateRejectJoinCommunity } = useRejectJoinCommunity();
+  const { mutateAcceptJoinCommunity, isLoadingAcceptJoinCommunity } = useAcceptJoinCommunity();
+  const { mutateRejectJoinCommunity, isLoadingRejectJoinCommunity } = useRejectJoinCommunity();
+  const { mutateAcceptPostCommunity, isLoadingAcceptPostCommunity } = useAcceptPostCommunity();
+  const { mutateRejectPostCommunity, isLoadingRejectPostCommunity } = useRejectPostCommunity();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isUserSelected, setIsUserSelected] = useState<string>();
-
-  const handleAcceptRequest = (user_id: string) => {
-    setIsLoading(true);
-    setIsUserSelected(user_id);
+  const handleAcceptJoinRequest = (user_id: string) => {
     mutateAcceptJoinCommunity(
       { communityID, userID: user_id },
       {
         onSuccess: () => {
-          showSuccessToast(t('You accepted this member successfully!'));
+          showSuccessToast(t('Successfully accepted the member request!'));
           setUserSentRequest((prev) => prev?.filter((item) => item._id !== user_id));
         },
         onError: () => {
           showErrorToast(t('Something went wrong! Please try again!'));
-        },
-        onSettled() {
-          setIsLoading(false);
-          setIsUserSelected(undefined);
         }
       }
     );
   };
 
-  const handleRejectRequest = (user_id: string) => {
-    setIsLoading(true);
-    setIsUserSelected(user_id);
+  const handleRejectJoinRequest = (user_id: string) => {
     mutateRejectJoinCommunity(
       { communityID, userID: user_id },
       {
         onSuccess: () => {
-          showSuccessToast(t('Your profile has been updated successfully!'));
+          showSuccessToast(t('Successfully rejected the member request!'));
           setUserSentRequest((prev) => prev?.filter((item) => item._id !== user_id));
         },
         onError: () => {
           showErrorToast(t('Something went wrong! Please try again!'));
+        }
+      }
+    );
+  };
+
+  const handleAcceptPostRequest = (post_id: string) => {
+    mutateAcceptPostCommunity(
+      { id: communityID, post_id },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('Successfully accepted the post request!'));
+          setPostRequest((prev) => prev?.filter((item) => item._id !== post_id));
         },
-        onSettled() {
-          setIsLoading(false);
-          setIsUserSelected(undefined);
+        onError: () => {
+          showErrorToast(t('Something went wrong! Please try again!'));
+        }
+      }
+    );
+  };
+
+  const handleRejectPostRequest = (post_id: string) => {
+    mutateRejectPostCommunity(
+      { id: communityID, post_id },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('Successfully rejected the post request!'));
+          setPostRequest((prev) => prev?.filter((item) => item._id !== post_id));
+        },
+        onError: () => {
+          showErrorToast(t('Something went wrong! Please try again!'));
         }
       }
     );
@@ -202,13 +167,11 @@ export default function RequestList({ communityID }: IRequestListProps) {
                             <Button
                               className={cn(
                                 'button lg:px-6 text-white max-md:flex-1',
-                                isLoading && 'select-none'
+                                isLoadingAcceptJoinCommunity && 'select-none'
                               )}
-                              disabled={isLoading && isUserSelected === user._id}
-                              onClick={() => {
-                                handleAcceptRequest(user._id);
-                              }}>
-                              {isLoading && isUserSelected === user._id && (
+                              disabled={isLoadingAcceptJoinCommunity}
+                              onClick={() => handleAcceptJoinRequest(user._id)}>
+                              {isLoadingAcceptJoinCommunity && (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
                               )}
                               {t('Accept')}
@@ -216,13 +179,14 @@ export default function RequestList({ communityID }: IRequestListProps) {
                             <Button
                               className={cn(
                                 'button lg:px-6 text-white max-md:flex-1',
-                                isLoading && 'select-none'
+                                isLoadingRejectJoinCommunity && 'select-none'
                               )}
                               variant={'destructive'}
-                              disabled={isLoading && isUserSelected === user._id}
-                              onClick={() => {
-                                handleRejectRequest(user._id);
-                              }}>
+                              disabled={isLoadingRejectJoinCommunity}
+                              onClick={() => handleRejectJoinRequest(user._id)}>
+                              {isLoadingRejectJoinCommunity && (
+                                <CircularProgress size={20} className='!text-text-1 mr-2' />
+                              )}
                               {t('Reject')}
                             </Button>
                           </div>
@@ -232,7 +196,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
                   </div>
                 ))}
             </div>
-            {!userSentRequest && (
+            {!userSentRequest?.length && (
               <div className='flex-center p-4'>
                 <span className='text-text-2 text-2xl font-semibold'>{t('No member request')}</span>
               </div>
@@ -242,56 +206,39 @@ export default function RequestList({ communityID }: IRequestListProps) {
             <h2 className='text-lg font-semibold'>
               {postRequest?.length} {t('Post Requests')}
             </h2>
-            <div className='mt-4 grid grid-cols-2 max-md:grid-cols-1 gap-4 max-md:gap-2'>
-              {postRequest &&
-                postRequest.length > 0 &&
-                postRequest.map((post) => (
-                  <div className='card-list bg-foreground-2 p-4 rounded-lg' key={post._id}>
-                    <Link href={`/posts/${post._id}`}>
-                      <div className='card-list-media md:w-[320px] md:h-[180px] sm:aspect-[3/1.2] aspect-[3/1.5]'>
-                        {post!.post_attributes.images.length > 0 ? (
-                          <Image
-                            width={1000}
-                            height={1000}
-                            src={getImageURL(post!.post_attributes.images[0])}
-                            alt={post!.post_attributes.images[0]}
-                          />
-                        ) : (
-                          <Image
-                            width={1000}
-                            height={1000}
-                            src={getImageURL(post!.post_attributes.user.user_image)}
-                            alt={post!.post_attributes.user.user_image}
-                          />
-                        )}
-                      </div>
-                    </Link>
-                    <div className='card-list-body relative'>
-                      <p className='card-list-text max-h-20 overflow-hidden'>
-                        {
-                          <ShowContent
-                            content={
-                              post.post_attributes.content.length > 250
-                                ? post.post_attributes.content.slice(0, 500) + '...'
-                                : post.post_attributes.content
-                            }
-                          />
-                        }
-                      </p>
-                      <Link href='timeline.html'>
-                        <div className='card-list-link mt-5'> {post.post_attributes.user.name}</div>
-                      </Link>
-                      <div className='flex items-center justify-between'>
-                        <div className='card-list-info'>
-                          <div> {handleDateTime(post.createdAt)}</div>
-                        </div>
-                        {/* <ButtonRemoveSavePost post_id={post._id} /> */}
+            <div className='mt-4 flex-center'>
+              <div className='w-1/2'>
+                {postRequest &&
+                  postRequest.length > 0 &&
+                  postRequest.map((post) => (
+                    <div key={post._id} className='bg-foreground-2 flex-center flex-col rounded-lg'>
+                      <Post post={post} feature='requested' />
+                      <div className='w-full pr-4 pb-4 flex-end gap-5'>
+                        <Button
+                          className={cn(isLoadingAcceptPostCommunity && 'select-none')}
+                          disabled={isLoadingAcceptPostCommunity}
+                          onClick={() => handleAcceptPostRequest(post._id)}>
+                          {isLoadingAcceptPostCommunity && (
+                            <CircularProgress size={20} className='!text-text-1 mr-2' />
+                          )}
+                          {t('Accept')}
+                        </Button>
+                        <Button
+                          variant='destructive'
+                          className={cn(isLoadingRejectPostCommunity && 'select-none')}
+                          disabled={isLoadingRejectPostCommunity}
+                          onClick={() => handleRejectPostRequest(post._id)}>
+                          {isLoadingRejectPostCommunity && (
+                            <CircularProgress size={20} className='!text-text-1 mr-2' />
+                          )}
+                          {t('Reject')}
+                        </Button>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+              </div>
             </div>
-            {!postRequest && (
+            {!postRequest?.length && (
               <div className='flex-center p-4'>
                 <span className='text-text-2 text-2xl font-semibold'>{t('No post request')}</span>
               </div>

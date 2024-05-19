@@ -211,7 +211,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
             </Link>
             <div className='flex-col'>
               <Link href={`/profile/${author?._id}`}>
-                <div>{author?.name}</div>{' '}
+                <div>{author?.name}</div>
               </Link>
               {author?.experiences?.length > 0 && (
                 <div className='small-regular text-text-2 space-x-1'>
@@ -331,15 +331,11 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
         </Modal>
         <div className='render-review'>
           {series?.reviews
-            .sort(
-              (a, b) =>
-                new Date(b.createdAt).getTime() -
-                new Date(a.createdAt).getTime()
-            )
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
             .sort((a, b) => b.rating - a.rating)
             .map((review, index) => (
               <div className='mb-6' key={index}>
-                <ReviewItem  review={review} series_id={seriesID} />
+                <ReviewItem review={review} series_id={seriesID} />
               </div>
             ))}
         </div>

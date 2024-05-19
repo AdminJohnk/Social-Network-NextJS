@@ -3,7 +3,7 @@
 import { TabTitle, Tabs } from '@/components/ui/tabs';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { Link } from '@/navigation';
+import { Link, usePathname, useRouter } from '@/navigation';
 import { FaSearch } from 'react-icons/fa';
 import {
   IoAddOutline,
@@ -19,19 +19,26 @@ import {
 import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
 import { useJoinCommunity } from '@/hooks/mutation';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { on } from 'events';
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { CircularProgress } from '@mui/material';
 import { FaXmark } from 'react-icons/fa6';
+import { MdPublic } from 'react-icons/md';
+import { IoMdLock } from 'react-icons/io';
+import { useSearchParams } from 'next/navigation';
 
 interface IComCoverProps {
   communityID: string;
+  tabParam?: string;
 }
 
-export default function ComCover({ communityID }: IComCoverProps) {
+export default function ComCover({ communityID, tabParam }: IComCoverProps) {
   const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const { currentUserInfo } = useCurrentUserInfo();
 
@@ -47,9 +54,63 @@ export default function ComCover({ communityID }: IComCoverProps) {
     [community]
   );
 
-  const isAdmin = useMemo(() => community && community.admins.some((admin) => admin._id === currentUserInfo._id), [community]);
+  const isAdmin = useMemo(
+    () => community && community.admins.some((admin) => admin._id === currentUserInfo._id),
+    [community]
+  );
 
-  const isCreator = useMemo(() => community && community.creator._id === currentUserInfo._id, [community]);
+  const createQueryString = useCallback(
+    (value: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set('tab', value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const tab = useMemo(() => {
+    if (isAdmin)
+      switch (tabParam) {
+        case 'requests':
+          return 1;
+        case 'files':
+          return 2;
+        case 'photos':
+          return 3;
+        case 'events':
+          return 4;
+        case 'videos':
+          return 5;
+        case 'members':
+          return 6;
+        case 'medias':
+          return 7;
+        default:
+          return 0;
+      }
+    else
+      switch (tabParam) {
+        case 'files':
+          return 1;
+        case 'photos':
+          return 2;
+        case 'events':
+          return 3;
+        case 'videos':
+          return 4;
+        case 'members':
+          return 5;
+        case 'medias':
+          return 6;
+        default:
+          return 0;
+      }
+  }, [isAdmin]);
+
+  const onClickMoreMembers = () => {
+    window.location.href = pathname + '?' + createQueryString('members');
+  };
 
   const [openLeaveCommunity, setOpenLeaveCommunity] = useState(false);
 
@@ -71,6 +132,7 @@ export default function ComCover({ communityID }: IComCoverProps) {
               src={getImageURL(community?.image)}
               alt='cover'
               className='h-full w-full object-cover inset-0'
+              priority
             />
 
             <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from -black/60 pt-10 z-10'></div>
@@ -91,32 +153,47 @@ export default function ComCover({ communityID }: IComCoverProps) {
               <div className='flex lg:items-center justify-between max-md:flex-col'>
                 <div className='flex-1'>
                   <h3 className='md:text-2xl text-base font-bold text-text-1'>{community.name}</h3>
-                  <p className=' font-normal text-gray-500 mt-2 flex gap-2 flex-wrap dark:text-white/80'>
+                  <p className='font-normal text-gray-500 mt-2 flex items-center gap-2 flex-wrap dark:text-white/80'>
+                    {community.visibility === 'public' ? (
+                      <MdPublic className='size-4 -mr-1' />
+                    ) : (
+                      <IoMdLock className='size-4 -mr-1' />
+                    )}
                     <span className='max-lg:hidden'> {t(community.visibility + ' community')} </span>
                     <span className='max-lg:hidden'> • </span>
                     <span>
-                      <b className='font-medium text-text-1'>1.2K</b> {t('likes')}
+                      <b className='font-medium text-text-1'>{community.members.length}</b> {t('members')}
                     </span>
-                    <span className='max-lg:hidden'> • </span>
+                    {/* <span className='max-lg:hidden'> • </span>
                     <span>
                       <b className='font-medium text-text-1'>1.4K</b> {t('followers')}
-                    </span>
+                    </span> */}
                   </p>
                 </div>
                 <div>
                   <div className='flex items-center gap-2 mt-1'>
                     <div className='flex -space-x-4 mr-3'>
-                      {Array.from(community.members).map((member) => (
-                        <Image
-                          key={member._id}
-                          width={500}
-                          height={500}
-                          src={getImageURL(member.user_image, 'avatar')}
-                          alt=''
-                          className='w-10 rounded-full border-4 border-white dark:border-slate-800'
-                        />
-                      ))}
+                      {Array.from(community.members)
+                        .slice(0, 5)
+                        .map((member) => (
+                          <Image
+                            key={member._id}
+                            width={500}
+                            height={500}
+                            src={getImageURL(member.user_image, 'avatar')}
+                            alt=''
+                            className='w-10 rounded-full border-4 border-white dark:border-slate-800'
+                          />
+                        ))}
                     </div>
+                    {community.members.length > 5 && (
+                      <button
+                        type='button'
+                        onClick={onClickMoreMembers}
+                        className='flex-center -ml-9 bg-foreground-2 rounded-full size-10 border-4 border-white dark:border-slate-800'>
+                        <span className='text-white font-bold'>+{community.members.length - 5}</span>
+                      </button>
+                    )}
                     <div className='join-community-button'>
                       <button
                         onClick={() => {
@@ -223,17 +300,49 @@ export default function ComCover({ communityID }: IComCoverProps) {
           </div>
           <div className='flex items-center justify-between  border-t border-gray-100 px-2 dark:border-slate-700'>
             <nav className='flex gap-0.5 rounded-xl overflow-hidden -mb-px text-gray-500 font-medium text-sm overflow-x-auto dark:text-white'>
-              <Tabs id='tabs-community' navClassName='!pt-0' disableChevron>
-                <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Discussion')}</TabTitle>
-                {(isAdmin || isCreator) && (
-                  <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Request')}</TabTitle>
+              <Tabs id='tabs-community' navClassName='!pt-0' disableChevron active={tab}>
+                <TabTitle
+                  className='hover:!bg-hover-1 rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('discussion'))}>
+                  {t('Discussion')}
+                </TabTitle>
+                {isAdmin && (
+                  <TabTitle
+                    className='hover:!bg-hover-1 rounded-sm'
+                    onClick={() => router.push(pathname + '?' + createQueryString('requests'))}>
+                    {t('Requests')}
+                  </TabTitle>
                 )}
-                <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Files')}</TabTitle>
-                <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Photos')}</TabTitle>
-                <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Event')}</TabTitle>
-                <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Video')}</TabTitle>
-                <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Members')}</TabTitle>
-                <TabTitle className='hover:!bg-hover-1 rounded-sm'>{t('Media')}</TabTitle>
+                <TabTitle
+                  className='hover:!bg-hover-1 rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('files'))}>
+                  {t('Files')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:!bg-hover-1 rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('photos'))}>
+                  {t('Photos')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:!bg-hover-1 rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('events'))}>
+                  {t('Event')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:!bg-hover-1 rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('videos'))}>
+                  {t('Video')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:!bg-hover-1 rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('members'))}>
+                  {t('Members')}
+                </TabTitle>
+                <TabTitle
+                  className='hover:!bg-hover-1 rounded-sm'
+                  onClick={() => router.push(pathname + '?' + createQueryString('medias'))}>
+                  {t('Media')}
+                </TabTitle>
               </Tabs>
             </nav>
             <div className='flex items-center gap-1 text-sm p-3 bg-foreground-2 py-2 mr-2 rounded-xl max-md:hidden'>
