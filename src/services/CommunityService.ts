@@ -20,9 +20,15 @@ class CommunityService extends BaseService {
   };
   cedeCreator = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/cede-creator/${id}`, { user_id });
-  }
+  };
   joinCommunity = (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/join/${id}`);
+  };
+  cancelJoinCommunity = (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return this.put(`/communities/cancel-join/${id}`);
+  };
+  leaveCommunity = (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return this.put(`/communities/leave/${id}`);
   };
   acceptPostRequest = (id: string, post_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/accept-post/${id}`, { post_id });
@@ -30,11 +36,11 @@ class CommunityService extends BaseService {
   rejectPostRequest = (id: string, post_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/reject-post/${id}`, { post_id });
   };
-  acceptJoinRequest = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/accept/${id}`, { user_id });
+  acceptJoinRequest = (id: string, user_ids: string[]): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return this.put(`/communities/accept/${id}`, { user_ids });
   };
-  rejectJoinRequest = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/reject/${id}`, { user_id });
+  rejectJoinRequest = (id: string, user_ids: string[]): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return this.put(`/communities/reject/${id}`, { user_ids });
   };
   addMembers = (id: string, member_ids: string[]): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/add-members/${id}`, { member_ids });

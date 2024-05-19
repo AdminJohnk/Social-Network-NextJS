@@ -1541,6 +1541,49 @@ export const useJoinCommunity = () => {
   };
 };
 
+export const useCancelJoinCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (communityID: string) => {
+      const { data: community } = await communityService.cancelJoinCommunity(communityID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community] });
+    }
+  });
+
+  return {
+    mutateCancelJoinCommunity: mutateAsync,
+    isLoadingCancelJoinCommunity: isPending,
+    isErrorCancelJoinCommunity: isError,
+    isSuccessCancelJoinCommunity: isSuccess
+  };
+};
+
+export const useLeaveCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (communityID: string) => {
+      const { data: community } = await communityService.leaveCommunity(communityID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
+    }
+  });
+
+  return {
+    mutateLeaveCommunity: mutateAsync,
+    isLoadingLeaveCommunity: isPending,
+    isErrorLeaveCommunity: isError,
+    isSuccessLeaveCommunity: isSuccess
+  };
+};
+
 export const useAcceptPostCommunity = () => {
   const queryClient = useQueryClient();
 
@@ -1587,8 +1630,8 @@ export const useAcceptJoinCommunity = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-    mutationFn: async ({ communityID, userID }: { communityID: string; userID: string }) => {
-      const { data: community } = await communityService.acceptJoinRequest(communityID, userID);
+    mutationFn: async ({ communityID, userIDs }: { communityID: string; userIDs: string[] }) => {
+      const { data: community } = await communityService.acceptJoinRequest(communityID, userIDs);
       return community.metadata;
     },
     onSuccess(_, community) {
@@ -1609,8 +1652,8 @@ export const useRejectJoinCommunity = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-    mutationFn: async ({ communityID, userID }: { communityID: string; userID: string }) => {
-      const { data: community } = await communityService.rejectJoinRequest(communityID, userID);
+    mutationFn: async ({ communityID, userIDs }: { communityID: string; userIDs: string[] }) => {
+      const { data: community } = await communityService.rejectJoinRequest(communityID, userIDs);
       return community.metadata;
     },
     onSuccess(_, community) {
