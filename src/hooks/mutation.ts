@@ -1456,10 +1456,15 @@ export const useDeletePostToSeries = () => {
 };
 
 export const useCreateCommunity = () => {
+  const queryClient = useQueryClient();
+
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (data: ICreateCommunity) => {
       const { data: community } = await communityService.createCommunity(data);
       return community.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
     }
   });
 
@@ -1512,7 +1517,7 @@ export const useCedeCreatorCommunity = () => {
     isErrorCedeCreatorCommunity: isError,
     isSuccessCedeCreatorCommunity: isSuccess
   };
-} 
+};
 
 export const useJoinCommunity = () => {
   const queryClient = useQueryClient();
@@ -1642,8 +1647,7 @@ export const useAddMemberCommunity = () => {
     isErrorAddMemberCommunity: isError,
     isSuccessAddMemberCommunity: isSuccess
   };
-
-}
+};
 
 export const useDeleteMemberCommunity = () => {
   const queryClient = useQueryClient();
