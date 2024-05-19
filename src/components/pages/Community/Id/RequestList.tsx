@@ -54,13 +54,13 @@ export default function RequestList({ communityID }: IRequestListProps) {
   const { mutateAcceptPostCommunity, isLoadingAcceptPostCommunity } = useAcceptPostCommunity();
   const { mutateRejectPostCommunity, isLoadingRejectPostCommunity } = useRejectPostCommunity();
 
-  const handleAcceptJoinRequest = (user_id: string) => {
+  const handleAcceptJoinRequest = (user_ids: string[]) => {
     mutateAcceptJoinCommunity(
-      { communityID, userID: user_id },
+      { communityID, userIDs: user_ids },
       {
         onSuccess: () => {
           showSuccessToast(t('Successfully accepted the member request!'));
-          setUserSentRequest((prev) => prev?.filter((item) => item._id !== user_id));
+          setUserSentRequest((prev) => prev?.filter((item) => !user_ids.includes(item._id)));
         },
         onError: () => {
           showErrorToast(t('Something went wrong! Please try again!'));
@@ -69,13 +69,13 @@ export default function RequestList({ communityID }: IRequestListProps) {
     );
   };
 
-  const handleRejectJoinRequest = (user_id: string) => {
+  const handleRejectJoinRequest = (user_ids: string[]) => {
     mutateRejectJoinCommunity(
-      { communityID, userID: user_id },
+      { communityID, userIDs: user_ids },
       {
         onSuccess: () => {
           showSuccessToast(t('Successfully rejected the member request!'));
-          setUserSentRequest((prev) => prev?.filter((item) => item._id !== user_id));
+          setUserSentRequest((prev) => prev?.filter((item) => !user_ids.includes(item._id)));
         },
         onError: () => {
           showErrorToast(t('Something went wrong! Please try again!'));
@@ -126,9 +126,34 @@ export default function RequestList({ communityID }: IRequestListProps) {
       ) : (
         <div className='space-y-4 bg-foreground-1 p-6 mt-8 mb-2 rounded-xl'>
           <div className=''>
-            <h2 className='text-lg font-semibold'>
-              {userSentRequest?.length} {t('Member Requests')}
-            </h2>
+            <div className="head flex flex-between">
+              <h2 className='text-lg font-semibold'>
+                {userSentRequest && userSentRequest.length > 0 && userSentRequest.length} {t('Member Requests')}
+              </h2>
+              <div className='button-group flex gap-2'>
+                {userSentRequest && userSentRequest.length > 0 && (<>
+                  <Button
+                    disabled={isLoadingRejectJoinCommunity || isLoadingAcceptJoinCommunity}
+                    variant={'ghost'}
+                    className='button lg:px-6 text-white'
+                    onClick={() => handleRejectJoinRequest(userSentRequest?.map((user) => user._id) || [])}>
+                    {isLoadingRejectJoinCommunity && (
+                      <CircularProgress size={20} className='!text-text-1 mr-2' />
+                    )}
+                    {t('Reject All')}
+                  </Button>
+                  <Button
+                    disabled={isLoadingAcceptJoinCommunity || isLoadingRejectJoinCommunity}
+                    className='button lg:px-6 text-white'
+                    onClick={() => handleAcceptJoinRequest(userSentRequest?.map((user) => user._id) || [])}>
+                    {isLoadingAcceptJoinCommunity && (
+                      <CircularProgress size={20} className='!text-text-1 mr-2' />
+                    )}
+                    {t('Accept All')}
+                  </Button>
+                </>)}
+              </div>
+            </div>
             <div className='mt-4 grid grid-cols-2 max-md:grid-cols-1 gap-4 max-md:gap-2'>
               {userSentRequest &&
                 userSentRequest.length > 0 &&
@@ -170,7 +195,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
                                 isLoadingAcceptJoinCommunity && 'select-none'
                               )}
                               disabled={isLoadingAcceptJoinCommunity}
-                              onClick={() => handleAcceptJoinRequest(user._id)}>
+                              onClick={() => handleAcceptJoinRequest([user._id])}>
                               {isLoadingAcceptJoinCommunity && (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
                               )}
@@ -183,7 +208,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
                               )}
                               variant={'destructive'}
                               disabled={isLoadingRejectJoinCommunity}
-                              onClick={() => handleRejectJoinRequest(user._id)}>
+                              onClick={() => handleRejectJoinRequest([user._id])}>
                               {isLoadingRejectJoinCommunity && (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
                               )}

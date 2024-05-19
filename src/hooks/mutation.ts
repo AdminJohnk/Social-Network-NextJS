@@ -1561,8 +1561,8 @@ export const useAcceptJoinCommunity = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-    mutationFn: async ({ communityID, userID }: { communityID: string; userID: string }) => {
-      const { data: community } = await communityService.acceptJoinRequest(communityID, userID);
+    mutationFn: async ({ communityID, userIDs }: { communityID: string; userIDs: string[] }) => {
+      const { data: community } = await communityService.acceptJoinRequest(communityID, userIDs);
       return community.metadata;
     },
     onSuccess(_, community) {
@@ -1583,8 +1583,8 @@ export const useRejectJoinCommunity = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
-    mutationFn: async ({ communityID, userID }: { communityID: string; userID: string }) => {
-      const { data: community } = await communityService.rejectJoinRequest(communityID, userID);
+    mutationFn: async ({ communityID, userIDs }: { communityID: string; userIDs: string[] }) => {
+      const { data: community } = await communityService.rejectJoinRequest(communityID, userIDs);
       return community.metadata;
     },
     onSuccess(_, community) {
@@ -1621,8 +1621,7 @@ export const useAddMemberCommunity = () => {
     isErrorAddMemberCommunity: isError,
     isSuccessAddMemberCommunity: isSuccess
   };
-
-}
+};
 
 export const useDeleteMemberCommunity = () => {
   const queryClient = useQueryClient();
