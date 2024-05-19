@@ -4,7 +4,7 @@ import { TabTitle, Tabs } from '@/components/ui/tabs';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link, usePathname, useRouter } from '@/navigation';
-import { FaSearch } from 'react-icons/fa';
+import { FaPencilAlt, FaSearch } from 'react-icons/fa';
 import {
   IoAddOutline,
   IoChatbubbleEllipsesOutline,
@@ -12,7 +12,6 @@ import {
   IoEllipsisHorizontal,
   IoFlagOutline,
   IoLinkOutline,
-  IoPencilOutline,
   IoPricetagOutline,
   IoShareOutline,
   IoStopCircleOutline,
@@ -261,7 +260,7 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                           )
                         ) : (
                           <>
-                            <IoPencilOutline className='text-xl' />
+                            <FaPencilAlt className='text-lg' />
                             <span className='text-sm'> {t('Edit')} </span>
                           </>
                         )}
