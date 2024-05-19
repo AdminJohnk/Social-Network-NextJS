@@ -1512,7 +1512,7 @@ export const useCedeCreatorCommunity = () => {
     isErrorCedeCreatorCommunity: isError,
     isSuccessCedeCreatorCommunity: isSuccess
   };
-} 
+};
 
 export const useJoinCommunity = () => {
   const queryClient = useQueryClient();
@@ -1533,6 +1533,49 @@ export const useJoinCommunity = () => {
     isLoadingJoinCommunity: isPending,
     isErrorJoinCommunity: isError,
     isSuccessJoinCommunity: isSuccess
+  };
+};
+
+export const useCancelJoinCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (communityID: string) => {
+      const { data: community } = await communityService.cancelJoinCommunity(communityID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community] });
+    }
+  });
+
+  return {
+    mutateCancelJoinCommunity: mutateAsync,
+    isLoadingCancelJoinCommunity: isPending,
+    isErrorCancelJoinCommunity: isError,
+    isSuccessCancelJoinCommunity: isSuccess
+  };
+};
+
+export const useLeaveCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (communityID: string) => {
+      const { data: community } = await communityService.leaveCommunity(communityID);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
+    }
+  });
+
+  return {
+    mutateLeaveCommunity: mutateAsync,
+    isLoadingLeaveCommunity: isPending,
+    isErrorLeaveCommunity: isError,
+    isSuccessLeaveCommunity: isSuccess
   };
 };
 

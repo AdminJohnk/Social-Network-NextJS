@@ -20,7 +20,7 @@ import {
 } from 'react-icons/io5';
 import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
-import { useJoinCommunity } from '@/hooks/mutation';
+import { useCancelJoinCommunity, useJoinCommunity, useLeaveCommunity } from '@/hooks/mutation';
 import { useCallback, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -36,6 +36,7 @@ import { FaXmark } from 'react-icons/fa6';
 import { MdPublic } from 'react-icons/md';
 import { IoMdLock } from 'react-icons/io';
 import { notFound, useSearchParams } from 'next/navigation';
+import { showErrorToast } from '@/components/ui/toast';
 
 interface IComCoverProps {
   communityID: string;
@@ -52,6 +53,8 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
 
   const { community, isLoadingCommunity, isErrorCommunity } = useGetCommunityByID(communityID);
   const { mutateJoinCommunity, isLoadingJoinCommunity } = useJoinCommunity();
+  const { mutateCancelJoinCommunity, isLoadingCancelJoinCommunity } = useCancelJoinCommunity();
+  const { mutateLeaveCommunity, isLoadingLeaveCommunity } = useLeaveCommunity();
 
   const isMember = useMemo(
     () => community && community.members.some((member) => member._id === currentUserInfo._id),
@@ -126,7 +129,11 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
 
   const handleLeaveCommunity = () => {
     setOpenLeaveCommunity(false);
-    mutateJoinCommunity(communityID);
+    mutateLeaveCommunity(communityID, {
+      onError: () => {
+        showErrorToast(t('Something went wrong! Please try again!'));
+      }
+    });
   };
 
   if (isErrorCommunity) {
@@ -211,35 +218,44 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                     <div className='join-community-button'>
                       <button
                         onClick={() => {
-                          if (!isMember) mutateJoinCommunity(communityID);
+                          if (!isMember && !isRequested) mutateJoinCommunity(communityID, {
+                            onError: () => {
+                              showErrorToast(t('Something went wrong! Please try again!'));
+                            }
+                          });
+                          if (isRequested) mutateCancelJoinCommunity(communityID, {
+                            onError: () => {
+                              showErrorToast(t('Something went wrong! Please try again!'));
+                            }
+                          });
                         }}
                         className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
                         {!isCreator ? (
                           isMember ? (
                             <>
-                              {isLoadingJoinCommunity ? (
+                              {isLoadingLeaveCommunity ? (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
-                            ) : (
+                              ) : (
                                 <IoCheckmarkOutline className='text-xl' />
-                            )}
+                              )}
                               <span className='text-sm'> {t('Joined')} </span>
                             </>
                           ) : isRequested ? (
                             <>
-                              {isLoadingJoinCommunity ? (
+                              {isLoadingCancelJoinCommunity ? (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
-                            ) : (
+                              ) : (
                                 <FaXmark className='text-xl' />
-                            )}
+                              )}
                               <span>{t('Cancel Request')}</span>
                             </>
                           ) : (
                             <>
                               {isLoadingJoinCommunity ? (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
-                            ) : (
+                              ) : (
                                 <IoAddOutline className='text-xl' />
-                            )}
+                              )}
                               <span className='text-sm'> {t('Join')} </span>
                             </>
                           )
@@ -273,12 +289,12 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                               <AlertDialogFooter>
                                 <Button
                                   variant='ghost'
-                                  className={cn(isLoadingJoinCommunity && 'select-none')}
-                                  disabled={isLoadingJoinCommunity}
+                                  className={cn(isLoadingLeaveCommunity && 'select-none')}
+                                  disabled={isLoadingLeaveCommunity}
                                   onClick={() => setOpenLeaveCommunity(false)}>
                                   {t('Cancel')}
                                 </Button>
-                                <Button variant={'destructive'} onClick={handleLeaveCommunity}>
+                                <Button disabled={isLoadingLeaveCommunity} variant={'destructive'} onClick={handleLeaveCommunity}>
                                   {t('Leave')}
                                 </Button>
                               </AlertDialogFooter>

@@ -32,7 +32,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
   const [userSentRequest, setUserSentRequest] = useState<IUserInfo[]>();
   const [postRequest, setPostRequest] = useState<IPost[]>();
 
-  const [selectedUser, setSelectedUser] = useState<string | null>(null);
+  const [selectedUser, setSelectedUser] = useState<string[]>([]);
   const [selectedPost, setSelectedPost] = useState<string | null>(null);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
   const { mutateRejectPostCommunity, isLoadingRejectPostCommunity } = useRejectPostCommunity();
 
   const handleAcceptJoinRequest = (user_ids: string[]) => {
-    setSelectedUser(user_id);
+    setSelectedUser(user_ids);
     mutateAcceptJoinCommunity(
       { communityID, userIDs: user_ids },
       {
@@ -74,7 +74,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
   };
 
   const handleRejectJoinRequest = (user_ids: string[]) => {
-    setSelectedUser(user_id);
+    setSelectedUser(user_ids);
     mutateRejectJoinCommunity(
       { communityID, userIDs: user_ids },
       {
@@ -143,8 +143,8 @@ export default function RequestList({ communityID }: IRequestListProps) {
                     disabled={isLoadingRejectJoinCommunity || isLoadingAcceptJoinCommunity}
                     variant={'ghost'}
                     className='button lg:px-6 text-white'
-                    onClick={() => handleRejectJoinRequest(userSentRequest?.map((user) => user._id) || [])}>
-                    {isLoadingRejectJoinCommunity && (
+                    onClick={() => handleRejectJoinRequest(userSentRequest.map((user) => user._id))}>
+                    {isLoadingRejectJoinCommunity && selectedUser.length === userSentRequest.length && (
                       <CircularProgress size={20} className='!text-text-1 mr-2' />
                     )}
                     {t('Reject All')}
@@ -152,8 +152,8 @@ export default function RequestList({ communityID }: IRequestListProps) {
                   <Button
                     disabled={isLoadingAcceptJoinCommunity || isLoadingRejectJoinCommunity}
                     className='button lg:px-6 text-white'
-                    onClick={() => handleAcceptJoinRequest(userSentRequest?.map((user) => user._id) || [])}>
-                    {isLoadingAcceptJoinCommunity && (
+                    onClick={() => handleAcceptJoinRequest(userSentRequest.map((user) => user._id))}>
+                    {isLoadingAcceptJoinCommunity && selectedUser.length === userSentRequest.length && (
                       <CircularProgress size={20} className='!text-text-1 mr-2' />
                     )}
                     {t('Accept All')}
@@ -199,11 +199,11 @@ export default function RequestList({ communityID }: IRequestListProps) {
                             <Button
                               className={cn(
                                 'button lg:px-6 text-white max-md:flex-1',
-                                isLoadingAcceptJoinCommunity && selectedUser === user._id && 'select-none'
+                                isLoadingAcceptJoinCommunity && selectedUser.includes(user._id) && 'select-none'
                               )}
-                              disabled={isLoadingAcceptJoinCommunity && selectedUser === user._id}
+                              disabled={isLoadingAcceptJoinCommunity && selectedUser.includes(user._id)}
                               onClick={() => handleAcceptJoinRequest([user._id])}>
-                              {isLoadingAcceptJoinCommunity && selectedUser === user._id && (
+                              {isLoadingAcceptJoinCommunity && selectedUser.includes(user._id) && (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
                               )}
                               {t('Accept')}
@@ -211,12 +211,12 @@ export default function RequestList({ communityID }: IRequestListProps) {
                             <Button
                               className={cn(
                                 'button lg:px-6 text-white max-md:flex-1',
-                                isLoadingRejectJoinCommunity && selectedUser === user._id && 'select-none'
+                                isLoadingRejectJoinCommunity && selectedUser.includes(user._id) && 'select-none'
                               )}
                               variant={'destructive'}
-                              disabled={isLoadingRejectJoinCommunity && selectedUser === user._id}
+                              disabled={isLoadingRejectJoinCommunity && selectedUser.includes(user._id)}
                               onClick={() => handleRejectJoinRequest([user._id])}>
-                              {isLoadingRejectJoinCommunity && selectedUser === user._id && (
+                              {isLoadingRejectJoinCommunity && selectedUser.includes(user._id) && (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
                               )}
                               {t('Reject')}
