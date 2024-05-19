@@ -20,7 +20,10 @@ interface ICreateNewPostProps {
   communityID?: string;
 }
 
-export default function CreateNewPost({ handleClose, communityID }: ICreateNewPostProps) {
+export default function CreateNewPost({
+  handleClose,
+  communityID
+}: ICreateNewPostProps) {
   const t = useTranslations();
 
   const { mutateCreatePost } = useCreatePost(communityID);
@@ -36,7 +39,7 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
 
   const handleUploadImages = async () => {
     const formData = new FormData();
-    images.forEach((image) => {
+    images.forEach(image => {
       formData.append('images', image);
     });
     return await mutateUploadImages(formData);
@@ -111,14 +114,17 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
   };
 
   return (
-    <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[670px] animate-fade-up'>
+    <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[800px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
         <h2 className='text-sm font-medium text-text-1'>{t('Create Post')}</h2>
       </div>
 
       <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg'>
         <div className='mt-3 ps-4'>
-          <Editor setEditor={setEditor} placeholder={t('What do you want to share?')} />
+          <Editor
+            setEditor={setEditor}
+            placeholder={t('What do you want to share?')}
+          />
         </div>
 
         <div className='*:mb-3 text-sm py-2 px-4 font-medium'>
@@ -132,10 +138,16 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
         <div className='flex items-center gap-2'>
           <Button
             type='button'
-            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+            className={cn(
+              'button lg:px-6 text-white max-md:flex-1',
+              isLoading && 'select-none'
+            )}
             disabled={isLoading}
-            onClick={handleSubmit}>
-            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+            onClick={handleSubmit}
+          >
+            {isLoading && (
+              <CircularProgress size={20} className='!text-text-1 mr-2' />
+            )}
             {t('Create')} <span className='ripple-overlay'></span>
           </Button>
         </div>

@@ -169,7 +169,7 @@ export default function CreateEditPostSeries({
         {
           onSuccess() {
             showSuccessToast(t('Post updated successfully!'));
-            changeImage && (mutateDeleteImage([dataEdit.cover_image]));
+            changeImage && mutateDeleteImage([dataEdit.cover_image]);
             editor?.commands.clearContent();
             handleClose();
           },
@@ -196,7 +196,7 @@ export default function CreateEditPostSeries({
         <div className='relative !mt-3'>
           <InputStyle
             maxLength={100}
-            label='Title'
+            label={t('Title')}
             defaultValue={dataEdit?.title}
             onChange={e => {
               setTitle(e.currentTarget.value);
@@ -204,7 +204,7 @@ export default function CreateEditPostSeries({
           />
         </div>
         <TextareaV2
-          label='Description'
+          label={t('Description')}
           maxLength={250}
           defaultValue={dataEdit?.description}
           onChange={e => {
@@ -230,7 +230,9 @@ export default function CreateEditPostSeries({
               dragProps
             }) => (
               <div>
-                <div className='mb-3'>Add a cover image for your series</div>
+                <div className='mb-3'>
+                  {t('Add a cover image for your post')}
+                </div>
                 <div className='flex-start gap-4'>
                   <button
                     type='button'
@@ -245,7 +247,7 @@ export default function CreateEditPostSeries({
                       className='flex-start text-1'
                       onClick={onImageRemoveAll}
                     >
-                      <span>Remove</span>
+                      <span>{t('Remove')}</span>
                       <IoClose className='size-5' />
                     </div>
                   )}
@@ -279,7 +281,7 @@ export default function CreateEditPostSeries({
         </div>
       </div>
 
-      <div className='p-5 flex justify-between items-center'>
+      <div className='p-5 flex-between'>
         <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />
         <div className='flex items-center gap-2'>
           <Button
@@ -294,7 +296,7 @@ export default function CreateEditPostSeries({
             {isLoading && (
               <CircularProgress size={20} className='!text-text-1 mr-2' />
             )}
-            {dataEdit ? t('Update Post') : t('Publish Post')}
+            {dataEdit ? t('Update') : t('Publish')}
             <span className='ripple-overlay'></span>
           </Button>
         </div>

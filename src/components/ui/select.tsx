@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { TypeOfLevel } from '@/types';
+import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
 export interface ISelectProps
@@ -15,6 +16,7 @@ export default function Select({
   setSelect,
   ...props
 }: ISelectProps) {
+  const t = useTranslations();
   return (
     <div className='relative h-10 w-72 min-w-[200px]'>
       <select
@@ -30,7 +32,7 @@ export default function Select({
       >
         {data.map((item, index) => (
           <option key={index} value={item}>
-            {item}
+            {t(item.charAt(0).toUpperCase() + item.slice(1))}
           </option>
         ))}
       </select>
