@@ -32,6 +32,9 @@ export default function RequestList({ communityID }: IRequestListProps) {
   const [userSentRequest, setUserSentRequest] = useState<IUserInfo[]>();
   const [postRequest, setPostRequest] = useState<IPost[]>();
 
+  const [selectedUser, setSelectedUser] = useState<string | null>(null);
+  const [selectedPost, setSelectedPost] = useState<string | null>(null);
+
   useEffect(() => {
     if (community) {
       if (community.waitlist_users.length > 0) {
@@ -55,6 +58,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
   const { mutateRejectPostCommunity, isLoadingRejectPostCommunity } = useRejectPostCommunity();
 
   const handleAcceptJoinRequest = (user_ids: string[]) => {
+    setSelectedUser(user_id);
     mutateAcceptJoinCommunity(
       { communityID, userIDs: user_ids },
       {
@@ -70,6 +74,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
   };
 
   const handleRejectJoinRequest = (user_ids: string[]) => {
+    setSelectedUser(user_id);
     mutateRejectJoinCommunity(
       { communityID, userIDs: user_ids },
       {
@@ -85,6 +90,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
   };
 
   const handleAcceptPostRequest = (post_id: string) => {
+    setSelectedPost(post_id);
     mutateAcceptPostCommunity(
       { id: communityID, post_id },
       {
@@ -100,6 +106,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
   };
 
   const handleRejectPostRequest = (post_id: string) => {
+    setSelectedPost(post_id);
     mutateRejectPostCommunity(
       { id: communityID, post_id },
       {
@@ -192,11 +199,11 @@ export default function RequestList({ communityID }: IRequestListProps) {
                             <Button
                               className={cn(
                                 'button lg:px-6 text-white max-md:flex-1',
-                                isLoadingAcceptJoinCommunity && 'select-none'
+                                isLoadingAcceptJoinCommunity && selectedUser === user._id && 'select-none'
                               )}
-                              disabled={isLoadingAcceptJoinCommunity}
+                              disabled={isLoadingAcceptJoinCommunity && selectedUser === user._id}
                               onClick={() => handleAcceptJoinRequest([user._id])}>
-                              {isLoadingAcceptJoinCommunity && (
+                              {isLoadingAcceptJoinCommunity && selectedUser === user._id && (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
                               )}
                               {t('Accept')}
@@ -204,12 +211,12 @@ export default function RequestList({ communityID }: IRequestListProps) {
                             <Button
                               className={cn(
                                 'button lg:px-6 text-white max-md:flex-1',
-                                isLoadingRejectJoinCommunity && 'select-none'
+                                isLoadingRejectJoinCommunity && selectedUser === user._id && 'select-none'
                               )}
                               variant={'destructive'}
-                              disabled={isLoadingRejectJoinCommunity}
+                              disabled={isLoadingRejectJoinCommunity && selectedUser === user._id}
                               onClick={() => handleRejectJoinRequest([user._id])}>
-                              {isLoadingRejectJoinCommunity && (
+                              {isLoadingRejectJoinCommunity && selectedUser === user._id && (
                                 <CircularProgress size={20} className='!text-text-1 mr-2' />
                               )}
                               {t('Reject')}
@@ -240,20 +247,24 @@ export default function RequestList({ communityID }: IRequestListProps) {
                       <Post post={post} feature='requested' />
                       <div className='w-full pr-4 pb-4 flex-end gap-5'>
                         <Button
-                          className={cn(isLoadingAcceptPostCommunity && 'select-none')}
-                          disabled={isLoadingAcceptPostCommunity}
+                          className={cn(
+                            isLoadingAcceptPostCommunity && selectedPost === post._id && 'select-none'
+                          )}
+                          disabled={isLoadingAcceptPostCommunity && selectedPost === post._id}
                           onClick={() => handleAcceptPostRequest(post._id)}>
-                          {isLoadingAcceptPostCommunity && (
+                          {isLoadingAcceptPostCommunity && selectedPost === post._id && (
                             <CircularProgress size={20} className='!text-text-1 mr-2' />
                           )}
                           {t('Accept')}
                         </Button>
                         <Button
                           variant='destructive'
-                          className={cn(isLoadingRejectPostCommunity && 'select-none')}
-                          disabled={isLoadingRejectPostCommunity}
+                          className={cn(
+                            isLoadingRejectPostCommunity && selectedPost === post._id && 'select-none'
+                          )}
+                          disabled={isLoadingRejectPostCommunity && selectedPost === post._id}
                           onClick={() => handleRejectPostRequest(post._id)}>
-                          {isLoadingRejectPostCommunity && (
+                          {isLoadingRejectPostCommunity && selectedPost === post._id && (
                             <CircularProgress size={20} className='!text-text-1 mr-2' />
                           )}
                           {t('Reject')}

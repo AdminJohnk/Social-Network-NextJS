@@ -22,7 +22,7 @@ import FriendButton from '@/components/pages/Profile/FriendButton';
 
 import { useDeleteImage, useDeleteSeries } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { useRouter } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import WriteReview from '@/components/pages/Series/WriteReview';
 import { PostItem } from '@/components/pages/Series/PostItem';
 import ReviewItem from '@/components/pages/Series/ReviewItem';
@@ -49,7 +49,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
 
   const format = useFormatter();
 
-  const { series } = useGetSeriesByID(seriesID);
+  const { series,isErrorSeries } = useGetSeriesByID(seriesID);
   const { currentUserInfo } = useCurrentUserInfo();
 
   const { mutateDeleteSeries } = useDeleteSeries();
@@ -116,6 +116,8 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
       }
     });
   };
+
+  if (isErrorSeries) notFound();
 
   return (
     <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>

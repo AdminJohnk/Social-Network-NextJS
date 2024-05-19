@@ -17,7 +17,7 @@ import {
 } from 'react-icons/io5';
 import { CircularProgress } from '@mui/material';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { useSearchParams } from 'next/navigation';
+import { notFound, useSearchParams } from 'next/navigation';
 
 import { Link, usePathname, useRouter } from '@/navigation';
 import { TabTitle, Tabs } from '@/components/ui/tabs';
@@ -44,7 +44,7 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
   const { mutateUpdateUser } = useUpdateUser();
   const { mutateDeleteImage } = useDeleteImage();
 
-  const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
+  const { otherUserInfo, isLoadingOtherUserInfo, isErrorOtherUserInfo } = useOtherUserInfo(profileID);
   const { currentUserInfo } = useCurrentUserInfo();
   const { userPosts } = useUserPostsData(profileID);
 
@@ -164,6 +164,8 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
       }
     );
   };
+
+  if (isErrorOtherUserInfo) notFound();
 
   return (
     <>

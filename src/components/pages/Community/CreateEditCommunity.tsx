@@ -135,7 +135,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
         tags: hashTagList,
         rules,
         image: imagesUploaded?.key!,
-        members: membersCom.map((member) => member._id),
+        members: membersCom.map((member) => member._id).concat(currentUserInfo._id),
         visibility: 'public'
       } satisfies ICreateCommunity;
 

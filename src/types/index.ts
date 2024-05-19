@@ -569,13 +569,13 @@ export interface IDeleteReplyCommentSeriesPost {
   child_id: string;
 }
 
-export interface IChildcommentSeriesPost {
+export interface IChildCommentSeriesPost {
   _id: string;
   user: IUserInfo;
   content: string;
   like: IUserInfo[];
   createdAt: string;
-  child: IChildcommentSeriesPost[];
+  child: IChildCommentSeriesPost[];
 }
 
 export interface ICommentSeriesPost {
@@ -584,7 +584,7 @@ export interface ICommentSeriesPost {
   content: string;
   like: IUserInfo[];
   createdAt: string;
-  child: IChildcommentSeriesPost[];
+  child: IChildCommentSeriesPost[];
 }
 
 export interface ILikeCommentSeriesPost {
