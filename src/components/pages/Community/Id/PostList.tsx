@@ -1,12 +1,12 @@
 'use client';
 
 import { useInView } from 'react-intersection-observer';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
 import Post from '@/components/shared/Post/Post';
 import { PostSkeleton } from '@/components/shared/Post';
-import { useAllNewsfeedPostsData, useGetCommunityByID } from '@/hooks/query';
+import { useAllNewsfeedPostsData, useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
 
 interface IPostListProps {
   communityID: string;
@@ -24,11 +24,24 @@ export default function PostList({ communityID }: IPostListProps) {
   //     }
   //   }, [inPostsView, hasNextPosts, isFetchingNextPosts, fetchNextPosts]);
 
+  const { currentUserInfo } = useCurrentUserInfo();
+
+  const isMember = useMemo(() => {
+    if (currentUserInfo && community) {
+      return community.members.some((member) => member._id === currentUserInfo._id);
+    }
+    return false;
+  }, [currentUserInfo, community]);
+
   return (
     <>
       {isLoadingCommunity ? (
         <div className='post-skeleton *:mb-6'>
           <PostSkeleton />
+        </div>
+      ) : (!isMember && community.visibility === 'private') ? (
+        <div className='flex-center'>
+          <span className='text-text-2'>{t('You must join in this community to see post!')}</span>
         </div>
       ) : (
         <div className='post *:mb-6'>

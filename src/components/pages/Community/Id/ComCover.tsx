@@ -17,9 +17,14 @@ import {
   IoStopCircleOutline
 } from 'react-icons/io5';
 import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
-import { getImageURL } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import { useJoinCommunity } from '@/hooks/mutation';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { on } from 'events';
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { CircularProgress } from '@mui/material';
+import { FaXmark } from 'react-icons/fa6';
 
 interface IComCoverProps {
   communityID: string;
@@ -31,7 +36,7 @@ export default function ComCover({ communityID }: IComCoverProps) {
   const { currentUserInfo } = useCurrentUserInfo();
 
   const { community, isLoadingCommunity } = useGetCommunityByID(communityID);
-  const { mutateJoinCommunity } = useJoinCommunity();
+  const { mutateJoinCommunity, isLoadingJoinCommunity } = useJoinCommunity();
 
   const isMember = useMemo(
     () => community && community.members.some((member) => member._id === currentUserInfo._id),
@@ -45,6 +50,13 @@ export default function ComCover({ communityID }: IComCoverProps) {
   const isAdmin = useMemo(() => community && community.admins.some((admin) => admin._id === currentUserInfo._id), [community]);
 
   const isCreator = useMemo(() => community && community.creator._id === currentUserInfo._id, [community]);
+
+  const [openLeaveCommunity, setOpenLeaveCommunity] = useState(false);
+
+  const handleLeaveCommunity = () => {
+    setOpenLeaveCommunity(false);
+    mutateJoinCommunity(communityID);
+  }
 
   return (
     <>
@@ -105,28 +117,70 @@ export default function ComCover({ communityID }: IComCoverProps) {
                         />
                       ))}
                     </div>
-                    <button
-                      onClick={() => {
-                        mutateJoinCommunity(communityID);
-                      }}
-                      className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
-                      {isMember ? (
-                        <>
-                          <IoCheckmarkOutline className='text-xl' />
-                          <span className='text-sm'> {t('Joined')} </span>
-                        </>
-                      ) : isRequested ? (
-                        <>
-                          <IoAddOutline className='text-xl' />
-                          <span>{t('Cancel Request')}</span>
-                        </>
-                      ) : (
-                        <>
-                          <IoAddOutline className='text-xl' />
-                          <span className='text-sm'> {t('Join')} </span>
-                        </>
+                    <div className='join-community-button'>
+                      <button
+                        onClick={() => {
+                          if (!isMember) mutateJoinCommunity(communityID);
+                        }}
+                        className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
+                        {isMember ? (
+                          <>
+                            {isLoadingJoinCommunity ?
+                              <CircularProgress size={20} className='!text-text-1 mr-2' /> :
+                              <IoCheckmarkOutline className='text-xl' />}
+                            <span className='text-sm'> {t('Joined')} </span>
+                          </>
+                        ) : isRequested ? (
+                          <>
+                            {isLoadingJoinCommunity ?
+                              <CircularProgress size={20} className='!text-text-1 mr-2' /> :
+                              <FaXmark className='text-xl' />}
+                            <span>{t('Cancel Request')}</span>
+                          </>
+                        ) : (
+                          <>
+                            {isLoadingJoinCommunity ?
+                              <CircularProgress size={20} className='!text-text-1 mr-2' /> :
+                              <IoAddOutline className='text-xl' />}
+                            <span className='text-sm'> {t('Join')} </span>
+                          </>
+                        )}
+                      </button>
+                      {isMember && (
+                        <div className='!w-fit'
+                          data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+                          <Button
+                            variant={'destructive'}
+                            onClick={() => setOpenLeaveCommunity(true)}
+                          >{t('Leave Group')}</Button>
+                          <AlertDialog open={openLeaveCommunity} onOpenChange={setOpenLeaveCommunity}>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>{t('Are you absolutely sure leave this community?')}</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  {t('You will not be able to return to the group until approved by the admin!')}
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <Button
+                                  variant='ghost'
+                                  className={cn(isLoadingJoinCommunity && 'select-none')}
+                                  disabled={isLoadingJoinCommunity}
+                                  onClick={() => setOpenLeaveCommunity(false)}>
+                                  {t('Cancel')}
+                                </Button>
+                                <Button
+                                  variant={'destructive'}
+                                  onClick={handleLeaveCommunity}>
+                                  {t('Leave')}
+                                </Button>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
                       )}
-                    </button>
+                    </div>
+
                     <div>
                       <button
                         type='button'

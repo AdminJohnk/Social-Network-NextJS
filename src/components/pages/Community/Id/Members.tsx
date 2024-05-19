@@ -18,6 +18,10 @@ import {
 } from '@/hooks/mutation';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { IoIosMore } from 'react-icons/io';
+import { IoAdd } from 'react-icons/io5';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { AlertDialogHeader } from '@/components/ui/alert-dialog';
+import AddMemberToCommunity from './Modal/AddMemberToCommunity';
 
 export interface IMembersProps {
   communityID: string;
@@ -112,6 +116,9 @@ export default function Members({ communityID }: IMembersProps) {
     );
   };
 
+  const [openAddMember, setOpenAddMember] = useState(false);
+  const friendsList = useMemo(() => currentUserInfo.friends, [currentUserInfo]);
+
   return (
     <div className='bg-foreground-1 shadow-lg rounded-xl p-6 max-md:p-2 mt-8 mb-2'>
       {isLoadingCommunity ? (
@@ -123,7 +130,24 @@ export default function Members({ communityID }: IMembersProps) {
         </div>
       ) : (
         <>
-          <h2 className='text-lg font-semibold'>{members?.length} Members</h2>
+          <div className='flex-start gap-3'>
+            <h2 className='text-lg font-semibold'>{members?.length} Members</h2>
+            <span className='rounded-full bg-foreground-1'>
+              <Dialog open={openAddMember} onOpenChange={setOpenAddMember}>
+                <DialogTrigger className='add-member w-full p-1 flex items-center cursor-pointer rounded-full hover:bg-hover-1 select-none'>
+                  <IoAdd className='size-5 text-1' onClick={() => setOpenAddMember(true)} />
+                </DialogTrigger>
+                <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+                  <AlertDialogHeader>
+                    <DialogTitle>{t('Add members')}</DialogTitle>
+                  </AlertDialogHeader>
+                  <AddMemberToCommunity communityID={communityID} handleClose={() => setOpenAddMember(false)}
+                    users={friendsList.filter((friend) => !members?.some((member) => member._id === friend._id))} />
+                </DialogContent>
+              </Dialog>
+            </span>
+
+          </div>
           <div className='mt-4 grid grid-cols-2 max-md:grid-cols-1 gap-4 max-md:gap-2'>
             {members &&
               members.map((member) => (

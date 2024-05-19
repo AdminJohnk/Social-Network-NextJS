@@ -114,7 +114,7 @@ export default function RequestList({ communityID }: IRequestListProps) {
       { communityID, userID: user_id },
       {
         onSuccess: () => {
-          showSuccessToast(t('Your profile has been updated successfully!'));
+          showSuccessToast(t('You accepted this member successfully!'));
           setUserSentRequest((prev) => prev?.filter((item) => item._id !== user_id));
         },
         onError: () => {

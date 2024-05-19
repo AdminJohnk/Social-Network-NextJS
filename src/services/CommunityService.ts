@@ -27,6 +27,9 @@ class CommunityService extends BaseService {
   rejectJoinRequest = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/reject/${id}`, { user_id });
   };
+  addMembers = (id: string, member_ids: string[]): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return this.put(`/communities/add-members/${id}`, { member_ids });
+  };
   deleteMember = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/delete-members/${id}`, { user_id });
   };

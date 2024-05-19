@@ -1559,6 +1559,29 @@ export const useRejectJoinCommunity = () => {
   };
 };
 
+export const useAddMemberCommunity = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async ({ communityID, userIDs }: { communityID: string; userIDs: string[] }) => {
+      const { data: community } = await communityService.addMembers(communityID, userIDs);
+      return community.metadata;
+    },
+    onSuccess(_, community) {
+      queryClient.invalidateQueries({ queryKey: ['community', community.communityID] });
+      queryClient.invalidateQueries({ queryKey: ['communities'] });
+    }
+  });
+
+  return {
+    mutateAddMemberCommunity: mutateAsync,
+    isLoadingAddMemberCommunity: isPending,
+    isErrorAddMemberCommunity: isError,
+    isSuccessAddMemberCommunity: isSuccess
+  };
+
+}
+
 export const useDeleteMemberCommunity = () => {
   const queryClient = useQueryClient();
 

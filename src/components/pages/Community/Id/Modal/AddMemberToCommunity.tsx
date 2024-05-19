@@ -1,35 +1,29 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Checkbox } from 'flowbite-react';
-import { IoSearchOutline } from 'react-icons/io5';
+'use client';
+
 import { FaXmark } from 'react-icons/fa6';
-import { v4 as uuidv4 } from 'uuid';
-import { CircularProgress } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { IoSearchOutline } from 'react-icons/io5';
+import { useEffect, useMemo, useState } from 'react';
+import { Checkbox, CircularProgress } from '@mui/material';
 
-import { useCurrentUserInfo } from '@/hooks/query';
-import { messageService } from '@/services/MessageService';
-import { Button } from '@/components/ui/button';
-import AvatarMessage from '../Avatar/AvatarMessage';
-import { IMessage, IUserInfo } from '@/types';
-import { useSendMessage } from '@/hooks/mutation';
-import { useSocketStore } from '@/store/socket';
-import { useDebounce } from '@/hooks/special';
-import { Socket } from '@/lib/utils/constants/SettingSystem';
 import { cn } from '@/lib/utils';
+import { IUserInfo } from '@/types';
+import { useDebounce } from '@/hooks/special';
+import { Button } from '@/components/ui/button';
+import { useAddMemberCommunity } from '@/hooks/mutation';
+import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 
-export interface IMembersToGroupProps {
+export interface IAddMemberToCommunityProps {
   users: IUserInfo[];
-  conversationID: string;
   handleClose: () => void;
+  communityID: string;
 }
 
-export default function MembersToGroup({ users, conversationID, handleClose }: IMembersToGroupProps) {
+export default function AddMemberToCommunity({ users, handleClose, communityID }: IAddMemberToCommunityProps) {
   const t = useTranslations();
 
-  const { currentUserInfo } = useCurrentUserInfo();
-  const { mutateSendMessage } = useSendMessage();
-
-  const { chatSocket } = useSocketStore();
+  const { mutateAddMemberCommunity, isLoadingAddMemberCommunity } = useAddMemberCommunity();
 
   const [checkList, setCheckList] = useState<Record<string, boolean>>({});
   const [checkedUsers, setCheckedUsers] = useState<IUserInfo[]>([]);
@@ -57,7 +51,6 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
     return arr[arr.length - 1];
   };
 
-  const [isLoading, setIsLoading] = useState(false);
   const [membersToAdd, setMembersToAdd] = useState<IUserInfo[]>([]);
 
   useEffect(() => {
@@ -91,46 +84,20 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
     return membersToAdd.length === 0;
   }, [membersToAdd]);
 
-  const onSubmit = useCallback(() => {
-    setIsLoading(true);
-
-    messageService
-      .addMember(
-        conversationID,
-        membersToAdd.map((member) => member._id)
-      )
-      .then((res) => {
-        membersToAdd.forEach((member) => {
-          const message = {
-            _id: uuidv4().replace(/-/g, ''),
-            conversation_id: conversationID,
-            sender: {
-              _id: currentUserInfo._id,
-              user_image: currentUserInfo.user_image,
-              name: currentUserInfo.name
-            },
-            isSending: true,
-            type: 'notification',
-            action: 'add_member',
-            target: {
-              _id: member._id,
-              name: member.name
-            },
-            seen: [],
-            createdAt: new Date().toISOString()
-          };
-
-          mutateSendMessage(message as unknown as IMessage);
-          chatSocket.emit(Socket.PRIVATE_MSG, { conversationID, message });
-        });
-        chatSocket.emit(Socket.ADD_MEMBER, res.data.metadata);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => {
-        setIsLoading(false);
-        handleClose();
-      });
-  }, [membersToAdd]);
+  const handleAddMember = async () => {
+    await mutateAddMemberCommunity(
+      { communityID, userIDs: membersToAdd.map((member) => member._id) },
+      {
+        onSuccess: () => {
+          handleClose();
+          showSuccessToast(t('Your profile has been updated successfully!'))
+        },
+        onError: () => {
+          showErrorToast(t('Something went wrong! Please try again!'));
+        }
+      }
+    );
+  }
 
   return (
     <div className='rounded-lg'>
@@ -185,7 +152,7 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
               </div>
             ) : users.length == 0 ? (
               <div className='w-full h-full flex items-center justify-center'>
-                <div className='font-bold text-sm py-2'>{t("You don't have any friends anymore :(")}</div>
+                <div className='font-bold text-sm py-2'>{t("You don't have anyone to add!")}</div>
               </div>
             ) : members.length == 0 ? (
               <div className='w-full h-full flex items-center justify-center'>
@@ -203,7 +170,7 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
                     </div>
                     <div className='name text-center ml-2 font-bold'>{user.name}</div>
                   </div>
-                  <Checkbox className='items-end mr-1' checked={checkList[user._id]} />
+                  <Checkbox className='items-end mr-1' checked={checkList[user._id] || false} />
                 </div>
               ))
             )}
@@ -212,20 +179,20 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
       </div>
       <div className='flex flex-end mt-2 gap-5'>
         <Button
-          className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+          className={cn('button lg:px-6 text-white max-md:flex-1', isLoadingAddMemberCommunity && 'select-none')}
           variant='destructive'
           onClick={handleClose}
-          disabled={isLoading}>
+          disabled={isLoadingAddMemberCommunity}>
           <div className='font-bold'>{t('Cancel')}</div>
         </Button>
         <Button
           className={cn(
             'button lg:px-6 text-white max-md:flex-1',
-            (!isChanged || isLoading) && 'select-none'
+            (!isChanged || isLoadingAddMemberCommunity) && 'select-none'
           )}
-          onClick={onSubmit}
-          disabled={isChanged || isLoading}>
-          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+          onClick={handleAddMember}
+          disabled={isChanged || isLoadingAddMemberCommunity}>
+          {isLoadingAddMemberCommunity && <CircularProgress size={20} className='!text-text-1 mr-2' />}
           <div className='font-bold'>{t('Add')}</div>
         </Button>
       </div>
