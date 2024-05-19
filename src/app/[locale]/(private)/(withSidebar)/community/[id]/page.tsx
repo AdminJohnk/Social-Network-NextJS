@@ -46,12 +46,9 @@ export default function Community({ params: { locale, id }, searchParams: { tab 
           </div>
           {/* only admin and creator can see request tab */}
           <RequestList communityID={id} />
-          <div className='files'></div>
           <div className='photos'></div>
           <div className='events'></div>
-          <div className='videos'></div>
           <Members communityID={id} />
-          <div className='medias'></div>
         </TabsContent>
       </div>
     </main>
