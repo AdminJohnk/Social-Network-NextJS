@@ -44,9 +44,7 @@ export default function ChatSideBar({ conversationID, setSideBarSelect }: IChatS
     }, 0);
   }, [conversations, currentUserInfo]);
 
-  const contacts = useMemo(() => {
-    return currentUserInfo.members || [];
-  }, [currentUserInfo.members]);
+  const contacts = currentUserInfo.members || [];
 
   const contactCount = useMemo(() => {
     if (!contacts) return 0;

@@ -87,9 +87,7 @@ export default function MembersToGroup({ users, conversationID, handleClose }: I
     );
   }, [searchDebounce]);
 
-  const isChanged = useMemo(() => {
-    return membersToAdd.length === 0;
-  }, [membersToAdd]);
+  const isChanged = membersToAdd.length === 0;
 
   const onSubmit = useCallback(() => {
     setIsLoading(true);

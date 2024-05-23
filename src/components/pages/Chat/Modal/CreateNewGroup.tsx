@@ -81,9 +81,7 @@ export default function CreateNewGroup({ users, handleClose }: ICreateNewGroupPr
     );
   }, [searchDebounce]);
 
-  const isChanged = useMemo(() => {
-    return membersGroup.length === 0;
-  }, [membersGroup]);
+  const isChanged = membersGroup.length === 0;
 
   const { mutateReceiveConversation } = useReceiveConversation();
   const router = useRouter();

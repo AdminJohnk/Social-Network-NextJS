@@ -111,7 +111,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
             {errors.password && <p className='p-1 text-xs text-red-600'>{errors.password.message}</p>}
           </div>
           <Button
-            className='flex-center w-full mb-5 bg-blue-200 hover:bg-blue-400'
+            className='flex-center w-full bg-blue-200 hover:bg-blue-400'
             type='submit'
             disabled={isLoading}>
             {isLoading && <FaSpinner className='animate-spin mr-2' />}
@@ -119,9 +119,10 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
           </Button>
         </form>
         <div className='mt-10'>
-          <hr />
-          <div className='flex flex-col items-center'>
-            <span>Or</span>
+          <div className='flex-center gap-3'>
+            <hr className='border-border-1 w-full' />
+            <span className='font-semibold text-text-1'>Or</span>
+            <hr className='border-border-1 w-full' />
           </div>
           <div className='loginTool mt-10 w-full flex flex-col gap-3'>
             <Button

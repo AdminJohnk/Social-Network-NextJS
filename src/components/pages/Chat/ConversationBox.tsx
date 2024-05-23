@@ -34,9 +34,10 @@ export default function ConversationBox({ conversation }: IConversationBoxProps)
     return conversation.members.find((member) => member._id !== currentUserInfo._id);
   }, [currentUserInfo, conversation?.members]);
 
-  const isOwn = useMemo(() => {
-    return currentUserInfo._id === conversation.lastMessage?.sender?._id;
-  }, [conversation.lastMessage, currentUserInfo]);
+  const isOwn = useMemo(
+    () => currentUserInfo._id === conversation.lastMessage?.sender?._id,
+    [conversation.lastMessage, currentUserInfo]
+  );
 
   const senderName = useMemo(() => {
     if (isOwn) {
