@@ -129,7 +129,10 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
               variant='outline'
               className='flex-center w-full mb-5 hover:bg-blue-400 '
               disabled={isLoading}
-              onClick={() => signIn('google')}>
+              onClick={() => {
+                setIsLoading(true);
+                signIn('google').finally(() => setIsLoading(false));
+              }}>
               <span className='icon mr-2'>
                 <IoLogoGoogle className='size-5' />
               </span>
@@ -139,7 +142,10 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
               variant='outline'
               className='flex-center w-full mb-5 hover:bg-blue-400'
               disabled={isLoading}
-              onClick={() => signIn('github')}>
+              onClick={() => {
+                setIsLoading(true);
+                signIn('github').finally(() => setIsLoading(false));
+              }}>
               <span className='icon mr-2'>
                 <IoLogoGithub className='size-5' />
               </span>
