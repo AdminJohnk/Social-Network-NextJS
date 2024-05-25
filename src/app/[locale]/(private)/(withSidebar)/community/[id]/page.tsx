@@ -2,7 +2,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 
 import NewPost from '@/components/shared/NewPost/NewPost';
 import About from '@/components/pages/Community/Id/About';
-import RecentMedia from '@/components/pages/Community/Id/RecentMedia';
+import RecentImage from '@/components/pages/Community/Id/RecentImage';
 import SuggestGroup from '@/components/pages/Community/Id/SuggestGroup';
 import ComCover from '@/components/pages/Community/Id/ComCover';
 import PostList from '@/components/pages/Community/Id/PostList';
@@ -40,7 +40,7 @@ export default function Community({ params: { locale, id }, searchParams: { tab 
                 className='lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
                 data-uk-sticky='media: 1024; end: #community-side; offset: 80'>
                 <About communityID={id} />
-                <RecentMedia />
+                <RecentImage communityID={id} />
                 <SuggestGroup />
               </div>
             </div>

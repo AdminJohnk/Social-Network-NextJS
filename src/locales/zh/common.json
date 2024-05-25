@@ -237,7 +237,7 @@
   "Event": "活动",
   "Video": "视频",
   "Media": "媒体",
-  "Recent Media": "最近的媒体",
+  "Recent Images": "最近的图片",
   "Suggested groups": "推荐群组",
   "Create Post": "创建帖子",
   "What do you have in mind?": "你在想什么?",
@@ -528,5 +528,12 @@
   "You will not be able to return to the community until approved by the admin!": "在管理员批准之前，您将无法返回社区!",
   "Communities you manage": "您管理的社区",
   "friends have joined": "好友已加入",
-  "Manage your communities": "管理您的社区"
+  "Manage your communities": "管理您的社区",
+  "You must join in this community to see posts": "您必须加入这个社区才能看到帖子",
+  "Public": "公共",
+  "Private": "私人",
+  "Anyone can see who's in the group and what they post": "任何人都可以看到群组中的成员和他们发布的内容",
+  "Only members can see who's in the group and what they post": "只有成员才能看到群组中的成员和他们发布的内容",
+  "Community updated successfully!": "社区更新成功!",
+  "Community created successfully!": "社区创建成功!"
 }

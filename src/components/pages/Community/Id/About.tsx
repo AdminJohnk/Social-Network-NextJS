@@ -1,9 +1,11 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { MdOutlineRuleFolder } from 'react-icons/md';
 import { Link } from '@/navigation';
 
 import { useGetCommunityByID } from '@/hooks/query';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface IAboutProps {
   communityID: string;
@@ -46,28 +48,15 @@ export default function About({ communityID }: IAboutProps) {
                 />
               </svg>
               <div>
-                <span className='font-semibold text-text-1'>Public</span>
-                <p> Anyone can see who&apos;s in the group and what they post.</p>
-              </div>
-            </li>
-            <li className='flex items-start gap-3'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth='1.5'
-                stroke='currentColor'
-                className='w-6 h-6'>
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z'
-                />
-                <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
-              </svg>
-              <div>
-                <span className='font-semibold text-text-1'>Visible</span>
-                <p> Anyone can find this group</p>
+                <span className='font-semibold text-text-1'>
+                  {community.visibility === 'public' ? t('Public') : t('Private')}
+                </span>
+                <p>
+                  {community.visibility === 'public'
+                    ? t("Anyone can see who's in the group and what they post")
+                    : t("Only members can see who's in the group and what they post")}
+                  .
+                </p>
               </div>
             </li>
             <li className='flex items-center gap-3'>
@@ -89,6 +78,21 @@ export default function About({ communityID }: IAboutProps) {
                 <span className='font-semibold text-text-1 ml-2'>{community.members.length}</span>
               </div>
             </li>
+            {community.rules.length > 0 && (
+              <li className='flex items-center'>
+                <Accordion type='single' collapsible className='*:w-full'>
+                  {community.rules.map((rule, index) => (
+                    <AccordionItem key={index} value={rule.content}>
+                      <AccordionTrigger className='flex items-center gap-3'>
+                        <MdOutlineRuleFolder className='size-6' />
+                        <span>{rule.title}</span>
+                      </AccordionTrigger>
+                      <AccordionContent>{rule.content}</AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </li>
+            )}
           </ul>
         </div>
       )}

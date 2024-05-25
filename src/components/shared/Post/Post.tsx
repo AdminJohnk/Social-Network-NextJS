@@ -16,7 +16,7 @@ import CommentList from '@/components/shared/CommentList';
 import InputComment from '@/components/shared/InputComment';
 import PostMoreChoose from './PostMoreChoose';
 import { IFeaturePost, IPost, IUserInfo } from '@/types';
-import { cn, getImageURL } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import ShowContent from '../ShowContent/ShowContent';
 import CreateNewPostShare from '../CreateNewPostShare/CreateNewPostShare';
 import Modal from '@/components/shared/Modal';

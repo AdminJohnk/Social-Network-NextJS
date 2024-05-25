@@ -28,7 +28,7 @@ import Modal from '../Modal';
 export interface IPostMoreChooseProps {
   post: IPost;
   isMyPost: boolean;
-  feature?: IFeaturePost;
+  feature: IFeaturePost;
 }
 
 export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreChooseProps) {
@@ -134,7 +134,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
               <span>{t('Edit Post')}</span>
             </div>
             <Modal open={openEditPost} handleClose={handleCloseEditPost}>
-              <EditPost post={post} handleClose={handleCloseEditPost} />
+              <EditPost post={post} handleClose={handleCloseEditPost} isCommunity />
             </Modal>
           </>
         )}

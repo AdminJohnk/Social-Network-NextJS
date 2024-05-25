@@ -249,7 +249,7 @@
   "Event": "Event",
   "Video": "Video",
   "Media": "Media",
-  "Recent Media": "Recent Media",
+  "Recent Images": "Recent Images",
   "Suggested groups": "Suggested groups",
   "Create Post": "Create Post",
   "What do you have in mind?": "What do you have in mind?",
@@ -523,7 +523,6 @@
   "Next": "Next",
   "Write something nice": "Write something nice",
   "Question": "Question",
-
   "Ask a public question": "Ask a public question",
   "Edit question": "Edit question",
   "Leave Community": "Leave Community",
@@ -531,5 +530,12 @@
   "You will not be able to return to the community until approved by the admin!": "You will not be able to return to the community until approved by the admin!",
   "Communities you manage": "Communities you manage",
   "friends have joined": "{count, plural,=0 {friend have joined} =1 {friend have joined} other {friends have joined}}",
-  "Manage your communities": "Manage your communities"
+  "Manage your communities": "Manage your communities",
+  "You must join in this community to see posts": "You must join in this community to see posts",
+  "Public": "Public",
+  "Private": "Private",
+  "Anyone can see who's in the group and what they post": "Anyone can see who's in the group and what they post",
+  "Only members can see who's in the group and what they post": "Only members can see who's in the group and what they post",
+  "Community updated successfully!": "Community updated successfully!",
+  "Community created successfully!": "Community created successfully!"
 }

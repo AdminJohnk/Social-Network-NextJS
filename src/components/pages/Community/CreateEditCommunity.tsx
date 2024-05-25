@@ -18,7 +18,8 @@ import { cn, getImageURL } from '@/lib/utils';
 import { useCreateCommunity, useDeleteImage, useUpdateCommunity, useUploadImage } from '@/hooks/mutation';
 import ReactImageUploading, { ImageListType } from 'react-images-uploading';
 import Image from 'next/image';
-import { showErrorToast } from '@/components/ui/toast';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { useRouter } from '@/navigation';
 
 interface ICreateEditCommunityProps {
   handleClose: () => void;
@@ -31,6 +32,7 @@ interface ICreateEditCommunityProps {
 export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEditCommunityProps) {
   const t = useTranslations();
   const locale = useLocale();
+  const router = useRouter();
   const { mode } = useThemeMode();
 
   const { currentUserInfo } = useCurrentUserInfo();
@@ -49,7 +51,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
 
   const [hashTagList, setHashTagList] = useState<string[]>([]);
 
-  const [ruleInputs, setRuleInputs] = useState<JSX.Element[]>([]);
+  const [ruleInputs, setRuleInputs] = useState<Record<'title' | 'content', string>[]>([]);
 
   const [membersCom, setMembersCom] = useState<IUserInfo[]>([]);
 
@@ -61,7 +63,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
       setName(dataEdit.name);
       setAbout(dataEdit.about);
       setHashTagList(dataEdit.tags);
-      setRuleInputs(dataEdit.rules.map((_, index) => ruleInputHTML(index)));
+      setRuleInputs(dataEdit.rules);
       setMembersCom(dataEdit.members);
       setImages([{ data_url: dataEdit.image }]);
     }
@@ -85,7 +87,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
 
   const members = currentUserInfo?.members || [];
 
-  const ruleInputHTML = (index: number) => {
+  const ruleInputHTML = (index: number, rule: { title: string; content: string }) => {
     return (
       <div>
         <div className='flex'>
@@ -99,10 +101,34 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
           </span>
         </div>
         <div className='relative mb-5 mt-4'>
-          <InputStyle label={`${t('Rule')} ${index + 1}: `} />
+          <InputStyle
+            label={`${t('Rule')} ${index + 1}: `}
+            defaultValue={rule.title}
+            onChange={(e) => {
+              const newRuleInputs = ruleInputs.map((ruleInput, i) => {
+                if (i === index) {
+                  return { ...ruleInput, title: e.currentTarget.value };
+                }
+                return ruleInput;
+              });
+              setRuleInputs(newRuleInputs);
+            }}
+          />
         </div>
         <div className='relative'>
-          <InputStyle label={`${t('Description')} ${index + 1}: `} />
+          <InputStyle
+            label={`${t('Description')} ${index + 1}: `}
+            defaultValue={rule.content}
+            onChange={(e) => {
+              const newRuleInputs = ruleInputs.map((ruleInput, i) => {
+                if (i === index) {
+                  return { ...ruleInput, content: e.currentTarget.value };
+                }
+                return ruleInput;
+              });
+              setRuleInputs(newRuleInputs);
+            }}
+          />
         </div>
       </div>
     );
@@ -111,10 +137,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
   const onSubmit = async () => {
     setIsLoading(true);
 
-    const rules = ruleInputs.map((_, index) => ({
-      title: ruleInputs[index].props.children[2].props.children[0].props.value,
-      content: ruleInputs[index].props.children[4].props.children[0].props.value
-    }));
+    const rules = ruleInputs.map((rule) => ({ title: rule.title, content: rule.content }));
 
     let imagesUploaded;
 
@@ -134,7 +157,11 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
       } satisfies ICreateCommunity;
 
       await mutateCreateCommunity(data, {
-        onSuccess: () => handleClose(),
+        onSuccess: (community) => {
+          handleClose();
+          router.push(`/community/${community._id}`);
+          showSuccessToast(t('Community created successfully!'));
+        },
         onSettled: () => setIsLoading(false)
       });
     } else {
@@ -154,6 +181,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
           onSuccess: () => {
             handleClose();
             handleDeleteImage(dataEdit.image);
+            showSuccessToast(t('Community updated successfully!'));
           },
           onSettled: () => setIsLoading(false)
         }
@@ -268,13 +296,13 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
             <IoAdd
               className='size-5 text-1'
               onClick={() => {
-                setRuleInputs([...ruleInputs, ruleInputHTML(ruleInputs.length)]);
+                setRuleInputs([...ruleInputs, { title: '', content: '' }]);
               }}
             />
           </span>
         </div>
         <div className='render-rule-input mx-3 *:mb-8'>
-          {ruleInputs.map((_, index) => ruleInputHTML(index))}
+          {ruleInputs.map((rule, index) => ruleInputHTML(index, rule))}
         </div>
         <div className='member'>
           <AddMemberToCommunity

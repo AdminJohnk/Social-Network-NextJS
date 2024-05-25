@@ -247,7 +247,7 @@
   "Event": "Sự kiện",
   "Video": "Video",
   "Media": "Phương tiện truyền thông",
-  "Recent Media": "Phương tiện truyền thông gần đây",
+  "Recent Images": "Hình ảnh gần đây",
   "Suggested groups": "Nhóm được đề xuất",
   "Create Post": "Tạo bài viết",
   "What do you have in mind?": "Bạn đang nghĩ gì?",
@@ -528,5 +528,12 @@
   "You will not be able to return to the community until approved by the admin!": "Bạn sẽ không thể quay lại cộng đồng cho đến khi được quản trị viên chấp nhận!",
   "Communities you manage": "Cộng đồng bạn quản lý",
   "friends have joined": "bạn bè đã tham gia",
-  "Manage your communities": "Quản lý cộng đồng của bạn"
+  "Manage your communities": "Quản lý cộng đồng của bạn",
+  "You must join in this community to see posts": "Bạn phải tham gia cộng đồng này để xem bài viết",
+  "Public": "Công khai",
+  "Private": "Riêng tư",
+  "Anyone can see who's in the group and what they post": "Bất kỳ ai cũng có thể xem ai ở trong nhóm và họ đăng gì",
+  "Only members can see who's in the group and what they post": "Chỉ có thành viên mới có thể xem ai ở trong nhóm và họ đăng gì",
+  "Community updated successfully!": "Cộng đồng đã được cập nhật thành công!",
+  "Community created successfully!": "Cộng đồng đã được tạo thành công!"
 }

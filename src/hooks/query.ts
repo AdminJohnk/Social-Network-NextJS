@@ -1030,3 +1030,35 @@ export const useGetCommunityPostByID = (communityID: string, postID: string) => 
     isFetchingCommunityPost: isFetching
   };
 };
+
+export const useGetPostsByCommunityID = (communityID: string) => {
+  const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['postsByCommunity', communityID],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await communityService.getPostsByCommunityID(communityID, pageParam);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < 5) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingPostsByCommunity: isPending,
+    isErrorPostsByCommunity: isError,
+    postsByCommunity: data!,
+    isFetchingPostsByCommunity: isFetching,
+    hasNextPostsByCommunity: hasNextPage,
+    fetchNextPostsByCommunity: fetchNextPage,
+    isFetchingNextPostsByCommunity: isFetchingNextPage
+  };
+};

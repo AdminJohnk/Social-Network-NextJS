@@ -1,12 +1,12 @@
 'use client';
 
 import { useInView } from 'react-intersection-observer';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { Post } from '@/components/shared/Post';
 import { PostSkeleton } from '@/components/shared/Post';
-import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
+import { useCurrentUserInfo, useGetCommunityByID, useGetPostsByCommunityID } from '@/hooks/query';
 
 interface IPostListProps {
   communityID: string;
@@ -18,11 +18,19 @@ export default function PostList({ communityID }: IPostListProps) {
 
   const { community, isLoadingCommunity } = useGetCommunityByID(communityID);
 
-  //   useEffect(() => {
-  //     if (inPostsView && hasNextPosts && !isFetchingNextPosts) {
-  //       fetchNextPosts();
-  //     }
-  //   }, [inPostsView, hasNextPosts, isFetchingNextPosts, fetchNextPosts]);
+  const {
+    postsByCommunity,
+    isLoadingPostsByCommunity,
+    isFetchingNextPostsByCommunity,
+    hasNextPostsByCommunity,
+    fetchNextPostsByCommunity
+  } = useGetPostsByCommunityID(communityID);
+
+  useEffect(() => {
+    if (inPostsView && hasNextPostsByCommunity && !isFetchingNextPostsByCommunity) {
+      fetchNextPostsByCommunity();
+    }
+  }, [inPostsView, hasNextPostsByCommunity, isFetchingNextPostsByCommunity, fetchNextPostsByCommunity]);
 
   const { currentUserInfo } = useCurrentUserInfo();
 
@@ -35,26 +43,26 @@ export default function PostList({ communityID }: IPostListProps) {
 
   return (
     <>
-      {isLoadingCommunity ? (
+      {isLoadingCommunity || isLoadingPostsByCommunity ? (
         <div className='post-skeleton *:mb-6'>
           <PostSkeleton />
         </div>
       ) : !isMember && community.visibility === 'private' ? (
         <div className='flex-center'>
-          <span className='text-text-2'>{t('You must join in this community to see post!')}</span>
+          <span className='text-text-2'>{t('You must join in this community to see posts!')}</span>
         </div>
       ) : (
         <div className='post *:mb-6'>
-          {community.posts.length ? (
+          {postsByCommunity.length ? (
             <>
-              {community.posts.map((post) => (
+              {postsByCommunity.map((post) => (
                 <Post key={post._id} post={post} feature='community' communityID={communityID} />
               ))}
-              {/* {hasNextPosts && (
+              {hasNextPostsByCommunity && (
                 <div ref={postsRef}>
                   <PostSkeleton />
                 </div>
-              )} */}
+              )}
             </>
           ) : (
             <div className='flex-center'>

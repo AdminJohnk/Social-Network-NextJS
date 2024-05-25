@@ -63,6 +63,12 @@ class CommunityService extends BaseService {
   getCommunityPostByID = (communityID: string, postID: string): Promise<AxiosResponse<IResponse<IPost>>> => {
     return this.get(`/communities/${communityID}/post/${postID}`);
   };
+  getPostsByCommunityID = (
+    communityID: string,
+    pageParam: number
+  ): Promise<AxiosResponse<IResponse<IPost[]>>> => {
+    return this.get(`/communities/${communityID}/posts?page=${pageParam}`);
+  };
 }
 
 export const communityService = new CommunityService();
