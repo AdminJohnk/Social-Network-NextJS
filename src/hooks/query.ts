@@ -874,21 +874,21 @@ export const useGetSearchLogs = () => {
   };
 };
 
-export const useGetAllImages = (userID: string) => {
+export const useGetAllPostImages = (userID: string) => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['allImages', userID],
     queryFn: async () => {
-      const { data } = await postService.getAllImages(userID);
+      const { data } = await postService.getAllPostImages(userID);
       return data.metadata;
     },
     staleTime: Infinity
   });
 
   return {
-    isLoadingAllImages: isPending,
-    isErrorAllImages: isError,
-    allImages: data!,
-    isFetchingAllImages: isFetching
+    isLoadingAllPostImages: isPending,
+    isErrorAllPostImages: isError,
+    allPostImages: data!,
+    isFetchingAllPostImages: isFetching
   };
 };
 
@@ -959,5 +959,74 @@ export const useGetSeriesByID = (seriesID: string) => {
     isErrorSeries: isError,
     series: data!,
     isFetchingSeries: isFetching
+  };
+};
+
+export const useGetAllCommunityImages = (communityID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allCommunityImages', communityID],
+    queryFn: async () => {
+      const { data } = await communityService.getAllCommunityImages(communityID);
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllCommunityImages: isPending,
+    isErrorAllCommunityImages: isError,
+    allCommunityImages: data!,
+    isFetchingAllCommunityImages: isFetching
+  };
+};
+
+export const useGetAllCommunitiesYouManage = () => {
+  const { data, isPending, isError, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useInfiniteQuery({
+      queryKey: ['communitiesYouManage'],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await communityService.getAllCommunitiesYouManage(pageParam);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < 5) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingCommunitiesYouManage: isPending,
+    isErrorCommunitiesYouManage: isError,
+    hasNextCommunitiesYouManage: hasNextPage,
+    fetchNextCommunitiesYouManage: fetchNextPage,
+    isFetchingNextCommunitiesYouManage: isFetchingNextPage,
+    communitiesYouManage: data!,
+    isFetchingCommunitiesYouManage: isFetching
+  };
+};
+
+export const useGetCommunityPostByID = (communityID: string, postID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['communityPost', communityID, postID],
+    queryFn: async () => {
+      const { data } = await communityService.getCommunityPostByID(communityID, postID);
+      return data.metadata;
+    },
+    staleTime: Infinity,
+    enabled: !!communityID && !!postID
+  });
+
+  return {
+    isLoadingCommunityPost: isPending,
+    isErrorCommunityPost: isError,
+    communityPost: data!,
+    isFetchingCommunityPost: isFetching
   };
 };

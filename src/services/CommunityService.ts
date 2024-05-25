@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { BaseService } from './BaseService';
-import { ICommunity, ICreateCommunity, IResponse } from '@/types';
+import { ICommunity, ICreateCommunity, IPost, IResponse } from '@/types';
 
 class CommunityService extends BaseService {
   constructor() {
@@ -53,6 +53,15 @@ class CommunityService extends BaseService {
   };
   revokeAdmin = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/revoke-admin/${id}`, { user_id });
+  };
+  getAllCommunityImages = (id: string): Promise<AxiosResponse<IResponse<string[]>>> => {
+    return this.get(`/communities/images/${id}`);
+  };
+  getAllCommunitiesYouManage = (pageParam: number): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
+    return this.get(`/communities/manage?page=${pageParam}`);
+  };
+  getCommunityPostByID = (communityID: string, postID: string): Promise<AxiosResponse<IResponse<IPost>>> => {
+    return this.get(`/communities/${communityID}/post/${postID}`);
   };
 }
 

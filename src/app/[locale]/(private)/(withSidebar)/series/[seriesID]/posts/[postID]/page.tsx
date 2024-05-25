@@ -30,11 +30,8 @@ import {
 } from '@/components/ui/alert-dialog';
 import DeleteButton from '@/components/pages/Series/DeleteButton';
 import {
- 
   useCommentPostSeries,
- 
   useDeleteImage,
- 
   useDeletePostToSeries,
   useLikePostSeries,
   useSavePostSeries
@@ -54,15 +51,13 @@ export interface IPostSeriesProps {
   };
 }
 
-export default function PostSeries({
-  params: { seriesID, postID }
-}: IPostSeriesProps) {
+export default function PostSeries({ params: { seriesID, postID } }: IPostSeriesProps) {
   const t = useTranslations();
   const router = useRouter();
 
   const { series } = useGetSeriesByID(seriesID);
-  const post = series?.posts.find(p => p._id === postID);
-  const indexPost = series?.posts.findIndex(p => p._id === postID);
+  const post = series?.posts.find((p) => p._id === postID);
+  const indexPost = series?.posts.findIndex((p) => p._id === postID);
   // Get the following post
   const nextPost = series?.posts[indexPost + 1];
 
@@ -96,7 +91,7 @@ export default function PostSeries({
 
   const [isLoadingDis, setIsLoadingDis] = useState<boolean>(false);
 
-  const getFormattedDate = (date: string) => {
+  const getFormattedDate = () => {
     const format = useFormatter();
     return format.dateTime(new Date(series?.createdAt), {
       month: 'long',
@@ -216,9 +211,7 @@ export default function PostSeries({
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>
-                  {t('Are you absolutely sure delete this post?')}
-                </AlertDialogTitle>
+                <AlertDialogTitle>{t('Are you absolutely sure delete this post?')}</AlertDialogTitle>
                 <AlertDialogDescription>
                   {t('You will not be able to recover post after deletion!')}
                 </AlertDialogDescription>
@@ -228,18 +221,14 @@ export default function PostSeries({
                   variant='destructive'
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
-                  onClick={handleCloseDeletePost}
-                >
+                  onClick={handleCloseDeletePost}>
                   {t('Cancel')}
                 </Button>
                 <Button
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
-                  onClick={handleDeletePost}
-                >
-                  {isLoading && (
-                    <CircularProgress size={20} className='!text-text-1 mr-2' />
-                  )}
+                  onClick={handleDeletePost}>
+                  {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
                   {t('Delete')}
                 </Button>
               </AlertDialogFooter>
@@ -267,18 +256,12 @@ export default function PostSeries({
       </Modal>
       <div className='max-w-[730px] mx-auto'>
         <div className='mb-5 flex-start gap-3'>
-          <Link
-            href={`/series/${seriesID}`}
-            className='flex-start gap-2 text-1'
-          >
+          <Link href={`/series/${seriesID}`} className='flex-start gap-2 text-1'>
             <FaSwatchbook className='size-5' />
             <span className='base-semibold'>{series?.title}</span>
           </Link>
           <span className='text-xl'>/</span>
-          <Link
-            href={`/series/${seriesID}/posts/${postID}`}
-            className='flex-start gap-2 text-1'
-          >
+          <Link href={`/series/${seriesID}/posts/${postID}`} className='flex-start gap-2 text-1'>
             <SiGoogledocs className='size-5' />
             <span className='base-semibold'>{post?.title}</span>
           </Link>
@@ -292,25 +275,21 @@ export default function PostSeries({
           priority
         />
         <div className='h2-semibold mt-7'>{post?.title}</div>
-        <div className='text-text-2 text-[1rem] text-pretty mt-4'>
-          {post?.description}
-        </div>
+        <div className='text-text-2 text-[1rem] text-pretty mt-4'>{post?.description}</div>
         <div className='text-text-2 flex-between mt-6 mb-6'>
           <div className='flex-start gap-3'>
             <div className='flex-start gap-2 items-center bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-lg py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'>
               <FiFileText className='size-3' />
               <span className='base-semibold '>{t('Blog')}</span>
             </div>
-            <div>{getFormattedDate(post?.createdAt!)}</div>
+            <div>{getFormattedDate()}</div>
             <span>•</span>
             <div>{post?.read_time + t(' min read')}</div>
           </div>
           <InteractComponent />
         </div>
         <div>
-          <div className='small-semibold mb-2 text-text-2'>
-            {t('Contributors')}
-          </div>
+          <div className='small-semibold mb-2 text-text-2'>{t('Contributors')}</div>
           <div className='flex-start gap-2'>
             <Avatar src={getImageURL(author?.user_image)} />
             <div>
@@ -359,21 +338,14 @@ export default function PostSeries({
             {t('Discussion')}
           </div>
           <div className='editor space-y-5 px-2 py-3 border border-border-1 rounded-lg mt-3'>
-            <Editor
-              setEditor={setEditor}
-              placeholder={t('Write something nice')}
-              autofocus={false}
-            />
+            <Editor setEditor={setEditor} placeholder={t('Write something nice')} autofocus={false} />
           </div>
           <div className='flex-end'>
             <Button
               className={cn('mt-3', isLoadingDis && 'select-none')}
               disabled={isLoadingDis}
-              onClick={() => handlePostDiscussion()}
-            >
-              {isLoadingDis && (
-                <CircularProgress size={20} className='!text-text-1 mr-2' />
-              )}
+              onClick={() => handlePostDiscussion()}>
+              {isLoadingDis && <CircularProgress size={20} className='!text-text-1 mr-2' />}
               {t('Post Discussion')}
             </Button>
           </div>

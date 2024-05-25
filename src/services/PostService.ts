@@ -83,7 +83,7 @@ class PostService extends BaseService {
     return this.get(`/posts/search/top?search=${keyword}&page=${page}`);
   };
 
-  getAllImages = (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
+  getAllPostImages = (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
     return this.get(`/posts/images/${userID}`);
   };
 

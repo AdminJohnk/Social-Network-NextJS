@@ -20,36 +20,65 @@ export default function ComMineList() {
       {isLoadingCommunities ? (
         <>Loading...</>
       ) : (
-        communities.map((community) => (
-          <div key={community._id} className='card'>
-            <Link href={`/community/${community._id}`}>
-              <div className='card-media h-24'>
-                <Image width={500} height={500} src={getImageURL(community.image)} alt='image' />
-                <div className='card-overlay'></div>
-              </div>
-            </Link>
-            <div className='card-body'>
+        communities.map((community) => {
+          const mutualFriends = () => {
+            if (!community.members.length) return [];
+            return community.members.filter((member) => {
+              return currentUserInfo.friends.findIndex((f) => f._id === member._id) !== -1;
+            });
+          };
+
+          return (
+            <div key={community._id} className='card'>
               <Link href={`/community/${community._id}`}>
-                <h4 className='card-title'>{community.name}</h4>
+                <div className='card-media h-24'>
+                  <Image width={500} height={500} src={getImageURL(community.image)} alt='image' />
+                  <div className='card-overlay'></div>
+                </div>
               </Link>
-              <div className='card-list-info font-normal mt-1'>
-                <Link href=''> {t('Health ')} </Link>
-                <div className='md:block hidden'>·</div>
-                <div>
-                  {community.members.length} {t('members')}
+              <div className='card-body'>
+                <Link href={`/community/${community._id}`}>
+                  <h4 className='card-title'>{community.name}</h4>
+                </Link>
+                <div className='card-list-info font-normal mt-1'>
+                  <Link href=''> {t('Health ')} </Link>
+                  <div className='md:block hidden'>·</div>
+                  <div>
+                    {community.members.length} {t('members')}
+                  </div>
+                </div>
+                <div className='flex items-center gap-3 mt-3'>
+                  <div className='flex -space-x-2'>
+                    {mutualFriends()
+                      .slice(0, 3)
+                      .map((friend) => (
+                        <Image
+                          key={friend._id}
+                          width={500}
+                          height={500}
+                          src={getImageURL(friend.user_image)}
+                          alt={friend.name}
+                          className='w-6 rounded-full border-border-1'
+                        />
+                      ))}
+                  </div>
+                  <p className='card-text'>
+                    {mutualFriends().length}&nbsp;
+                    {t('friends have joined', { count: mutualFriends().length })}
+                  </p>
+                </div>
+                <div className='flex gap-2 w-full relative'>
+                  <Link
+                    href={`/community/${community._id}`}
+                    className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white text-center min-w-fit'>
+                    {t('View Community')}
+                  </Link>
+                  {currentUserInfo._id === community.creator._id && <EditCommunity dataEdit={community} />}
                 </div>
               </div>
-              <div className='flex gap-2 w-full relative'>
-                <Link
-                  href={`/community/${community._id}`}
-                  className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white text-center min-w-fit'>
-                  {t('View Community')}
-                </Link>
-                {currentUserInfo._id === community.creator._id && <EditCommunity dataEdit={community} />}
-              </div>
             </div>
-          </div>
-        ))
+          );
+        })
       )}
       {/* <div className='card'>
         <Link href='/community/123'>

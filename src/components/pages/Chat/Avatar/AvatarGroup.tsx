@@ -8,11 +8,10 @@ import { IUserInfo } from '@/types';
 interface IAvatarGroup {
   users: IUserInfo[];
   size?: number;
-  preview?: boolean;
   image?: string;
 }
 
-const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image, preview = false }) => {
+const AvatarGroup: React.FC<IAvatarGroup> = ({ size = 36, users, image }) => {
   const { activeMembers: members } = useSocketStore();
 
   const { currentUserInfo } = useCurrentUserInfo();

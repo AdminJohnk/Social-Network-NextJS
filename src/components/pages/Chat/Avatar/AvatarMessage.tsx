@@ -1,15 +1,14 @@
-import { cn, getImageURL } from "@/lib/utils";
-import { useSocketStore } from "@/store/socket";
-import { IUserInfo } from "@/types";
-import Image from "next/image";
+import { cn, getImageURL } from '@/lib/utils';
+import { useSocketStore } from '@/store/socket';
+import { IUserInfo } from '@/types';
+import Image from 'next/image';
 
 interface IAvatar {
   user: IUserInfo;
   size?: number;
-  preview?: boolean;
 }
 
-const AvatarMessage: React.FC<IAvatar> = ({ size = 36, user, preview = false }) => {
+const AvatarMessage: React.FC<IAvatar> = ({ size = 36, user }) => {
   const { activeMembers: members } = useSocketStore();
   const isActive = members.some((member) => member._id === user._id && member.is_online);
 
@@ -21,8 +20,8 @@ const AvatarMessage: React.FC<IAvatar> = ({ size = 36, user, preview = false }) 
           height={500}
           src={getImageURL(user.user_image, 'avatar')!}
           alt='Avatar'
-          referrerPolicy="no-referrer"
-          className="object-cover w-full h-full"
+          referrerPolicy='no-referrer'
+          className='object-cover w-full h-full'
           priority
         />
       </div>

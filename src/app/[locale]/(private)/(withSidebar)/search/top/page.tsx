@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useQueryClient } from '@tanstack/react-query';
 import { CircularProgress } from '@mui/material';
 
-import Post from '@/components/shared/Post';
+import { Post } from '@/components/shared/Post';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 import FriendButton from '@/components/pages/Profile/FriendButton';
 import HoverUser from '@/components/shared/Post/HoverUser';

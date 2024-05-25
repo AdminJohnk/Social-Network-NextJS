@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FaPlusCircle, FaUserPlus } from 'react-icons/fa';
+import { FaPlusCircle } from 'react-icons/fa';
 import { Skeleton } from '@mui/material';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
@@ -42,7 +42,7 @@ export default function CalledList({ }: ICalledListProps) {
             type='text'
             placeholder={t('Search')}
             className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
-            onChange={(e) => {
+            onChange={() => {
               // setSearch(e.target.value);
               // if (!isLoadingSearch) setIsLoadingSearch(true);
             }}

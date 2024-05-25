@@ -1,6 +1,5 @@
 'use client';
 
-import { Avatar } from '@mui/material';
 import { Link } from '@/navigation';
 import { IoIosMore } from 'react-icons/io';
 import { FiSend } from 'react-icons/fi';
@@ -28,13 +27,15 @@ import LinkPreview from '../LinkPreview';
 import ShowUsersAndGroupsToSendPost from './ShowUsersAndGroupsToSendPost';
 import HoverUser from './HoverUser';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 
 export interface IPostProps {
   post: IPost;
   feature?: IFeaturePost;
+  communityID?: string;
 }
 
-export default function Post({ post, feature = 'detail' }: IPostProps) {
+export default function Post({ post, feature = 'detail', communityID }: IPostProps) {
   const t = useTranslations();
   const content =
     post?.type === 'Post'
@@ -162,7 +163,7 @@ export default function Post({ post, feature = 'detail' }: IPostProps) {
             <div className='flex-start'>
               <HoverUser user={post.post_attributes.user}>
                 <Link href={`/profile/${post.post_attributes.user._id}`}>
-                  <Avatar src={getImageURL(post.post_attributes.user.user_image)} />
+                  <AvatarMessage size={40} user={post.post_attributes.user} />
                 </Link>
               </HoverUser>
               <div className='flex gap-1 flex-col ms-3'>
@@ -172,7 +173,9 @@ export default function Post({ post, feature = 'detail' }: IPostProps) {
                   </Link>
                 </HoverUser>
                 <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
-                  <Link href={`/posts/${post._id}`}>{handleDateTime(post.createdAt)}</Link>
+                  <Link href={`${communityID ? `/community/${communityID}` : ''}/posts/${post._id}`}>
+                    {handleDateTime(post.createdAt)}
+                  </Link>
                   {!(feature === 'requested' || feature === 'community') && (
                     <>
                       <span>•</span>
@@ -214,7 +217,7 @@ export default function Post({ post, feature = 'detail' }: IPostProps) {
                 <div className={cn('mt-4 flex-start', post.type === 'Share' && 'px-5')}>
                   <HoverUser user={ownerPost}>
                     <Link href={`/profile/${ownerPost._id}`}>
-                      <Avatar src={getImageURL(ownerPost.user_image)} />
+                      <AvatarMessage size={40} user={ownerPost} />
                     </Link>
                   </HoverUser>
                   <div className='flex flex-col ms-3'>
@@ -224,7 +227,10 @@ export default function Post({ post, feature = 'detail' }: IPostProps) {
                       </Link>
                     </HoverUser>
                     <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
-                      <Link href={`/posts/${post.post_attributes.post!._id}`}>
+                      <Link
+                        href={`${communityID ? `/community/${communityID}` : ''}/posts/${
+                          post.post_attributes.post!._id
+                        }`}>
                         {handleDateTime(post.post_attributes.post!.createdAt)}
                       </Link>
                       <span>•</span>

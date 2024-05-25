@@ -15,7 +15,6 @@ import {
   IoLeafOutline
 } from 'react-icons/io5';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import { useTranslations } from 'next-intl';
 
 import { TabTitle, Tabs, TabsContent } from '@/components/ui/tabs';
 
@@ -27,7 +26,7 @@ export interface IGroupManagerProps {
 
 export default function GroupManager({ params: { locale } }: IGroupManagerProps) {
   unstable_setRequestLocale(locale);
-  const t = useTranslations();
+
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-0'>
       <div className='groups px-10 pt-5'>

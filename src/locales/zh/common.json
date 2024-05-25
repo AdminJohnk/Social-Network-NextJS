@@ -522,5 +522,11 @@
   "Contributors": "贡献者",
   "Next": "下一个",
   "Write something nice": "写点好的",
-  "Question": "问题"
+  "Question": "问题",
+  "Leave Community": "离开社区",
+  "Are you absolutely sure leave this community?": "您确定要离开这个社区吗?",
+  "You will not be able to return to the community until approved by the admin!": "在管理员批准之前，您将无法返回社区!",
+  "Communities you manage": "您管理的社区",
+  "friends have joined": "好友已加入",
+  "Manage your communities": "管理您的社区"
 }

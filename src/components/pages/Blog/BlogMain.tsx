@@ -1,11 +1,9 @@
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 
 import { IoChatboxOutline, IoThumbsUpOutline } from 'react-icons/io5';
 
 export default function BlogMain() {
-  const t = useTranslations();
   return (
     <div className='card mt-8'>
       <div className='card-media md:h-80 h-52'>
