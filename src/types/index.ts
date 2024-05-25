@@ -399,11 +399,24 @@ export interface ICreateCommunity {
   visibility: Visibility;
 }
 
+export interface IUpdateCommunity {
+  id: string;
+  name?: string;
+  about?: string;
+  tags?: string[];
+  image?: string;
+  members?: string[];
+  rules?: {
+    title?: string;
+    content?: string;
+  }[];
+  visibility?: Visibility;
+}
+
 export interface ICommunity {
   _id: string;
   name: string;
   image: string;
-  cover_image: string;
   about: string;
   tags: string[];
   rules: {
@@ -687,4 +700,10 @@ export interface ICreateQuestion {
   problem: string;
   expect: string;
   hashtags: string[];
+}
+
+export interface IHashtag {
+  _id: string;
+  name: string;
+  posts: IPost[];
 }

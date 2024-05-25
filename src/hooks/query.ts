@@ -10,6 +10,7 @@ import { communityService } from '@/services/CommunityService';
 import { searchLogService } from '@/services/SearchLogService';
 import { ApplyDefaults } from '@/lib/utils';
 import { seriesService } from '@/services/SeriesService';
+import { hashtagService } from '@/services/HashtagService';
 
 // ---------------------------FETCH HOOKS---------------------------
 
@@ -1062,3 +1063,122 @@ export const useGetPostsByCommunityID = (communityID: string) => {
     isFetchingNextPostsByCommunity: isFetchingNextPage
   };
 };
+
+export const useGetAllCommunityImages = (communityID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allCommunityImages', communityID],
+    queryFn: async () => {
+      const { data } = await communityService.getAllCommunityImages(communityID);
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllCommunityImages: isPending,
+    isErrorAllCommunityImages: isError,
+    allCommunityImages: data!,
+    isFetchingAllCommunityImages: isFetching
+  };
+};
+
+export const useGetAllCommunitiesYouManage = () => {
+  const { data, isPending, isError, isFetching, hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useInfiniteQuery({
+      queryKey: ['communitiesYouManage'],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await communityService.getAllCommunitiesYouManage(pageParam);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < 5) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingCommunitiesYouManage: isPending,
+    isErrorCommunitiesYouManage: isError,
+    hasNextCommunitiesYouManage: hasNextPage,
+    fetchNextCommunitiesYouManage: fetchNextPage,
+    isFetchingNextCommunitiesYouManage: isFetchingNextPage,
+    communitiesYouManage: data!,
+    isFetchingCommunitiesYouManage: isFetching
+  };
+};
+
+export const useGetCommunityPostByID = (communityID: string, postID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['communityPost', communityID, postID],
+    queryFn: async () => {
+      const { data } = await communityService.getCommunityPostByID(communityID, postID);
+      return data.metadata;
+    },
+    staleTime: Infinity,
+    enabled: !!communityID && !!postID
+  });
+
+  return {
+    isLoadingCommunityPost: isPending,
+    isErrorCommunityPost: isError,
+    communityPost: data!,
+    isFetchingCommunityPost: isFetching
+  };
+};
+
+export const useGetPostsByCommunityID = (communityID: string) => {
+  const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['postsByCommunity', communityID],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await communityService.getPostsByCommunityID(communityID, pageParam);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < 5) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingPostsByCommunity: isPending,
+    isErrorPostsByCommunity: isError,
+    postsByCommunity: data!,
+    isFetchingPostsByCommunity: isFetching,
+    hasNextPostsByCommunity: hasNextPage,
+    fetchNextPostsByCommunity: fetchNextPage,
+    isFetchingNextPostsByCommunity: isFetchingNextPage
+  };
+};
+
+export const useGetAllHashtags = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allHashtags'],
+    queryFn: async () => {
+      const { data } = await hashtagService.getAllHashtags();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllHashtags: isPending,
+    isErrorAllHashtags: isError,
+    allHashtags: data!,
+    isFetchingAllHashtags: isFetching
+  };
+}
