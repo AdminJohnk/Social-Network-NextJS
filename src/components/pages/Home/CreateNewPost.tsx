@@ -11,6 +11,7 @@ import { Visibility } from '@/types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useCreatePost, useUploadImages } from '@/hooks/mutation';
+import { useGetAllHashtags } from '@/hooks/query';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import UploadImage from '@/components/shared/UploadImage';
 import PostTemplate from '@/components/shared/PostTemplate';
@@ -20,12 +21,10 @@ interface ICreateNewPostProps {
   communityID?: string;
 }
 
-export default function CreateNewPost({
-  handleClose,
-  communityID
-}: ICreateNewPostProps) {
+export default function CreateNewPost({ handleClose, communityID }: ICreateNewPostProps) {
   const t = useTranslations();
 
+  const { allHashtags, isLoadingAllHashtags } = useGetAllHashtags();
   const { mutateCreatePost } = useCreatePost(communityID);
 
   const [privacy, setPrivacy] = useState<Visibility>('public');
@@ -39,7 +38,7 @@ export default function CreateNewPost({
 
   const handleUploadImages = async () => {
     const formData = new FormData();
-    images.forEach(image => {
+    images.forEach((image) => {
       formData.append('images', image);
     });
     return await mutateUploadImages(formData);
@@ -119,39 +118,42 @@ export default function CreateNewPost({
         <h2 className='text-sm font-medium text-text-1'>{t('Create Post')}</h2>
       </div>
 
-      <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg'>
-        <div className='mt-3 ps-4'>
-          <Editor
-            setEditor={setEditor}
-            placeholder={t('What do you want to share?')}
-          />
+      {isLoadingAllHashtags ? (
+        <div className='flex-center w-full h-full p-5'>
+          <CircularProgress size={20} className='!text-text-1' />
         </div>
+      ) : (
+        <>
+          <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg'>
+            <div className='mt-3 ps-4'>
+              <Editor
+                setEditor={setEditor}
+                placeholder={t('What do you want to share?')}
+                dataSuggestions={allHashtags?.map((tag) => tag.name.substring(1)) || []}
+              />
+            </div>
 
-        <div className='*:mb-3 text-sm py-2 px-4 font-medium'>
-          <PostTemplate editor={editor} />
-          <UploadImage setImagesOfS3={setImages} />
-        </div>
-      </div>
+            <div className='*:mb-3 text-sm py-2 px-4 font-medium'>
+              <PostTemplate editor={editor} />
+              <UploadImage setImagesOfS3={setImages} />
+            </div>
+          </div>
 
-      <div className={cn('p-5 flex-between', communityID && 'flex-end')}>
-        {!communityID && <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />}
-        <div className='flex items-center gap-2'>
-          <Button
-            type='button'
-            className={cn(
-              'button lg:px-6 text-white max-md:flex-1',
-              isLoading && 'select-none'
-            )}
-            disabled={isLoading}
-            onClick={handleSubmit}
-          >
-            {isLoading && (
-              <CircularProgress size={20} className='!text-text-1 mr-2' />
-            )}
-            {t('Create')} <span className='ripple-overlay'></span>
-          </Button>
-        </div>
-      </div>
+          <div className={cn('p-5 flex-between', communityID && 'flex-end')}>
+            {!communityID && <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />}
+            <div className='flex items-center gap-2'>
+              <Button
+                type='button'
+                className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+                disabled={isLoading}
+                onClick={handleSubmit}>
+                {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                {t('Create')} <span className='ripple-overlay'></span>
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
