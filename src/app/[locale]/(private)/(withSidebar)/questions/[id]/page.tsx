@@ -3,10 +3,14 @@
 import QuestionItem from '@/components/pages/Question/QuestionItem';
 import Divider from '@/components/shared/Divider';
 import { Button } from '@/components/ui/button';
-import { InputLabel, MenuItem } from '@mui/material';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useTranslations } from 'next-intl';
+import { Label, Select } from 'flowbite-react';
+import AnswerItem from '@/components/pages/Question/AnswerItem';
+import WriteAnswer from '@/components/pages/Question/WriteAnswer';
+import Menu from '@/components/pages/Question/Menu';
 import { useState } from 'react';
+import Modal from '@/components/shared/Modal';
+import CreateEditQuestion from '@/components/pages/Question/CreateEditQuestion';
 
 export interface IQuestionDetailProps {
   params: {
@@ -19,67 +23,169 @@ export default function QuestionDetail({
 }: IQuestionDetailProps) {
   const t = useTranslations();
 
-  const [sortBy, setSortBy] = useState('');
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setSortBy(event.target.value as string);
-  };
+  // Modal
+  const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
 
   return (
     <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
       <div className='max-w-[1070px] mx-auto'>
-        <div className='flex-between'>
-          <div>
-            <div className='h3-semibold'>
+        <div>
+          <div className='flex justify-between'>
+            <div className='h3-semibold me-10'>
               how to read additional parameters in [...nextauth] signIn()
-              callback? how to read additional parameters in [...nextauth]
-              signIn() callback?
+              callback?
             </div>
-            <div className='flex-start gap-5 mt-1 text-[0.8rem]'>
-              <div>
-                <span>Asked </span>
-                <span className='text-text-2'>1 year, 8 months ago</span>
-              </div>
-              <div>
-                <span>Modified </span>
-                <span className='text-text-2'>1 year, 6 months ago</span>
-              </div>
-              <div>
-                <span>Viewed </span>
-                <span className='text-text-2'>3k times</span>
-              </div>
+            <div>
+              <Button
+                className='text-nowrap'
+                onClick={() => setOpenCreateQuestion(true)}
+              >
+                {t('Ask Question')}
+              </Button>
+              <Modal
+                open={openCreateQuestion}
+                handleClose={() => setOpenCreateQuestion(false)}
+              >
+                <CreateEditQuestion
+                  handleClose={() => setOpenCreateQuestion(false)}
+                />
+              </Modal>
             </div>
           </div>
-          <Button>{t('Ask Question')}</Button>
+          <div className='flex-start gap-5 mt-1 text-[0.8rem]'>
+            <div>
+              <span>Asked </span>
+              <span className='text-text-2'>1 year, 8 months ago</span>
+            </div>
+            <div>
+              <span>Modified </span>
+              <span className='text-text-2'>1 year, 6 months ago</span>
+            </div>
+            <div>
+              <span>Viewed </span>
+              <span className='text-text-2'>3k times</span>
+            </div>
+          </div>
         </div>
         <Divider className='my-4' />
         <div className='grid grid-cols-3 gap-5'>
           <div className='left col-span-2'>
             <QuestionItem />
-            <div>
-              <div>
+            <div className='flex-between mb-5'>
+              <div className='space-x-1 h4-regular'>
                 <span>2</span>
                 <span>Answers</span>
               </div>
-              <div>
+              <div className='w-[50%] flex-start'>
+                <Label htmlFor='countries' value='Sort by:' />
+                <Select
+                  id='countries'
+                  required
+                  className='*:*:!ring-transparent *:*:!bg-transparent grow ms-3'
+                >
+                  <option className='bg-foreground-1'>United States</option>
+                  <option className='bg-foreground-1'>Canada</option>
+                  <option className='bg-foreground-1'>France</option>
+                  <option className='bg-foreground-1'>Germany</option>
+                </Select>
+              </div>
+            </div>
+            <div>
+              <AnswerItem />
+              <AnswerItem />
+            </div>
+            <WriteAnswer />
+          </div>
+          <div className='right col-span-1'>
+            <Menu currentMenu={'question'} />
+            <Divider className='my-4' />
+            <div>
+              <div className='h4-regular'>Related</div>
+              <div className='mt-4 *:mb-2 *:flex-start *:gap-3 *:cursor-pointer *:text-[0.8rem]'>
                 <div>
-                  {/* <InputLabel id='demo-simple-select-label'>Age</InputLabel>
-                  <Select
-                    labelId='demo-simple-select-label'
-                    id='demo-simple-select'
-                    value={sortBy}
-                    label='Age'
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select> */}
+                  <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                    250
+                  </span>
+                  <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                    Why is processing a sorted array slower than an unsorted
+                    array?
+                  </div>
+                </div>
+                <div>
+                  <span className='min-w-10 text-center px-2 py-1 rounded-md bg-foreground-2'>
+                    6
+                  </span>
+                  <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                    Complexity of comparison operators
+                  </div>
+                </div>
+                <div>
+                  <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                    137
+                  </span>
+                  <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                    Why is printing B dramatically slower than printing #?
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Divider className='my-4' />
+            <div>
+              <div className='h4-regular'>Host Question</div>
+              <div className='mt-4 *:mb-2 *:flex-start *:gap-3 *:cursor-pointer *:text-[0.8rem]'>
+                <div>
+                  <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                    250
+                  </span>
+                  <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                    Why is processing a sorted array slower than an unsorted
+                    array?
+                  </div>
+                </div>
+                <div>
+                  <span className='min-w-10 text-center px-2 py-1 rounded-md bg-foreground-2'>
+                    6
+                  </span>
+                  <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                    Complexity of comparison operators
+                  </div>
+                </div>
+                <div>
+                  <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                    137
+                  </span>
+                  <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                    Why is printing B dramatically slower than printing #?
+                  </div>
+                </div>
+                <div>
+                  <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                    250
+                  </span>
+                  <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                    Why is processing a sorted array slower than an unsorted
+                    array?
+                  </div>
+                </div>
+                <div>
+                  <span className='min-w-10 text-center px-2 py-1 rounded-md bg-foreground-2'>
+                    6
+                  </span>
+                  <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                    Complexity of comparison operators
+                  </div>
+                </div>
+                <div>
+                  <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                    137
+                  </span>
+                  <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                    Why is printing B dramatically slower than printing #?
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className='right col-span-1'>con heo</div>
         </div>
       </div>
     </div>

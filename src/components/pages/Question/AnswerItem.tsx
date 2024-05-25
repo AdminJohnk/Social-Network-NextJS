@@ -5,9 +5,9 @@ import CommentItem from './CommentItem';
 import Divider from '@/components/shared/Divider';
 import { Link } from '@/navigation';
 
-export interface IQuestionItemProps {}
+export interface IAnswerItemProps {}
 
-export default function QuestionItem(props: IQuestionItemProps) {
+export default function AnswerItem(props: IAnswerItemProps) {
   return (
     <div>
       <div className='flex-start'>
@@ -33,18 +33,7 @@ export default function QuestionItem(props: IQuestionItemProps) {
           simple example to illustrate what I mean:
         </div>
       </div>
-      <div className='mt-6 flex-start gap-3 *:p-1 *:bg-1'>
-        <span>javascript</span>
-        <span>reactjs</span>
-        <span>nextjs</span>
-        <span>jwt</span>
-        <span>next-auth</span>
-      </div>
-      <div className='flex justify-between mt-10 small-regular'>
-        <div className='*:text-1 space-x-2'>
-          <span>Edit</span>
-          <span>Delete</span>
-        </div>
+      <div className='flex-end mt-10 small-regular'>
         <div className='flex justify-between w-[60%]'>
           <div className='text-text-2 pt-2'>edited Sep 21, 2022 at 0:12</div>
           <div className='p-2 bg-blue-200 dark:bg-blue-950 rounded-lg'>
@@ -72,6 +61,8 @@ export default function QuestionItem(props: IQuestionItemProps) {
         <CommentItem />
         <CommentItem />
       </div>
+      <div className='text-1 text-[0.8rem] cursor-pointer'>Add a comment</div>
+      <Divider className='mt-2 mb-8' />
     </div>
   );
 }
