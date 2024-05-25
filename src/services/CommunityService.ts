@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { BaseService } from './BaseService';
-import { ICommunity, ICreateCommunity, IResponse } from '@/types';
+import { ICommunity, ICreateCommunity, IResponse, IUpdateCommunity } from '@/types';
 
 class CommunityService extends BaseService {
   constructor() {
@@ -15,8 +15,8 @@ class CommunityService extends BaseService {
   createCommunity = (data: ICreateCommunity): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.post('/communities/create', data);
   };
-  updateCommunity = (id: string, data: ICreateCommunity): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/update/${id}`, data);
+  updateCommunity = (data: IUpdateCommunity): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return this.put(`/communities/update/${data.id}`, data);
   };
   cedeCreator = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return this.put(`/communities/cede-creator/${id}`, { user_id });

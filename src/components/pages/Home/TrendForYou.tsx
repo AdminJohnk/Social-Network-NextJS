@@ -1,28 +1,48 @@
 import { FiRefreshCw } from 'react-icons/fi';
 import { FaHashtag } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
+import { useGetAllHashtags } from '@/hooks/query';
+import { useMemo } from 'react';
+import { IHashtag } from '@/types';
 
 export default function TrendForYou() {
   const t = useTranslations();
 
-  const TrendList = [
-    {
-      name: 'Artificial Intelligence',
-      post_number: '124562'
-    },
-    {
-      name: 'Web developers',
-      post_number: '1624'
-    },
-    {
-      name: 'Ui Designers',
-      post_number: '820'
-    },
-    {
-      name: 'Affiliate Marketing',
-      post_number: '480'
-    }
-  ];
+  const { allHashtags, isLoadingAllHashtags } = useGetAllHashtags();
+
+  type Hashtag = {
+    name: string;
+    post_number: number;
+  };
+
+  const TrendList = useMemo(() => {
+    if (!allHashtags) return [];
+    return allHashtags.map((item: IHashtag) => {
+      return {
+        name: item.name,
+        post_number: item.posts.length
+      };
+    });
+  }, [allHashtags]) as Hashtag[];
+
+  // const TrendList = [
+  //   {
+  //     name: 'Artificial Intelligence',
+  //     post_number: '124562'
+  //   },
+  //   {
+  //     name: 'Web developers',
+  //     post_number: '1624'
+  //   },
+  //   {
+  //     name: 'Ui Designers',
+  //     post_number: '820'
+  //   },
+  //   {
+  //     name: 'Affiliate Marketing',
+  //     post_number: '480'
+  //   }
+  // ];
 
   return (
     <div className='trend-for-you px-5 py-4 bg-foreground-1 rounded-lg'>
@@ -33,7 +53,7 @@ export default function TrendForYou() {
         </span>
       </div>
       <div className='mt-6'>
-        {TrendList.map((item, index) => {
+        {!isLoadingAllHashtags && TrendList.map((item, index) => {
           return (
             <div key={index} className='mb-4 flex-start cursor-pointer'>
               <div>

@@ -196,7 +196,7 @@ export default function Members({ communityID }: IMembersProps) {
                         </div>
                       </div>
                     </div>
-                    {((isAdmin && memberRole(member._id) === 'Member') || isCreator) && (
+                    {((isAdmin && memberRole(member._id) === 'Member') || isCreator) && !isMe(member._id) && (
                       <>
                         <div className='popover'>
                           <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>

@@ -10,6 +10,7 @@ import { communityService } from '@/services/CommunityService';
 import { searchLogService } from '@/services/SearchLogService';
 import { ApplyDefaults } from '@/lib/utils';
 import { seriesService } from '@/services/SeriesService';
+import { hashtagService } from '@/services/HashtagService';
 
 // ---------------------------FETCH HOOKS---------------------------
 
@@ -961,3 +962,21 @@ export const useGetSeriesByID = (seriesID: string) => {
     isFetchingSeries: isFetching
   };
 };
+
+export const useGetAllHashtags = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allHashtags'],
+    queryFn: async () => {
+      const { data } = await hashtagService.getAllHashtags();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllHashtags: isPending,
+    isErrorAllHashtags: isError,
+    allHashtags: data!,
+    isFetchingAllHashtags: isFetching
+  };
+}
