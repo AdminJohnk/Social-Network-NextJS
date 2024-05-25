@@ -6,7 +6,7 @@ import LoadingLogo from '@/components/shared/LoadingLogo';
 import { ErrorResponse } from '@/types';
 
 export default function Error({ error }: { error: ErrorResponse & { digest?: string }; reset: () => void }) {
-  if (error.response.status === 401) {
+  if (error?.response?.status === 401) {
     signOut();
     return <LoadingLogo />;
   }

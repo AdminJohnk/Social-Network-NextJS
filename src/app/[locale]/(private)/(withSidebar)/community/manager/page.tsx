@@ -1,11 +1,10 @@
-import ComPopularList from '@/components/pages/Community/Manager/ComPopularList';
-import ComSuggestionList from '@/components/pages/Community/Manager/ComSuggestionList';
-import ComYouManage from '@/components/pages/Community/Manager/ComYouManage';
+// import ComPopularList from '@/components/pages/Community/Manager/ComPopularList';
+import ComsYouManage from '@/components/pages/Community/Manager/ComsYouManage';
+// import ComYouManage from '@/components/pages/Community/Manager/ComYouManage';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
-import { Link } from '@/navigation';
-import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
+// import Image from 'next/image';
+// import { Link } from '@/navigation';
 
 export interface IGroupManagerProps {
   params: {
@@ -23,14 +22,14 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
         <main id='site__main'>
           <div className='flex max-lg:flex-col 2xl:gap-12 gap-10 ' id='groupManager-side'>
             <div className='flex-1'>
-              <div className='max-w-[680px] w-full mx-auto'>
+              <div className='max-w-4xl w-full mx-auto'>
                 <div className='page-heading'>
-                  <h1 className='page-title'> {t('Communities')} </h1>
+                  <h1 className='page-title'> {t('Communities you manage')} </h1>
                 </div>
 
-                <ComYouManage />
+                {/* <ComYouManage /> */}
 
-                <nav className='mt-8 border-border-1 mb-6'>
+                {/* <nav className='mt-8 border-border-1 mb-6'>
                   <ul
                     className='flex gap-2 text-xs text-center capitalize font-semibold/80'
                     data-uk-switcher='connect: #tabs2 ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium'>
@@ -49,16 +48,16 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
                       </Link>
                     </li>
                   </ul>
-                </nav>
+                </nav> */}
 
-                <div id='tabs2' className='uk-switcher'>
-                  <ComSuggestionList />
-                  <ComPopularList />
-                </div>
+                {/* <div id='tabs2' className='uk-switcher'> */}
+                <ComsYouManage />
+                {/* <ComPopularList /> */}
+                {/* </div> */}
               </div>
             </div>
 
-            <div className='2xl:w-[380px] lg:w-[330px] w-full'>
+            {/* <div className='2xl:w-[380px] lg:w-[330px] w-full'>
               <div
                 className='lg:space-y-6 space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
                 data-sticky='media: 1024; end: #groupManager-side; offset: 80'>
@@ -342,7 +341,7 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </main>
       </div>

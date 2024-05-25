@@ -32,9 +32,10 @@ import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
 export interface IPostProps {
   post: IPost;
   feature?: IFeaturePost;
+  communityID?: string;
 }
 
-export default function Post({ post, feature = 'detail' }: IPostProps) {
+export default function Post({ post, feature = 'detail', communityID }: IPostProps) {
   const t = useTranslations();
   const content =
     post?.type === 'Post'
@@ -172,7 +173,9 @@ export default function Post({ post, feature = 'detail' }: IPostProps) {
                   </Link>
                 </HoverUser>
                 <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
-                  <Link href={`/posts/${post._id}`}>{handleDateTime(post.createdAt)}</Link>
+                  <Link href={`${communityID ? `/community/${communityID}` : ''}/posts/${post._id}`}>
+                    {handleDateTime(post.createdAt)}
+                  </Link>
                   {!(feature === 'requested' || feature === 'community') && (
                     <>
                       <span>•</span>
@@ -224,7 +227,10 @@ export default function Post({ post, feature = 'detail' }: IPostProps) {
                       </Link>
                     </HoverUser>
                     <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
-                      <Link href={`/posts/${post.post_attributes.post!._id}`}>
+                      <Link
+                        href={`${communityID ? `/community/${communityID}` : ''}/posts/${
+                          post.post_attributes.post!._id
+                        }`}>
                         {handleDateTime(post.post_attributes.post!.createdAt)}
                       </Link>
                       <span>•</span>

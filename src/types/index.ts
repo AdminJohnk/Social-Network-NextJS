@@ -1,13 +1,10 @@
 import { MentionOptions } from '@tiptap/extension-mention';
-import exp from 'constants';
 
 export type SuggestionOptions = MentionOptions['suggestion'];
 
 export type RenderFunctionType = NonNullable<SuggestionOptions['render']>;
 
-export type OnKeyDownProps = Parameters<
-  NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>
->[0];
+export type OnKeyDownProps = Parameters<NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>>[0];
 
 export interface ErrorResponse extends Error {
   response: {
@@ -107,12 +104,7 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact =
-  | 'facebook'
-  | 'instagram'
-  | 'twitter'
-  | 'github'
-  | 'linkedin';
+export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -326,15 +318,7 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage =
-  | 'text'
-  | 'image'
-  | 'notification'
-  | 'audio'
-  | 'file'
-  | 'voice'
-  | 'video'
-  | 'post';
+type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video' | 'post';
 type TypeofAction =
   | 'promote_admin'
   | 'revoke_admin'
@@ -399,17 +383,6 @@ export interface ISocketCall {
   conversation_id: string;
   conversation_name: string;
 }
-
-export type ModalType =
-  | {
-      destroy: () => void;
-      update: (configUpdate: any | ((prevConfig: any) => any)) => void;
-      then<T>(
-        resolve: (confirmed: boolean) => T,
-        reject: VoidFunction
-      ): Promise<T>;
-    }
-  | undefined;
 
 export type Visibility = 'public' | 'private' | 'member' | 'friend';
 
@@ -490,7 +463,9 @@ export type IFeaturePost =
   | 'newsfeed'
   | 'modal'
   | 'profile'
-  | 'favorite' | 'requested' | 'community';
+  | 'favorite'
+  | 'requested'
+  | 'community';
 
 // Series
 

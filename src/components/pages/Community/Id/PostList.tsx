@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
-import Post from '@/components/shared/Post/Post';
+import { Post } from '@/components/shared/Post';
 import { PostSkeleton } from '@/components/shared/Post';
 import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
 
@@ -48,7 +48,7 @@ export default function PostList({ communityID }: IPostListProps) {
           {community.posts.length ? (
             <>
               {community.posts.map((post) => (
-                <Post key={post._id} post={post} feature='community' />
+                <Post key={post._id} post={post} feature='community' communityID={communityID} />
               ))}
               {/* {hasNextPosts && (
                 <div ref={postsRef}>

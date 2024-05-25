@@ -259,24 +259,27 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                         <div
                           className='!w-fit'
                           data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                          <Button variant={'destructive'} onClick={() => setOpenLeaveCommunity(true)}>
+                          <Button
+                            variant={'destructive'}
+                            onClick={() => setOpenLeaveCommunity(true)}
+                            className='uk-drop-close'>
                             {t('Leave Community')}
                           </Button>
                           <AlertDialog open={openLeaveCommunity} onOpenChange={setOpenLeaveCommunity}>
-                            <AlertDialogContent>
+                            <AlertDialogContent className='max-w-xl'>
                               <AlertDialogHeader>
                                 <AlertDialogTitle>
                                   {t('Are you absolutely sure leave this community?')}
                                 </AlertDialogTitle>
                                 <AlertDialogDescription>
                                   {t(
-                                    'You will not be able to return to the group until approved by the admin!'
+                                    'You will not be able to return to the community until approved by the admin!'
                                   )}
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
                                 <Button
-                                  variant='ghost'
+                                  variant='outline'
                                   className={cn(isLoadingLeaveCommunity && 'select-none')}
                                   disabled={isLoadingLeaveCommunity}
                                   onClick={() => setOpenLeaveCommunity(false)}>

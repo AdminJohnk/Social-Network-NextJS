@@ -3,7 +3,7 @@
 import { useCurrentUserInfo } from '@/hooks/query';
 import { IPost, Visibility } from '@/types';
 import { useTranslations } from 'next-intl';
-import Post from '../Post';
+import { Post } from '../Post';
 import { Link } from '@/navigation';
 import { Avatar, CircularProgress, Skeleton } from '@mui/material';
 import { getImageURL } from '@/lib/utils';

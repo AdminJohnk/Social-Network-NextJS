@@ -525,5 +525,11 @@
   "Question": "Question",
 
   "Ask a public question": "Ask a public question",
-  "Edit question": "Edit question"
+  "Edit question": "Edit question",
+  "Leave Community": "Leave Community",
+  "Are you absolutely sure leave this community?": "Are you absolutely sure leave this community?",
+  "You will not be able to return to the community until approved by the admin!": "You will not be able to return to the community until approved by the admin!",
+  "Communities you manage": "Communities you manage",
+  "friends have joined": "{count, plural,=0 {friend have joined} =1 {friend have joined} other {friends have joined}}",
+  "Manage your communities": "Manage your communities"
 }

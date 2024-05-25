@@ -1,7 +1,7 @@
 'use client';
 
 import { z } from 'zod';
-import { Link, useRouter } from '@/navigation';
+import { Link } from '@/navigation';
 import { useState } from 'react';
 import { ClassValue } from 'clsx';
 import { FaSnowflake, FaSpinner } from 'react-icons/fa';
@@ -26,8 +26,6 @@ const classStyleInput: ClassValue =
 
 export default function RegisterForm(props: IRegisterFormProps) {
   const t = useTranslations();
-
-  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

@@ -9,6 +9,7 @@ import PostList from '@/components/pages/Community/Id/PostList';
 import { TabsContent } from '@/components/ui/tabs';
 import RequestList from '@/components/pages/Community/Id/RequestList';
 import Members from '@/components/pages/Community/Id/Members';
+import PhotoTab from '@/components/pages/Community/Id/PhotoTab';
 
 export interface ICommunityProps {
   params: {
@@ -46,7 +47,7 @@ export default function Community({ params: { locale, id }, searchParams: { tab 
           </div>
           {/* only admin and creator can see request tab */}
           <RequestList communityID={id} />
-          <div className='photos'></div>
+          <PhotoTab communityID={id} />
           <div className='events'></div>
           <Members communityID={id} />
         </TabsContent>

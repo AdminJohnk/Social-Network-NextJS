@@ -56,7 +56,7 @@ export default function Members({ communityID }: IMembersProps) {
 
   const memberRole = (userID: string) => {
     if (community && community.creator._id === userID) return 'Community Creator';
-    if (community && community.admins.some((admin) => admin._id === userID)) return 'Admin';
+    if (community && community.admins.some((admin) => admin._id === userID)) return 'Administrator';
     return 'Member';
   };
 
@@ -215,7 +215,7 @@ export default function Members({ communityID }: IMembersProps) {
                                   {t('Cede Community Creator')}
                                 </Button>
                               )}
-                              {isCreator && memberRole(member._id) === 'Admin' ? (
+                              {isCreator && memberRole(member._id) === 'Administrator' ? (
                                 <Button
                                   disabled={isLoadingRevokeAdminCommunity && isUserSelected === member._id}
                                   onClick={() => handleRevokeAdmin(member._id)}

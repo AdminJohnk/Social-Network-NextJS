@@ -15,11 +15,7 @@ import AddMemberToCommunity from '@/components/shared/Community/AddMemberToCommu
 import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
 import { cn, getImageURL } from '@/lib/utils';
-import {
-  useCreateCommunity,
-  useUpdateCommunity,
-  useUploadImage
-} from '@/hooks/mutation';
+import { useCreateCommunity, useDeleteImage, useUpdateCommunity, useUploadImage } from '@/hooks/mutation';
 import ReactImageUploading, { ImageListType } from 'react-images-uploading';
 import Image from 'next/image';
 import { showErrorToast } from '@/components/ui/toast';
@@ -32,10 +28,7 @@ interface ICreateEditCommunityProps {
   };
 }
 
-export default function CreateEditCommunity({
-  handleClose,
-  dataEdit
-}: ICreateEditCommunityProps) {
+export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEditCommunityProps) {
   const t = useTranslations();
   const locale = useLocale();
   const { mode } = useThemeMode();
@@ -45,6 +38,7 @@ export default function CreateEditCommunity({
   const { mutateCreateCommunity } = useCreateCommunity();
   const { mutateUpdateCommunity } = useUpdateCommunity();
   const { mutateUploadImage } = useUploadImage();
+  const { mutateDeleteImage } = useDeleteImage();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -85,6 +79,10 @@ export default function CreateEditCommunity({
     return await mutateUploadImage(formData);
   };
 
+  const handleDeleteImage = async (oldImage: string) => {
+    await mutateDeleteImage(Array.of(oldImage));
+  };
+
   const members = currentUserInfo?.members || [];
 
   const ruleInputHTML = (index: number) => {
@@ -96,8 +94,7 @@ export default function CreateEditCommunity({
             onClick={() => {
               const newRuleInputs = ruleInputs.filter((_, i) => i !== index);
               setRuleInputs(newRuleInputs);
-            }}
-          >
+            }}>
             <FiMinus className='size-5 text-1' />
           </span>
         </div>
@@ -132,7 +129,7 @@ export default function CreateEditCommunity({
         tags: hashTagList,
         rules,
         image: imagesUploaded?.key!,
-        members: membersCom.map(member => member._id),
+        members: membersCom.map((member) => member._id),
         visibility: 'public'
       } satisfies ICreateCommunity;
 
@@ -154,7 +151,10 @@ export default function CreateEditCommunity({
       await mutateUpdateCommunity(
         { id: dataEdit._id, ...data },
         {
-          onSuccess: () => handleClose(),
+          onSuccess: () => {
+            handleClose();
+            handleDeleteImage(dataEdit.image);
+          },
           onSettled: () => setIsLoading(false)
         }
       );
@@ -173,7 +173,7 @@ export default function CreateEditCommunity({
         <div className='relative !mt-3'>
           <InputStyle
             label='Community Name'
-            onChange={e => setName(e.currentTarget.value)}
+            onChange={(e) => setName(e.currentTarget.value)}
             defaultValue={dataEdit?.name}
           />
         </div>
@@ -181,18 +181,18 @@ export default function CreateEditCommunity({
           <TextareaV2
             label='About'
             value={about}
-            onChange={e => {
+            onChange={(e) => {
               setAbout(e.currentTarget.value);
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursorAbout(cursorPosition || 0);
             }}
-            onClick={e => {
+            onClick={(e) => {
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursorAbout(cursorPosition || 0);
             }}
-            onKeyUp={e => {
+            onKeyUp={(e) => {
               // get cursor position
               const cursorPosition = e.currentTarget.selectionStart;
               setCursorAbout(cursorPosition || 0);
@@ -204,9 +204,7 @@ export default function CreateEditCommunity({
               hoverContent={
                 <Picker
                   data={async () => {
-                    const response = await fetch(
-                      'https://cdn.jsdelivr.net/npm/@emoji-mart/data'
-                    );
+                    const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
 
                     return await response.json();
                   }}
@@ -219,11 +217,7 @@ export default function CreateEditCommunity({
                   }}
                   onEmojiSelect={(emoji: IEmoji) => {
                     setCursorAbout(cursorAbout + emoji.native.length);
-                    setAbout(
-                      about.slice(0, cursorAbout) +
-                        emoji.native +
-                        about.slice(cursorAbout)
-                    );
+                    setAbout(about.slice(0, cursorAbout) + emoji.native + about.slice(cursorAbout));
                   }}
                   theme={mode}
                 />
@@ -234,7 +228,7 @@ export default function CreateEditCommunity({
         <div className='relative'>
           <InputStyle
             label='Hashtag'
-            onKeyDown={e => {
+            onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 if (e.currentTarget.value.includes(' ')) {
                   showErrorToast(t('Hashtag cannot contain spaces'));
@@ -243,11 +237,7 @@ export default function CreateEditCommunity({
                   showErrorToast(t('Hashtag already exists'));
                   return;
                 } else if (!/^[a-zA-Z0-9_-]*$/.test(e.currentTarget.value)) {
-                  showErrorToast(
-                    t(
-                      'Hashtag can only contain letters, numbers, underscores, and hyphens'
-                    )
-                  );
+                  showErrorToast(t('Hashtag can only contain letters, numbers, underscores, and hyphens'));
                   return;
                 } else {
                   setHashTagList([...hashTagList, e.currentTarget.value]);
@@ -259,18 +249,13 @@ export default function CreateEditCommunity({
         </div>
         <div className='render-hashtag flex-start flex-wrap gap-3'>
           {hashTagList.map((tag, index) => (
-            <span
-              key={index}
-              className='hashtag px-3 py-1.5 bg-1 flex-start rounded-full'
-            >
+            <span key={index} className='hashtag px-3 py-1.5 bg-1 flex-start rounded-full'>
               <PiHashLight className='size-4 me-1' />
               <span>{tag}</span>
               <IoMdClose
                 className='size-4 ms-1 hover:text-red-500 duration-300'
                 onClick={() => {
-                  const newHashTagList = hashTagList.filter(
-                    (_, i) => i !== index
-                  );
+                  const newHashTagList = hashTagList.filter((_, i) => i !== index);
                   setHashTagList(newHashTagList);
                 }}
               />
@@ -283,10 +268,7 @@ export default function CreateEditCommunity({
             <IoAdd
               className='size-5 text-1'
               onClick={() => {
-                setRuleInputs([
-                  ...ruleInputs,
-                  ruleInputHTML(ruleInputs.length)
-                ]);
+                setRuleInputs([...ruleInputs, ruleInputHTML(ruleInputs.length)]);
               }}
             />
           </span>
@@ -298,9 +280,7 @@ export default function CreateEditCommunity({
           <AddMemberToCommunity
             members={members}
             setMembers={setMembersCom}
-            defaultMembers={dataEdit?.members?.filter(
-              member => member._id !== currentUserInfo._id
-            )}
+            defaultMembers={dataEdit?.members?.filter((member) => member._id !== currentUserInfo._id)}
           />
         </div>
         <div className='upload-image-button'>
@@ -308,21 +288,15 @@ export default function CreateEditCommunity({
             value={images}
             onChange={onChange}
             dataURLKey='data_url'
-            acceptType={['jpg', 'jpeg', 'png', 'gif', 'webp']}
-          >
+            acceptType={['jpg', 'jpeg', 'png', 'gif', 'webp']}>
             {({ imageList, onImageUpload, onImageRemoveAll }) => (
               <div>
-                {!imageList.length && (
-                  <div className='mb-3'>
-                    {t('Add a cover image for your community')}
-                  </div>
-                )}
+                {!imageList.length && <div className='mb-3'>{t('Add a cover image for your community')}</div>}
                 <div className='flex-start gap-4'>
                   <button
                     type='button'
                     className='flex-start gap-1.5 bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'
-                    onClick={onImageUpload}
-                  >
+                    onClick={onImageUpload}>
                     <IoImage className='text-base' />
                     <p>{t('Image')}</p>
                   </button>
@@ -330,8 +304,7 @@ export default function CreateEditCommunity({
                     <button
                       type='button'
                       className='flex-start bg-foreground-2 hover:bg-hover-2 gap-1.5 rounded-full py-1 px-2 border-2 border-border-1 duration-300'
-                      onClick={onImageRemoveAll}
-                    >
+                      onClick={onImageRemoveAll}>
                       <p>{t('Remove')}</p>
                       <IoClose className='size-5' />
                     </button>
@@ -340,10 +313,7 @@ export default function CreateEditCommunity({
                 {imageList.length > 0 && (
                   <div className='mt-5'>
                     <Image
-                      src={
-                        getImageURL(images[0]?.data_url) ||
-                        '/images/no-image.png'
-                      }
+                      src={getImageURL(images[0]?.data_url) || '/images/no-image.png'}
                       width={1500}
                       height={1500}
                       alt='image'
@@ -357,30 +327,18 @@ export default function CreateEditCommunity({
         </div>
         <div className='flex flex-end mt-2 gap-5'>
           <Button
-            className={cn(
-              'button lg:px-6 text-white max-md:flex-1',
-              isLoading && 'select-none'
-            )}
+            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
             variant='destructive'
             onClick={handleClose}
-            disabled={isLoading}
-          >
+            disabled={isLoading}>
             <div className='font-bold'>{t('Cancel')}</div>
           </Button>
           <Button
-            className={cn(
-              'button lg:px-6 text-white max-md:flex-1',
-              isLoading && 'select-none'
-            )}
+            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
             onClick={onSubmit}
-            disabled={isLoading}
-          >
-            {isLoading && (
-              <CircularProgress size={20} className='!text-text-1 mr-2' />
-            )}
-            <div className='font-bold'>
-              {!dataEdit ? t('Create') : t('Update')}
-            </div>
+            disabled={isLoading}>
+            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+            <div className='font-bold'>{!dataEdit ? t('Create') : t('Update')}</div>
           </Button>
         </div>
       </div>

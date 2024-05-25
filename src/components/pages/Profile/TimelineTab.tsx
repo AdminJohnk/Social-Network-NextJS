@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
 
 import NewPost from '@/components/shared/NewPost/NewPost';
-import Post, { PostSkeleton } from '@/components/shared/Post';
+import { Post, PostSkeleton } from '@/components/shared/Post';
 import SideSkeleton from '@/components/shared/SideSkeleton';
 import Intro from './Intro';
 import Friends from './Friends';

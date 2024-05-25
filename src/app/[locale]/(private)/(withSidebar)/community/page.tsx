@@ -2,7 +2,6 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 
 import ComCategory from '@/components/pages/Community/ComCategory';
 import ComPopularList from '@/components/pages/Community/ComPopularList';
-import ComSuggestionList from '@/components/pages/Community/ComSuggestionList';
 import ComMineList from '@/components/pages/Community/ComMineList';
 import ComSuggestion from '@/components/pages/Community/ComSuggestion';
 import Header from '@/components/pages/Community/Header';
@@ -24,7 +23,6 @@ export default function Community({ params: { locale } }: ICommunityProps) {
             <Header />
 
             <div className='uk-switcher' id='community-tabs'>
-              <ComSuggestionList />
               <ComPopularList />
               <ComMineList />
             </div>
