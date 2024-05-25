@@ -1,15 +1,13 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import NewPost from '@/components/shared/NewPost/NewPost';
-import About from '@/components/pages/Community/Id/About';
-import RecentImage from '@/components/pages/Community/Id/RecentImage';
-import SuggestGroup from '@/components/pages/Community/Id/SuggestGroup';
 import ComCover from '@/components/pages/Community/Id/ComCover';
-import PostList from '@/components/pages/Community/Id/PostList';
 import { TabsContent } from '@/components/ui/tabs';
 import RequestList from '@/components/pages/Community/Id/RequestList';
 import Members from '@/components/pages/Community/Id/Members';
 import PhotoTab from '@/components/pages/Community/Id/PhotoTab';
+import NewPost from '@/components/shared/NewPost/NewPost';
+import CommunitySide from '@/components/pages/Community/Id/CommunitySide';
+import PostList from '@/components/pages/Community/Id/PostList';
 
 export interface ICommunityProps {
   params: {
@@ -35,15 +33,7 @@ export default function Community({ params: { locale, id }, searchParams: { tab 
               <NewPost communityID={id} />
               <PostList communityID={id} />
             </div>
-            <div className='lg:w-[400px]'>
-              <div
-                className='lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                data-uk-sticky='media: 1024; end: #community-side; offset: 80'>
-                <About communityID={id} />
-                <RecentImage communityID={id} />
-                <SuggestGroup />
-              </div>
-            </div>
+            <CommunitySide communityID={id} />
           </div>
           {/* only admin and creator can see request tab */}
           <RequestList communityID={id} />
