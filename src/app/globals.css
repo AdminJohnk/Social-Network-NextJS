@@ -463,6 +463,10 @@
     @apply text-[20px] font-semibold leading-[140%];
   }
 
+  .h4-regular {
+    @apply text-[20px] font-normal leading-[140%];
+  }
+
   .h5-regular {
     @apply text-[17px] font-normal leading-[140%];
   }

@@ -7,7 +7,7 @@ export interface ISelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
   data: string[];
   label: string;
-  setSelect: (value: TypeOfLevel) => void;
+  setSelect: (_: TypeOfLevel) => void;
 }
 
 export default function Select({

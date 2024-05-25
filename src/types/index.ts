@@ -693,6 +693,7 @@ export interface IQuestion {
   hashtags: string[];
   answers: IAnswerQuestion[];
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface ICreateQuestion {
