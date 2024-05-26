@@ -7,7 +7,7 @@ import { GoShare } from 'react-icons/go';
 import { IoHeart, IoLockClosed } from 'react-icons/io5';
 import { FaCommentDots, FaUserFriends } from 'react-icons/fa';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MdPublic } from 'react-icons/md';
 import { IoMdLock } from 'react-icons/io';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
@@ -28,6 +28,7 @@ import ShowUsersAndGroupsToSendPost from './ShowUsersAndGroupsToSendPost';
 import HoverUser from './HoverUser';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import AvatarMessage from '@/components/pages/Chat/Avatar/AvatarMessage';
+import { useLikePost } from '@/hooks/mutation';
 
 export interface IPostProps {
   post: IPost;
@@ -37,12 +38,14 @@ export interface IPostProps {
 
 export default function Post({ post, feature = 'detail', communityID }: IPostProps) {
   const t = useTranslations();
+  const { mutateLikePost, isLoadingLikePost } = useLikePost();
+  const [isLiked, setIsLiked] = useState(post.is_liked);
   const content =
     post?.type === 'Post'
       ? post?.post_attributes.content
       : post?.post_attributes.post
-      ? post?.post_attributes.post.post_attributes.content
-      : '';
+        ? post?.post_attributes.post.post_attributes.content
+        : '';
 
   // const regex = /<a[^>]*>([^<]+)<\/a>/g;
   let match;
@@ -131,8 +134,8 @@ export default function Post({ post, feature = 'detail', communityID }: IPostPro
     post?.type === 'Post'
       ? post?.post_attributes.images
       : post?.post_attributes.post
-      ? post?.post_attributes.post.post_attributes.images
-      : [];
+        ? post?.post_attributes.post.post_attributes.images
+        : [];
 
   const ownerPost: IUserInfo = post?.post_attributes?.owner_post as IUserInfo;
 
@@ -228,9 +231,8 @@ export default function Post({ post, feature = 'detail', communityID }: IPostPro
                     </HoverUser>
                     <div className='flex-start gap-1 *:small-bold *:text-text-2 hover:*:underline hover:*:text-text-1'>
                       <Link
-                        href={`${communityID ? `/community/${communityID}` : ''}/posts/${
-                          post.post_attributes.post!._id
-                        }`}>
+                        href={`${communityID ? `/community/${communityID}` : ''}/posts/${post.post_attributes.post!._id
+                          }`}>
                         {handleDateTime(post.post_attributes.post!.createdAt)}
                       </Link>
                       <span>•</span>
@@ -283,7 +285,13 @@ export default function Post({ post, feature = 'detail', communityID }: IPostPro
                 <div className='flex-start gap-3'>
                   <Tooltip>
                     <TooltipTrigger className='p-1 bg-foreground-2 rounded-full'>
-                      <IoHeart className='size-4 text-red-600 cursor-pointer' />
+                      <IoHeart className={cn('size-4 cursor-pointer', isLiked ? 'text-red-600' : 'text-text-2')}
+                        onClick={() => {
+                          if (!isLoadingLikePost) {
+                            setIsLiked(!isLiked);
+                            mutateLikePost({ post: post._id, owner_post: post.post_attributes.user._id });
+                          }
+                        }} />
                     </TooltipTrigger>
                     <TooltipContent className='font-semibold'>{t('Like')}</TooltipContent>
                   </Tooltip>
@@ -339,9 +347,10 @@ export default function Post({ post, feature = 'detail', communityID }: IPostPro
               </div>
             </div>
           )}
+
           {!(feature === 'sharing' || feature === 'requested') && (
-            <div>
-              <div className='comment-list mt-7'>
+            <div className='border-t-[1px] border-gray-500 mt-4'>
+              <div className='comment-list mt-3'>
                 <CommentList postID={post._id} comment_number={post.post_attributes.comment_number} />
               </div>
               <div className='mt-8'>

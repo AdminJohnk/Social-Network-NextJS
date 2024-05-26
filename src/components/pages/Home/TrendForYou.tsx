@@ -6,9 +6,11 @@ import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 
 import { useGetAllHashtags } from '@/hooks/query';
+import { useRouter } from '@/navigation';
 
 export default function TrendForYou() {
   const t = useTranslations();
+  const router = useRouter();
 
   const { allHashtags, isLoadingAllHashtags } = useGetAllHashtags();
 
@@ -35,12 +37,12 @@ export default function TrendForYou() {
         {!isLoadingAllHashtags &&
           TrendList.map((item, index) => {
             return (
-              <div key={index} className='mb-4 flex-start cursor-pointer'>
+              <div key={index} className='mb-4 flex-start cursor-pointer' onClick={() => { router.push(`/hashtag/${item.name.replace(/#/g, '')}`) }}>
                 <div>
                   <FaHashtag />
                 </div>
-                <div className='flex flex-col ms-3'>
-                  <span className='h5-bold base-bold'>{item.name}</span>
+                <div className='flex flex-col ms-3 overflow-hidden whitespace-nowrap'>
+                  <span className='h5-bold base-bold truncate'>{item.name}</span>
                   <span className='text-text-2 small-regular'>{t('posts', { count: item.post_number })}</span>
                 </div>
               </div>
