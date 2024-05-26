@@ -91,9 +91,9 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
 
   const [isLoadingDis, setIsLoadingDis] = useState<boolean>(false);
 
-  const getFormattedDate = () => {
+  const getFormattedDate = (date: string) => {
     const format = useFormatter();
-    return format.dateTime(new Date(series?.createdAt), {
+    return format.dateTime(new Date(date), {
       month: 'long',
       day: 'numeric',
       year: 'numeric'
@@ -282,7 +282,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
               <FiFileText className='size-3' />
               <span className='base-semibold '>{t('Blog')}</span>
             </div>
-            <div>{getFormattedDate()}</div>
+            <div>{getFormattedDate(post?.createdAt!)}</div>
             <span>•</span>
             <div>{post?.read_time + t(' min read')}</div>
           </div>

@@ -523,10 +523,15 @@
   "Next": "Tiếp theo",
   "Write something nice": "Viết điều gì đó hay",
   "Question": "Câu hỏi",
+  "Ask a public question": "Đặt một câu hỏi công khai",
+  "Edit question": "Chỉnh sửa câu hỏi",
   "Leave Community": "Rời khỏi cộng đồng",
   "Are you absolutely sure leave this community?": "Bạn có chắc chắn muốn rời khỏi cộng đồng này không?",
-  "You will not be able to return to the community until approved by the admin!": "Bạn sẽ không thể quay lại cộng đồng cho đến khi được quản trị viên chấp nhận!",
+  "You will not be able to return to the community until approved by the admin!": "Bạn sẽ không thể quay lại cộng đồng cho đến khi được phê duyệt bởi quản trị viên!",
   "Communities you manage": "Cộng đồng bạn quản lý",
   "friends have joined": "bạn bè đã tham gia",
-  "Manage your communities": "Quản lý cộng đồng của bạn"
+  "Manage your communities": "Quản lý cộng đồng của bạn",
+  "edited": "đã chỉnh sửa",
+  "asked": "đã hỏi",
+  "at1": "lúc"
 }
