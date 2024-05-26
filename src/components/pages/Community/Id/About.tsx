@@ -80,7 +80,7 @@ export default function About({ communityID }: IAboutProps) {
             </li>
             {community.rules.length > 0 && (
               <li className='flex items-center'>
-                <Accordion type='single' collapsible className='w-full'>
+                <Accordion type='multiple' className='w-full'>
                   {community.rules.map((rule, index) => (
                     <AccordionItem key={index} value={rule.content}>
                       <AccordionTrigger className='flex items-center gap-3'>
