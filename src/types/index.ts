@@ -1,10 +1,13 @@
+import Question from '@/app/[locale]/(private)/(withSidebar)/questions/page';
 import { MentionOptions } from '@tiptap/extension-mention';
 
 export type SuggestionOptions = MentionOptions['suggestion'];
 
 export type RenderFunctionType = NonNullable<SuggestionOptions['render']>;
 
-export type OnKeyDownProps = Parameters<NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>>[0];
+export type OnKeyDownProps = Parameters<
+  NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>
+>[0];
 
 export interface ErrorResponse extends Error {
   response: {
@@ -104,7 +107,12 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
+export type IKeyContact =
+  | 'facebook'
+  | 'instagram'
+  | 'twitter'
+  | 'github'
+  | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -318,7 +326,15 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video' | 'post';
+type TypeofMessage =
+  | 'text'
+  | 'image'
+  | 'notification'
+  | 'audio'
+  | 'file'
+  | 'voice'
+  | 'video'
+  | 'post';
 type TypeofAction =
   | 'promote_admin'
   | 'revoke_admin'
@@ -692,9 +708,13 @@ export interface IQuestion {
   problem: string;
   expect: string;
   hashtags: string[];
+  view: number;
+  vote_up: string[];
+  vote_down: string[];
+  vote_score: number;
   answers: IAnswerQuestion[];
   createdAt: string;
-  updatedAt: string;
+  update_at: string;
 }
 
 export interface ICreateQuestion {
@@ -702,6 +722,19 @@ export interface ICreateQuestion {
   problem: string;
   expect: string;
   hashtags: string[];
+}
+
+export interface IUpdateQuestion {
+  id: string;
+  title: string;
+  problem: string;
+  expect: string;
+  hashtags: string[];
+}
+
+export interface ICreateVoteQuestion {
+  question_id: string;
+  type: string;
 }
 
 export interface IHashtag {

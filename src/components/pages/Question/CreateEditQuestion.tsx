@@ -9,12 +9,13 @@ import { Editor as EditorProps } from '@tiptap/react';
 import { PiHashLight } from 'react-icons/pi';
 import { IoMdClose } from 'react-icons/io';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { useCreateQuestion } from '@/hooks/mutation';
+import { useCreateQuestion, useUpdateQuestion } from '@/hooks/mutation';
 import { useRouter } from '@/navigation';
+import { IQuestion } from '@/types';
 
 export interface ICreateEditQuestionProps {
   handleClose: () => void;
-  dataEdit?: any;
+  dataEdit?: IQuestion;
 }
 
 export default function CreateEditQuestion({
@@ -27,9 +28,12 @@ export default function CreateEditQuestion({
   const [title, setTitle] = useState<string>('');
   const [editorProblem, setEditorProblem] = useState<EditorProps>();
   const [editorExpect, setEditorExpect] = useState<EditorProps>();
-  const [hashTagList, setHashTagList] = useState<string[]>([]);
+  const [hashTagList, setHashTagList] = useState<string[]>(
+    dataEdit?.hashtags || []
+  );
 
   const { mutateCreateQuestion, isLoadingCreateQuestion } = useCreateQuestion();
+  const { mutateUpdateQuestion, isLoadingUpdateQuestion } = useUpdateQuestion();
 
   const handleSubmit = async () => {
     if (!title) {
@@ -57,13 +61,13 @@ export default function CreateEditQuestion({
       mutateCreateQuestion(
         {
           title,
-          problem: editorProblem?.getText() as string,
-          expect: editorExpect?.getText() as string,
+          problem: editorProblem?.getHTML() as string,
+          expect: editorExpect?.getHTML() as string,
           hashtags: hashTagList
         },
         {
           onSuccess: data => {
-            // router.push(`/questions/${data._id}`);
+            router.push(`/questions/${data._id}`);
             showSuccessToast(t('Question created successfully'));
             editorProblem?.commands.clearContent();
             editorExpect?.commands.clearContent();
@@ -75,6 +79,26 @@ export default function CreateEditQuestion({
         }
       );
     } else {
+      mutateUpdateQuestion(
+        {
+          id: dataEdit._id,
+          title,
+          problem: editorProblem?.getHTML() as string,
+          expect: editorExpect?.getHTML() as string,
+          hashtags: hashTagList
+        },
+        {
+          onSuccess: () => {
+            showSuccessToast(t('Question updated successfully'));
+            editorProblem?.commands.clearContent();
+            editorExpect?.commands.clearContent();
+            handleClose();
+          },
+          onError: () => {
+            showErrorToast(t('Something went wrong! Please try again!'));
+          }
+        }
+      );
     }
   };
 
@@ -106,7 +130,7 @@ export default function CreateEditQuestion({
               placeholder={t(
                 'Introduce the problem and expand on what you put in the title. Minimum 20 characters'
               )}
-              content={dataEdit?.introduction || ''}
+              content={dataEdit?.problem || ''}
               autofocus={false}
             />
           </div>
@@ -121,7 +145,7 @@ export default function CreateEditQuestion({
               placeholder={t(
                 'Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters '
               )}
-              content={dataEdit?.introduction || ''}
+              content={dataEdit?.expect || ''}
               autofocus={false}
             />
           </div>
@@ -179,12 +203,13 @@ export default function CreateEditQuestion({
             type='button'
             className={cn(
               'button lg:px-6 text-white max-md:flex-1',
-              isLoadingCreateQuestion && 'select-none'
+              (isLoadingCreateQuestion || isLoadingUpdateQuestion) &&
+                'select-none'
             )}
-            disabled={isLoadingCreateQuestion}
+            disabled={isLoadingCreateQuestion || isLoadingUpdateQuestion}
             onClick={handleSubmit}
           >
-            {isLoadingCreateQuestion && (
+            {(isLoadingCreateQuestion || isLoadingUpdateQuestion) && (
               <CircularProgress size={20} className='!text-text-1 mr-2' />
             )}
             {dataEdit ? t('Update') : t('Create')}

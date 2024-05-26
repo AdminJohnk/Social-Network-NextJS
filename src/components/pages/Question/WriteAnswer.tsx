@@ -1,7 +1,6 @@
 import { Editor as EditorProps } from '@tiptap/react';
 import Editor from '@/components/shared/Editor/Editor';
 import { useState } from 'react';
-import { IoMdSend } from 'react-icons/io';
 import { CircularProgress } from '@mui/material';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -21,7 +20,7 @@ export default function WriteAnswer(props: IWriteAnswerProps) {
     <div>
       <div className='h4-regular my-5'>Your Answer</div>
       <div className='px-2 py-3 border border-border-1 rounded-lg'>
-        <Editor setEditor={setEditor} />
+        <Editor setEditor={setEditor} autofocus={false} />
       </div>
       <div className='mt-3'>
         <Button

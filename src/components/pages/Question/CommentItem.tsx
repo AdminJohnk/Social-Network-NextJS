@@ -8,7 +8,7 @@ export interface ICommentItemProps {}
 export default function CommentItem(props: ICommentItemProps) {
   return (
     <div className='text-[0.8rem]'>
-      <div className='flex-start gap-5 px-5'>
+      <div className='flex gap-5 px-5'>
         <div className='text-orange-400'>127</div>
         <div>
           Another observation is that you dont need to sort the array, but you
