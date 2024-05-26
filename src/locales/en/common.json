@@ -537,5 +537,13 @@
   "Anyone can see who's in the group and what they post": "Anyone can see who's in the group and what they post",
   "Only members can see who's in the group and what they post": "Only members can see who's in the group and what they post",
   "Community updated successfully!": "Community updated successfully!",
-  "Community created successfully!": "Community created successfully!"
+  "Community created successfully!": "Community created successfully!",
+  "Oops! Something went wrong!": "Oops! Something went wrong!",
+  "Sorry about that! Please try again or go back to the previous page": "Sorry about that! Please try again or go back to the previous page",
+  "Try again": "Try again",
+  "Community Name": "Community Name",
+  "Hashtag cannot contain spaces": "Hashtag cannot contain spaces",
+  "Hashtag already exists": "Hashtag already exists",
+  "Hashtag can only contain letters, numbers, underscores, and hyphens": "Hashtag can only contain letters, numbers, underscores, and hyphens",
+  "Hashtag cannot be empty": "Hashtag cannot be empty"
 }

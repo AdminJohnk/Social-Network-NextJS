@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import { MdOutlineRuleFolder } from 'react-icons/md';
-import { Link } from '@/navigation';
 
 import { useGetCommunityByID } from '@/hooks/query';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -24,9 +23,6 @@ export default function About({ communityID }: IAboutProps) {
         <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
           <div className='flex items-ce justify-between text-text-1'>
             <h3 className='font-bold text-lg'>{t('About')}</h3>
-            <Link href='' className='text-sm text-blue-500'>
-              Edit
-            </Link>
           </div>
           <ul className='text-gray-700 space-y-4 mt-2 mb-1 text-sm dark:text-white'>
             <li>

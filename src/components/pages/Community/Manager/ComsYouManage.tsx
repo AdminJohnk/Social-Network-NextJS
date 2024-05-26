@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
+import { FaCrown, FaUserShield } from 'react-icons/fa6';
 
 import EditCommunity from '../EditCommunity';
 import { useCurrentUserInfo, useGetAllCommunitiesYouManage } from '@/hooks/query';
@@ -49,25 +50,28 @@ export default function ComsYouManage() {
                   </div>
                 </Link>
                 <div className='card-body relative z-10'>
-                  <Image
-                    width={500}
-                    height={500}
-                    src={getImageURL(community.creator.user_image, 'avatar')}
-                    alt='avatar'
-                    className='w-10 rounded-full mb-2 shadow md:-mt-11 -mt-7 relative border-2 border-white'
-                    priority
-                  />
-                  <Link className='flex-start gap-2' href={`/community/${community._id}`}>
-                    <h4 className='card-title'>{community.name}</h4>
-                    <h3 className='card-text'>({isCreator ? t('Community Creator') : t('Administrator')})</h3>
+                  <Link href={`/profile/${community.creator._id}`}>
+                    <Image
+                      width={500}
+                      height={500}
+                      src={getImageURL(community.creator.user_image, 'avatar')}
+                      alt='avatar'
+                      className='size-10 rounded-full mb-2 shadow md:-mt-11 -mt-7 relative border-2 border-white'
+                      priority
+                    />
                   </Link>
+                  <Link className='flex-start gap-2' href={`/community/${community._id}`}>
+                    <h4 className='card-title line-clamp-1'>{community.name}</h4>
+                  </Link>
+                  <div className='text-text-2 flex-start gap-1.5'>
+                    {isCreator ? <FaCrown /> : <FaUserShield />}
+                    {isCreator ? t('Community Creator') : t('Administrator')}
+                  </div>
                   <div className='card-text mt-1'>
                     <div className='flex items-center flex-wrap space-x-1'>
-                      <Link href={`/community/${community._id}`}>
-                        <span>
-                          {community.members.length} {t('members')}
-                        </span>
-                      </Link>
+                      <span>
+                        {community.members.length} {t('members')}
+                      </span>
                     </div>
                   </div>
                   <div className='flex items-center gap-3 mt-3'>
@@ -81,7 +85,7 @@ export default function ComsYouManage() {
                             height={500}
                             src={getImageURL(friend.user_image)}
                             alt={friend.name}
-                            className='w-6 rounded-full border-border-1'
+                            className='size-6 rounded-full border-border-1'
                           />
                         ))}
                     </div>

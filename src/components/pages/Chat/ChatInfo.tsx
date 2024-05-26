@@ -46,7 +46,12 @@ import { getImageURL } from '@/lib/utils';
 import MembersToGroup from './Modal/MembersToGroup';
 import { useSocketStore } from '@/store/socket';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
-import { useLeaveGroup, useReceiveConversation, useSendMessage } from '@/hooks/mutation';
+import {
+  useDeleteConversation,
+  useLeaveGroup,
+  useReceiveConversation,
+  useSendMessage
+} from '@/hooks/mutation';
 import { Button } from '@/components/ui/button';
 import { ProfileUpload } from '@/components/ui/upload-image';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
@@ -130,6 +135,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
   const { currentConversation, isLoadingCurrentConversation } = useCurrentConversationData(conversationID);
 
   const { messagesImage, isLoadingMessagesImage } = useMessagesImage(conversationID);
+
+  const { mutateDeleteConversation, isLoadingDeleteConversation } = useDeleteConversation();
 
   const [openChangeAvatar, setOpenChangeAvatar] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
@@ -948,7 +955,8 @@ export default function ChatInfo({ conversationID }: IChatInfoProps) {
                 <li>
                   <button
                     type='button'
-                    className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-red-50 text-red-500'>
+                    className='flex items-center gap-5 rounded-md p-3 w-full hover:bg-red-50 text-red-500'
+                    onClick={() => mutateDeleteConversation(conversationID)}>
                     <IoTrashOutline className='text-2xl' /> {t('Delete chat')}
                   </button>
                 </li>

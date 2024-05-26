@@ -406,6 +406,7 @@ export interface IUpdateCommunity {
   tags?: string[];
   image?: string;
   members?: string[];
+  admins?: string[];
   rules?: {
     title?: string;
     content?: string;
