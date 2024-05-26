@@ -28,10 +28,10 @@ export default function HashTags({ params: { slug } }: IHashTagsProps) {
       ) : (
         <div className='ms-60 mt-16 max-lg:ms-0'>
           <div className='px-22xl:px-32 xl:px-24 lg:px-14'>
-            <div className='bg-foreground-2 w-full h-28 flex flex-col items-start justify-center mt-10 rounded-b-lg'>
-              <span className='text-text-2 text-4xl font-bold ml-8'>#{slug}</span>
+            <div className='bg-foreground-2 w-full min-h-28 h-fit py-4 flex px-8 flex-col items-start justify-center mt-10 rounded-b-lg'>
+              <span className='text-text-1 text-4xl font-bold max-w-full whitespace-break-spaces break-words'>#{slug}</span>
               {postsByHashtag.length > 0 && (
-                <span className='text-text-2 text-2xl font-semibold ml-8'>
+                <span className='text-text-2 text-2xl font-semibold'>
                   {t('posts', { count: postsByHashtag.length })}
                 </span>
               )}
