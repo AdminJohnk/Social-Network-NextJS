@@ -1,3 +1,5 @@
+'use client';
+
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getSession } from 'next-auth/react';
 

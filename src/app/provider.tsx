@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/r
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ErrorResponse } from '@/types';
 
-export function QueryProvider({ children }: { children: React.ReactNode }) {
+export const QueryProvider = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -17,10 +17,11 @@ export function QueryProvider({ children }: { children: React.ReactNode }) {
             refetchOnWindowFocus: false,
             throwOnError: (error) => {
               const errorResponse = error as ErrorResponse;
-              
+
               if (errorResponse.response.status === 401) {
                 return true;
               }
+
               return false;
             }
           }
@@ -34,6 +35,6 @@ export function QueryProvider({ children }: { children: React.ReactNode }) {
       <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
     </QueryClientProvider>
   );
-}
+};
 
 export { SessionProvider };

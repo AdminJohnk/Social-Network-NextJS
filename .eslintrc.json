@@ -2,7 +2,6 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "react-hooks/exhaustive-deps": "off",
-    "react-hooks/rules-of-hooks": "off",
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
+    "react-hooks/rules-of-hooks": "off"
   }
 }
