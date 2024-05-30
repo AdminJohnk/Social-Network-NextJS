@@ -172,6 +172,7 @@ export interface ISharePost {
   owner_post: string;
   content?: string;
   shared_post?: string;
+  hashtags?: string[];
 }
 
 type TypeofPost = 'Post' | 'Share';
@@ -412,6 +413,7 @@ export interface IUpdateCommunity {
     content?: string;
   }[];
   visibility?: Visibility;
+  scope: 'Community';
 }
 
 export interface ICommunity {
@@ -725,4 +727,6 @@ export interface IHashtag {
   _id: string;
   name: string;
   posts: IPost[];
+  communities: IPost[];
+  questions: IQuestion[];
 }

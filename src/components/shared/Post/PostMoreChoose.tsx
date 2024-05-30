@@ -29,9 +29,10 @@ export interface IPostMoreChooseProps {
   post: IPost;
   isMyPost: boolean;
   feature: IFeaturePost;
+  CommunityID?: string;
 }
 
-export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreChooseProps) {
+export default function PostMoreChoose({ post, isMyPost, feature, CommunityID }: IPostMoreChooseProps) {
   const t = useTranslations();
 
   const { mutateSavePost } = useSavePost();
@@ -134,7 +135,7 @@ export default function PostMoreChoose({ post, isMyPost, feature }: IPostMoreCho
               <span>{t('Edit Post')}</span>
             </div>
             <Modal open={openEditPost} handleClose={handleCloseEditPost}>
-              <EditPost post={post} handleClose={handleCloseEditPost} isCommunity />
+              <EditPost post={post} handleClose={handleCloseEditPost} isCommunity={CommunityID ? true : false} CommunityID={CommunityID || ''} />
             </Modal>
           </>
         )}

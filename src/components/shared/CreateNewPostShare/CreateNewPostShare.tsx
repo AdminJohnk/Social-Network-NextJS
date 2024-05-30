@@ -38,12 +38,17 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
       content = '';
     }
 
+    // get hashtags from content
+    const hashtags = content.match(/#[a-zA-Z0-9]+/g);
+    const uniqueHashtags = Array.from(new Set(hashtags));
+
     mutateSharePost(
       {
         post: post._id,
         visibility: privacy,
         owner_post: post.post_attributes.user._id,
-        content
+        content,
+        hashtags: hashtags ? uniqueHashtags : undefined
       },
       {
         onSuccess: () => {

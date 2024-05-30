@@ -178,7 +178,8 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
         image: imagesUploaded?.key!,
         members,
         admins,
-        visibility: 'public'
+        visibility: 'public',
+        scope: 'Community'
       } satisfies IUpdateCommunity;
 
       await mutateUpdateCommunity(data, {

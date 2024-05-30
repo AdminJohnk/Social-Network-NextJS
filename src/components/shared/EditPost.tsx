@@ -19,9 +19,10 @@ export interface IEditPostProps {
   post: IPost;
   handleClose: () => void;
   isCommunity?: boolean;
+  CommunityID?: string;
 }
 
-export default function EditPost({ post, handleClose, isCommunity = false }: IEditPostProps) {
+export default function EditPost({ post, handleClose, isCommunity = false, CommunityID }: IEditPostProps) {
   const t = useTranslations();
 
   const queryClient = useQueryClient();
@@ -81,8 +82,10 @@ export default function EditPost({ post, handleClose, isCommunity = false }: IEd
           images: ImagesPost.concat(imagesUploaded || []),
           visibility: privacy,
           rmHashtags: rmHashtags,
-          hashtags: hashtags ? uniqueHashtags : undefined
-        }
+          hashtags: hashtags ? uniqueHashtags : undefined,
+          scope: isCommunity ? 'Community' : 'Normal',
+          community: CommunityID,
+        },
       },
       {
         onSuccess() {

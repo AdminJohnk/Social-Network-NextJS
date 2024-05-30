@@ -92,7 +92,7 @@ class PostService extends BaseService {
   };
 
   getPostByHashtag = (hashtag: string, page: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
-    return this.get(`/posts/hashtag/${hashtag}?page=${page}`);
+    return this.get(`/posts/hashtag/normal/${hashtag}?page=${page}`);
   };
 }
 

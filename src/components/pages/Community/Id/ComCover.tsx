@@ -165,7 +165,7 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
 
     const oldCover = community.image;
 
-    mutateUpdateCommunity({ id: communityID, image: formData.get('image')?.toString() }, {
+    mutateUpdateCommunity({ id: communityID, image: formData.get('image')?.toString(), scope: 'Community' }, {
       onSuccess() {
         showSuccessToast(t("Your community's image has been updated successfully!"));
         fileCover && mutateDeleteImage([oldCover]);

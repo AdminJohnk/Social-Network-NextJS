@@ -40,6 +40,8 @@ export default function Post({ post, feature = 'detail', communityID }: IPostPro
   const t = useTranslations();
   const { mutateLikePost, isLoadingLikePost } = useLikePost();
   const [isLiked, setIsLiked] = useState(post.is_liked);
+  const [likeNumber, setLikeNumber] = useState(post.post_attributes.like_number);
+
   const content =
     post?.type === 'Post'
       ? post?.post_attributes.content
@@ -155,6 +157,15 @@ export default function Post({ post, feature = 'detail', communityID }: IPostPro
   const handleOpenSendMessage = () => setOpenSendMessage(true);
   const handleCloseSendMessage = () => setOpenSendMessage(false);
 
+  const handleLikePost = () => {
+    if (isLiked) {
+      setLikeNumber(likeNumber - 1);
+    } else {
+      setLikeNumber(likeNumber + 1);
+    }
+    mutateLikePost({ post: post._id, owner_post: post.post_attributes.user._id });
+  }
+
   return (
     <>
       {!post ? (
@@ -202,7 +213,7 @@ export default function Post({ post, feature = 'detail', communityID }: IPostPro
                 <div
                   className='!w-fit'
                   data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
-                  <PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} />
+                  <PostMoreChoose feature={feature} post={post} isMyPost={isMyPost} CommunityID={communityID || ''} />
                 </div>
               </div>
             )}
@@ -289,13 +300,13 @@ export default function Post({ post, feature = 'detail', communityID }: IPostPro
                         onClick={() => {
                           if (!isLoadingLikePost) {
                             setIsLiked(!isLiked);
-                            mutateLikePost({ post: post._id, owner_post: post.post_attributes.user._id });
+                            handleLikePost();
                           }
                         }} />
                     </TooltipTrigger>
                     <TooltipContent className='font-semibold'>{t('Like')}</TooltipContent>
                   </Tooltip>
-                  <span>{post.post_attributes.like_number}</span>
+                  <span>{likeNumber}</span>
                 </div>
                 <div className='flex-start gap-3'>
                   <Tooltip>
