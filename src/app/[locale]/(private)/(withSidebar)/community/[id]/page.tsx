@@ -29,7 +29,7 @@ export default function Community({ params: { locale, id }, searchParams: { tab 
 
         <TabsContent id='tabs-community' className='mt-4 !border-none'>
           <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='community-side'>
-            <div className='flex-1 xl:space-y-6 space-y-3'>
+            <div className='flex-1 xl:space-y-6 space-y-3 max-w-[617px]'>
               <NewPost communityID={id} />
               <PostList communityID={id} />
             </div>
