@@ -131,6 +131,12 @@ class QuestionService extends BaseService {
   ): Promise<AxiosResponse<IResponse<boolean>>> => {
     return this.put(`/questions/answer/vote/${data.question_id}`, data);
   };
+
+  saveQuestion = (
+    questionID: string
+  ): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/save/${questionID}`);
+  };
 }
 
 export const questionService = new QuestionService();

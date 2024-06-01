@@ -2644,3 +2644,26 @@ export const useVoteAnswer = () => {
     isSuccessVoteAnswer: isSuccess
   };
 }
+
+export const useSaveQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (questionID: string) => {
+      const { data: question } = await questionService.saveQuestion(questionID);
+      return question.metadata;
+    },
+    onSuccess(_, questionID) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', questionID]
+      });
+    }
+  });
+
+  return {
+    mutateSaveQuestion: mutateAsync,
+    isLoadingSaveQuestion: isPending,
+    isErrorSaveQuestion: isError,
+    isSuccessSaveQuestion: isSuccess
+  };
+}

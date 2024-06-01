@@ -1,14 +1,7 @@
 'use client';
 
-export interface IQuestionProps {
+export interface IQuestionsProps {}
+
+export default function Questions(props: IQuestionsProps) {
+  return <div></div>;
 }
-
-export default function Question (props: IQuestionProps) {
-  return (
-    <div>
-      
-    </div>
-  );
-}
-
-

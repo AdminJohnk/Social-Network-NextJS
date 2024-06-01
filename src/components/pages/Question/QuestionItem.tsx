@@ -14,25 +14,19 @@ import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import {
   useCommentQuestion,
   useDeleteQuestion,
+  useSaveQuestion,
   useVoteQuestion
 } from '@/hooks/mutation';
 import { useCurrentUserInfo } from '@/hooks/query';
-import { cn } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import { useFormatter, useTranslations } from 'next-intl';
 import Modal from '@/components/shared/Modal';
 import CreateEditQuestion from './CreateEditQuestion';
-import { Button } from '@/components/ui/button';
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from '@/components/ui/alert-dialog';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { IoMdSend } from 'react-icons/io';
+import { set } from 'lodash';
+import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
+import QuestionDialog from '@/components/shared/QuestionDialog';
 
 export interface IQuestionItemProps {
   question: IQuestion;
@@ -55,20 +49,23 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   const { mutateDeleteQuestion, isLoadingDeleteQuestion } = useDeleteQuestion();
   const { mutateCommentQuestion, isLoadingCommentQuestion } =
     useCommentQuestion();
+  const { mutateSaveQuestion } = useSaveQuestion();
 
   const [vote, setVote] = useState<string>('cancel');
   const [voteNumber, setVoteNumber] = useState<number>(0);
 
+  const [isSave, setIsSave] = useState<boolean>(false);
+
   const [isAddComment, setIsAddComment] = useState<boolean>(false);
   const [comment, setComment] = useState<string>('');
+
+  const isAuthor = currentUserInfo?._id === question.user._id;
 
   // Modal
   const [openEditQuestion, setOpenEditQuestion] = useState(false);
 
   // Dialog Delete Question
   const [openDeleteQuestion, setOpenDeleteQuestion] = useState(false);
-  const handleOpenDeleteQuestion = () => setOpenDeleteQuestion(true);
-  const handleCloseDeleteQuestion = () => setOpenDeleteQuestion(false);
 
   useEffect(() => {
     if (currentUserInfo) {
@@ -87,6 +84,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
       }
     }
     setVoteNumber(question.vote_score);
+    setIsSave(question.save.includes(currentUserInfo?._id));
   }, [question, currentUserInfo]);
 
   const handleDeleteQuestion = () => {
@@ -98,7 +96,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
         showErrorToast(t('Something went wrong! Please try again!'));
       },
       onSettled() {
-        handleCloseDeleteQuestion();
+        setOpenDeleteQuestion(false);
       }
     });
   };
@@ -189,7 +187,23 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
             />
           </span>
           <span className='p-2 rounded-full'>
-            <FaRegBookmark className='size-4 cursor-pointer text-1' />
+            {!isSave ? (
+              <IoBookmarkOutline
+                className='size-5 cursor-pointer text-text-2 hover:text-yellow-400 duration-300'
+                onClick={() => {
+                  mutateSaveQuestion(question._id);
+                  setIsSave(true);
+                }}
+              />
+            ) : (
+              <IoBookmark
+                className='size-5 cursor-pointer text-yellow-400'
+                onClick={() => {
+                  mutateSaveQuestion(question._id);
+                  setIsSave(false);
+                }}
+              />
+            )}
           </span>
         </div>
         <div className='grow'>
@@ -199,65 +213,33 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
               <span key={index}>{tag}</span>
             ))}
           </div>
-          <div className='flex justify-between mt-10 small-regular'>
-            <div className='*:text-1 flex gap-2'>
+          <div
+            className={cn(
+              'flex justify-between mt-10 small-regular',
+              !isAuthor && 'justify-end'
+            )}
+          >
+            <div className={cn('*:text-1 space-x-2', !isAuthor && 'hidden')}>
               <span onClick={() => setOpenEditQuestion(true)}>{t('Edit')}</span>
-              <AlertDialog
-                open={openDeleteQuestion}
-                onOpenChange={setOpenDeleteQuestion}
-              >
-                <AlertDialogTrigger
-                  className='uk-drop-close h-fit'
-                  onClick={handleOpenDeleteQuestion}
-                >
-                  <span>{t('Delete')}</span>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      {t('Are you absolutely sure delete this post?')}
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      {t(
-                        'You will not be able to recover post after deletion!'
-                      )}
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <Button
-                      variant='destructive'
-                      className={cn(isLoadingDeleteQuestion && 'select-none')}
-                      disabled={isLoadingDeleteQuestion}
-                      onClick={handleCloseDeleteQuestion}
-                    >
-                      {t('Cancel')}
-                    </Button>
-                    <Button
-                      className={cn(isLoadingDeleteQuestion && 'select-none')}
-                      disabled={isLoadingDeleteQuestion}
-                      onClick={handleDeleteQuestion}
-                    >
-                      {isLoadingDeleteQuestion && (
-                        <CircularProgress
-                          size={20}
-                          className='!text-text-1 mr-2'
-                        />
-                      )}
-                      {t('Delete')}
-                    </Button>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
-            <Modal
-              open={openEditQuestion}
-              handleClose={() => setOpenEditQuestion(false)}
-            >
-              <CreateEditQuestion
+              <Modal
+                open={openEditQuestion}
                 handleClose={() => setOpenEditQuestion(false)}
-                dataEdit={question}
+              >
+                <CreateEditQuestion
+                  handleClose={() => setOpenEditQuestion(false)}
+                  dataEdit={question}
+                />
+              </Modal>
+              <QuestionDialog
+                open={openDeleteQuestion}
+                setOpen={setOpenDeleteQuestion}
+                handleFunction={handleDeleteQuestion}
+                isLoading={isLoadingDeleteQuestion}
+                question='Are you absolutely sure delete this comment?'
+                content='You will not be able to recover comment after deletion!'
+                component={<span>{t('Delete')}</span>}
               />
-            </Modal>
+            </div>
             <div className='flex justify-between w-[70%]'>
               <div className='text-text-2 pt-2'>
                 <span className='me-1'>{t('edited')}</span>
@@ -292,7 +274,12 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                 </div>
                 <div className='flex-start'>
                   <div className='mt-2'>
-                    <Avatar sx={{ width: 30, height: 30 }} />
+                    <Link href={`/profile/${question.user._id}`}>
+                      <Avatar
+                        sx={{ width: 30, height: 30 }}
+                        src={getImageURL(question.user.user_image)}
+                      />
+                    </Link>
                   </div>
                   <div className='flex flex-col ms-2'>
                     <Link
@@ -311,7 +298,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
           <div className='py-2 text-pretty'>
             {question.comment
               .sort((a, b) => b.vote.length - a.vote.length)
-              .map((comment) => (
+              .map(comment => (
                 <CommentItem
                   key={question._id}
                   comment={comment}
