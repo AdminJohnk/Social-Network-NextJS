@@ -671,10 +671,11 @@ export interface ISeries {
 
 // Question
 
-export interface ICommentAnswer {
+export interface ICommentQuestion {
   _id: string;
   user: IUserInfo;
   content: string;
+  vote: string[];
   createdAt: string;
 }
 
@@ -683,8 +684,12 @@ export interface IAnswerQuestion {
   user: IUserInfo;
   content: string;
   like: IUserInfo[];
-  comment: ICommentAnswer[];
+  vote_up: string[];
+  vote_down: string[];
+  vote_score: number;
+  comment: ICommentQuestion[];
   createdAt: string;
+  update_at: string;
 }
 
 export interface IQuestion {
@@ -699,6 +704,7 @@ export interface IQuestion {
   vote_down: string[];
   vote_score: number;
   answers: IAnswerQuestion[];
+  comment: ICommentQuestion[];
   createdAt: string;
   update_at: string;
 }
@@ -729,4 +735,56 @@ export interface IHashtag {
   posts: IPost[];
   communities: IPost[];
   questions: IQuestion[];
+}
+
+export interface ICreateCommentQuestion {
+  question_id: string;
+  content: string;
+}
+
+export interface IUpdateCommentQuestion {
+  question_id: string;
+  answer_id?: string;
+  comment_id: string;
+  content: string;
+}
+
+export interface IDeleteCommentQuestion {
+  question_id: string;
+  answer_id?: string;
+  comment_id: string;
+}
+
+export interface ICommentVoteQuestion {
+  question_id: string;
+  answer_id?: string;
+  comment_id: string;
+}
+
+export interface ICreateAnswerQuestion {
+  question_id: string;
+  content: string;
+}
+
+export interface IUpdateAnswer {
+  question_id: string;
+  answer_id: string;
+  content: string;
+}
+
+export interface IDeleteAnswer {
+  question_id: string;
+  answer_id: string;
+}
+
+export interface ICreateCommentAnswer {
+  question_id: string;
+  answer_id: string;
+  content: string;
+}
+
+export interface ICreateVoteAnswer {
+  question_id: string;
+  answer_id: string;
+  type: string;
 }

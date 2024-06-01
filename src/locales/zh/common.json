@@ -548,5 +548,16 @@
   "Hashtag cannot contain spaces": "主题标签不能包含空格",
   "Hashtag already exists": "主题标签已存在",
   "Hashtag can only contain letters, numbers, underscores, and hyphens": "主题标签只能包含字母、数字、下划线和连字符",
-  "Hashtag cannot be empty": "主题标签不能为空"
+  "Hashtag cannot be empty": "主题标签不能为空",
+  "Asked": "问了",
+  "Modified": "修改了",
+  "Viewed": "查看了",
+  "times": "次",
+  "Questions": "问题",
+  "Tags": "标签",
+  "Saves": "保存",
+  "Add a comment": "添加评论",
+  "Your Answer": "您的答案",
+  "Post Your Answer": "发布您的答案",
+  "Answers": "答案"
 }

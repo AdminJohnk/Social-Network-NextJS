@@ -548,5 +548,16 @@
   "Hashtag cannot contain spaces": "Hashtag cannot contain spaces",
   "Hashtag already exists": "Hashtag already exists",
   "Hashtag can only contain letters, numbers, underscores, and hyphens": "Hashtag can only contain letters, numbers, underscores, and hyphens",
-  "Hashtag cannot be empty": "Hashtag cannot be empty"
+  "Hashtag cannot be empty": "Hashtag cannot be empty",
+  "Asked": "Asked",
+  "Modified": "Modified",
+  "Viewed": "Viewed",
+  "times": "times",
+  "Questions": "Questions",
+  "Tags": "Tags",
+  "Saves": "Saves",
+  "Add a comment": "Add a comment",
+  "Your Answer": "Your Answer",
+  "Post Your Answer": "Post Your Answer",
+  "Answers": "Answers"
 }

@@ -548,5 +548,16 @@
   "Hashtag cannot contain spaces": "Hashtag không thể chứa dấu cách",
   "Hashtag already exists": "Hashtag đã tồn tại",
   "Hashtag can only contain letters, numbers, underscores, and hyphens": "Hashtag chỉ có thể chứa chữ cái, số, gạch dưới và gạch ngang",
-  "Hashtag cannot be empty": "Hashtag không thể để trống"
+  "Hashtag cannot be empty": "Hashtag không thể để trống",
+  "Asked": "Đã hỏi",
+  "Modified": "Đã sửa đổi",
+  "Viewed": "Đã xem",
+  "times": "lần",
+  "Questions": "Câu hỏi",
+  "Tags": "Thẻ",
+  "Saves": "Lưu",
+  "Add a comment": "Thêm bình luận",
+  "Your Answer": "Câu trả lời của bạn",
+  "Post Your Answer": "Đăng câu trả lời",
+  "Answers": "Câu trả lời"
 }
