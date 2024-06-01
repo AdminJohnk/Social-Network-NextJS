@@ -79,7 +79,7 @@ export default function EditAnswer({
             {isLoadingUpdateAnswer && (
               <CircularProgress size={20} className='!text-text-1 mr-2' />
             )}
-            {t('Publish Series')} <span className='ripple-overlay'></span>
+            {t('Update Answer')} <span className='ripple-overlay'></span>
           </Button>
         </div>
       </div>
