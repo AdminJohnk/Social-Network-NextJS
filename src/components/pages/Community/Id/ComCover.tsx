@@ -1,10 +1,6 @@
 'use client';
 
-import { TabTitle, Tabs } from '@/components/ui/tabs';
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { Link, usePathname, useRouter } from '@/navigation';
-import { FaPencilAlt, FaSearch } from 'react-icons/fa';
 import {
   IoAddOutline,
   IoChatbubbleEllipsesOutline,
@@ -17,11 +13,15 @@ import {
   IoStopCircleOutline,
   IoTrashOutline
 } from 'react-icons/io5';
-import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
-import { cn, getImageURL } from '@/lib/utils';
-import { useCancelJoinCommunity, useJoinCommunity, useLeaveCommunity } from '@/hooks/mutation';
-import { useCallback, useMemo, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { FaXmark } from 'react-icons/fa6';
+import { MdPublic } from 'react-icons/md';
+import { IoMdLock } from 'react-icons/io';
+import { useTranslations } from 'next-intl';
+import { TabTitle, Tabs } from '@/components/ui/tabs';
+import { FaPencilAlt, FaSearch } from 'react-icons/fa';
+import { Link, usePathname, useRouter } from '@/navigation';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import {
   AlertDialog,
   AlertDialogContent,
@@ -30,12 +30,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
+import Modal from '@/components/shared/Modal';
+import { cn, getImageURL } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
-import { FaXmark } from 'react-icons/fa6';
-import { MdPublic } from 'react-icons/md';
-import { IoMdLock } from 'react-icons/io';
+import { imageService } from '@/services/ImageService';
+import CreateEditCommunity from '../CreateEditCommunity';
 import { notFound, useSearchParams } from 'next/navigation';
+import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { useCancelJoinCommunity, useDeleteImage, useJoinCommunity, useLeaveCommunity, useUpdateCommunity } from '@/hooks/mutation';
 
 interface IComCoverProps {
   communityID: string;
@@ -54,6 +58,8 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
   const { mutateJoinCommunity, isLoadingJoinCommunity } = useJoinCommunity();
   const { mutateCancelJoinCommunity, isLoadingCancelJoinCommunity } = useCancelJoinCommunity();
   const { mutateLeaveCommunity, isLoadingLeaveCommunity } = useLeaveCommunity();
+  const { mutateUpdateCommunity } = useUpdateCommunity();
+  const { mutateDeleteImage } = useDeleteImage();
 
   const isMember = useMemo(
     () => community && community.members.some((member) => member._id === currentUserInfo._id),
@@ -123,6 +129,58 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
     });
   };
 
+  const [cover, setCover] = useState('/images/avatars/profile-cover.jpg');
+  const [fileCover, setFileCover] = useState<File>();
+  const [isLoadingUpdateImage, setIsLoadingUpdateImage] = useState(false);
+
+  const handleCoverImage = useCallback((image: File) => {
+    if (!image) return;
+    setCover(URL.createObjectURL(image));
+    setFileCover(image);
+  }, []);
+
+  useEffect(() => {
+    if (community?.image) {
+      setCover(getImageURL(community.image));
+    }
+  }, [community]);
+
+  const handleUploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    const { data } = await imageService.uploadImage(formData);
+    return {
+      url: data.metadata,
+      status: 'done'
+    };
+  };
+
+  const handleUpdateImageCommunity = async () => {
+    setIsLoadingUpdateImage(true);
+    const formData = new FormData();
+    if (fileCover) {
+      const res = await handleUploadImage(fileCover);
+      formData.append('image', res.url.key);
+    }
+
+    const oldCover = community.image;
+
+    mutateUpdateCommunity({ id: communityID, image: formData.get('image')?.toString(), scope: 'Community' }, {
+      onSuccess() {
+        showSuccessToast(t("Your community's image has been updated successfully!"));
+        fileCover && mutateDeleteImage([oldCover]);
+        setFileCover(undefined);
+        setIsLoadingUpdateImage(false);
+      },
+      onError() {
+        showErrorToast(t('Something went wrong! Please try again!'));
+        setIsLoadingUpdateImage(false);
+      }
+    });
+  }
+
+  const [open, setOpen] = useState(false);
+
   if (isErrorCommunity) {
     notFound();
   }
@@ -130,14 +188,16 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
   return (
     <>
       {isLoadingCommunity ? (
-        <>Loading....</>
+        <div className='flex-center p-8'>
+          <CircularProgress size={40} className='!text-text-1' />
+        </div>
       ) : (
         <div className='bg-foreground-1 shadow lg:rounded-b-2xl lg:-mt-10 '>
           <div className='relative overflow-hidden w-full lg:h-72 h-36'>
             <Image
               width={1500}
               height={1000}
-              src={getImageURL(community?.image)}
+              src={cover}
               alt='cover'
               className='h-full w-full object-cover inset-0'
               priority
@@ -145,16 +205,48 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
 
             <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from -black/60 pt-10 z-10'></div>
 
-            <div className='absolute bottom-0 right-0 m-4 z-20'>
+            {isCreator && (<div className='absolute bottom-0 right-0 m-4 z-20'>
               <div className='flex items-center gap-3'>
-                <button className='button bg-white/20 text-white flex items-center gap-2 backdrop-blur-sm'>
-                  {t('Crop')}
-                </button>
-                <button className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
-                  {t('Edit')}
-                </button>
+                {!fileCover ? (
+                  <label htmlFor='cover_image' className='cursor-pointer'>
+                    <div className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
+                      {t('Edit')}
+                    </div>
+                    <input
+                      type='file'
+                      id='cover_image'
+                      className='hidden'
+                      accept='image/*'
+                      disabled={isLoadingUpdateImage}
+                      onChange={(e) => handleCoverImage(e.currentTarget.files?.[0]!)}
+                    />
+                  </label>
+                ) : (
+                  <>
+                    <Button
+                      variant={'destructive'}
+                      onClick={() => {
+                        setCover(
+                          getImageURL(community.image) || '/images/avatars/profile-cover.jpg'
+                        );
+                        setFileCover(undefined);
+                      }}
+                      className='button'
+                      disabled={isLoadingUpdateImage}>
+                      {t('Cancel')}
+                    </Button>
+                    <Button
+                      onClick={handleUpdateImageCommunity}
+                      className={cn('button', isLoadingUpdateImage && 'select-none')}
+                      disabled={isLoadingUpdateImage}>
+                      {isLoadingUpdateImage && <CircularProgress size={15} className='!text-text-1 mr-2' />}
+                      {t('Save')}
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
+            )}
           </div>
           <div className='lg:px-10 md:p-5 p-3'>
             <div className='flex flex-col justify-center'>
@@ -172,10 +264,6 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                     <span>
                       <b className='font-medium text-text-1'>{community.members.length}</b> {t('members')}
                     </span>
-                    {/* <span className='max-lg:hidden'> • </span>
-                    <span>
-                      <b className='font-medium text-text-1'>1.4K</b> {t('followers')}
-                    </span> */}
                   </p>
                 </div>
                 <div>
@@ -205,18 +293,23 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                     <div className='join-community-button'>
                       <button
                         onClick={() => {
-                          if (!isMember && !isRequested)
+                          if (!isMember && !isRequested) {
                             mutateJoinCommunity(communityID, {
                               onError: () => {
                                 showErrorToast(t('Something went wrong! Please try again!'));
                               }
                             });
-                          if (isRequested)
+                          }
+                          if (isRequested) {
                             mutateCancelJoinCommunity(communityID, {
                               onError: () => {
                                 showErrorToast(t('Something went wrong! Please try again!'));
                               }
                             });
+                          }
+                          if (isCreator) {
+                            setOpen(true);
+                          }
                         }}
                         className='button bg-foreground-2 hover:bg-hover-2 flex items-center gap-1 py-2 px-3.5 shadow ml-auto'>
                         {!isCreator ? (
@@ -255,6 +348,9 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
                           </>
                         )}
                       </button>
+                      <Modal open={open} handleClose={() => setOpen(false)}>
+                        <CreateEditCommunity handleClose={() => setOpen(false)} dataEdit={community} />
+                      </Modal>
                       {isMember && !isCreator && (
                         <div
                           className='!w-fit'

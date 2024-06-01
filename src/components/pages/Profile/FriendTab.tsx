@@ -27,7 +27,7 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
     setIsFriend(currentUserInfo.friends.some(item => item._id === friend._id));
   }, [currentUserInfo.friends]);
 
-  if (friend?._id == currentUserInfo._id) return null; 
+  const isMe = friend?._id == currentUserInfo._id
 
   return (
     <div className='flex-between'>
@@ -41,7 +41,7 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
             height={40}
           />
           <div className='ml-3'>
-            <div>{friend.name}</div>
+            <div>{friend.name} {isMe && `(${t('You')})`}</div>
             {friend?.experiences?.length > 0 && (
               <span className='small-regular text-text-2 mt-1'>
                 Work at
@@ -68,7 +68,7 @@ export interface IFriendTabProps {
 
 export default function FriendTab({ profileID }: IFriendTabProps) {
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
-
+  console.log(otherUserInfo?.friends);
   return (
     <>
       {isLoadingOtherUserInfo ? (

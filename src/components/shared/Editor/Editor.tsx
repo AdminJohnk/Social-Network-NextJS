@@ -331,7 +331,7 @@ const MenuBar = ({ editor }: { editor: EditorProps }) => {
 };
 
 interface EditorContentProps {
-  setEditor?: (editor: EditorProps) => void;
+  setEditor?: (_: EditorProps) => void;
   content?: string;
   placeholder?: string;
   autofocus?: FocusPosition;

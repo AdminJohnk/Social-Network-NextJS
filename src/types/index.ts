@@ -1,13 +1,10 @@
-import Question from '@/app/[locale]/(private)/(withSidebar)/questions/page';
 import { MentionOptions } from '@tiptap/extension-mention';
 
 export type SuggestionOptions = MentionOptions['suggestion'];
 
 export type RenderFunctionType = NonNullable<SuggestionOptions['render']>;
 
-export type OnKeyDownProps = Parameters<
-  NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>
->[0];
+export type OnKeyDownProps = Parameters<NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>>[0];
 
 export interface ErrorResponse extends Error {
   response: {
@@ -107,12 +104,7 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact =
-  | 'facebook'
-  | 'instagram'
-  | 'twitter'
-  | 'github'
-  | 'linkedin';
+export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -180,6 +172,7 @@ export interface ISharePost {
   owner_post: string;
   content?: string;
   shared_post?: string;
+  hashtags?: string[];
 }
 
 type TypeofPost = 'Post' | 'Share';
@@ -326,15 +319,7 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage =
-  | 'text'
-  | 'image'
-  | 'notification'
-  | 'audio'
-  | 'file'
-  | 'voice'
-  | 'video'
-  | 'post';
+type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video' | 'post';
 type TypeofAction =
   | 'promote_admin'
   | 'revoke_admin'
@@ -415,11 +400,26 @@ export interface ICreateCommunity {
   visibility: Visibility;
 }
 
+export interface IUpdateCommunity {
+  id: string;
+  name?: string;
+  about?: string;
+  tags?: string[];
+  image?: string;
+  members?: string[];
+  admins?: string[];
+  rules?: {
+    title?: string;
+    content?: string;
+  }[];
+  visibility?: Visibility;
+  scope: 'Community';
+}
+
 export interface ICommunity {
   _id: string;
   name: string;
   image: string;
-  cover_image: string;
   about: string;
   tags: string[];
   rules: {
@@ -728,6 +728,14 @@ export interface IUpdateQuestion {
 export interface ICreateVoteQuestion {
   question_id: string;
   type: string;
+}
+
+export interface IHashtag {
+  _id: string;
+  name: string;
+  posts: IPost[];
+  communities: IPost[];
+  questions: IQuestion[];
 }
 
 export interface ICreateCommentQuestion {

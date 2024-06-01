@@ -1,18 +1,18 @@
 'use client';
 
-import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
-import { Link } from '@/navigation';
-import { useTranslations } from 'next-intl';
 import {
   IoLocationOutline,
   IoBriefcaseOutline,
   IoPeopleOutline,
   IoAt
 } from 'react-icons/io5';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 import { PiGraduationCap } from 'react-icons/pi';
 import { MdOutlineHomeWork } from 'react-icons/md';
-import { useEffect, useState } from 'react';
+
 import descArrays from '@/lib/descriptions/Tags';
+import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
 
 export interface IIntroProps {
   profileID: string;

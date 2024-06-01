@@ -73,6 +73,10 @@ class MessageService extends BaseService {
     return this.delete(`/chat/conversations/${conversationID}`);
   };
 
+  deleteConversation = (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
+    return this.put(`/chat/conversations/${conversationID}/delete`);
+  };
+
   leaveGroup = (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
     return this.put(`/chat/conversations/${conversationID}/leave`);
   };

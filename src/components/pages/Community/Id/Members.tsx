@@ -1,10 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { getImageURL } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
 import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
@@ -124,7 +122,7 @@ export default function Members({ communityID }: IMembersProps) {
         onSuccess: () => {
           showSuccessToast(t('You have successfully revoked the admin!'));
         },
-        onError: (error) => {
+        onError: () => {
           showErrorToast(t('Something went wrong! Please try again!'));
         },
         onSettled() {
@@ -196,7 +194,7 @@ export default function Members({ communityID }: IMembersProps) {
                         </div>
                       </div>
                     </div>
-                    {((isAdmin && memberRole(member._id) === 'Member') || isCreator) && (
+                    {((isAdmin && memberRole(member._id) === 'Member') || isCreator) && !isMe(member._id) && (
                       <>
                         <div className='popover'>
                           <div className='p-2.5 rounded-full hover:bg-hover-1 cursor-pointer'>

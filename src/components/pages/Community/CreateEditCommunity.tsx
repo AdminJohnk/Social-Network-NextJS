@@ -5,7 +5,7 @@ import { IoAdd, IoClose, IoHappyOutline, IoImage } from 'react-icons/io5';
 import Picker from '@emoji-mart/react';
 import { useEffect, useState } from 'react';
 import { useThemeMode } from 'flowbite-react';
-import { ICreateCommunity, IEmoji, IUserInfo } from '@/types';
+import { ICreateCommunity, IEmoji, IUpdateCommunity, IUserInfo } from '@/types';
 import Popover from '@/components/ui/popover-v2';
 import { PiHashLight } from 'react-icons/pi';
 import { IoMdClose } from 'react-icons/io';
@@ -18,19 +18,22 @@ import { cn, getImageURL } from '@/lib/utils';
 import { useCreateCommunity, useDeleteImage, useUpdateCommunity, useUploadImage } from '@/hooks/mutation';
 import ReactImageUploading, { ImageListType } from 'react-images-uploading';
 import Image from 'next/image';
-import { showErrorToast } from '@/components/ui/toast';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { useRouter } from '@/navigation';
 
 interface ICreateEditCommunityProps {
   handleClose: () => void;
   dataEdit?: Omit<ICreateCommunity, 'members'> & {
     _id: string;
     members: IUserInfo[];
+    admins: IUserInfo[];
   };
 }
 
 export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEditCommunityProps) {
   const t = useTranslations();
   const locale = useLocale();
+  const router = useRouter();
   const { mode } = useThemeMode();
 
   const { currentUserInfo } = useCurrentUserInfo();
@@ -49,7 +52,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
 
   const [hashTagList, setHashTagList] = useState<string[]>([]);
 
-  const [ruleInputs, setRuleInputs] = useState<JSX.Element[]>([]);
+  const [ruleInputs, setRuleInputs] = useState<Record<'title' | 'content', string>[]>([]);
 
   const [membersCom, setMembersCom] = useState<IUserInfo[]>([]);
 
@@ -61,7 +64,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
       setName(dataEdit.name);
       setAbout(dataEdit.about);
       setHashTagList(dataEdit.tags);
-      setRuleInputs(dataEdit.rules.map((_, index) => ruleInputHTML(index)));
+      setRuleInputs(dataEdit.rules);
       setMembersCom(dataEdit.members);
       setImages([{ data_url: dataEdit.image }]);
     }
@@ -85,7 +88,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
 
   const members = currentUserInfo?.members || [];
 
-  const ruleInputHTML = (index: number) => {
+  const ruleInputHTML = (index: number, rule: { title: string; content: string }) => {
     return (
       <div>
         <div className='flex'>
@@ -99,10 +102,34 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
           </span>
         </div>
         <div className='relative mb-5 mt-4'>
-          <InputStyle label={`${t('Rule')} ${index + 1}: `} />
+          <InputStyle
+            label={`${t('Rule')} ${index + 1}: `}
+            defaultValue={rule.title}
+            onChange={(e) => {
+              const newRuleInputs = ruleInputs.map((ruleInput, i) => {
+                if (i === index) {
+                  return { ...ruleInput, title: e.currentTarget.value };
+                }
+                return ruleInput;
+              });
+              setRuleInputs(newRuleInputs);
+            }}
+          />
         </div>
         <div className='relative'>
-          <InputStyle label={`${t('Description')} ${index + 1}: `} />
+          <InputStyle
+            label={`${t('Description')} ${index + 1}: `}
+            defaultValue={rule.content}
+            onChange={(e) => {
+              const newRuleInputs = ruleInputs.map((ruleInput, i) => {
+                if (i === index) {
+                  return { ...ruleInput, content: e.currentTarget.value };
+                }
+                return ruleInput;
+              });
+              setRuleInputs(newRuleInputs);
+            }}
+          />
         </div>
       </div>
     );
@@ -111,16 +138,15 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
   const onSubmit = async () => {
     setIsLoading(true);
 
-    const rules = ruleInputs.map((_, index) => ({
-      title: ruleInputs[index].props.children[2].props.children[0].props.value,
-      content: ruleInputs[index].props.children[4].props.children[0].props.value
-    }));
+    const rules = ruleInputs.map((rule) => ({ title: rule.title, content: rule.content }));
 
     let imagesUploaded;
 
     if (changeImage || !dataEdit) {
       imagesUploaded = await handleUploadImages();
     }
+
+    const members = [...new Set(membersCom.map((member) => member._id).concat(currentUserInfo._id))];
 
     if (!dataEdit) {
       const data = {
@@ -129,35 +155,41 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
         tags: hashTagList,
         rules,
         image: imagesUploaded?.key!,
-        members: membersCom.map((member) => member._id),
+        members,
         visibility: 'public'
       } satisfies ICreateCommunity;
 
       await mutateCreateCommunity(data, {
-        onSuccess: () => handleClose(),
+        onSuccess: (community) => {
+          handleClose();
+          router.push(`/community/${community._id}`);
+          showSuccessToast(t('Community created successfully!'));
+        },
         onSettled: () => setIsLoading(false)
       });
     } else {
+      const admins = dataEdit.admins.map((admin) => admin._id).filter((admin) => members.includes(admin));
       const data = {
+        id: dataEdit._id,
         name,
         about,
         tags: hashTagList,
         rules,
         image: imagesUploaded?.key!,
-        members: membersCom.map((member) => member._id).concat(currentUserInfo._id),
-        visibility: 'public'
-      } satisfies ICreateCommunity;
+        members,
+        admins,
+        visibility: 'public',
+        scope: 'Community'
+      } satisfies IUpdateCommunity;
 
-      await mutateUpdateCommunity(
-        { id: dataEdit._id, ...data },
-        {
-          onSuccess: () => {
-            handleClose();
-            handleDeleteImage(dataEdit.image);
-          },
-          onSettled: () => setIsLoading(false)
-        }
-      );
+      await mutateUpdateCommunity(data, {
+        onSuccess: () => {
+          handleClose();
+          handleDeleteImage(dataEdit.image);
+          showSuccessToast(t('Community updated successfully!'));
+        },
+        onSettled: () => setIsLoading(false)
+      });
     }
   };
 
@@ -169,17 +201,17 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
         </h2>
       </div>
 
-      <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
+      <div className='max-h-[700px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
         <div className='relative !mt-3'>
           <InputStyle
-            label='Community Name'
+            label={t('Community Name')}
             onChange={(e) => setName(e.currentTarget.value)}
             defaultValue={dataEdit?.name}
           />
         </div>
         <div className='flex-between'>
           <TextareaV2
-            label='About'
+            label={t('About')}
             value={about}
             onChange={(e) => {
               setAbout(e.currentTarget.value);
@@ -227,20 +259,24 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
         </div>
         <div className='relative'>
           <InputStyle
-            label='Hashtag'
+            label={t('Hashtags')}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                if (e.currentTarget.value.includes(' ')) {
+                const value = e.currentTarget.value.trim();
+                if (value === '') {
+                  showErrorToast(t('Hashtag cannot be empty'));
+                  return;
+                } else if (value.includes(' ')) {
                   showErrorToast(t('Hashtag cannot contain spaces'));
                   return;
-                } else if (hashTagList.includes(e.currentTarget.value)) {
+                } else if (hashTagList.includes(value)) {
                   showErrorToast(t('Hashtag already exists'));
                   return;
-                } else if (!/^[a-zA-Z0-9_-]*$/.test(e.currentTarget.value)) {
+                } else if (!/^[a-zA-Z0-9_-]*$/.test(value)) {
                   showErrorToast(t('Hashtag can only contain letters, numbers, underscores, and hyphens'));
                   return;
                 } else {
-                  setHashTagList([...hashTagList, e.currentTarget.value]);
+                  setHashTagList([...hashTagList, value]);
                   e.currentTarget.value = '';
                 }
               }
@@ -263,18 +299,18 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
           ))}
         </div>
         <div className='flex-start gap-2'>
-          <span className='text-sm text-text-2'>Rules</span>
+          <span className='text-sm text-text-2'>{t('Rules')}</span>
           <span className='p-0.5 rounded-full bg-foreground-1'>
             <IoAdd
               className='size-5 text-1'
               onClick={() => {
-                setRuleInputs([...ruleInputs, ruleInputHTML(ruleInputs.length)]);
+                setRuleInputs([...ruleInputs, { title: '', content: '' }]);
               }}
             />
           </span>
         </div>
         <div className='render-rule-input mx-3 *:mb-8'>
-          {ruleInputs.map((_, index) => ruleInputHTML(index))}
+          {ruleInputs.map((rule, index) => ruleInputHTML(index, rule))}
         </div>
         <div className='member'>
           <AddMemberToCommunity
@@ -325,22 +361,22 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
             )}
           </ReactImageUploading>
         </div>
-        <div className='flex flex-end mt-2 gap-5'>
-          <Button
-            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
-            variant='destructive'
-            onClick={handleClose}
-            disabled={isLoading}>
-            <div className='font-bold'>{t('Cancel')}</div>
-          </Button>
-          <Button
-            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
-            onClick={onSubmit}
-            disabled={isLoading}>
-            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
-            <div className='font-bold'>{!dataEdit ? t('Create') : t('Update')}</div>
-          </Button>
-        </div>
+      </div>
+      <div className='flex-end mt-7 gap-5 px-5 py-4'>
+        <Button
+          className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+          variant='destructive'
+          onClick={handleClose}
+          disabled={isLoading}>
+          <div className='font-bold'>{t('Cancel')}</div>
+        </Button>
+        <Button
+          className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+          onClick={onSubmit}
+          disabled={isLoading}>
+          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+          <div className='font-bold'>{!dataEdit ? t('Create') : t('Update')}</div>
+        </Button>
       </div>
     </div>
   );

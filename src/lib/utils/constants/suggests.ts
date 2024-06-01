@@ -19,7 +19,8 @@ export const suggestions = ({ data = [], char = '#' }: ISuggestions): Suggestion
     const filteredData = data
       .filter((item) => item.toLowerCase().startsWith(query.toLowerCase()))
       .slice(0, 5);
-    return filteredData.length > 0 ? filteredData : [query];
+      
+    return filteredData.length ? filteredData : [query];
   },
   render: () => {
     let component: ReactRenderer<ISuggestionListHandle, ISuggestionListProps>;

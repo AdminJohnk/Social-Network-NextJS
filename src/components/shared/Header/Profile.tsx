@@ -25,7 +25,7 @@ export default function ProfileHeader() {
   }, [mode]);
 
   const closeProfileDropdown = () => {
-    UIkit.drop('#profile-dropdown').hide(false);
+    UIkit.drop('#profile-dropdown').hide();
   };
 
   return (

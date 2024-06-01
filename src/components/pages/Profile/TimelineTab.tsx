@@ -34,7 +34,7 @@ export default function TimelineTab({ profileID }: ITimelineTabProps) {
 
   return (
     <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='profile-posts'>
-      <div className='flex-1 xl:space-y-6 space-y-3'>
+      <div className='flex-1 xl:space-y-6 space-y-3 max-w-[617px]'>
         <NewPost profileID={profileID} />
         <div className='post *:mb-6'>
           {isLoadingUserPosts ? (

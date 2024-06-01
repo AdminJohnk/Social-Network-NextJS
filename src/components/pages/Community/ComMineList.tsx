@@ -58,7 +58,7 @@ export default function ComMineList() {
                           height={500}
                           src={getImageURL(friend.user_image)}
                           alt={friend.name}
-                          className='w-6 rounded-full border-border-1'
+                          className='size-6 rounded-full border-border-1'
                         />
                       ))}
                   </div>

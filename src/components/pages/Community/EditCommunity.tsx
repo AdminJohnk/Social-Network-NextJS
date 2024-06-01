@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import { ICreateCommunity, IUserInfo } from '@/types';
 
 export interface IEditCommunityProps {
-  dataEdit: Omit<ICreateCommunity, 'members'> & { _id: string; members: IUserInfo[] };
+  dataEdit: Omit<ICreateCommunity, 'members'> & { _id: string; members: IUserInfo[]; admins: IUserInfo[] };
 }
 
 export default function EditCommunity({ dataEdit }: IEditCommunityProps) {

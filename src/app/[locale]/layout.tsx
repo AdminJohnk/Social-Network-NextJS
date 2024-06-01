@@ -8,6 +8,7 @@ import { unstable_noStore } from 'next/cache';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import 'react-photo-view/dist/react-photo-view.css';
+import 'highlight.js/styles/default.css';
 import '@/app/animate.css';
 import '@/app/uk.css';
 import '@/app/globals.css';

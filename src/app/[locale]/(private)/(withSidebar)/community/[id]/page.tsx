@@ -1,15 +1,13 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import NewPost from '@/components/shared/NewPost/NewPost';
-import About from '@/components/pages/Community/Id/About';
-import RecentMedia from '@/components/pages/Community/Id/RecentMedia';
-import SuggestGroup from '@/components/pages/Community/Id/SuggestGroup';
 import ComCover from '@/components/pages/Community/Id/ComCover';
-import PostList from '@/components/pages/Community/Id/PostList';
 import { TabsContent } from '@/components/ui/tabs';
 import RequestList from '@/components/pages/Community/Id/RequestList';
 import Members from '@/components/pages/Community/Id/Members';
 import PhotoTab from '@/components/pages/Community/Id/PhotoTab';
+import NewPost from '@/components/shared/NewPost/NewPost';
+import CommunitySide from '@/components/pages/Community/Id/CommunitySide';
+import PostList from '@/components/pages/Community/Id/PostList';
 
 export interface ICommunityProps {
   params: {
@@ -31,19 +29,11 @@ export default function Community({ params: { locale, id }, searchParams: { tab 
 
         <TabsContent id='tabs-community' className='mt-4 !border-none'>
           <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='community-side'>
-            <div className='flex-1 xl:space-y-6 space-y-3'>
+            <div className='flex-1 xl:space-y-6 space-y-3 max-w-[617px]'>
               <NewPost communityID={id} />
               <PostList communityID={id} />
             </div>
-            <div className='lg:w-[400px]'>
-              <div
-                className='lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
-                data-uk-sticky='media: 1024; end: #community-side; offset: 80'>
-                <About communityID={id} />
-                <RecentMedia />
-                <SuggestGroup />
-              </div>
-            </div>
+            <CommunitySide communityID={id} />
           </div>
           {/* only admin and creator can see request tab */}
           <RequestList communityID={id} />
