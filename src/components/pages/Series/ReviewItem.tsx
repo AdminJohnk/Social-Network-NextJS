@@ -27,7 +27,6 @@ export interface IReviewItemProps {
 
 export default function ReviewItem({ review, series_id }: IReviewItemProps) {
   const t = useTranslations();
-  const format = useFormatter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { currentUserInfo } = useCurrentUserInfo();

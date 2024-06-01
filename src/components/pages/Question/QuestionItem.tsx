@@ -11,7 +11,11 @@ import Divider from '@/components/shared/Divider';
 import { Link } from '@/navigation';
 import { IQuestion } from '@/types';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
-import { useDeleteQuestion, useVoteQuestion } from '@/hooks/mutation';
+import {
+  useCommentQuestion,
+  useDeleteQuestion,
+  useVoteQuestion
+} from '@/hooks/mutation';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { cn } from '@/lib/utils';
 import { useFormatter, useTranslations } from 'next-intl';
@@ -28,6 +32,7 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { IoMdSend } from 'react-icons/io';
 
 export interface IQuestionItemProps {
   question: IQuestion;
@@ -45,12 +50,17 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
     });
   };
 
+  const { currentUserInfo } = useCurrentUserInfo();
   const { mutateVoteQuestion } = useVoteQuestion();
   const { mutateDeleteQuestion, isLoadingDeleteQuestion } = useDeleteQuestion();
-  const { currentUserInfo } = useCurrentUserInfo();
+  const { mutateCommentQuestion, isLoadingCommentQuestion } =
+    useCommentQuestion();
 
   const [vote, setVote] = useState<string>('cancel');
   const [voteNumber, setVoteNumber] = useState<number>(0);
+
+  const [isAddComment, setIsAddComment] = useState<boolean>(false);
+  const [comment, setComment] = useState<string>('');
 
   // Modal
   const [openEditQuestion, setOpenEditQuestion] = useState(false);
@@ -91,6 +101,29 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
         handleCloseDeleteQuestion();
       }
     });
+  };
+
+  const handleAddComment = () => {
+    if (comment.trim().length === 0) {
+      showErrorToast(t('Please write your comment!'));
+      return;
+    }
+    mutateCommentQuestion(
+      {
+        question_id: question._id,
+        content: comment
+      },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('Commented successfully!'));
+          setComment('');
+          setIsAddComment(false);
+        },
+        onError: () => {
+          showErrorToast(t('Something went wrong! Please try again!'));
+        }
+      }
+    );
   };
 
   return (
@@ -225,7 +258,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                 dataEdit={question}
               />
             </Modal>
-            <div className='flex justify-between w-[60%]'>
+            <div className='flex justify-between w-[70%]'>
               <div className='text-text-2 pt-2'>
                 <span className='me-1'>{t('edited')}</span>
                 <span className='me-1'>
@@ -263,7 +296,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                   </div>
                   <div className='flex flex-col ms-2'>
                     <Link
-                      href={''}
+                      href={`/profile/${question.user._id}`}
                       className='text-blue-400 hover:text-blue-500 duration-300'
                     >
                       {question.user.name}
@@ -276,12 +309,58 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
           </div>
           <Divider className='mt-10' />
           <div className='py-2 text-pretty'>
-            <CommentItem />
-            <CommentItem />
-            <CommentItem />
+            {question.comment
+              .sort((a, b) => b.vote.length - a.vote.length)
+              .map((comment) => (
+                <CommentItem
+                  key={question._id}
+                  comment={comment}
+                  questionID={question._id}
+                  type='que'
+                />
+              ))}
           </div>
-          <div className='text-1 text-[0.8rem] cursor-pointer'>
-            Add a comment
+          {/* Add comment */}
+          <div className='text-1 text-[0.8rem]'>
+            {!isAddComment ? (
+              <span
+                className='cursor-pointer'
+                onClick={() => setIsAddComment(true)}
+              >
+                {t('Add a comment')}
+              </span>
+            ) : (
+              <div>
+                <textarea
+                  className='w-full border border-border-1 rounded-lg p-2 resize-none bg-transparent custom-scrollbar-bg text-[0.8rem]'
+                  rows={3}
+                  onChange={e => setComment(e.target.value)}
+                />
+                <div className='flex-between'>
+                  <div
+                    className='text-blue-500 hover:text-blue-600 duration-300 small-regular cursor-pointer px-1'
+                    onClick={() => setIsAddComment(false)}
+                  >
+                    {t('Cancel')}
+                  </div>
+                  <div className='flex-start gap-2'>
+                    <IoMdSend
+                      className={cn(
+                        'size-5 text-blue-500 hover:text-blue-600 duration-300 cursor-pointer',
+                        isLoadingCommentQuestion && 'select-none'
+                      )}
+                      onClick={() => handleAddComment()}
+                    />
+                    {isLoadingCommentQuestion && (
+                      <CircularProgress
+                        size={20}
+                        className='!text-text-1 mr-2'
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <Divider className='mt-2 mb-8' />
         </div>

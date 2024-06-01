@@ -25,7 +25,7 @@ export default function CreateEditQuestion({
   const t = useTranslations();
   const router = useRouter();
 
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>(dataEdit?.title || '');
   const [editorProblem, setEditorProblem] = useState<EditorProps>();
   const [editorExpect, setEditorExpect] = useState<EditorProps>();
   const [hashTagList, setHashTagList] = useState<string[]>(

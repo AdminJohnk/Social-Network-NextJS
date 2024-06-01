@@ -27,6 +27,8 @@ export default function QuestionDetail({
   const format = useFormatter();
   useNow({ updateInterval: 1000 * 30 });
 
+  const [sortBy, setSortBy] = useState('scoredesc');
+
   const { question, isLoadingQuestion } = useGetQuestionByID(id);
   const { mutateViewQuestion } = useViewQuestion();
 
@@ -80,7 +82,7 @@ export default function QuestionDetail({
               </div>
               <div className='flex-start gap-5 mt-1 text-[0.8rem]'>
                 <div>
-                  <span>Asked </span>
+                  <span className='me-1'>{t('Asked')}</span>
                   <span className='text-text-2'>
                     {format.relativeTime(
                       new Date(question.createdAt),
@@ -89,7 +91,7 @@ export default function QuestionDetail({
                   </span>
                 </div>
                 <div>
-                  <span>Modified </span>
+                  <span className='me-1'>{t('Modified')}</span>
                   <span className='text-text-2'>
                     {format.relativeTime(
                       new Date(question.update_at),
@@ -98,9 +100,10 @@ export default function QuestionDetail({
                   </span>
                 </div>
                 <div>
-                  <span>Viewed </span>
+                  <span className='me-1'>{t('Viewed')}</span>
                   <span className='text-text-2'>
-                    {caculateView(question.view)} times
+                    <span className='me-1'>{caculateView(question.view)}</span>
+                    <span>{t('times')}</span>
                   </span>
                 </div>
               </div>
@@ -111,28 +114,61 @@ export default function QuestionDetail({
                 <QuestionItem question={question} />
                 <div className='flex-between mb-5'>
                   <div className='space-x-1 h4-regular'>
-                    <span>2</span>
-                    <span>Answers</span>
+                    <span>{question.answers.length}</span>
+                    <span>{t('Answers')}</span>
                   </div>
-                  <div className='w-[50%] flex-start'>
-                    <Label htmlFor='countries' value='Sort by:' />
-                    <Select
-                      id='countries'
-                      required
-                      className='*:*:!ring-transparent *:*:!bg-transparent grow ms-3'
-                    >
-                      <option className='bg-foreground-1'>United States</option>
-                      <option className='bg-foreground-1'>Canada</option>
-                      <option className='bg-foreground-1'>France</option>
-                      <option className='bg-foreground-1'>Germany</option>
-                    </Select>
-                  </div>
+                  {question.answers.length > 0 && (
+                    <div className='w-[50%] flex-start'>
+                      <Label htmlFor='countries' value='Sort by:' />
+                      <Select
+                        id='countries'
+                        required
+                        className='*:*:!ring-transparent *:*:!bg-transparent grow ms-3'
+                        onChange={e => setSortBy(e.target.value)}
+                      >
+                        <option className='bg-foreground-1' value='scoredesc'>
+                          Highest score (default)
+                        </option>
+                        <option
+                          className='bg-foreground-1'
+                          value='modifieddesc'
+                        >
+                          Date modified (newest first)
+                        </option>
+                        <option className='bg-foreground-1' value='createdasc'>
+                          Date created (oldest first)
+                        </option>
+                      </Select>
+                    </div>
+                  )}
                 </div>
                 <div>
-                  <AnswerItem />
-                  <AnswerItem />
+                  {question.answers
+                    .sort((a, b) => {
+                      if (sortBy === 'scoredesc') {
+                        return b.vote_score - a.vote_score;
+                      } else if (sortBy === 'modifieddesc') {
+                        return (
+                          new Date(b.update_at).getTime() -
+                          new Date(a.update_at).getTime()
+                        );
+                      } else if (sortBy === 'createdasc') {
+                        return (
+                          new Date(a.createdAt).getTime() -
+                          new Date(b.createdAt).getTime()
+                        );
+                      }
+                      return 0;
+                    })
+                    .map(answer => (
+                      <AnswerItem
+                        key={answer._id}
+                        answer={answer}
+                        questionID={question._id}
+                      />
+                    ))}
                 </div>
-                <WriteAnswer />
+                <WriteAnswer questionID={question._id} />
               </div>
               <div className='right col-span-1'>
                 <Menu currentMenu={'question'} />

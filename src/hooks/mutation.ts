@@ -41,7 +41,16 @@ import {
   IUserUpdate,
   ICreateQuestion,
   ICreateVoteQuestion,
-  IUpdateQuestion
+  IUpdateQuestion,
+  ICreateCommentQuestion,
+  IUpdateCommentQuestion,
+  ICommentVoteQuestion,
+  IDeleteCommentQuestion,
+  ICreateAnswerQuestion,
+  IUpdateAnswer,
+  IDeleteAnswer,
+  ICreateCommentAnswer,
+  ICreateVoteAnswer
 } from '@/types';
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
@@ -2299,7 +2308,9 @@ export const useDeleteQuestion = () => {
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (questionID: string) => {
-      const { data: question } = await questionService.deleteQuestion(questionID);
+      const { data: question } = await questionService.deleteQuestion(
+        questionID
+      );
       return question.metadata;
     },
     onSuccess(_, question) {
@@ -2353,3 +2364,283 @@ export const useVoteQuestion = () => {
     isSuccessVoteQuestion: isSuccess
   };
 };
+
+export const useCommentQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreateCommentQuestion) => {
+      const { data: comment } = await questionService.commentQuestion(data);
+      return comment.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateCommentQuestion: mutateAsync,
+    isLoadingCommentQuestion: isPending,
+    isErrorCommentQuestion: isError,
+    isSuccessCommentQuestion: isSuccess
+  };
+};
+
+export const useUpdateCommentQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdateCommentQuestion) => {
+      const { data: comment } = await questionService.updateCommentQuestion(
+        data
+      );
+      return comment.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateUpdateCommentQuestion: mutateAsync,
+    isLoadingUpdateCommentQuestion: isPending,
+    isErrorUpdateCommentQuestion: isError,
+    isSuccessUpdateCommentQuestion: isSuccess
+  };
+};
+
+export const useDeleteCommentQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IDeleteCommentQuestion) => {
+      const { data: comment } = await questionService.deleteCommentQuestion(
+        data
+      );
+      return comment.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateDeleteCommentQuestion: mutateAsync,
+    isLoadingDeleteCommentQuestion: isPending,
+    isErrorDeleteCommentQuestion: isError,
+    isSuccessDeleteCommentQuestion: isSuccess
+  };
+};
+
+export const useVoteCommentQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICommentVoteQuestion) => {
+      const { data: comment } = await questionService.voteCommentQuestion(data);
+      return comment.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateVoteCommentQuestion: mutateAsync,
+    isLoadingVoteCommentQuestion: isPending,
+    isErrorVoteCommentQuestion: isError,
+    isSuccessVoteCommentQuestion: isSuccess
+  };
+};
+
+export const useAnswerQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreateAnswerQuestion) => {
+      const { data: question } = await questionService.answerQuestion(data);
+      return question.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateAnswerQuestion: mutateAsync,
+    isLoadingAnswerQuestion: isPending,
+    isErrorAnswerQuestion: isError,
+    isSuccessAnswerQuestion: isSuccess
+  };
+};
+
+export const useDeleteCommentAnswer = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IDeleteCommentQuestion) => {
+      const { data: comment } = await questionService.deleteCommentAnswer(data);
+      return comment.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateDeleteCommentAnswer: mutateAsync,
+    isLoadingDeleteCommentAnswer: isPending,
+    isErrorDeleteCommentAnswer: isError,
+    isSuccessDeleteCommentAnswer: isSuccess
+  };
+};
+
+export const useUpdateAnswer = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdateAnswer) => {
+      const { data: question } = await questionService.updateAnswer(data);
+      return question.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateUpdateAnswer: mutateAsync,
+    isLoadingUpdateAnswer: isPending,
+    isErrorUpdateAnswer: isError,
+    isSuccessUpdateAnswer: isSuccess
+  };
+};
+
+export const useDeleteAnswer = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IDeleteAnswer) => {
+      const { data: question } = await questionService.deleteAnswer(data);
+      return question.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateDeleteAnswer: mutateAsync,
+    isLoadingDeleteAnswer: isPending,
+    isErrorDeleteAnswer: isError,
+    isSuccessDeleteAnswer: isSuccess
+  };
+};
+
+export const useCommentAnswer = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreateCommentAnswer) => {
+      const { data: comment } = await questionService.commentAnswer(data);
+      return comment.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateCommentAnswer: mutateAsync,
+    isLoadingCommentAnswer: isPending,
+    isErrorCommentAnswer: isError,
+    isSuccessCommentAnswer: isSuccess
+  };
+};
+
+export const useUpdateCommentAnswer = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdateCommentQuestion) => {
+      const { data: comment } = await questionService.updateCommentAnswer(data);
+      return comment.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateUpdateCommentAnswer: mutateAsync,
+    isLoadingUpdateCommentAnswer: isPending,
+    isErrorUpdateCommentAnswer: isError,
+    isSuccessUpdateCommentAnswer: isSuccess
+  };
+};
+
+export const useVoteCommentAnswer = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICommentVoteQuestion) => {
+      const { data: comment } = await questionService.voteCommentAnswer(data);
+      return comment.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateVoteCommentAnswer: mutateAsync,
+    isLoadingVoteCommentAnswer: isPending,
+    isErrorVoteCommentAnswer: isError,
+    isSuccessVoteCommentAnswer: isSuccess
+  };
+};
+
+export const useVoteAnswer = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreateVoteAnswer) => {
+      const { data: answer } = await questionService.voteAnswer(data);
+      return answer.metadata;
+    },
+    onSuccess(_, question) {
+      queryClient.invalidateQueries({
+        queryKey: ['question', question.question_id]
+      });
+    }
+  });
+
+  return {
+    mutateVoteAnswer: mutateAsync,
+    isLoadingVoteAnswer: isPending,
+    isErrorVoteAnswer: isError,
+    isSuccessVoteAnswer: isSuccess
+  };
+}
