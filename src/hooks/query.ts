@@ -914,12 +914,12 @@ export const useLinkPreview = (url: string) => {
   };
 };
 
-export const useGetAllSeries = (userID: string) => {
+export const useGetAllSeriesByUserID = (userID: string) => {
   const { data, isPending, isError, isFetching, refetch, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ['allSeries', userID],
       queryFn: async ({ pageParam }) => {
-        const { data } = await seriesService.getAllSeries(userID, pageParam);
+        const { data } = await seriesService.getAllSeriesByUserID(userID, pageParam);
         return data.metadata;
       },
       initialPageParam: 1,
@@ -941,6 +941,38 @@ export const useGetAllSeries = (userID: string) => {
     allSeries: data!,
     isFetchingAllSeries: isFetching,
     refetchAllSeries: refetch,
+    hasNextSeries: hasNextPage,
+    fetchNextSeries: fetchNextPage,
+    isFetchingNextSeries: isFetchingNextPage
+  };
+};
+
+export const useGetAllSeries = () => {
+  const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['allSeries'],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await seriesService.getAllSeries(pageParam);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < 10) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingAllSeries: isPending,
+    isErrorAllSeries: isError,
+    allSeries: data!,
+    isFetchingAllSeries: isFetching,
     hasNextSeries: hasNextPage,
     fetchNextSeries: fetchNextPage,
     isFetchingNextSeries: isFetchingNextPage

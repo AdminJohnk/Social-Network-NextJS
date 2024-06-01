@@ -16,113 +16,113 @@ class MessageService extends BaseService {
     super();
   }
 
-  getConversations = (): Promise<AxiosResponse<IResponse<IConversation[]>>> => {
-    return this.get(`/chat/conversations`);
+  getConversations = async (): Promise<AxiosResponse<IResponse<IConversation[]>>> => {
+    return await this.get(`/chat/conversations`);
   };
 
-  createConversation = (
+  createConversation = async (
     conversation: ICreateConversation
   ): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.post(`/chat/conversations/create`, conversation);
+    return await this.post(`/chat/conversations/create`, conversation);
   };
 
-  getConversation = (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.get(`/chat/conversations/find/${conversationID}`);
+  getConversation = async (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
+    return await this.get(`/chat/conversations/find/${conversationID}`);
   };
 
-  getCalled = (): Promise<AxiosResponse<IResponse<ICalled[]>>> => {
-    return this.get(`/chat/conversations/called`);
+  getCalled = async (): Promise<AxiosResponse<IResponse<ICalled[]>>> => {
+    return await this.get(`/chat/conversations/called`);
   };
 
-  getMessages = (
+  getMessages = async (
     conversationID: string,
     page: number,
     extend?: number
   ): Promise<AxiosResponse<IResponse<IMessage[]>>> => {
-    return this.get(`/chat/conversations/${conversationID}/messages?page=${page}&extend=${extend}`);
+    return await this.get(`/chat/conversations/${conversationID}/messages?page=${page}&extend=${extend}`);
   };
 
-  getMessagesWithImage = (
+  getMessagesWithImage = async (
     conversationID: string,
     page: number,
     extend?: number
   ): Promise<AxiosResponse<IResponse<IMessage[]>>> => {
-    return this.get(`/chat/conversations/${conversationID}/images?page=${page}&extend=${extend}`);
+    return await this.get(`/chat/conversations/${conversationID}/images?page=${page}&extend=${extend}`);
   };
 
-  getAllUsersUsedToChatWith = (): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
-    return this.get(`/chat/users`);
+  getAllUsersUsedToChatWith = async (): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
+    return await this.get(`/chat/users`);
   };
 
-  seenMessage = (conversationID: string) => {
-    return this.post(`/chat/conversations/${conversationID}/seen`, {});
+  seenMessage = async (conversationID: string) => {
+    return await this.post(`/chat/conversations/${conversationID}/seen`, {});
   };
 
-  sendMessage = (message: ICreateMessage) => {
-    return this.post(`/chat/messages`, message);
+  sendMessage = async (message: ICreateMessage) => {
+    return await this.post(`/chat/messages`, message);
   };
 
-  getToken = (
+  getToken = async (
     conversationID: string | undefined,
     type: string
   ): Promise<AxiosResponse<IResponse<ISocketCall>>> => {
-    return this.get(`/chat/token/?conversation_id=${conversationID}&type=${type}`);
+    return await this.get(`/chat/token/?conversation_id=${conversationID}&type=${type}`);
   };
 
-  dissolveGroup = (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.delete(`/chat/conversations/${conversationID}`);
+  dissolveGroup = async (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
+    return await this.delete(`/chat/conversations/${conversationID}`);
   };
 
-  deleteConversation = (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.put(`/chat/conversations/${conversationID}/delete`);
+  deleteConversation = async (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
+    return await this.put(`/chat/conversations/${conversationID}/delete`);
   };
 
-  leaveGroup = (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.put(`/chat/conversations/${conversationID}/leave`);
+  leaveGroup = async (conversationID: string): Promise<AxiosResponse<IResponse<IConversation>>> => {
+    return await this.put(`/chat/conversations/${conversationID}/leave`);
   };
 
-  changeConversationImage = (
+  changeConversationImage = async (
     conversationID: string,
     image: File
   ): Promise<AxiosResponse<IResponse<IConversation>>> => {
     const formData = new FormData();
     formData.append('image', image);
-    return this.put(`/chat/conversations/${conversationID}/image`, formData);
+    return await this.put(`/chat/conversations/${conversationID}/image`, formData);
   };
 
-  changeConversationName = (
+  changeConversationName = async (
     conversationID: string,
     name: string
   ): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.put(`/chat/conversations/${conversationID}/name`, { name });
+    return await this.put(`/chat/conversations/${conversationID}/name`, { name });
   };
 
-  addMember = (
+  addMember = async (
     conversationID: string,
     members: string[]
   ): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.put(`/chat/conversations/${conversationID}/members`, members);
+    return await this.put(`/chat/conversations/${conversationID}/members`, members);
   };
 
-  removeMember = (
+  removeMember = async (
     conversationID: string,
     memberID: string
   ): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.delete(`/chat/conversations/${conversationID}/members/delete`, [memberID]);
+    return await this.delete(`/chat/conversations/${conversationID}/members/delete`, [memberID]);
   };
 
-  commissionAdmin = (
+  commissionAdmin = async (
     conversationID: string,
     adminID: string
   ): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.put(`/chat/conversations/${conversationID}/admins`, [adminID]);
+    return await this.put(`/chat/conversations/${conversationID}/admins`, [adminID]);
   };
 
-  removeAdmin = (
+  removeAdmin = async (
     conversationID: string,
     adminID: string
   ): Promise<AxiosResponse<IResponse<IConversation>>> => {
-    return this.put(`/chat/conversations/${conversationID}/admins/remove`, [adminID]);
+    return await this.put(`/chat/conversations/${conversationID}/admins/remove`, [adminID]);
   };
 }
 

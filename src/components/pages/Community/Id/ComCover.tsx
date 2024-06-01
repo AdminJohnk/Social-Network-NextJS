@@ -39,7 +39,13 @@ import CreateEditCommunity from '../CreateEditCommunity';
 import { notFound, useSearchParams } from 'next/navigation';
 import { useCurrentUserInfo, useGetCommunityByID } from '@/hooks/query';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { useCancelJoinCommunity, useDeleteImage, useJoinCommunity, useLeaveCommunity, useUpdateCommunity } from '@/hooks/mutation';
+import {
+  useCancelJoinCommunity,
+  useDeleteImage,
+  useJoinCommunity,
+  useLeaveCommunity,
+  useUpdateCommunity
+} from '@/hooks/mutation';
 
 interface IComCoverProps {
   communityID: string;
@@ -165,19 +171,22 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
 
     const oldCover = community.image;
 
-    mutateUpdateCommunity({ id: communityID, image: formData.get('image')?.toString(), scope: 'Community' }, {
-      onSuccess() {
-        showSuccessToast(t("Your community's image has been updated successfully!"));
-        fileCover && mutateDeleteImage([oldCover]);
-        setFileCover(undefined);
-        setIsLoadingUpdateImage(false);
-      },
-      onError() {
-        showErrorToast(t('Something went wrong! Please try again!'));
-        setIsLoadingUpdateImage(false);
+    mutateUpdateCommunity(
+      { id: communityID, image: formData.get('image')?.toString(), scope: 'Community' },
+      {
+        onSuccess() {
+          showSuccessToast(t("Your community's image has been updated successfully!"));
+          fileCover && mutateDeleteImage([oldCover]);
+          setFileCover(undefined);
+          setIsLoadingUpdateImage(false);
+        },
+        onError() {
+          showErrorToast(t('Something went wrong! Please try again!'));
+          setIsLoadingUpdateImage(false);
+        }
       }
-    });
-  }
+    );
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -205,47 +214,46 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
 
             <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from -black/60 pt-10 z-10'></div>
 
-            {isCreator && (<div className='absolute bottom-0 right-0 m-4 z-20'>
-              <div className='flex items-center gap-3'>
-                {!fileCover ? (
-                  <label htmlFor='cover_image' className='cursor-pointer'>
-                    <div className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
-                      {t('Edit')}
-                    </div>
-                    <input
-                      type='file'
-                      id='cover_image'
-                      className='hidden'
-                      accept='image/*'
-                      disabled={isLoadingUpdateImage}
-                      onChange={(e) => handleCoverImage(e.currentTarget.files?.[0]!)}
-                    />
-                  </label>
-                ) : (
-                  <>
-                    <Button
-                      variant={'destructive'}
-                      onClick={() => {
-                        setCover(
-                          getImageURL(community.image) || '/images/avatars/profile-cover.jpg'
-                        );
-                        setFileCover(undefined);
-                      }}
-                      className='button'
-                      disabled={isLoadingUpdateImage}>
-                      {t('Cancel')}
-                    </Button>
-                    <Button
-                      onClick={handleUpdateImageCommunity}
-                      className={cn('button', isLoadingUpdateImage && 'select-none')}
-                      disabled={isLoadingUpdateImage}>
-                      {isLoadingUpdateImage && <CircularProgress size={15} className='!text-text-1 mr-2' />}
-                      {t('Save')}
-                    </Button>
-                  </>
-                )}
+            {isCreator && (
+              <div className='absolute bottom-0 right-0 m-4 z-20'>
+                <div className='flex items-center gap-3'>
+                  {!fileCover ? (
+                    <label htmlFor='cover_image' className='cursor-pointer'>
+                      <div className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
+                        {t('Edit')}
+                      </div>
+                      <input
+                        type='file'
+                        id='cover_image'
+                        className='hidden'
+                        accept='image/*'
+                        disabled={isLoadingUpdateImage}
+                        onChange={(e) => handleCoverImage(e.currentTarget.files?.[0]!)}
+                      />
+                    </label>
+                  ) : (
+                    <>
+                      <Button
+                        variant={'destructive'}
+                        onClick={() => {
+                          setCover(getImageURL(community.image) || '/images/avatars/profile-cover.jpg');
+                          setFileCover(undefined);
+                        }}
+                        className='button'
+                        disabled={isLoadingUpdateImage}>
+                        {t('Cancel')}
+                      </Button>
+                      <Button
+                        onClick={handleUpdateImageCommunity}
+                        className={cn('button', isLoadingUpdateImage && 'select-none')}
+                        disabled={isLoadingUpdateImage}>
+                        {isLoadingUpdateImage && <CircularProgress size={15} className='!text-text-1 mr-2' />}
+                        {t('Save')}
+                      </Button>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
             )}
           </div>
           <div className='lg:px-10 md:p-5 p-3'>
@@ -451,29 +459,29 @@ export default function ComCover({ communityID, tabParam }: IComCoverProps) {
               <Tabs id='tabs-community' navClassName='!pt-0' disableChevron active={tab}>
                 <TabTitle
                   className='hover:!bg-hover-1 rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('discussion'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('discussion'))}>
                   {t('Discussion')}
                 </TabTitle>
                 {isAdmin && (
                   <TabTitle
                     className='hover:!bg-hover-1 rounded-sm'
-                    onClick={() => router.push(pathname + '?' + createQueryString('requests'))}>
+                    onClick={() => router.replace(pathname + '?' + createQueryString('requests'))}>
                     {t('Requests')}
                   </TabTitle>
                 )}
                 <TabTitle
                   className='hover:!bg-hover-1 rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('photos'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('photos'))}>
                   {t('Photos')}
                 </TabTitle>
                 <TabTitle
                   className='hover:!bg-hover-1 rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('events'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('events'))}>
                   {t('Event')}
                 </TabTitle>
                 <TabTitle
                   className='hover:!bg-hover-1 rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('members'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('members'))}>
                   {t('Members')}
                 </TabTitle>
               </Tabs>

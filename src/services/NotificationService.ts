@@ -8,9 +8,9 @@ class NotificationService extends BaseService {
     super();
   }
 
-  getNoti = (userID: number, page: number): Promise<AxiosResponse<IResponse<INotification[]>>> => {
-    return this.get(`/notifications/newnoti/${userID}?page=${page}`);
-  }
+  getNoti = async (userID: number, page: number): Promise<AxiosResponse<IResponse<INotification[]>>> => {
+    return await this.get(`/notifications/newnoti/${userID}?page=${page}`);
+  };
 }
 
 export const notiService = new NotificationService();

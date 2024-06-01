@@ -1,6 +1,6 @@
-import BlogComment from '@/components/pages/Blog/Slug/BlogComment';
-import BlogContent from '@/components/pages/Blog/Slug/BlogContent';
-import TrendingArticle from '@/components/pages/Blog/TrendingArticle';
+import BlogComment from '@/components/pages/Series/Slug/BlogComment';
+import BlogContent from '@/components/pages/Series/Slug/BlogContent';
+import TrendingArticle from '@/components/pages/Series/TrendingArticle';
 import SuggestFollow from '@/components/pages/Home/SuggestFollow';
 import { unstable_setRequestLocale } from 'next-intl/server';
 

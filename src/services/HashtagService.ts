@@ -7,8 +7,8 @@ class HashtagService extends BaseService {
   constructor() {
     super();
   }
-  getAllHashtags = (): Promise<AxiosResponse<IResponse<IHashtag[]>>> => {
-    return this.get(`/hashtags/all`);
+  getAllHashtags = async (): Promise<AxiosResponse<IResponse<IHashtag[]>>> => {
+    return await this.get(`/hashtags/all`);
   };
 }
 

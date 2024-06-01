@@ -135,7 +135,12 @@ export default function PostMoreChoose({ post, isMyPost, feature, CommunityID }:
               <span>{t('Edit Post')}</span>
             </div>
             <Modal open={openEditPost} handleClose={handleCloseEditPost}>
-              <EditPost post={post} handleClose={handleCloseEditPost} isCommunity={CommunityID ? true : false} CommunityID={CommunityID || ''} />
+              <EditPost
+                post={post}
+                handleClose={handleCloseEditPost}
+                isCommunity={CommunityID ? true : false}
+                communityID={CommunityID || ''}
+              />
             </Modal>
           </>
         )}

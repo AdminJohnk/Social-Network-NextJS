@@ -20,9 +20,9 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Communities'
   },
   {
-    href: '/blogs',
+    href: '/series',
     image: '/images/home/blog.png',
-    label: 'Blog'
+    label: 'Series'
   },
   {
     href: '/favorites',

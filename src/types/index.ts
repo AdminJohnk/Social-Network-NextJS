@@ -666,6 +666,7 @@ export interface ISeries {
     avg: number;
   };
   reviews: IReview[];
+  view: number;
   createdAt: string;
 }
 

@@ -11,7 +11,7 @@ export default function ComPopularList() {
           <Link href='/community'>
             <div className='card-media h-24'>
               <Image width={500} height={500} src='/images/group/group-cover-2.jpg' alt='' />
-              <div className='card-overly'></div>
+              <div className='card-overlay'></div>
             </div>
           </Link>
           <div className='card-body relative z-10'>
@@ -31,7 +31,7 @@ export default function ComPopularList() {
           <Link href='/community'>
             <div className='card-media h-24'>
               <Image width={500} height={500} src='/images/group/group-cover-3.jpg' alt='' />
-              <div className='card-overly'></div>
+              <div className='card-overlay'></div>
             </div>
           </Link>
           <div className='card-body relative z-10'>
@@ -51,7 +51,7 @@ export default function ComPopularList() {
           <Link href='/community'>
             <div className='card-media h-24'>
               <Image width={500} height={500} src='/images/group/group-cover-4.jpg' alt='' />
-              <div className='card-overly'></div>
+              <div className='card-overlay'></div>
             </div>
           </Link>
           <div className='card-body relative z-10'>
@@ -71,7 +71,7 @@ export default function ComPopularList() {
           <Link href='/community'>
             <div className='card-media h-24'>
               <Image width={500} height={500} src='/images/group/group-cover-1.jpg' alt='' />
-              <div className='card-overly'></div>
+              <div className='card-overlay'></div>
             </div>
           </Link>
           <div className='card-body relative z-10'>
@@ -91,7 +91,7 @@ export default function ComPopularList() {
           <Link href='/community'>
             <div className='card-media h-24'>
               <Image width={500} height={500} src='/images/group/group-cover-2.jpg' alt='' />
-              <div className='card-overly'></div>
+              <div className='card-overlay'></div>
             </div>
           </Link>
           <div className='card-body relative z-10'>
@@ -111,7 +111,7 @@ export default function ComPopularList() {
           <Link href='/community'>
             <div className='card-media h-24'>
               <Image width={500} height={500} src='/images/group/group-cover-3.jpg' alt='' />
-              <div className='card-overly'></div>
+              <div className='card-overlay'></div>
             </div>
           </Link>
           <div className='card-body relative z-10'>
@@ -131,7 +131,7 @@ export default function ComPopularList() {
           <Link href='/community'>
             <div className='card-media h-24'>
               <Image width={500} height={500} src='/images/group/group-cover-3.jpg' alt='' />
-              <div className='card-overly'></div>
+              <div className='card-overlay'></div>
             </div>
           </Link>
           <div className='card-body relative z-10'>
@@ -151,7 +151,7 @@ export default function ComPopularList() {
           <Link href='/community'>
             <div className='card-media h-24'>
               <Image width={500} height={500} src='/images/group/group-cover-2.jpg' alt='' />
-              <div className='card-overly'></div>
+              <div className='card-overlay'></div>
             </div>
           </Link>
           <div className='card-body relative z-10'>
@@ -171,7 +171,7 @@ export default function ComPopularList() {
           <Link href='/community'>
             <div className='card-media h-24'>
               <Image width={500} height={500} src='/images/group/group-cover-4.jpg' alt='' />
-              <div className='card-overly'></div>
+              <div className='card-overlay'></div>
             </div>
           </Link>
           <div className='card-body relative z-10'>
