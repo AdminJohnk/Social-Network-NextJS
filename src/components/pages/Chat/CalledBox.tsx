@@ -23,7 +23,7 @@ export default function CalledBox({ called }: ICalledBoxProps) {
   const isSeen = useMemo(() => {
     if (!called.conversation_id.lastMessage) return true;
 
-    return called.seen.some((user) => { console.log(user); return user._id === currentUserInfo._id });
+    return called.seen.some((user) => user._id === currentUserInfo._id);
   }, [called.seen, currentUserInfo]);
 
   const stateCalled = (senderId: string) => {
@@ -68,12 +68,7 @@ export default function CalledBox({ called }: ICalledBoxProps) {
           />
         </svg>
       ),
-      call: (
-        <FaVideo
-          className='cursor-pointer'
-          onClick={() => videoChat(called.conversation_id._id)}
-        />
-      )
+      call: <FaVideo className='cursor-pointer' onClick={() => videoChat(called.conversation_id._id)} />
     },
     voice: {
       incoming: (
@@ -94,12 +89,7 @@ export default function CalledBox({ called }: ICalledBoxProps) {
           <path d='M19.8947 8.38952C19.9617 8.45659 19.9994 8.54755 19.9994 8.64239C19.9994 8.73723 19.9617 8.82819 19.8947 8.89526C19.8276 8.96232 19.7366 9 19.6418 9C19.5469 9 19.456 8.96232 19.3889 8.89526L17.5 7.00589L15.6105 8.89466C15.5434 8.96173 15.4525 8.9994 15.3576 8.9994C15.2628 8.9994 15.1718 8.96173 15.1047 8.89466C15.0377 8.8276 15 8.73664 15 8.6418C15 8.54695 15.0377 8.45599 15.1047 8.38893L16.9942 6.50015L15.1053 4.61078C15.0383 4.54371 15.0006 4.45275 15.0006 4.35791C15.0006 4.26306 15.0383 4.1721 15.1053 4.10504C15.1724 4.03797 15.2634 4.0003 15.3582 4.0003C15.4531 4.0003 15.544 4.03797 15.6111 4.10504L17.5 5.99441L19.3895 4.10474C19.4566 4.03768 19.5475 4 19.6424 4C19.7372 4 19.8282 4.03768 19.8953 4.10474C19.9623 4.17181 20 4.26277 20 4.35761C20 4.45245 19.9623 4.54341 19.8953 4.61048L18.0058 6.50015L19.8947 8.38952Z' />
         </svg>
       ),
-      call: (
-        <FaPhone
-          className='cursor-pointer'
-          onClick={() => audioCall(called.conversation_id._id)}
-        />
-      )
+      call: <FaPhone className='cursor-pointer' onClick={() => audioCall(called.conversation_id._id)} />
     }
   };
 
@@ -107,9 +97,7 @@ export default function CalledBox({ called }: ICalledBoxProps) {
     <>
       <div
         className='w-full cursor-pointer flex items-center space-x-3 my-1 p-3 rounded-xl'
-        onClick={() => {
-
-        }}>
+        onClick={() => {}}>
         {otherUser && called.conversation_id.type === 'group' ? (
           <AvatarGroup
             key={called.conversation_id._id}
@@ -127,7 +115,11 @@ export default function CalledBox({ called }: ICalledBoxProps) {
             </div>
           </div>
           <div className='font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap'>
-            <div className={cn('flex items-center gap-2 truncate text-sm', !isSeen ? 'font-extrabold' : 'text-text-2')}>
+            <div
+              className={cn(
+                'flex items-center gap-2 truncate text-sm',
+                !isSeen ? 'font-extrabold' : 'text-text-2'
+              )}>
               {notification[called.type][stateCalled(called.sender._id)]}
               <span>{capitalizeFirstLetter(stateCalled(called.sender._id))}</span>
               &nbsp; •<span>{getDateMonth(called.createdAt)}</span>

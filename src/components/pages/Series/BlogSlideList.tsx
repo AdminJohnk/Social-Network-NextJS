@@ -110,10 +110,10 @@ export default function BlogSlideList() {
 
       {!isLoadingAllSeries && (
         <>
-          <Link className='nav-prev !-ml-2' href='' data-uk-slider-item='previous'>
+          <Link className='nav-prev' href='' data-uk-slider-item='previous'>
             <IoChevronBack />
           </Link>
-          <Link className='nav-next !-mr-2' href='' data-uk-slider-item='next'>
+          <Link className='nav-next' href='' data-uk-slider-item='next'>
             <IoChevronForward />
           </Link>
         </>

@@ -4,10 +4,11 @@ import { Avatar, CircularProgress } from '@mui/material';
 import { notFound } from 'next/navigation';
 import { useFormatter, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaPen, FaStarHalfAlt } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import { IoAdd } from 'react-icons/io5';
+import { Timeline } from 'flowbite-react';
 
 import CreateEditSeries from '@/components/pages/Series/CreateEditSeries';
 import CreateEditPostSeries from '@/components/pages/Series/CreateEditPostSeries';
@@ -26,7 +27,6 @@ import { Button } from '@/components/ui/button';
 import { useDeleteImage, useDeleteSeries, useIncreaseViewSeries } from '@/hooks/mutation';
 import { useCurrentUserInfo, useGetSeriesByID } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
-import { IUpdateSeries } from '@/types';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -68,7 +68,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
     });
   };
 
-  const numberReview: number = series
+  const numberReview = series
     ? series.rating.star_1 +
       series.rating.star_2 +
       series.rating.star_3 +
@@ -76,26 +76,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
       series.rating.star_5
     : 0;
 
-  const numberReviewNonZero: number = series
-    ? series.rating.star_1 +
-      series.rating.star_2 +
-      series.rating.star_3 +
-      series.rating.star_4 +
-      series.rating.star_5
-    : 1;
-
-  const dataEdit: IUpdateSeries = useMemo(() => {
-    if (!series) return {} as IUpdateSeries;
-    return {
-      id: series._id,
-      title: series.title,
-      description: series.description,
-      introduction: series.introduction,
-      cover_image: series.cover_image,
-      level: series.level,
-      visibility: series.visibility
-    };
-  }, [series]);
+  const numberReviewNonZero = numberReview || 1;
 
   // Modal
   const [openEdit, setOpenEdit] = useState(false);
@@ -183,7 +164,10 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
             </>
           )}
           <Modal open={openEdit} handleClose={() => setOpenEdit(false)}>
-            <CreateEditSeries handleClose={() => setOpenEdit(false)} dataEdit={dataEdit} />
+            <CreateEditSeries
+              handleClose={() => setOpenEdit(false)}
+              dataEdit={{ ...series, id: series._id }}
+            />
           </Modal>
           <div className='max-w-[730px] mx-auto'>
             <Image
@@ -222,11 +206,11 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   </>
                 )}
               </div>
-              <div className='space-y-5 mt-6'>
+              <Timeline className='mt-6 border-border-1'>
                 {series.posts.map((post) => (
                   <PostItem key={post._id} post={post} series_id={series._id} isMe={isMe} />
                 ))}
-              </div>
+              </Timeline>
             </div>
             <Divider className='mt-8 mb-6' />
             <div className='text-pretty text-[1rem] leading-relaxed my-5 px-2'>
@@ -357,8 +341,8 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
               {series.reviews
                 .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                 .sort((a, b) => b.rating - a.rating)
-                .map((review, index) => (
-                  <div className='mb-6' key={index}>
+                .map((review) => (
+                  <div className='mb-6' key={review._id}>
                     <ReviewItem review={review} series_id={seriesID} />
                   </div>
                 ))}

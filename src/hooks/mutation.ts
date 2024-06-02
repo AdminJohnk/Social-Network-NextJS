@@ -1405,9 +1405,8 @@ export const useCreateSeries = () => {
       return series.metadata;
     },
     onSuccess(series) {
-      queryClient.invalidateQueries({
-        queryKey: ['allSeries', series.user._id]
-      });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1429,9 +1428,8 @@ export const useUpdateSeries = () => {
     },
     onSuccess(series, updateSeries) {
       queryClient.invalidateQueries({ queryKey: ['series', updateSeries.id] });
-      queryClient.invalidateQueries({
-        queryKey: ['allSeries', series.user._id]
-      });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1451,8 +1449,10 @@ export const useDeleteSeries = () => {
       const { data: series } = await seriesService.deleteSeries(seriesID);
       return series.metadata;
     },
-    onSuccess(_, seriesID) {
+    onSuccess(series, seriesID) {
       queryClient.invalidateQueries({ queryKey: ['series', seriesID] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1472,8 +1472,10 @@ export const useAddPostToSeries = () => {
       const { data: series } = await seriesService.addPostToSeries(data);
       return series.metadata;
     },
-    onSuccess(_, series) {
-      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    onSuccess(series, data) {
+      queryClient.invalidateQueries({ queryKey: ['series', data.series_id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1493,8 +1495,10 @@ export const updatePostToSeries = () => {
       const { data: series } = await seriesService.updatePostToSeries(data);
       return series.metadata;
     },
-    onSuccess(_, series) {
-      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    onSuccess(series, data) {
+      queryClient.invalidateQueries({ queryKey: ['series', data.series_id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1514,8 +1518,10 @@ export const useDeletePostToSeries = () => {
       const { data: series } = await seriesService.deletePostToSeries(data);
       return series.metadata;
     },
-    onSuccess(_, series) {
-      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    onSuccess(series, data) {
+      queryClient.invalidateQueries({ queryKey: ['series', data.series_id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 

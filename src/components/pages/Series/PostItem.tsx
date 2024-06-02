@@ -1,3 +1,5 @@
+'use client';
+
 import Modal from '@/components/shared/Modal';
 import {
   AlertDialog,
@@ -21,6 +23,7 @@ import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
 import { cn } from '@/lib/utils';
 import { IoIosMore } from 'react-icons/io';
+import { Timeline } from 'flowbite-react';
 
 export interface IPostItemProps {
   post: ISeriesPost;
@@ -64,11 +67,14 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
   };
 
   return (
-    <div key={post._id} className='flex items-center w-full'>
-      <FaRegCircle className='text-blue-500 size-3' />
-      <div className='ms-3 text-text-2'>
-        <div className='flex-start gap-3'>
-          <Link href={`/series/${series_id}/posts/${post._id}`} className='h5-semibold  cursor-pointer'>
+    <Timeline.Item>
+      <Timeline.Point
+        className='*:!ring-transparent *:!bg-background-1 *:*:!text-blue-500'
+        icon={FaRegCircle}
+      />
+      <Timeline.Content className='text-text-2'>
+        <Timeline.Title className='flex-start gap-3'>
+          <Link className='h5-semibold cursor-pointer' href={`/series/${series_id}/posts/${post._id}`}>
             {post.title}
           </Link>
           {isMe && (
@@ -142,9 +148,9 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
               </div>
             </div>
           )}
-        </div>
-        <p className='small-regular'>{post.read_time + t(' min read')}</p>
-      </div>
-    </div>
+        </Timeline.Title>
+        <Timeline.Body className='small-regular'>{post.read_time + t(' min read')}</Timeline.Body>
+      </Timeline.Content>
+    </Timeline.Item>
   );
 }

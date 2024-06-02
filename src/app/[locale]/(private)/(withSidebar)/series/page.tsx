@@ -4,7 +4,7 @@ import BlogMain from '@/components/pages/Series/BlogMain';
 import RecommendWriter from '@/components/pages/Series/RecommendWriter';
 import ArticleForYou from '@/components/pages/Series/ArticleForYou';
 import BlogSlideThumbnail from '@/components/pages/Series/BlogSlideThumbnail';
-import TrendingArticle from '@/components/pages/Series/TrendingArticle';
+import TrendingSeries from '@/components/pages/Series/TrendingSeries';
 import SuggestFollow from '@/components/pages/Home/SuggestFollow';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
@@ -50,7 +50,7 @@ export default function Blog({ params: { locale } }: IBlogProps) {
                 data-uk-sticky='media: 1024; end: #blog-side; offset: 80'>
                 <BlogSlideThumbnail />
 
-                <TrendingArticle />
+                <TrendingSeries />
 
                 <SuggestFollow />
               </div>
