@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 export interface IShowContentProps {
   className?: string;
   content: string;
+  className?: string;
 }
 
 export default function ShowContent({ content, className }: IShowContentProps) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { cn } from '@/lib/utils';
@@ -8,6 +8,10 @@ import descArrays from '@/lib/descriptions/Tags';
 import SlideHeader from '@/components/pages/Register/SlideHeader';
 import { Button } from '@/components/ui/button';
 import { useRouter } from '@/navigation';
+import { useUpdateUser } from '@/hooks/mutation';
+import { useCurrentUserInfo } from '@/hooks/query';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { CircularProgress } from '@mui/material';
 
 export interface ISelectInterestedProps {
 }
@@ -15,13 +19,37 @@ export interface ISelectInterestedProps {
 export default function SelectInterested({ }: ISelectInterestedProps) {
   const t = useTranslations();
   const router = useRouter();
+  const { currentUserInfo } = useCurrentUserInfo();
+  const { mutateUpdateUser, isLoadingUpdateUser } = useUpdateUser();
 
-  const [addTagArr, setAddTagArr] = useState<string[]>([]);
+  const [addTagArr, setAddTagArr] = useState<string[]>(currentUserInfo.tags || []);
 
+  const isChanged = useMemo(
+    () => JSON.stringify(addTagArr) !== JSON.stringify(currentUserInfo.tags),
+    [addTagArr, currentUserInfo.tags]
+  );
+
+  const handleSetTags = async () => {
+
+    if (!isChanged) {
+      router.push('/select-communities');
+      return;
+    }
+    await mutateUpdateUser({
+      tags: addTagArr
+    }, {
+      onSuccess: () => {
+        router.push('/select-communities');
+      },
+      onError: () => {
+        showErrorToast('Error updating tags!');
+      }
+    });
+  }
 
   return (
     <div>
-      <SlideHeader step={2} />
+      <SlideHeader step={2} canRoute={addTagArr.length > 5 && !isChanged} />
       <div className='mt-4'>
         <span className='font-bold text-3xl max-md:text-lg'> {t('Select your interest')}</span>
         <p className='mt-2 text-white/75'>
@@ -56,7 +84,10 @@ export default function SelectInterested({ }: ISelectInterestedProps) {
         <div className='mt-2 flex justify-end p-4'>
           <div className='*:mr-2'>
             <Button variant={'ghost'} onClick={() => router.push('/get-started')}>{t('Back')}</Button>
-            <Button onClick={() => router.push('/select-communities')} disabled={addTagArr.length < 5}>{t('Continue')}</Button>
+            <Button onClick={handleSetTags} disabled={addTagArr.length < 5 || isLoadingUpdateUser}>
+              {isLoadingUpdateUser && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+              {t('Save and Continue')}
+            </Button>
           </div>
         </div>
       </div>

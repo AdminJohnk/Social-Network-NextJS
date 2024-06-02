@@ -6,6 +6,9 @@ class CommunityService extends BaseService {
   constructor() {
     super();
   }
+  getAllCommunities = async (): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
+    return await this.get(`/communities`);
+  };
   getCommunityByID = async (id: String): Promise<AxiosResponse<IResponse<ICommunity>>> => {
     return await this.get(`/communities/${id}`);
   };

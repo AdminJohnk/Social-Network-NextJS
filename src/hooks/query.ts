@@ -22,6 +22,26 @@ import { questionService } from '@/services/QuestionService';
 
 // ---------------------------FETCH HOOKS---------------------------
 
+export const useAllUsersData = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allUsers'],
+    queryFn: async () => {
+      const session = await getSession();
+
+      const { data } = await userService.getAllUsers(session?.id || '');
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllUsers: isPending,
+    isErrorAllUsers: isError,
+    allUsers: data!,
+    isFetchingAllUsers: isFetching
+  };
+};
+
 /**
  * The `useCurrentUserInfo` function is a custom hook that fetches and returns information about the
  * current user.
@@ -764,6 +784,24 @@ export const useGetCalled = () => {
     isErrorMessageCall: isError,
     calledList: data!,
     isFetchingMessageCall: isFetching
+  };
+};
+
+export const useGetAllCommunities = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allCommunities'],
+    queryFn: async () => {
+      const { data } = await communityService.getAllCommunities();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllCommunities: isPending,
+    isErrorAllCommunities: isError,
+    allCommunities: data!,
+    isFetchingAllCommunities: isFetching
   };
 };
 
