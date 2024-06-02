@@ -55,7 +55,7 @@ export default function TrendingSeries() {
   return (
     <div className='box p-5 px-6 bg-foreground-1'>
       <div className='flex items-baseline justify-between'>
-        <h3 className='font-bold text-base'> {t('Trending Articles')}</h3>
+        <h3 className='font-bold text-base'> {t('Trending Series')}</h3>
         {isLoadingAllSeries ? (
           <Skeleton className='bg-foreground-2' variant='text' sx={{ fontSize: '1.5rem' }} />
         ) : allSeries.length > 5 ? (

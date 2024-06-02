@@ -1475,7 +1475,6 @@ export const useAddPostToSeries = () => {
     onSuccess(series, data) {
       queryClient.invalidateQueries({ queryKey: ['series', data.series_id] });
       queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
-      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1498,7 +1497,6 @@ export const updatePostToSeries = () => {
     onSuccess(series, data) {
       queryClient.invalidateQueries({ queryKey: ['series', data.series_id] });
       queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
-      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1521,7 +1519,6 @@ export const useDeletePostToSeries = () => {
     onSuccess(series, data) {
       queryClient.invalidateQueries({ queryKey: ['series', data.series_id] });
       queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
-      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 

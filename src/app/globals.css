@@ -23,6 +23,8 @@
     --hover2: #dbeafe; /* Very light blue */
     --hover3: #e0e7ff; /* Very light blue */
 
+    --background-code: #222121; /* Very light gray */
+
     --text1: #1e293b; /* Dark blue */
     --text2: #475569; /* Dark blue-gray */
     --text3: #64748b; /* Blue-gray */
@@ -71,6 +73,8 @@
     --hover1: #485466;
     --hover2: #415166;
     --hover3: rgb(41, 55, 74);
+
+    --background-code: #1a202c;
 
     --text1: #ffffff;
     --text2: #d0d0d3;
@@ -1052,8 +1056,8 @@
   }
 
   pre {
-    background: #0d0d0d;
-    color: #fff;
+    background: var(--background-code);
+    color: whitesmoke;
     font-family: 'JetBrainsMono', monospace;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;

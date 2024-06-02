@@ -86,7 +86,6 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
     setIsSaved(post?.saves.some((saver) => saver._id === currentUserInfo?._id) || false);
   }, [post]);
 
-  
   useEffect(() => {
     mutateIncreaseViewSeries(seriesID);
   }, []);
@@ -262,16 +261,16 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
         />
       </Modal>
       <div className='max-w-[730px] mx-auto'>
-        <div className='mb-5 flex-start gap-3'>
+        <div className='mb-5 flex-start gap-3 flex-wrap'>
           <Link href={`/series/${seriesID}`} className='flex-start gap-2 text-1'>
             <FaSwatchbook className='size-5' />
             <span className='base-semibold'>{series?.title}</span>
           </Link>
           <span className='text-xl'>/</span>
-          <Link href={`/series/${seriesID}/posts/${postID}`} className='flex-start gap-2 text-1'>
+          <div className='flex-start gap-2 text-1'>
             <SiGoogledocs className='size-5' />
             <span className='base-semibold'>{post?.title}</span>
-          </Link>
+          </div>
         </div>
         <Image
           src={getImageURL(post?.cover_image) || '/images/no-image.png'}

@@ -18,19 +18,14 @@ export interface ICreateEditQuestionProps {
   dataEdit?: IQuestion;
 }
 
-export default function CreateEditQuestion({
-  handleClose,
-  dataEdit
-}: ICreateEditQuestionProps) {
+export default function CreateEditQuestion({ handleClose, dataEdit }: ICreateEditQuestionProps) {
   const t = useTranslations();
   const router = useRouter();
 
   const [title, setTitle] = useState<string>(dataEdit?.title || '');
   const [editorProblem, setEditorProblem] = useState<EditorProps>();
   const [editorExpect, setEditorExpect] = useState<EditorProps>();
-  const [hashTagList, setHashTagList] = useState<string[]>(
-    dataEdit?.hashtags || []
-  );
+  const [hashTagList, setHashTagList] = useState<string[]>(dataEdit?.hashtags || []);
 
   const { mutateCreateQuestion, isLoadingCreateQuestion } = useCreateQuestion();
   const { mutateUpdateQuestion, isLoadingUpdateQuestion } = useUpdateQuestion();
@@ -49,9 +44,7 @@ export default function CreateEditQuestion({
       showErrorToast(t('Expectation description is required'));
       return;
     } else if (editorExpect?.getText().trim().length < 20) {
-      showErrorToast(
-        t('Expectation description must be at least 20 characters')
-      );
+      showErrorToast(t('Expectation description must be at least 20 characters'));
       return;
     } else if (hashTagList.length === 0) {
       showErrorToast(t('Hashtag is required'));
@@ -63,14 +56,11 @@ export default function CreateEditQuestion({
           title,
           problem: editorProblem?.getHTML() as string,
           expect: editorExpect?.getHTML() as string,
-          text:
-            (editorProblem?.getText() as string) +
-            ' ' +
-            editorExpect?.getText(),
+          text: (editorProblem?.getText() as string) + ' ' + editorExpect?.getText(),
           hashtags: hashTagList
         },
         {
-          onSuccess: data => {
+          onSuccess: (data) => {
             router.push(`/questions/${data._id}`);
             showSuccessToast(t('Question created successfully'));
             editorProblem?.commands.clearContent();
@@ -89,10 +79,7 @@ export default function CreateEditQuestion({
           title,
           problem: editorProblem?.getHTML() as string,
           expect: editorExpect?.getHTML() as string,
-          text:
-            (editorProblem?.getText() as string) +
-            ' ' +
-            editorExpect?.getText(),
+          text: (editorProblem?.getText() as string) + ' ' + editorExpect?.getText(),
           hashtags: hashTagList
         },
         {
@@ -111,33 +98,33 @@ export default function CreateEditQuestion({
   };
 
   return (
-    <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[800px] animate-fade-up'>
-      <div className='text-center py-4 border-b mb-0 border-border-1'>
+    <div className='relative mx-auto w-[800px] animate-fade-up rounded-lg bg-background-1 shadow-xl'>
+      <div className='mb-0 border-b border-border-1 py-4 text-center'>
         <h2 className='text-sm font-medium text-text-1'>
           {!dataEdit ? t('Ask a public question') : t('Edit question')}
         </h2>
       </div>
 
-      <div className='max-h-[500px] overflow-y-scroll custom-scrollbar-bg px-5 pt-4 pb-6 *:mt-7'>
+      <div className='custom-scrollbar-bg max-h-[500px] overflow-y-scroll px-5 pb-6 pt-4 *:mt-7'>
         <div className='relative !mt-3'>
           <InputStyle
             label={t('Title')}
             defaultValue={dataEdit?.title}
-            onChange={e => {
+            onChange={(e) => {
               setTitle(e.target.value);
             }}
           />
         </div>
         <div>
-          <div className='base-semibold mb-3 text-text-2'>
-            What are the details of your problem?
-          </div>
+          <div className='base-semibold mb-3 text-text-2'>{t('What are the details of your problem')}?</div>
           <div className='editor space-y-5 border border-border-1'>
             <Editor
               setEditor={setEditorProblem}
-              placeholder={t(
-                'Introduce the problem and expand on what you put in the title. Minimum 20 characters'
-              )}
+              placeholder={
+                t('Introduce the problem and expand on what you put in the title') +
+                '. ' +
+                t('Minimum 20 characters')
+              }
               content={dataEdit?.problem || ''}
               autofocus={false}
             />
@@ -145,14 +132,16 @@ export default function CreateEditQuestion({
         </div>
         <div>
           <div className='base-semibold mb-3 text-text-2'>
-            What did you try and what were you expecting?
+            {t('What did you try and what were you expecting')}?
           </div>
           <div className='editor space-y-5 border border-border-1'>
             <Editor
               setEditor={setEditorExpect}
-              placeholder={t(
-                'Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters '
-              )}
+              placeholder={
+                t('Describe what you tried, what you expected to happen, and what actually resulted') +
+                '. ' +
+                t('Minimum 20 characters')
+              }
               content={dataEdit?.expect || ''}
               autofocus={false}
             />
@@ -160,8 +149,8 @@ export default function CreateEditQuestion({
         </div>
         <div className='relative'>
           <InputStyle
-            label='Hashtag to describe your problem'
-            onKeyDown={e => {
+            label={t('Hashtag to describe your problem (Press Enter each hashtag)')}
+            onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 if (e.currentTarget.value.includes(' ')) {
                   showErrorToast(t('Hashtag cannot contain spaces'));
@@ -179,18 +168,13 @@ export default function CreateEditQuestion({
         </div>
         <div className='render-hashtag flex-start flex-wrap gap-3'>
           {hashTagList.map((tag, index) => (
-            <span
-              key={index}
-              className='hashtag px-3 py-1.5 bg-1 flex-start rounded-full'
-            >
-              <PiHashLight className='size-4 me-1' />
+            <span key={index} className='hashtag bg-1 flex-start rounded-full px-3 py-1.5'>
+              <PiHashLight className='me-1 size-4' />
               <span>{tag}</span>
               <IoMdClose
-                className='size-4 ms-1 hover:text-red-500 duration-300'
+                className='ms-1 size-4 duration-300 hover:text-red-500'
                 onClick={() => {
-                  const newHashTagList = hashTagList.filter(
-                    (_, i) => i !== index
-                  );
+                  const newHashTagList = hashTagList.filter((_, i) => i !== index);
                   setHashTagList(newHashTagList);
                 }}
               />
@@ -198,20 +182,18 @@ export default function CreateEditQuestion({
           ))}
         </div>
       </div>
-      <div className='p-5 flex-end'>
+      <div className='flex-end p-5'>
         <div className='flex items-center gap-2'>
           <Button
             type='button'
             className={cn(
-              'button lg:px-6 text-white max-md:flex-1',
-              (isLoadingCreateQuestion || isLoadingUpdateQuestion) &&
-                'select-none'
+              'button text-white max-md:flex-1 lg:px-6',
+              (isLoadingCreateQuestion || isLoadingUpdateQuestion) && 'select-none'
             )}
             disabled={isLoadingCreateQuestion || isLoadingUpdateQuestion}
-            onClick={handleSubmit}
-          >
+            onClick={handleSubmit}>
             {(isLoadingCreateQuestion || isLoadingUpdateQuestion) && (
-              <CircularProgress size={20} className='!text-text-1 mr-2' />
+              <CircularProgress size={20} className='mr-2 !text-text-1' />
             )}
             {dataEdit ? t('Update') : t('Create')}
             <span className='ripple-overlay'></span>

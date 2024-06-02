@@ -1136,22 +1136,12 @@ export const useGetQuestionByID = (questionID: string) => {
   };
 };
 
-export const useGetAllQuestions = () => {
-  const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+export const useGetAllQuestions = (pageParam = 1) => {
+  const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['allQuestions'],
-    queryFn: async ({ pageParam }) => {
+    queryFn: async () => {
       const { data } = await questionService.getAllQuestions(pageParam);
       return data.metadata;
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage.length < 5) {
-        return undefined;
-      }
-      return lastPageParam + 1;
-    },
-    select: (data) => {
-      return data.pages.flat();
     },
     staleTime: Infinity
   });
@@ -1160,12 +1150,9 @@ export const useGetAllQuestions = () => {
     isLoadingAllQuestions: isPending,
     isErrorAllQuestions: isError,
     allQuestions: data!,
-    isFetchingAllQuestions: isFetching,
-    hasNextQuestions: hasNextPage,
-    fetchNextQuestions: fetchNextPage,
-    isFetchingNextQuestions: isFetchingNextPage
+    isFetchingAllQuestions: isFetching
   };
-}
+};
 
 export const useGetNumberQuestions = () => {
   const { data, isPending, isError, isFetching } = useQuery({
@@ -1183,4 +1170,4 @@ export const useGetNumberQuestions = () => {
     numberQuestions: data!,
     isFetchingNumberQuestions: isFetching
   };
-}
+};
