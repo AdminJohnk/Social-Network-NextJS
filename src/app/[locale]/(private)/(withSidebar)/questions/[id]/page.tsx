@@ -112,7 +112,7 @@ export default function QuestionDetail({
               </div>
             </div>
             <Divider className='my-4' />
-            <div className='grid grid-cols-3 gap-5'>
+            <div className='grid grid-cols-3 gap-8'>
               <div className='left col-span-2'>
                 <QuestionItem question={question} />
                 <div className='flex-between mb-5'>
