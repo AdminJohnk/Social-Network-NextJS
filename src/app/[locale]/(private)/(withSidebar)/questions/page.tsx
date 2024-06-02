@@ -1,24 +1,21 @@
 'use client';
 
 import CreateEditQuestion from '@/components/pages/Question/CreateEditQuestion';
+import Menu from '@/components/pages/Question/Menu';
+import QuestionSummaryItem from '@/components/pages/Question/QuestionSummaryItem';
 import Divider from '@/components/shared/Divider';
 import Modal from '@/components/shared/Modal';
-import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { Button } from '@/components/ui/button';
 import { useGetAllQuestions, useGetNumberQuestions } from '@/hooks/query';
-import { cn, getImageURL } from '@/lib/utils';
-import { Avatar, Pagination } from '@mui/material';
-import { useFormatter, useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { Pagination } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { FaCheck } from 'react-icons/fa';
 
 export interface IQuestionsProps {}
 
 export default function Questions(props: IQuestionsProps) {
   const t = useTranslations();
-
-  const format = useFormatter();
 
   const { allQuestions, isLoadingAllQuestions } = useGetAllQuestions();
   const { numberQuestions } = useGetNumberQuestions();
@@ -28,14 +25,6 @@ export default function Questions(props: IQuestionsProps) {
   const page_number = Math.ceil(numberQuestions / questionPerPage) || 10;
   const [sortBy, setSortBy] = useState('score');
 
-  const getFormattedDate = (date: string) => {
-    return format.dateTime(new Date(date), {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
-
   return (
     <>
       {isLoadingAllQuestions ? (
@@ -43,7 +32,7 @@ export default function Questions(props: IQuestionsProps) {
       ) : (
         <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
           <div className='max-w-[1070px] mx-auto'>
-            <div className='grid grid-cols-3 gap-5'>
+            <div className='grid grid-cols-3 gap-8'>
               <div className='left col-span-2'>
                 <div className='flex justify-between'>
                   <div className='h3-semibold me-10'>{t('All Questions')}</div>
@@ -66,7 +55,7 @@ export default function Questions(props: IQuestionsProps) {
                 </div>
                 <div className='flex-between mt-8'>
                   <div>
-                    <span className='me-1'>24,173,264</span>
+                    <span className='me-1'>{numberQuestions}</span>
                     <span>questions</span>
                   </div>
                   <div className='px-3 py-1 border border-border-1 flex-start gap-2 hover:*:bg-hover-1 *:duration-300 *:cursor-pointer *:px-3 *:py-1 *:rounded-md'>
@@ -114,85 +103,9 @@ export default function Questions(props: IQuestionsProps) {
                 </div>
                 <Divider className='my-4' />
                 <div>
-                  {allQuestions.map((question, index) => {
-                    const titleLimit =
-                      question.title.split(' ').slice(0, 20).join(' ') +
-                      (question.title.split(' ').length > 20 ? ' ...' : '');
-                    const text =
-                      question.text.split(' ').slice(0, 25).join(' ') +
-                      (question.text.split(' ').length > 25 ? ' ...' : '');
-
-                    return (
-                      <div key={index}>
-                        <div className='flex gap-3'>
-                          <div className='text-[0.8rem] text-right w-[15%] space-y-1'>
-                            <div>{question.vote_score + ' ' + t('votes')}</div>
-                            <div className='flex-end'>
-                              <div className='flex-start gap-2 px-2 py-1 bg-green-400 dark:bg-green-500 text-black rounded-lg'>
-                                <FaCheck className='size-3' />
-                                <span>
-                                  {question.answer_number + ' ' + t('answers')}
-                                </span>
-                              </div>
-                            </div>
-                            <div>{question.view + ' ' + t('views')}</div>
-                          </div>
-                          <div className='w-[85%]'>
-                            <Link
-                              href={`/questions/${question._id}`}
-                              className='text-[1rem] cursor-pointer text-blue-500 hover:text-blue-400 duration-300 mb-2'
-                            >
-                              {titleLimit}
-                            </Link>
-                            <div className='text-[0.8rem]'>
-                              <ShowContent content={text} />
-                            </div>
-                            <div className='mt-2'>
-                              <div className='flex-start gap-2'>
-                                {question.hashtags.map((tag, index) => (
-                                  <span
-                                    key={index}
-                                    className='tag px-1 bg-1 rounded-md'
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
-                              <div className='mt-3 flex-end text-[0.8rem] gap-1'>
-                                <Avatar
-                                  sx={{ width: 17, height: 17 }}
-                                  src={getImageURL(question.user.user_image)}
-                                />
-                                <Link
-                                  href={`/users/${question.user._id}`}
-                                  className='text-blue-500 hover:text-blue-400 duration-300'
-                                >
-                                  {question.user.name}
-                                </Link>
-                                <span className='text-text-2'>
-                                  {t('asked')}
-                                </span>
-                                <span className='text-text-2'>
-                                  {getFormattedDate(question.createdAt)}
-                                </span>
-                                <span className='text-text-2'>{t('at1')}</span>
-                                <span className='text-text-2'>
-                                  {format.dateTime(
-                                    new Date(question.createdAt),
-                                    {
-                                      hour: 'numeric',
-                                      minute: 'numeric'
-                                    }
-                                  )}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <Divider className='my-4' />
-                      </div>
-                    );
-                  })}
+                  {allQuestions.map((question, index) => (
+                    <QuestionSummaryItem key={index} question={question} />
+                  ))}
                 </div>
                 <div className='mt-10 flex-between'>
                   <div>
@@ -222,8 +135,7 @@ export default function Questions(props: IQuestionsProps) {
                     <div className='space-x-2 *:py-[6px] *:w-[32px] *:text-center *:inline-block *:bg-foreground-1 hover:*:bg-hover-2 *:rounded-md *:duration-300 *:text-1'>
                       <span
                         className={cn(
-                          questionPerPage === 1 &&
-                            '!bg-hover-2 !text-text-1'
+                          questionPerPage === 1 && '!bg-hover-2 !text-text-1'
                         )}
                         onClick={() => {
                           setQuestionPerPage(1);
@@ -233,8 +145,7 @@ export default function Questions(props: IQuestionsProps) {
                       </span>
                       <span
                         className={cn(
-                          questionPerPage === 2 &&
-                            '!bg-hover-2 !text-text-1'
+                          questionPerPage === 2 && '!bg-hover-2 !text-text-1'
                         )}
                         onClick={() => {
                           setQuestionPerPage(2);
@@ -244,8 +155,7 @@ export default function Questions(props: IQuestionsProps) {
                       </span>
                       <span
                         className={cn(
-                          questionPerPage === 50 &&
-                            '!bg-hover-2 !text-text-1'
+                          questionPerPage === 50 && '!bg-hover-2 !text-text-1'
                         )}
                         onClick={() => {
                           setQuestionPerPage(50);
@@ -258,7 +168,96 @@ export default function Questions(props: IQuestionsProps) {
                   </div>
                 </div>
               </div>
-              <div className='right col-span-1'></div>
+              <div className='right col-span-1'>
+                <Menu currentMenu={'question'} />
+                <Divider className='my-4' />
+                <div>
+                  <div className='h4-regular'>Related</div>
+                  <div className='mt-4 *:mb-2 *:flex-start *:gap-3 *:cursor-pointer *:text-[0.8rem]'>
+                    <div>
+                      <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                        250
+                      </span>
+                      <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                        Why is processing a sorted array slower than an unsorted
+                        array?
+                      </div>
+                    </div>
+                    <div>
+                      <span className='min-w-10 text-center px-2 py-1 rounded-md bg-foreground-2'>
+                        6
+                      </span>
+                      <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                        Complexity of comparison operators
+                      </div>
+                    </div>
+                    <div>
+                      <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                        137
+                      </span>
+                      <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                        Why is printing B dramatically slower than printing #?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <Divider className='my-4' />
+                <div>
+                  <div className='h4-regular'>Host Question</div>
+                  <div className='mt-4 *:mb-2 *:flex-start *:gap-3 *:cursor-pointer *:text-[0.8rem]'>
+                    <div>
+                      <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                        250
+                      </span>
+                      <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                        Why is processing a sorted array slower than an unsorted
+                        array?
+                      </div>
+                    </div>
+                    <div>
+                      <span className='min-w-10 text-center px-2 py-1 rounded-md bg-foreground-2'>
+                        6
+                      </span>
+                      <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                        Complexity of comparison operators
+                      </div>
+                    </div>
+                    <div>
+                      <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                        137
+                      </span>
+                      <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                        Why is printing B dramatically slower than printing #?
+                      </div>
+                    </div>
+                    <div>
+                      <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                        250
+                      </span>
+                      <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                        Why is processing a sorted array slower than an unsorted
+                        array?
+                      </div>
+                    </div>
+                    <div>
+                      <span className='min-w-10 text-center px-2 py-1 rounded-md bg-foreground-2'>
+                        6
+                      </span>
+                      <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                        Complexity of comparison operators
+                      </div>
+                    </div>
+                    <div>
+                      <span className='min-w-10 text-center px-2 py-1 rounded-md bg-green-400 text-black'>
+                        137
+                      </span>
+                      <div className='text-blue-400 hover:text-blue-500 duration-300'>
+                        Why is printing B dramatically slower than printing #?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

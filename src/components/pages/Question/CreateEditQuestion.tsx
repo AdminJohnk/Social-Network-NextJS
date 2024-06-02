@@ -169,13 +169,6 @@ export default function CreateEditQuestion({
                 } else if (hashTagList.includes(e.currentTarget.value)) {
                   showErrorToast(t('Hashtag already exists'));
                   return;
-                } else if (!/^[a-zA-Z0-9_-]*$/.test(e.currentTarget.value)) {
-                  showErrorToast(
-                    t(
-                      'Hashtag can only contain letters, numbers, underscores, and hyphens'
-                    )
-                  );
-                  return;
                 } else {
                   setHashTagList([...hashTagList, e.currentTarget.value]);
                   e.currentTarget.value = '';

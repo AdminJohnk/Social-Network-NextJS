@@ -24,14 +24,33 @@ const ImageURL = (src: string, option: option) => {
   return `https://ik.imagekit.io/admintck/${src}${query}`;
 };
 
-export const getImageURL = (src?: string | null, option: option = 'default') => {
+export const getImageURL = (
+  src?: string | null,
+  option: option = 'default'
+) => {
   if (!src) return '';
   return ImageURL(src, option);
 };
 
+export function truncateText(text: string, maxLength: number) {
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  let lastSpaceIndex = text.lastIndexOf(' ', maxLength);
+
+  if (lastSpaceIndex === -1) {
+    lastSpaceIndex = maxLength;
+  }
+
+  return text.substring(0, lastSpaceIndex) + '...';
+}
+
 import { IPost, IUserInfo } from '@/types';
 
-export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(obj: T): T => {
+export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(
+  obj: T
+): T => {
   const defaultValues: IUserInfo | IPost = {
     _id: '',
     id_incr: 0,
@@ -120,10 +139,13 @@ export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(obj: T): T 
   if (!obj) return obj;
 
   if (Array.isArray(obj)) {
-    return obj.map((item) => ({ ...defaultValues, ...item })) as T;
+    return obj.map(item => ({ ...defaultValues, ...item })) as T;
   }
 
   return { ...defaultValues, ...obj } as T;
 };
 
-export const github = new GitHub(process.env.REPO_GITHUB_ID!, process.env.REPO_GITHUB_SECRET!);
+export const github = new GitHub(
+  process.env.REPO_GITHUB_ID!,
+  process.env.REPO_GITHUB_SECRET!
+);
