@@ -8,6 +8,9 @@ class UserService extends BaseService {
     super();
   }
 
+  getAllUsers = async (userID: string): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
+    return await this.get(`/users/all/${userID}`);
+  };
   updateUser = async (userUpdate: IUserUpdate): Promise<AxiosResponse<IResponse<IUserInfo>>> => {
     return await this.put(`/users/update`, userUpdate);
   };

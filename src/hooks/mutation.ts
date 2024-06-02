@@ -1604,6 +1604,7 @@ export const useJoinCommunity = () => {
     onSuccess(_, community) {
       queryClient.invalidateQueries({ queryKey: ['community', community] });
       queryClient.invalidateQueries({ queryKey: ['communities'] });
+      queryClient.invalidateQueries({ queryKey: ['allCommunities'] });
     }
   });
 
@@ -1625,6 +1626,7 @@ export const useCancelJoinCommunity = () => {
     },
     onSuccess(_, community) {
       queryClient.invalidateQueries({ queryKey: ['community', community] });
+      queryClient.invalidateQueries({ queryKey: ['allCommunities'] });
     }
   });
 
@@ -1647,6 +1649,7 @@ export const useLeaveCommunity = () => {
     onSuccess(_, community) {
       queryClient.invalidateQueries({ queryKey: ['community', community] });
       queryClient.invalidateQueries({ queryKey: ['communities'] });
+      queryClient.invalidateQueries({ queryKey: ['allCommunities'] });
     }
   });
 

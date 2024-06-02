@@ -1,13 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Avatar, CircularProgress } from '@mui/material';
 
 import CommentItem from './CommentItem';
-import { useCommentsData, useCurrentUserInfo } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
 import { useCommentStore } from '@/store/comment';
+import { useCommentsData, useCurrentUserInfo } from '@/hooks/query';
 
 export interface ICommentListProps {
   postID: string;
@@ -44,9 +45,17 @@ export default function CommentList({ postID, comment_number }: ICommentListProp
         ) : (
           <>
             <div className='*:mb-3'>
-              {comments.slice(0, 3).map((comment) => (
-                <CommentItem key={comment._id} comment={comment} />
-              ))}
+              {comments.slice(0, 3).map((comment) => {
+                let showMore = false;
+                const setShowMore = (show: boolean) => {
+                  showMore = show;
+                };
+                const isMoreThan500 = comment.content.length > 500 ? true : false;
+                const content = (comment.content.length < 500 || showMore) ? comment.content : comment.content.slice(0, 500);
+                return (
+                  <CommentItem key={comment._id} comment={comment} content={content} showMore={setShowMore} isMoreThan500={isMoreThan500} />
+                )
+              })}
             </div>
             {comments.length > 3 && (
               <div className='flex-start text-text-3 cursor-pointer hover:text-primary-500 duration-300'>
