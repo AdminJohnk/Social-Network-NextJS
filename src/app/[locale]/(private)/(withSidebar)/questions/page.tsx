@@ -75,7 +75,7 @@ export default function Questions() {
                     <span className='me-1'>{format.number(numberQuestions, { notation: 'compact' })}</span>
                     <span>{t('questions', { count: numberQuestions })}</span>
                   </div>
-                  <div className='flex-start gap-2 rounded-lg border border-border-1 rounded-md p-1 *:cursor-pointer *:select-none *:rounded-lg *:px-3 *:py-1 *:duration-300 hover:*:bg-hover-1'>
+                  <div className='flex-start gap-2 rounded-lg border border-border-1 p-1 *:cursor-pointer *:select-none *:rounded-lg *:px-3 *:py-1 *:duration-300 hover:*:bg-hover-1'>
                     <span
                       className={cn(sortBy === 'score' && 'bg-hover-1')}
                       onClick={() => setSortBy('score')}>
