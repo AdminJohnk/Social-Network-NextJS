@@ -18,7 +18,7 @@ import {
 import EditAnswer from './EditAnswer';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { IoMdSend } from 'react-icons/io';
-import { cn } from '@/lib/utils';
+import { cn, getImageURL } from '@/lib/utils';
 import { useCurrentUserInfo } from '@/hooks/query';
 
 export interface IAnswerItemProps {
@@ -41,6 +41,8 @@ export default function AnswerItem({ answer, questionID }: IAnswerItemProps) {
   const { mutateDeleteAnswer, isLoadingDeleteAnswer } = useDeleteAnswer();
   const { mutateCommentAnswer, isLoadingCommentAnswer } = useCommentAnswer();
   const { mutateVoteAnswer } = useVoteAnswer();
+
+  const isAuthor = currentUserInfo?._id === answer.user._id;
 
   // Modal
   const [openEditAnswer, setOpenEditAnswer] = useState(false);
@@ -189,8 +191,15 @@ export default function AnswerItem({ answer, questionID }: IAnswerItemProps) {
             </div>
             <div className='grow'>
               <ShowContent content={answer.content} />
-              <div className='flex justify-between mt-10 small-regular'>
-                <div className='*:text-1 space-x-2'>
+              <div
+                className={cn(
+                  'flex justify-between mt-10 small-regular',
+                  !isAuthor && 'justify-end'
+                )}
+              >
+                <div
+                  className={cn('*:text-1 space-x-2', !isAuthor && 'hidden')}
+                >
                   <span onClick={() => setOpenEditAnswer(true)}>
                     {t('Edit')}
                   </span>
@@ -248,7 +257,12 @@ export default function AnswerItem({ answer, questionID }: IAnswerItemProps) {
                     </div>
                     <div className='flex-start'>
                       <div className='mt-2'>
-                        <Avatar sx={{ width: 30, height: 30 }} />
+                        <Link href={`/profile/${answer.user._id}`}>
+                          <Avatar
+                            sx={{ width: 30, height: 30 }}
+                            src={getImageURL(answer.user.user_image)}
+                          />
+                        </Link>
                       </div>
                       <div className='flex flex-col ms-2'>
                         <Link

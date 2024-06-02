@@ -63,6 +63,8 @@ export default function CommentItem({
   const { mutateVoteCommentAnswer, isLoadingVoteCommentAnswer } =
     useVoteCommentAnswer();
 
+  const isAuthor = comment?.user._id === currentUserInfo?._id;
+
   useEffect(() => {
     const checkVoted: boolean = comment?.vote.some(
       voteItem => voteItem === currentUserInfo?._id
@@ -138,7 +140,7 @@ export default function CommentItem({
     const handleFunction =
       type === 'que' ? mutateVoteCommentQuestion : mutateVoteCommentAnswer;
 
-      handleFunction({
+    handleFunction({
       question_id: questionID,
       answer_id: type === 'ans' ? answerID : undefined,
       comment_id: comment._id
@@ -176,13 +178,13 @@ export default function CommentItem({
                     </span>
                   </span>
                 </span>
-                <span className='ms-4'>
+                <span className={cn('ms-4', !isAuthor && 'hidden')}>
                   <FaPencilAlt
                     className='inline-block size-3 text-1'
                     onClick={() => setIsEditComment(true)}
                   />
                 </span>
-                <span className='ms-2'>
+                <span className={cn('ms-2', !isAuthor && 'hidden')}>
                   <QuestionDialog
                     open={openDeleteComment}
                     setOpen={setOpenDeleteComment}

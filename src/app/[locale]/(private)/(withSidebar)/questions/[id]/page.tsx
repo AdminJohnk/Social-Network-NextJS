@@ -13,6 +13,7 @@ import Modal from '@/components/shared/Modal';
 import CreateEditQuestion from '@/components/pages/Question/CreateEditQuestion';
 import { useGetQuestionByID } from '@/hooks/query';
 import { useViewQuestion } from '@/hooks/mutation';
+import { notFound } from 'next/navigation';
 
 export interface IQuestionDetailProps {
   params: {
@@ -29,7 +30,11 @@ export default function QuestionDetail({
 
   const [sortBy, setSortBy] = useState('scoredesc');
 
-  const { question, isLoadingQuestion } = useGetQuestionByID(id);
+  // Modal
+  const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
+
+  const { question, isLoadingQuestion, isErrorQuestion } =
+    useGetQuestionByID(id);
   const { mutateViewQuestion } = useViewQuestion();
 
   useEffect(() => {
@@ -50,9 +55,7 @@ export default function QuestionDetail({
     }
   };
 
-  // Modal
-  const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
-
+  if (isErrorQuestion) notFound();
   return (
     <>
       {isLoadingQuestion ? (

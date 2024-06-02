@@ -63,6 +63,10 @@ export default function CreateEditQuestion({
           title,
           problem: editorProblem?.getHTML() as string,
           expect: editorExpect?.getHTML() as string,
+          text:
+            (editorProblem?.getText() as string) +
+            ' ' +
+            editorExpect?.getText(),
           hashtags: hashTagList
         },
         {
@@ -85,6 +89,10 @@ export default function CreateEditQuestion({
           title,
           problem: editorProblem?.getHTML() as string,
           expect: editorExpect?.getHTML() as string,
+          text:
+            (editorProblem?.getText() as string) +
+            ' ' +
+            editorExpect?.getText(),
           hashtags: hashTagList
         },
         {
