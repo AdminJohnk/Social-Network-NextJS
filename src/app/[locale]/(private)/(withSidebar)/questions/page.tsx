@@ -58,7 +58,7 @@ export default function Questions(props: IQuestionsProps) {
                     <span className='me-1'>{numberQuestions}</span>
                     <span>questions</span>
                   </div>
-                  <div className='px-3 py-1 border border-border-1 flex-start gap-2 hover:*:bg-hover-1 *:duration-300 *:cursor-pointer *:px-3 *:py-1 *:rounded-md'>
+                  <div className='px-3 py-1 border border-border-1 rounded-md flex-start gap-2 hover:*:bg-hover-1 *:duration-300 *:cursor-pointer *:px-3 *:py-1 *:rounded-md'>
                     <span
                       className={cn(sortBy === 'score' && 'bg-hover-1')}
                       onClick={() => {

@@ -208,7 +208,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
         </div>
         <div className='grow'>
           <ShowContent content={question.problem + question.expect} />
-          <div className='mt-6 flex-start gap-3 *:p-1 *:bg-1'>
+          <div className='mt-6 flex-start gap-3 *:p-1 *:bg-1 *:rounded-md'>
             {question.hashtags.map((tag, index) => (
               <span key={index}>{tag}</span>
             ))}

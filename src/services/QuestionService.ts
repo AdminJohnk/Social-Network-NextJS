@@ -148,6 +148,12 @@ class QuestionService extends BaseService {
   getNumberQuestions = (): Promise<AxiosResponse<IResponse<number>>> => {
     return this.get(`/questions/number`);
   };
+
+  getAllTagQuestions = (
+    pageParam: number
+  ): Promise<AxiosResponse<IResponse<IAllQuestionItem[]>>> => {
+    return this.get(`/questions/tags/all?page=${pageParam}`);
+  };
 }
 
 export const questionService = new QuestionService();
