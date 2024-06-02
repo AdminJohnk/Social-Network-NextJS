@@ -4,7 +4,9 @@ export type SuggestionOptions = MentionOptions['suggestion'];
 
 export type RenderFunctionType = NonNullable<SuggestionOptions['render']>;
 
-export type OnKeyDownProps = Parameters<NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>>[0];
+export type OnKeyDownProps = Parameters<
+  NonNullable<ReturnType<RenderFunctionType>['onKeyDown']>
+>[0];
 
 export interface ErrorResponse extends Error {
   response: {
@@ -104,7 +106,12 @@ export interface IExperience {
   end_date: string;
 }
 
-export type IKeyContact = 'facebook' | 'instagram' | 'twitter' | 'github' | 'linkedin';
+export type IKeyContact =
+  | 'facebook'
+  | 'instagram'
+  | 'twitter'
+  | 'github'
+  | 'linkedin';
 
 export interface IContact {
   key: IKeyContact;
@@ -319,7 +326,15 @@ export interface IUpdateConversation extends IConversation {
   typeUpdate: TypeofUpdateConversation;
 }
 
-type TypeofMessage = 'text' | 'image' | 'notification' | 'audio' | 'file' | 'voice' | 'video' | 'post';
+type TypeofMessage =
+  | 'text'
+  | 'image'
+  | 'notification'
+  | 'audio'
+  | 'file'
+  | 'voice'
+  | 'video'
+  | 'post';
 type TypeofAction =
   | 'promote_admin'
   | 'revoke_admin'
@@ -698,6 +713,7 @@ export interface IQuestion {
   title: string;
   problem: string;
   expect: string;
+  text: string;
   hashtags: string[];
   view: number;
   vote_up: string[];
@@ -710,10 +726,24 @@ export interface IQuestion {
   update_at: string;
 }
 
+export interface IAllQuestionItem {
+  _id: string;
+  title: string;
+  problem: string;
+  hashtags: string[];
+  text: string;
+  user: { _id: string; name: string; user_image: string };
+  vote_score: number;
+  view: number;
+  answer_number: number;
+  createdAt: string;
+}
+
 export interface ICreateQuestion {
   title: string;
   problem: string;
   expect: string;
+  text: string;
   hashtags: string[];
 }
 
@@ -722,6 +752,7 @@ export interface IUpdateQuestion {
   title: string;
   problem: string;
   expect: string;
+  text: string;
   hashtags: string[];
 }
 

@@ -1103,3 +1103,52 @@ export const useGetQuestionByID = (questionID: string) => {
     isFetchingQuestion: isFetching
   };
 };
+
+export const useGetAllQuestions = () => {
+  const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+    queryKey: ['allQuestions'],
+    queryFn: async ({ pageParam }) => {
+      const { data } = await questionService.getAllQuestions(pageParam);
+      return data.metadata;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, _, lastPageParam) => {
+      if (lastPage.length < 5) {
+        return undefined;
+      }
+      return lastPageParam + 1;
+    },
+    select: (data) => {
+      return data.pages.flat();
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllQuestions: isPending,
+    isErrorAllQuestions: isError,
+    allQuestions: data!,
+    isFetchingAllQuestions: isFetching,
+    hasNextQuestions: hasNextPage,
+    fetchNextQuestions: fetchNextPage,
+    isFetchingNextQuestions: isFetchingNextPage
+  };
+}
+
+export const useGetNumberQuestions = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['numberQuestions'],
+    queryFn: async () => {
+      const { data } = await questionService.getNumberQuestions();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingNumberQuestions: isPending,
+    isErrorNumberQuestions: isError,
+    numberQuestions: data!,
+    isFetchingNumberQuestions: isFetching
+  };
+}

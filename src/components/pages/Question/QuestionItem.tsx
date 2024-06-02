@@ -83,8 +83,8 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
         setVote('cancel');
       }
     }
-    setVoteNumber(question.vote_score);
-    setIsSave(question.save.includes(currentUserInfo?._id));
+    setVoteNumber(question?.vote_score);
+    setIsSave(question?.save?.includes(currentUserInfo?._id));
   }, [question, currentUserInfo]);
 
   const handleDeleteQuestion = () => {

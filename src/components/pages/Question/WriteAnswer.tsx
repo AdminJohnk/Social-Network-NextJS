@@ -25,7 +25,7 @@ export default function WriteAnswer({ questionID }: IWriteAnswerProps) {
       return;
     }
     mutateAnswerQuestion(
-      { question_id: questionID, content },
+      { question_id: questionID, content: editor?.getHTML() as string },
       {
         onSuccess: () => {
           editor?.commands.clearContent();

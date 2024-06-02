@@ -30,6 +30,9 @@ export default function QuestionDetail({
 
   const [sortBy, setSortBy] = useState('scoredesc');
 
+  // Modal
+  const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
+
   const { question, isLoadingQuestion, isErrorQuestion } =
     useGetQuestionByID(id);
   const { mutateViewQuestion } = useViewQuestion();
@@ -52,8 +55,6 @@ export default function QuestionDetail({
     }
   };
 
-  // Modal
-  const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
   if (isErrorQuestion) notFound();
   return (
     <>

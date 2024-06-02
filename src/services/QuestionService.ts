@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import {
+  IAllQuestionItem,
   ICommentVoteQuestion,
   ICreateAnswerQuestion,
   ICreateCommentAnswer,
@@ -136,6 +137,16 @@ class QuestionService extends BaseService {
     questionID: string
   ): Promise<AxiosResponse<IResponse<boolean>>> => {
     return this.put(`/questions/save/${questionID}`);
+  };
+
+  getAllQuestions = (
+    pageParam: number
+  ): Promise<AxiosResponse<IResponse<IAllQuestionItem[]>>> => {
+    return this.get(`/questions/all?page=${pageParam}`);
+  };
+
+  getNumberQuestions = (): Promise<AxiosResponse<IResponse<number>>> => {
+    return this.get(`/questions/number`);
   };
 }
 
