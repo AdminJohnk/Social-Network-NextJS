@@ -19,6 +19,7 @@ import { ApplyDefaults } from '@/lib/utils';
 import { seriesService } from '@/services/SeriesService';
 import { hashtagService } from '@/services/HashtagService';
 import { questionService } from '@/services/QuestionService';
+import { number } from 'zod';
 
 // ---------------------------FETCH HOOKS---------------------------
 
@@ -1226,7 +1227,7 @@ export const useGetAllQuestions = () => {
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage.length < 5) {
+      if (lastPage.length < 20) {
         return undefined;
       }
       return lastPageParam + 1;
@@ -1248,30 +1249,12 @@ export const useGetAllQuestions = () => {
   };
 };
 
-export const useGetAllTagQuestions = () => {
-  const {
-    data,
-    isPending,
-    isError,
-    isFetching,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage
-  } = useInfiniteQuery({
-    queryKey: ['allTagQuestions'],
-    queryFn: async ({ pageParam }) => {
-      const { data } = await questionService.getAllTagQuestions(pageParam);
+export const useGetAllTagQuestions = (sortBy: string, page: number) => {
+  const { data, isPending, isError, isFetching, refetch } = useQuery({
+    queryKey: ['allTagQuestions', sortBy],
+    queryFn: async () => {
+      const { data } = await questionService.getAllTagQuestions(page, sortBy);
       return data.metadata;
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage.length < 5) {
-        return undefined;
-      }
-      return lastPageParam + 1;
-    },
-    select: data => {
-      return data.pages.flat();
     },
     staleTime: Infinity
   });
@@ -1281,9 +1264,7 @@ export const useGetAllTagQuestions = () => {
     isErrorAllTagQuestions: isError,
     allTagQuestions: data!,
     isFetchingAllTagQuestions: isFetching,
-    hasNextTagQuestions: hasNextPage,
-    fetchNextTagQuestions: fetchNextPage,
-    isFetchingNextTagQuestions: isFetchingNextPage
+    refetchAllTagQuestions: refetch
   };
 };
 
@@ -1302,5 +1283,23 @@ export const useGetNumberQuestions = () => {
     isErrorNumberQuestions: isError,
     numberQuestions: data!,
     isFetchingNumberQuestions: isFetching
+  };
+};
+
+export const useGetNumberTagQuestions = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['numberTagQuestions'],
+    queryFn: async () => {
+      const { data } = await questionService.getNumberTagQuestions();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingNumberTagQuestions: isPending,
+    isErrorNumberTagQuestions: isError,
+    numberTagQuestions: data!,
+    isFetchingNumberTagQuestions: isFetching
   };
 };

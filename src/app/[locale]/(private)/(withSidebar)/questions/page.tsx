@@ -21,8 +21,7 @@ export default function Questions(props: IQuestionsProps) {
   const { numberQuestions } = useGetNumberQuestions();
 
   const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
-  const [questionPerPage, setQuestionPerPage] = useState(15);
-  const page_number = Math.ceil(numberQuestions / questionPerPage) || 10;
+  const page_number = Math.ceil(numberQuestions / 20) || 10;
   const [sortBy, setSortBy] = useState('score');
 
   return (
@@ -130,41 +129,6 @@ export default function Questions(props: IQuestionsProps) {
                         }
                       }}
                     />
-                  </div>
-                  <div className='flex-start gap-2'>
-                    <div className='space-x-2 *:py-[6px] *:w-[32px] *:text-center *:inline-block *:bg-foreground-1 hover:*:bg-hover-2 *:rounded-md *:duration-300 *:text-1'>
-                      <span
-                        className={cn(
-                          questionPerPage === 1 && '!bg-hover-2 !text-text-1'
-                        )}
-                        onClick={() => {
-                          setQuestionPerPage(1);
-                        }}
-                      >
-                        1
-                      </span>
-                      <span
-                        className={cn(
-                          questionPerPage === 2 && '!bg-hover-2 !text-text-1'
-                        )}
-                        onClick={() => {
-                          setQuestionPerPage(2);
-                        }}
-                      >
-                        2
-                      </span>
-                      <span
-                        className={cn(
-                          questionPerPage === 50 && '!bg-hover-2 !text-text-1'
-                        )}
-                        onClick={() => {
-                          setQuestionPerPage(50);
-                        }}
-                      >
-                        50
-                      </span>
-                    </div>
-                    <div className='text-[0.8rem]'>per page</div>
                   </div>
                 </div>
               </div>

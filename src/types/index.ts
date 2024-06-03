@@ -739,6 +739,14 @@ export interface IAllQuestionItem {
   createdAt: string;
 }
 
+export interface IAllTagQuestionItem {
+  _id: string;
+  name: string;
+  question_number: number;
+  number_today: number;
+  number_this_week: number;
+}
+
 export interface ICreateQuestion {
   title: string;
   problem: string;

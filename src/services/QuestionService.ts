@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 
 import {
   IAllQuestionItem,
+  IAllTagQuestionItem,
   ICommentVoteQuestion,
   ICreateAnswerQuestion,
   ICreateCommentAnswer,
@@ -150,9 +151,14 @@ class QuestionService extends BaseService {
   };
 
   getAllTagQuestions = (
-    pageParam: number
-  ): Promise<AxiosResponse<IResponse<IAllQuestionItem[]>>> => {
-    return this.get(`/questions/tags/all?page=${pageParam}`);
+    pageParam: number,
+    sortBy: string
+  ): Promise<AxiosResponse<IResponse<IAllTagQuestionItem[]>>> => {
+    return this.get(`/questions/tags/all?page=${pageParam}&sort=${sortBy}`);
+  };
+
+  getNumberTagQuestions = (): Promise<AxiosResponse<IResponse<number>>> => {
+    return this.get(`/questions/tags/number`);
   };
 }
 
