@@ -8,7 +8,7 @@ export default function BlogMain() {
     <div className='card mt-8'>
       <div className='card-media md:h-80 h-52'>
         <Image src='/images/group/group-cover-1.jpg' alt='' width={1200} height={1200} />
-        <div className='card-overly'></div>
+        <div className='card-overlay'></div>
       </div>
       <div className='card-body p-5 w-full z-10 absolute bg-gradient-to-t bottom-0 from-black/60'>
         <p className='card-text'>

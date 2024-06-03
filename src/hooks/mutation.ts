@@ -1380,6 +1380,22 @@ export const useUploadImages = () => {
   };
 };
 
+export const useIncreaseViewSeries = () => {
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (seriesID: string) => {
+      const { data } = await seriesService.increaseViewSeries(seriesID);
+      return data.metadata;
+    }
+  });
+
+  return {
+    mutateIncreaseViewSeries: mutateAsync,
+    isLoadingIncreaseViewSeries: isPending,
+    isErrorIncreaseViewSeries: isError,
+    isSuccessIncreaseViewSeries: isSuccess
+  };
+};
+
 export const useCreateSeries = () => {
   const queryClient = useQueryClient();
 
@@ -1389,9 +1405,8 @@ export const useCreateSeries = () => {
       return series.metadata;
     },
     onSuccess(series) {
-      queryClient.invalidateQueries({
-        queryKey: ['allSeries', series.user._id]
-      });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1413,9 +1428,8 @@ export const useUpdateSeries = () => {
     },
     onSuccess(series, updateSeries) {
       queryClient.invalidateQueries({ queryKey: ['series', updateSeries.id] });
-      queryClient.invalidateQueries({
-        queryKey: ['allSeries', series.user._id]
-      });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1435,8 +1449,10 @@ export const useDeleteSeries = () => {
       const { data: series } = await seriesService.deleteSeries(seriesID);
       return series.metadata;
     },
-    onSuccess(_, seriesID) {
+    onSuccess(series, seriesID) {
       queryClient.invalidateQueries({ queryKey: ['series', seriesID] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries'], exact: true });
     }
   });
 
@@ -1456,8 +1472,9 @@ export const useAddPostToSeries = () => {
       const { data: series } = await seriesService.addPostToSeries(data);
       return series.metadata;
     },
-    onSuccess(_, series) {
-      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    onSuccess(series, data) {
+      queryClient.invalidateQueries({ queryKey: ['series', data.series_id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
     }
   });
 
@@ -1477,8 +1494,9 @@ export const updatePostToSeries = () => {
       const { data: series } = await seriesService.updatePostToSeries(data);
       return series.metadata;
     },
-    onSuccess(_, series) {
-      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    onSuccess(series, data) {
+      queryClient.invalidateQueries({ queryKey: ['series', data.series_id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
     }
   });
 
@@ -1498,8 +1516,9 @@ export const useDeletePostToSeries = () => {
       const { data: series } = await seriesService.deletePostToSeries(data);
       return series.metadata;
     },
-    onSuccess(_, series) {
-      queryClient.invalidateQueries({ queryKey: ['series', series.series_id] });
+    onSuccess(series, data) {
+      queryClient.invalidateQueries({ queryKey: ['series', data.series_id] });
+      queryClient.invalidateQueries({ queryKey: ['allSeries', series.user._id] });
     }
   });
 
@@ -1588,6 +1607,7 @@ export const useJoinCommunity = () => {
     onSuccess(_, community) {
       queryClient.invalidateQueries({ queryKey: ['community', community] });
       queryClient.invalidateQueries({ queryKey: ['communities'] });
+      queryClient.invalidateQueries({ queryKey: ['allCommunities'] });
     }
   });
 
@@ -1609,6 +1629,7 @@ export const useCancelJoinCommunity = () => {
     },
     onSuccess(_, community) {
       queryClient.invalidateQueries({ queryKey: ['community', community] });
+      queryClient.invalidateQueries({ queryKey: ['allCommunities'] });
     }
   });
 
@@ -1631,6 +1652,7 @@ export const useLeaveCommunity = () => {
     onSuccess(_, community) {
       queryClient.invalidateQueries({ queryKey: ['community', community] });
       queryClient.invalidateQueries({ queryKey: ['communities'] });
+      queryClient.invalidateQueries({ queryKey: ['allCommunities'] });
     }
   });
 
@@ -2121,9 +2143,7 @@ export const useDeleteQuestion = () => {
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (questionID: string) => {
-      const { data: question } = await questionService.deleteQuestion(
-        questionID
-      );
+      const { data: question } = await questionService.deleteQuestion(questionID);
       return question.metadata;
     },
     onSuccess(_, question) {
@@ -2206,9 +2226,7 @@ export const useUpdateCommentQuestion = () => {
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (data: IUpdateCommentQuestion) => {
-      const { data: comment } = await questionService.updateCommentQuestion(
-        data
-      );
+      const { data: comment } = await questionService.updateCommentQuestion(data);
       return comment.metadata;
     },
     onSuccess(_, question) {
@@ -2231,9 +2249,7 @@ export const useDeleteCommentQuestion = () => {
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (data: IDeleteCommentQuestion) => {
-      const { data: comment } = await questionService.deleteCommentQuestion(
-        data
-      );
+      const { data: comment } = await questionService.deleteCommentQuestion(data);
       return comment.metadata;
     },
     onSuccess(_, question) {
@@ -2456,7 +2472,7 @@ export const useVoteAnswer = () => {
     isErrorVoteAnswer: isError,
     isSuccessVoteAnswer: isSuccess
   };
-}
+};
 
 export const useSaveQuestion = () => {
   const queryClient = useQueryClient();

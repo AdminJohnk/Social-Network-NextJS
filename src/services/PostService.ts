@@ -18,81 +18,81 @@ class PostService extends BaseService {
     super();
   }
 
-  getAllPostByUserID = (id: string, pageParam: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
-    return this.get(`/posts/user/${id}?page=${pageParam}`);
+  getAllPostByUserID = async (id: string, pageParam: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
+    return await this.get(`/posts/user/${id}?page=${pageParam}`);
   };
-  getAllPost = (): Promise<AxiosResponse<IResponse<IPost[]>>> => {
-    return this.get(`/posts/all`);
+  getAllPost = async (): Promise<AxiosResponse<IResponse<IPost[]>>> => {
+    return await this.get(`/posts/all`);
   };
-  getAllPostNewsFeed = (pageParam: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
-    return this.get(`/posts/newsfeed?page=${pageParam}`);
+  getAllPostNewsFeed = async (pageParam: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
+    return await this.get(`/posts/newsfeed?page=${pageParam}`);
   };
-  getAllPopularPost = (sort: string): Promise<AxiosResponse<IResponse<IPost[]>>> => {
-    return this.get(`/posts/popular/?sortBy=${sort}`);
+  getAllPopularPost = async (sort: string): Promise<AxiosResponse<IResponse<IPost[]>>> => {
+    return await this.get(`/posts/popular/?sortBy=${sort}`);
   };
-  createPost = (post: ICreatePost): Promise<AxiosResponse<IResponse<IPost>>> => {
-    return this.post(`/posts`, post);
+  createPost = async (post: ICreatePost): Promise<AxiosResponse<IResponse<IPost>>> => {
+    return await this.post(`/posts`, post);
   };
-  updatePost = (id: string, post: ICreatePost): Promise<AxiosResponse<IResponse<IPost>>> => {
-    return this.put(`/posts/update/${id}`, post);
+  updatePost = async (id: string, post: ICreatePost): Promise<AxiosResponse<IResponse<IPost>>> => {
+    return await this.put(`/posts/update/${id}`, post);
   };
-  deletePost = (id: string) => {
-    return this.delete(`/posts/delete/${id}`);
+  deletePost = async (id: string) => {
+    return await this.delete(`/posts/delete/${id}`);
   };
-  sharePost = (sharepost: ISharePost) => {
-    return this.post(`/posts/share`, sharepost);
+  sharePost = async (sharepost: ISharePost) => {
+    return await this.post(`/posts/share`, sharepost);
   };
-  deleteSharedPost = (sharepost: ISharePost) => {
-    return this.delete(`/posts/shared/delete`, sharepost);
+  deleteSharedPost = async (sharepost: ISharePost) => {
+    return await this.delete(`/posts/shared/delete`, sharepost);
   };
-  likePost = (post: ISharePost) => {
-    return this.put(`/users/likepost`, post);
+  likePost = async (post: ISharePost) => {
+    return await this.put(`/users/likepost`, post);
   };
-  savePost = (id: string) => {
-    return this.put(`/users/savepost/${id}`);
+  savePost = async (id: string) => {
+    return await this.put(`/users/savepost/${id}`);
   };
-  getParentComments = (id: string, page: number): Promise<AxiosResponse<IResponse<ICommentPost[]>>> => {
-    return this.get(`/comments/parents/${id}?page=${page}`);
+  getParentComments = async (id: string, page: number): Promise<AxiosResponse<IResponse<ICommentPost[]>>> => {
+    return await this.get(`/comments/parents/${id}?page=${page}`);
   };
-  getChildComments = (
+  getChildComments = async (
     comment: IGetChildComments,
     page: number
   ): Promise<AxiosResponse<IResponse<ICommentPost[]>>> => {
-    return this.get(`/comments/${comment.parent}/children/${comment.post}?page=${page}`);
+    return await this.get(`/comments/${comment.parent}/children/${comment.post}?page=${page}`);
   };
-  createComment = (comment: ICreateComment) => {
-    return this.post(`/comments/create`, comment);
+  createComment = async (comment: ICreateComment) => {
+    return await this.post(`/comments/create`, comment);
   };
-  getPostByID = (id: string): Promise<AxiosResponse<IResponse<IPost>>> => {
-    return this.get(`/posts/find/${id}`);
+  getPostByID = async (id: string): Promise<AxiosResponse<IResponse<IPost>>> => {
+    return await this.get(`/posts/find/${id}`);
   };
-  viewPost = (id: string) => {
-    return this.put(`/posts/view/${id}`);
+  viewPost = async (id: string) => {
+    return await this.put(`/posts/view/${id}`);
   };
-  likeComment = (id: string, payload: ILikeComment) => {
-    return this.put(`/comments/like/${id}`, payload);
+  likeComment = async (id: string, payload: ILikeComment) => {
+    return await this.put(`/comments/like/${id}`, payload);
   };
-  dislikeComment = (id: string, payload: ILikeComment) => {
-    return this.put(`/comments/dislike/${id}`, payload);
+  dislikeComment = async (id: string, payload: ILikeComment) => {
+    return await this.put(`/comments/dislike/${id}`, payload);
   };
-  getSavedPosts = (): Promise<AxiosResponse<IResponse<IPost[]>>> => {
-    return this.get(`/posts/saved`);
-  };
-
-  getPostsBySearchKey = (keyword: string, page: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
-    return this.get(`/posts/search/top?search=${keyword}&page=${page}`);
+  getSavedPosts = async (): Promise<AxiosResponse<IResponse<IPost[]>>> => {
+    return await this.get(`/posts/saved`);
   };
 
-  getAllPostImages = (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
-    return this.get(`/posts/images/${userID}`);
+  getPostsBySearchKey = async (keyword: string, page: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
+    return await this.get(`/posts/search/top?search=${keyword}&page=${page}`);
   };
 
-  getLinkPreview = (url: string): Promise<AxiosResponse<IResponse<TypeOfLink>>> => {
-    return this.get(`/posts/link-preview?url=${url}`);
+  getAllPostImages = async (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
+    return await this.get(`/posts/images/${userID}`);
   };
 
-  getPostByHashtag = (hashtag: string, page: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
-    return this.get(`/posts/hashtag/normal/${hashtag}?page=${page}`);
+  getLinkPreview = async (url: string): Promise<AxiosResponse<IResponse<TypeOfLink>>> => {
+    return await this.get(`/posts/link-preview?url=${url}`);
+  };
+
+  getPostByHashtag = async (hashtag: string, page: number): Promise<AxiosResponse<IResponse<IPost[]>>> => {
+    return await this.get(`/posts/hashtag/normal/${hashtag}?page=${page}`);
   };
 }
 

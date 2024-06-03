@@ -6,68 +6,80 @@ class CommunityService extends BaseService {
   constructor() {
     super();
   }
-  getCommunityByID = (id: String): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.get(`/communities/${id}`);
+  getAllCommunities = async (): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
+    return await this.get(`/communities`);
   };
-  getCommunitiesByUserID = (id: String): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
-    return this.get(`/communities/user/${id}`);
+  getCommunityByID = async (id: String): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.get(`/communities/${id}`);
   };
-  createCommunity = (data: ICreateCommunity): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.post('/communities/create', data);
+  getCommunitiesByUserID = async (id: String): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
+    return await this.get(`/communities/user/${id}`);
   };
-  updateCommunity = (data: IUpdateCommunity): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/update/${data.id}`, data);
+  createCommunity = async (data: ICreateCommunity): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.post('/communities/create', data);
   };
-  cedeCreator = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/cede-creator/${id}`, { user_id });
+  updateCommunity = async (data: IUpdateCommunity): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/update/${data.id}`, data);
   };
-  joinCommunity = (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/join/${id}`);
+  cedeCreator = async (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/cede-creator/${id}`, { user_id });
   };
-  cancelJoinCommunity = (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/cancel-join/${id}`);
+  joinCommunity = async (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/join/${id}`);
   };
-  leaveCommunity = (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/leave/${id}`);
+  cancelJoinCommunity = async (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/cancel-join/${id}`);
   };
-  acceptPostRequest = (id: string, post_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/accept-post/${id}`, { post_id });
+  leaveCommunity = async (id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/leave/${id}`);
   };
-  rejectPostRequest = (id: string, post_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/reject-post/${id}`, { post_id });
+  acceptPostRequest = async (id: string, post_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/accept-post/${id}`, { post_id });
   };
-  acceptJoinRequest = (id: string, user_ids: string[]): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/accept/${id}`, { user_ids });
+  rejectPostRequest = async (id: string, post_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/reject-post/${id}`, { post_id });
   };
-  rejectJoinRequest = (id: string, user_ids: string[]): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/reject/${id}`, { user_ids });
+  acceptJoinRequest = async (
+    id: string,
+    user_ids: string[]
+  ): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/accept/${id}`, { user_ids });
   };
-  addMembers = (id: string, member_ids: string[]): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/add-members/${id}`, { member_ids });
+  rejectJoinRequest = async (
+    id: string,
+    user_ids: string[]
+  ): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/reject/${id}`, { user_ids });
   };
-  deleteMember = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/delete-members/${id}`, { user_id });
+  addMembers = async (id: string, member_ids: string[]): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/add-members/${id}`, { member_ids });
   };
-  promoteAdmin = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/promote-admin/${id}`, { user_id });
+  deleteMember = async (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/delete-members/${id}`, { user_id });
   };
-  revokeAdmin = (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
-    return this.put(`/communities/revoke-admin/${id}`, { user_id });
+  promoteAdmin = async (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/promote-admin/${id}`, { user_id });
   };
-  getAllCommunityImages = (id: string): Promise<AxiosResponse<IResponse<string[]>>> => {
-    return this.get(`/communities/images/${id}`);
+  revokeAdmin = async (id: string, user_id: string): Promise<AxiosResponse<IResponse<ICommunity>>> => {
+    return await this.put(`/communities/revoke-admin/${id}`, { user_id });
   };
-  getAllCommunitiesYouManage = (pageParam: number): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
-    return this.get(`/communities/manage?page=${pageParam}`);
+  getAllCommunityImages = async (id: string): Promise<AxiosResponse<IResponse<string[]>>> => {
+    return await this.get(`/communities/images/${id}`);
   };
-  getCommunityPostByID = (communityID: string, postID: string): Promise<AxiosResponse<IResponse<IPost>>> => {
-    return this.get(`/communities/${communityID}/post/${postID}`);
+  getAllCommunitiesYouManage = async (pageParam: number): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
+    return await this.get(`/communities/manage?page=${pageParam}`);
   };
-  getPostsByCommunityID = (
+  getCommunityPostByID = async (
+    communityID: string,
+    postID: string
+  ): Promise<AxiosResponse<IResponse<IPost>>> => {
+    return await this.get(`/communities/${communityID}/post/${postID}`);
+  };
+  getPostsByCommunityID = async (
     communityID: string,
     pageParam: number
   ): Promise<AxiosResponse<IResponse<IPost[]>>> => {
-    return this.get(`/communities/${communityID}/posts?page=${pageParam}`);
+    return await this.get(`/communities/${communityID}/posts?page=${pageParam}`);
   };
 }
 

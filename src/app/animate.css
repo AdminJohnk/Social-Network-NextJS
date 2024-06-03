@@ -1,33 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@keyframes fade-up-in {
+  0% {
+    opacity: 0;
+    transform: translateY(2rem /* 32px */);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up-in {
+  animation: fade-up-in 1s both;
+}
 
-@layer utilities {
-  @keyframes fade-up-in {
-    0% {
-      opacity: 0;
-      transform: translateY(2rem /* 32px */);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+@keyframes fade-up-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  .animate-fade-up-in {
-    animation: fade-up-in 1s both;
+  100% {
+    opacity: 0;
+    transform: translateY(2rem /* -32px */);
   }
-
-  @keyframes fade-up-out {
-    0% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(2rem /* -32px */);
-    }
-  }
-  .animate-fade-up-out {
-    animation: fade-up-out 1s both;
-  }
+}
+.animate-fade-up-out {
+  animation: fade-up-out 1s both;
 }

@@ -19,10 +19,10 @@ export interface IEditPostProps {
   post: IPost;
   handleClose: () => void;
   isCommunity?: boolean;
-  CommunityID?: string;
+  communityID?: string;
 }
 
-export default function EditPost({ post, handleClose, isCommunity = false, CommunityID }: IEditPostProps) {
+export default function EditPost({ post, handleClose, isCommunity = false, communityID }: IEditPostProps) {
   const t = useTranslations();
 
   const queryClient = useQueryClient();
@@ -84,8 +84,8 @@ export default function EditPost({ post, handleClose, isCommunity = false, Commu
           rmHashtags: rmHashtags,
           hashtags: hashtags ? uniqueHashtags : undefined,
           scope: isCommunity ? 'Community' : 'Normal',
-          community: CommunityID,
-        },
+          community: communityID
+        }
       },
       {
         onSuccess() {

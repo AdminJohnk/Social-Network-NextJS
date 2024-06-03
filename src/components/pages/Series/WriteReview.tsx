@@ -13,10 +13,7 @@ export interface IWriteReviewProps {
   series_id: string;
 }
 
-export default function WriteReview({
-  handleClose,
-  series_id
-}: IWriteReviewProps) {
+export default function WriteReview({ handleClose, series_id }: IWriteReviewProps) {
   const t = useTranslations();
 
   const { mutateReviewSeries } = useReviewSeries();
@@ -62,31 +59,21 @@ export default function WriteReview({
   return (
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[760px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
-        <h2 className='text-sm font-medium text-text-1'>
-          {t('Create Review')}
-        </h2>
+        <h2 className='text-sm font-medium text-text-1'>{t('Create Review')}</h2>
       </div>
       <div className='max-h-[500px] overflow-y-scroll custom-scrollbar-bg px-5 pt-4 pb-7 *:mt-7'>
         <div className='mb-4'>
           <div className='mb-3 base-semibold'>{t('Your Rating')}</div>
           <div className='flex-center *:size-10 *:text-yellow-400 gap-4 *:cursor-pointer'>
-            {Array.from({ length: 5 }).map((_, index) => {
-              return (
-                <>
-                  {index < numberStar ? (
-                    <FaStar
-                      key={index}
-                      onClick={() => setNumberStar(index + 1)}
-                    />
-                  ) : (
-                    <FaRegStar
-                      key={index}
-                      onClick={() => setNumberStar(index + 1)}
-                    />
-                  )}
-                </>
-              );
-            })}
+            {Array.from({ length: 5 }).map((_, index) => (
+              <>
+                {index < numberStar ? (
+                  <FaStar key={index} onClick={() => setNumberStar(index + 1)} />
+                ) : (
+                  <FaRegStar key={index} onClick={() => setNumberStar(index + 1)} />
+                )}
+              </>
+            ))}
           </div>
         </div>
         <div>
@@ -95,7 +82,7 @@ export default function WriteReview({
             <textarea
               className='w-full border border-border-1 rounded-lg p-2 resize-none bg-transparent custom-scrollbar-bg'
               rows={4}
-              onChange={e => setReview(e.target.value)}
+              onChange={(e) => setReview(e.target.value)}
               maxLength={330}
             />
           </div>
@@ -105,16 +92,10 @@ export default function WriteReview({
         <div className='flex items-center gap-2'>
           <Button
             type='button'
-            className={cn(
-              'button lg:px-6 text-white max-md:flex-1',
-              isLoading && 'select-none'
-            )}
+            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
             disabled={isLoading}
-            onClick={handleSubmit}
-          >
-            {isLoading && (
-              <CircularProgress size={20} className='!text-text-1 mr-2' />
-            )}
+            onClick={handleSubmit}>
+            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
             {t('Submit Review')} <span className='ripple-overlay'></span>
           </Button>
         </div>

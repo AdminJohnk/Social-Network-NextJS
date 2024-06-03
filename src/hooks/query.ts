@@ -23,6 +23,26 @@ import { number } from 'zod';
 
 // ---------------------------FETCH HOOKS---------------------------
 
+export const useAllUsersData = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allUsers'],
+    queryFn: async () => {
+      const session = await getSession();
+
+      const { data } = await userService.getAllUsers(session?.id || '');
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllUsers: isPending,
+    isErrorAllUsers: isError,
+    allUsers: data!,
+    isFetchingAllUsers: isFetching
+  };
+};
+
 /**
  * The `useCurrentUserInfo` function is a custom hook that fetches and returns information about the
  * current user.
@@ -768,6 +788,24 @@ export const useGetCalled = () => {
   };
 };
 
+export const useGetAllCommunities = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allCommunities'],
+    queryFn: async () => {
+      const { data } = await communityService.getAllCommunities();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllCommunities: isPending,
+    isErrorAllCommunities: isError,
+    allCommunities: data!,
+    isFetchingAllCommunities: isFetching
+  };
+};
+
 export const useGetCommunityByID = (id: string) => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['community', id],
@@ -985,7 +1023,7 @@ export const useLinkPreview = (url: string) => {
   };
 };
 
-export const useGetAllSeries = (userID: string) => {
+export const useGetAllSeriesByUserID = (userID: string) => {
   const {
     data,
     isPending,
@@ -998,7 +1036,7 @@ export const useGetAllSeries = (userID: string) => {
   } = useInfiniteQuery({
     queryKey: ['allSeries', userID],
     queryFn: async ({ pageParam }) => {
-      const { data } = await seriesService.getAllSeries(userID, pageParam);
+      const { data } = await seriesService.getAllSeriesByUserID(userID, pageParam);
       return data.metadata;
     },
     initialPageParam: 1,
@@ -1020,6 +1058,38 @@ export const useGetAllSeries = (userID: string) => {
     allSeries: data!,
     isFetchingAllSeries: isFetching,
     refetchAllSeries: refetch,
+    hasNextSeries: hasNextPage,
+    fetchNextSeries: fetchNextPage,
+    isFetchingNextSeries: isFetchingNextPage
+  };
+};
+
+export const useGetAllSeries = () => {
+  const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['allSeries'],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await seriesService.getAllSeries(pageParam);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < 10) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingAllSeries: isPending,
+    isErrorAllSeries: isError,
+    allSeries: data!,
+    isFetchingAllSeries: isFetching,
     hasNextSeries: hasNextPage,
     fetchNextSeries: fetchNextPage,
     isFetchingNextSeries: isFetchingNextPage
@@ -1210,30 +1280,12 @@ export const useGetQuestionByID = (questionID: string) => {
   };
 };
 
-export const useGetAllQuestions = () => {
-  const {
-    data,
-    isPending,
-    isError,
-    isFetching,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage
-  } = useInfiniteQuery({
+export const useGetAllQuestions = (pageParam = 1) => {
+  const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['allQuestions'],
-    queryFn: async ({ pageParam }) => {
+    queryFn: async () => {
       const { data } = await questionService.getAllQuestions(pageParam);
       return data.metadata;
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage.length < 20) {
-        return undefined;
-      }
-      return lastPageParam + 1;
-    },
-    select: data => {
-      return data.pages.flat();
     },
     staleTime: Infinity
   });
@@ -1242,10 +1294,7 @@ export const useGetAllQuestions = () => {
     isLoadingAllQuestions: isPending,
     isErrorAllQuestions: isError,
     allQuestions: data!,
-    isFetchingAllQuestions: isFetching,
-    hasNextQuestions: hasNextPage,
-    fetchNextQuestions: fetchNextPage,
-    isFetchingNextQuestions: isFetchingNextPage
+    isFetchingAllQuestions: isFetching
   };
 };
 

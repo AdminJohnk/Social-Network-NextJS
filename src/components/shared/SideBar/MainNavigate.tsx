@@ -48,7 +48,7 @@ export default function MainNavigate() {
                   <span> {t(item.label)} </span>
                 </div>
                 {item.href === '/messages' && notSeenCount > 0 && (
-                  <span className='bg-red-700 rounded-md px-1'>{notSeenCount}</span>
+                  <span className='bg-red-600 text-light-1 rounded-md px-1'>{notSeenCount}</span>
                 )}
               </Link>
             </li>

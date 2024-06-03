@@ -25,113 +25,79 @@ class QuestionService extends BaseService {
     super();
   }
 
-  createQuestion = (
-    data: ICreateQuestion
-  ): Promise<AxiosResponse<IResponse<IQuestion>>> => {
-    return this.post(`/questions/create`, data);
+  createQuestion = async (data: ICreateQuestion): Promise<AxiosResponse<IResponse<IQuestion>>> => {
+    return await this.post(`/questions/create`, data);
   };
 
-  updateQuestion = (
-    data: IUpdateQuestion
-  ): Promise<AxiosResponse<IResponse<IQuestion>>> => {
-    return this.put(`/questions/update/${data.id}`, data);
+  updateQuestion = async (data: IUpdateQuestion): Promise<AxiosResponse<IResponse<IQuestion>>> => {
+    return await this.put(`/questions/update/${data.id}`, data);
   };
 
-  deleteQuestion = (id: string): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.delete(`/questions/delete/${id}`);
+  deleteQuestion = async (id: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.delete(`/questions/delete/${id}`);
   };
 
-  getQuestionByID = (
-    id: string
-  ): Promise<AxiosResponse<IResponse<IQuestion>>> => {
-    return this.get(`/questions/find/${id}`);
+  getQuestionByID = async (id: string): Promise<AxiosResponse<IResponse<IQuestion>>> => {
+    return await this.get(`/questions/find/${id}`);
   };
 
-  viewQuestion = (id: string): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/view/${id}`);
+  viewQuestion = async (id: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/view/${id}`);
   };
 
-  voteQuestion = (
-    data: ICreateVoteQuestion
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/vote/${data.question_id}?type=${data.type}`);
+  voteQuestion = async (data: ICreateVoteQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/vote/${data.question_id}?type=${data.type}`);
   };
 
-  commentQuestion = (
+  commentQuestion = async (data: ICreateCommentQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/comment/${data.question_id}`, data);
+  };
+
+  updateCommentQuestion = async (
     data: ICreateCommentQuestion
   ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/comment/${data.question_id}`, data);
+    return await this.put(`/questions/comment/update/${data.question_id}`, data);
   };
 
-  updateCommentQuestion = (
-    data: ICreateCommentQuestion
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/comment/update/${data.question_id}`, data);
-  };
-
-  deleteCommentQuestion = (
+  deleteCommentQuestion = async (
     data: IDeleteCommentQuestion
   ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.delete(`/questions/comment/delete/${data.question_id}`, data);
+    return await this.delete(`/questions/comment/delete/${data.question_id}`, data);
   };
 
-  voteCommentQuestion = (
-    data: ICommentVoteQuestion
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/comment/vote/${data.question_id}`, data);
+  voteCommentQuestion = async (data: ICommentVoteQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/comment/vote/${data.question_id}`, data);
   };
 
-  answerQuestion = (
-    data: ICreateAnswerQuestion
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/answer/${data.question_id}`, data);
+  answerQuestion = async (data: ICreateAnswerQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/answer/${data.question_id}`, data);
   };
-  updateAnswer = (
-    data: IUpdateAnswer
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/answer/update/${data.question_id}`, data);
+  updateAnswer = async (data: IUpdateAnswer): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/answer/update/${data.question_id}`, data);
   };
 
-  deleteAnswer = (
-    data: IDeleteAnswer
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.delete(`/questions/answer/delete/${data.question_id}`, data);
+  deleteAnswer = async (data: IDeleteAnswer): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.delete(`/questions/answer/delete/${data.question_id}`, data);
   };
 
-  commentAnswer = (
-    data: ICreateCommentAnswer
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/answer/comment/${data.question_id}`, data);
+  commentAnswer = async (data: ICreateCommentAnswer): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/answer/comment/${data.question_id}`, data);
   };
 
-  updateCommentAnswer = (
-    data: IUpdateCommentQuestion
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(
-      `/questions/answer/comment/update/${data.question_id}`,
-      data
-    );
+  updateCommentAnswer = async (data: IUpdateCommentQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/answer/comment/update/${data.question_id}`, data);
   };
 
-  voteCommentAnswer = (
-    data: ICommentVoteQuestion
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/answer/comment/vote/${data.question_id}`, data);
+  voteCommentAnswer = async (data: ICommentVoteQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/answer/comment/vote/${data.question_id}`, data);
   };
 
-  deleteCommentAnswer = (
-    data: IDeleteCommentQuestion
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.delete(
-      `/questions/answer/comment/delete/${data.question_id}`,
-      data
-    );
+  deleteCommentAnswer = async (data: IDeleteCommentQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.delete(`/questions/answer/comment/delete/${data.question_id}`, data);
   };
 
-  voteAnswer = (
-    data: ICreateVoteAnswer
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.put(`/questions/answer/vote/${data.question_id}`, data);
+  voteAnswer = async (data: ICreateVoteAnswer): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/questions/answer/vote/${data.question_id}`, data);
   };
 
   saveQuestion = (

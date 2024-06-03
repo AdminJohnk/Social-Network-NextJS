@@ -7,22 +7,16 @@ class ImageService extends BaseService {
   constructor() {
     super();
   }
-  uploadImage = (
-    data: FormData
-  ): Promise<AxiosResponse<IResponse<IImageResponse>>> => {
-    return this.post(`/images/upload-one`, data);
+  uploadImage = async (data: FormData): Promise<AxiosResponse<IResponse<IImageResponse>>> => {
+    return await this.post(`/images/upload-one`, data);
   };
 
-  uploadImages = (
-    data: FormData
-  ): Promise<AxiosResponse<IResponse<string[]>>> => {
-    return this.post(`/images/upload-multiple`, data);
+  uploadImages = async (data: FormData): Promise<AxiosResponse<IResponse<string[]>>> => {
+    return await this.post(`/images/upload-multiple`, data);
   };
 
-  deleteImages = (data: {
-    images: string[];
-  }): Promise<AxiosResponse<IResponse<string[]>>> => {
-    return this.delete(`/images/delete-multiple`, data);
+  deleteImages = async (data: { images: string[] }): Promise<AxiosResponse<IResponse<string[]>>> => {
+    return await this.delete(`/images/delete-multiple`, data);
   };
 }
 

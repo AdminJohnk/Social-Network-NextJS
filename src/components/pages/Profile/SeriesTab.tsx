@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { useGetAllSeries } from '@/hooks/query';
+import { useGetAllSeriesByUserID } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
 import { FaRegCircle } from 'react-icons/fa';
 import { Link } from '@/navigation';
@@ -17,7 +17,7 @@ export interface ISeriesTabProps {
 export default function SeriesTab({ profileID }: ISeriesTabProps) {
   const t = useTranslations();
   const { allSeries, isFetchingNextSeries, hasNextSeries, isLoadingAllSeries } =
-    useGetAllSeries(profileID);
+    useGetAllSeriesByUserID(profileID);
 
   return (
     <div className='bg-foreground-1 my-8 w-full rounded-md px-20 py-8'>
@@ -30,24 +30,14 @@ export default function SeriesTab({ profileID }: ISeriesTabProps) {
       ) : (
         allSeries?.map((series, index) => {
           const description =
-            series.description.length > 150
-              ? series.description.slice(0, 150) + '...'
-              : series.description;
+            series.description.length > 150 ? series.description.slice(0, 150) + '...' : series.description;
 
           return (
             <div key={index}>
-              <Link
-                href={`/series/${series._id}`}
-                className='grid grid-cols-5 gap-4 cursor-pointer'
-              >
+              <Link href={`/series/${series._id}`} className='grid grid-cols-5 gap-4 cursor-pointer'>
                 <div className='col-span-4'>
-                  <h1 className='h3-bold hover:underline duration-300'>
-                    {series.title}
-                  </h1>
-                  <p
-                    className='text-text-2 mt-4'
-                    dangerouslySetInnerHTML={{ __html: description }}
-                  ></p>
+                  <h1 className='h3-bold hover:underline duration-300'>{series.title}</h1>
+                  <p className='text-text-2 mt-4' dangerouslySetInnerHTML={{ __html: description }}></p>
                   <Button className='my-4'>{t('View series')}</Button>
                 </div>
                 <div className='col-span-1'>
@@ -65,16 +55,13 @@ export default function SeriesTab({ profileID }: ISeriesTabProps) {
                   <div key={index} className='w-full group cursor-pointer'>
                     <Link
                       className='flex items-center w-full'
-                      href={`/series/${series._id}/posts/${post._id}`}
-                    >
+                      href={`/series/${series._id}/posts/${post._id}`}>
                       <FaRegCircle className='text-blue-500 size-3' />
                       <div className='ms-3'>
                         <h2 className='h5-semibold hover:underline duration-300 group-hover:underline'>
                           {post.title}
                         </h2>
-                        <p className='small-regular text-text-2'>
-                          {post.read_time + t(' min read')}
-                        </p>
+                        <p className='small-regular text-text-2'>{post.read_time + t(' min read')}</p>
                       </div>
                     </Link>
                   </div>

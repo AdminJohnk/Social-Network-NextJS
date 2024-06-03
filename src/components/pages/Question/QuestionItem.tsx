@@ -1,22 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Avatar, CircularProgress } from '@mui/material';
-import {
-  BiSolidDownArrow,
-  BiSolidTrashAlt,
-  BiSolidUpArrow
-} from 'react-icons/bi';
+import { BiSolidDownArrow, BiSolidTrashAlt, BiSolidUpArrow } from 'react-icons/bi';
 import { FaRegBookmark } from 'react-icons/fa6';
 import CommentItem from './CommentItem';
 import Divider from '@/components/shared/Divider';
 import { Link } from '@/navigation';
 import { IQuestion } from '@/types';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
-import {
-  useCommentQuestion,
-  useDeleteQuestion,
-  useSaveQuestion,
-  useVoteQuestion
-} from '@/hooks/mutation';
+import { useCommentQuestion, useDeleteQuestion, useSaveQuestion, useVoteQuestion } from '@/hooks/mutation';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
 import { useFormatter, useTranslations } from 'next-intl';
@@ -47,8 +38,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   const { currentUserInfo } = useCurrentUserInfo();
   const { mutateVoteQuestion } = useVoteQuestion();
   const { mutateDeleteQuestion, isLoadingDeleteQuestion } = useDeleteQuestion();
-  const { mutateCommentQuestion, isLoadingCommentQuestion } =
-    useCommentQuestion();
+  const { mutateCommentQuestion, isLoadingCommentQuestion } = useCommentQuestion();
   const { mutateSaveQuestion } = useSaveQuestion();
 
   const [vote, setVote] = useState<string>('cancel');
@@ -69,12 +59,8 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
 
   useEffect(() => {
     if (currentUserInfo) {
-      const voteUp = question.vote_up.find(
-        item => item === currentUserInfo._id
-      );
-      const voteDown = question.vote_down.find(
-        item => item === currentUserInfo._id
-      );
+      const voteUp = question.vote_up.find((item) => item === currentUserInfo._id);
+      const voteDown = question.vote_down.find((item) => item === currentUserInfo._id);
       if (voteUp) {
         setVote('up');
       } else if (voteDown) {
@@ -127,14 +113,10 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   return (
     <div>
       <div className='flex'>
-        <div className='flex flex-col gap-2 mr-3 text-center'>
-          <span
-            className={cn(
-              'p-2 rounded-full border border-border-1 cursor-pointer'
-            )}
-          >
+        <div className='mr-3 flex flex-col gap-2 text-center'>
+          <span className={cn('cursor-pointer rounded-full border border-border-1 p-2')}>
             <BiSolidUpArrow
-              className={cn('size-5 text-1', vote === 'up' && 'text-green-400')}
+              className={cn('text-1 size-5', vote === 'up' && 'text-green-400')}
               onClick={() => {
                 if (vote === 'up') {
                   mutateVoteQuestion({
@@ -156,16 +138,9 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
             />
           </span>
           <span className='h5-semibold'>{voteNumber}</span>
-          <span
-            className={cn(
-              'p-2 rounded-full border border-border-1 cursor-pointer'
-            )}
-          >
+          <span className={cn('cursor-pointer rounded-full border border-border-1 p-2')}>
             <BiSolidDownArrow
-              className={cn(
-                'size-5 text-1',
-                vote === 'down' && 'text-green-400'
-              )}
+              className={cn('text-1 size-5', vote === 'down' && 'text-green-400')}
               onClick={() => {
                 if (vote === 'down') {
                   mutateVoteQuestion({
@@ -186,10 +161,10 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
               }}
             />
           </span>
-          <span className='p-2 rounded-full'>
+          <span className='rounded-full p-2'>
             {!isSave ? (
               <IoBookmarkOutline
-                className='size-5 cursor-pointer text-text-2 hover:text-yellow-400 duration-300'
+                className='size-5 cursor-pointer text-text-2 duration-300 hover:text-yellow-400'
                 onClick={() => {
                   mutateSaveQuestion(question._id);
                   setIsSave(true);
@@ -208,27 +183,16 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
         </div>
         <div className='grow'>
           <ShowContent content={question.problem + question.expect} />
-          <div className='mt-6 flex-start gap-3 *:p-1 *:bg-1 *:rounded-md'>
+          <div className='flex-start *:bg-1 mt-6 gap-3 *:rounded-sm *:p-1'>
             {question.hashtags.map((tag, index) => (
               <span key={index}>{tag}</span>
             ))}
           </div>
-          <div
-            className={cn(
-              'flex justify-between mt-10 small-regular',
-              !isAuthor && 'justify-end'
-            )}
-          >
+          <div className={cn('small-regular mt-10 flex justify-between', !isAuthor && 'justify-end')}>
             <div className={cn('*:text-1 space-x-2', !isAuthor && 'hidden')}>
               <span onClick={() => setOpenEditQuestion(true)}>{t('Edit')}</span>
-              <Modal
-                open={openEditQuestion}
-                handleClose={() => setOpenEditQuestion(false)}
-              >
-                <CreateEditQuestion
-                  handleClose={() => setOpenEditQuestion(false)}
-                  dataEdit={question}
-                />
+              <Modal open={openEditQuestion} handleClose={() => setOpenEditQuestion(false)}>
+                <CreateEditQuestion handleClose={() => setOpenEditQuestion(false)} dataEdit={question} />
               </Modal>
               <QuestionDialog
                 open={openDeleteQuestion}
@@ -240,12 +204,10 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                 component={<span>{t('Delete')}</span>}
               />
             </div>
-            <div className='flex justify-between w-[70%]'>
-              <div className='text-text-2 pt-2'>
+            <div className='flex w-[70%] justify-between'>
+              <div className='pt-2 text-text-2'>
                 <span className='me-1'>{t('edited')}</span>
-                <span className='me-1'>
-                  {getFormattedDate(question.update_at)}
-                </span>
+                <span className='me-1'>{getFormattedDate(question.update_at)}</span>
                 <span className='space-x-1'>
                   <span>{t('at1')}</span>
                   <span>
@@ -256,12 +218,10 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                   </span>
                 </span>
               </div>
-              <div className='p-2 bg-blue-200 dark:bg-blue-950 rounded-lg'>
+              <div className='rounded-lg bg-blue-200 p-2 dark:bg-blue-950'>
                 <div className='text-text-2'>
                   <span className='me-1'>{t('asked')}</span>
-                  <span className='me-1'>
-                    {getFormattedDate(question.createdAt)}
-                  </span>
+                  <span className='me-1'>{getFormattedDate(question.createdAt)}</span>
                   <span className='space-x-1'>
                     <span>{t('at1')}</span>
                     <span>
@@ -272,84 +232,65 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                     </span>
                   </span>
                 </div>
-                <div className='flex-start'>
-                  <div className='mt-2'>
-                    <Link href={`/profile/${question.user._id}`}>
-                      <Avatar
-                        sx={{ width: 30, height: 30 }}
-                        src={getImageURL(question.user.user_image)}
-                      />
-                    </Link>
-                  </div>
-                  <div className='flex flex-col ms-2'>
+                <div className='flex-start mt-2'>
+                  <Link href={`/profile/${question.user._id}`}>
+                    <Avatar sx={{ width: 30, height: 30 }} src={getImageURL(question.user.user_image)} />
+                  </Link>
+
+                  <div className='ms-2 flex flex-col'>
                     <Link
                       href={`/profile/${question.user._id}`}
-                      className='text-blue-400 hover:text-blue-500 duration-300'
-                    >
+                      className='text-blue-400 duration-300 hover:text-blue-500'>
                       {question.user.name}
                     </Link>
-                    <span>{question.user.experiences[0].position_name}</span>
+                    <span>{question.user.experiences[0]?.position_name}</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <Divider className='mt-10' />
-          <div className='py-2 text-pretty'>
+          <div className='text-pretty py-2'>
             {question.comment
               .sort((a, b) => b.vote.length - a.vote.length)
-              .map(comment => (
-                <CommentItem
-                  key={question._id}
-                  comment={comment}
-                  questionID={question._id}
-                  type='que'
-                />
+              .map((comment) => (
+                <CommentItem key={question._id} comment={comment} questionID={question._id} type='que' />
               ))}
           </div>
           {/* Add comment */}
           <div className='text-1 text-[0.8rem]'>
             {!isAddComment ? (
-              <span
-                className='cursor-pointer'
-                onClick={() => setIsAddComment(true)}
-              >
+              <span className='cursor-pointer' onClick={() => setIsAddComment(true)}>
                 {t('Add a comment')}
               </span>
             ) : (
               <div>
                 <textarea
-                  className='w-full border border-border-1 rounded-lg p-2 resize-none bg-transparent custom-scrollbar-bg text-[0.8rem]'
+                  className='custom-scrollbar-bg w-full resize-none rounded-lg border border-border-1 bg-transparent p-2 text-[0.8rem]'
                   rows={3}
-                  onChange={e => setComment(e.target.value)}
+                  onChange={(e) => setComment(e.target.value)}
                 />
                 <div className='flex-between'>
                   <div
-                    className='text-blue-500 hover:text-blue-600 duration-300 small-regular cursor-pointer px-1'
-                    onClick={() => setIsAddComment(false)}
-                  >
+                    className='small-regular cursor-pointer px-1 text-blue-500 duration-300 hover:text-blue-600'
+                    onClick={() => setIsAddComment(false)}>
                     {t('Cancel')}
                   </div>
                   <div className='flex-start gap-2'>
                     <IoMdSend
                       className={cn(
-                        'size-5 text-blue-500 hover:text-blue-600 duration-300 cursor-pointer',
+                        'size-5 cursor-pointer text-blue-500 duration-300 hover:text-blue-600',
                         isLoadingCommentQuestion && 'select-none'
                       )}
                       onClick={() => handleAddComment()}
                     />
-                    {isLoadingCommentQuestion && (
-                      <CircularProgress
-                        size={20}
-                        className='!text-text-1 mr-2'
-                      />
-                    )}
+                    {isLoadingCommentQuestion && <CircularProgress size={20} className='mr-2 !text-text-1' />}
                   </div>
                 </div>
               </div>
             )}
           </div>
-          <Divider className='mt-2 mb-8' />
+          <Divider className='mb-8 mt-2' />
         </div>
       </div>
     </div>

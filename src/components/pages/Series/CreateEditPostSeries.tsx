@@ -12,12 +12,7 @@ import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
 import { cn, getImageURL } from '@/lib/utils';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import {
-  updatePostToSeries,
-  useAddPostToSeries,
-  useDeleteImage,
-  useUploadImage
-} from '@/hooks/mutation';
+import { updatePostToSeries, useAddPostToSeries, useDeleteImage, useUploadImage } from '@/hooks/mutation';
 import { IUpdateSeriesPost, TypeOfLevel, Visibility } from '@/types';
 import PostPrivacy from '@/components/shared/PostPrivacy';
 
@@ -159,9 +154,7 @@ export default function CreateEditPostSeries({
           series_id,
           title,
           description,
-          cover_image: changeImage
-            ? imagesUploaded?.key!
-            : dataEdit.cover_image,
+          cover_image: changeImage ? imagesUploaded?.key! : dataEdit.cover_image,
           content,
           read_time,
           visibility: privacy
@@ -187,9 +180,7 @@ export default function CreateEditPostSeries({
   return (
     <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[800px] animate-fade-up'>
       <div className='text-center py-4 border-b mb-0 border-border-1'>
-        <h2 className='text-sm font-medium text-text-1'>
-          {!dataEdit ? t('Add Post') : t('Update Post')}
-        </h2>
+        <h2 className='text-sm font-medium text-text-1'>{!dataEdit ? t('Add Post') : t('Update Post')}</h2>
       </div>
 
       <div className='max-h-[500px] overflow-y-scroll custom-scrollbar-bg px-5 pt-4 pb-10 *:mt-7'>
@@ -198,7 +189,7 @@ export default function CreateEditPostSeries({
             maxLength={100}
             label={t('Title')}
             defaultValue={dataEdit?.title}
-            onChange={e => {
+            onChange={(e) => {
               setTitle(e.currentTarget.value);
             }}
           />
@@ -207,7 +198,7 @@ export default function CreateEditPostSeries({
           label={t('Description')}
           maxLength={250}
           defaultValue={dataEdit?.description}
-          onChange={e => {
+          onChange={(e) => {
             setDescription(e.currentTarget.value);
           }}
         />
@@ -218,35 +209,20 @@ export default function CreateEditPostSeries({
             onChange={onChange}
             maxNumber={images.length > 0 ? 0 : 1}
             dataURLKey='data_url'
-            acceptType={['jpg', 'jpeg', 'png', 'gif']}
-          >
-            {({
-              imageList,
-              onImageUpload,
-              onImageRemoveAll,
-              onImageUpdate,
-              onImageRemove,
-              isDragging,
-              dragProps
-            }) => (
+            acceptType={['jpg', 'jpeg', 'png', 'gif']}>
+            {({ imageList, onImageUpload, onImageRemoveAll }) => (
               <div>
-                <div className='mb-3'>
-                  {t('Add a cover image for your post')}
-                </div>
+                <div className='mb-3'>{t('Add a cover image for your post')}</div>
                 <div className='flex-start gap-4'>
                   <button
                     type='button'
                     className='flex items-center gap-1.5 bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'
-                    onClick={onImageUpload}
-                  >
+                    onClick={onImageUpload}>
                     <IoImage className='text-base' />
                     {t('Image')}
                   </button>
                   {imageList.length > 0 && (
-                    <div
-                      className='flex-start text-1'
-                      onClick={onImageRemoveAll}
-                    >
+                    <div className='flex-start text-1' onClick={onImageRemoveAll}>
                       <span>{t('Remove')}</span>
                       <IoClose className='size-5' />
                     </div>
@@ -256,10 +232,7 @@ export default function CreateEditPostSeries({
                   <div className='mt-5'>
                     <Image
                       className='w-[90%]'
-                      src={
-                        getImageURL(images[0]?.data_url) ||
-                        '/images/no-image.png'
-                      }
+                      src={getImageURL(images[0]?.data_url) || '/images/no-image.png'}
                       width={1500}
                       height={1500}
                       alt='image'
@@ -274,7 +247,7 @@ export default function CreateEditPostSeries({
         <div className='editor space-y-5'>
           <Editor
             setEditor={setEditor}
-            placeholder={t('What do you have in mind?')}
+            placeholder={t('Introduction about the post')}
             content={dataEdit?.content || ''}
             autofocus={false}
           />
@@ -286,16 +259,10 @@ export default function CreateEditPostSeries({
         <div className='flex items-center gap-2'>
           <Button
             type='button'
-            className={cn(
-              'button lg:px-6 text-white max-md:flex-1',
-              isLoading && 'select-none'
-            )}
+            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
             disabled={isLoading}
-            onClick={handleSubmit}
-          >
-            {isLoading && (
-              <CircularProgress size={20} className='!text-text-1 mr-2' />
-            )}
+            onClick={handleSubmit}>
+            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
             {dataEdit ? t('Update') : t('Publish')}
             <span className='ripple-overlay'></span>
           </Button>

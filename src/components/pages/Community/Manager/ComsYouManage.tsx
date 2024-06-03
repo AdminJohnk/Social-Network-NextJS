@@ -46,7 +46,7 @@ export default function ComsYouManage() {
                 <Link href={`/community/${community._id}`}>
                   <div className='card-media h-24'>
                     <Image width={500} height={500} src={getImageURL(community.image)} alt='image' priority />
-                    <div className='card-overly'></div>
+                    <div className='card-overlay'></div>
                   </div>
                 </Link>
                 <div className='card-body relative z-10'>

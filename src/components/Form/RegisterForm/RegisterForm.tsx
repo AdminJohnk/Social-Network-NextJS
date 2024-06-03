@@ -24,7 +24,7 @@ export interface IRegisterFormProps {
 const classStyleInput: ClassValue =
   'shadow-sm bg-gray-50 border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light placeholder:text-gray-900';
 
-export default function RegisterForm(props: IRegisterFormProps) {
+export default function RegisterForm({ className }: IRegisterFormProps) {
   const t = useTranslations();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -71,7 +71,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
   };
 
   return (
-    <div className={cn(props.className, 'flex-center')}>
+    <div className={cn(className, 'flex-center')}>
       <div className='w-full'>
         <div className='flex-center'>
           <div>

@@ -7,16 +7,16 @@ class SearchLogService extends BaseService {
     super();
   }
 
-  getAllSearchLog = (): Promise<AxiosResponse<IResponse<ISearchLog>>> => {
-    return this.get(`/searchlog`);
+  getAllSearchLog = async (): Promise<AxiosResponse<IResponse<ISearchLog>>> => {
+    return await this.get(`/searchlog`);
   };
 
-  createSearchLog = (searchLog: ICreateSearchLog): Promise<AxiosResponse<IResponse<ISearchLog>>> => {
-    return this.post(`/searchlog`, searchLog);
+  createSearchLog = async (searchLog: ICreateSearchLog): Promise<AxiosResponse<IResponse<ISearchLog>>> => {
+    return await this.post(`/searchlog`, searchLog);
   };
 
-  deleteSearchLog = (searchLog: ICreateSearchLog): Promise<AxiosResponse<IResponse<ISearchLog>>> => {
-    return this.put(`/searchlog`, searchLog);
+  deleteSearchLog = async (searchLog: ICreateSearchLog): Promise<AxiosResponse<IResponse<ISearchLog>>> => {
+    return await this.put(`/searchlog`, searchLog);
   };
 }
 

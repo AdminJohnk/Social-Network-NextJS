@@ -1,20 +1,22 @@
+import { AxiosResponse } from 'axios';
 import { BaseService } from './BaseService';
+import { IResponse } from '@/types';
 
 class GetStartedService extends BaseService {
   constructor() {
     super();
   }
-  chooseGetStarted = (number: Number) => {
-    return this.post(`/getstarted`, number);
+  chooseGetStarted = async (number: Number): Promise<AxiosResponse<IResponse<any>>> => {
+    return await this.post(`/getstarted`, number);
   };
-  chooseInterest = (interest: any) => {
-    return this.post(`/users/expertise`, interest);
+  chooseInterest = async (interest: any): Promise<AxiosResponse<IResponse<any>>> => {
+    return await this.post(`/users/expertise`, interest);
   };
-  getShouldAddFriend = () => {
-    return this.get(`/user/shouldAddFriend`);
+  getShouldAddFriend = async (): Promise<AxiosResponse<IResponse<any>>> => {
+    return await this.get(`/user/shouldAddFriend`);
   };
-  chooseShouldFriendPeople = (arrPeople: any) => {
-    return this.post(`/interest`, arrPeople);
+  chooseShouldFriendPeople = async (arrPeople: any): Promise<AxiosResponse<IResponse<any>>> => {
+    return await this.post(`/interest`, arrPeople);
   };
 }
 

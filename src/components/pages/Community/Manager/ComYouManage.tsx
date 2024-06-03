@@ -22,7 +22,7 @@ export default function ComYouManage() {
                 <div className='relative'>
                   <div className='card-media md:aspect-[2/1.8] max-lg:h-28 rounded-lg'>
                     <Image width={500} height={500} src='/images/group/group-1.jpg' alt='' />
-                    <div className='card-overly'></div>
+                    <div className='card-overlay'></div>
                   </div>
                   <h4 className='card-title text-sm pt-2 line-clamp-1'>Graphic Design</h4>
                   <div className='bg-blue-600 rounded-full w-3 h-3 ring-4 ring-white absolute top-0 right-0 -m-1 z-[2]'></div>
@@ -34,7 +34,7 @@ export default function ComYouManage() {
                 <div className='relative'>
                   <div className='card-media md:aspect-[2/1.8] max-lg:h-28 rounded-lg'>
                     <Image width={500} height={500} src='/images/group/group-2.jpg' alt='' />
-                    <div className='card-overly'></div>
+                    <div className='card-overlay'></div>
                   </div>
                   <h4 className='card-title text-sm pt-2 line-clamp-1'>Delicious Foods</h4>
                   <div className='bg-blue-600 rounded-full w-3 h-3 ring-4 ring-white absolute top-0 right-0 -m-1 z-[2]'></div>
@@ -46,7 +46,7 @@ export default function ComYouManage() {
                 <div className='relative'>
                   <div className='card-media md:aspect-[2/1.8] max-lg:h-28 rounded-lg'>
                     <Image width={500} height={500} src='/images/group/group-3.jpg' alt='' />
-                    <div className='card-overly'></div>
+                    <div className='card-overlay'></div>
                   </div>
                   <h4 className='card-title text-sm pt-2 line-clamp-1'>Abstract minimal</h4>
                   <div className='bg-blue-600 rounded-full w-3 h-3 ring-4 ring-white absolute top-0 right-0 -m-1 z-[2]'></div>
@@ -58,7 +58,7 @@ export default function ComYouManage() {
                 <div className='relative'>
                   <div className='card-media md:aspect-[2/1.8] max-lg:h-28 rounded-lg'>
                     <Image width={500} height={500} src='/images/group/group-4.jpg' alt='' />
-                    <div className='card-overly'></div>
+                    <div className='card-overlay'></div>
                   </div>
                   <h4 className='card-title text-sm pt-2 line-clamp-1'>Delicious Foods</h4>
                 </div>
@@ -69,7 +69,7 @@ export default function ComYouManage() {
                 <div className='relative'>
                   <div className='card-media md:aspect-[2/1.8] max-lg:h-28 rounded-lg'>
                     <Image width={500} height={500} src='/images/group/group-5.jpg' alt='' />
-                    <div className='card-overly'></div>
+                    <div className='card-overlay'></div>
                   </div>
                   <h4 className='card-title text-sm pt-2 line-clamp-1'>Property Rent</h4>
                 </div>
@@ -80,7 +80,7 @@ export default function ComYouManage() {
                 <div className='relative'>
                   <div className='card-media md:aspect-[2/1.8] max-lg:h-28 rounded-lg'>
                     <Image width={500} height={500} src='/images/group/group-3.jpg' alt='' />
-                    <div className='card-overly'></div>
+                    <div className='card-overlay'></div>
                   </div>
                   <h4 className='card-title text-sm pt-2 line-clamp-1'>Abstract minimal</h4>
                   <div className='bg-blue-600 rounded-full w-3 h-3 ring-4 ring-white absolute top-0 right-0 -m-1 z-[2]'></div>
@@ -92,7 +92,7 @@ export default function ComYouManage() {
                 <div className='relative'>
                   <div className='card-media md:aspect-[2/1.8] max-lg:h-28 rounded-lg'>
                     <Image width={500} height={500} src='/images/group/group-1.jpg' alt='' />
-                    <div className='card-overly'></div>
+                    <div className='card-overlay'></div>
                   </div>
                   <h4 className='card-title text-sm pt-2 line-clamp-1'>Graphic Design</h4>
                 </div>
@@ -103,7 +103,7 @@ export default function ComYouManage() {
                 <div className='relative'>
                   <div className='card-media md:aspect-[2/1.8] max-lg:h-28 rounded-lg'>
                     <Image width={500} height={500} src='/images/group/group-1.jpg' alt='' />
-                    <div className='card-overly'></div>
+                    <div className='card-overlay'></div>
                   </div>
                   <h4 className='card-title text-sm pt-2 line-clamp-1'>Graphic Design</h4>
                 </div>

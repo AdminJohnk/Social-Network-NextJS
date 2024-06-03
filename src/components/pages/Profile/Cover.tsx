@@ -386,32 +386,32 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
               <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron active={tab}>
                 <TabTitle
                   className='hover:bg-hover-1 !rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('timeline'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('timeline'))}>
                   {t('Timeline')}
                 </TabTitle>
                 <TabTitle
                   className='hover:bg-hover-1 !rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('friends'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('friends'))}>
                   {t('Friends')}
                 </TabTitle>
                 <TabTitle
                   className='hover:bg-hover-1 !rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('series'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('series'))}>
                   {t('Series')}
                 </TabTitle>
                 <TabTitle
                   className='hover:bg-hover-1 !rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('photos'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('photos'))}>
                   {t('Photos')}
                 </TabTitle>
                 <TabTitle
                   className='hover:bg-hover-1 !rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('repositories'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('repositories'))}>
                   {t('Repositories')}
                 </TabTitle>
                 <TabTitle
                   className='hover:bg-hover-1 !rounded-sm'
-                  onClick={() => router.push(pathname + '?' + createQueryString('communities'))}>
+                  onClick={() => router.replace(pathname + '?' + createQueryString('communities'))}>
                   {t('Communities')}
                 </TabTitle>
               </Tabs>

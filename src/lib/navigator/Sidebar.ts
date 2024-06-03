@@ -10,9 +10,9 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Messages'
   },
   {
-    href: '/events',
-    image: '/images/home/event.png',
-    label: 'Events'
+    href: '/questions',
+    image: '/images/home/question.png',
+    label: 'Questions'
   },
   {
     href: '/community',
@@ -20,13 +20,13 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Communities'
   },
   {
-    href: '/blogs',
+    href: '/series',
     image: '/images/home/blog.png',
-    label: 'Blog'
+    label: 'Series'
   },
   {
     href: '/favorites',
-    image: '/images/home/event.png',
+    image: '/images/home/favorites.png',
     label: 'Favorites'
   }
 ];

@@ -1,3 +1,5 @@
+'use client';
+
 import Modal from '@/components/shared/Modal';
 import {
   AlertDialog,
@@ -21,6 +23,7 @@ import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
 import { cn } from '@/lib/utils';
 import { IoIosMore } from 'react-icons/io';
+import { Timeline } from 'flowbite-react';
 
 export interface IPostItemProps {
   post: ISeriesPost;
@@ -64,35 +67,31 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
   };
 
   return (
-    <div key={post._id} className='flex items-center w-full'>
-      <FaRegCircle className='text-blue-500 size-3' />
-      <div className='ms-3 text-text-2'> 
-        <div className='flex-start gap-3'>
-          <Link
-            href={`/series/${series_id}/posts/${post._id}`}
-            className='h5-semibold  cursor-pointer'
-          >
+    <Timeline.Item>
+      <Timeline.Point
+        className='*:!ring-transparent *:!bg-background-1 *:*:!text-blue-500'
+        icon={FaRegCircle}
+      />
+      <Timeline.Content className='text-text-2'>
+        <Timeline.Title className='flex-start gap-3'>
+          <Link className='h5-semibold cursor-pointer' href={`/series/${series_id}/posts/${post._id}`}>
             {post.title}
           </Link>
           {isMe && (
             <div>
-              <IoIosMore className='size-5 text-1 outline-none' />
-              <div data-uk-drop='offset: 4; pos: right-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
+              <IoIosMore className='size-5 text-1 select-none outline-none' />
+              <div data-uk-drop='offset: 4; pos: right-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
                 <div className='flex flex-col gap-0.5 p-1 bg-foreground-1 rounded-lg shadow-lg *:px-2.5 *:py-1.5 hover:*:!bg-hover-1 *:cursor-pointer *:rounded-lg *:uk-drop-close'>
                   <div>
                     <div
                       className='flex-start gap-2 uk-drop-close'
                       onClick={() => {
                         setOpenEditPost(true);
-                      }}
-                    >
+                      }}>
                       <FaPencilAlt className='size-4 text-1' />
                       <span>{t('Edit')}</span>
                     </div>
-                    <Modal
-                      open={openEditPost}
-                      handleClose={() => setOpenEditPost(false)}
-                    >
+                    <Modal open={openEditPost} handleClose={() => setOpenEditPost(false)}>
                       <CreateEditPostSeries
                         handleClose={() => setOpenEditPost(false)}
                         series_id={series_id}
@@ -111,14 +110,10 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
                       />
                     </Modal>
                   </div>
-                  <AlertDialog
-                    open={openDeletePost}
-                    onOpenChange={setOpenDeletePost}
-                  >
+                  <AlertDialog open={openDeletePost} onOpenChange={setOpenDeletePost}>
                     <AlertDialogTrigger
                       className='w-full text-1 uk-drop-close'
-                      onClick={handleOpenDeletePost}
-                    >
+                      onClick={handleOpenDeletePost}>
                       <div className='flex-start gap-2'>
                         <BiSolidTrashAlt className='size-5 text-1' />
                         <span>{t('Delete')}</span>
@@ -126,13 +121,9 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>
-                          {t('Are you absolutely sure delete this post?')}
-                        </AlertDialogTitle>
+                        <AlertDialogTitle>{t('Are you absolutely sure delete this post?')}</AlertDialogTitle>
                         <AlertDialogDescription>
-                          {t(
-                            'You will not be able to recover post after deletion!'
-                          )}
+                          {t('You will not be able to recover post after deletion!')}
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
@@ -140,21 +131,14 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
                           variant='destructive'
                           className={cn(isLoading && 'select-none')}
                           disabled={isLoading}
-                          onClick={handleCloseDeletePost}
-                        >
+                          onClick={handleCloseDeletePost}>
                           {t('Cancel')}
                         </Button>
                         <Button
                           className={cn(isLoading && 'select-none')}
                           disabled={isLoading}
-                          onClick={handleDeletePost}
-                        >
-                          {isLoading && (
-                            <CircularProgress
-                              size={20}
-                              className='!text-text-1 mr-2'
-                            />
-                          )}
+                          onClick={handleDeletePost}>
+                          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
                           {t('Delete')}
                         </Button>
                       </AlertDialogFooter>
@@ -164,9 +148,9 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
               </div>
             </div>
           )}
-        </div>
-        <p className='small-regular'>{post.read_time + t(' min read')}</p>
-      </div>
-    </div>
+        </Timeline.Title>
+        <Timeline.Body className='small-regular'>{post.read_time + t(' min read')}</Timeline.Body>
+      </Timeline.Content>
+    </Timeline.Item>
   );
 }

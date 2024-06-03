@@ -68,7 +68,7 @@ export interface IFriendTabProps {
 
 export default function FriendTab({ profileID }: IFriendTabProps) {
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
-  console.log(otherUserInfo?.friends);
+  
   return (
     <>
       {isLoadingOtherUserInfo ? (

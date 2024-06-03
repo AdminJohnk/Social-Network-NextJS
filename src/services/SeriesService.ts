@@ -24,121 +24,109 @@ class SeriesService extends BaseService {
     super();
   }
 
-  createSeries = (
-    data: ICreateSeries
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.post(`/series/create`, data);
+  increaseViewSeries = async (id: string): Promise<AxiosResponse<IResponse<ISeries | true>>> => {
+    return await this.put(`/series/increase-view/${id}`);
   };
 
-  getAllSeries = (
+  createSeries = async (data: ICreateSeries): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.post(`/series/create`, data);
+  };
+
+  getAllSeriesByUserID = async (
     profileID: string,
     pageParam: number
   ): Promise<AxiosResponse<IResponse<ISeries[]>>> => {
-    return this.get(`/series/all/${profileID}?page=${pageParam}`);
+    return await this.get(`/series/all/${profileID}?page=${pageParam}`);
   };
 
-  getSeriesByID = (id: string): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.get(`/series/find/${id}`);
+  getAllSeries = async (pageParam: number): Promise<AxiosResponse<IResponse<ISeries[]>>> => {
+    return await this.get(`/series/all?page=${pageParam}`);
   };
 
-  updateSeries = (
-    data: IUpdateSeries
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/update/${data.id}`, data);
+  getSeriesByID = async (id: string): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.get(`/series/find/${id}`);
   };
 
-  addPostToSeries = (
-    post: ICreateSeriesPost
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.post(`/series/create-post/${post.series_id}`, post);
+  updateSeries = async (data: IUpdateSeries): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.put(`/series/update/${data.id}`, data);
   };
 
-  updatePostToSeries = (
-    post: ICreateSeriesPost
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/update-post/${post.series_id}`, post);
+  addPostToSeries = async (post: ICreateSeriesPost): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.post(`/series/create-post/${post.series_id}`, post);
   };
 
-  deletePostToSeries = (
-    post: IDeleteSeriesPost
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.delete(`/series/delete-post/${post.series_id}/${post.id}`);
+  updatePostToSeries = async (post: ICreateSeriesPost): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.put(`/series/update-post/${post.series_id}`, post);
   };
 
-  deleteSeries = (id: string): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.delete(`/series/delete/${id}`);
+  deletePostToSeries = async (post: IDeleteSeriesPost): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.delete(`/series/delete-post/${post.series_id}/${post.id}`);
   };
 
-  reviewSeries = (
-    data: ICreateReviewSeries
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/review`, data);
+  deleteSeries = async (id: string): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.delete(`/series/delete/${id}`);
   };
 
-  deleteReviewSeries = (
-    data: IDeleteReviewSeries
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.delete(`/series/delete-review`, data);
+  reviewSeries = async (data: ICreateReviewSeries): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.put(`/series/review`, data);
   };
 
-  commentPostSeries = (
+  deleteReviewSeries = async (data: IDeleteReviewSeries): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.delete(`/series/delete-review`, data);
+  };
+
+  commentPostSeries = async (data: ICreateCommentSeriesPost): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.put(`/series/comment-post`, data);
+  };
+
+  updateCommentPostSeries = async (
     data: ICreateCommentSeriesPost
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/comment-post`, data);
+    return await this.put(`/series/update-comment-post`, data);
   };
 
-  updateCommentPostSeries = (
-    data: ICreateCommentSeriesPost
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/update-comment-post`, data);
-  };
-
-  deleteCommentPostSeries = (
+  deleteCommentPostSeries = async (
     data: IDeleteCommentSeriesPost
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.delete(`/series/delete-comment-post`, data);
+    return await this.delete(`/series/delete-comment-post`, data);
   };
 
-  replyCommentPostSeries = (
+  replyCommentPostSeries = async (
     data: ICreateReplyCommentSeriesPost
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/reply-comment-post`, data);
+    return await this.put(`/series/reply-comment-post`, data);
   };
 
-  updateReplyCommentPostSeries = (
+  updateReplyCommentPostSeries = async (
     data: ICreateReplyCommentSeriesPost
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/update-reply-comment-post`, data);
+    return await this.put(`/series/update-reply-comment-post`, data);
   };
 
-  deleteReplyCommentPostSeries = (
+  deleteReplyCommentPostSeries = async (
     data: IDeleteCommentSeriesPost
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.delete(`/series/delete-reply-comment-post`, data);
+    return await this.delete(`/series/delete-reply-comment-post`, data);
   };
 
-  likePostSeries = (
-    data: ILikeSeriesPost
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/like-post`, data);
+  likePostSeries = async (data: ILikeSeriesPost): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.put(`/series/like-post`, data);
   };
 
-  likeCommentSeriesPost = (
+  likeCommentSeriesPost = async (
     data: ILikeCommentSeriesPost
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/like-comment-post`, data);
+    return await this.put(`/series/like-comment-post`, data);
   };
 
-  likeReplyCommentSeriesPost = (
+  likeReplyCommentSeriesPost = async (
     data: ILikeReplyCommentSeriesPost
   ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/like-reply-comment-post`, data);
+    return await this.put(`/series/like-reply-comment-post`, data);
   };
 
-  savePostSeries = (
-    data: ISaveSeriesPost
-  ): Promise<AxiosResponse<IResponse<ISeries>>> => {
-    return this.put(`/series/save-post`, data);
+  savePostSeries = async (data: ISaveSeriesPost): Promise<AxiosResponse<IResponse<ISeries>>> => {
+    return await this.put(`/series/save-post`, data);
   };
 }
 

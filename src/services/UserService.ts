@@ -8,54 +8,55 @@ class UserService extends BaseService {
     super();
   }
 
-  updateUser = (userUpdate: IUserUpdate): Promise<AxiosResponse<IResponse<IUserInfo>>> => {
-    return this.put(`/users/update`, userUpdate);
+  getAllUsers = async (userID: string): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
+    return await this.get(`/users/all/${userID}`);
+  };
+  updateUser = async (userUpdate: IUserUpdate): Promise<AxiosResponse<IResponse<IUserInfo>>> => {
+    return await this.put(`/users/update`, userUpdate);
+  };
+  getFriends = async (userID: string): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
+    return await this.get(`/users/friend_list/${userID}`);
+  };
+  getRequestSent = async (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
+    return await this.get(`/users/request_sent`, userID);
+  };
+  getRequestReceived = async (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
+    return await this.get(`/users/request_received`, userID);
+  };
+  sendFriendRequest = async (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.post(`/users/send_friend_request/${userID}`, '');
+  };
+  acceptFriendRequest = async (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.post(`/users/accept_friend_request/${userID}`, '');
+  };
+  cancelFriendRequest = async (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.post(`/users/cancel_friend_request/${userID}`);
+  };
+  declineFriendRequest = async (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.post(`/users/decline_friend_request/${userID}`);
+  };
+  deleteFriend = async (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.post(`/users/delete_friend/${userID}`);
   };
 
-  // Friend request
-  getFriends = (userID: string): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
-    return this.get(`/users/friend_list/${userID}`);
+  getShouldAddFriend = async (): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
+    return await this.get(`/users/should-add-friend`);
   };
-  getRequestSent = (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
-    return this.get(`/users/request_sent`, userID);
+  getUserInfo = async (): Promise<AxiosResponse<IResponse<IUserInfo>>> => {
+    return await this.get(`/users/me`);
   };
-  getRequestReceived = (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
-    return this.get(`/users/request_received`, userID);
+  getUserInfoByID = async (userID: string): Promise<AxiosResponse<IResponse<IUserInfo>>> => {
+    return await this.get(`/users/find/${userID}`);
   };
-  sendFriendRequest = (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.post(`/users/send_friend_request/${userID}`, '');
-  };
-  acceptFriendRequest = (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.post(`/users/accept_friend_request/${userID}`, '');
-  };
-  cancelFriendRequest = (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.post(`/users/cancel_friend_request/${userID}`);
-  };
-  declineFriendRequest = (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.post(`/users/decline_friend_request/${userID}`);
-  };
-  deleteFriend = (userID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return this.post(`/users/delete_friend/${userID}`);
+  searchUsersByName = async (
+    keyword: string,
+    page: number
+  ): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
+    return await this.get(`/users/search/top/?search=${keyword}&page=${page}`);
   };
 
-  getShouldAddFriend = (): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
-    return this.get(`/users/should-add-friend`);
-  };
-
-  // User request
-  getUserInfo = (): Promise<AxiosResponse<IResponse<IUserInfo>>> => {
-    return this.get(`/users/me`);
-  };
-  getUserInfoByID = (userID: string): Promise<AxiosResponse<IResponse<IUserInfo>>> => {
-    return this.get(`/users/find/${userID}`);
-  };
-
-  searchUsersByName = (keyword: string, page: number): Promise<AxiosResponse<IResponse<IUserInfo[]>>> => {
-    return this.get(`/users/search/top/?search=${keyword}&page=${page}`);
-  };
-
-  getRepository = (link: string): Promise<AxiosResponse<ICreateRepository[]>> => {
-    return this.getGithub(link);
+  getRepository = async (link: string): Promise<AxiosResponse<ICreateRepository[]>> => {
+    return await this.getGithub(link);
   };
 }
 

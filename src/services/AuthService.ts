@@ -13,38 +13,38 @@ class AuthService extends BaseService {
   constructor() {
     super();
   }
-  register = (userRegister: IUserRegister) => {
-    return this.post(`/auth/signup`, userRegister);
+  register = async (userRegister: IUserRegister) => {
+    return await this.post(`/auth/signup`, userRegister);
   };
-  login = (userLogin: IUserLogin) => {
-    return this.post(`/auth/login`, userLogin);
+  login = async (userLogin: IUserLogin) => {
+    return await this.post(`/auth/login`, userLogin);
   };
-  loginWithGoogle = (email: IGoogleLogin) => {
-    return this.post(`/auth/login-google`, email);
+  loginWithGoogle = async (email: IGoogleLogin) => {
+    return await this.post(`/auth/login-google`, email);
   };
-  loginWithGithub = (email: IGithubLogin) => {
-    return this.post(`/auth/login-github`, email);
+  loginWithGithub = async (email: IGithubLogin) => {
+    return await this.post(`/auth/login-github`, email);
   };
-  logout = () => {
-    return this.post(`/auth/logout`);
+  logout = async () => {
+    return await this.post(`/auth/logout`);
   };
-  changePassword = (data: IResetPassword) => {
-    return this.post(`/auth/change-password`, data);
+  changePassword = async (data: IResetPassword) => {
+    return await this.post(`/auth/change-password`, data);
   };
-  forgotPassword = (email: string) => {
-    return this.post(`/auth/forgot`, email);
+  forgotPassword = async (email: string) => {
+    return await this.post(`/auth/forgot`, email);
   };
-  verifyCode = (data: IVerifyCode) => {
-    return this.post(`/auth/verify`, data);
+  verifyCode = async (data: IVerifyCode) => {
+    return await this.post(`/auth/verify`, data);
   };
-  checkVerifyCode = (data: IForgotPassword) => {
-    return this.post(`/auth/checkVerify`, data);
+  checkVerifyCode = async (data: IForgotPassword) => {
+    return await this.post(`/auth/checkVerify`, data);
   };
-  resetPassword = (data: IResetPassword) => {
-    return this.post(`/auth/reset`, data);
+  resetPassword = async (data: IResetPassword) => {
+    return await this.post(`/auth/reset`, data);
   };
-  checkResetPassword = (data: IForgotPassword) => {
-    return this.post(`/auth/checkReset`, data);
+  checkResetPassword = async (data: IForgotPassword) => {
+    return await this.post(`/auth/checkReset`, data);
   };
 }
 

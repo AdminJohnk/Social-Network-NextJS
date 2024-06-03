@@ -13,12 +13,7 @@ import { Button } from '@/components/ui/button';
 import { CircularProgress } from '@mui/material';
 import { cn, getImageURL } from '@/lib/utils';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import {
-  useCreateSeries,
-  useDeleteImage,
-  useUpdateSeries,
-  useUploadImage
-} from '@/hooks/mutation';
+import { useCreateSeries, useDeleteImage, useUpdateSeries, useUploadImage } from '@/hooks/mutation';
 import { IUpdateSeries, TypeOfLevel, Visibility } from '@/types';
 import PostPrivacy from '@/components/shared/PostPrivacy';
 import { useRouter } from '@/navigation';
@@ -28,10 +23,7 @@ export interface ICreateEditSeriesProps {
   dataEdit?: IUpdateSeries;
 }
 
-export default function CreateEditSeries({
-  handleClose,
-  dataEdit
-}: ICreateEditSeriesProps) {
+export default function CreateEditSeries({ handleClose, dataEdit }: ICreateEditSeriesProps) {
   const t = useTranslations();
   const router = useRouter();
 
@@ -155,9 +147,7 @@ export default function CreateEditSeries({
           title,
           description,
           level,
-          cover_image: changeImage
-            ? imagesUploaded?.key!
-            : dataEdit.cover_image,
+          cover_image: changeImage ? imagesUploaded?.key! : dataEdit.cover_image,
           introduction: editor?.getHTML() as string,
           visibility: privacy
         },
@@ -193,7 +183,7 @@ export default function CreateEditSeries({
             maxLength={100}
             label={t('Title')}
             defaultValue={dataEdit?.title}
-            onChange={e => {
+            onChange={(e) => {
               setTitle(e.currentTarget.value);
             }}
           />
@@ -202,7 +192,7 @@ export default function CreateEditSeries({
           label={t('Description')}
           maxLength={250}
           defaultValue={dataEdit?.description}
-          onChange={e => {
+          onChange={(e) => {
             setDescription(e.currentTarget.value);
           }}
         />
@@ -213,35 +203,20 @@ export default function CreateEditSeries({
             onChange={onChange}
             maxNumber={images.length > 0 ? 0 : 1}
             dataURLKey='data_url'
-            acceptType={['jpg', 'jpeg', 'png', 'gif']}
-          >
-            {({
-              imageList,
-              onImageUpload,
-              onImageRemoveAll,
-              onImageUpdate,
-              onImageRemove,
-              isDragging,
-              dragProps
-            }) => (
+            acceptType={['jpg', 'jpeg', 'png', 'gif']}>
+            {({ imageList, onImageUpload, onImageRemoveAll }) => (
               <div>
-                <div className='mb-3'>
-                  {t('Add a cover image for your series')}
-                </div>
+                <div className='mb-3'>{t('Add a cover image for your series')}</div>
                 <div className='flex-start gap-4'>
                   <button
                     type='button'
                     className='flex items-center gap-1.5 bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'
-                    onClick={onImageUpload}
-                  >
+                    onClick={onImageUpload}>
                     <IoImage className='text-base' />
                     {t('Image')}
                   </button>
                   {imageList.length > 0 && (
-                    <div
-                      className='flex-start text-1'
-                      onClick={onImageRemoveAll}
-                    >
+                    <div className='flex-start text-1' onClick={onImageRemoveAll}>
                       <span>Remove</span>
                       <IoClose className='size-5' />
                     </div>
@@ -251,10 +226,7 @@ export default function CreateEditSeries({
                   <div className='mt-5'>
                     <Image
                       className='w-[90%]'
-                      src={
-                        getImageURL(images[0]?.data_url) ||
-                        '/images/no-image.png'
-                      }
+                      src={getImageURL(images[0]?.data_url) || '/images/no-image.png'}
                       width={1500}
                       height={1500}
                       alt='image'
@@ -267,12 +239,7 @@ export default function CreateEditSeries({
           </ImageUploading>
         </div>
         <div className='level'>
-          <Select
-            data={levelList}
-            label={labelSelect}
-            setSelect={setLevel}
-            defaultValue={dataEdit?.level}
-          />
+          <Select data={levelList} label={labelSelect} setSelect={setLevel} defaultValue={dataEdit?.level} />
         </div>
         <div className='editor space-y-5'>
           <Editor
@@ -289,16 +256,10 @@ export default function CreateEditSeries({
         <div className='flex items-center gap-2'>
           <Button
             type='button'
-            className={cn(
-              'button lg:px-6 text-white max-md:flex-1',
-              isLoading && 'select-none'
-            )}
+            className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
             disabled={isLoading}
-            onClick={handleSubmit}
-          >
-            {isLoading && (
-              <CircularProgress size={20} className='!text-text-1 mr-2' />
-            )}
+            onClick={handleSubmit}>
+            {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
             {dataEdit ? t('Update Series') : t('Publish')}
             <span className='ripple-overlay'></span>
           </Button>

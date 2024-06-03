@@ -186,22 +186,22 @@ export default function TabCover({ tabParam }: ITabCoverProps) {
           <Divider />
 
           <Tabs id='setting_tab' disableChevron active={tab}>
-            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('general'))}>
+            <TabTitle onClick={() => router.replace(pathname + '?' + createQueryString('general'))}>
               {t('General')}
             </TabTitle>
-            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('social-links'))}>
+            <TabTitle onClick={() => router.replace(pathname + '?' + createQueryString('social-links'))}>
               {t('Social links')}
             </TabTitle>
-            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('expertise'))}>
+            <TabTitle onClick={() => router.replace(pathname + '?' + createQueryString('expertise'))}>
               {t('Expertise')}
             </TabTitle>
-            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('experience'))}>
+            <TabTitle onClick={() => router.replace(pathname + '?' + createQueryString('experience'))}>
               {t('Experience')}
             </TabTitle>
-            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('repository'))}>
+            <TabTitle onClick={() => router.replace(pathname + '?' + createQueryString('repository'))}>
               {t('Repository')}
             </TabTitle>
-            <TabTitle onClick={() => router.push(pathname + '?' + createQueryString('password'))}>
+            <TabTitle onClick={() => router.replace(pathname + '?' + createQueryString('password'))}>
               {t('Password')}
             </TabTitle>
           </Tabs>
