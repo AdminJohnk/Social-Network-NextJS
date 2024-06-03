@@ -20,8 +20,9 @@ export default function Questions() {
   const { numberQuestions } = useGetNumberQuestions();
 
   const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
+  const [questionPerPage, setQuestionPerPage] = useState(15);
   const [page, setPage] = useState(1);
-  const page_number = Math.ceil(numberQuestions / 20) || 10;
+  const page_number = Math.ceil(numberQuestions / questionPerPage) || 10;
   const [sortBy, setSortBy] = useState('score');
 
   const pageParam = Math.ceil((questionPerPage * page) / 20);
