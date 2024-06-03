@@ -1300,7 +1300,7 @@ export const useGetAllQuestions = (pageParam = 1) => {
 
 export const useGetAllTagQuestions = (sortBy: string, page: number) => {
   const { data, isPending, isError, isFetching, refetch } = useQuery({
-    queryKey: ['allTagQuestions', sortBy],
+    queryKey: ['allTagQuestions', sortBy, page],
     queryFn: async () => {
       const { data } = await questionService.getAllTagQuestions(page, sortBy);
       return data.metadata;

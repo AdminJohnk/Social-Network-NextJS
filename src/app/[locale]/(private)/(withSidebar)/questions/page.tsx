@@ -27,7 +27,7 @@ export default function Questions() {
 
   const pageParam = Math.ceil((questionPerPage * page) / 20);
 
-  const { allQuestions, isLoadingAllQuestions, isFetchingAllQuestions } = useGetAllQuestions(pageParam);
+  const { allQuestions, isLoadingAllQuestions } = useGetAllQuestions(pageParam);
 
   const sortQuestions = useCallback(
     (a: IAllQuestionItem, b: IAllQuestionItem) => {
