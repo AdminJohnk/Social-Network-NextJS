@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import {
-  IAllQuestionItem,
+  IQuestionSummaryItem,
   IAllTagQuestionItem,
   ICommentVoteQuestion,
   ICreateAnswerQuestion,
@@ -19,6 +19,7 @@ import {
   IUpdateQuestion
 } from '@/types';
 import { BaseService } from './BaseService';
+import { StringValidation } from 'zod';
 
 class QuestionService extends BaseService {
   constructor() {
@@ -100,16 +101,15 @@ class QuestionService extends BaseService {
     return await this.put(`/questions/answer/vote/${data.question_id}`, data);
   };
 
-  saveQuestion = (
-    questionID: string
-  ): Promise<AxiosResponse<IResponse<boolean>>> => {
+  saveQuestion = (questionID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
     return this.put(`/questions/save/${questionID}`);
   };
 
   getAllQuestions = (
-    pageParam: number
-  ): Promise<AxiosResponse<IResponse<IAllQuestionItem[]>>> => {
-    return this.get(`/questions/all?page=${pageParam}`);
+    page: number,
+    sort: string
+  ): Promise<AxiosResponse<IResponse<IQuestionSummaryItem[]>>> => {
+    return this.get(`/questions/all?page=${page}&sort=${sort}`);
   };
 
   getNumberQuestions = (): Promise<AxiosResponse<IResponse<number>>> => {
@@ -125,6 +125,22 @@ class QuestionService extends BaseService {
 
   getNumberTagQuestions = (): Promise<AxiosResponse<IResponse<number>>> => {
     return this.get(`/questions/tags/number`);
+  };
+
+  getAllQuestionByTag = (
+    tagname: string,
+    page: number,
+    sort: string
+  ): Promise<AxiosResponse<IResponse<IQuestionSummaryItem[]>>> => {
+    return this.get(`/questions/tags/find/${tagname}?page=${page}&sort=${sort}`);
+  };
+
+  getNumberQuestionByTag = (tag: string, sort: string): Promise<AxiosResponse<IResponse<number>>> => {
+    return this.get(`/questions/tags/number/${tag}?sort=${sort}`);
+  };
+
+  getSavedQuestions = (): Promise<AxiosResponse<IResponse<IQuestionSummaryItem[]>>> => {
+    return this.get(`/questions/saved`);
   };
 }
 

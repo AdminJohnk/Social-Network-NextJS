@@ -2102,6 +2102,8 @@ export const useSavePostSeries = () => {
 };
 
 export const useCreateQuestion = () => {
+  const queryClient = useQueryClient();
+
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (data: ICreateQuestion) => {
       const { data: question } = await questionService.createQuestion(data);
@@ -2486,6 +2488,9 @@ export const useSaveQuestion = () => {
       queryClient.invalidateQueries({
         queryKey: ['question', questionID]
       });
+      queryClient.invalidateQueries({
+        queryKey: ['allSavedQuestion']
+      });
     }
   });
 
@@ -2495,4 +2500,4 @@ export const useSaveQuestion = () => {
     isErrorSaveQuestion: isError,
     isSuccessSaveQuestion: isSuccess
   };
-}
+};
