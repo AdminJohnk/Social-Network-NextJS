@@ -32,7 +32,7 @@ export default function TagDetail({ params: { tagname } }: ITagDetailProps) {
   );
   const { numberQuestionByTag } = useGetNumberQuestionByTag(tagname, sortBy);
 
-  const page_number = Math.ceil(numberQuestionByTag / 20) || 10;
+  const page_number = Math.ceil(numberQuestionByTag / 20) || 1;
   const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function TagDetail({ params: { tagname } }: ITagDetailProps) {
 
   return (
     <div className='ms-60 mt-16 pb-5 pt-5 max-lg:ms-0'>
-      <div className='mx-auto max-w-[1070px]' id='questions'>
+      <div className='mx-auto max-w-[1070px]' id='tag-question'>
         <div className='grid grid-cols-3 gap-8'>
           <div className='left col-span-2'>
             <div className='mt-3 flex justify-between'>
@@ -151,9 +151,9 @@ export default function TagDetail({ params: { tagname } }: ITagDetailProps) {
           <div className='max-lg:hidden'>
             <div
               className='right'
-              id='questions-side'
-              data-uk-sticky='media: 1024; end: #questions; offset: 80'>
-              <Menu currentMenu={'question'} />
+              id='tag-question-side'
+              data-uk-sticky='media: 1024; end: #tag-question; offset: 80'>
+              <Menu currentMenu='tag' />
               <Divider className='my-4' />
               <div>
                 <div className='h4-regular'>{t('Related Questions')}</div>

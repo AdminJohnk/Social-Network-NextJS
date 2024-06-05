@@ -56,7 +56,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
   const { mutateDeleteSeries } = useDeleteSeries();
   const { mutateDeleteImage } = useDeleteImage();
 
-  const isMe = series ? series.user._id === currentUserInfo._id : false;
+  const isSeriesOwner = series ? series.user._id === currentUserInfo._id : false;
 
   const author = series && series.user;
 
@@ -123,7 +123,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
         </div>
       ) : (
         <>
-          {isMe && (
+          {isSeriesOwner && (
             <>
               <EditButton
                 className='fixed top-[20%] right-4 z-50'
@@ -186,7 +186,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
             <div>
               <div className='base-semibold flex-start gap-2'>
                 <span>{t('Series Content')}</span>
-                {isMe && (
+                {isSeriesOwner && (
                   <>
                     <span className='p-0.5 rounded-full bg-foreground-1'>
                       <IoAdd
@@ -208,7 +208,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
               </div>
               <Timeline className='mt-6 border-border-1'>
                 {series.posts.map((post) => (
-                  <PostItem key={post._id} post={post} series_id={series._id} isMe={isMe} />
+                  <PostItem key={post._id} post={post} series_id={series._id} isMe={isSeriesOwner} />
                 ))}
               </Timeline>
             </div>
@@ -235,7 +235,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   )}
                 </div>
               </div>
-              {!isMe && <FriendButton profileID={author._id} variant='default' />}
+              {!isSeriesOwner && <FriendButton profileID={author._id} variant='default' />}
             </div>
             <Divider className='mt-12 mb-6' />
             <div className='info flex-around mt-10'>
@@ -343,7 +343,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                 .sort((a, b) => b.rating - a.rating)
                 .map((review) => (
                   <div className='mb-6' key={review._id}>
-                    <ReviewItem review={review} series_id={seriesID} />
+                    <ReviewItem review={review} series_id={seriesID} isSeriesOwner={isSeriesOwner} />
                   </div>
                 ))}
             </div>

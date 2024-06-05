@@ -23,9 +23,10 @@ import { BiSolidTrashAlt } from 'react-icons/bi';
 export interface IReviewItemProps {
   review: IReview;
   series_id: string;
+  isSeriesOwner: boolean;
 }
 
-export default function ReviewItem({ review, series_id }: IReviewItemProps) {
+export default function ReviewItem({ review, series_id, isSeriesOwner }: IReviewItemProps) {
   const t = useTranslations();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,7 +34,7 @@ export default function ReviewItem({ review, series_id }: IReviewItemProps) {
 
   const { mutateDeleteReviewSeries } = useDeleteReviewSeries();
 
-  const isAuthor = currentUserInfo?._id === review.user._id;
+  const isAuthor = currentUserInfo?._id === review.user._id || isSeriesOwner;
 
   const getFormattedDate = (date: string) => {
     const format = useFormatter();
@@ -79,8 +80,8 @@ export default function ReviewItem({ review, series_id }: IReviewItemProps) {
           <div className='base-semibold'>{review.user.name}</div>
           <div className='small-regular text-text-2'>{getFormattedDate(review.createdAt)}</div>
         </div>
-        <div className='text-text-2 mt-1 mb-2'>{review.content}</div>
-        <div className='flex-start *:size-4 *:text-yellow-400 gap-2'>
+        <div className='mb-2 mt-1 text-text-2'>{review.content}</div>
+        <div className='flex-start gap-2 *:size-4 *:text-yellow-400'>
           {Array.from({ length: review.rating }).map((_, index) => (
             <FaStar key={index} />
           ))}
@@ -88,11 +89,11 @@ export default function ReviewItem({ review, series_id }: IReviewItemProps) {
       </div>
       {isAuthor && (
         <div>
-          <IoIosMore className='size-5 text-1 outline-none' />
+          <IoIosMore className='text-1 size-5 outline-none' />
           <div data-uk-drop='offset: 4; pos: right-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
-            <div className='flex flex-col gap-0.5 p-1 bg-foreground-1 rounded-lg shadow-lg *:px-2.5 *:py-1.5 hover:*:!bg-hover-1 *:cursor-pointer *:rounded-lg *:uk-drop-close'>
+            <div className='*:uk-drop-close flex flex-col gap-0.5 rounded-lg bg-foreground-1 p-1 shadow-lg *:cursor-pointer *:rounded-lg *:px-2.5 *:py-1.5 hover:*:!bg-hover-1'>
               <AlertDialog open={openDeleteReview} onOpenChange={setOpenDeleteReview}>
-                <AlertDialogTrigger className='w-full text-1 uk-drop-close' onClick={handleOpenDeleteReview}>
+                <AlertDialogTrigger className='text-1 uk-drop-close w-full' onClick={handleOpenDeleteReview}>
                   <div className='flex-start gap-2'>
                     <BiSolidTrashAlt className='size-5 text-text-1' />
                     <span>{t('Delete')}</span>
@@ -117,7 +118,7 @@ export default function ReviewItem({ review, series_id }: IReviewItemProps) {
                       className={cn(isLoading && 'select-none')}
                       disabled={isLoading}
                       onClick={handleDeleteReview}>
-                      {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                      {isLoading && <CircularProgress size={20} className='mr-2 !text-text-1' />}
                       {t('Delete')}
                     </Button>
                   </AlertDialogFooter>

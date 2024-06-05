@@ -20,9 +20,10 @@ import { useCurrentUserInfo } from '@/hooks/query';
 export interface IAnswerItemProps {
   answer: IAnswerQuestion;
   questionID: string;
+  isQuestionOwner: boolean;
 }
 
-export default function AnswerItem({ answer, questionID }: IAnswerItemProps) {
+export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAnswerItemProps) {
   const t = useTranslations();
   const format = useFormatter();
 
@@ -38,7 +39,7 @@ export default function AnswerItem({ answer, questionID }: IAnswerItemProps) {
   const { mutateCommentAnswer, isLoadingCommentAnswer } = useCommentAnswer();
   const { mutateVoteAnswer } = useVoteAnswer();
 
-  const isAuthor = currentUserInfo?._id === answer.user._id;
+  const isAuthor = currentUserInfo._id === answer.user._id;
 
   // Modal
   const [openEditAnswer, setOpenEditAnswer] = useState(false);
@@ -171,26 +172,36 @@ export default function AnswerItem({ answer, questionID }: IAnswerItemProps) {
             </div>
             <div className='grow'>
               <ShowContent content={answer.content} />
-              <div className={cn('small-regular mt-10 flex justify-between', !isAuthor && 'justify-end')}>
-                <div className={cn('*:text-1 space-x-2', !isAuthor && 'hidden')}>
-                  <span onClick={() => setOpenEditAnswer(true)}>{t('Edit')}</span>
-                  <Modal open={openEditAnswer} handleClose={() => setOpenEditAnswer(false)}>
-                    <EditAnswer
-                      handleClose={() => setOpenEditAnswer(false)}
-                      answer={answer}
-                      questionID={questionID}
+              <div
+                className={cn(
+                  'small-regular mt-10 flex justify-between',
+                  !isQuestionOwner && !isAuthor && 'justify-end'
+                )}>
+                {(isQuestionOwner || isAuthor) && (
+                  <div className={cn('*:text-1 space-x-2')}>
+                    {isAuthor && (
+                      <>
+                        <span onClick={() => setOpenEditAnswer(true)}>{t('Edit')}</span>
+                        <Modal open={openEditAnswer} handleClose={() => setOpenEditAnswer(false)}>
+                          <EditAnswer
+                            handleClose={() => setOpenEditAnswer(false)}
+                            answer={answer}
+                            questionID={questionID}
+                          />
+                        </Modal>
+                      </>
+                    )}
+                    <QuestionDialog
+                      open={openDeleteAnswer}
+                      setOpen={setOpenDeleteAnswer}
+                      handleFunction={handleDeleteComment}
+                      isLoading={isLoadingDeleteAnswer}
+                      question='Are you absolutely sure delete this answer?'
+                      content='You will not be able to recover answer after deletion!'
+                      component={<span>{t('Delete')}</span>}
                     />
-                  </Modal>
-                  <QuestionDialog
-                    open={openDeleteAnswer}
-                    setOpen={setOpenDeleteAnswer}
-                    handleFunction={handleDeleteComment}
-                    isLoading={isLoadingDeleteAnswer}
-                    question='Are you absolutely sure delete this answer?'
-                    content='You will not be able to recover answer after deletion!'
-                    component={<span>{t('Delete')}</span>}
-                  />
-                </div>
+                  </div>
+                )}
                 <div className='flex w-[70%] justify-between'>
                   <div className='pt-2 text-text-2'>
                     <span className='me-1'>{t('edited')}</span>
@@ -247,6 +258,7 @@ export default function AnswerItem({ answer, questionID }: IAnswerItemProps) {
                       questionID={questionID}
                       answerID={answer._id}
                       type='ans'
+                      isQuestionOwner={isQuestionOwner}
                     />
                   ))}
               </div>

@@ -11,7 +11,7 @@ import Menu from '@/components/pages/Question/Menu';
 import { useEffect, useState } from 'react';
 import Modal from '@/components/shared/Modal';
 import CreateEditQuestion from '@/components/pages/Question/CreateEditQuestion';
-import { useGetQuestionByID } from '@/hooks/query';
+import { useCurrentUserInfo, useGetQuestionByID } from '@/hooks/query';
 import { useViewQuestion } from '@/hooks/mutation';
 import { notFound } from 'next/navigation';
 
@@ -31,12 +31,20 @@ export default function QuestionDetail({ params: { id } }: IQuestionDetailProps)
   // Modal
   const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
 
+  const { currentUserInfo } = useCurrentUserInfo();
   const { question, isLoadingQuestion, isErrorQuestion } = useGetQuestionByID(id);
+
   const { mutateViewQuestion } = useViewQuestion();
 
   useEffect(() => {
     mutateViewQuestion(id);
   }, []);
+
+  useEffect(() => {
+    UIkit.sticky('#question-side')?.$emit('update');
+  }, [question]);
+
+  const isQuestionOwner = question?.user?._id === currentUserInfo._id;
 
   if (isErrorQuestion) notFound();
 
@@ -124,7 +132,12 @@ export default function QuestionDetail({ params: { id } }: IQuestionDetailProps)
                       return 0;
                     })
                     .map((answer) => (
-                      <AnswerItem key={answer._id} answer={answer} questionID={question._id} />
+                      <AnswerItem
+                        key={answer._id}
+                        answer={answer}
+                        questionID={question._id}
+                        isQuestionOwner={isQuestionOwner}
+                      />
                     ))}
                 </div>
                 <WriteAnswer questionID={question._id} />
@@ -137,7 +150,7 @@ export default function QuestionDetail({ params: { id } }: IQuestionDetailProps)
                   <Menu currentMenu={'question'} />
                   <Divider className='my-4' />
                   <div>
-                    <div className='h4-regular'>{t("Related Questions")}</div>
+                    <div className='h4-regular'>{t('Related Questions')}</div>
                     <div className='*:flex-start mt-4 *:mb-2 *:cursor-pointer *:gap-3 *:text-[0.8rem]'>
                       <div>
                         <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>

@@ -1194,6 +1194,26 @@ export const useGetAllQuestions = (page = 1, sort: string) => {
   };
 };
 
+export const useFindTagsQuestions = (keyword: string, sortBy: string, page: number) => {
+  const { data, isPending, isError, isFetching, refetch } = useQuery({
+    queryKey: ['findTagsQuestions', keyword, page, sortBy],
+    queryFn: async () => {
+      const { data } = await questionService.findTagsQuestion(keyword, page, sortBy);
+      return data.metadata;
+    },
+    enabled: !!keyword,
+    staleTime: 60000 * 3
+  });
+
+  return {
+    isLoadingFindTagsQuestions: isPending,
+    isErrorFindTagsQuestions: isError,
+    findTagsQuestions: data!,
+    isFetchingFindTagsQuestions: isFetching,
+    refetchFindTagsQuestions: refetch
+  };
+};
+
 export const useGetNumberQuestions = () => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['numberQuestions'],
@@ -1231,11 +1251,11 @@ export const useGetAllTagQuestions = (sortBy: string, page: number) => {
   };
 };
 
-export const useGetNumberTagQuestions = () => {
+export const useGetNumberTagQuestions = (tag: string) => {
   const { data, isPending, isError, isFetching } = useQuery({
-    queryKey: ['numberTagQuestions'],
+    queryKey: ['numberTagQuestions', tag],
     queryFn: async () => {
-      const { data } = await questionService.getNumberTagQuestions();
+      const { data } = await questionService.getNumberTagQuestions(tag);
       return data.metadata;
     },
     staleTime: 60000 * 3

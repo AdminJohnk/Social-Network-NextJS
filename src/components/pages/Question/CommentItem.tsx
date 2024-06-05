@@ -26,13 +26,15 @@ export interface ICommentItemProps {
   questionID: string;
   answerID?: string;
   type: 'que' | 'ans';
+  isQuestionOwner: boolean;
 }
 
 export default function CommentItem({
   comment,
   questionID,
   answerID,
-  type
+  type,
+  isQuestionOwner
 }: ICommentItemProps) {
   const t = useTranslations();
   const format = useFormatter();
@@ -48,27 +50,19 @@ export default function CommentItem({
   const [openDeleteComment, setOpenDeleteComment] = useState(false);
 
   // Comment Question
-  const { mutateUpdateCommentQuestion, isLoadingUpdateCommentQuestion } =
-    useUpdateCommentQuestion();
-  const { mutateDeleteCommentQuestion, isLoadingDeleteCommentQuestion } =
-    useDeleteCommentQuestion();
-  const { mutateVoteCommentQuestion, isLoadingVoteCommentQuestion } =
-    useVoteCommentQuestion();
+  const { mutateUpdateCommentQuestion, isLoadingUpdateCommentQuestion } = useUpdateCommentQuestion();
+  const { mutateDeleteCommentQuestion, isLoadingDeleteCommentQuestion } = useDeleteCommentQuestion();
+  const { mutateVoteCommentQuestion, isLoadingVoteCommentQuestion } = useVoteCommentQuestion();
 
   // Comment Answer
-  const { mutateUpdateCommentAnswer, isLoadingUpdateCommentAnswer } =
-    useUpdateCommentAnswer();
-  const { mutateDeleteCommentAnswer, isLoadingDeleteCommentAnswer } =
-    useDeleteCommentAnswer();
-  const { mutateVoteCommentAnswer, isLoadingVoteCommentAnswer } =
-    useVoteCommentAnswer();
+  const { mutateUpdateCommentAnswer, isLoadingUpdateCommentAnswer } = useUpdateCommentAnswer();
+  const { mutateDeleteCommentAnswer, isLoadingDeleteCommentAnswer } = useDeleteCommentAnswer();
+  const { mutateVoteCommentAnswer, isLoadingVoteCommentAnswer } = useVoteCommentAnswer();
 
-  const isAuthor = comment?.user._id === currentUserInfo?._id;
+  const isAuthor = comment?.user._id === currentUserInfo._id;
 
   useEffect(() => {
-    const checkVoted: boolean = comment?.vote.some(
-      voteItem => voteItem === currentUserInfo?._id
-    );
+    const checkVoted: boolean = comment?.vote.some((voteItem) => voteItem === currentUserInfo?._id);
     setIsVote(checkVoted);
     setVote_number(comment?.vote.length);
   }, [comment]);
@@ -87,8 +81,7 @@ export default function CommentItem({
       return;
     }
 
-    const handleFunction =
-      type === 'que' ? mutateUpdateCommentQuestion : mutateUpdateCommentAnswer;
+    const handleFunction = type === 'que' ? mutateUpdateCommentQuestion : mutateUpdateCommentAnswer;
 
     handleFunction(
       {
@@ -113,8 +106,7 @@ export default function CommentItem({
   };
 
   const handleDeleteComment = () => {
-    const handleFunction =
-      type === 'que' ? mutateDeleteCommentQuestion : mutateDeleteCommentAnswer;
+    const handleFunction = type === 'que' ? mutateDeleteCommentQuestion : mutateDeleteCommentAnswer;
 
     handleFunction(
       {
@@ -137,8 +129,7 @@ export default function CommentItem({
   };
 
   const handleVoteComment = () => {
-    const handleFunction =
-      type === 'que' ? mutateVoteCommentQuestion : mutateVoteCommentAnswer;
+    const handleFunction = type === 'que' ? mutateVoteCommentQuestion : mutateVoteCommentAnswer;
 
     handleFunction({
       question_id: questionID,
@@ -160,14 +151,11 @@ export default function CommentItem({
                 {comment.content + ' – '}
                 <Link
                   href={`/profile/${comment.user._id}`}
-                  className='text-blue-400 hover:text-blue-500 duration-300'
-                >
+                  className='text-blue-400 duration-300 hover:text-blue-500'>
                   {comment.user.name}
                 </Link>
                 <span className='ms-1 text-text-2'>
-                  <span className='me-1'>
-                    {getFormattedDate(comment.createdAt)}
-                  </span>
+                  <span className='me-1'>{getFormattedDate(comment.createdAt)}</span>
                   <span className='space-x-1'>
                     <span>{t('at1')}</span>
                     <span>
@@ -178,43 +166,42 @@ export default function CommentItem({
                     </span>
                   </span>
                 </span>
-                <span className={cn('ms-4', !isAuthor && 'hidden')}>
-                  <FaPencilAlt
-                    className='inline-block size-3 text-1'
-                    onClick={() => setIsEditComment(true)}
-                  />
-                </span>
-                <span className={cn('ms-2', !isAuthor && 'hidden')}>
-                  <QuestionDialog
-                    open={openDeleteComment}
-                    setOpen={setOpenDeleteComment}
-                    handleFunction={handleDeleteComment}
-                    isLoading={
-                      type === 'que'
-                        ? isLoadingDeleteCommentQuestion
-                        : isLoadingDeleteCommentAnswer
-                    }
-                    question='Are you absolutely sure delete this comment?'
-                    content='You will not be able to recover comment after deletion!'
-                    component={
-                      <BiSolidTrashAlt className='inline-block size-3.5 text-1' />
-                    }
-                  />
-                </span>
+                {(isQuestionOwner || isAuthor) && (
+                  <>
+                    {isAuthor && (
+                      <span className={cn('ms-4')}>
+                        <FaPencilAlt
+                          className='text-1 inline-block size-3'
+                          onClick={() => setIsEditComment(true)}
+                        />
+                      </span>
+                    )}
+                    <span className={cn('ms-2')}>
+                      <QuestionDialog
+                        open={openDeleteComment}
+                        setOpen={setOpenDeleteComment}
+                        handleFunction={handleDeleteComment}
+                        isLoading={
+                          type === 'que' ? isLoadingDeleteCommentQuestion : isLoadingDeleteCommentAnswer
+                        }
+                        question='Are you absolutely sure delete this comment?'
+                        content='You will not be able to recover comment after deletion!'
+                        component={<BiSolidTrashAlt className='text-1 inline-block size-3.5' />}
+                      />
+                    </span>
+                  </>
+                )}
                 <span className='ms-2'>
                   <FaCheck
                     className={cn(
-                      'inline-block size-4 text-text-2 hover:text-green-500 duration-300 cursor-pointer',
+                      'inline-block size-4 cursor-pointer text-text-2 duration-300 hover:text-green-500',
                       isVote && 'text-green-500',
-                      (type === 'que'
-                        ? isLoadingVoteCommentQuestion
-                        : isLoadingVoteCommentAnswer) && 'select-none'
+                      (type === 'que' ? isLoadingVoteCommentQuestion : isLoadingVoteCommentAnswer) &&
+                        'select-none'
                     )}
                     onClick={() => {
                       setIsVote(!isVote);
-                      setVote_number(
-                        isVote ? vote_number - 1 : vote_number + 1
-                      );
+                      setVote_number(isVote ? vote_number - 1 : vote_number + 1);
                       handleVoteComment();
                     }}
                   />
@@ -223,35 +210,28 @@ export default function CommentItem({
             ) : (
               <div className='w-full'>
                 <textarea
-                  className='w-full border border-border-1 rounded-lg p-2 resize-none bg-transparent custom-scrollbar-bg text-[0.8rem]'
+                  className='custom-scrollbar-bg w-full resize-none rounded-lg border border-border-1 bg-transparent p-2 text-[0.8rem]'
                   rows={3}
-                  onChange={e => setCommentContent(e.target.value)}
+                  onChange={(e) => setCommentContent(e.target.value)}
                   defaultValue={comment.content}
                 />
                 <div className='flex-between'>
                   <div
-                    className='text-blue-500 hover:text-blue-600 duration-300 small-regular cursor-pointer px-1'
-                    onClick={() => setIsEditComment(false)}
-                  >
+                    className='small-regular cursor-pointer px-1 text-blue-500 duration-300 hover:text-blue-600'
+                    onClick={() => setIsEditComment(false)}>
                     {t('Cancel')}
                   </div>
                   <div className='flex-start gap-2'>
                     <IoMdSend
                       className={cn(
-                        'size-5 text-blue-500 hover:text-blue-600 duration-300 cursor-pointer',
-                        (type === 'que'
-                          ? isLoadingUpdateCommentQuestion
-                          : isLoadingUpdateCommentAnswer) && 'select-none'
+                        'size-5 cursor-pointer text-blue-500 duration-300 hover:text-blue-600',
+                        (type === 'que' ? isLoadingUpdateCommentQuestion : isLoadingUpdateCommentAnswer) &&
+                          'select-none'
                       )}
                       onClick={() => handleEditComment()}
                     />
-                    {(type === 'que'
-                      ? isLoadingUpdateCommentQuestion
-                      : isLoadingUpdateCommentAnswer) && (
-                      <CircularProgress
-                        size={20}
-                        className='!text-text-1 mr-2'
-                      />
+                    {(type === 'que' ? isLoadingUpdateCommentQuestion : isLoadingUpdateCommentAnswer) && (
+                      <CircularProgress size={20} className='mr-2 !text-text-1' />
                     )}
                   </div>
                 </div>

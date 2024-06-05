@@ -65,7 +65,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
   const author = series?.user;
 
   const { currentUserInfo } = useCurrentUserInfo();
-  const isMe = series?.user?._id === currentUserInfo?._id || false;
+  const isSeriesOwner = series?.user?._id === currentUserInfo?._id || false;
   const [editor, setEditor] = useState<EditorProps>();
 
   const { mutateIncreaseViewSeries } = useIncreaseViewSeries();
@@ -203,7 +203,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
 
   return (
     <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
-      {isMe && (
+      {isSeriesOwner && (
         <>
           <EditButton
             className='fixed top-[20%] right-4 z-50'
@@ -326,7 +326,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
               )}
             </div>
           </div>
-          {!isMe && <FriendButton profileID={author?._id} variant='default' />}
+          {!isSeriesOwner && <FriendButton profileID={author?._id} variant='default' />}
         </div>
         <div className='flex-end text-text-2'>
           <InteractComponent />
@@ -361,7 +361,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
               .sort((a, b) => b.like.length - a.like.length)
               .map((comment, index) => (
                 <div className='mb-6' key={index}>
-                  <CommentItem comment={comment} series_id={seriesID} post_id={postID} />
+                  <CommentItem comment={comment} series_id={seriesID} post_id={postID} isSeriesOwner={isSeriesOwner} />
                 </div>
               ))}
           </div>

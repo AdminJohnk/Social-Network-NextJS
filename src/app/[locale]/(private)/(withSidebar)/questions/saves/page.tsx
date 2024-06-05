@@ -17,7 +17,7 @@ export default function Saves(props: ISavesProps) {
 
   return (
     <div className='ms-60 mt-16 pb-5 pt-5 max-lg:ms-0'>
-      <div className='mx-auto max-w-[1070px]' id='questions'>
+      <div className='mx-auto max-w-[1070px]' id='save-questions'>
         <div className='grid grid-cols-3 gap-8'>
           <div className='left col-span-2'>
             <div className='h3-semibold me-10'>{t('Saved Questions')}</div>
@@ -43,9 +43,9 @@ export default function Saves(props: ISavesProps) {
           <div className='max-lg:hidden'>
             <div
               className='right'
-              id='questions-side'
-              data-uk-sticky='media: 1024; end: #questions; offset: 80'>
-              <Menu currentMenu={'question'} />
+              id='save-questions-side'
+              data-uk-sticky='media: 1024; end: #save-questions; offset: 80'>
+              <Menu currentMenu='save' />
               <Divider className='my-4' />
               <div>
                 <div className='h4-regular'>{t('Related Questions')}</div>

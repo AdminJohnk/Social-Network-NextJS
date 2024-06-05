@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Avatar, CircularProgress } from '@mui/material';
-import { BiSolidDownArrow, BiSolidTrashAlt, BiSolidUpArrow } from 'react-icons/bi';
-import { FaRegBookmark } from 'react-icons/fa6';
+import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 import CommentItem from './CommentItem';
 import Divider from '@/components/shared/Divider';
 import { Link } from '@/navigation';
@@ -15,7 +14,6 @@ import Modal from '@/components/shared/Modal';
 import CreateEditQuestion from './CreateEditQuestion';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { IoMdSend } from 'react-icons/io';
-import { set } from 'lodash';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import QuestionDialog from '@/components/shared/QuestionDialog';
 
@@ -49,7 +47,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   const [isAddComment, setIsAddComment] = useState<boolean>(false);
   const [comment, setComment] = useState<string>('');
 
-  const isAuthor = currentUserInfo?._id === question.user._id;
+  const isOwnerQuestion = currentUserInfo._id === question.user._id;
 
   // Modal
   const [openEditQuestion, setOpenEditQuestion] = useState(false);
@@ -188,8 +186,8 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
               <span key={index}>{tag}</span>
             ))}
           </div>
-          <div className={cn('small-regular mt-10 flex justify-between', !isAuthor && 'justify-end')}>
-            <div className={cn('*:text-1 space-x-2', !isAuthor && 'hidden')}>
+          <div className={cn('small-regular mt-10 flex justify-between', !isOwnerQuestion && 'justify-end')}>
+            <div className={cn('*:text-1 space-x-2', !isOwnerQuestion && 'hidden')}>
               <span onClick={() => setOpenEditQuestion(true)}>{t('Edit')}</span>
               <Modal open={openEditQuestion} handleClose={() => setOpenEditQuestion(false)}>
                 <CreateEditQuestion handleClose={() => setOpenEditQuestion(false)} dataEdit={question} />
@@ -254,7 +252,13 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
             {question.comment
               .sort((a, b) => b.vote.length - a.vote.length)
               .map((comment) => (
-                <CommentItem key={question._id} comment={comment} questionID={question._id} type='que' />
+                <CommentItem
+                  key={question._id}
+                  comment={comment}
+                  questionID={question._id}
+                  type='que'
+                  isQuestionOwner={isOwnerQuestion}
+                />
               ))}
           </div>
           {/* Add comment */}

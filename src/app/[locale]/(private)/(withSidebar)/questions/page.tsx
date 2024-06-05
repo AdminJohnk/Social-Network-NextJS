@@ -8,10 +8,9 @@ import Modal from '@/components/shared/Modal';
 import { Button } from '@/components/ui/button';
 import { useGetAllQuestions, useGetNumberQuestions } from '@/hooks/query';
 import { cn } from '@/lib/utils';
-import { IQuestionSummaryItem } from '@/types';
 import { CircularProgress, Pagination } from '@mui/material';
 import { useFormatter, useTranslations } from 'next-intl';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Questions() {
   const t = useTranslations();
@@ -21,7 +20,7 @@ export default function Questions() {
 
   const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
   const [page, setPage] = useState(1);
-  const page_number = Math.ceil(numberQuestions / 20) || 10;
+  const page_number = Math.ceil(numberQuestions / 20) || 1;
   const [sortBy, setSortBy] = useState('score');
 
   const { allQuestions, isFetchingAllQuestions, refetchAllQuestions } = useGetAllQuestions(page, sortBy);
@@ -29,6 +28,10 @@ export default function Questions() {
   useEffect(() => {
     refetchAllQuestions();
   }, [sortBy, page]);
+
+  useEffect(() => {
+    UIkit.sticky('#questions-side')?.$emit('update');
+  }, [allQuestions]);
 
   return (
     <div className='ms-60 mt-16 pb-5 pt-5 max-lg:ms-0'>
@@ -143,7 +146,7 @@ export default function Questions() {
               className='right'
               id='questions-side'
               data-uk-sticky='media: 1024; end: #questions; offset: 80'>
-              <Menu currentMenu={'question'} />
+              <Menu currentMenu='question' />
               <Divider className='my-4' />
               <div>
                 <div className='h4-regular'>{t('Related Questions')}</div>

@@ -112,6 +112,14 @@ class QuestionService extends BaseService {
     return this.get(`/questions/all?page=${page}&sort=${sort}`);
   };
 
+  findTagsQuestion = (
+    tag: string,
+    pageParam: number,
+    sortBy: string
+  ): Promise<AxiosResponse<IResponse<IAllTagQuestionItem[]>>> => {
+    return this.get(`/questions/tags/find-tag/${tag}?page=${pageParam}&sort=${sortBy}`);
+  };
+
   getNumberQuestions = (): Promise<AxiosResponse<IResponse<number>>> => {
     return this.get(`/questions/number`);
   };
@@ -123,8 +131,8 @@ class QuestionService extends BaseService {
     return this.get(`/questions/tags/all?page=${pageParam}&sort=${sortBy}`);
   };
 
-  getNumberTagQuestions = (): Promise<AxiosResponse<IResponse<number>>> => {
-    return this.get(`/questions/tags/number`);
+  getNumberTagQuestions = (tagname: string): Promise<AxiosResponse<IResponse<number>>> => {
+    return this.get(`/questions/tags/number?tag=${tagname}`);
   };
 
   getAllQuestionByTag = (

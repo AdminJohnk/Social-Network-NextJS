@@ -38,6 +38,7 @@ export interface ICommentItemProps {
   post_id: string;
   type?: 'comment' | 'reply';
   parent_id?: string;
+  isSeriesOwner: boolean;
 }
 
 export default function CommentItem({
@@ -45,7 +46,8 @@ export default function CommentItem({
   series_id,
   post_id,
   type = 'comment',
-  parent_id
+  parent_id,
+  isSeriesOwner
 }: ICommentItemProps) {
   const t = useTranslations();
 
@@ -66,20 +68,15 @@ export default function CommentItem({
   const { mutateLikeCommentSeriesPost } = useLikeCommentSeriesPost();
 
   // Child Comment
-  const { mutateUpdateReplyCommentPostSeries } =
-    useUpdateReplyCommentPostSeries();
-  const { mutateDeleteReplyCommentPostSeries } =
-    useDeleteReplyCommentPostSeries();
+  const { mutateUpdateReplyCommentPostSeries } = useUpdateReplyCommentPostSeries();
+  const { mutateDeleteReplyCommentPostSeries } = useDeleteReplyCommentPostSeries();
   const { mutateLikeReplyCommentSeriesPost } = useLikeReplyCommentSeriesPost();
 
-  const [isLoadingDeleteComment, setIsLoadingDeleteComment] =
-    useState<boolean>(false);
-  const [isLoadingUpdateComment, setIsLoadingUpdateComment] =
-    useState<boolean>(false);
+  const [isLoadingDeleteComment, setIsLoadingDeleteComment] = useState<boolean>(false);
+  const [isLoadingUpdateComment, setIsLoadingUpdateComment] = useState<boolean>(false);
   const [isEditComment, setIsEditComment] = useState<boolean>(false);
   const [isReplyComment, setIsReplyComment] = useState<boolean>(false);
-  const [numberChildCommentShow, setNumberChildCommentShow] =
-    useState<number>(3);
+  const [numberChildCommentShow, setNumberChildCommentShow] = useState<number>(3);
 
   const [editor, setEditor] = useState<EditorProps>();
 
@@ -87,9 +84,7 @@ export default function CommentItem({
   const [numberLikes, setNumberLikes] = useState<number>(0);
 
   useEffect(() => {
-    setIsLiked(
-      comment.like.some(liker => liker._id === currentUserInfo?._id) || false
-    );
+    setIsLiked(comment.like.some((liker) => liker._id === currentUserInfo?._id) || false);
     setNumberLikes(comment.like.length || 0);
   }, [comment]);
 
@@ -219,11 +214,9 @@ export default function CommentItem({
       <div className='flex-col'>
         <div className='flex-start gap-2'>
           <div className='base-semibold'>{comment.user.name}</div>
-          <div className='small-regular text-text-2'>
-            {getFormattedDate(comment.createdAt)}
-          </div>
+          <div className='small-regular text-text-2'>{getFormattedDate(comment.createdAt)}</div>
         </div>
-        <div className='text-text-2 mt-1 mb-2'>
+        <div className='mb-2 mt-1 text-text-2'>
           {!isEditComment ? (
             <ShowContent content={comment.content} />
           ) : (
@@ -235,13 +228,12 @@ export default function CommentItem({
         {!isEditComment ? (
           <div className='flex-start gap-4'>
             <div
-              className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'
+              className='flex-start cursor-pointer gap-1 duration-300 hover:text-red-500'
               onClick={() => {
                 setIsLiked(!isLiked);
                 setNumberLikes(isLiked ? numberLikes - 1 : numberLikes + 1);
                 handleLikeComment();
-              }}
-            >
+              }}>
               {isLiked ? (
                 <IoHeartSharp className='size-4 text-red-500' />
               ) : (
@@ -252,9 +244,8 @@ export default function CommentItem({
             </div>
             {type === 'comment' && (
               <div
-                className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
-                onClick={() => setIsReplyComment(true)}
-              >
+                className='flex-start cursor-pointer gap-1 duration-300 hover:text-teal-400'
+                onClick={() => setIsReplyComment(true)}>
                 <BiCommentDetail className='size-4' />
                 <span>{comment.child.length}</span>
               </div>
@@ -263,22 +254,19 @@ export default function CommentItem({
         ) : (
           <div className='flex-between'>
             <div
-              className='text-blue-500 hover:text-blue-600 duration-300 small-regular cursor-pointer px-1'
-              onClick={() => setIsEditComment(false)}
-            >
+              className='small-regular cursor-pointer px-1 text-blue-500 duration-300 hover:text-blue-600'
+              onClick={() => setIsEditComment(false)}>
               {t('Cancel')}
             </div>
             <div className='flex-start gap-2'>
               <IoMdSend
                 className={cn(
-                  'size-5 text-blue-500 hover:text-blue-600 duration-300 cursor-pointer',
+                  'size-5 cursor-pointer text-blue-500 duration-300 hover:text-blue-600',
                   isLoadingUpdateComment && 'select-none'
                 )}
                 onClick={() => handleUpdateComment()}
               />
-              {isLoadingUpdateComment && (
-                <CircularProgress size={20} className='!text-text-1 mr-2' />
-              )}
+              {isLoadingUpdateComment && <CircularProgress size={20} className='mr-2 !text-text-1' />}
             </div>
           </div>
         )}
@@ -286,13 +274,9 @@ export default function CommentItem({
           // Show Reply Comment
           type == 'comment' &&
             comment.child
-              .sort(
-                (a, b) =>
-                  new Date(b.createdAt).getTime() -
-                  new Date(a.createdAt).getTime()
-              )
+              .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
               .slice(0, numberChildCommentShow)
-              .map(replyComment => (
+              .map((replyComment) => (
                 <div key={replyComment._id} className='my-5'>
                   <CommentItem
                     comment={replyComment}
@@ -300,23 +284,20 @@ export default function CommentItem({
                     post_id={post_id}
                     type='reply'
                     parent_id={comment._id}
+                    isSeriesOwner={isSeriesOwner}
                   />
                 </div>
               ))
         }
         {
           // Show More Reply Comment
-          type == 'comment' &&
-            comment.child.length > numberChildCommentShow && (
-              <div
-                className='text-blue-500 hover:text-blue-600 duration-300 cursor-pointer'
-                onClick={() =>
-                  setNumberChildCommentShow(numberChildCommentShow + 3)
-                }
-              >
-                {t('Show more reply comment')}
-              </div>
-            )
+          type == 'comment' && comment.child.length > numberChildCommentShow && (
+            <div
+              className='cursor-pointer text-blue-500 duration-300 hover:text-blue-600'
+              onClick={() => setNumberChildCommentShow(numberChildCommentShow + 3)}>
+              {t('Show more reply comment')}
+            </div>
+          )
         }
         {isReplyComment && (
           <div className='mt-3'>
@@ -329,28 +310,23 @@ export default function CommentItem({
           </div>
         )}
       </div>
-      {isAuthor && !isEditComment && (
+      {(isSeriesOwner || isAuthor) && !isEditComment && (
         <div>
-          <IoIosMore className='size-5 text-1 outline-none' />
-          <div data-uk-drop='offset: 4; pos: right-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
-            <div className='flex flex-col gap-0.5 p-1 bg-foreground-1 rounded-lg shadow-lg *:px-2.5 *:py-1.5 hover:*:!bg-hover-1 *:cursor-pointer *:rounded-lg *:uk-drop-close'>
-              <div
-                className='flex-start gap-2 uk-drop-close'
-                onClick={() => {
-                  setIsEditComment(true);
-                }}
-              >
-                <FaPencilAlt className='size-5 text-text-1' />
-                <span>{t('Edit')}</span>
-              </div>
-              <AlertDialog
-                open={openDeleteComment}
-                onOpenChange={setOpenDeleteComment}
-              >
-                <AlertDialogTrigger
-                  className='w-full text-1 uk-drop-close'
-                  onClick={handleOpenDeleteComment}
-                >
+          <IoIosMore className='text-1 size-5 outline-none' />
+          <div data-uk-drop='offset: 4; pos: right-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
+            <div className='*:uk-drop-close flex flex-col gap-0.5 rounded-lg bg-foreground-1 p-1 shadow-lg *:cursor-pointer *:rounded-lg *:px-2.5 *:py-1.5 hover:*:!bg-hover-1'>
+              {isAuthor && (
+                <div
+                  className='flex-start uk-drop-close gap-2'
+                  onClick={() => {
+                    setIsEditComment(true);
+                  }}>
+                  <FaPencilAlt className='size-5 text-text-1' />
+                  <span>{t('Edit')}</span>
+                </div>
+              )}
+              <AlertDialog open={openDeleteComment} onOpenChange={setOpenDeleteComment}>
+                <AlertDialogTrigger className='text-1 uk-drop-close w-full' onClick={handleOpenDeleteComment}>
                   <div className='flex-start gap-2'>
                     <BiSolidTrashAlt className='size-5 text-text-1' />
                     <span>{t('Delete')}</span>
@@ -358,13 +334,9 @@ export default function CommentItem({
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      {t('Are you absolutely sure delete this comment?')}
-                    </AlertDialogTitle>
+                    <AlertDialogTitle>{t('Are you absolutely sure delete this comment?')}</AlertDialogTitle>
                     <AlertDialogDescription>
-                      {t(
-                        'You will not be able to recover comment after deletion!'
-                      )}
+                      {t('You will not be able to recover comment after deletion!')}
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
@@ -372,21 +344,14 @@ export default function CommentItem({
                       variant='destructive'
                       className={cn(isLoadingDeleteComment && 'select-none')}
                       disabled={isLoadingDeleteComment}
-                      onClick={handleCloseDeleteComment}
-                    >
+                      onClick={handleCloseDeleteComment}>
                       {t('Cancel')}
                     </Button>
                     <Button
                       className={cn(isLoadingDeleteComment && 'select-none')}
                       disabled={isLoadingDeleteComment}
-                      onClick={handleDeleteComment}
-                    >
-                      {isLoadingDeleteComment && (
-                        <CircularProgress
-                          size={20}
-                          className='!text-text-1 mr-2'
-                        />
-                      )}
+                      onClick={handleDeleteComment}>
+                      {isLoadingDeleteComment && <CircularProgress size={20} className='mr-2 !text-text-1' />}
                       {t('Delete')}
                     </Button>
                   </AlertDialogFooter>

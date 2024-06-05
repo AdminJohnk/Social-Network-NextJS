@@ -1,31 +1,42 @@
 'use client';
 
 import TagItem from '@/components/pages/QuestionTag/TagItem';
-import { useGetAllTagQuestions, useGetNumberTagQuestions } from '@/hooks/query';
+import { useFindTagsQuestions, useGetAllTagQuestions, useGetNumberTagQuestions } from '@/hooks/query';
+import { useDebounce } from '@/hooks/special';
 import { cn } from '@/lib/utils';
 import { CircularProgress, Pagination } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { IoSearchSharp } from 'react-icons/io5';
 
-export interface ITagsProps {}
-
-export default function Tags(props: ITagsProps) {
+export default function Tags() {
   const t = useTranslations();
 
   const [sortBy, setSortBy] = useState<'popular' | 'name' | 'new'>('popular');
   const [page, setPage] = useState<number>(1);
+  const [search, setSearch] = useState<string>('');
+
+  const searchDebounce = useDebounce(search, 500);
 
   const { allTagQuestions, refetchAllTagQuestions, isFetchingAllTagQuestions } = useGetAllTagQuestions(
     sortBy,
     page
   );
-  const { numberTagQuestions } = useGetNumberTagQuestions();
-  console.log(numberTagQuestions);
-  const page_number = Math.ceil(numberTagQuestions / 24) || 10;
+
+  const { findTagsQuestions, isFetchingFindTagsQuestions, refetchFindTagsQuestions } = useFindTagsQuestions(
+    searchDebounce,
+    sortBy,
+    page
+  );
+
+  const { numberTagQuestions } = useGetNumberTagQuestions(searchDebounce);
+  const page_number = Math.ceil(numberTagQuestions / 24) || 1;
 
   useEffect(() => {
     refetchAllTagQuestions();
+    if (searchDebounce) {
+      refetchFindTagsQuestions();
+    }
   }, [sortBy, page]);
 
   return (
@@ -41,7 +52,14 @@ export default function Tags(props: ITagsProps) {
             <span className='px-2 py-1'>
               <IoSearchSharp className='size-5 text-text-2' />
             </span>
-            <input className='w-full bg-transparent outline-none' placeholder='Fillter by tag name' />
+            <input
+              className='w-full bg-transparent outline-none'
+              placeholder='Filter by tag name'
+              onChange={(e) => {
+                setSearch(e.target.value);
+                if (page !== 1) setPage(1);
+              }}
+            />
           </div>
           <div className='flex-start gap-2 rounded-md border border-border-1 px-3 py-1 *:cursor-pointer *:rounded-md *:px-3 *:py-1 *:duration-300 hover:*:bg-hover-1'>
             <span
@@ -70,7 +88,7 @@ export default function Tags(props: ITagsProps) {
             </span>
           </div>
         </div>
-        {isFetchingAllTagQuestions ? (
+        {isFetchingAllTagQuestions || isFetchingFindTagsQuestions ? (
           <div className='flex-center my-8'>
             <CircularProgress
               sx={{
@@ -81,11 +99,17 @@ export default function Tags(props: ITagsProps) {
           </div>
         ) : (
           <div className='mt-5 grid grid-cols-4 gap-3'>
-            {allTagQuestions?.map((tag, index) => (
-              <div key={index} className='col-span-1 mb-3'>
-                <TagItem tag={tag} />
-              </div>
-            ))}
+            {searchDebounce
+              ? findTagsQuestions.map((tag, index) => (
+                  <div key={index} className='col-span-1 mb-3'>
+                    <TagItem tag={tag} />
+                  </div>
+                ))
+              : allTagQuestions.map((tag, index) => (
+                  <div key={index} className='col-span-1 mb-3'>
+                    <TagItem tag={tag} />
+                  </div>
+                ))}
           </div>
         )}
         <div className='flex-between mt-10'>
@@ -94,6 +118,7 @@ export default function Tags(props: ITagsProps) {
               count={page_number}
               variant='outlined'
               shape='rounded'
+              page={page}
               onChange={(_, pageMUI) => {
                 if (pageMUI === page) return;
                 setPage(pageMUI);
