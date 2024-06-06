@@ -119,13 +119,14 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                 if (vote === 'up') {
                   mutateVoteQuestion({
                     question_id: question._id,
-                    type: 'cancel'
+                    type: 'cancel',
+                    old: 'up'
                   });
                   setVoteNumber(voteNumber - 1);
                   setVote('cancel');
                   return;
                 }
-                mutateVoteQuestion({ question_id: question._id, type: 'up' });
+                mutateVoteQuestion({ question_id: question._id, type: 'up', old: vote });
                 if (vote === 'down') {
                   setVoteNumber(voteNumber + 2);
                 } else if (vote === 'cancel') {
@@ -143,13 +144,14 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                 if (vote === 'down') {
                   mutateVoteQuestion({
                     question_id: question._id,
-                    type: 'cancel'
+                    type: 'cancel',
+                    old: 'down'
                   });
                   setVoteNumber(voteNumber + 1);
                   setVote('cancel');
                   return;
                 }
-                mutateVoteQuestion({ question_id: question._id, type: 'down' });
+                mutateVoteQuestion({ question_id: question._id, type: 'down', old: vote});
                 if (vote === 'up') {
                   setVoteNumber(voteNumber - 2);
                 } else if (vote === 'cancel') {

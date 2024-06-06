@@ -120,6 +120,7 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                       mutateVoteAnswer({
                         question_id: questionID,
                         answer_id: answer._id,
+                        old: 'up',
                         type: 'cancel'
                       });
                       setVoteNumber(voteNumber - 1);
@@ -129,7 +130,8 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                     mutateVoteAnswer({
                       question_id: questionID,
                       answer_id: answer._id,
-                      type: 'up'
+                      type: 'up',
+                      old: vote
                     });
                     if (vote === 'down') {
                       setVoteNumber(voteNumber + 2);
@@ -149,6 +151,7 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                       mutateVoteAnswer({
                         question_id: questionID,
                         answer_id: answer._id,
+                        old: 'down',
                         type: 'cancel'
                       });
                       setVoteNumber(voteNumber + 1);
@@ -158,7 +161,8 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                     mutateVoteAnswer({
                       question_id: questionID,
                       answer_id: answer._id,
-                      type: 'down'
+                      type: 'down',
+                      old: vote
                     });
                     if (vote === 'up') {
                       setVoteNumber(voteNumber - 2);

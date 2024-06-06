@@ -47,7 +47,7 @@ class QuestionService extends BaseService {
   };
 
   voteQuestion = async (data: ICreateVoteQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
-    return await this.put(`/questions/vote/${data.question_id}?type=${data.type}`);
+    return await this.put(`/questions/vote/${data.question_id}?type=${data.type}`, data);
   };
 
   commentQuestion = async (data: ICreateCommentQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {

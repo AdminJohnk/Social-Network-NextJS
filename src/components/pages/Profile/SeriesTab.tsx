@@ -2,13 +2,14 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { useGetAllSeriesByUserID } from '@/hooks/query';
+import { useCurrentUserInfo, useGetAllSeriesByUserID } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
-import { FaRegCircle } from 'react-icons/fa';
 import { Link } from '@/navigation';
 import Nodata from '@/components/shared/Nodata';
 import { useTranslations } from 'next-intl';
 import { CircularProgress } from '@mui/material';
+import { PostItem } from '../Series/PostItem';
+import { Timeline } from 'flowbite-react';
 
 export interface ISeriesTabProps {
   profileID: string;
@@ -16,13 +17,15 @@ export interface ISeriesTabProps {
 
 export default function SeriesTab({ profileID }: ISeriesTabProps) {
   const t = useTranslations();
+
+  const { currentUserInfo } = useCurrentUserInfo();
   const { allSeries, isFetchingNextSeries, hasNextSeries, isLoadingAllSeries } =
     useGetAllSeriesByUserID(profileID);
 
   return (
-    <div className='bg-foreground-1 my-8 w-full rounded-md px-20 py-8'>
+    <div className='my-8 w-full rounded-md bg-foreground-1 px-20 py-8 space-y-14'>
       {isLoadingAllSeries ? (
-        <div className='w-full flex-center py-10'>
+        <div className='flex-center w-full py-10'>
           <CircularProgress size={20} className='!text-text-1' />
         </div>
       ) : !allSeries || !allSeries.length ? (
@@ -32,41 +35,31 @@ export default function SeriesTab({ profileID }: ISeriesTabProps) {
           const description =
             series.description.length > 150 ? series.description.slice(0, 150) + '...' : series.description;
 
+          const isMe = series ? series.user._id === currentUserInfo._id : false;
+
           return (
             <div key={index}>
-              <Link href={`/series/${series._id}`} className='grid grid-cols-5 gap-4 cursor-pointer'>
+              <Link href={`/series/${series._id}`} className='grid cursor-pointer grid-cols-5 gap-4'>
                 <div className='col-span-4'>
-                  <h1 className='h3-bold hover:underline duration-300'>{series.title}</h1>
-                  <p className='text-text-2 mt-4' dangerouslySetInnerHTML={{ __html: description }}></p>
+                  <h1 className='h3-bold duration-300 hover:underline'>{series.title}</h1>
+                  <p className='mt-4 text-text-2' dangerouslySetInnerHTML={{ __html: description }}></p>
                   <Button className='my-4'>{t('View series')}</Button>
                 </div>
                 <div className='col-span-1'>
                   <Image
                     alt='Ethereum'
                     src={getImageURL(series.cover_image, 'post_mini') || ''}
-                    className='rounded-md object-cover w-full h-[132px]'
+                    className='h-[132px] w-full rounded-md object-cover'
                     width={1000}
                     height={1000}
                   />
                 </div>
               </Link>
-              <div className='space-y-4 mt-3'>
-                {series.posts.map((post, index) => (
-                  <div key={index} className='w-full group cursor-pointer'>
-                    <Link
-                      className='flex items-center w-full'
-                      href={`/series/${series._id}/posts/${post._id}`}>
-                      <FaRegCircle className='text-blue-500 size-3' />
-                      <div className='ms-3'>
-                        <h2 className='h5-semibold hover:underline duration-300 group-hover:underline'>
-                          {post.title}
-                        </h2>
-                        <p className='small-regular text-text-2'>{post.read_time + t(' min read')}</p>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
+              <Timeline className='mt-6 border-border-1'>
+                {series.posts.map((post) => {
+                  return <PostItem key={post._id} post={post} series_id={series._id} isMe={isMe} />;
+                })}
+              </Timeline>
             </div>
           );
         })
