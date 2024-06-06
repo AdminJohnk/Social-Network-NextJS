@@ -7,7 +7,7 @@ import { Link } from '@/navigation';
 import { IQuestion } from '@/types';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { useCommentQuestion, useDeleteQuestion, useSaveQuestion, useVoteQuestion } from '@/hooks/mutation';
-import { useCurrentUserInfo } from '@/hooks/query';
+import { useCurrentUserInfo, useGetReputation } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
 import { useFormatter, useTranslations } from 'next-intl';
 import Modal from '@/components/shared/Modal';
@@ -27,13 +27,15 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
 
   const getFormattedDate = (date: string) => {
     return format.dateTime(new Date(date), {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
+      dateStyle: 'long',
+      timeStyle: 'short'
     });
   };
 
   const { currentUserInfo } = useCurrentUserInfo();
+  const {
+    reputation: { level }
+  } = useGetReputation(currentUserInfo._id);
   const { mutateVoteQuestion } = useVoteQuestion();
   const { mutateDeleteQuestion, isLoadingDeleteQuestion } = useDeleteQuestion();
   const { mutateCommentQuestion, isLoadingCommentQuestion } = useCommentQuestion();
@@ -122,15 +124,15 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                     type: 'cancel',
                     old: 'up'
                   });
-                  setVoteNumber(voteNumber - 1);
+                  setVoteNumber(voteNumber - level);
                   setVote('cancel');
                   return;
                 }
                 mutateVoteQuestion({ question_id: question._id, type: 'up', old: vote });
                 if (vote === 'down') {
-                  setVoteNumber(voteNumber + 2);
+                  setVoteNumber(voteNumber + level * 2);
                 } else if (vote === 'cancel') {
-                  setVoteNumber(voteNumber + 1);
+                  setVoteNumber(voteNumber + level);
                 }
                 setVote('up');
               }}
@@ -147,15 +149,15 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                     type: 'cancel',
                     old: 'down'
                   });
-                  setVoteNumber(voteNumber + 1);
+                  setVoteNumber(voteNumber + level);
                   setVote('cancel');
                   return;
                 }
-                mutateVoteQuestion({ question_id: question._id, type: 'down', old: vote});
+                mutateVoteQuestion({ question_id: question._id, type: 'down', old: vote });
                 if (vote === 'up') {
-                  setVoteNumber(voteNumber - 2);
+                  setVoteNumber(voteNumber - level * 2);
                 } else if (vote === 'cancel') {
-                  setVoteNumber(voteNumber - 1);
+                  setVoteNumber(voteNumber - level);
                 }
                 setVote('down');
               }}
@@ -208,29 +210,11 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
               <div className='pt-2 text-text-2'>
                 <span className='me-1'>{t('edited')}</span>
                 <span className='me-1'>{getFormattedDate(question.update_at)}</span>
-                <span className='space-x-1'>
-                  <span>{t('at1')}</span>
-                  <span>
-                    {format.dateTime(new Date(question.update_at), {
-                      hour: 'numeric',
-                      minute: 'numeric'
-                    })}
-                  </span>
-                </span>
               </div>
               <div className='rounded-lg bg-blue-200 p-2 dark:bg-blue-950'>
                 <div className='text-text-2'>
                   <span className='me-1'>{t('asked')}</span>
                   <span className='me-1'>{getFormattedDate(question.createdAt)}</span>
-                  <span className='space-x-1'>
-                    <span>{t('at1')}</span>
-                    <span>
-                      {format.dateTime(new Date(question.createdAt), {
-                        hour: 'numeric',
-                        minute: 'numeric'
-                      })}
-                    </span>
-                  </span>
                 </div>
                 <div className='flex-start mt-2'>
                   <Link href={`/profile/${question.user._id}`}>

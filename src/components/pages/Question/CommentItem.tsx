@@ -69,9 +69,8 @@ export default function CommentItem({
 
   const getFormattedDate = (date: string) => {
     return format.dateTime(new Date(date), {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
+      dateStyle: 'long',
+      timeStyle: 'short'
     });
   };
 
@@ -156,15 +155,6 @@ export default function CommentItem({
                 </Link>
                 <span className='ms-1 text-text-2'>
                   <span className='me-1'>{getFormattedDate(comment.createdAt)}</span>
-                  <span className='space-x-1'>
-                    <span>{t('at1')}</span>
-                    <span>
-                      {format.dateTime(new Date(comment.createdAt), {
-                        hour: 'numeric',
-                        minute: 'numeric'
-                      })}
-                    </span>
-                  </span>
                 </span>
                 {(isQuestionOwner || isAuthor) && (
                   <>

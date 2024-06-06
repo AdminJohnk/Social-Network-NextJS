@@ -6,6 +6,7 @@ import Divider from '@/components/shared/Divider';
 import { useGetSavedQuestions } from '@/hooks/query';
 import { CircularProgress } from '@mui/material';
 import { useFormatter, useTranslations } from 'next-intl';
+import { useEffect } from 'react';
 
 export interface ISavesProps {}
 
@@ -14,6 +15,10 @@ export default function Saves(props: ISavesProps) {
   const format = useFormatter();
 
   const { savedQuestions, isLoadingSavedQuestions } = useGetSavedQuestions();
+
+  useEffect(() => {
+    UIkit.sticky('#save-questions-side')?.$emit('update');
+  }, [savedQuestions]);
 
   return (
     <div className='ms-60 mt-16 pb-5 pt-5 max-lg:ms-0'>

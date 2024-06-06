@@ -15,14 +15,14 @@ export const Sidebar: Array<{ href: string; image: string; label: string; showMo
     label: 'Questions'
   },
   {
-    href: '/community',
-    image: '/images/home/group.png',
-    label: 'Communities'
-  },
-  {
     href: '/series',
     image: '/images/home/blog.png',
     label: 'Series'
+  },
+  {
+    href: '/community',
+    image: '/images/home/group.png',
+    label: 'Communities'
   },
   {
     href: '/favorites',

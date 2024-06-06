@@ -19,9 +19,8 @@ export default function QuestionSummaryItem({ question }: IQuestionSummaryItemPr
 
   const getFormattedDate = (date: string) => {
     return format.dateTime(new Date(date), {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
+      dateStyle: 'long',
+      timeStyle: 'short'
     });
   };
 
@@ -76,13 +75,6 @@ export default function QuestionSummaryItem({ question }: IQuestionSummaryItemPr
               </Link>
               <span className='text-text-2'>{t('asked')}</span>
               <span className='text-text-2'>{getFormattedDate(question.createdAt)}</span>
-              <span className='text-text-2'>{t('at1')}</span>
-              <span className='text-text-2'>
-                {format.dateTime(new Date(question.createdAt), {
-                  hour: 'numeric',
-                  minute: 'numeric'
-                })}
-              </span>
             </div>
           </div>
         </div>

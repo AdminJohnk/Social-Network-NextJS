@@ -15,7 +15,7 @@ import EditAnswer from './EditAnswer';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { IoMdSend } from 'react-icons/io';
 import { cn, getImageURL } from '@/lib/utils';
-import { useCurrentUserInfo } from '@/hooks/query';
+import { useCurrentUserInfo, useGetReputation } from '@/hooks/query';
 
 export interface IAnswerItemProps {
   answer: IAnswerQuestion;
@@ -35,6 +35,10 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
   const [voteNumber, setVoteNumber] = useState<number>(0);
 
   const { currentUserInfo } = useCurrentUserInfo();
+  const {
+    reputation: { level }
+  } = useGetReputation(currentUserInfo._id);
+
   const { mutateDeleteAnswer, isLoadingDeleteAnswer } = useDeleteAnswer();
   const { mutateCommentAnswer, isLoadingCommentAnswer } = useCommentAnswer();
   const { mutateVoteAnswer } = useVoteAnswer();
@@ -61,9 +65,8 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
 
   const getFormattedDate = (date: string) => {
     return format.dateTime(new Date(date), {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
+      dateStyle: 'long',
+      timeStyle: 'short'
     });
   };
 
@@ -123,7 +126,7 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                         old: 'up',
                         type: 'cancel'
                       });
-                      setVoteNumber(voteNumber - 1);
+                      setVoteNumber(voteNumber - level);
                       setVote('cancel');
                       return;
                     }
@@ -134,9 +137,9 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                       old: vote
                     });
                     if (vote === 'down') {
-                      setVoteNumber(voteNumber + 2);
+                      setVoteNumber(voteNumber + level * 2);
                     } else if (vote === 'cancel') {
-                      setVoteNumber(voteNumber + 1);
+                      setVoteNumber(voteNumber + level);
                     }
                     setVote('up');
                   }}
@@ -154,7 +157,7 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                         old: 'down',
                         type: 'cancel'
                       });
-                      setVoteNumber(voteNumber + 1);
+                      setVoteNumber(voteNumber + level);
                       setVote('cancel');
                       return;
                     }
@@ -165,9 +168,9 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                       old: vote
                     });
                     if (vote === 'up') {
-                      setVoteNumber(voteNumber - 2);
+                      setVoteNumber(voteNumber - level * 2);
                     } else if (vote === 'cancel') {
-                      setVoteNumber(voteNumber - 1);
+                      setVoteNumber(voteNumber - level);
                     }
                     setVote('down');
                   }}
@@ -210,29 +213,11 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                   <div className='pt-2 text-text-2'>
                     <span className='me-1'>{t('edited')}</span>
                     <span className='me-1'>{getFormattedDate(answer.update_at)}</span>
-                    <span className='space-x-1'>
-                      <span>{t('at1')}</span>
-                      <span>
-                        {format.dateTime(new Date(answer.update_at), {
-                          hour: 'numeric',
-                          minute: 'numeric'
-                        })}
-                      </span>
-                    </span>
                   </div>
                   <div className='rounded-lg bg-blue-200 p-2 dark:bg-blue-950'>
                     <div className='text-text-2'>
                       <span className='me-1'>{t('asked')}</span>
                       <span className='me-1'>{getFormattedDate(answer.createdAt)}</span>
-                      <span className='space-x-1'>
-                        <span>{t('at1')}</span>
-                        <span>
-                          {format.dateTime(new Date(answer.createdAt), {
-                            hour: 'numeric',
-                            minute: 'numeric'
-                          })}
-                        </span>
-                      </span>
                     </div>
                     <div className='flex-start mt-2'>
                       <Link href={`/profile/${answer.user._id}`}>

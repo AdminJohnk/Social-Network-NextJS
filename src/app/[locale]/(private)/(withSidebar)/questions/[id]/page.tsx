@@ -42,7 +42,7 @@ export default function QuestionDetail({ params: { id } }: IQuestionDetailProps)
 
   useEffect(() => {
     UIkit.sticky('#question-side')?.$emit('update');
-  }, [question]);
+  }, [question, sortBy]);
 
   const isQuestionOwner = question?.user?._id === currentUserInfo._id;
 
@@ -147,7 +147,7 @@ export default function QuestionDetail({ params: { id } }: IQuestionDetailProps)
                   className='right'
                   id='question-side'
                   data-uk-sticky='media: 1024; end: #question; offset: 80'>
-                  <Menu currentMenu={'question'} />
+                  <Menu currentMenu='question' />
                   <Divider className='my-4' />
                   <div>
                     <div className='h4-regular'>{t('Related Questions')}</div>
