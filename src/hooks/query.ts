@@ -1303,3 +1303,22 @@ export const useGetSavedQuestions = () => {
     isFetchingSavedQuestions: isFetching
   };
 };
+
+export const useGetReputation = (userID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['reputation'],
+    queryFn: async () => {
+      const { data } = await userService.getReputation(userID);
+      return data.metadata;
+    },
+    staleTime: 60000 * 3,
+    enabled: !!userID
+  });
+
+  return {
+    isLoadingReputation: isPending,
+    isErrorReputation: isError,
+    reputation: data!,
+    isFetchingReputation: isFetching
+  };
+}

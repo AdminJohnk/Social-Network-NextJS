@@ -125,6 +125,8 @@ export interface IUserInfo {
   alias: string;
   about: string;
   posts: IPost[];
+  reputation: number;
+  level: number;
   experiences: IExperience[];
   repositories: IRepository[];
   contacts: IContact[];
@@ -143,6 +145,11 @@ export interface IUserInfo {
   members: IUserInfo[];
   post_number: number;
   is_friend: boolean;
+}
+
+export interface IReputation {
+  reputation: number;
+  level: number;
 }
 
 export interface TypeOfLink {
@@ -754,6 +761,7 @@ export interface IUpdateQuestion {
 export interface ICreateVoteQuestion {
   question_id: string;
   type: string;
+  old: string;
 }
 
 export interface IHashtag {
@@ -813,5 +821,6 @@ export interface ICreateCommentAnswer {
 export interface ICreateVoteAnswer {
   question_id: string;
   answer_id: string;
+  old: string;
   type: string;
 }

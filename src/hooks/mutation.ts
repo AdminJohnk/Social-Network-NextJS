@@ -2189,6 +2189,9 @@ export const useVoteQuestion = () => {
       queryClient.invalidateQueries({
         queryKey: ['question', question.question_id]
       });
+      queryClient.invalidateQueries({
+        queryKey: ['reputation']
+      });
     }
   });
 
@@ -2211,6 +2214,9 @@ export const useCommentQuestion = () => {
     onSuccess(_, question) {
       queryClient.invalidateQueries({
         queryKey: ['question', question.question_id]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['reputation']
       });
     }
   });
@@ -2258,6 +2264,9 @@ export const useDeleteCommentQuestion = () => {
       queryClient.invalidateQueries({
         queryKey: ['question', question.question_id]
       });
+      queryClient.invalidateQueries({
+        queryKey: ['reputation']
+      });
     }
   });
 
@@ -2304,6 +2313,9 @@ export const useAnswerQuestion = () => {
       queryClient.invalidateQueries({
         queryKey: ['question', question.question_id]
       });
+      queryClient.invalidateQueries({
+        queryKey: ['reputation']
+      });
     }
   });
 
@@ -2326,6 +2338,9 @@ export const useDeleteCommentAnswer = () => {
     onSuccess(_, question) {
       queryClient.invalidateQueries({
         queryKey: ['question', question.question_id]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['reputation']
       });
     }
   });
@@ -2373,6 +2388,9 @@ export const useDeleteAnswer = () => {
       queryClient.invalidateQueries({
         queryKey: ['question', question.question_id]
       });
+      queryClient.invalidateQueries({
+        queryKey: ['reputation']
+      });
     }
   });
 
@@ -2395,6 +2413,9 @@ export const useCommentAnswer = () => {
     onSuccess(_, question) {
       queryClient.invalidateQueries({
         queryKey: ['question', question.question_id]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['reputation']
       });
     }
   });
@@ -2464,6 +2485,9 @@ export const useVoteAnswer = () => {
     onSuccess(_, question) {
       queryClient.invalidateQueries({
         queryKey: ['question', question.question_id]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['reputation']
       });
     }
   });

@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { IResponse, IUserUpdate, IUserInfo, ICreateRepository } from '@/types';
+import { IResponse, IUserUpdate, IUserInfo, ICreateRepository, IReputation } from '@/types';
 import { BaseService } from './BaseService';
 
 class UserService extends BaseService {
@@ -57,6 +57,10 @@ class UserService extends BaseService {
 
   getRepository = async (link: string): Promise<AxiosResponse<ICreateRepository[]>> => {
     return await this.getGithub(link);
+  };
+
+  getReputation = async (userID: string): Promise<AxiosResponse<IResponse<IReputation>>> => {
+    return await this.get(`/users/reputation`);
   };
 }
 
