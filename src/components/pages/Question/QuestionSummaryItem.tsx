@@ -29,7 +29,7 @@ export default function QuestionSummaryItem({ question }: IQuestionSummaryItemPr
       <div className='flex gap-3'>
         <div className='w-[20%] space-y-1 text-right text-[0.8rem]'>
           <div>
-            {format.number(question.vote_score, { notation: 'compact' }) +
+            {format.number(question.vote_score, { notation: 'compact', compactDisplay: 'long' }) +
               ' ' +
               t('votes', { count: question.vote_score })}
           </div>
@@ -37,14 +37,14 @@ export default function QuestionSummaryItem({ question }: IQuestionSummaryItemPr
             <div className='flex-start gap-1 rounded-lg bg-green-400 px-2 py-1 text-black dark:bg-green-500'>
               <FaCheck className='size-3' />
               <span>
-                {format.number(question.answer_number, { notation: 'compact' }) +
+                {format.number(question.answer_number, { notation: 'compact', compactDisplay: 'long' }) +
                   ' ' +
                   t('answers', { count: question.answer_number })}
               </span>
             </div>
           </div>
           <div>
-            {format.number(question.view, { notation: 'compact' }) +
+            {format.number(question.view, { notation: 'compact', compactDisplay: 'long' }) +
               ' ' +
               t('views', { count: question.view })}
           </div>

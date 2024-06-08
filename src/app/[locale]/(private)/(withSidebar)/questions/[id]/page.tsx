@@ -85,7 +85,9 @@ export default function QuestionDetail({ params: { id } }: IQuestionDetailProps)
                 <div>
                   <span className='me-1'>{t('Viewed')}</span>
                   <span className='text-text-2'>
-                    <span className='me-1'>{format.number(question.view, { notation: 'compact' })}</span>
+                    <span className='me-1'>
+                      {format.number(question.view, { notation: 'compact', compactDisplay: 'long' })}
+                    </span>
                     <span>{t('times', { count: question.view })}</span>
                   </span>
                 </div>
@@ -97,7 +99,12 @@ export default function QuestionDetail({ params: { id } }: IQuestionDetailProps)
                 <QuestionItem question={question} />
                 <div className='flex-between mb-5'>
                   <div className='h4-regular space-x-1'>
-                    <span>{format.number(question.answers.length, { notation: 'compact' })}</span>
+                    <span>
+                      {format.number(question.answers.length, {
+                        notation: 'compact',
+                        compactDisplay: 'long'
+                      })}
+                    </span>
                     <span>{t('answers', { count: question.answers.length })}</span>
                   </div>
                   {question.answers.length > 0 && (

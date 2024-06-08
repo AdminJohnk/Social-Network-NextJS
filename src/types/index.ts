@@ -719,7 +719,7 @@ export interface IQuestion {
   vote_down: string[];
   vote_score: number;
   answers: IAnswerQuestion[];
-  save: string[];
+  saves: string[];
   comment: ICommentQuestion[];
   createdAt: string;
   update_at: string;

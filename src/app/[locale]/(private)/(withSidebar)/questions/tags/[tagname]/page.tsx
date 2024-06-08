@@ -63,10 +63,12 @@ export default function TagDetail({ params: { tagname } }: ITagDetailProps) {
             </div>
             <div className='flex-between mt-8'>
               {isFetchingNumberQuestionByTag ? (
-                <Skeleton variant='rectangular' width={80} />
+                <Skeleton className='!bg-foreground-1' variant='rectangular' width={80} />
               ) : (
                 <div>
-                  <span className='me-1'>{format.number(numberQuestionByTag, { notation: 'compact' })}</span>
+                  <span className='me-1'>
+                    {format.number(numberQuestionByTag, { notation: 'compact', compactDisplay: 'long' })}
+                  </span>
                   <span>{t('questions', { count: numberQuestionByTag })}</span>
                 </div>
               )}

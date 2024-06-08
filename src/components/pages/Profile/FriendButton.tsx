@@ -60,7 +60,7 @@ export default function FriendButton({ profileID, variant = 'main' }: IFriendBut
   return (
     <>
       {isMe ? null : isLoadingOtherUserInfo ? (
-        <Skeleton variant='circular' width={40} height={40} />
+        <Skeleton className='!bg-foreground-1' variant='circular' width={40} height={40} />
       ) : (
         <>
           {!isFriend && !sentRequest && !receivedRequest && (
@@ -121,7 +121,7 @@ export default function FriendButton({ profileID, variant = 'main' }: IFriendBut
               <div
                 className='w-[240px] !bg-foreground-1'
                 data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
+                <nav className='*:cursor-pointer *:rounded-md *:px-4 *:py-2 *:duration-300 hover:*:!bg-hover-1'>
                   <div
                     className='uk-drop-close'
                     onClick={() => {
@@ -166,7 +166,7 @@ export default function FriendButton({ profileID, variant = 'main' }: IFriendBut
               <div
                 className='w-[240px] !bg-foreground-1'
                 data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                <nav className='*:py-2 *:px-4 hover:*:!bg-hover-1 *:cursor-pointer *:duration-300 *:rounded-md'>
+                <nav className='*:cursor-pointer *:rounded-md *:px-4 *:py-2 *:duration-300 hover:*:!bg-hover-1'>
                   <div
                     className='uk-drop-close'
                     onClick={() => {

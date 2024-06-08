@@ -69,18 +69,18 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
   }, []);
 
   return (
-    <div className='w-[740px] max-h-[600px] overflow-y-scroll bg-foreground-1 rounded-lg custom-scrollbar-fg p-7 animate-fade-up'>
+    <div className='custom-scrollbar-fg max-h-[600px] w-[740px] animate-fade-up overflow-y-scroll rounded-lg bg-foreground-1 p-7'>
       {isLoadingCurrentUserInfo ? (
         <div className='flex-between'>
           <div className='flex-start gap-3'>
-            <Skeleton className='bg-foreground-2' variant='circular' width={40} height={40} />
+            <Skeleton className='!bg-foreground-2' variant='circular' width={40} height={40} />
             <div className='flex flex-col'>
-              <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1.5rem' }} />
-              <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1rem' }} />
+              <Skeleton className='w-36 !bg-foreground-2' variant='text' sx={{ fontSize: '1.5rem' }} />
+              <Skeleton className='w-36 !bg-foreground-2' variant='text' sx={{ fontSize: '1rem' }} />
             </div>
           </div>
           <div>
-            <Skeleton className='bg-foreground-2' variant='circular' width={25} height={25} />
+            <Skeleton className='!bg-foreground-2' variant='circular' width={25} height={25} />
           </div>
         </div>
       ) : (
@@ -89,13 +89,13 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
             <Link href={`/profile/${currentUserInfo._id}`}>
               <Avatar src={getImageURL(currentUserInfo.user_image)} />
             </Link>
-            <div className='flex flex-col ms-3'>
+            <div className='ms-3 flex flex-col'>
               <Link href={`/profile/${currentUserInfo._id}`} className='base-bold'>
                 {currentUserInfo.name}
               </Link>
             </div>
           </div>
-          <div className='space-y-5 mt-3 p-2'>
+          <div className='mt-3 space-y-5 p-2'>
             <Editor setEditor={setEditor} />
           </div>
         </div>
@@ -107,10 +107,10 @@ export default function CreateNewPostShare({ handleClose, post }: ICreateNewPost
         <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />
         <Button
           type='submit'
-          className='button lg:px-6 text-white max-md:flex-1'
+          className='button text-white max-md:flex-1 lg:px-6'
           disabled={isLoading}
           onClick={onSubmit}>
-          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+          {isLoading && <CircularProgress size={20} className='mr-2 !text-text-1' />}
           {t('Share')} <span className='ripple-overlay'></span>
         </Button>
       </div>

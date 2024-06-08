@@ -21,8 +21,8 @@ export default function RelatedQuestions({ questionID }: IRelatedQuestionsProps)
           {isLoadingRelatedQuestions
             ? Array.from({ length: 4 }).map((_, index) => (
                 <div key={index}>
-                  <Skeleton variant='text' width={50} height={40} />
-                  <Skeleton variant='text' width={250} height={40} />
+                  <Skeleton className='!bg-foreground-1' variant='text' width={50} height={40} />
+                  <Skeleton className='!bg-foreground-1' variant='text' width={250} height={40} />
                 </div>
               ))
             : relatedQuestions.map((question, index) => (

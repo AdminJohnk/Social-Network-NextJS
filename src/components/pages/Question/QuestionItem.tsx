@@ -69,7 +69,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
       }
     }
     setVoteNumber(question?.vote_score);
-    setIsSave(question?.save?.includes(currentUserInfo?._id));
+    setIsSave(question?.saves?.includes(currentUserInfo?._id));
   }, [question, currentUserInfo]);
 
   const handleDeleteQuestion = () => {
