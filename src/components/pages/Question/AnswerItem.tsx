@@ -35,9 +35,7 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
   const [voteNumber, setVoteNumber] = useState<number>(0);
 
   const { currentUserInfo } = useCurrentUserInfo();
-  const {
-    reputation: { level }
-  } = useGetReputation(currentUserInfo._id);
+  const { reputation } = useGetReputation();
 
   const { mutateDeleteAnswer, isLoadingDeleteAnswer } = useDeleteAnswer();
   const { mutateCommentAnswer, isLoadingCommentAnswer } = useCommentAnswer();
@@ -126,7 +124,7 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                         old: 'up',
                         type: 'cancel'
                       });
-                      setVoteNumber(voteNumber - level);
+                      setVoteNumber(voteNumber - reputation.level);
                       setVote('cancel');
                       return;
                     }
@@ -137,9 +135,9 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                       old: vote
                     });
                     if (vote === 'down') {
-                      setVoteNumber(voteNumber + level * 2);
+                      setVoteNumber(voteNumber + reputation.level * 2);
                     } else if (vote === 'cancel') {
-                      setVoteNumber(voteNumber + level);
+                      setVoteNumber(voteNumber + reputation.level);
                     }
                     setVote('up');
                   }}
@@ -157,7 +155,7 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                         old: 'down',
                         type: 'cancel'
                       });
-                      setVoteNumber(voteNumber + level);
+                      setVoteNumber(voteNumber + reputation.level);
                       setVote('cancel');
                       return;
                     }
@@ -168,9 +166,9 @@ export default function AnswerItem({ answer, questionID, isQuestionOwner }: IAns
                       old: vote
                     });
                     if (vote === 'up') {
-                      setVoteNumber(voteNumber - level * 2);
+                      setVoteNumber(voteNumber - reputation.level * 2);
                     } else if (vote === 'cancel') {
-                      setVoteNumber(voteNumber - level);
+                      setVoteNumber(voteNumber - reputation.level);
                     }
                     setVote('down');
                   }}

@@ -59,7 +59,7 @@ class UserService extends BaseService {
     return await this.getGithub(link);
   };
 
-  getReputation = async (userID: string): Promise<AxiosResponse<IResponse<IReputation>>> => {
+  getReputation = async (): Promise<AxiosResponse<IResponse<IReputation>>> => {
     return await this.get(`/users/reputation`);
   };
 }

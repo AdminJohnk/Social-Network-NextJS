@@ -61,9 +61,9 @@ export default function QuestionSummaryItem({ question }: IQuestionSummaryItemPr
           <div className='mt-2'>
             <div className='flex-start gap-2'>
               {question.hashtags.map((tag, index) => (
-                <span key={index} className='tag bg-1 rounded-md px-1'>
+                <Link key={index} href={`/questions/tags/${tag}`} className='tag bg-1 rounded-md px-1'>
                   {tag}
-                </span>
+                </Link>
               ))}
             </div>
             <div className='flex-end mt-3 gap-1 text-[0.8rem]'>

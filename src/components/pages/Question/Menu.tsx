@@ -1,7 +1,10 @@
-import { useCurrentUserInfo, useGetReputation } from '@/hooks/query';
+'use client';
+
+import { useGetReputation } from '@/hooks/query';
 import { cn } from '@/lib/utils';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
+import { Skeleton } from '@mui/material';
 import { BsQuestionCircleFill } from 'react-icons/bs';
 import { FaBookmark } from 'react-icons/fa6';
 import { IoPricetags } from 'react-icons/io5';
@@ -13,13 +16,16 @@ export interface IMenuProps {
 export default function Menu({ currentMenu }: IMenuProps) {
   const t = useTranslations();
 
-  const { currentUserInfo } = useCurrentUserInfo();
-  const { reputation, isLoadingReputation } = useGetReputation(currentUserInfo?._id);
+  const { reputation, isLoadingReputation } = useGetReputation();
 
   return (
     <div>
-      {!isLoadingReputation && (
-        <div className='mb-3'>Reputation: {reputation.reputation + ` (level ${reputation.level})`}</div>
+      {isLoadingReputation ? (
+        <Skeleton variant='text' width={250} height={35} />
+      ) : (
+        <div className='mb-3'>
+          {t('Reputation')}: {reputation.reputation + ` (${t('level')} ${reputation.level})`}
+        </div>
       )}
       <div className='*:flex-start *:mb-1 *:cursor-pointer *:gap-3 *:rounded-lg *:px-2 *:py-2 *:duration-300 hover:*:bg-foreground-2'>
         <Link href={'/questions'} className={cn(currentMenu === 'question' && 'bg-foreground-2')}>

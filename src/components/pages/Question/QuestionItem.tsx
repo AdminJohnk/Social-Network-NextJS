@@ -3,7 +3,7 @@ import { Avatar, CircularProgress } from '@mui/material';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 import CommentItem from './CommentItem';
 import Divider from '@/components/shared/Divider';
-import { Link } from '@/navigation';
+import { Link, useRouter } from '@/navigation';
 import { IQuestion } from '@/types';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { useCommentQuestion, useDeleteQuestion, useSaveQuestion, useVoteQuestion } from '@/hooks/mutation';
@@ -24,6 +24,7 @@ export interface IQuestionItemProps {
 export default function QuestionItem({ question }: IQuestionItemProps) {
   const t = useTranslations();
   const format = useFormatter();
+  const router = useRouter();
 
   const getFormattedDate = (date: string) => {
     return format.dateTime(new Date(date), {
@@ -33,10 +34,8 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   };
 
   const { currentUserInfo } = useCurrentUserInfo();
-  const {
-    reputation: { level }
-  } = useGetReputation(currentUserInfo._id);
-  const { mutateVoteQuestion } = useVoteQuestion();
+  const { reputation } = useGetReputation();
+  const { mutateVoteQuestion, isLoadingVoteQuestion } = useVoteQuestion();
   const { mutateDeleteQuestion, isLoadingDeleteQuestion } = useDeleteQuestion();
   const { mutateCommentQuestion, isLoadingCommentQuestion } = useCommentQuestion();
   const { mutateSaveQuestion } = useSaveQuestion();
@@ -76,7 +75,9 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   const handleDeleteQuestion = () => {
     mutateDeleteQuestion(question._id, {
       onSuccess: () => {
+        router.push('/questions');
         showSuccessToast(t('Question deleted successfully!'));
+        router.push('/questions');
       },
       onError: () => {
         showErrorToast(t('Something went wrong! Please try again!'));
@@ -118,21 +119,22 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
             <BiSolidUpArrow
               className={cn('text-1 size-5', vote === 'up' && 'text-green-400')}
               onClick={() => {
+                if (isLoadingVoteQuestion) return;
                 if (vote === 'up') {
                   mutateVoteQuestion({
                     question_id: question._id,
                     type: 'cancel',
                     old: 'up'
                   });
-                  setVoteNumber(voteNumber - level);
+                  setVoteNumber(voteNumber - reputation.level);
                   setVote('cancel');
                   return;
                 }
                 mutateVoteQuestion({ question_id: question._id, type: 'up', old: vote });
                 if (vote === 'down') {
-                  setVoteNumber(voteNumber + level * 2);
+                  setVoteNumber(voteNumber + reputation.level * 2);
                 } else if (vote === 'cancel') {
-                  setVoteNumber(voteNumber + level);
+                  setVoteNumber(voteNumber + reputation.level);
                 }
                 setVote('up');
               }}
@@ -143,21 +145,22 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
             <BiSolidDownArrow
               className={cn('text-1 size-5', vote === 'down' && 'text-green-400')}
               onClick={() => {
+                if (isLoadingVoteQuestion) return;
                 if (vote === 'down') {
                   mutateVoteQuestion({
                     question_id: question._id,
                     type: 'cancel',
                     old: 'down'
                   });
-                  setVoteNumber(voteNumber + level);
+                  setVoteNumber(voteNumber + reputation.level);
                   setVote('cancel');
                   return;
                 }
                 mutateVoteQuestion({ question_id: question._id, type: 'down', old: vote });
                 if (vote === 'up') {
-                  setVoteNumber(voteNumber - level * 2);
+                  setVoteNumber(voteNumber - reputation.level * 2);
                 } else if (vote === 'cancel') {
-                  setVoteNumber(voteNumber - level);
+                  setVoteNumber(voteNumber - reputation.level);
                 }
                 setVote('down');
               }}
@@ -187,7 +190,9 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
           <ShowContent content={question.problem + question.expect} />
           <div className='flex-start *:bg-1 mt-6 gap-3 *:rounded-sm *:p-1'>
             {question.hashtags.map((tag, index) => (
-              <span key={index}>{tag}</span>
+              <Link key={index} href={`/questions/tags/${tag}`}>
+                {tag}
+              </Link>
             ))}
           </div>
           <div className={cn('small-regular mt-10 flex justify-between', !isOwnerQuestion && 'justify-end')}>

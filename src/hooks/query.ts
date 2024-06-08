@@ -1324,15 +1324,51 @@ export const useGetSavedQuestions = () => {
   };
 };
 
-export const useGetReputation = (userID: string) => {
+export const useGetHotQuestions = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['hotQuestions'],
+    queryFn: async () => {
+      const { data } = await questionService.getHotQuestions();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingHotQuestions: isPending,
+    isErrorHotQuestions: isError,
+    hotQuestions: data!,
+    isFetchingHotQuestions: isFetching
+  };
+};
+
+export const useGetRelatedQuestions = (questionID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['relatedQuestions', questionID],
+    queryFn: async () => {
+      const { data } = await questionService.getRelatedQuestions(questionID);
+      return data.metadata;
+    },
+    staleTime: Infinity,
+    enabled: !!questionID
+  });
+
+  return {
+    isLoadingRelatedQuestions: isPending,
+    isErrorRelatedQuestions: isError,
+    relatedQuestions: data!,
+    isFetchingRelatedQuestions: isFetching
+  };
+};
+
+export const useGetReputation = () => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['reputation'],
     queryFn: async () => {
-      const { data } = await userService.getReputation(userID);
+      const { data } = await userService.getReputation();
       return data.metadata;
     },
-    staleTime: 60000 * 3,
-    enabled: !!userID
+    staleTime: 60000 * 3
   });
 
   return {
@@ -1341,4 +1377,4 @@ export const useGetReputation = (userID: string) => {
     reputation: data!,
     isFetchingReputation: isFetching
   };
-}
+};

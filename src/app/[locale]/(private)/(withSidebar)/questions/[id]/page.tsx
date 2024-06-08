@@ -14,6 +14,8 @@ import CreateEditQuestion from '@/components/pages/Question/CreateEditQuestion';
 import { useCurrentUserInfo, useGetQuestionByID } from '@/hooks/query';
 import { useViewQuestion } from '@/hooks/mutation';
 import { notFound } from 'next/navigation';
+import RelatedQuestions from '@/components/pages/Question/RelatedQuestions';
+import HotQuestions from '@/components/pages/Question/HotQuestions';
 
 export interface IQuestionDetailProps {
   params: {
@@ -148,84 +150,9 @@ export default function QuestionDetail({ params: { id } }: IQuestionDetailProps)
                   id='question-side'
                   data-uk-sticky='media: 1024; end: #question; offset: 80'>
                   <Menu currentMenu='question' />
+                  <RelatedQuestions questionID={id} />
                   <Divider className='my-4' />
-                  <div>
-                    <div className='h4-regular'>{t('Related Questions')}</div>
-                    <div className='*:flex-start mt-4 *:mb-2 *:cursor-pointer *:gap-3 *:text-[0.8rem]'>
-                      <div>
-                        <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                          250
-                        </span>
-                        <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                          Why is processing a sorted array slower than an unsorted array?
-                        </div>
-                      </div>
-                      <div>
-                        <span className='min-w-10 rounded-md bg-foreground-2 px-2 py-1 text-center'>6</span>
-                        <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                          Complexity of comparison operators
-                        </div>
-                      </div>
-                      <div>
-                        <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                          137
-                        </span>
-                        <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                          Why is printing B dramatically slower than printing #?
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <Divider className='my-4' />
-                  <div>
-                    <div className='h4-regular'>Host Question</div>
-                    <div className='*:flex-start mt-4 *:mb-2 *:cursor-pointer *:gap-3 *:text-[0.8rem]'>
-                      <div>
-                        <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                          250
-                        </span>
-                        <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                          Why is processing a sorted array slower than an unsorted array?
-                        </div>
-                      </div>
-                      <div>
-                        <span className='min-w-10 rounded-md bg-foreground-2 px-2 py-1 text-center'>6</span>
-                        <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                          Complexity of comparison operators
-                        </div>
-                      </div>
-                      <div>
-                        <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                          137
-                        </span>
-                        <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                          Why is printing B dramatically slower than printing #?
-                        </div>
-                      </div>
-                      <div>
-                        <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                          250
-                        </span>
-                        <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                          Why is processing a sorted array slower than an unsorted array?
-                        </div>
-                      </div>
-                      <div>
-                        <span className='min-w-10 rounded-md bg-foreground-2 px-2 py-1 text-center'>6</span>
-                        <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                          Complexity of comparison operators
-                        </div>
-                      </div>
-                      <div>
-                        <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                          137
-                        </span>
-                        <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                          Why is printing B dramatically slower than printing #?
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <HotQuestions />
                 </div>
               </div>
             </div>

@@ -43,9 +43,10 @@ export default function Tags() {
     <div className='ms-60 mt-16 pb-5 pt-5 max-lg:ms-0'>
       <div className='mx-auto max-w-[1070px]'>
         <div className='h3-semibold mt-3'>{t('Tags')}</div>
-        <div className='mt-4 w-[55%]'>
-          A tag is a keyword or label that categorizes your question with other, similar questions. Using the
-          right tags makes it easier for others to find and answer your question.
+        <div className='mt-4 w-[60%]'>
+          {t('A tag is a keyword or label that categorizes your question with other, similar questions')}
+          .&nbsp;
+          {t('Using the right tags makes it easier for others to find and answer your question')}.
         </div>
         <div className='flex-between mt-5'>
           <div className='flex-start gap-2 rounded-md border border-border-1 px-2 py-1'>
@@ -54,7 +55,7 @@ export default function Tags() {
             </span>
             <input
               className='w-full bg-transparent outline-none'
-              placeholder='Filter by tag name'
+              placeholder={t('Filter by tag name')}
               onChange={(e) => {
                 setSearch(e.target.value);
                 if (page !== 1) setPage(1);
@@ -68,7 +69,7 @@ export default function Tags() {
                 if (sortBy === 'popular') return;
                 setSortBy('popular');
               }}>
-              Popular
+              {t('Popular')}
             </span>
             <span
               className={cn(sortBy === 'name' && 'bg-hover-1')}
@@ -76,7 +77,7 @@ export default function Tags() {
                 if (sortBy === 'name') return;
                 setSortBy('name');
               }}>
-              Name
+              {t('Name')}
             </span>
             <span
               className={cn(sortBy === 'new' && 'bg-hover-1')}
@@ -84,18 +85,13 @@ export default function Tags() {
                 if (sortBy === 'new') return;
                 setSortBy('new');
               }}>
-              New
+              {t('New')}
             </span>
           </div>
         </div>
         {isFetchingAllTagQuestions || isFetchingFindTagsQuestions ? (
           <div className='flex-center my-8'>
-            <CircularProgress
-              sx={{
-                color: 'var(--text-1)'
-              }}
-              size={35}
-            />
+            <CircularProgress className='!text-text-1' size={35} />
           </div>
         ) : (
           <div className='mt-5 grid grid-cols-4 gap-3'>

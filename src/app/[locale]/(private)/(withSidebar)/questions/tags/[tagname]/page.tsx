@@ -8,9 +8,11 @@ import { useFormatter, useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { useGetAllQuestionByTag, useGetNumberQuestionByTag } from '@/hooks/query';
 import Divider from '@/components/shared/Divider';
-import { CircularProgress, Pagination } from '@mui/material';
+import { CircularProgress, Pagination, Skeleton } from '@mui/material';
 import QuestionSummaryItem from '@/components/pages/Question/QuestionSummaryItem';
 import Menu from '@/components/pages/Question/Menu';
+import RelatedQuestions from '@/components/pages/Question/RelatedQuestions';
+import HotQuestions from '@/components/pages/Question/HotQuestions';
 
 export interface ITagDetailProps {
   params: {
@@ -30,7 +32,7 @@ export default function TagDetail({ params: { tagname } }: ITagDetailProps) {
     page,
     sortBy
   );
-  const { numberQuestionByTag } = useGetNumberQuestionByTag(tagname, sortBy);
+  const { numberQuestionByTag, isFetchingNumberQuestionByTag } = useGetNumberQuestionByTag(tagname, sortBy);
 
   const page_number = Math.ceil(numberQuestionByTag / 20) || 1;
   const [openCreateQuestion, setOpenCreateQuestion] = useState(false);
@@ -60,10 +62,14 @@ export default function TagDetail({ params: { tagname } }: ITagDetailProps) {
               </div>
             </div>
             <div className='flex-between mt-8'>
-              <div>
-                <span className='me-1'>{format.number(numberQuestionByTag, { notation: 'compact' })}</span>
-                <span>{t('questions', { count: numberQuestionByTag })}</span>
-              </div>
+              {isFetchingNumberQuestionByTag ? (
+                <Skeleton variant='rectangular' width={80} />
+              ) : (
+                <div>
+                  <span className='me-1'>{format.number(numberQuestionByTag, { notation: 'compact' })}</span>
+                  <span>{t('questions', { count: numberQuestionByTag })}</span>
+                </div>
+              )}
               <div className='flex-start gap-2 rounded-lg border border-border-1 p-1 *:cursor-pointer *:select-none *:rounded-lg *:px-3 *:py-1 *:duration-300 hover:*:bg-hover-1'>
                 <span
                   className={cn(sortBy === 'score' && 'bg-hover-1')}
@@ -158,84 +164,9 @@ export default function TagDetail({ params: { tagname } }: ITagDetailProps) {
               id='tag-question-side'
               data-uk-sticky='media: 1024; end: #tag-question; offset: 80'>
               <Menu currentMenu='tag' />
+              <RelatedQuestions />
               <Divider className='my-4' />
-              <div>
-                <div className='h4-regular'>{t('Related Questions')}</div>
-                <div className='*:flex-start mt-4 *:mb-2 *:cursor-pointer *:gap-3 *:text-[0.8rem]'>
-                  <div>
-                    <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                      250
-                    </span>
-                    <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                      Why is processing a sorted array slower than an unsorted array?
-                    </div>
-                  </div>
-                  <div>
-                    <span className='min-w-10 rounded-md bg-foreground-2 px-2 py-1 text-center'>6</span>
-                    <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                      Complexity of comparison operators
-                    </div>
-                  </div>
-                  <div>
-                    <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                      137
-                    </span>
-                    <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                      Why is printing B dramatically slower than printing #?
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <Divider className='my-4' />
-              <div>
-                <div className='h4-regular'>Host Question</div>
-                <div className='*:flex-start mt-4 *:mb-2 *:cursor-pointer *:gap-3 *:text-[0.8rem]'>
-                  <div>
-                    <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                      250
-                    </span>
-                    <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                      Why is processing a sorted array slower than an unsorted array?
-                    </div>
-                  </div>
-                  <div>
-                    <span className='min-w-10 rounded-md bg-foreground-2 px-2 py-1 text-center'>6</span>
-                    <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                      Complexity of comparison operators
-                    </div>
-                  </div>
-                  <div>
-                    <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                      137
-                    </span>
-                    <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                      Why is printing B dramatically slower than printing #?
-                    </div>
-                  </div>
-                  <div>
-                    <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                      250
-                    </span>
-                    <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                      Why is processing a sorted array slower than an unsorted array?
-                    </div>
-                  </div>
-                  <div>
-                    <span className='min-w-10 rounded-md bg-foreground-2 px-2 py-1 text-center'>6</span>
-                    <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                      Complexity of comparison operators
-                    </div>
-                  </div>
-                  <div>
-                    <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
-                      137
-                    </span>
-                    <div className='text-blue-400 duration-300 hover:text-blue-500'>
-                      Why is printing B dramatically slower than printing #?
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <HotQuestions />
             </div>
           </div>
         </div>
