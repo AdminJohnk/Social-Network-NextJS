@@ -148,7 +148,6 @@ export default function Questions() {
               id='questions-side'
               data-uk-sticky='media: 1024; end: #questions; offset: 80'>
               <Menu currentMenu='question' />
-              <Divider className='my-4' />
               <RelatedQuestions />
               <Divider className='my-4' />
               <HotQuestions />

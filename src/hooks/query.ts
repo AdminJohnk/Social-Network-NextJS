@@ -1342,15 +1342,33 @@ export const useGetHotQuestions = () => {
   };
 };
 
-export const useGetReputation = (userID: string) => {
+export const useGetRelatedQuestions = (questionID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['relatedQuestions', questionID],
+    queryFn: async () => {
+      const { data } = await questionService.getRelatedQuestions(questionID);
+      return data.metadata;
+    },
+    staleTime: Infinity,
+    enabled: !!questionID
+  });
+
+  return {
+    isLoadingRelatedQuestions: isPending,
+    isErrorRelatedQuestions: isError,
+    relatedQuestions: data!,
+    isFetchingRelatedQuestions: isFetching
+  };
+};
+
+export const useGetReputation = () => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['reputation'],
     queryFn: async () => {
-      const { data } = await userService.getReputation(userID);
+      const { data } = await userService.getReputation();
       return data.metadata;
     },
-    staleTime: 60000 * 3,
-    enabled: !!userID
+    staleTime: 60000 * 3
   });
 
   return {

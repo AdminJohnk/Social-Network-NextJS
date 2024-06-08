@@ -53,7 +53,6 @@ export default function Saves(props: ISavesProps) {
               id='save-questions-side'
               data-uk-sticky='media: 1024; end: #save-questions; offset: 80'>
               <Menu currentMenu='save' />
-              <Divider className='my-4' />
               <RelatedQuestions />
               <Divider className='my-4' />
               <HotQuestions />

@@ -164,7 +164,6 @@ export default function TagDetail({ params: { tagname } }: ITagDetailProps) {
               id='tag-question-side'
               data-uk-sticky='media: 1024; end: #tag-question; offset: 80'>
               <Menu currentMenu='tag' />
-              <Divider className='my-4' />
               <RelatedQuestions />
               <Divider className='my-4' />
               <HotQuestions />

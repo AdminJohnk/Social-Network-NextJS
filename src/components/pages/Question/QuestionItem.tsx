@@ -34,9 +34,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   };
 
   const { currentUserInfo } = useCurrentUserInfo();
-  const {
-    reputation: { level }
-  } = useGetReputation(currentUserInfo._id);
+  const { reputation } = useGetReputation();
   const { mutateVoteQuestion, isLoadingVoteQuestion } = useVoteQuestion();
   const { mutateDeleteQuestion, isLoadingDeleteQuestion } = useDeleteQuestion();
   const { mutateCommentQuestion, isLoadingCommentQuestion } = useCommentQuestion();
@@ -128,15 +126,15 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                     type: 'cancel',
                     old: 'up'
                   });
-                  setVoteNumber(voteNumber - level);
+                  setVoteNumber(voteNumber - reputation.level);
                   setVote('cancel');
                   return;
                 }
                 mutateVoteQuestion({ question_id: question._id, type: 'up', old: vote });
                 if (vote === 'down') {
-                  setVoteNumber(voteNumber + level * 2);
+                  setVoteNumber(voteNumber + reputation.level * 2);
                 } else if (vote === 'cancel') {
-                  setVoteNumber(voteNumber + level);
+                  setVoteNumber(voteNumber + reputation.level);
                 }
                 setVote('up');
               }}
@@ -154,15 +152,15 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
                     type: 'cancel',
                     old: 'down'
                   });
-                  setVoteNumber(voteNumber + level);
+                  setVoteNumber(voteNumber + reputation.level);
                   setVote('cancel');
                   return;
                 }
                 mutateVoteQuestion({ question_id: question._id, type: 'down', old: vote });
                 if (vote === 'up') {
-                  setVoteNumber(voteNumber - level * 2);
+                  setVoteNumber(voteNumber - reputation.level * 2);
                 } else if (vote === 'cancel') {
-                  setVoteNumber(voteNumber - level);
+                  setVoteNumber(voteNumber - reputation.level);
                 }
                 setVote('down');
               }}

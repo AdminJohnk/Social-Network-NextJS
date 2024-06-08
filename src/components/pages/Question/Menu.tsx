@@ -1,7 +1,10 @@
-import { useCurrentUserInfo, useGetReputation } from '@/hooks/query';
+'use client';
+
+import { useGetReputation } from '@/hooks/query';
 import { cn } from '@/lib/utils';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
+import { Skeleton } from '@mui/material';
 import { BsQuestionCircleFill } from 'react-icons/bs';
 import { FaBookmark } from 'react-icons/fa6';
 import { IoPricetags } from 'react-icons/io5';
@@ -13,12 +16,13 @@ export interface IMenuProps {
 export default function Menu({ currentMenu }: IMenuProps) {
   const t = useTranslations();
 
-  const { currentUserInfo } = useCurrentUserInfo();
-  const { reputation, isLoadingReputation } = useGetReputation(currentUserInfo?._id);
+  const { reputation, isLoadingReputation } = useGetReputation();
 
   return (
     <div>
-      {!isLoadingReputation && (
+      {isLoadingReputation ? (
+        <Skeleton variant='text' width={250} height={35} />
+      ) : (
         <div className='mb-3'>
           {t('Reputation')}: {reputation.reputation + ` (${t('level')} ${reputation.level})`}
         </div>
