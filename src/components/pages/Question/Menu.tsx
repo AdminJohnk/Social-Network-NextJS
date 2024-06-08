@@ -19,7 +19,9 @@ export default function Menu({ currentMenu }: IMenuProps) {
   return (
     <div>
       {!isLoadingReputation && (
-        <div className='mb-3'>Reputation: {reputation.reputation + ` (level ${reputation.level})`}</div>
+        <div className='mb-3'>
+          {t('Reputation')}: {reputation.reputation + ` (${t('level')} ${reputation.level})`}
+        </div>
       )}
       <div className='*:flex-start *:mb-1 *:cursor-pointer *:gap-3 *:rounded-lg *:px-2 *:py-2 *:duration-300 hover:*:bg-foreground-2'>
         <Link href={'/questions'} className={cn(currentMenu === 'question' && 'bg-foreground-2')}>

@@ -150,6 +150,10 @@ class QuestionService extends BaseService {
   getSavedQuestions = (): Promise<AxiosResponse<IResponse<IQuestionSummaryItem[]>>> => {
     return this.get(`/questions/saved`);
   };
+
+  getHotQuestions = (): Promise<AxiosResponse<IResponse<IQuestionSummaryItem[]>>> => {
+    return this.get(`/questions/hot`);
+  };
 }
 
 export const questionService = new QuestionService();

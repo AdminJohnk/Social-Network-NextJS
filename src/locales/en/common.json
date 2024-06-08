@@ -592,5 +592,15 @@
   "Your Answer": "Your Answer",
   "Post Your Answer": "Post Your Answer",
   "Are you absolutely sure remove this post?": "Are you absolutely sure remove this post?",
-  "Saved Questions": "Saved Questions"
+  "Saved Questions": "Saved Questions",
+  "Questions tagged": "Questions tagged",
+  "Reputation": "Reputation",
+  "level": "level",
+  "Hot Questions": "Hot Questions",
+  "A tag is a keyword or label that categorizes your question with other, similar questions": "A tag is a keyword or label that categorizes your question with other, similar questions",
+  "Using the right tags makes it easier for others to find and answer your question": "Using the right tags makes it easier for others to find and answer your question",
+  "New": "New",
+  "asked today": "asked today",
+  "this week": "this week",
+  "Filter by tag name": "Filter by tag name"
 }

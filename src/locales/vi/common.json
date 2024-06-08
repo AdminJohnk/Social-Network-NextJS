@@ -592,5 +592,15 @@
   "Your Answer": "Câu trả lời của bạn",
   "Post Your Answer": "Đăng câu trả lời",
   "Are you absolutely sure remove this post?": "Bạn có chắc chắn muốn xóa bài viết này không?",
-  "Saved Questions": "Câu hỏi đã lưu"
+  "Saved Questions": "Câu hỏi đã lưu",
+  "Questions tagged": "Câu hỏi được gắn thẻ",
+  "Reputation": "Uy tín",
+  "level": "cấp độ",
+  "Hot Questions": "Câu hỏi nổi bật",
+  "A tag is a keyword or label that categorizes your question with other, similar questions": "Một thẻ là một từ khóa hoặc nhãn phân loại câu hỏi của bạn với các câu hỏi khác, tương tự",
+  "Using the right tags makes it easier for others to find and answer your question": "Sử dụng các thẻ đúng giúp người khác dễ dàng tìm thấy và trả lời câu hỏi của bạn",
+  "New": "Mới",
+  "asked today": "đã hỏi hôm nay",
+  "this week": "tuần này",
+  "Filter by tag name": "Lọc theo tên thẻ"
 }

@@ -3,7 +3,7 @@ import { Avatar, CircularProgress } from '@mui/material';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 import CommentItem from './CommentItem';
 import Divider from '@/components/shared/Divider';
-import { Link } from '@/navigation';
+import { Link, useRouter } from '@/navigation';
 import { IQuestion } from '@/types';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { useCommentQuestion, useDeleteQuestion, useSaveQuestion, useVoteQuestion } from '@/hooks/mutation';
@@ -24,6 +24,7 @@ export interface IQuestionItemProps {
 export default function QuestionItem({ question }: IQuestionItemProps) {
   const t = useTranslations();
   const format = useFormatter();
+  const router = useRouter();
 
   const getFormattedDate = (date: string) => {
     return format.dateTime(new Date(date), {
@@ -76,6 +77,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   const handleDeleteQuestion = () => {
     mutateDeleteQuestion(question._id, {
       onSuccess: () => {
+        router.push('/questions');
         showSuccessToast(t('Question deleted successfully!'));
       },
       onError: () => {
@@ -187,7 +189,9 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
           <ShowContent content={question.problem + question.expect} />
           <div className='flex-start *:bg-1 mt-6 gap-3 *:rounded-sm *:p-1'>
             {question.hashtags.map((tag, index) => (
-              <span key={index}>{tag}</span>
+              <Link key={index} href={`/questions/tags/${tag}`}>
+                {tag}
+              </Link>
             ))}
           </div>
           <div className={cn('small-regular mt-10 flex justify-between', !isOwnerQuestion && 'justify-end')}>

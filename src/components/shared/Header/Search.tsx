@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from '@/navigation';
 import { IoClose, IoSearch, IoSearchOutline, IoTrash } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
@@ -19,6 +19,8 @@ export default function SearchHeader() {
   const queryClient = useQueryClient();
   const router = useRouter();
 
+  const searchRef = useRef<HTMLInputElement>(null);
+
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState<IUserInfo[]>([]);
 
@@ -30,6 +32,10 @@ export default function SearchHeader() {
 
   const { mutateCreateSearchLog } = useCreateSearchLog();
   const { mutateDeleteSearchLog } = useDeleteSearchLog();
+
+  const closeSearchDropdown = () => {
+    UIkit.drop('#search-box2').hide();
+  };
 
   const handleDeleteSearchLog = (
     e: React.MouseEvent<Element, MouseEvent>,
@@ -54,6 +60,7 @@ export default function SearchHeader() {
       queryClient.refetchQueries({ queryKey: ['searchLogs'] });
     });
     router.push(`/profile/${id}`);
+    closeSearchDropdown();
   };
 
   const getSearchPage = (search: string) => {
@@ -65,6 +72,7 @@ export default function SearchHeader() {
       queryClient.refetchQueries({ queryKey: ['searchLogs'] });
     });
     router.push(`/search/top?search=${search}`);
+    closeSearchDropdown();
   };
 
   useEffect(() => {
@@ -75,16 +83,25 @@ export default function SearchHeader() {
     }
   }, [usersByName, searchDebounce]);
 
+  useEffect(() => {
+    UIkit.util.on('#search-box2', 'beforehide', function (e: Event) {
+      if (searchRef.current && searchRef.current.isSameNode(document.activeElement)) {
+        e.preventDefault();
+      }
+    });
+  }, []);
+
   return (
     <>
       <div
         id='search-box'
-        className='xl:w-[680px] sm:w-96 lg:w-[560px] sm:relative rounded-xl overflow-hidden z-20 bg-foreground-1 max-md/2:hidden w-screen left-0 max-sm:fixed max-sm:top-2'>
+        className='left-0 z-20 w-screen overflow-hidden rounded-xl bg-foreground-1 max-md/2:hidden max-sm:fixed max-sm:top-2 sm:relative sm:w-96 lg:w-[560px] xl:w-[680px]'>
         <IoSearch className='absolute left-4 top-1/2 -translate-y-1/2' />
         <input
+          ref={searchRef}
           type='text'
           placeholder={`${t('Search Friends, Posts')}..`}
-          className='w-full !pl-10 !font-normal !bg-transparent h-12 !text-sm border-none'
+          className='h-12 w-full border-none !bg-transparent !pl-10 !text-sm !font-normal'
           onChange={(e) => {
             setSearch(e.target.value.trim());
           }}
@@ -100,17 +117,17 @@ export default function SearchHeader() {
         className='!z-10'
         data-uk-drop='pos: bottom-center; animation: uk-animation-slide-bottom-small; mode:click; animate-out: true'
         hidden>
-        <div className='xl:w-[694px] sm:w-96 lg:w-[574px] bg-foreground-1 w-screen p-2 rounded-lg shadow-lg -mt-14 pt-14'>
+        <div className='-mt-14 w-screen rounded-lg bg-foreground-1 p-2 pt-14 shadow-lg sm:w-96 lg:w-[574px] xl:w-[694px]'>
           {searchDebounce === '' ? (
             isLoadingSearchLogs ? (
-              <div className='flex-center w-full h-full p-5'>
+              <div className='flex-center h-full w-full p-5'>
                 <CircularProgress size={20} className='!text-text-1' />
               </div>
             ) : (searchLogs &&
                 searchLogs.keywords.length === 0 &&
                 searchLogs.recently_search_list.length === 0) ||
               !searchLogs ? (
-              <div className='flex-center w-full h-full p-5'>
+              <div className='flex-center h-full w-full p-5'>
                 {t('You have not searched for anything yet')}
               </div>
             ) : (
@@ -126,11 +143,11 @@ export default function SearchHeader() {
                     <div
                       key={item}
                       onClick={() => getSearchPage(item)}
-                      className='relative px-3 py-1.5 cursor-pointer flex items-center gap-4 hover:bg-hover-1 rounded-lg'>
+                      className='relative flex cursor-pointer items-center gap-4 rounded-lg px-3 py-1.5 hover:bg-hover-1'>
                       <IoSearchOutline className='text-2xl' />
                       {item}
                       <IoClose
-                        className='text-lg absolute p-0.5 rounded-full hover:bg-hover-2 z-10 right-3 top-1/2 -translate-y-1/2'
+                        className='absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full p-0.5 text-lg hover:bg-hover-2'
                         onClick={(e) => handleDeleteSearchLog(e, 'keyword', item)}
                       />
                     </div>
@@ -138,21 +155,21 @@ export default function SearchHeader() {
                   {searchLogs.recently_search_list.map((user) => (
                     <div
                       key={user._id}
-                      className='relative px-3 py-1.5 cursor-pointer flex items-center gap-4 hover:bg-hover-1 rounded-lg'
+                      className='relative flex cursor-pointer items-center gap-4 rounded-lg px-3 py-1.5 hover:bg-hover-1'
                       onClick={(e) => handleShowUserProfile(e, user._id)}>
                       <Image
                         src={getImageURL(user.user_image, 'avatar')}
-                        className='w-9 h-9 rounded-full'
+                        className='h-9 w-9 rounded-full'
                         alt=''
                         width={50}
                         height={50}
                       />
                       <div>
                         <div>{user.name}</div>
-                        <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
+                        <div className='mt-0.5 text-xs font-medium text-blue-500'>{t('Friend')}</div>
                       </div>
                       <IoClose
-                        className='text-lg absolute p-0.5 rounded-full hover:bg-hover-2 z-10 right-3 top-1/2 -translate-y-1/2'
+                        className='absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full p-0.5 text-lg hover:bg-hover-2'
                         onClick={(e) => handleDeleteSearchLog(e, 'recently_search', user._id)}
                       />
                     </div>
@@ -167,48 +184,48 @@ export default function SearchHeader() {
               </div>
               <nav className='text-sm font-medium'>
                 {isLoadingUsersByName ? (
-                  <div className='flex-center w-full h-full p-5'>
+                  <div className='flex-center h-full w-full p-5'>
                     <CircularProgress size={20} className='!text-text-1' />
                   </div>
                 ) : users.length === 0 ? (
-                  <div className='flex-center w-full h-full p-5'>
+                  <div className='flex-center h-full w-full p-5'>
                     {t('Cannot find anyone named')} &quot;{searchDebounce}&quot;
                   </div>
                 ) : (
                   users.map((user) => (
                     <div
                       key={user._id}
-                      className='relative px-3 py-1.5 cursor-pointer flex items-center gap-4 hover:bg-hover-1 rounded-lg'
+                      className='relative flex cursor-pointer items-center gap-4 rounded-lg px-3 py-1.5 hover:bg-hover-1'
                       onClick={(e) => handleShowUserProfile(e, user._id)}>
                       <Image
                         src={getImageURL(user.user_image, 'avatar')}
-                        className='w-9 h-9 rounded-full'
+                        className='h-9 w-9 rounded-full'
                         alt=''
                         width={50}
                         height={50}
                       />
                       <div>
                         <div>{user.name}</div>
-                        <div className='text-xs text-blue-500 font-medium mt-0.5'>{t('Friend')}</div>
+                        <div className='mt-0.5 text-xs font-medium text-blue-500'>{t('Friend')}</div>
                       </div>
                     </div>
                   ))
                 )}
               </nav>
               <div
-                className='flex gap-1.5 mt-2 items-center cursor-pointer p-2 hover:bg-hover-1 rounded-lg'
+                className='mt-2 flex cursor-pointer items-center gap-1.5 rounded-lg p-2 hover:bg-hover-1'
                 onClick={() => getSearchPage(searchDebounce)}>
                 <div className='avatar relative'>
                   <IoSearchOutline className='text-xl' />
                 </div>
-                <div className='name text-center ml-2'>
+                <div className='name ml-2 text-center'>
                   {t('Search for')} &quot;{searchDebounce}&quot;
                 </div>
               </div>
             </>
           )}
           <div className='flex justify-end pr-2 text-sm font-medium text-red-500'>
-            <div className='flex hover:bg-red-200 cursor-pointer p-1.5 rounded'>
+            <div className='flex cursor-pointer rounded p-1.5 hover:bg-red-200'>
               <IoTrash className='mr-2 text-lg' />
               {t('Clear your history')}
             </div>

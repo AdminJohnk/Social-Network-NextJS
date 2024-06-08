@@ -1324,6 +1324,24 @@ export const useGetSavedQuestions = () => {
   };
 };
 
+export const useGetHotQuestions = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['hotQuestions'],
+    queryFn: async () => {
+      const { data } = await questionService.getHotQuestions();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingHotQuestions: isPending,
+    isErrorHotQuestions: isError,
+    hotQuestions: data!,
+    isFetchingHotQuestions: isFetching
+  };
+};
+
 export const useGetReputation = (userID: string) => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['reputation'],
@@ -1341,4 +1359,4 @@ export const useGetReputation = (userID: string) => {
     reputation: data!,
     isFetchingReputation: isFetching
   };
-}
+};
