@@ -3,7 +3,7 @@ import { Avatar, CircularProgress } from '@mui/material';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 import CommentItem from './CommentItem';
 import Divider from '@/components/shared/Divider';
-import { Link, useRouter, useRouter } from '@/navigation';
+import { Link, useRouter } from '@/navigation';
 import { IQuestion } from '@/types';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { useCommentQuestion, useDeleteQuestion, useSaveQuestion, useVoteQuestion } from '@/hooks/mutation';
