@@ -18,31 +18,29 @@ function RenderFriendItem({ friend }: IRenderFriendItemProps) {
   const t = useTranslations();
   const { currentUserInfo } = useCurrentUserInfo();
 
-  const isMe = friend._id == currentUserInfo._id
+  const isMe = friend._id == currentUserInfo._id;
 
   return (
     <div className='flex-between'>
       <Link href={`/profile/${friend._id}`}>
-        <div className='flex-start w-[99%]'>
+        <div className='flex-start w-full'>
           <Image
             src={getImageURL(friend.user_image, 'avatar')}
             alt={friend.name}
-            className='rounded-full w-10 h-10'
+            className='h-10 w-10 rounded-full'
             width={40}
             height={40}
           />
           <div className='ml-3 break-words'>
-            <div>{friend.name} {isMe && `(${t('You')})`}</div>
+            <p>
+              {friend.name} {isMe && `(${t('You')})`}
+            </p>
             {friend.experiences?.length > 0 && (
-              <span className='small-regular text-text-2 mt-1'>
+              <span className='small-regular mt-1 text-text-2'>
                 {t('Work at')}
-                <span className='mx-1 small-bold'>
-                  {friend.experiences[0]?.company_name}
-                </span>
+                <span className='small-bold mx-1'>{friend.experiences[0]?.company_name}</span>
                 {t('as')}
-                <span className='mx-1 small-bold'>
-                  {friend.experiences[0]?.position_name}
-                </span>
+                <span className='small-bold mx-1'>{friend.experiences[0]?.position_name}</span>
               </span>
             )}
           </div>
@@ -63,15 +61,15 @@ export default function FriendTab({ profileID }: IFriendTabProps) {
   return (
     <>
       {isLoadingOtherUserInfo ? (
-        <div className='bg-foreground-1 my-8 w-full rounded-md'>
-          <div className='flex-between flex-wrap px-10 py-8 gap-10 w-full'>
+        <div className='my-8 w-full rounded-md bg-foreground-1'>
+          <div className='flex-between w-full flex-wrap gap-10 px-10 py-8'>
             {Array.from({ length: 5 }).map((_, index) => (
               <div key={index} className='w-[calc(50%-2.5rem)]'>
                 <div className='flex-between'>
                   <Skeleton variant='circular' width={60} height={60} className='!bg-foreground-2' />
-                  <div className='w-3/5 flex flex-col py-1 pl-3'>
-                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
-                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
+                  <div className='flex w-3/5 flex-col py-1 pl-3'>
+                    <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
+                    <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
                   </div>
                   <Skeleton variant='rounded' width={100} height={40} className='!bg-foreground-2' />
                 </div>
@@ -80,17 +78,13 @@ export default function FriendTab({ profileID }: IFriendTabProps) {
           </div>
         </div>
       ) : (
-        <div className='bg-foreground-1 my-8 w-full rounded-md'>
+        <div className='my-8 w-full rounded-md bg-foreground-1'>
           {otherUserInfo?.friends.length <= 0 ? (
-            <div className='w-full px-10 py-8 flex-center'>
-              <Nodata
-                width={150}
-                height={150}
-                title={'No friend found'}
-              ></Nodata>
+            <div className='flex-center w-full px-10 py-8'>
+              <Nodata width={150} height={150} title={'No friend found'}></Nodata>
             </div>
           ) : (
-            <div className='flex-between flex-wrap px-10 py-8 gap-10 w-full'>
+            <div className='flex-between w-full flex-wrap gap-10 px-10 py-8'>
               {otherUserInfo?.friends.map((friend, index) => (
                 <div className='w-[calc(50%-2.5rem)]' key={index}>
                   <RenderFriendItem friend={friend} />

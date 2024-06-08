@@ -10,6 +10,7 @@ import {
 } from '@/hooks/mutation';
 import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
 import { CircularProgress, Skeleton } from '@mui/material';
+import { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
@@ -57,133 +58,91 @@ export default function FriendButton({ profileID, variant = 'main' }: IFriendBut
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  return (
+  const ButtonComponent = ({
+    isLoading,
+    preIcon,
+    onClick,
+    buttonText
+  }: Partial<{
+    isLoading: boolean;
+    preIcon: React.ReactNode;
+    onClick: () => void;
+    buttonText: string;
+  }>) => (
+    <Button
+      className='whitespace-nowrap'
+      variant={variant}
+      preIcon={isLoading ? <CircularProgress size={17} className='!text-text-1' /> : preIcon}
+      onClick={onClick}>
+      {t(buttonText)}
+    </Button>
+  );
+
+  const handleButtonClick = (mutateFunction: UseMutateAsyncFunction<void, Error, string, unknown>) => {
+    setIsLoading(true);
+    mutateFunction(profileID, {
+      onSettled: () => {
+        setIsLoading(false);
+      }
+    });
+  };
+
+  const NavComponent = ({ onClick, text }: { onClick: () => void; text: string }) => (
+    <nav className='*:cursor-pointer *:rounded-md *:px-4 *:py-2 *:duration-300 hover:*:!bg-hover-1'>
+      <div className='uk-drop-close' onClick={onClick}>
+        <span className='text-sm'>{t(text)}</span>
+      </div>
+    </nav>
+  );
+
+  return isMe ? null : isLoadingOtherUserInfo ? (
+    <Skeleton className='!bg-foreground-1' variant='circular' width={40} height={40} />
+  ) : (
     <>
-      {isMe ? null : isLoadingOtherUserInfo ? (
-        <Skeleton className='!bg-foreground-1' variant='circular' width={40} height={40} />
-      ) : (
-        <>
-          {!isFriend && !sentRequest && !receivedRequest && (
-            <Button
-              variant={variant}
-              preIcon={
-                isLoading ? (
-                  <CircularProgress size={17} className='!text-text-1' />
-                ) : (
-                  <IoAddCircle className='text-xl' />
-                )
-              }
-              onClick={() => {
-                setIsLoading(true);
-                mutateAddFriendUser(profileID, {
-                  onSettled: () => {
-                    setIsLoading(false);
-                  }
-                });
-              }}>
-              {t('Add Friend')}
-            </Button>
-          )}
-          {sentRequest && (
-            <Button
-              variant={variant}
-              preIcon={
-                isLoading ? (
-                  <CircularProgress size={17} className='!text-text-1' />
-                ) : (
-                  <MdCancel className='text-xl' />
-                )
-              }
-              onClick={() => {
-                setIsLoading(true);
-                mutateCancelFriendUser(profileID, {
-                  onSettled: () => {
-                    setIsLoading(false);
-                  }
-                });
-              }}>
-              {t('Cancel Request')}
-            </Button>
-          )}
-          {receivedRequest && (
-            <div>
-              <Button
-                variant={variant}
-                preIcon={
-                  isLoading ? (
-                    <CircularProgress size={17} className='!text-text-1' />
-                  ) : (
-                    <RiArrowGoBackFill className='text-xl' />
-                  )
-                }>
-                <span className='text-sm'> {t('Response')} </span>
-              </Button>
-              <div
-                className='w-[240px] !bg-foreground-1'
-                data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                <nav className='*:cursor-pointer *:rounded-md *:px-4 *:py-2 *:duration-300 hover:*:!bg-hover-1'>
-                  <div
-                    className='uk-drop-close'
-                    onClick={() => {
-                      setIsLoading(true);
-                      mutateAcceptFriendUser(profileID, {
-                        onSettled: () => {
-                          setIsLoading(false);
-                        }
-                      });
-                    }}>
-                    <span className='text-sm'>{t('Accept')}</span>
-                  </div>
-                  <div
-                    className='uk-drop-close'
-                    onClick={() => {
-                      setIsLoading(true);
-                      mutateDeclineFriendUser(profileID, {
-                        onSettled: () => {
-                          setIsLoading(false);
-                        }
-                      });
-                    }}>
-                    <span className='text-sm'>{t('Decline')}</span>
-                  </div>
-                </nav>
-              </div>
-            </div>
-          )}
-          {isFriend && (
-            <div>
-              <Button
-                variant={variant}
-                preIcon={
-                  isLoading ? (
-                    <CircularProgress size={17} className='!text-text-1' />
-                  ) : (
-                    <FaCheckCircle className='text-xl' />
-                  )
-                }>
-                <span className='text-sm'> {t('Friend')} </span>
-              </Button>
-              <div
-                className='w-[240px] !bg-foreground-1'
-                data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
-                <nav className='*:cursor-pointer *:rounded-md *:px-4 *:py-2 *:duration-300 hover:*:!bg-hover-1'>
-                  <div
-                    className='uk-drop-close'
-                    onClick={() => {
-                      setIsLoading(true);
-                      mutateDeleteFriendUser(profileID, {
-                        onSettled: () => {
-                          setIsLoading(false);
-                        }
-                      });
-                    }}>
-                    <span className='text-sm'>{t('Unfriend')}</span>
-                  </div>
-                </nav>
-              </div>
-            </div>
-          )}
-        </>
+      {!isFriend && !sentRequest && !receivedRequest && (
+        <ButtonComponent
+          isLoading={isLoading}
+          preIcon={<IoAddCircle className='text-xl' />}
+          onClick={() => handleButtonClick(mutateAddFriendUser)}
+          buttonText='Add Friend'
+        />
+      )}
+      {sentRequest && (
+        <ButtonComponent
+          isLoading={isLoading}
+          preIcon={<MdCancel className='text-xl' />}
+          onClick={() => handleButtonClick(mutateCancelFriendUser)}
+          buttonText='Cancel Request'
+        />
+      )}
+      {receivedRequest && (
+        <div>
+          <ButtonComponent
+            isLoading={isLoading}
+            preIcon={<RiArrowGoBackFill className='text-xl' />}
+            buttonText='Response'
+          />
+          <div
+            className='w-[240px] !bg-foreground-1'
+            data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+            <NavComponent onClick={() => handleButtonClick(mutateAcceptFriendUser)} text='Accept' />
+            <NavComponent onClick={() => handleButtonClick(mutateDeclineFriendUser)} text='Decline' />
+          </div>
+        </div>
+      )}
+      {isFriend && (
+        <div>
+          <ButtonComponent
+            isLoading={isLoading}
+            preIcon={<FaCheckCircle className='text-xl' />}
+            buttonText='Friend'
+          />
+          <div
+            className='w-[240px] !bg-foreground-1'
+            data-uk-drop='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
+            <NavComponent onClick={() => handleButtonClick(mutateDeleteFriendUser)} text='Unfriend' />
+          </div>
+        </div>
       )}
     </>
   );
