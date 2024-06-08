@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { FaPhone, FaVideo } from 'react-icons/fa6';
+import { useFormatter, useTranslations } from 'next-intl';
 
 import { ICalled } from '@/types';
 import AvatarGroup from './Avatar/AvatarGroup';
@@ -7,7 +8,6 @@ import AvatarMessage from './Avatar/AvatarMessage';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { audioCall, videoChat } from '@/lib/utils/call';
 import { capitalizeFirstLetter } from '@/lib/utils/convertText';
-import { getDateMonth } from '@/lib/utils/formatDateTime';
 import { cn } from '@/lib/utils';
 
 export interface ICalledBoxProps {
@@ -15,6 +15,9 @@ export interface ICalledBoxProps {
 }
 
 export default function CalledBox({ called }: ICalledBoxProps) {
+  const t = useTranslations();
+  const format = useFormatter();
+
   const { currentUserInfo } = useCurrentUserInfo();
   const otherUser = useMemo(() => {
     return called.conversation_id?.members?.filter((member) => member._id !== currentUserInfo?._id)[0];
@@ -28,12 +31,12 @@ export default function CalledBox({ called }: ICalledBoxProps) {
 
   const stateCalled = (senderId: string) => {
     if (called.content.includes('missed')) {
-      return 'missed';
+      return t('missed');
     }
     if (senderId === currentUserInfo?._id) {
-      return 'outgoing';
+      return t('outgoing');
     }
-    return 'incoming';
+    return t('incoming');
   };
 
   const notification: Record<string, Record<string, JSX.Element>> = {
@@ -97,7 +100,7 @@ export default function CalledBox({ called }: ICalledBoxProps) {
     <>
       <div
         className='w-full cursor-pointer flex items-center space-x-3 my-1 p-3 rounded-xl'
-        onClick={() => {}}>
+        onClick={() => { }}>
         {otherUser && called.conversation_id.type === 'group' ? (
           <AvatarGroup
             key={called.conversation_id._id}
@@ -122,7 +125,7 @@ export default function CalledBox({ called }: ICalledBoxProps) {
               )}>
               {notification[called.type][stateCalled(called.sender._id)]}
               <span>{capitalizeFirstLetter(stateCalled(called.sender._id))}</span>
-              &nbsp; •<span>{getDateMonth(called.createdAt)}</span>
+              &nbsp; •<span>{format.relativeTime(new Date(called.createdAt), new Date())}</span>
             </div>
           </div>
         </div>

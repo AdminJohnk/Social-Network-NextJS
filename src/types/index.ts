@@ -240,6 +240,11 @@ export interface IImageResponse {
   key: string;
 }
 
+export interface IAllImage {
+  post_id: string;
+  image: string;
+}
+
 export interface ICreateLikeComment {
   id: string;
   comment: ILikeComment;

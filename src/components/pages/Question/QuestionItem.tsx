@@ -3,7 +3,7 @@ import { Avatar, CircularProgress } from '@mui/material';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 import CommentItem from './CommentItem';
 import Divider from '@/components/shared/Divider';
-import { Link, useRouter } from '@/navigation';
+import { Link, useRouter, useRouter } from '@/navigation';
 import { IQuestion } from '@/types';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { useCommentQuestion, useDeleteQuestion, useSaveQuestion, useVoteQuestion } from '@/hooks/mutation';
@@ -37,7 +37,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   const {
     reputation: { level }
   } = useGetReputation(currentUserInfo._id);
-  const { mutateVoteQuestion } = useVoteQuestion();
+  const { mutateVoteQuestion, isLoadingVoteQuestion } = useVoteQuestion();
   const { mutateDeleteQuestion, isLoadingDeleteQuestion } = useDeleteQuestion();
   const { mutateCommentQuestion, isLoadingCommentQuestion } = useCommentQuestion();
   const { mutateSaveQuestion } = useSaveQuestion();
@@ -79,6 +79,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
       onSuccess: () => {
         router.push('/questions');
         showSuccessToast(t('Question deleted successfully!'));
+        router.push('/questions');
       },
       onError: () => {
         showErrorToast(t('Something went wrong! Please try again!'));
@@ -120,6 +121,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
             <BiSolidUpArrow
               className={cn('text-1 size-5', vote === 'up' && 'text-green-400')}
               onClick={() => {
+                if (isLoadingVoteQuestion) return;
                 if (vote === 'up') {
                   mutateVoteQuestion({
                     question_id: question._id,
@@ -145,6 +147,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
             <BiSolidDownArrow
               className={cn('text-1 size-5', vote === 'down' && 'text-green-400')}
               onClick={() => {
+                if (isLoadingVoteQuestion) return;
                 if (vote === 'down') {
                   mutateVoteQuestion({
                     question_id: question._id,

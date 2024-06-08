@@ -10,14 +10,16 @@ import Image from 'next/image';
 
 import { cn, getImageURL } from '@/lib/utils';
 import { Tabs, TabTitle } from '../ui/tabs';
+import { IoOpenOutline } from 'react-icons/io5';
 
 export interface IPhotoProviderProps {
   images: string[];
+  post_ids?: string[];
   visible: boolean;
   onClose: () => void;
 }
 
-export default function PhotoProvider({ images, visible, onClose }: IPhotoProviderProps) {
+export default function PhotoProvider({ images, post_ids, visible, onClose }: IPhotoProviderProps) {
   const [fullScreen, setFullScreen] = useState(false);
 
   return (
@@ -34,9 +36,12 @@ export default function PhotoProvider({ images, visible, onClose }: IPhotoProvid
       easing={(type) =>
         type === 2 ? 'cubic-bezier(0.36, 0, 0.66, -0.56)' : 'cubic-bezier(0.34, 1.56, 0.64, 1)'
       }
-      toolbarRender={({ onScale, scale, rotate, onRotate }) => {
+      toolbarRender={({ onScale, scale, rotate, onRotate, index }) => {
         return (
           <div className='flex gap-5 *:size-6 text-text-2 hover:*:text-text-1 *:cursor-pointer duration-300'>
+            {post_ids && post_ids.length && <IoOpenOutline onClick={() => {
+              window.open(`/posts/${post_ids[index]}`, '_blank');
+            }} />}
             <BsZoomIn onClick={() => onScale(scale + 1)} />
             <BsZoomOut onClick={() => onScale(scale - 1)} />
             <LuRotateCcw onClick={() => onRotate(rotate - 90)} />
