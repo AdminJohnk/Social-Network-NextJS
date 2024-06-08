@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import FriendButton from './FriendButton';
 import { Link } from '@/navigation';
+import { Skeleton } from '@mui/material';
 
 interface IRenderFriendItemProps {
   friend: IUserInfo;
@@ -68,11 +69,26 @@ export interface IFriendTabProps {
 
 export default function FriendTab({ profileID }: IFriendTabProps) {
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
-  
+
   return (
     <>
       {isLoadingOtherUserInfo ? (
-        <>Loading...</>
+        <div className='bg-foreground-1 my-8 w-full rounded-md'>
+          <div className='flex-between flex-wrap px-10 py-8 gap-10 w-full'>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className='w-[calc(50%-2.5rem)]'>
+                <div className='flex-between'>
+                  <Skeleton variant='circular' width={60} height={60} className='!bg-foreground-2' />
+                  <div className='w-3/5 flex flex-col py-1 pl-3'>
+                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
+                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
+                  </div>
+                  <Skeleton variant='rounded' width={100} height={40} className='!bg-foreground-2' />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       ) : (
         <div className='bg-foreground-1 my-8 w-full rounded-md'>
           {otherUserInfo?.friends.length <= 0 ? (

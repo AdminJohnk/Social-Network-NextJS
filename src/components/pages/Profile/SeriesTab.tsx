@@ -7,7 +7,7 @@ import { getImageURL } from '@/lib/utils';
 import { Link } from '@/navigation';
 import Nodata from '@/components/shared/Nodata';
 import { useTranslations } from 'next-intl';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Skeleton } from '@mui/material';
 import { PostItem } from '../Series/PostItem';
 import { Timeline } from 'flowbite-react';
 
@@ -25,8 +25,17 @@ export default function SeriesTab({ profileID }: ISeriesTabProps) {
   return (
     <div className='my-8 w-full rounded-md bg-foreground-1 px-20 py-8 space-y-14'>
       {isLoadingAllSeries ? (
-        <div className='flex-center w-full py-10'>
-          <CircularProgress size={20} className='!text-text-1' />
+        <div className=''>
+          <div className='grid cursor-pointer grid-cols-5 gap-4'>
+            <div className='col-span-4'>
+              <h1 className='h3-bold duration-300 hover:underline'><Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' /></h1>
+              <p className='mt-4 text-text-2 mb-4'><Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' /></p>
+              <Skeleton variant='rounded' width={100} height={40} className='!bg-foreground-2' />
+            </div>
+            <div className='col-span-1'>
+              <Skeleton variant='rectangular' className='!bg-foreground-2 !h-[132px] w-full' />
+            </div>
+          </div>
         </div>
       ) : !allSeries || !allSeries.length ? (
         <Nodata width={150} height={150} title={t('No series found')} />

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Skeleton } from '@mui/material';
 import Image from 'next/image';
 
 import RightActionButtons from './RightActionButtons';
@@ -104,8 +104,16 @@ function ConversationList({ conversationID }: IConversationListProps) {
       </div>
       <div className='space-y-2 p-2 overflow-y-auto custom-scrollbar-fg'>
         {isLoadingConversations || !searchConversation ? (
-          <div className='w-full flex-center py-10'>
-            <CircularProgress size={20} className='!text-text-1' />
+          <div className='w-full flex-center flex-col gap-4 ml-2'>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className='w-full flex gap-4'>
+                <Skeleton variant="circular" width={60} height={60} className='!bg-foreground-1' />
+                <div className='w-3/4 flex flex-col py-1'>
+                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!bg-foreground-1' />
+                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!bg-foreground-1' />
+                </div>
+              </div>
+            ))}
           </div>
         ) : isLoadingSearch ? (
           <div className='w-full flex-center py-10'>
