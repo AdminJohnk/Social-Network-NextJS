@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import {
+  IAllImage,
   ICommentPost,
   ICreateComment,
   ICreatePost,
@@ -83,7 +84,7 @@ class PostService extends BaseService {
     return await this.get(`/posts/search/top?search=${keyword}&page=${page}`);
   };
 
-  getAllPostImages = async (userID: string): Promise<AxiosResponse<IResponse<string[]>>> => {
+  getAllPostImages = async (userID: string): Promise<AxiosResponse<IResponse<IAllImage[]>>> => {
     return await this.get(`/posts/images/${userID}`);
   };
 

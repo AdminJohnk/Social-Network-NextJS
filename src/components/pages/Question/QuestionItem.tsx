@@ -4,7 +4,7 @@ import { BiSolidDownArrow, BiSolidTrashAlt, BiSolidUpArrow } from 'react-icons/b
 import { FaRegBookmark } from 'react-icons/fa6';
 import CommentItem from './CommentItem';
 import Divider from '@/components/shared/Divider';
-import { Link } from '@/navigation';
+import { Link, useRouter } from '@/navigation';
 import { IQuestion } from '@/types';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
 import { useCommentQuestion, useDeleteQuestion, useSaveQuestion, useVoteQuestion } from '@/hooks/mutation';
@@ -26,6 +26,7 @@ export interface IQuestionItemProps {
 export default function QuestionItem({ question }: IQuestionItemProps) {
   const t = useTranslations();
   const format = useFormatter();
+  const router = useRouter();
 
   const getFormattedDate = (date: string) => {
     return format.dateTime(new Date(date), {
@@ -36,7 +37,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
   };
 
   const { currentUserInfo } = useCurrentUserInfo();
-  const { mutateVoteQuestion } = useVoteQuestion();
+  const { mutateVoteQuestion, isLoadingVoteQuestion } = useVoteQuestion();
   const { mutateDeleteQuestion, isLoadingDeleteQuestion } = useDeleteQuestion();
   const { mutateCommentQuestion, isLoadingCommentQuestion } = useCommentQuestion();
   const { mutateSaveQuestion } = useSaveQuestion();
@@ -77,6 +78,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
     mutateDeleteQuestion(question._id, {
       onSuccess: () => {
         showSuccessToast(t('Question deleted successfully!'));
+        router.push('/questions');
       },
       onError: () => {
         showErrorToast(t('Something went wrong! Please try again!'));
@@ -118,6 +120,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
             <BiSolidUpArrow
               className={cn('text-1 size-5', vote === 'up' && 'text-green-400')}
               onClick={() => {
+                if (isLoadingVoteQuestion) return;
                 if (vote === 'up') {
                   mutateVoteQuestion({
                     question_id: question._id,
@@ -142,6 +145,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
             <BiSolidDownArrow
               className={cn('text-1 size-5', vote === 'down' && 'text-green-400')}
               onClick={() => {
+                if (isLoadingVoteQuestion) return;
                 if (vote === 'down') {
                   mutateVoteQuestion({
                     question_id: question._id,
