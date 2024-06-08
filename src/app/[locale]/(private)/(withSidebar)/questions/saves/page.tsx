@@ -5,8 +5,10 @@ import QuestionSummaryItem from '@/components/pages/Question/QuestionSummaryItem
 import Divider from '@/components/shared/Divider';
 import { useGetSavedQuestions } from '@/hooks/query';
 import { CircularProgress } from '@mui/material';
+import { Label, Select } from 'flowbite-react';
 import { useFormatter, useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { IoAdd, IoAddOutline } from 'react-icons/io5';
 
 export interface ISavesProps {}
 
@@ -15,6 +17,8 @@ export default function Saves(props: ISavesProps) {
   const format = useFormatter();
 
   const { savedQuestions, isLoadingSavedQuestions } = useGetSavedQuestions();
+
+  const [listName, setListName] = useState('');
 
   useEffect(() => {
     UIkit.sticky('#save-questions-side')?.$emit('update');
@@ -25,7 +29,27 @@ export default function Saves(props: ISavesProps) {
       <div className='mx-auto max-w-[1070px]' id='save-questions'>
         <div className='grid grid-cols-3 gap-8'>
           <div className='left col-span-2'>
-            <div className='h3-semibold me-10'>{t('Saved Questions')}</div>
+            <div className='flex-between'>
+              <div className='h3-semibold me-10'>{t('Saved Questions')}</div>
+              <div className='flex gap-2'>
+                <div className='flex-center'>
+                  <span className='rounded-full bg-foreground-1 p-1'>
+                    <IoAdd className='text-1 size-5' />
+                  </span>
+                </div>
+                <div className='flex-start'>
+                  <Select
+                    id='sortBy'
+                    required
+                    className='ms-1 grow *:*:!bg-transparent *:*:!ring-transparent'
+                    onChange={(e) => setListName(e.target.value)}>
+                    <option className='bg-foreground-1' value='allsaves'>
+                      {t('All Saves')} ({t('default')})
+                    </option>
+                  </Select>
+                </div>
+              </div>
+            </div>
             <Divider className='my-4' />
             <div></div>
             {isLoadingSavedQuestions ? (
