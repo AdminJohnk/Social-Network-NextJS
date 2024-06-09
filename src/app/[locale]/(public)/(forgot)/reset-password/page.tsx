@@ -1,19 +1,23 @@
 'use client'
 
+import { showErrorToast } from '@/components/ui/toast';
+import { useCheckResetPassword, useResetPassword } from '@/hooks/mutation';
 import { useRouter } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 export interface IResetPasswordProps {
+  searchParams: {
+    email: string;
+    code: string;
+  };
 }
 
-export default function ResetPassword({ }: IResetPasswordProps) {
+export default function ResetPassword({ searchParams: { email, code: fakeCode } }: IResetPasswordProps) {
   const t = useTranslations();
   const router = useRouter();
-
-  const search = window.location.search;
-  const params = new URLSearchParams(search);
-  const email = params.get('email');
+  const { mutateCheckResetPassword } = useCheckResetPassword();
+  const { mutateResetPassword, isLoadingResetPassword } = useResetPassword();
 
   const [password, setPassword] = useState('');
 
@@ -33,20 +37,32 @@ export default function ResetPassword({ }: IResetPasswordProps) {
     }
 
     if (email) {
-      // dispatch(CHECK_RESET_PASSWORD_SAGA({ email: email }));
+      mutateCheckResetPassword({ email }, {
+        onError: (error) => {
+          router.push('/forgot-password');
+          console.log(error);
+        }
+      });
     }
   }, [email]);
 
   const handleSubmit = () => {
     if (password === confirmPassword) {
-      // dispatch(
-      //   RESET_PASSWORD_SAGA({
-      //     email: email!,
-      //     password: password
-      //   })
-      // );
+      mutateResetPassword({
+        email,
+        password
+      }, {
+        onSuccess: () => {
+          router.push('/login');
+        },
+        onError: (error) => {
+          showErrorToast(error.response.data.message);
+          console.log(error);
+        }
+      })
     }
   };
+
   return (
     <div id='content' role='main' className='w-full max-w-md mx-auto p-6'>
       <div className='mt-7 bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 border-2 border-indigo-300'>
@@ -67,7 +83,7 @@ export default function ResetPassword({ }: IResetPasswordProps) {
                     id='password'
                     name='password'
                     placeholder='Enter your password'
-                    className='py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm'
+                    className='py-3 px-4 block text-black w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm'
                     required
                     aria-describedby='email-error'
                     onChange={handleChangePassword}
@@ -86,7 +102,7 @@ export default function ResetPassword({ }: IResetPasswordProps) {
                     id='confirmPassword'
                     name='confirmPassword'
                     placeholder='Enter your confirm password'
-                    className='py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm'
+                    className='py-3 px-4 block text-black w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm'
                     required
                     onChange={handleChangeConfirmPassword}
                   />

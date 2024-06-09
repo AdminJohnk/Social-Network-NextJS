@@ -1,5 +1,6 @@
 'use client';
 
+import { showErrorToast } from '@/components/ui/toast';
 import { useForgotPassword } from '@/hooks/mutation';
 import { useRouter } from '@/navigation';
 import { useTranslations } from 'next-intl';
@@ -28,9 +29,13 @@ export default function ForgotPassword({ }: IForgotPasswordProps) {
     mutateForgotPassword(email,
       {
         onSuccess: (data) => {
+          router.push(`verify?email=${email}&code=${Math.floor(
+            Math.random() * 1000000
+          )}&note=codetrongemailchukhongphaicodenaydaunehihi`);
           console.log(data);
         },
         onError: (error) => {
+          showErrorToast(error.response.data.message);
           console.log(error);
         }
       }

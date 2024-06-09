@@ -1,18 +1,22 @@
 'use client';
+import { showErrorToast } from '@/components/ui/toast';
+import { useCheckVerifyCode, useVerifyCode } from '@/hooks/mutation';
 import { useRouter } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 export interface IVerifyProps {
+  searchParams: {
+    email: string;
+    code: string;
+  };
 }
 
-export default function Verify({ }: IVerifyProps) {
+export default function Verify({ searchParams: { email, code: fakeCode } }: IVerifyProps) {
   const t = useTranslations();
   const router = useRouter();
-
-  const search = window.location.search;
-  const params = new URLSearchParams(search);
-  const email = params.get('email');
+  const { mutateCheckVerifyCode } = useCheckVerifyCode();
+  const { mutateVerifyCode, isLoadingVerifyCode } = useVerifyCode();
 
   const [code, setCode] = useState('');
 
@@ -54,15 +58,30 @@ export default function Verify({ }: IVerifyProps) {
     }
 
     if (email) {
-      // dispatch(CHECK_VERIFY_CODE_SAGA({ email: email }));
+      mutateCheckVerifyCode({ email }, {
+        onError: (error) => {
+          router.push('/forgot-password');
+          console.log(error);
+        }
+      });
     }
   }, [email]);
 
   const handleSubmit = () => {
-    if (code === params.get('code')) {
-      window.alert('Lêu lêu, bị lừa rồi đó, đừng nhập code này nữa nha, đọc note kìa!');
+    if (code === fakeCode) {
+      showErrorToast(t('Are you dumb?'));
     }
-    // dispatch(VERIFY_CODE_SAGA({ email: email!, code: code }));
+    mutateVerifyCode({ email, code }, {
+      onSuccess: (data) => {
+        router.push(`/reset-password?email=${email}&code=${Math.floor(
+          Math.random() * 1000000
+        )}&note=codetrongemailchukhongphaicodenaydaunehihi`);
+      },
+      onError: (error) => {
+        showErrorToast(error.response.data.message);
+        console.log(error);
+      }
+    });
   };
 
   const [countdown, setCountdown] = useState(0);
@@ -107,7 +126,7 @@ export default function Verify({ }: IVerifyProps) {
               <input
                 key={index}
                 id={`input-${index}`}
-                className='w-12 h-12 text-center font-bold text-lg border rounded-md shadow-sm focus:border-teal-500 focus:ring-teal-500'
+                className='w-12 h-12 !text-black text-center font-bold text-lg border rounded-md shadow-sm focus:border-teal-500 focus:ring-teal-500'
                 type='text'
                 maxLength={1}
                 autoComplete='one-time-code'

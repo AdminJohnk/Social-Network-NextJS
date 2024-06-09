@@ -50,7 +50,8 @@ import {
   IDeleteAnswer,
   ICreateCommentAnswer,
   ICreateVoteAnswer,
-  IVerifyCode
+  IVerifyCode,
+  IForgotPassword
 } from '@/types';
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
@@ -95,7 +96,7 @@ export const useForgotPassword = () => {
     errorForgotPassword: error,
     isSuccessForgotPassword: isSuccess
   };
-}
+};
 
 export const useVerifyCode = () => {
   const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
@@ -111,7 +112,23 @@ export const useVerifyCode = () => {
     errorVerifyCode: error,
     isSuccessVerifyCode: isSuccess
   };
-}
+};
+
+export const useCheckVerifyCode = () => {
+  const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
+    mutationFn: async (data: IForgotPassword) => {
+      const { data: res } = await authService.checkVerifyCode(data);
+      return res.metadata;
+    }
+  });
+  return {
+    mutateCheckVerifyCode: mutateAsync,
+    isLoadingCheckVerifyCode: isPending,
+    isErrorCheckVerifyCode: isError,
+    errorCheckVerifyCode: error,
+    isSuccessCheckVerifyCode: isSuccess
+  };
+};
 
 export const useResetPassword = () => {
   const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
@@ -127,9 +144,23 @@ export const useResetPassword = () => {
     errorResetPassword: error,
     isSuccessResetPassword: isSuccess
   };
-}
+};
 
-
+export const useCheckResetPassword = () => {
+  const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
+    mutationFn: async (data: IForgotPassword) => {
+      const { data: res } = await authService.checkResetPassword(data);
+      return res.metadata;
+    }
+  });
+  return {
+    mutateCheckResetPassword: mutateAsync,
+    isLoadingCheckResetPassword: isPending,
+    isErrorCheckResetPassword: isError,
+    errorCheckResetPassword: error,
+    isSuccessCheckResetPassword: isSuccess
+  };
+};
 
 /**
  * The `useCreatePost` function is a custom hook that handles the creation of a new post, including

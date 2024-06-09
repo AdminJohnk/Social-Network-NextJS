@@ -32,7 +32,7 @@ class AuthService extends BaseService {
     return await this.post(`/auth/change-password`, data);
   };
   forgotPassword = async (email: string) => {
-    return await this.post(`/auth/forgot`, email);
+    return await this.post(`/auth/forgot`, { email });
   };
   verifyCode = async (data: IVerifyCode) => {
     return await this.post(`/auth/verify`, data);

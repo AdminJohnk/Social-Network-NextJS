@@ -57,8 +57,7 @@ export interface IVerifyCode {
 
 export interface IResetPassword {
   email: string;
-  oldPassword: string;
-  newPassword: string;
+  password: string;
 }
 
 export interface IUserUpdate {
