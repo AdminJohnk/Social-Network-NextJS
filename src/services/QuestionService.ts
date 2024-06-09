@@ -16,7 +16,11 @@ import {
   IResponse,
   IUpdateAnswer,
   IUpdateCommentQuestion,
-  IUpdateQuestion
+  IUpdateQuestion,
+  IMoveToListQuestion,
+  IAllListQuestion,
+  IRemoveFromListQuestion,
+  IUpdateNameListQuestion
 } from '@/types';
 import { BaseService } from './BaseService';
 import { StringValidation } from 'zod';
@@ -157,6 +161,34 @@ class QuestionService extends BaseService {
 
   getRelatedQuestions = (questionID: string): Promise<AxiosResponse<IResponse<IQuestionSummaryItem[]>>> => {
     return this.get(`/questions/related/${questionID}`);
+  };
+
+  createNewListQuestion = (name: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/create-list`, { name });
+  };
+
+  getAllListQuestions = (): Promise<AxiosResponse<IResponse<IAllListQuestion>>> => {
+    return this.get(`/questions/saves/all-list`);
+  };
+
+  moveToListQuestion = (data: IMoveToListQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/move-to-list`, data);
+  };
+
+  removeFromListQuestion = (data: IRemoveFromListQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/remove-from-list`, data);
+  };
+
+  removeFromSavedQuestion = (questionID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/remove/${questionID}`);
+  };
+
+  updateNameListQuestion = (data: IUpdateNameListQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/update-list-name`, data);
+  };
+
+  deleteListQuestion = (listName: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.delete(`/questions/saves/delete-list/${listName}`);
   };
 }
 

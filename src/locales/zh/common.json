@@ -597,6 +597,7 @@
   "Post Your Answer": "发布您的答案",
   "Are you absolutely sure remove this post?": "您确定要删除这篇帖子吗?",
   "Saved Questions": "保存的问题",
+  "All Saves": "所有保存",
   "Questions tagged": "标记的问题",
   "Reputation": "声誉",
   "level": "级别",
@@ -610,5 +611,15 @@
   "Add Experiences": "添加经验",
   "No experience": "没有经验",
   "Dive into engaging series on various topics": "深入参与各种主题的系列",
-  "Connect with diverse communities around various topics": "与各种主题周围的多样化社区联系"
+  "Connect with diverse communities around various topics": "与各种主题周围的多样化社区联系",
+  "Create New List": "创建新列表",
+  "Update List": "更新列表",
+  "List Name": "列表名称",
+  "List Name is required": "列表名称是必需的",
+  "UnSave": "取消保存",
+  "Move to": "移动到",
+  "Move": "移动",
+  "Remove from list": "从列表中移除",
+  "Are you absolutely sure delete this list?": "您确定要删除这个列表吗?",
+  "You will not be able to recover list after deletion!": "删除后您将无法恢复列表!"
 }

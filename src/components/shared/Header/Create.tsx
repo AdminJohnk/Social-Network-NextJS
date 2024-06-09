@@ -12,6 +12,7 @@ import CreateEditSeries from '@/components/pages/Series/CreateEditSeries';
 import { Link } from '@/navigation';
 
 import Modal from '../Modal';
+import CreateEditCommunity from '@/components/pages/Community/CreateEditCommunity';
 
 export default function CreateHeader() {
   const t = useTranslations();
@@ -62,7 +63,7 @@ export default function CreateHeader() {
                 <CreateEditSeries handleClose={() => setOpenCreateSeries(false)} />
               </Modal>
               <li className='uk-drop-close min-w-28' onClick={() => setOpenCreateQuestion(true)}>
-                <div className='rounded-lg bg-foreground-1 p-3 px-4 text-pink-600'>
+                <div className='rounded-lg bg-foreground-1 p-3 px-4 text-yellow-500'>
                   <FaQuestion className='text-2xl drop-shadow-md' />
                   <div className='mt-1.5 text-sm font-medium'>{t('Question')}</div>
                 </div>
@@ -71,20 +72,14 @@ export default function CreateHeader() {
                 <CreateEditQuestion handleClose={() => setOpenCreateQuestion(false)} />
               </Modal>
               <li className='uk-drop-close min-w-28' onClick={() => setOpenCreateCommunity(true)}>
-                <div className='rounded-lg bg-foreground-1 p-3 px-4 text-teal-600'>
+                <div className='rounded-lg bg-foreground-1 p-3 px-4 text-teal-500'>
                   <FaUsers className='text-2xl drop-shadow-md' />
                   <div className='mt-1.5 text-sm font-medium'>{t('Community')}</div>
                 </div>
               </li>
               <Modal open={openCreateCommunity} handleClose={() => setOpenCreateCommunity(false)}>
-                <CreateEditQuestion handleClose={() => setOpenCreateCommunity(false)} />
+                <CreateEditCommunity handleClose={() => setOpenCreateCommunity(false)} />
               </Modal>
-              <li className='uk-drop-close min-w-28'>
-                <div className='rounded-lg bg-foreground-1 p-3 px-4 text-sky-600'>
-                  <IoHappy className='text-2xl drop-shadow-md' />
-                  <div className='mt-1.5 text-sm font-medium'>{t('Status')}</div>
-                </div>
-              </li>
             </ul>
           </div>
 
@@ -110,11 +105,14 @@ export default function CreateHeader() {
 
         <ul
           className='-m-1 mt-4 pb-1 text-xs *:duration-300 hover:*:bg-hover-2'
+          className='-m-1 mt-4 pb-1 text-xs *:duration-300 hover:*:bg-hover-2'
           data-uk-scrollspy='target: > li; cls: uk-animation-scale-up , uk-animation-slide-bottom-small ;repeat: true'>
+          <li className='flex cursor-pointer items-center gap-4 rounded-md p-1.5 hover:bg-hover-1'>
           <li className='flex cursor-pointer items-center gap-4 rounded-md p-1.5 hover:bg-hover-1'>
             <Image src='/images/home/group.png' alt='' className='w-7' width={50} height={50} />
             <div className='flex-1 text-text-1'>
               <Link href=''>
+                <h4 className='text-sm font-medium'>{t('Communities')}</h4>
                 <h4 className='text-sm font-medium'>{t('Communities')}</h4>
               </Link>
               <div className='mt-1 text-xs'>

@@ -828,3 +828,29 @@ export interface ICreateVoteAnswer {
   old: string;
   type: string;
 }
+
+export interface IAllListQuestion {
+  list_name: string[];
+  list_category: [
+    {
+      name: string;
+      questions: IQuestionSummaryItem[];
+    }
+  ];
+}
+
+export interface IMoveToListQuestion {
+  question_id: string;
+  from: string;
+  to: string;
+}
+
+export interface IRemoveFromListQuestion {
+  question_id: string;
+  from: string;
+}
+
+export interface IUpdateNameListQuestion {
+  old_name: string;
+  new_name: string;
+}

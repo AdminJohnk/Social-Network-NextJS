@@ -5,41 +5,42 @@ import { FaTools } from 'react-icons/fa';
 import { TbBrandOpenai } from 'react-icons/tb';
 import { IoDocumentText, IoChatbubbleEllipses } from 'react-icons/io5';
 import { AiFillQuestionCircle } from 'react-icons/ai';
+import Draggable from 'react-draggable';
 
 export default function FloatTool() {
   const ListToolRef = useRef<HTMLDivElement>(null);
   return (
-    <div
-      className='fixed bottom-20 right-4 group/list-tool bg-transparent z-[1000]'
-      onMouseEnter={() => {
-        ListToolRef.current!.classList.add('animate-fade-up-in');
-        ListToolRef.current!.classList.remove(...['animate-fade-up-out', 'hidden']);
-      }}
-      onMouseLeave={() => {
-        ListToolRef.current!.classList.add(...['animate-fade-up-out', 'hidden']);
-        ListToolRef.current!.classList.remove('animate-fade-up-in');
-      }}
-    >
-      <div className='p-3 bg-2 duration-300 rounded-full shadow-xl'>
-        <FaTools className='size-6 text-purple-1' />
-      </div>
+    <Draggable axis='y'>
       <div
-        ref={ListToolRef}
-        className='absolute opacity-0 -top-[255px] *:mt-3 pb-4 bg-transparent duration-300 hidden'
-      >
-        <div className='p-3 bg-2 duration-300 rounded-full cursor-pointer shadow-xl'>
-          <AiFillQuestionCircle className='size-6 text-text-2' />
+        className='group/list-tool fixed bottom-20 right-4 z-[1000] bg-transparent'
+        onMouseEnter={() => {
+          ListToolRef.current!.classList.add('animate-fade-up-in');
+          ListToolRef.current!.classList.remove(...['animate-fade-up-out', 'hidden']);
+        }}
+        onMouseLeave={() => {
+          ListToolRef.current!.classList.add(...['animate-fade-up-out', 'hidden']);
+          ListToolRef.current!.classList.remove('animate-fade-up-in');
+        }}>
+        <div className='bg-2 rounded-full p-3 shadow-xl duration-300'>
+          <FaTools className='size-6 text-purple-1' />
         </div>
-        <div className='p-3 bg-2 duration-300 rounded-full cursor-pointer shadow-xl'>
-          <IoDocumentText className='size-6 text-text-2' />
-        </div>
-        <div className='p-3 bg-2 duration-300 rounded-full cursor-pointer shadow-xl'>
-          <IoChatbubbleEllipses className='size-6 text-text-2' />
-        </div>
-        <div className='p-3 bg-2 duration-300 rounded-full cursor-pointer shadow-xl'>
-          <TbBrandOpenai className='size-6 text-text-2' />
+        <div
+          ref={ListToolRef}
+          className='absolute -top-[255px] hidden bg-transparent pb-4 opacity-0 duration-300 *:mt-3'>
+          <div className='bg-2 cursor-pointer rounded-full p-3 shadow-xl duration-300'>
+            <AiFillQuestionCircle className='size-6 text-text-2' />
+          </div>
+          <div className='bg-2 cursor-pointer rounded-full p-3 shadow-xl duration-300'>
+            <IoDocumentText className='size-6 text-text-2' />
+          </div>
+          <div className='bg-2 cursor-pointer rounded-full p-3 shadow-xl duration-300'>
+            <IoChatbubbleEllipses className='size-6 text-text-2' />
+          </div>
+          <div className='bg-2 cursor-pointer rounded-full p-3 shadow-xl duration-300'>
+            <TbBrandOpenai className='size-6 text-text-2' />
+          </div>
         </div>
       </div>
-    </div>
+    </Draggable>
   );
 }

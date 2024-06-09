@@ -597,6 +597,7 @@
   "Post Your Answer": "Post Your Answer",
   "Are you absolutely sure remove this post?": "Are you absolutely sure remove this post?",
   "Saved Questions": "Saved Questions",
+  "All Saves": "All Saves",
   "Questions tagged": "Questions tagged",
   "Reputation": "Reputation",
   "level": "level",
@@ -611,5 +612,15 @@
   "No experience": "No experience",
   "Dive into engaging series on various topics": "Dive into engaging series on various topics",
   "Uncover intriguing questions and answers on various topics": "Uncover intriguing questions and answers on various topics",
-  "Connect with diverse communities around various topics": "Connect with diverse communities around various topics"
+  "Connect with diverse communities around various topics": "Connect with diverse communities around various topics",
+  "Create New List": "Create New List",
+  "Update List": "Update List",
+  "List Name": "List Name",
+  "List Name is required": "List Name is required",
+  "UnSave": "UnSave",
+  "Move to": "Move to",
+  "Move": "Move",
+  "Remove from list": "Remove from list",
+  "Are you absolutely sure delete this list?": "Are you absolutely sure delete this list?",
+  "You will not be able to recover list after deletion!": "You will not be able to recover list after deletion!"
 }
