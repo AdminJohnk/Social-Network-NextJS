@@ -6,13 +6,13 @@ import { useState } from 'react';
 import { FaQuestion, FaSwatchbook, FaUsers } from 'react-icons/fa';
 import { IoAdd, IoAddCircleOutline, IoBook, IoChevronBack, IoChevronForward, IoHappy } from 'react-icons/io5';
 
+import CreateEditCommunity from '@/components/pages/Community/CreateEditCommunity';
 import CreateNewPost from '@/components/pages/Home/CreateNewPost';
 import CreateEditQuestion from '@/components/pages/Question/CreateEditQuestion';
 import CreateEditSeries from '@/components/pages/Series/CreateEditSeries';
 import { Link } from '@/navigation';
 
 import Modal from '../Modal';
-import CreateEditCommunity from '@/components/pages/Community/CreateEditCommunity';
 
 export default function CreateHeader() {
   const t = useTranslations();
@@ -105,9 +105,7 @@ export default function CreateHeader() {
 
         <ul
           className='-m-1 mt-4 pb-1 text-xs *:duration-300 hover:*:bg-hover-2'
-          className='-m-1 mt-4 pb-1 text-xs *:duration-300 hover:*:bg-hover-2'
           data-uk-scrollspy='target: > li; cls: uk-animation-scale-up , uk-animation-slide-bottom-small ;repeat: true'>
-          <li className='flex cursor-pointer items-center gap-4 rounded-md p-1.5 hover:bg-hover-1'>
           <li className='flex cursor-pointer items-center gap-4 rounded-md p-1.5 hover:bg-hover-1'>
             <Image src='/images/home/group.png' alt='' className='w-7' width={50} height={50} />
             <div className='flex-1 text-text-1'>

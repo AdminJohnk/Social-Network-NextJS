@@ -1,9 +1,14 @@
 'use client';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+
 import { showErrorToast } from '@/components/ui/toast';
 import { useCheckVerifyCode, useVerifyCode } from '@/hooks/mutation';
 import { useRouter } from '@/navigation';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { ErrorResponse } from '@/types';
+import { Button } from '@/components/ui/button';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
 
 export interface IVerifyProps {
   searchParams: {
@@ -20,68 +25,44 @@ export default function Verify({ searchParams: { email, code: fakeCode } }: IVer
 
   const [code, setCode] = useState('');
 
-  const [inputValues, setInputValues] = useState<string[]>(['', '', '', '', '', '', '', '']);
+  // useEffect(() => {
+  //   if (!email) {
+  //     router.push('/forgot-password');
+  //   }
 
-  const handleInputChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newInputValues = [...inputValues];
-    newInputValues[index] = e.target.value;
-    setInputValues(newInputValues);
-
-    if (index < inputValues.length - 1 && e.target.value) {
-      const nextInput = document.getElementById(`input-${index + 1}`);
-      if (nextInput) {
-        nextInput.focus();
-      }
-    }
-    const str = newInputValues.join('');
-    setCode(str);
-  };
-
-  const handlePaste = (e: React.ClipboardEvent) => {
-    e.preventDefault();
-    const pastedData = e.clipboardData.getData('text');
-
-    const pastedArray = pastedData.split('').slice(0, inputValues.length);
-
-    setInputValues(pastedArray);
-    setCode(pastedData);
-
-    const nextInput = document.getElementById(`input-${inputValues.length - 1}`);
-    if (nextInput) {
-      nextInput.focus();
-    }
-  };
-
-  useEffect(() => {
-    if (!email) {
-      router.push('/forgot-password');
-    }
-
-    if (email) {
-      mutateCheckVerifyCode({ email }, {
-        onError: (error) => {
-          router.push('/forgot-password');
-          console.log(error);
-        }
-      });
-    }
-  }, [email]);
+  //   if (email) {
+  //     mutateCheckVerifyCode(
+  //       { email },
+  //       {
+  //         onError: (error) => {
+  //           router.push('/forgot-password');
+  //           console.log(error);
+  //         }
+  //       }
+  //     );
+  //   }
+  // }, [email]);
 
   const handleSubmit = () => {
     if (code === fakeCode) {
       showErrorToast(t('Are you dumb?'));
     }
-    mutateVerifyCode({ email, code }, {
-      onSuccess: (data) => {
-        router.push(`/reset-password?email=${email}&code=${Math.floor(
-          Math.random() * 1000000
-        )}&note=codetrongemailchukhongphaicodenaydaunehihi`);
-      },
-      onError: (error) => {
-        showErrorToast(error.response.data.message);
-        console.log(error);
+    mutateVerifyCode(
+      { email, code },
+      {
+        onSuccess: () => {
+          router.push(
+            `/reset-password?email=${email}&code=${Math.floor(
+              Math.random() * 1000000
+            )}&note=codetrongemailchukhongphaicodenaydaunehihi`
+          );
+        },
+        onError: (error) => {
+          showErrorToast((error as ErrorResponse).response.data.message);
+          console.log(error);
+        }
       }
-    });
+    );
   };
 
   const [countdown, setCountdown] = useState(0);
@@ -102,7 +83,7 @@ export default function Verify({ searchParams: { email, code: fakeCode } }: IVer
 
   const handleResendOTP = () => {
     if (!isResendDisabled) {
-      setInputValues(['', '', '', '', '', '', '', '']);
+      setCode('');
       // dispatch(FORGOT_PASSWORD_SAGA({ email: email! }));
 
       // Disable the resend button
@@ -119,36 +100,32 @@ export default function Verify({ searchParams: { email, code: fakeCode } }: IVer
 
   return (
     <div className='pt-20'>
-      <div className='max-w-lg mx-auto border rounded'>
-        <div className='shadow-md px-4 py-6'>
-          <div className='flex justify-center gap-2 mb-6'>
-            {inputValues.map((value, index) => (
-              <input
-                key={index}
-                id={`input-${index}`}
-                className='w-12 h-12 !text-black text-center font-bold text-lg border rounded-md shadow-sm focus:border-teal-500 focus:ring-teal-500'
-                type='text'
-                maxLength={1}
-                autoComplete='one-time-code'
-                value={value}
-                onChange={handleInputChange(index)}
-                onPaste={handlePaste}
-                required
-              />
-            ))}
+      <div className='mx-auto max-w-lg rounded border'>
+        <div className='px-4 py-6 shadow-md'>
+          <div className='mb-6 flex justify-center gap-2'>
+            <InputOTP
+              maxLength={8}
+              value={code}
+              onChange={setCode}
+              inputMode='text'
+              pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
+              <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+                <InputOTPSlot index={6} />
+                <InputOTPSlot index={7} />
+              </InputOTPGroup>
+            </InputOTP>
           </div>
-          <div className='flex items-center justify-center'>
-            <button
-              className='bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-              onClick={handleSubmit}>
-              Verify
-            </button>
-            <button
-              className='inline-block align-baseline font-bold text-sm text-teal-500 hover:text-teal-800 ml-4'
-              onClick={handleResendOTP}
-              disabled={isResendDisabled}>
+          <div className='flex items-center justify-center gap-2'>
+            <Button onClick={handleSubmit}>Verify</Button>
+            <Button variant='main' onClick={handleResendOTP} disabled={isResendDisabled}>
               Resend OTP {isResendDisabled ? '(' + countdown + 's)' : ''}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
