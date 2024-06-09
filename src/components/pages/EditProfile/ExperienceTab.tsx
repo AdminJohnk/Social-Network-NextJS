@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { BiSolidEdit } from 'react-icons/bi';
 import { CircularProgress } from '@mui/material';
@@ -43,7 +43,10 @@ export default function ExperienceTab() {
     });
   };
 
-  const isChanged = JSON.stringify(experienceArr) !== JSON.stringify(currentUserInfo.experiences);
+  const isChanged = useMemo(
+    () => JSON.stringify(experienceArr) !== JSON.stringify(currentUserInfo.experiences),
+    [experienceArr, currentUserInfo.experiences]
+  );
 
   return (
     <div className='flex flex-col justify-center'>
@@ -80,7 +83,7 @@ export default function ExperienceTab() {
       {experienceArr.length > 0 && (
         <div className='mt-10 flex items-center justify-center gap-4'>
           <Button
-            type='submit'
+            type='button'
             className={cn(
               'button text-white max-md:flex-1 lg:px-6',
               (!isChanged || isLoadingUpdateUser) && 'select-none'

@@ -161,7 +161,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
     return (
       <div className='flex-start gap-3'>
         <div
-          className='flex-start gap-1 cursor-pointer hover:text-red-500 duration-300'
+          className='flex-start cursor-pointer gap-1 duration-300 hover:text-red-500'
           onClick={() => {
             setIsLiked(!isLiked);
             setNumberLikes(isLiked ? numberLikes - 1 : numberLikes + 1);
@@ -175,7 +175,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
         </div>
         <a
           href={'#discussion'}
-          className='flex-start gap-1 cursor-pointer hover:text-teal-400 duration-300'
+          className='flex-start cursor-pointer gap-1 duration-300 hover:text-teal-400'
           onClick={() => {
             editor?.commands.focus();
           }}>
@@ -191,29 +191,29 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
             });
           }}>
           {isSaved ? (
-            <GoBookmarkFill className='size-4 text-yellow-400 cursor-pointer' />
+            <GoBookmarkFill className='size-4 cursor-pointer text-yellow-400' />
           ) : (
-            <GoBookmark className='size-4 cursor-pointer hover:text-yellow-400 duration-300' />
+            <GoBookmark className='size-4 cursor-pointer duration-300 hover:text-yellow-400' />
           )}
         </div>
-        <CiShare2 className='size-4 cursor-pointer text-1' />
+        <CiShare2 className='text-1 size-4 cursor-pointer' />
       </div>
     );
   };
 
   return (
-    <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
+    <div className='ms-60 mt-16 pb-5 pt-5 max-lg/2:ms-0'>
       {isSeriesOwner && (
         <>
           <EditButton
-            className='fixed top-[20%] right-4 z-50'
+            className='fixed right-4 top-[20%] z-50'
             onClick={() => {
               setOpenEdit(true);
             }}
           />
           <AlertDialog open={openDeletePost} onOpenChange={setOpenDeletePost}>
             <AlertDialogTrigger onClick={handleOpenDeletePost} asChild>
-              <DeleteButton className='fixed top-[calc(20%+4rem)] right-4 z-50' />
+              <DeleteButton className='fixed right-4 top-[calc(20%+4rem)] z-50' />
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
@@ -234,7 +234,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
                   className={cn(isLoading && 'select-none')}
                   disabled={isLoading}
                   onClick={handleDeletePost}>
-                  {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                  {isLoading && <CircularProgress size={20} className='mr-2 !text-text-1' />}
                   {t('Delete')}
                 </Button>
               </AlertDialogFooter>
@@ -260,33 +260,33 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
           }
         />
       </Modal>
-      <div className='max-w-[730px] mx-auto'>
-        <div className='mb-5 flex-start gap-3 flex-wrap'>
-          <Link href={`/series/${seriesID}`} className='flex-start gap-2 text-1'>
+      <div className='mx-auto max-w-[730px]'>
+        <div className='flex-start mb-5 flex-wrap gap-3'>
+          <Link href={`/series/${seriesID}`} className='flex-start text-1 gap-2'>
             <FaSwatchbook className='size-5' />
             <span className='base-semibold'>{series?.title}</span>
           </Link>
           <span className='text-xl'>/</span>
-          <div className='flex-start gap-2 text-1'>
+          <div className='flex-start text-1 gap-2'>
             <SiGoogledocs className='size-5' />
             <span className='base-semibold'>{post?.title}</span>
           </div>
         </div>
         <Image
           src={getImageURL(post?.cover_image) || '/images/no-image.png'}
-          className='rounded-lg w-full object-fill h-[370px]'
+          className='h-[370px] w-full rounded-lg object-fill'
           width={1500}
           height={1500}
           alt='cover-image'
           priority
         />
         <div className='h2-semibold mt-7'>{post?.title}</div>
-        <div className='text-text-2 text-[1rem] text-pretty mt-4'>{post?.description}</div>
-        <div className='text-text-2 flex-between mt-6 mb-6'>
+        <div className='mt-4 text-pretty text-[1rem] text-text-2'>{post?.description}</div>
+        <div className='flex-between mb-6 mt-6 text-text-2'>
           <div className='flex-start gap-3'>
-            <div className='flex-start gap-2 items-center bg-sky-50 hover:bg-sky-200 text-sky-600 rounded-lg py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:hover:bg-sky-900 dark:border-sky-900 duration-300'>
+            <div className='flex-start items-center gap-2 rounded-lg border-2 border-sky-100 bg-sky-50 px-2 py-1 text-sky-600 duration-300 hover:bg-sky-200 dark:border-sky-900 dark:bg-sky-950 dark:hover:bg-sky-900'>
               <FiFileText className='size-3' />
-              <span className='base-semibold '>{t('Blog')}</span>
+              <span className='base-semibold'>{t('Blog')}</span>
             </div>
             <div>{getFormattedDate(post?.createdAt!)}</div>
             <span>•</span>
@@ -304,10 +304,10 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
             </div>
           </div>
         </div>
-        <div className='text-pretty text-[1rem] leading-relaxed my-5 px-2'>
+        <div className='my-5 text-pretty px-2 text-[1rem] leading-relaxed'>
           <ShowContent content={post?.content!} />
         </div>
-        <div className='author mt-10 mb-6 flex-between'>
+        <div className='author flex-between mb-6 mt-10'>
           <div className='flex-start gap-2'>
             <Link href={`/profile/${author?._id}`}>
               <Avatar src={getImageURL(author?.user_image)} />
@@ -317,7 +317,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
                 <div>{author?.name}</div>
               </Link>
               {author?.experiences?.length > 0 && (
-                <div className='small-regular text-text-2 space-x-1'>
+                <div className='small-regular space-x-1 text-text-2'>
                   <span>
                     {author?.experiences[0].position_name} {t('at')}
                   </span>
@@ -332,9 +332,9 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
           <InteractComponent />
         </div>
         {nextPost && (
-          <div className='mt-10 space-y-2 py-5 px-5 bg-2 rounded-lg'>
+          <div className='bg-2 mt-10 space-y-2 rounded-lg px-5 py-5'>
             <Link href={`/series/${seriesID}/posts/${nextPost?._id}`}>
-              <div className='base-semibold text-end mb-2'>{t('Next')}</div>
+              <div className='base-semibold mb-2 text-end'>{t('Next')}</div>
               <div className='base-bold text-end'>{nextPost?.title}</div>
             </Link>
           </div>
@@ -343,7 +343,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
           <div className='base-bold' id='#discussion'>
             {t('Discussion')}
           </div>
-          <div className='editor space-y-5 px-2 py-3 border border-border-1 rounded-lg mt-3'>
+          <div className='editor mt-3 space-y-5 rounded-lg border border-border-1 px-2 py-3'>
             <Editor setEditor={setEditor} placeholder={t('Write something nice')} autofocus={false} />
           </div>
           <div className='flex-end'>
@@ -351,7 +351,7 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
               className={cn('mt-3', isLoadingDis && 'select-none')}
               disabled={isLoadingDis}
               onClick={() => handlePostDiscussion()}>
-              {isLoadingDis && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+              {isLoadingDis && <CircularProgress size={20} className='mr-2 !text-text-1' />}
               {t('Post Discussion')}
             </Button>
           </div>
@@ -361,7 +361,12 @@ export default function PostSeries({ params: { seriesID, postID } }: IPostSeries
               .sort((a, b) => b.like.length - a.like.length)
               .map((comment, index) => (
                 <div className='mb-6' key={index}>
-                  <CommentItem comment={comment} series_id={seriesID} post_id={postID} isSeriesOwner={isSeriesOwner} />
+                  <CommentItem
+                    comment={comment}
+                    series_id={seriesID}
+                    post_id={postID}
+                    isSeriesOwner={isSeriesOwner}
+                  />
                 </div>
               ))}
           </div>

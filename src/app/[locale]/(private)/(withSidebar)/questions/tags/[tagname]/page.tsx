@@ -46,7 +46,7 @@ export default function TagDetail({ params: { tagname } }: ITagDetailProps) {
   }, [questionByTag]);
 
   return (
-    <div className='ms-60 mt-16 pb-5 pt-5 max-lg:ms-0'>
+    <div className='ms-60 mt-16 pb-5 pt-5 max-lg/2:ms-0'>
       <div className='mx-auto max-w-[1070px]' id='tag-question'>
         <div className='grid grid-cols-3 gap-8'>
           <div className='left col-span-2'>

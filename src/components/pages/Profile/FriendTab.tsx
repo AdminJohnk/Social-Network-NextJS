@@ -1,14 +1,16 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+
 import Nodata from '@/components/shared/Nodata';
 import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
-import { IUserInfo } from '@/types';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import FriendButton from './FriendButton';
 import { Link } from '@/navigation';
+import { IUserInfo } from '@/types';
 import { Skeleton } from '@mui/material';
+
+import FriendButton from './FriendButton';
 
 interface IRenderFriendItemProps {
   friend: IUserInfo;
@@ -58,42 +60,38 @@ export interface IFriendTabProps {
 export default function FriendTab({ profileID }: IFriendTabProps) {
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
 
-  return (
-    <>
-      {isLoadingOtherUserInfo ? (
-        <div className='my-8 w-full rounded-md bg-foreground-1'>
-          <div className='flex-between w-full flex-wrap gap-10 px-10 py-8'>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className='w-[calc(50%-2.5rem)]'>
-                <div className='flex-between'>
-                  <Skeleton variant='circular' width={60} height={60} className='!bg-foreground-2' />
-                  <div className='flex w-3/5 flex-col py-1 pl-3'>
-                    <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
-                    <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
-                  </div>
-                  <Skeleton variant='rounded' width={100} height={40} className='!bg-foreground-2' />
-                </div>
+  return isLoadingOtherUserInfo ? (
+    <div className='my-8 w-full rounded-md bg-foreground-1'>
+      <div className='flex-between w-full flex-wrap gap-10 px-10 py-8'>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <div key={index} className='w-[calc(50%-2.5rem)]'>
+            <div className='flex-between'>
+              <Skeleton variant='circular' width={60} height={60} className='!bg-foreground-2' />
+              <div className='flex w-3/5 flex-col py-1 pl-3'>
+                <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
+                <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
               </div>
-            ))}
+              <Skeleton variant='rounded' width={100} height={40} className='!bg-foreground-2' />
+            </div>
           </div>
+        ))}
+      </div>
+    </div>
+  ) : (
+    <div className='my-8 w-full rounded-md bg-foreground-1'>
+      {otherUserInfo?.friends.length <= 0 ? (
+        <div className='flex-center w-full px-10 py-8'>
+          <Nodata width={150} height={150} title={'No friend found'}></Nodata>
         </div>
       ) : (
-        <div className='my-8 w-full rounded-md bg-foreground-1'>
-          {otherUserInfo?.friends.length <= 0 ? (
-            <div className='flex-center w-full px-10 py-8'>
-              <Nodata width={150} height={150} title={'No friend found'}></Nodata>
+        <div className='flex-between w-full flex-wrap gap-10 px-10 py-8'>
+          {otherUserInfo?.friends.map((friend, index) => (
+            <div className='w-[calc(50%-2.5rem)]' key={index}>
+              <RenderFriendItem friend={friend} />
             </div>
-          ) : (
-            <div className='flex-between w-full flex-wrap gap-10 px-10 py-8'>
-              {otherUserInfo?.friends.map((friend, index) => (
-                <div className='w-[calc(50%-2.5rem)]' key={index}>
-                  <RenderFriendItem friend={friend} />
-                </div>
-              ))}
-            </div>
-          )}
+          ))}
         </div>
       )}
-    </>
+    </div>
   );
 }

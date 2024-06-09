@@ -116,9 +116,9 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
   if (isErrorSeries) notFound();
 
   return (
-    <div className='ms-60 max-lg:ms-0 mt-16 pt-5 pb-5'>
+    <div className='ms-60 mt-16 pb-5 pt-5 max-lg/2:ms-0'>
       {isLoadingSeries ? (
-        <div className='flex justify-center items-center'>
+        <div className='flex items-center justify-center'>
           <CircularProgress />
         </div>
       ) : (
@@ -126,15 +126,15 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
           {isSeriesOwner && (
             <>
               <EditButton
-                className='fixed top-[20%] right-4 z-50'
+                className='fixed right-4 top-[20%] z-50'
                 onClick={() => {
                   setOpenEdit(true);
                 }}
               />
 
               <AlertDialog open={openDeleteSeries} onOpenChange={setOpenDeleteSeries}>
-                <AlertDialogTrigger className='w-full text-1 uk-drop-close' onClick={handleOpenDeleteSeries}>
-                  <DeleteButton className='fixed top-[calc(20%+4rem)] right-4 z-50' />
+                <AlertDialogTrigger className='text-1 uk-drop-close w-full' onClick={handleOpenDeleteSeries}>
+                  <DeleteButton className='fixed right-4 top-[calc(20%+4rem)] z-50' />
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
@@ -155,7 +155,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                       className={cn(isLoading && 'select-none')}
                       disabled={isLoading}
                       onClick={handleDeleteSeries}>
-                      {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                      {isLoading && <CircularProgress size={20} className='mr-2 !text-text-1' />}
                       {t('Delete')}
                     </Button>
                   </AlertDialogFooter>
@@ -169,28 +169,28 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
               dataEdit={{ ...series, id: series._id }}
             />
           </Modal>
-          <div className='max-w-[730px] mx-auto'>
+          <div className='mx-auto max-w-[730px]'>
             <Image
               src={getImageURL(series.cover_image)}
-              className='rounded-lg w-full object-fill h-[370px]'
+              className='h-[370px] w-full rounded-lg object-fill'
               width={1500}
               height={1500}
               alt='cover-image'
               priority
             />
             <div className='h3-semibold mt-7'>{series.title}</div>
-            <div className='text-text-2 text-[1rem] text-pretty mt-4'>{series.description}</div>
+            <div className='mt-4 text-pretty text-[1rem] text-text-2'>{series.description}</div>
             <Link href={`/series/${seriesID}/posts/${series.posts[0]?._id}`}>
-              <Button className='w-full my-7 py-3'>{t('Start Series')}</Button>
+              <Button className='my-7 w-full py-3'>{t('Start Series')}</Button>
             </Link>
             <div>
               <div className='base-semibold flex-start gap-2'>
                 <span>{t('Series Content')}</span>
                 {isSeriesOwner && (
                   <>
-                    <span className='p-0.5 rounded-full bg-foreground-1'>
+                    <span className='rounded-full bg-foreground-1 p-0.5'>
                       <IoAdd
-                        className='size-5 text-1'
+                        className='text-1 size-5'
                         onClick={() => {
                           setOpenAddPost(true);
                         }}
@@ -212,11 +212,11 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                 ))}
               </Timeline>
             </div>
-            <Divider className='mt-8 mb-6' />
-            <div className='text-pretty text-[1rem] leading-relaxed my-5 px-2'>
+            <Divider className='mb-6 mt-8' />
+            <div className='my-5 text-pretty px-2 text-[1rem] leading-relaxed'>
               <ShowContent content={series.introduction} />
             </div>
-            <div className='author mt-10 flex-between'>
+            <div className='author flex-between mt-10'>
               <div className='flex-start gap-2'>
                 <Link href={`/profile/${author._id}`}>
                   <Avatar src={getImageURL(author.user_image)} />
@@ -226,7 +226,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                     <div>{author.name}</div>
                   </Link>
                   {author.experiences?.length > 0 && (
-                    <div className='small-regular text-text-2 space-x-1'>
+                    <div className='small-regular space-x-1 text-text-2'>
                       <span>
                         {author.experiences[0].position_name} {t('at')}
                       </span>
@@ -237,7 +237,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
               </div>
               {!isSeriesOwner && <FriendButton profileID={author._id} variant='default' />}
             </div>
-            <Divider className='mt-12 mb-6' />
+            <Divider className='mb-6 mt-12' />
             <div className='info flex-around mt-10'>
               <div className='flex flex-col gap-2'>
                 <span className='base-semibold'>{t('Level')}</span>
@@ -250,7 +250,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                 <span className='text-text-2'>{getFormattedDate(series.createdAt)}</span>
               </div>
             </div>
-            <Divider className='mt-8 mb-12' />
+            <Divider className='mb-12 mt-8' />
             <div className='review'>
               <div className='base-semibold mb-5'>{t('Ratings & Reviews')}</div>
               <div className='grid grid-cols-4'>
@@ -260,7 +260,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   ) : (
                     <div className='text-[60px]'>{series.rating.avg.toFixed(1)}</div>
                   )}
-                  <div className='flex-start *:size-5 *:text-yellow-400 gap-2'>
+                  <div className='flex-start gap-2 *:size-5 *:text-yellow-400'>
                     {Array.from({ length: Math.floor(series.rating.avg) }).map((_, index) => {
                       return <FaStar key={index} />;
                     })}
@@ -272,7 +272,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                 <div className='col-span-3 space-y-2'>
                   <div className='flex-start gap-4'>
                     <span className='text-text-2'>5</span>
-                    <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                    <div className='h-2 w-full rounded-full bg-foreground-1'>
                       <div
                         className='h-2 rounded-full bg-yellow-400'
                         style={{
@@ -283,7 +283,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   </div>
                   <div className='flex-start gap-4'>
                     <span className='text-text-2'>4</span>
-                    <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                    <div className='h-2 w-full rounded-full bg-foreground-1'>
                       <div
                         className='h-2 rounded-full bg-yellow-400'
                         style={{
@@ -294,7 +294,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   </div>
                   <div className='flex-start gap-4'>
                     <span className='text-text-2'>3</span>
-                    <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                    <div className='h-2 w-full rounded-full bg-foreground-1'>
                       <div
                         className='h-2 rounded-full bg-yellow-400'
                         style={{
@@ -305,7 +305,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   </div>
                   <div className='flex-start gap-4'>
                     <span className='text-text-2'>2</span>
-                    <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                    <div className='h-2 w-full rounded-full bg-foreground-1'>
                       <div
                         className='h-2 rounded-full bg-yellow-400'
                         style={{
@@ -316,7 +316,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
                   </div>
                   <div className='flex-start gap-4'>
                     <span className='text-text-2'>1</span>
-                    <div className='h-2 rounded-full bg-foreground-1 w-full'>
+                    <div className='h-2 w-full rounded-full bg-foreground-1'>
                       <div
                         className='h-2 rounded-full bg-yellow-400'
                         style={{
@@ -329,7 +329,7 @@ export default function Series({ params: { seriesID } }: ISeriesProps) {
               </div>
             </div>
             <Button
-              className='w-full my-9 py-2'
+              className='my-9 w-full py-2'
               preIcon={<FaPen className='size-4' />}
               onClick={() => setOpenReview(true)}>
               {t('Write Review')}

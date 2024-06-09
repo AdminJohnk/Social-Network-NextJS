@@ -20,9 +20,9 @@ export default function GroupManager({ params: { locale } }: IGroupManagerProps)
     <div className='ms-60 mt-16 max-lg/2:ms-0'>
       <div className='groups px-10 py-5'>
         <main id='site__main'>
-          <div className='flex max-lg:flex-col 2xl:gap-12 gap-10 ' id='groupManager-side'>
+          <div className='flex gap-10 max-lg:flex-col 2xl:gap-12' id='groupManager-side'>
             <div className='flex-1'>
-              <div className='max-w-4xl w-full mx-auto'>
+              <div className='mx-auto w-full max-w-4xl'>
                 <div className='page-heading'>
                   <h1 className='page-title'> {t('Communities you manage')} </h1>
                 </div>

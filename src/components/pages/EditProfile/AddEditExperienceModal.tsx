@@ -28,7 +28,7 @@ export default function AddEditExperienceModal({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger>
         {children ?? (
           <div className='flex-center mb-4 size-6 rounded-full bg-foreground-2 duration-300 hover:bg-hover-1'>
             <FaPlus className='size-4 cursor-pointer text-text-2 duration-300 hover:text-text-1' />
