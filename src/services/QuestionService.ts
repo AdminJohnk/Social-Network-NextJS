@@ -16,7 +16,9 @@ import {
   IResponse,
   IUpdateAnswer,
   IUpdateCommentQuestion,
-  IUpdateQuestion
+  IUpdateQuestion,
+  IMoveToListQuestion,
+  IAllListQuestion
 } from '@/types';
 import { BaseService } from './BaseService';
 import { StringValidation } from 'zod';
@@ -157,6 +159,18 @@ class QuestionService extends BaseService {
 
   getRelatedQuestions = (questionID: string): Promise<AxiosResponse<IResponse<IQuestionSummaryItem[]>>> => {
     return this.get(`/questions/related/${questionID}`);
+  };
+
+  createNewListQuestion = (name: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/create-list`, { name });
+  };
+
+  getAllListQuestions = (): Promise<AxiosResponse<IResponse<IAllListQuestion>>> => {
+    return this.get(`/questions/saves/all-list`);
+  };
+
+  moveToListQuestion = (data: IMoveToListQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/move-to-list`, data);
   };
 }
 

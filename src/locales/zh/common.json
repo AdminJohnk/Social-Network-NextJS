@@ -607,5 +607,12 @@
   "New": "新",
   "asked today": "今天问了",
   "this week": "本周",
-  "Filter by tag name": "按标签名称过滤"
+  "Filter by tag name": "按标签名称过滤",
+  "Create New List": "创建新列表",
+  "Update List": "更新列表",
+  "List Name": "列表名称",
+  "List Name is required": "列表名称是必需的",
+  "UnSave": "取消保存",
+  "Move to": "移动到",
+  "Move": "移动"
 }

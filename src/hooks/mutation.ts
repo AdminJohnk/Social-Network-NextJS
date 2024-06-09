@@ -49,7 +49,8 @@ import {
   IUpdateAnswer,
   IDeleteAnswer,
   ICreateCommentAnswer,
-  ICreateVoteAnswer
+  ICreateVoteAnswer,
+  IMoveToListQuestion
 } from '@/types';
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
@@ -2523,5 +2524,51 @@ export const useSaveQuestion = () => {
     isLoadingSaveQuestion: isPending,
     isErrorSaveQuestion: isError,
     isSuccessSaveQuestion: isSuccess
+  };
+};
+
+export const useCreateNewListQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (name: string) => {
+      const { data: list } = await questionService.createNewListQuestion(name);
+      return list.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allListQuestions']
+      });
+    }
+  });
+
+  return {
+    mutateCreateNewListQuestion: mutateAsync,
+    isLoadingCreateNewListQuestion: isPending,
+    isErrorCreateNewListQuestion: isError,
+    isSuccessCreateNewListQuestion: isSuccess
+  };
+};
+
+export const useMoveToListQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IMoveToListQuestion) => {
+      const { data: list } = await questionService.moveToListQuestion(data);
+      return list.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allListQuestions']
+      });
+    }
+  });
+
+  return {
+    mutateMoveToListQuestion: mutateAsync,
+    isLoadingMoveToListQuestion: isPending,
+    isErrorMoveToListQuestion: isError,
+    isSuccessMoveToListQuestion: isSuccess
   };
 };

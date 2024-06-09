@@ -607,5 +607,12 @@
   "New": "Mới",
   "asked today": "đã hỏi hôm nay",
   "this week": "tuần này",
-  "Filter by tag name": "Lọc theo tên thẻ"
+  "Filter by tag name": "Lọc theo tên thẻ",
+  "Create New List": "Tạo danh sách mới",
+  "Update List": "Cập nhật danh sách",
+  "List Name": "Tên danh sách",
+  "List Name is required": "Tên danh sách là bắt buộc",
+  "UnSave": "Bỏ lưu",
+  "Move to": "Di chuyển đến",
+  "Move": "Di chuyển"
 }

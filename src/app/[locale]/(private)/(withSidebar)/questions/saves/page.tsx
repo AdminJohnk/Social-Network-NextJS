@@ -4,13 +4,15 @@ import HotQuestions from '@/components/pages/Question/HotQuestions';
 import Menu from '@/components/pages/Question/Menu';
 import QuestionSummaryItem from '@/components/pages/Question/QuestionSummaryItem';
 import RelatedQuestions from '@/components/pages/Question/RelatedQuestions';
+import CreateEditList from '@/components/pages/QuestionSave/CreateEditList';
 import Divider from '@/components/shared/Divider';
-import { useGetSavedQuestions } from '@/hooks/query';
+import Modal from '@/components/shared/Modal';
+import { useGetAllListQuestions, useGetSavedQuestions } from '@/hooks/query';
 import { CircularProgress } from '@mui/material';
-import { Label, Select } from 'flowbite-react';
+import { Select } from 'flowbite-react';
 import { useFormatter, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { IoAdd, IoAddOutline } from 'react-icons/io5';
+import { IoAdd } from 'react-icons/io5';
 
 export interface ISavesProps {}
 
@@ -19,8 +21,10 @@ export default function Saves(props: ISavesProps) {
   const format = useFormatter();
 
   const { savedQuestions, isLoadingSavedQuestions } = useGetSavedQuestions();
+  const { allListQuestions, isLoadingAllListQuestions } = useGetAllListQuestions();
 
-  const [listName, setListName] = useState('');
+  const [listName, setListName] = useState('allsaves');
+  const [openCreateEditList, setOpenCreateEditList] = useState(false);
 
   useEffect(() => {
     UIkit.sticky('#save-questions-side')?.$emit('update');
@@ -35,19 +39,30 @@ export default function Saves(props: ISavesProps) {
               <div className='h3-semibold me-10'>{t('Saved Questions')}</div>
               <div className='flex gap-2'>
                 <div className='flex-center'>
-                  <span className='rounded-full bg-foreground-1 p-1'>
+                  <span
+                    className='rounded-full bg-foreground-1 p-1'
+                    data-uk-tooltip={`title: ${t('Create New List')}; pos: top; offset:6; delay: 300`}
+                    onClick={() => setOpenCreateEditList(true)}>
                     <IoAdd className='text-1 size-5' />
                   </span>
+                  <Modal open={openCreateEditList} handleClose={() => setOpenCreateEditList(false)}>
+                    <CreateEditList handleClose={() => setOpenCreateEditList(false)} />
+                  </Modal>
                 </div>
                 <div className='flex-start'>
                   <Select
-                    id='sortBy'
                     required
                     className='ms-1 grow *:*:!bg-transparent *:*:!ring-transparent'
                     onChange={(e) => setListName(e.target.value)}>
                     <option className='bg-foreground-1' value='allsaves'>
                       {t('All Saves')} ({t('default')})
                     </option>
+                    {!isLoadingAllListQuestions &&
+                      allListQuestions.list_name.map((list, index) => (
+                        <option key={index} value={list} className='bg-foreground-1'>
+                          {list}
+                        </option>
+                      ))}
                   </Select>
                 </div>
               </div>
@@ -65,9 +80,17 @@ export default function Saves(props: ISavesProps) {
               </div>
             ) : (
               <div>
-                {savedQuestions.map((question, index) => (
-                  <QuestionSummaryItem key={index} question={question} />
-                ))}
+                {savedQuestions.map((question, index) => {
+                  const id = question._id;
+                  return (
+                    <QuestionSummaryItem
+                      key={index}
+                      question={question}
+                      feature='all_save'
+                      all_list_questions={allListQuestions}
+                    />
+                  );
+                })}
               </div>
             )}
           </div>

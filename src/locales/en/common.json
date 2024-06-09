@@ -607,5 +607,12 @@
   "New": "New",
   "asked today": "asked today",
   "this week": "this week",
-  "Filter by tag name": "Filter by tag name"
+  "Filter by tag name": "Filter by tag name",
+  "Create New List": "Create New List",
+  "Update List": "Update List",
+  "List Name": "List Name",
+  "List Name is required": "List Name is required",
+  "UnSave": "UnSave",
+  "Move to": "Move to",
+  "Move": "Move"
 }

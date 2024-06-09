@@ -1378,3 +1378,21 @@ export const useGetReputation = () => {
     isFetchingReputation: isFetching
   };
 };
+
+export const useGetAllListQuestions = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allListQuestions'],
+    queryFn: async () => {
+      const { data } = await questionService.getAllListQuestions();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllListQuestions: isPending,
+    isErrorAllListQuestions: isError,
+    allListQuestions: data!,
+    isFetchingAllListQuestions: isFetching
+  };
+}

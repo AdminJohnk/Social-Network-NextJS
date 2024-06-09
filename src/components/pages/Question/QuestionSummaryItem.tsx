@@ -1,21 +1,50 @@
 import Divider from '@/components/shared/Divider';
+import Modal from '@/components/shared/Modal';
 import ShowContent from '@/components/shared/ShowContent/ShowContent';
-import { getImageURL, truncateText } from '@/lib/utils';
+import { cn, getImageURL, truncateText } from '@/lib/utils';
 import { Link } from '@/navigation';
-import { IQuestionSummaryItem } from '@/types';
+import { IAllListQuestion, IQuestionSummaryItem } from '@/types';
 import { Avatar } from '@mui/material';
 import { useFormatter, useTranslations } from 'next-intl';
 import { FaCheck } from 'react-icons/fa';
+import { IoIosMore } from 'react-icons/io';
+import MoveToList from '../QuestionSave/MoveToList';
+import { useEffect, useState } from 'react';
 
 export interface IQuestionSummaryItemProps {
   question: IQuestionSummaryItem;
+  all_list_questions?: IAllListQuestion;
+  feature?: 'all_save';
+  list_name?: string[];
 }
 
-export default function QuestionSummaryItem({ question }: IQuestionSummaryItemProps) {
+export default function QuestionSummaryItem({
+  question,
+  feature,
+  all_list_questions
+}: IQuestionSummaryItemProps) {
   const t = useTranslations();
   const format = useFormatter();
 
   const text = question.text && truncateText(question.text, 170);
+  const [openMoveToList, setOpenMoveToList] = useState(false);
+  const list_name = all_list_questions?.list_name;
+
+  const [from, setFrom] = useState('all_save'); 
+
+  useEffect(() => {
+    // Kiểm tra xem question hiện tại ở trong danh sách nào
+    if (question && all_list_questions) {
+      all_list_questions.list_category.find((list) => {
+        const id = question._id;
+        if (list.questions.find((question) => question._id === id)) {
+          setFrom(list.name);
+        }
+      });
+    }
+  }, [all_list_questions]);
+
+  if (from !== 'all_save') console.log(from);
 
   const getFormattedDate = (date: string) => {
     return format.dateTime(new Date(date), {
@@ -50,11 +79,34 @@ export default function QuestionSummaryItem({ question }: IQuestionSummaryItemPr
           </div>
         </div>
         <div className='w-[80%]'>
-          <Link
-            href={`/questions/${question._id}`}
-            className='mb-2 line-clamp-1 cursor-pointer text-[1rem] text-blue-500 duration-300 hover:text-blue-400'>
-            {question.title}
-          </Link>
+          <div className={cn(feature && 'flex justify-between')}>
+            <Link
+              href={`/questions/${question._id}`}
+              className='mb-2 line-clamp-1 cursor-pointer text-[1rem] text-blue-500 duration-300 hover:text-blue-400'>
+              {question.title}
+            </Link>
+            {feature && (
+              <div className='text-1 mx-1 cursor-pointer py-1'>
+                <IoIosMore className='size-5' />
+                <div data-uk-drop='offset: 4; pos: right-right; mode: click; shift: false; flip: false; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right'>
+                  <div className='*:uk-drop-close flex min-w-[120px] flex-col gap-0.5 rounded-lg bg-foreground-1 p-1 shadow-lg *:cursor-pointer *:rounded-lg *:px-2.5 *:py-1.5 hover:*:!bg-hover-1'>
+                    <div className='uk-drop-close'>{t('UnSave')}</div>
+                    <div className='uk-drop-close' onClick={() => setOpenMoveToList(true)}>
+                      {t('Move to')}...
+                    </div>
+                    <Modal open={openMoveToList} handleClose={() => setOpenMoveToList(false)}>
+                      <MoveToList
+                        handleClose={() => setOpenMoveToList(false)}
+                        list_name={list_name}
+                        from={feature}
+                        questionID={question._id}
+                      />
+                    </Modal>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           <div className='text-[0.8rem]'>
             <ShowContent content={text} className='*:line-clamp-2' />
           </div>
