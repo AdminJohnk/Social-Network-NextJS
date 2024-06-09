@@ -25,23 +25,23 @@ export default function Verify({ searchParams: { email, code: fakeCode } }: IVer
 
   const [code, setCode] = useState('');
 
-  // useEffect(() => {
-  //   if (!email) {
-  //     router.push('/forgot-password');
-  //   }
+  useEffect(() => {
+    if (!email) {
+      router.push('/forgot-password');
+    }
 
-  //   if (email) {
-  //     mutateCheckVerifyCode(
-  //       { email },
-  //       {
-  //         onError: (error) => {
-  //           router.push('/forgot-password');
-  //           console.log(error);
-  //         }
-  //       }
-  //     );
-  //   }
-  // }, [email]);
+    if (email) {
+      mutateCheckVerifyCode(
+        { email },
+        {
+          onError: (error) => {
+            router.push('/forgot-password');
+            console.log(error);
+          }
+        }
+      );
+    }
+  }, [email]);
 
   const handleSubmit = () => {
     if (code === fakeCode) {
