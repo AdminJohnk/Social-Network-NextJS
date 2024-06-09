@@ -49,7 +49,8 @@ import {
   IUpdateAnswer,
   IDeleteAnswer,
   ICreateCommentAnswer,
-  ICreateVoteAnswer
+  ICreateVoteAnswer,
+  IVerifyCode
 } from '@/types';
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
@@ -79,6 +80,56 @@ export const useChangePassword = () => {
     isSuccessChangePassword: isSuccess
   };
 };
+
+export const useForgotPassword = () => {
+  const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
+    mutationFn: async (email: string) => {
+      const { data: res } = await authService.forgotPassword(email);
+      return res.metadata;
+    }
+  });
+  return {
+    mutateForgotPassword: mutateAsync,
+    isLoadingForgotPassword: isPending,
+    isErrorForgotPassword: isError,
+    errorForgotPassword: error,
+    isSuccessForgotPassword: isSuccess
+  };
+}
+
+export const useVerifyCode = () => {
+  const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
+    mutationFn: async (data: IVerifyCode) => {
+      const { data: res } = await authService.verifyCode(data);
+      return res.metadata;
+    }
+  });
+  return {
+    mutateVerifyCode: mutateAsync,
+    isLoadingVerifyCode: isPending,
+    isErrorVerifyCode: isError,
+    errorVerifyCode: error,
+    isSuccessVerifyCode: isSuccess
+  };
+}
+
+export const useResetPassword = () => {
+  const { mutateAsync, isPending, isError, isSuccess, error } = useMutation({
+    mutationFn: async (data: IResetPassword) => {
+      const { data: res } = await authService.resetPassword(data);
+      return res.metadata;
+    }
+  });
+  return {
+    mutateResetPassword: mutateAsync,
+    isLoadingResetPassword: isPending,
+    isErrorResetPassword: isError,
+    errorResetPassword: error,
+    isSuccessResetPassword: isSuccess
+  };
+}
+
+
 
 /**
  * The `useCreatePost` function is a custom hook that handles the creation of a new post, including

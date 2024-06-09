@@ -19,7 +19,7 @@ export default function RepositoryTab({ profileID }: IRepositoryTabProps) {
       {isLoadingOtherUserInfo ? (
         <div className='flex-center flex-wrap px-10 py-8 gap-10 w-full'>
           {Array.from({ length: 8 }).map((_, index) => (
-            <div key={index} className='w-[calc(25%-2.5rem)] border-b border-border-1 pb-3'>
+            <div key={index} className='w-[calc(50%-2.5rem)] border-b border-border-1 pb-3'>
               <div
                 className='mb-5 border-b border-border-1'
                 style={{
@@ -28,15 +28,15 @@ export default function RepositoryTab({ profileID }: IRepositoryTabProps) {
               >
                 <div className='top flex-start'>
                   <RiGitRepositoryLine className='text-text-1 size-6' />
-                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
-                  <Skeleton variant="rounded" className='!w-3/4 !bg-foreground-2' />
+                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' />
+                  <Skeleton variant="rounded" className='!w-full !bg-foreground-2' />
                 </div>
                 <div className='bottom mt-3 flex items-center text-text-2'>
                   <div className='language mr-4 flex items-center'>
-                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
+                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' />
                   </div>
-                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
-                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-3/4 !bg-foreground-2' />
+                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' />
+                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' />
                 </div>
               </div>
             </div>

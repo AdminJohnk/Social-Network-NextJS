@@ -80,7 +80,7 @@ export default function ExperienceTab() {
       {experienceArr.length > 0 && (
         <div className='mt-10 flex items-center justify-center gap-4'>
           <Button
-            type='submit'
+            type='button'
             className={cn(
               'button text-white max-md:flex-1 lg:px-6',
               (!isChanged || isLoadingUpdateUser) && 'select-none'
