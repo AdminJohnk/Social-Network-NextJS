@@ -21,7 +21,7 @@ export default function TagItem({ tag }: ITagItemProps) {
               {tag.name}
             </Link>
             <div>
-              {format.number(tag.question_number, { notation: 'compact' }) +
+              {format.number(tag.question_number, { notation: 'compact', compactDisplay: 'long' }) +
                 ' ' +
                 t('questions', { count: tag.question_number })}
             </div>

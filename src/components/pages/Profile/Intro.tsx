@@ -37,7 +37,7 @@ export default function Intro({ profileID }: IIntroProps) {
   return (
     <>
       {isLoadingOtherUserInfo ? (
-        <></>
+        <div></div>
       ) : (
         <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
           <div className='flex items-center justify-between text-text-1'>

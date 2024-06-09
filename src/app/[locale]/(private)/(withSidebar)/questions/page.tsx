@@ -53,10 +53,12 @@ export default function Questions() {
             </div>
             <div className='flex-between mt-8'>
               {isFetchingNumberQuestions ? (
-                <Skeleton variant='rectangular' width={80} />
+                <Skeleton className='!bg-foreground-1' variant='rectangular' width={80} />
               ) : (
                 <div>
-                  <span className='me-1'>{format.number(numberQuestions, { notation: 'compact' })}</span>
+                  <span className='me-1'>
+                    {format.number(numberQuestions, { notation: 'compact', compactDisplay: 'long' })}
+                  </span>
                   <span>{t('questions', { count: numberQuestions })}</span>
                 </div>
               )}

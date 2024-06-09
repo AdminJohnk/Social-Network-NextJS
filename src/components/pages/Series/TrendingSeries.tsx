@@ -6,8 +6,7 @@ import { useCallback } from 'react';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
 
 import { useGetAllSeries } from '@/hooks/query';
-import { CircularProgress, Skeleton } from '@mui/material';
-import { divide } from 'lodash';
+import { Skeleton } from '@mui/material';
 
 export default function TrendingSeries() {
   const t = useTranslations();
@@ -52,45 +51,57 @@ export default function TrendingSeries() {
     });
   }, []);
 
-  return (
-    <div className='box p-5 px-6 bg-foreground-1'>
+  return isLoadingAllSeries ? (
+    <div className='box rounded-lg bg-foreground-1 p-5 px-6'>
       <div className='flex items-baseline justify-between'>
-        <h3 className='font-bold text-base'> {t('Trending Series')}</h3>
-        {isLoadingAllSeries ? (
-          <Skeleton className='bg-foreground-2' variant='text' sx={{ fontSize: '1.5rem' }} />
-        ) : allSeries.length > 5 ? (
+        <h3 className='text-base font-bold'> {t('Trending Series')}</h3>
+        <Skeleton className='!bg-foreground-2' variant='text' width={50} height={20} />
+      </div>
+
+      <div className='mt-4 space-y-4'>
+        <ul className='grid gap-4'>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <li key={index}>
+              <Skeleton className='!bg-foreground-2' variant='text' width='100%' height={20} />
+              <div className='mt-2 flex items-center gap-2 text-xs text-text-2'>
+                <Skeleton className='!bg-foreground-2' variant='text' width={100} height={20} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  ) : (
+    <div className='box rounded-lg bg-foreground-1 p-5 px-6'>
+      <div className='flex items-baseline justify-between'>
+        <h3 className='text-base font-bold'> {t('Trending Series')}</h3>
+        {allSeries.length > 5 ? (
           <Link href='' className='text-sm text-blue-500'>
             {t('See all')}
           </Link>
         ) : (
-          <div className='invisible'/>
+          <div className='invisible' />
         )}
       </div>
 
       <div className='mt-4 space-y-4'>
-        {isLoadingAllSeries ? (
-          <div className='flex-center w-full h-full p-5'>
-            <CircularProgress size={20} className='!text-text-1' />
-          </div>
-        ) : (
-          <ul className='grid gap-4'>
-            {allSeries.slice(0, 5).map((item) => (
-              <li key={item._id}>
-                <Link href={`/series/${item._id}`}>
-                  <h4 className='duration-200 hover:opacity-80 line-clamp-2'>{item.title}</h4>
-                </Link>
-                <div className='text-xs text-text-2 mt-2 flex items-center gap-2'>
-                  <div>{handleDateTime(item.createdAt)}</div>
-                  <div className='md:block hidden'>·</div>
-                  <div>
-                    {format.number(item.view, { notation: 'compact', compactDisplay: 'long' })}&nbsp;
-                    {t('views', { count: item.view })}
-                  </div>
+        <ul className='grid gap-4'>
+          {allSeries.slice(0, 5).map((item) => (
+            <li key={item._id}>
+              <Link href={`/series/${item._id}`}>
+                <h4 className='line-clamp-2 duration-200 hover:opacity-80'>{item.title}</h4>
+              </Link>
+              <div className='mt-2 flex items-center gap-2 text-xs text-text-2'>
+                <div>{handleDateTime(item.createdAt)}</div>
+                <div className='hidden md:block'>·</div>
+                <div>
+                  {format.number(item.view, { notation: 'compact', compactDisplay: 'long' })}&nbsp;
+                  {t('views', { count: item.view })}
                 </div>
-              </li>
-            ))}
-          </ul>
-        )}
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

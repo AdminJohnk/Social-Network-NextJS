@@ -52,7 +52,7 @@ export default function InputComment({
 
   return (
     <div className='flex-between'>
-      <div className='flex-start w-9/12'>
+      <div className='flex-start w-10/12'>
         <Avatar
           src={getImageURL(currentUserInfo.user_image)}
           sx={{ width: 24, height: 24 }}
@@ -61,7 +61,7 @@ export default function InputComment({
         <input
           value={content}
           disabled={isLoadingCommentPost}
-          className='bg-transparent w-[85%] px-2 outline-none disabled:cursor-not-allowed'
+          className='w-full bg-transparent px-2 outline-none disabled:cursor-not-allowed'
           placeholder={t('Add Comment') + '...'}
           onChange={(e) => setContent(e.currentTarget.value)}
           onKeyUp={(e) => {
@@ -71,14 +71,14 @@ export default function InputComment({
           }}
         />
       </div>
-      <div className='flex-end w-3/12 me-2'>
+      <div className='flex-end me-2 w-2/12'>
         <Button
           variant='main'
           type='button'
           disabled={isEmpty || isLoadingCommentPost}
           onClick={handleCommentPost}
-          className='px-4 py-1 bg-foreground-2 hover:bg-hover-2 duration-300 rounded-2xl text-center'>
-          {isLoadingCommentPost && <CircularProgress size={16} className='!text-text-1 mr-2' />}
+          className='rounded-2xl bg-foreground-2 px-4 py-1 text-center duration-300 hover:bg-hover-2'>
+          {isLoadingCommentPost && <CircularProgress size={16} className='mr-2 !text-text-1' />}
           {t('Comment')}
         </Button>
       </div>

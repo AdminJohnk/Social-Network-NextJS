@@ -3,23 +3,23 @@ import { Skeleton } from '@mui/material';
 
 export default function TabCoverSkeleton() {
   return (
-    <div className='post-skeleton bg-foreground-1 rounded-xl p-6'>
+    <div className='post-skeleton rounded-xl bg-foreground-1 p-6'>
       <div className='flex-between'>
         <div className='flex-start gap-3'>
-          <Skeleton className='bg-foreground-2' variant='circular' width={60} height={60} />
+          <Skeleton className='!bg-foreground-2' variant='circular' width={60} height={60} />
           <div className='flex flex-col'>
-            <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1.5rem' }} />
-            <Skeleton className='bg-foreground-2 w-36' variant='text' sx={{ fontSize: '1rem' }} />
+            <Skeleton className='w-36 !bg-foreground-2' variant='text' sx={{ fontSize: '1.5rem' }} />
+            <Skeleton className='w-36 !bg-foreground-2' variant='text' sx={{ fontSize: '1rem' }} />
           </div>
         </div>
       </div>
       <Divider className='my-6' />
       <div className='flex-between mt-4'>
-        <Skeleton className='bg-foreground-2 w-16 me-3' variant='text' sx={{ fontSize: '1.5rem' }} />
-        <Skeleton className='bg-foreground-2 w-16' variant='text' sx={{ fontSize: '1.5rem' }} />
-        <Skeleton className='bg-foreground-2 w-16' variant='text' sx={{ fontSize: '1.5rem' }} />
-        <Skeleton className='bg-foreground-2 w-16' variant='text' sx={{ fontSize: '1.5rem' }} />
-        <Skeleton className='bg-foreground-2 w-16' variant='text' sx={{ fontSize: '1.5rem' }} />
+        <Skeleton className='me-3 w-16 !bg-foreground-2' variant='text' sx={{ fontSize: '1.5rem' }} />
+        <Skeleton className='w-16 !bg-foreground-2' variant='text' sx={{ fontSize: '1.5rem' }} />
+        <Skeleton className='w-16 !bg-foreground-2' variant='text' sx={{ fontSize: '1.5rem' }} />
+        <Skeleton className='w-16 !bg-foreground-2' variant='text' sx={{ fontSize: '1.5rem' }} />
+        <Skeleton className='w-16 !bg-foreground-2' variant='text' sx={{ fontSize: '1.5rem' }} />
       </div>
     </div>
   );

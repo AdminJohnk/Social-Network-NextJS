@@ -8,6 +8,7 @@ import TrendingSeries from '@/components/pages/Series/TrendingSeries';
 import SuggestFollow from '@/components/pages/Home/SuggestFollow';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import MySeries from '@/components/pages/Series/MySeries';
 
 export interface IBlogProps {
   params: {
@@ -23,7 +24,7 @@ export default function Blog({ params: { locale } }: IBlogProps) {
     <div className='ms-60 mt-16 max-lg/2:ms-0'>
       <div className='groups px-10 py-5'>
         <main id='site__main'>
-          <div className='flex max-lg:flex-col 2xl:gap-12 gap-10' id='blog-side'>
+          <div className='flex gap-10 max-lg:flex-col 2xl:gap-12' id='blog-side'>
             <div className='flex-1'>
               <div className='page-heading'>
                 <h1 className='page-title'>{t('Series')}</h1>
@@ -41,12 +42,13 @@ export default function Blog({ params: { locale } }: IBlogProps) {
                   <RecommendWriter />
                   <ArticleForYou />
                 </div>
+                <MySeries />
               </TabsContent>
             </div>
 
-            <div className='2xl:w-[380px] lg:w-[330px] w-full'>
+            <div className='w-full lg:w-[330px] 2xl:w-[380px]'>
               <div
-                className='lg:space-y-6 space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6'
+                className='space-y-4 max-lg:grid max-lg:gap-6 sm:grid-cols-2 lg:space-y-6 lg:pb-8'
                 data-uk-sticky='media: 1024; end: #blog-side; offset: 80'>
                 <BlogSlideThumbnail />
 

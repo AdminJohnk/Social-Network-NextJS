@@ -50,25 +50,19 @@ export default function CalledList({ }: ICalledListProps) {
         </div>
       </div>
       {isLoadingGetCalled ? (
-        <div className='contacts flex'>
-          <div className="flex flex-col">
-            <div className="flex">
-              <div className='userActive px-3 w-full'>
-                <div
-                  className='listUser flex flex-div className="flex flex-col"'
-                  style={{
-                    overflow: 'auto'
-                  }}>
-                  <Skeleton
-                    variant='rectangular'
-                    width={40}
-                    height={40}
-                    className='w-8 h-8 rounded-full shadow'
-                  />
+        <div className='w-full flex-center flex-col gap-4 space-y-2 p-2'>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div key={index} className='w-full flex justify-between items-center px-2'>
+              <div className="w-11/12 flex gap-3 items-center">
+                <Skeleton variant="circular" width={40} height={40} className='!bg-foreground-1' />
+                <div className='w-4/6 flex flex-col py-1'>
+                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!bg-foreground-1' />
+                  <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!bg-foreground-1' />
                 </div>
               </div>
+              <Skeleton variant="circular" width={30} height={30} className='!bg-foreground-1' />
             </div>
-          </div>
+          ))}
         </div>
       ) : (
         <div className='space-y-2 p-2 md:h-[calc(100vh-137px)] h-[calc(100vh-250px)] overflow-y-auto custom-scrollbar-fg'>

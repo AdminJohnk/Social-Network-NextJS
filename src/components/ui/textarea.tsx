@@ -1,30 +1,41 @@
-import { useTranslations } from 'next-intl';
-import { Textarea as TextareaMUI } from '@mui/joy';
-import { TextareaProps } from '@mui/joy';
+import { styled, TextareaAutosize, TextareaAutosizeProps } from '@mui/material';
 import { cn } from '@/lib/utils';
 
-export interface ITextareaProps extends TextareaProps {
+const TextareaMUI = styled(TextareaAutosize)(
+  () => `
+  box-sizing: border-box;
+  width: 100%;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--text-text-1);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+
+  &:hover {
+    border-color: transparent;
+  }
+
+  &:focus {
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  // firefox
+  &:focus-visible {
+    outline: 0;
+  }
+`
+);
+
+export interface ITextareaProps extends TextareaAutosizeProps {
   className?: string;
 }
 
 export default function Textarea({ className, ...props }: ITextareaProps) {
-  const t = useTranslations();
-
-  return (
-    <TextareaMUI
-      {...props}
-      className={cn('!text-text-1 !bg-transparent placeholder:!base-regular', className)}
-      sx={{
-        '--Textarea-focusedThickness': '0',
-        '--Textarea-focusedHighlight': 'transparent',
-        '--Textarea-focused': '0',
-        '--Textarea-focusedRing': 'transparent',
-        '--Textarea-focusedShadow': 'none',
-        '.MuiTextarea-textarea': {
-          boxShadow: 'none'
-        },
-        border: 'none'
-      }}
-    />
-  );
+  return <TextareaMUI {...props} className={cn('placeholder:!base-regular', className)} />;
 }

@@ -21,7 +21,7 @@ export default function Menu({ currentMenu }: IMenuProps) {
   return (
     <div>
       {isLoadingReputation ? (
-        <Skeleton variant='text' width={250} height={35} />
+        <Skeleton className='!bg-foreground-1' variant='text' width={250} height={35} />
       ) : (
         <div className='mb-3'>
           {t('Reputation')}: {reputation.reputation + ` (${t('level')} ${reputation.level})`}

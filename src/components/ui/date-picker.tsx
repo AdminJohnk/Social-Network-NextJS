@@ -1,9 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import { addDays, format } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 import { FaCalendar } from 'react-icons/fa';
+import { useFormatter, useLocale } from 'next-intl';
+import * as locales from 'date-fns/locale';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -17,6 +18,9 @@ interface DatePickerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function DatePickerWithRange({ className, dateStart, dateEnd, onChangeDate }: DatePickerProps) {
+  const locale = useLocale();
+  const format = useFormatter();
+
   return (
     <div className={cn('grid gap-2', className)}>
       <Popover>
@@ -32,10 +36,24 @@ export function DatePickerWithRange({ className, dateStart, dateEnd, onChangeDat
             {dateStart ? (
               dateEnd ? (
                 <>
-                  {format(dateStart, 'LLL dd, y')} - {format(dateEnd, 'LLL dd, y')}
+                  {format.dateTime(dateStart, {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                  })}{' '}
+                  -{' '}
+                  {format.dateTime(dateEnd, {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                  })}
                 </>
               ) : (
-                format(dateStart, 'LLL dd, y')
+                format.dateTime(dateStart, {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })
               )
             ) : (
               <span>Pick a date</span>
@@ -45,6 +63,7 @@ export function DatePickerWithRange({ className, dateStart, dateEnd, onChangeDat
         <PopoverContent className='w-auto p-0' align='center'>
           <Calendar
             initialFocus
+            locale={locales[locale as keyof typeof locales]}
             mode='range'
             defaultMonth={dateStart}
             selected={{
