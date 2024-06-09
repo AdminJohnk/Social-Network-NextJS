@@ -16,12 +16,12 @@ export default function NewFeed({ params: { locale } }: INewFeedProps) {
 
   return (
     <div className='ms-60 mt-16 max-lg:ms-0'>
-      <div className='newsfeed px-2 pt-10 2xl:px-32 xl:px-24 lg:px-14'>
+      <div className='newsfeed px-2 pt-10 2xl:px-24 xl:px-20 lg:px-14'>
         <div className='max-md:hidden'>
           <Story />
         </div>
         <div className='newsfeed-content mt-14 max-md:mt-0 flex w-full' id='newsfeed'>
-          <div className='post w-3/5 max-lg:w-full px-9 max-md:px-2'>
+          <div className='post w-4/6 max-lg:w-full px-9 max-md:px-2'>
             <div className='new-post mb-8'>
               <NewPost />
             </div>

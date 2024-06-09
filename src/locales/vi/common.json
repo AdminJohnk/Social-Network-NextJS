@@ -616,5 +616,8 @@
   "List Name is required": "Tên danh sách là bắt buộc",
   "UnSave": "Bỏ lưu",
   "Move to": "Di chuyển đến",
-  "Move": "Di chuyển"
+  "Move": "Di chuyển",
+  "Remove from list": "Xóa khỏi danh sách",
+  "Are you absolutely sure delete this list?": "Bạn có chắc chắn muốn xóa danh sách này không?",
+  "You will not be able to recover list after deletion!": "Bạn sẽ không thể khôi phục danh sách sau khi xóa!"
 }

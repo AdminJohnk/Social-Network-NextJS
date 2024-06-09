@@ -50,7 +50,9 @@ import {
   IDeleteAnswer,
   ICreateCommentAnswer,
   ICreateVoteAnswer,
-  IMoveToListQuestion
+  IMoveToListQuestion,
+  IRemoveFromListQuestion,
+  IUpdateNameListQuestion
 } from '@/types';
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
@@ -2572,3 +2574,95 @@ export const useMoveToListQuestion = () => {
     isSuccessMoveToListQuestion: isSuccess
   };
 };
+
+export const useRemoveFromListQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IRemoveFromListQuestion) => {
+      const { data: list } = await questionService.removeFromListQuestion(data);
+      return list.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allListQuestions']
+      });
+    }
+  });
+
+  return {
+    mutateRemoveFromListQuestion: mutateAsync,
+    isLoadingRemoveFromListQuestion: isPending,
+    isErrorRemoveFromListQuestion: isError,
+    isSuccessRemoveFromListQuestion: isSuccess
+  };
+};
+
+export const useRemoveFromSavedQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (questionID: string) => {
+      const { data: question } = await questionService.removeFromSavedQuestion(questionID);
+      return question.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allSavedQuestion']
+      });
+    }
+  });
+
+  return {
+    mutateRemoveFromSaved: mutateAsync,
+    isLoadingRemoveFromSaved: isPending,
+    isErrorRemoveFromSaved: isError,
+    isSuccessRemoveFromSaved: isSuccess
+  };
+};
+
+export const useUpdateNameListQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdateNameListQuestion) => {
+      const { data: list } = await questionService.updateNameListQuestion(data);
+      return list.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allListQuestions']
+      });
+    }
+  });
+
+  return {
+    mutateUpdateNameListQuestion: mutateAsync,
+    isLoadingUpdateNameListQuestion: isPending,
+    isErrorUpdateNameListQuestion: isError,
+    isSuccessUpdateNameListQuestion: isSuccess
+  };
+};
+
+export const useDeleteListQuestion = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (listName: string) => {
+      const { data: list } = await questionService.deleteListQuestion(listName);
+      return list.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allListQuestions']
+      });
+    }
+  });
+
+  return {
+    mutateDeleteListQuestion: mutateAsync,
+    isLoadingDeleteListQuestion: isPending,
+    isErrorDeleteListQuestion: isError,
+    isSuccessDeleteListQuestion: isSuccess
+  };
+}

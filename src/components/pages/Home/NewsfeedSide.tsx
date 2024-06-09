@@ -16,7 +16,7 @@ export default function NewsfeedSide() {
   }, [allNewsfeedPosts]);
 
   return (
-    <div className='more-info w-2/5 max-lg:hidden'>
+    <div className='more-info w-2/6 max-lg:hidden'>
       {isLoadingAllNewsfeedPosts || isLoadingCurrentUserInfo ? (
         <SideSkeleton />
       ) : (

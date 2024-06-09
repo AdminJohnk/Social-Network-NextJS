@@ -845,3 +845,13 @@ export interface IMoveToListQuestion {
   from: string;
   to: string;
 }
+
+export interface IRemoveFromListQuestion {
+  question_id: string;
+  from: string;
+}
+
+export interface IUpdateNameListQuestion {
+  old_name: string;
+  new_name: string;
+}

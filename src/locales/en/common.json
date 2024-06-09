@@ -616,5 +616,8 @@
   "List Name is required": "List Name is required",
   "UnSave": "UnSave",
   "Move to": "Move to",
-  "Move": "Move"
+  "Move": "Move",
+  "Remove from list": "Remove from list",
+  "Are you absolutely sure delete this list?": "Are you absolutely sure delete this list?",
+  "You will not be able to recover list after deletion!": "You will not be able to recover list after deletion!"
 }

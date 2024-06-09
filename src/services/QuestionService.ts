@@ -18,7 +18,9 @@ import {
   IUpdateCommentQuestion,
   IUpdateQuestion,
   IMoveToListQuestion,
-  IAllListQuestion
+  IAllListQuestion,
+  IRemoveFromListQuestion,
+  IUpdateNameListQuestion
 } from '@/types';
 import { BaseService } from './BaseService';
 import { StringValidation } from 'zod';
@@ -171,6 +173,22 @@ class QuestionService extends BaseService {
 
   moveToListQuestion = (data: IMoveToListQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
     return this.put(`/questions/saves/move-to-list`, data);
+  };
+
+  removeFromListQuestion = (data: IRemoveFromListQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/remove-from-list`, data);
+  };
+
+  removeFromSavedQuestion = (questionID: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/remove/${questionID}`);
+  };
+
+  updateNameListQuestion = (data: IUpdateNameListQuestion): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.put(`/questions/saves/update-list-name`, data);
+  };
+
+  deleteListQuestion = (listName: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return this.delete(`/questions/saves/delete-list/${listName}`);
   };
 }
 

@@ -616,5 +616,8 @@
   "List Name is required": "列表名称是必需的",
   "UnSave": "取消保存",
   "Move to": "移动到",
-  "Move": "移动"
+  "Move": "移动",
+  "Remove from list": "从列表中移除",
+  "Are you absolutely sure delete this list?": "您确定要删除这个列表吗?",
+  "You will not be able to recover list after deletion!": "删除后您将无法恢复列表!"
 }

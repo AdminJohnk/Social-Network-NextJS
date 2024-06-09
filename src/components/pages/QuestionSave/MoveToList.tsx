@@ -11,7 +11,7 @@ import { useState } from 'react';
 export interface IMoveToListProps {
   handleClose: () => void;
   list_name: string[] | undefined;
-  from: 'all_save';
+  from: string;
   questionID: string;
 }
 
@@ -27,6 +27,11 @@ export default function MoveToList({ handleClose, from, list_name, questionID }:
       showErrorToast(t('Please select a list'));
       return;
     }
+    if (from === listName) {
+      handleClose();
+      return;
+    }
+
     mutateMoveToListQuestion(
       {
         from,
@@ -54,6 +59,7 @@ export default function MoveToList({ handleClose, from, list_name, questionID }:
         <Select
           required
           className='ms-1 grow *:*:!bg-transparent *:*:!ring-transparent'
+          defaultValue={from}
           onChange={(e) => setListName(e.target.value)}>
           {list_name &&
             list_name.map((list, index) => (
