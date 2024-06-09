@@ -1,18 +1,19 @@
 'use client';
 
+import { CircularProgress, Pagination, Skeleton } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useFormatter, useTranslations } from 'next-intl';
+import { useGetAllQuestions, useGetNumberQuestions } from '@/hooks/query';
+
+import { Button } from '@/components/ui/button';
 import CreateEditQuestion from '@/components/pages/Question/CreateEditQuestion';
+import Divider from '@/components/shared/Divider';
 import HotQuestions from '@/components/pages/Question/HotQuestions';
 import Menu from '@/components/pages/Question/Menu';
+import Modal from '@/components/shared/Modal';
 import QuestionSummaryItem from '@/components/pages/Question/QuestionSummaryItem';
 import RelatedQuestions from '@/components/pages/Question/RelatedQuestions';
-import Divider from '@/components/shared/Divider';
-import Modal from '@/components/shared/Modal';
-import { Button } from '@/components/ui/button';
-import { useGetAllQuestions, useGetNumberQuestions } from '@/hooks/query';
 import { cn } from '@/lib/utils';
-import { CircularProgress, Pagination, Skeleton } from '@mui/material';
-import { useFormatter, useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
 
 export default function Questions() {
   const t = useTranslations();
@@ -36,7 +37,7 @@ export default function Questions() {
   }, [allQuestions]);
 
   return (
-    <div className='ms-60 mt-16 pb-5 pt-5 max-lg:ms-0'>
+    <div className='ms-60 mt-16 pb-5 pt-5 max-lg/2:ms-0'>
       <div className='mx-auto max-w-[1070px]' id='questions'>
         <div className='grid grid-cols-3 gap-8'>
           <div className='left col-span-2'>

@@ -1,35 +1,35 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { notFound, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaPencilAlt } from 'react-icons/fa';
 import { FiPhone } from 'react-icons/fi';
 import {
   IoCamera,
   IoChatboxEllipsesOutline,
-  IoChevronDown,
   IoEllipsisHorizontal,
   IoFlagOutline,
   IoShareOutline,
   IoStopCircleOutline,
   IoVideocamOutline
 } from 'react-icons/io5';
-import { CircularProgress, Skeleton } from '@mui/material';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { notFound, useSearchParams } from 'next/navigation';
 
-import { Link, usePathname, useRouter } from '@/navigation';
-import { TabTitle, Tabs } from '@/components/ui/tabs';
-import { useCurrentUserInfo, useOtherUserInfo, useUserPostsData } from '@/hooks/query';
 import { Button } from '@/components/ui/button';
-import { cn, getImageURL } from '@/lib/utils';
-import FriendButton from './FriendButton';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { ProfileUpload } from '@/components/ui/upload-image';
+import { Tabs, TabTitle } from '@/components/ui/tabs';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import { imageService } from '@/services/ImageService';
+import { ProfileUpload } from '@/components/ui/upload-image';
 import { useDeleteImage, useUpdateUser } from '@/hooks/mutation';
+import { useCurrentUserInfo, useOtherUserInfo } from '@/hooks/query';
+import { cn, getImageURL } from '@/lib/utils';
+import { Link, usePathname, useRouter } from '@/navigation';
+import { imageService } from '@/services/ImageService';
+import { CircularProgress, Skeleton } from '@mui/material';
+
+import FriendButton from './FriendButton';
 
 export interface ICoverProps {
   profileID: string;
@@ -46,7 +46,6 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
 
   const { otherUserInfo, isLoadingOtherUserInfo, isErrorOtherUserInfo } = useOtherUserInfo(profileID);
   const { currentUserInfo } = useCurrentUserInfo();
-  const { userPosts } = useUserPostsData(profileID);
 
   const isMe = currentUserInfo._id === profileID;
 
@@ -78,10 +77,6 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
         return 0;
     }
   }, []);
-
-  useEffect(() => {
-    UIkit.sticky('#profile-tabs')?.$emit('update');
-  }, [userPosts]);
 
   const [isLoadingChangeCover, setIsLoadingChangeCover] = useState<boolean>(false);
   const [cover, setCover] = useState('/images/avatars/profile-cover.jpg');
@@ -124,17 +119,30 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
 
   const onSubmit = async () => {
     const formData = new FormData();
+
     if (fileAvatar) {
-      setIsLoadingChangeAvatar(true);
-      const res = await handleUploadImage(fileAvatar);
-      formData.append('userImage', res.url.key);
-      // if (initialAvatar) await handleRemoveImage(initialAvatar);
+      try {
+        setIsLoadingChangeAvatar(true);
+        const res = await handleUploadImage(fileAvatar);
+        formData.append('userImage', res.url.key);
+        // if (initialAvatar) await handleRemoveImage(initialAvatar);
+      } catch (e) {
+        showErrorToast(t('Something went wrong! Please try again!'));
+        setIsLoadingChangeAvatar(false);
+        return;
+      }
     }
 
     if (fileCover) {
-      setIsLoadingChangeCover(true);
-      const res = await handleUploadImage(fileCover);
-      formData.append('coverImage', res.url.key);
+      try {
+        setIsLoadingChangeCover(true);
+        const res = await handleUploadImage(fileCover);
+        formData.append('coverImage', res.url.key);
+      } catch (e) {
+        showErrorToast(t('Something went wrong! Please try again!'));
+        setIsLoadingChangeCover(false);
+        return;
+      }
     }
 
     const oldAvatar = otherUserInfo.user_image;
@@ -165,17 +173,21 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
     );
   };
 
+  useEffect(() => {
+    if (!isLoadingOtherUserInfo) UIkit.switcher(`#main-tabs`).show(tab);
+  }, [isLoadingOtherUserInfo]);
+
   if (isErrorOtherUserInfo) notFound();
 
   return isLoadingOtherUserInfo ? (
     <div>
-      <div className='relative overflow-hidden w-full lg:h-72 h-48'>
+      <div className='relative h-48 w-full overflow-hidden lg:h-72'>
         <Skeleton variant='rectangular' className='!w-full !bg-foreground-1' />
 
-        <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10' />
+        <div className='absolute bottom-0 left-0 z-10 w-full bg-gradient-to-t from-black/60 pt-20' />
 
         {isMe && (
-          <div className='absolute bottom-0 right-0 m-4 z-20'>
+          <div className='absolute bottom-0 right-0 z-20 m-4'>
             <div className='flex items-center gap-3'>
               <Skeleton variant='rounded' width={100} height={40} className='!bg-foreground-2' />
             </div>
@@ -183,51 +195,53 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
         )}
       </div>
       <div className='p-3'>
-        <div className='flex flex-col justify-center md:items-center lg:-mt-48 -mt-28'>
-          <div className='relative lg:size-48 size-28 mb-4 z-10'>
-            <div className='relative overflow-hidden h-full w-full rounded-full md:border-[6px] border-gray-100 shrink-0 dark:border-slate-900 shadow'>
-              <Skeleton variant="circular" className='lg:!size-48 !size-28 !bg-foreground-1 !rounded-full' />
+        <div className='-mt-28 flex flex-col justify-center md:items-center lg:-mt-48'>
+          <div className='relative z-10 mb-4 size-28 lg:size-48'>
+            <div className='relative h-full w-full shrink-0 overflow-hidden rounded-full border-gray-100 shadow dark:border-slate-900 md:border-[6px]'>
+              <Skeleton variant='circular' className='!size-28 !rounded-full !bg-foreground-1 lg:!size-48' />
             </div>
           </div>
-          <h3 className='md:text-3xl text-base font-bold text-text-1'>
-            <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-28 !bg-foreground-2' />
+          <h3 className='text-base font-bold text-text-1 md:text-3xl'>
+            <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-28 !bg-foreground-2' />
           </h3>
-          <p
-            className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'>
-            <Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-40 !bg-foreground-2' />
+          <p className='mt-2 max-w-xl text-center text-sm font-light md:font-normal'>
+            <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-40 !bg-foreground-2' />
           </p>
         </div>
       </div>
-      <div
-        id='profile-tabs'
-        className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'>
-        <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
+      <div className='mt-3 flex items-center justify-between border-t border-gray-100 px-2 dark:border-slate-700 max-lg:flex-col'>
+        <div className='flex items-center gap-2 py-2 pr-1 text-sm max-md:w-full lg:order-2'>
           <Skeleton variant='rounded' width={100} height={40} className='!bg-foreground-2' />
           <Skeleton variant='circular' width={40} height={40} className='!bg-foreground-2' />
         </div>
 
-        <nav className='flex rounded-xl -mb-px font-medium text-[15px]'>
-          <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron active={tab}>
-            <TabTitle className='hover:bg-hover-1 !rounded-sm' >
-              <Skeleton variant="text" sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
+        <nav className='-mb-px flex rounded-xl text-[15px] font-medium'>
+          <Tabs
+            id='tabs-profile'
+            idTab='skeleton-tabs'
+            navClassName='!pt-0 !rounded-sm'
+            disableChevron
+            active={tab}>
+            <TabTitle className='!rounded-sm hover:bg-hover-1'>
+              <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
             </TabTitle>
-            <TabTitle className='hover:bg-hover-1 !rounded-sm' >
-              <Skeleton variant="text" sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
+            <TabTitle className='!rounded-sm hover:bg-hover-1'>
+              <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
             </TabTitle>
-            <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-              <Skeleton variant="text" sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
+            <TabTitle className='!rounded-sm hover:bg-hover-1'>
+              <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
             </TabTitle>
-            <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-              <Skeleton variant="text" sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
+            <TabTitle className='!rounded-sm hover:bg-hover-1'>
+              <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
             </TabTitle>
-            <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-              <Skeleton variant="text" sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
+            <TabTitle className='!rounded-sm hover:bg-hover-1'>
+              <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
             </TabTitle>
-            <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-              <Skeleton variant="text" sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
+            <TabTitle className='!rounded-sm hover:bg-hover-1'>
+              <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
             </TabTitle>
-            <TabTitle className='hover:bg-hover-1 !rounded-sm'>
-              <Skeleton variant="text" sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
+            <TabTitle className='!rounded-sm hover:bg-hover-1'>
+              <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} className='!w-16 !bg-foreground-2' />
             </TabTitle>
           </Tabs>
         </nav>
@@ -235,10 +249,10 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
     </div>
   ) : (
     <div>
-      <div className='relative overflow-hidden w-full lg:h-72 h-48'>
+      <div className='relative h-48 w-full overflow-hidden lg:h-72'>
         <PhotoProvider
           loadingElement={
-            <div className='w-full flex-center py-10'>
+            <div className='flex-center w-full py-10'>
               <CircularProgress size={20} className='!text-text-1' />
             </div>
           }>
@@ -248,20 +262,20 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
               height={1000}
               src={cover}
               alt='cover'
-              className='h-full w-full object-cover inset-0 cursor-pointer'
+              className='inset-0 h-full w-full cursor-pointer object-cover'
               priority
             />
           </PhotoView>
         </PhotoProvider>
 
-        <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 z-10' />
+        <div className='absolute bottom-0 left-0 z-10 w-full bg-gradient-to-t from-black/60 pt-20' />
 
         {isMe && (
-          <div className='absolute bottom-0 right-0 m-4 z-20'>
+          <div className='absolute bottom-0 right-0 z-20 m-4'>
             <div className='flex items-center gap-3'>
               {!fileCover ? (
                 <label htmlFor='cover_image' className='cursor-pointer'>
-                  <div className='button bg-black/10 text-white flex items-center gap-2 backdrop-blur-sm'>
+                  <div className='button flex items-center gap-2 bg-black/10 text-white backdrop-blur-sm'>
                     {t('Edit')}
                   </div>
                   <input
@@ -270,7 +284,16 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
                     className='hidden'
                     accept='image/*'
                     disabled={isLoadingChangeCover}
-                    onChange={(e) => handleCoverImage(e.currentTarget.files?.[0]!)}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        if (file.size > 1024 * 1024 * 10) {
+                          showErrorToast(t('Your image is too big!'));
+                        } else {
+                          handleCoverImage(file);
+                        }
+                      }
+                    }}
                   />
                 </label>
               ) : (
@@ -278,9 +301,7 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
                   <Button
                     variant={'destructive'}
                     onClick={() => {
-                      setCover(
-                        getImageURL(otherUserInfo.cover_image) || '/images/avatars/profile-cover.jpg'
-                      );
+                      setCover(getImageURL(otherUserInfo.cover_image) || '/images/avatars/profile-cover.jpg');
                       setFileCover(undefined);
                     }}
                     className='button'
@@ -291,7 +312,7 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
                     onClick={onSubmit}
                     className={cn('button', isLoadingChangeCover && 'select-none')}
                     disabled={isLoadingChangeCover}>
-                    {isLoadingChangeCover && <CircularProgress size={15} className='!text-text-1 mr-2' />}
+                    {isLoadingChangeCover && <CircularProgress size={15} className='mr-2 !text-text-1' />}
                     {t('Save')}
                   </Button>
                 </>
@@ -301,12 +322,12 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
         )}
       </div>
       <div className='p-3'>
-        <div className='flex flex-col justify-center md:items-center lg:-mt-48 -mt-28'>
-          <div className='relative lg:size-48 size-28 mb-4 z-10'>
-            <div className='relative overflow-hidden h-full w-full rounded-full md:border-[6px] border-gray-100 shrink-0 dark:border-slate-900 shadow'>
+        <div className='-mt-28 flex flex-col justify-center md:items-center lg:-mt-48'>
+          <div className='relative z-10 mb-4 size-28 lg:size-48'>
+            <div className='relative h-full w-full shrink-0 overflow-hidden rounded-full border-gray-100 shadow dark:border-slate-900 md:border-[6px]'>
               <PhotoProvider
                 loadingElement={
-                  <div className='w-full flex-center py-10'>
+                  <div className='flex-center w-full py-10'>
                     <CircularProgress size={20} className='!text-text-1' />
                   </div>
                 }>
@@ -316,7 +337,7 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
                     height={500}
                     src={getImageURL(avatar) || '/images/avatars/avatar-6.jpg'}
                     alt='avatar'
-                    className='lg:size-48 size-28 object-cover cursor-pointer'
+                    className='size-28 cursor-pointer object-cover lg:size-48'
                     priority
                   />
                 </PhotoView>
@@ -327,11 +348,11 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
                 <button
                   type='button'
                   onClick={() => setOpenChangeAvatar(true)}
-                  className='absolute -bottom-3 left-1/2 -translate-x-1/2 bg-hover-1 shadow p-1.5 rounded-full sm:flex hidden'>
-                  <IoCamera className='text-2xl md hydrated' aria-label='camera' />
+                  className='absolute -bottom-3 left-1/2 hidden -translate-x-1/2 rounded-full bg-hover-1 p-1.5 shadow sm:flex'>
+                  <IoCamera className='md hydrated text-2xl' aria-label='camera' />
                 </button>
                 <Dialog open={openChangeAvatar} onOpenChange={setOpenChangeAvatar}>
-                  <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+                  <DialogContent className='max-w-[600px] border-none bg-background-1'>
                     <DialogHeader>
                       <DialogTitle>{t('Change your avatar')}</DialogTitle>
                     </DialogHeader>
@@ -339,16 +360,16 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
                     <DialogFooter>
                       <Button
                         variant={'destructive'}
-                        className='button lg:px-6 text-white max-md:flex-1'
+                        className='button text-white max-md:flex-1 lg:px-6'
                         onClick={() => setOpenChangeAvatar(false)}>
                         {t('Cancel')}
                       </Button>
                       <Button
-                        className='button lg:px-6 text-white max-md:flex-1'
+                        className='button text-white max-md:flex-1 lg:px-6'
                         onClick={onSubmit}
                         disabled={isChangedAvatar || isLoadingChangeAvatar}>
                         {isLoadingChangeAvatar && (
-                          <CircularProgress size={20} className='!text-text-1 mr-2' />
+                          <CircularProgress size={20} className='mr-2 !text-text-1' />
                         )}
                         {t('Save')}
                       </Button>
@@ -358,21 +379,20 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
               </>
             )}
           </div>
-          <h3 className='md:text-3xl text-base font-bold text-text-1'>{otherUserInfo?.name}</h3>
+          <h3 className='text-base font-bold text-text-1 md:text-3xl'>{otherUserInfo?.name}</h3>
           <p
-            className='mt-2 max-w-xl text-sm md:font-normal font-light text-center'
+            className='mt-2 max-w-xl text-center text-sm font-light md:font-normal'
             dangerouslySetInnerHTML={{ __html: otherUserInfo?.about }}></p>
         </div>
       </div>
       <div
-        id='profile-tabs'
-        className='flex items-center justify-between mt-3 border-t border-gray-100 px-2 max-lg:flex-col dark:border-slate-700'
+        className='mt-3 flex items-center justify-between border-t border-gray-100 px-2 dark:border-slate-700 max-lg:flex-col'
         data-uk-sticky='start: 100; offset: 50; cls-active: bg-foreground-1 shadow rounded-b-2xl backdrop-blur-xl z-10; animation: uk-animation-slide-top; media: 1024'>
-        <div className='flex items-center gap-2 text-sm py-2 pr-1 max-md:w-full lg:order-2'>
+        <div className='flex items-center gap-2 py-2 pr-1 text-sm max-md:w-full lg:order-2'>
           {isMe && (
             <Button
               variant='main'
-              className='button bg-foreground-2 hover:bg-hover-2 text-text-1 py-2 px-3.5 max-md:flex-1'>
+              className='button bg-foreground-2 px-3.5 py-2 text-text-1 hover:bg-hover-2 max-md:flex-1'>
               <Link href={'/edit-profile'} className='flex items-center gap-2'>
                 <FaPencilAlt className='text-lg' />
                 <span className='text-sm'> {t('Edit Profile')} </span>
@@ -383,13 +403,11 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
           {!isMe && <FriendButton profileID={profileID} />}
 
           <div>
-            <Button
-              variant='main'
-              className='rounded-lg bg-foreground-2 hover:bg-hover-2 flex px-2.5 py-2'>
+            <Button variant='main' className='flex rounded-lg bg-foreground-2 px-2.5 py-2 hover:bg-hover-2'>
               <IoEllipsisHorizontal className='text-xl' />
             </Button>
             <div
-              className='w-[240px] !bg-foreground-1 hidden'
+              className='hidden w-[240px] !bg-foreground-1'
               data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:10'>
               {isMe ? (
                 <nav>
@@ -444,78 +462,46 @@ export default function Cover({ profileID, tabParam }: ICoverProps) {
           </div>
         </div>
 
-        <nav className='flex rounded-xl -mb-px font-medium text-[15px]'>
-          <Tabs id='tabs-profile' navClassName='!pt-0 !rounded-sm' disableChevron active={tab}>
+        <nav className='-mb-px flex rounded-xl text-[15px] font-medium'>
+          <Tabs
+            id='tabs-profile'
+            idTab='main-tabs'
+            navClassName='!pt-0 !rounded-sm'
+            disableChevron
+            active={tab}>
             <TabTitle
-              className='hover:bg-hover-1 !rounded-sm'
+              className='!rounded-sm hover:bg-hover-1'
               onClick={() => router.replace(pathname + '?' + createQueryString('timeline'))}>
               {t('Timeline')}
             </TabTitle>
             <TabTitle
-              className='hover:bg-hover-1 !rounded-sm'
+              className='!rounded-sm hover:bg-hover-1'
               onClick={() => router.replace(pathname + '?' + createQueryString('friends'))}>
               {t('Friends')}
             </TabTitle>
             <TabTitle
-              className='hover:bg-hover-1 !rounded-sm'
+              className='!rounded-sm hover:bg-hover-1'
               onClick={() => router.replace(pathname + '?' + createQueryString('series'))}>
               {t('Series')}
             </TabTitle>
             <TabTitle
-              className='hover:bg-hover-1 !rounded-sm'
+              className='!rounded-sm hover:bg-hover-1'
               onClick={() => router.replace(pathname + '?' + createQueryString('photos'))}>
               {t('Photos')}
             </TabTitle>
             <TabTitle
-              className='hover:bg-hover-1 !rounded-sm'
+              className='!rounded-sm hover:bg-hover-1'
               onClick={() => router.replace(pathname + '?' + createQueryString('repositories'))}>
               {t('Repositories')}
             </TabTitle>
             <TabTitle
-              className='hover:bg-hover-1 !rounded-sm'
+              className='!rounded-sm hover:bg-hover-1'
               onClick={() => router.replace(pathname + '?' + createQueryString('communities'))}>
               {t('Communities')}
             </TabTitle>
           </Tabs>
-
-          {/* <!-- dropdown --> */}
-          <div>
-            <Link
-              href=''
-              className='font-semibold hover:bg-hover-1 hover:text-blue-400 hover:rounded-sm inline-flex items-center gap-2 p-3 leading-8 -ml-2 select-none'>
-              {t('More')}
-              <IoChevronDown />
-            </Link>
-            <div
-              className='md:w-[240px] w-screen !bg-foreground-1 hidden'
-              data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click;offset:-4'>
-              <nav className='text-[15px]'>
-                <Link href='' className='hover:!bg-hover-1'>
-                  {t('Likes')}
-                </Link>
-                <Link href='' className='hover:!bg-hover-1'>
-                  {t('Music')}
-                </Link>
-                <Link href='' className='hover:!bg-hover-1'>
-                  {t('Events')}
-                </Link>
-                <Link href='' className='hover:!bg-hover-1'>
-                  {t('Books')}
-                </Link>
-                <Link href='' className='hover:!bg-hover-1'>
-                  {t('Reviews given')}
-                </Link>
-                <Link href='' className='hover:!bg-hover-1'>
-                  {t('Communities')}
-                </Link>
-                <Link href='' className='hover:!bg-hover-1'>
-                  {t('Manage Sections')}
-                </Link>
-              </nav>
-            </div>
-          </div>
         </nav>
       </div>
     </div>
-  )
+  );
 }

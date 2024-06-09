@@ -23,13 +23,13 @@ export default function Community({ params: { locale, id }, searchParams: { tab 
   unstable_setRequestLocale(locale);
 
   return (
-    <main className='ms-60 max-lg:ms-0 mt-16'>
-      <div className='max-w-[1065px] mx-auto'>
+    <main className='ms-60 mt-16 max-lg/2:ms-0'>
+      <div className='mx-auto max-w-[1065px]'>
         <ComCover communityID={id} tabParam={tab} />
 
         <TabsContent id='tabs-community' className='mt-4 !border-none'>
-          <div className='flex 2xl:gap-12 gap-10 mt-8 max-lg:flex-col-reverse' id='community-side'>
-            <div className='flex-1 xl:space-y-6 space-y-3 max-w-[617px]'>
+          <div className='mt-8 flex gap-10 max-lg:flex-col-reverse 2xl:gap-12' id='community-side'>
+            <div className='max-w-[617px] flex-1 space-y-3 xl:space-y-6'>
               <NewPost communityID={id} />
               <PostList communityID={id} />
             </div>

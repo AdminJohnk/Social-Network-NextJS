@@ -40,7 +40,7 @@ export default function Tags() {
   }, [sortBy, page]);
 
   return (
-    <div className='ms-60 mt-16 pb-5 pt-5 max-lg:ms-0'>
+    <div className='ms-60 mt-16 pb-5 pt-5 max-lg/2:ms-0'>
       <div className='mx-auto max-w-[1070px]'>
         <div className='h3-semibold mt-3'>{t('Tags')}</div>
         <div className='mt-4 w-[60%]'>

@@ -19,31 +19,33 @@ export default function HashTags({ params: { slug } }: IHashTagsProps) {
   return (
     <div>
       {isLoadingPostsByHashtag ? (
-        <div className='flex justify-center items-center h-96'>
+        <div className='flex h-96 items-center justify-center'>
           <div className='flex flex-col items-center'>
             <CircularProgress />
             <span className='mt-4'>Loading...</span>
           </div>
         </div>
       ) : (
-        <div className='ms-60 mt-16 max-lg:ms-0'>
-          <div className='px-22xl:px-32 xl:px-24 lg:px-14'>
-            <div className='bg-foreground-2 w-full min-h-28 h-fit py-4 flex px-8 flex-col items-start justify-center mt-10 rounded-b-lg'>
-              <span className='text-text-1 text-4xl font-bold max-w-full whitespace-break-spaces break-words'>#{slug}</span>
+        <div className='ms-60 mt-16 max-lg/2:ms-0'>
+          <div className='px-22xl:px-32 lg:px-14 xl:px-24'>
+            <div className='mt-10 flex h-fit min-h-28 w-full flex-col items-start justify-center rounded-b-lg bg-foreground-2 px-8 py-4'>
+              <span className='max-w-full whitespace-break-spaces break-words text-4xl font-bold text-text-1'>
+                #{slug}
+              </span>
               {postsByHashtag.length > 0 && (
-                <span className='text-text-2 text-2xl font-semibold'>
+                <span className='text-2xl font-semibold text-text-2'>
                   {t('posts', { count: postsByHashtag.length })}
                 </span>
               )}
             </div>
-            <div className='mt-6 max-md:mt-2 flex-col flex-center w-full *:mb-6'>
+            <div className='flex-center mt-6 w-full flex-col *:mb-6 max-md:mt-2'>
               {postsByHashtag.length > 0 && (
-                <div className='w-3/5 max-lg:w-full px-9 max-md:px-2'>
+                <div className='w-3/5 px-9 max-lg:w-full max-md:px-2'>
                   {postsByHashtag.map((item, index) => {
                     return (
                       <div key={item._id} className='*:mb-6'>
                         {index === postsByHashtag.length - 3 && (
-                          <div className='absolute max-h-[130rem] w-full -z-10' ref={bottomRef} />
+                          <div className='absolute -z-10 max-h-[130rem] w-full' ref={bottomRef} />
                         )}
                         <Post key={item._id} post={item} />
                       </div>
@@ -58,8 +60,8 @@ export default function HashTags({ params: { slug } }: IHashTagsProps) {
                 </div>
               )}
               {postsByHashtag.length === 0 && (
-                <div className='w-3/5 max-lg:w-full px-9 max-md:px-2 flex-center'>
-                  <span className='bg-foreground-1 w-full text-center rounded-lg p-4 text-text-2'>
+                <div className='flex-center w-3/5 px-9 max-lg:w-full max-md:px-2'>
+                  <span className='w-full rounded-lg bg-foreground-1 p-4 text-center text-text-2'>
                     No result found!!!
                   </span>
                 </div>

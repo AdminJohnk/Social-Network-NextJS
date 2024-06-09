@@ -18,7 +18,7 @@ export default function Event({ params: { locale } }: IEventProps) {
   return (
     <div className='ms-60 mt-16 max-lg/2:ms-0'>
       <div className='newsfeed px-5 py-5'>
-        <main className='max-lg:ms-0'>
+        <main className='max-lg/2:ms-0'>
           <div className=''>
             <div className='page-heading'>
               <h1 className='page-title'> {t('Events')} </h1>
@@ -36,7 +36,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                 <div className='relative' data-uk-slider='finite:true'>
                   <div className='uk-slider-container pb-1'>
                     <ul className='uk-slider-items grid-small'>
-                      <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 lg:w-1/4'>
                         <div className='card'>
                           <Link href='/events/123'>
                             <div className='card-media h-32'>
@@ -45,34 +45,34 @@ export default function Event({ params: { locale } }: IEventProps) {
                             </div>
                           </Link>
                           <div className='card-body'>
-                            <p className='text-xs font-medium text-blue-600 mb-1'> {t('Next week')} </p>
+                            <p className='mb-1 text-xs font-medium text-blue-600'> {t('Next week')} </p>
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> About Safety and Flight </h4>
                             </Link>
                             <Link href=''>
-                              <p className='card-text text-black mt-2'> Dubai </p>
+                              <p className='card-text mt-2 text-black'> Dubai </p>
                             </Link>
-                            <div className='card-list-info text-xs mt-1'>
+                            <div className='card-list-info mt-1 text-xs'>
                               <div> 26 {t('Interested')}</div>
-                              <div className='md:block hidden'>·</div>
+                              <div className='hidden md:block'>·</div>
                               <div> 8 {t('Going')}</div>
                             </div>
                             <div className='flex gap-2'>
                               <button
                                 type='button'
-                                className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
+                                className='button flex-1 bg-blue-1 text-white duration-300 hover:bg-blue-2'>
                                 {t('Interested')}
                               </button>
                               <button
                                 type='button'
-                                className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
+                                className='button !w-auto bg-foreground-2 duration-300 hover:bg-hover-2'>
                                 <IoArrowRedo className='text-lg' />
                               </button>
                             </div>
                           </div>
                         </div>
                       </li>
-                      <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 lg:w-1/4'>
                         <div className='card'>
                           <Link href='/events/123'>
                             <div className='card-media h-32'>
@@ -81,34 +81,34 @@ export default function Event({ params: { locale } }: IEventProps) {
                             </div>
                           </Link>
                           <div className='card-body'>
-                            <p className='text-xs font-semibold text-teal-600 mb-1'>{t('Opening')}</p>
+                            <p className='mb-1 text-xs font-semibold text-teal-600'>{t('Opening')}</p>
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> Wedding trend Ideas </h4>
                             </Link>
                             <Link href=''>
-                              <p className='card-text text-black mt-2'> Turkey </p>
+                              <p className='card-text mt-2 text-black'> Turkey </p>
                             </Link>
-                            <div className='card-list-info text-xs mt-1'>
+                            <div className='card-list-info mt-1 text-xs'>
                               <div> 20 {t('Interested')}</div>
-                              <div className='md:block hidden'>·</div>
+                              <div className='hidden md:block'>·</div>
                               <div> 16 {t('Going')}</div>
                             </div>
                             <div className='flex gap-2'>
                               <button
                                 type='button'
-                                className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
+                                className='button flex-1 bg-blue-1 text-white duration-300 hover:bg-blue-2'>
                                 {t('Interested')}
                               </button>
                               <button
                                 type='button'
-                                className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
+                                className='button !w-auto bg-foreground-2 duration-300 hover:bg-hover-2'>
                                 <IoArrowRedo className='text-lg' />
                               </button>
                             </div>
                           </div>
                         </div>
                       </li>
-                      <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 lg:w-1/4'>
                         <div className='card'>
                           <Link href='/events/123'>
                             <div className='card-media h-32'>
@@ -117,34 +117,34 @@ export default function Event({ params: { locale } }: IEventProps) {
                             </div>
                           </Link>
                           <div className='card-body'>
-                            <p className='text-xs font-medium text-red-600 mb-1'> WED JUL 10,2024 AT 10PM </p>
+                            <p className='mb-1 text-xs font-medium text-red-600'> WED JUL 10,2024 AT 10PM </p>
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> The global creative </h4>
                             </Link>
                             <Link href=''>
-                              <p className='card-text text-black mt-2'> Japan </p>
+                              <p className='card-text mt-2 text-black'> Japan </p>
                             </Link>
-                            <div className='card-list-info text-xs mt-1'>
+                            <div className='card-list-info mt-1 text-xs'>
                               <div> 15 {t('Interested')}</div>
-                              <div className='md:block hidden'>·</div>
+                              <div className='hidden md:block'>·</div>
                               <div> 2 {t('Going')}</div>
                             </div>
                             <div className='flex gap-2'>
                               <button
                                 type='button'
-                                className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
+                                className='button flex-1 bg-blue-1 text-white duration-300 hover:bg-blue-2'>
                                 {t('Interested')}
                               </button>
                               <button
                                 type='button'
-                                className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
+                                className='button !w-auto bg-foreground-2 duration-300 hover:bg-hover-2'>
                                 <IoArrowRedo className='text-lg' />
                               </button>
                             </div>
                           </div>
                         </div>
                       </li>
-                      <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 lg:w-1/4'>
                         <div className='card'>
                           <Link href='/events/123'>
                             <div className='card-media h-32'>
@@ -153,34 +153,34 @@ export default function Event({ params: { locale } }: IEventProps) {
                             </div>
                           </Link>
                           <div className='card-body'>
-                            <p className='text-xs font-semibold text-teal-600 mb-1'>{t('Opening')}</p>
+                            <p className='mb-1 text-xs font-semibold text-teal-600'>{t('Opening')}</p>
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> Perspective is everything </h4>
                             </Link>
                             <Link href=''>
-                              <p className='card-text text-black mt-2'> London </p>
+                              <p className='card-text mt-2 text-black'> London </p>
                             </Link>
-                            <div className='card-list-info text-xs mt-1'>
+                            <div className='card-list-info mt-1 text-xs'>
                               <div> 20 {t('Interested')}</div>
-                              <div className='md:block hidden'>·</div>
+                              <div className='hidden md:block'>·</div>
                               <div> 16 {t('Going')}</div>
                             </div>
                             <div className='flex gap-2'>
                               <button
                                 type='button'
-                                className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
+                                className='button flex-1 bg-blue-1 text-white duration-300 hover:bg-blue-2'>
                                 {t('Interested')}
                               </button>
                               <button
                                 type='button'
-                                className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
+                                className='button !w-auto bg-foreground-2 duration-300 hover:bg-hover-2'>
                                 <IoArrowRedo className='text-lg' />
                               </button>
                             </div>
                           </div>
                         </div>
                       </li>
-                      <li className='lg:w-1/4 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 lg:w-1/4'>
                         <div className='card'>
                           <Link href='/events/123'>
                             <div className='card-media h-32'>
@@ -189,27 +189,27 @@ export default function Event({ params: { locale } }: IEventProps) {
                             </div>
                           </Link>
                           <div className='card-body'>
-                            <p className='text-xs font-medium text-blue-600 mb-1'> {t('Next week')} </p>
+                            <p className='mb-1 text-xs font-medium text-blue-600'> {t('Next week')} </p>
                             <Link href='/events/123'>
                               <h4 className='card-title text-sm'> About Safety and Flight </h4>
                             </Link>
                             <Link href=''>
-                              <p className='card-text text-black mt-2'> Dubai </p>
+                              <p className='card-text mt-2 text-black'> Dubai </p>
                             </Link>
-                            <div className='card-list-info text-xs mt-1'>
+                            <div className='card-list-info mt-1 text-xs'>
                               <div> 26 {t('Interested')}</div>
-                              <div className='md:block hidden'>·</div>
+                              <div className='hidden md:block'>·</div>
                               <div> 8 {t('Going')}</div>
                             </div>
                             <div className='flex gap-2'>
                               <button
                                 type='button'
-                                className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
+                                className='button flex-1 bg-blue-1 text-white duration-300 hover:bg-blue-2'>
                                 {t('Interested')}
                               </button>
                               <button
                                 type='button'
-                                className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
+                                className='button !w-auto bg-foreground-2 duration-300 hover:bg-hover-2'>
                                 <IoArrowRedo className='text-lg' />
                               </button>
                             </div>
@@ -228,14 +228,14 @@ export default function Event({ params: { locale } }: IEventProps) {
                   </Link>
                 </div>
 
-                <div className='sm:my-6 my-3 flex items-center justify-between md:mt-10'>
+                <div className='my-3 flex items-center justify-between sm:my-6 md:mt-10'>
                   <div>
                     <h2 className='text-xl font-semibold'> {t('Lists You May Like')} </h2>
-                    <p className='font-normal text-sm text-gray-500 leading-6'>
+                    <p className='text-sm font-normal leading-6 text-gray-500'>
                       {t('Find a group by browsing top categories')}.
                     </p>
                   </div>
-                  <Link href='' className='text-blue-500 sm:block hidden text-sm'>
+                  <Link href='' className='hidden text-sm text-blue-500 sm:block'>
                     {t('See all')}
                   </Link>
                 </div>
@@ -244,9 +244,9 @@ export default function Event({ params: { locale } }: IEventProps) {
                 <div className='relative mt-4' data-uk-slider='finite:true'>
                   <div className='uk-slider-container pb-1'>
                     <ul className='uk-slider-items grid-small'>
-                      <li className='md:w-1/5 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 md:w-1/5'>
                         <Link href=''>
-                          <div className='relative rounded-lg overflow-hidden'>
+                          <div className='relative overflow-hidden rounded-lg'>
                             <Image
                               width={500}
                               height={500}
@@ -254,18 +254,18 @@ export default function Event({ params: { locale } }: IEventProps) {
                               alt=''
                               className='h-36 w-full object-cover'
                             />
-                            <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                              <div className='text-white p-5'>
+                            <div className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 pt-10'>
+                              <div className='p-5 text-white'>
                                 <div className='text-sm font-light'> Miami </div>
-                                <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
+                                <div className='mt-1.5 text-lg leading-3'> {t('Hotels')} </div>
                               </div>
                             </div>
                           </div>
                         </Link>
                       </li>
-                      <li className='md:w-1/5 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 md:w-1/5'>
                         <Link href=''>
-                          <div className='relative rounded-lg overflow-hidden'>
+                          <div className='relative overflow-hidden rounded-lg'>
                             <Image
                               width={500}
                               height={500}
@@ -273,18 +273,18 @@ export default function Event({ params: { locale } }: IEventProps) {
                               alt=''
                               className='h-36 w-full object-cover'
                             />
-                            <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                              <div className='text-white p-5'>
+                            <div className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 pt-10'>
+                              <div className='p-5 text-white'>
                                 <div className='text-sm font-light'> Florida </div>
-                                <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
+                                <div className='mt-1.5 text-lg leading-3'> {t('Hotels')} </div>
                               </div>
                             </div>
                           </div>
                         </Link>
                       </li>
-                      <li className='md:w-1/5 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 md:w-1/5'>
                         <Link href=''>
-                          <div className='relative rounded-lg overflow-hidden'>
+                          <div className='relative overflow-hidden rounded-lg'>
                             <Image
                               width={500}
                               height={500}
@@ -292,18 +292,18 @@ export default function Event({ params: { locale } }: IEventProps) {
                               alt=''
                               className='h-36 w-full object-cover'
                             />
-                            <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                              <div className='text-white p-5'>
+                            <div className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 pt-10'>
+                              <div className='p-5 text-white'>
                                 <div className='text-sm font-light'> London </div>
-                                <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
+                                <div className='mt-1.5 text-lg leading-3'> {t('Hotels')} </div>
                               </div>
                             </div>
                           </div>
                         </Link>
                       </li>
-                      <li className='md:w-1/5 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 md:w-1/5'>
                         <Link href=''>
-                          <div className='relative rounded-lg overflow-hidden'>
+                          <div className='relative overflow-hidden rounded-lg'>
                             <Image
                               width={500}
                               height={500}
@@ -311,18 +311,18 @@ export default function Event({ params: { locale } }: IEventProps) {
                               alt=''
                               className='h-36 w-full object-cover'
                             />
-                            <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                              <div className='text-white p-5'>
+                            <div className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 pt-10'>
+                              <div className='p-5 text-white'>
                                 <div className='text-sm font-light'> Dubai </div>
-                                <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
+                                <div className='mt-1.5 text-lg leading-3'> {t('Hotels')} </div>
                               </div>
                             </div>
                           </div>
                         </Link>
                       </li>
-                      <li className='md:w-1/5 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 md:w-1/5'>
                         <Link href=''>
-                          <div className='relative rounded-lg overflow-hidden'>
+                          <div className='relative overflow-hidden rounded-lg'>
                             <Image
                               width={500}
                               height={500}
@@ -330,18 +330,18 @@ export default function Event({ params: { locale } }: IEventProps) {
                               alt=''
                               className='h-36 w-full object-cover'
                             />
-                            <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                              <div className='text-white p-5'>
+                            <div className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 pt-10'>
+                              <div className='p-5 text-white'>
                                 <div className='text-sm font-light'> Turkey </div>
-                                <div className='text-lg leading-3 mt-1.5'> {t('Restaurant')} </div>
+                                <div className='mt-1.5 text-lg leading-3'> {t('Restaurant')} </div>
                               </div>
                             </div>
                           </div>
                         </Link>
                       </li>
-                      <li className='md:w-1/5 sm:w-1/3 w-1/2'>
+                      <li className='w-1/2 sm:w-1/3 md:w-1/5'>
                         <Link href=''>
-                          <div className='relative rounded-lg overflow-hidden'>
+                          <div className='relative overflow-hidden rounded-lg'>
                             <Image
                               width={500}
                               height={500}
@@ -349,10 +349,10 @@ export default function Event({ params: { locale } }: IEventProps) {
                               alt=''
                               className='h-36 w-full object-cover'
                             />
-                            <div className='w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-10'>
-                              <div className='text-white p-5'>
+                            <div className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 pt-10'>
+                              <div className='p-5 text-white'>
                                 <div className='text-sm font-light'> Miami </div>
-                                <div className='text-lg leading-3 mt-1.5'> {t('Hotels')} </div>
+                                <div className='mt-1.5 text-lg leading-3'> {t('Hotels')} </div>
                               </div>
                             </div>
                           </div>
@@ -370,7 +370,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                   </Link>
                 </div>
 
-                <div className='flex items-center justify-between text-black dark:text-white py-3 mt-6'>
+                <div className='mt-6 flex items-center justify-between py-3 text-black dark:text-white'>
                   <h3 className='text-xl font-semibold'> {t('Upcoming Events')} </h3>
                   <Link href='' className='text-sm text-blue-500'>
                     {t('See all')}
@@ -378,7 +378,7 @@ export default function Event({ params: { locale } }: IEventProps) {
                 </div>
 
                 {/* <!-- event grid --> */}
-                <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-2.5 mt-4'>
+                <div className='mt-4 grid gap-2.5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
                   <div className='card'>
                     <Link href='/events/123'>
                       <div className='card-media h-32'>
@@ -387,29 +387,29 @@ export default function Event({ params: { locale } }: IEventProps) {
                       </div>
                     </Link>
                     <div className='card-body'>
-                      <p className='text-xs font-medium text-black dark:text-red-600 mb-1'>
+                      <p className='mb-1 text-xs font-medium text-black dark:text-red-600'>
                         WED JUL 10,2024 AT 10PM
                       </p>
                       <Link href='/events/123'>
                         <h4 className='card-title text-sm'> The global creative </h4>
                       </Link>
                       <Link href=''>
-                        <p className='card-text text-black mt-2'> Japan </p>
+                        <p className='card-text mt-2 text-black'> Japan </p>
                       </Link>
-                      <div className='card-list-info text-xs mt-1'>
+                      <div className='card-list-info mt-1 text-xs'>
                         <div> 15 {t('Interested')}</div>
-                        <div className='md:block hidden'>·</div>
+                        <div className='hidden md:block'>·</div>
                         <div> 2 {t('Going')}</div>
                       </div>
                       <div className='flex gap-2'>
                         <button
                           type='button'
-                          className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
+                          className='button flex-1 bg-blue-1 text-white duration-300 hover:bg-blue-2'>
                           {t('Interested')}
                         </button>
                         <button
                           type='button'
-                          className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
+                          className='button !w-auto bg-foreground-2 duration-300 hover:bg-hover-2'>
                           <IoArrowRedo className='text-lg' />
                         </button>
                       </div>
@@ -424,27 +424,27 @@ export default function Event({ params: { locale } }: IEventProps) {
                       </div>
                     </Link>
                     <div className='card-body'>
-                      <p className='text-xs font-semibold text-teal-600 mb-1'>{t('Opening')}</p>
+                      <p className='mb-1 text-xs font-semibold text-teal-600'>{t('Opening')}</p>
                       <Link href='/events/123'>
                         <h4 className='card-title text-sm'> Wedding trend Ideas </h4>
                       </Link>
                       <Link href=''>
-                        <p className='card-text text-black mt-2'> Turkey </p>
+                        <p className='card-text mt-2 text-black'> Turkey </p>
                       </Link>
-                      <div className='card-list-info text-xs mt-1'>
+                      <div className='card-list-info mt-1 text-xs'>
                         <div> 20 {t('Interested')}</div>
-                        <div className='md:block hidden'>·</div>
+                        <div className='hidden md:block'>·</div>
                         <div> 16 {t('Going')}</div>
                       </div>
                       <div className='flex gap-2'>
                         <button
                           type='button'
-                          className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
+                          className='button flex-1 bg-blue-1 text-white duration-300 hover:bg-blue-2'>
                           {t('Interested')}
                         </button>
                         <button
                           type='button'
-                          className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
+                          className='button !w-auto bg-foreground-2 duration-300 hover:bg-hover-2'>
                           <IoArrowRedo className='text-lg' />
                         </button>
                       </div>
@@ -459,29 +459,29 @@ export default function Event({ params: { locale } }: IEventProps) {
                       </div>
                     </Link>
                     <div className='card-body'>
-                      <p className='text-xs font-medium text-black dark:text-red-600 mb-1'>
+                      <p className='mb-1 text-xs font-medium text-black dark:text-red-600'>
                         WED JUL 10,2024 AT 10PM
                       </p>
                       <Link href='/events/123'>
                         <h4 className='card-title text-sm'> About Safety and Flight </h4>
                       </Link>
                       <Link href=''>
-                        <p className='card-text text-black mt-2'> Dubai </p>
+                        <p className='card-text mt-2 text-black'> Dubai </p>
                       </Link>
-                      <div className='card-list-info text-xs mt-1'>
+                      <div className='card-list-info mt-1 text-xs'>
                         <div> 26 {t('Interested')}</div>
-                        <div className='md:block hidden'>·</div>
+                        <div className='hidden md:block'>·</div>
                         <div> 8 {t('Going')}</div>
                       </div>
                       <div className='flex gap-2'>
                         <button
                           type='button'
-                          className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
+                          className='button flex-1 bg-blue-1 text-white duration-300 hover:bg-blue-2'>
                           {t('Interested')}
                         </button>
                         <button
                           type='button'
-                          className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
+                          className='button !w-auto bg-foreground-2 duration-300 hover:bg-hover-2'>
                           <IoArrowRedo className='text-lg' />
                         </button>
                       </div>
@@ -496,27 +496,27 @@ export default function Event({ params: { locale } }: IEventProps) {
                       </div>
                     </Link>
                     <div className='card-body'>
-                      <p className='text-xs font-semibold text-teal-600 mb-1'>{t('Opening')}</p>
+                      <p className='mb-1 text-xs font-semibold text-teal-600'>{t('Opening')}</p>
                       <Link href='/events/123'>
                         <h4 className='card-title text-sm'> Perspective is everything </h4>
                       </Link>
                       <Link href=''>
-                        <p className='card-text text-black mt-2'> London </p>
+                        <p className='card-text mt-2 text-black'> London </p>
                       </Link>
-                      <div className='card-list-info text-xs mt-1'>
+                      <div className='card-list-info mt-1 text-xs'>
                         <div> 20 {t('Interested')}</div>
-                        <div className='md:block hidden'>·</div>
+                        <div className='hidden md:block'>·</div>
                         <div> 16 {t('Going')}</div>
                       </div>
                       <div className='flex gap-2'>
                         <button
                           type='button'
-                          className='button bg-blue-1 hover:bg-blue-2 duration-300 text-white flex-1'>
+                          className='button flex-1 bg-blue-1 text-white duration-300 hover:bg-blue-2'>
                           {t('Interested')}
                         </button>
                         <button
                           type='button'
-                          className='button bg-foreground-2 hover:bg-hover-2 duration-300 !w-auto'>
+                          className='button !w-auto bg-foreground-2 duration-300 hover:bg-hover-2'>
                           <IoArrowRedo className='text-lg' />
                         </button>
                       </div>

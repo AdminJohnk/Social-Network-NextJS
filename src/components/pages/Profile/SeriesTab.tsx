@@ -23,17 +23,21 @@ export default function SeriesTab({ profileID }: ISeriesTabProps) {
     useGetAllSeriesByUserID(profileID);
 
   return (
-    <div className='my-8 w-full rounded-md bg-foreground-1 px-20 py-8 space-y-14'>
+    <div className='my-8 w-full space-y-14 rounded-md bg-foreground-1 px-20 py-8'>
       {isLoadingAllSeries ? (
         <div className=''>
           <div className='grid cursor-pointer grid-cols-5 gap-4'>
             <div className='col-span-4'>
-              <h1 className='h3-bold duration-300 hover:underline'><Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' /></h1>
-              <p className='mt-4 text-text-2 mb-4'><Skeleton variant="text" sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' /></p>
+              <h1 className='h3-bold duration-300 hover:underline'>
+                <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' />
+              </h1>
+              <p className='mb-4 mt-4 text-text-2'>
+                <Skeleton variant='text' sx={{ fontSize: '1rem' }} className='!w-full !bg-foreground-2' />
+              </p>
               <Skeleton variant='rounded' width={100} height={40} className='!bg-foreground-2' />
             </div>
             <div className='col-span-1'>
-              <Skeleton variant='rectangular' className='!bg-foreground-2 !h-[132px] w-full' />
+              <Skeleton variant='rectangular' className='!h-[132px] w-full !bg-foreground-2' />
             </div>
           </div>
         </div>
@@ -49,12 +53,12 @@ export default function SeriesTab({ profileID }: ISeriesTabProps) {
           return (
             <div key={index}>
               <Link href={`/series/${series._id}`} className='grid cursor-pointer grid-cols-5 gap-4'>
-                <div className='col-span-4'>
+                <div className='col-span-4 max-md:col-span-3'>
                   <h1 className='h3-bold duration-300 hover:underline'>{series.title}</h1>
                   <p className='mt-4 text-text-2' dangerouslySetInnerHTML={{ __html: description }}></p>
                   <Button className='my-4'>{t('View series')}</Button>
                 </div>
-                <div className='col-span-1'>
+                <div className='col-span-1 max-md:col-span-2'>
                   <Image
                     alt='Ethereum'
                     src={getImageURL(series.cover_image, 'post_mini') || ''}

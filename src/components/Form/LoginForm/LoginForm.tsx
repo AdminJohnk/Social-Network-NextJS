@@ -68,20 +68,56 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
   }
 
   return (
-    <div className={cn(className, 'flex-center')}>
+    <div className={cn(className, 'flex-center -mt-10')}>
       <div className='w-full'>
         <div className='flex-center'>
           <div>
             <div className='flex-center'>
               <FaSnowflake className='icon_logo text-text-1' />
-              <span className='h2-bold text-text-1 ms-3'>DevHub</span>
+              <span className='h2-bold ms-3 text-text-1'>DevHub</span>
             </div>
-            <div className='h3-bold text-text-1 my-3'>{t('Sign in to your account')}</div>
+            <div className='h3-bold my-3 text-text-1'>{t('Sign in to your account')}</div>
           </div>
         </div>
+
+        <div className='loginTool mt-5 flex w-full flex-col gap-3'>
+          <Button
+            variant='outline'
+            className='flex-center mb-5 w-full hover:bg-blue-400'
+            disabled={isLoading}
+            onClick={() => {
+              setIsLoading(true);
+              signIn('google').finally(() => setIsLoading(false));
+            }}>
+            <span className='icon mr-2'>
+              <IoLogoGoogle className='size-5' />
+            </span>
+            <span>Continue with Gmail</span>
+          </Button>
+          <Button
+            variant='outline'
+            className='flex-center mb-5 w-full hover:bg-blue-400'
+            disabled={isLoading}
+            onClick={() => {
+              setIsLoading(true);
+              signIn('github').finally(() => setIsLoading(false));
+            }}>
+            <span className='icon mr-2'>
+              <IoLogoGithub className='size-5' />
+            </span>
+            <span>Continue with Github</span>
+          </Button>
+        </div>
+
+        <div className='flex-center my-3 gap-3'>
+          <hr className='w-full border-border-1' />
+          <span className='font-semibold text-text-1'>Or</span>
+          <hr className='w-full border-border-1' />
+        </div>
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='mb-5'>
-            <label htmlFor='email' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+            <label htmlFor='email' className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
               {t('Email')}
             </label>
             <input
@@ -97,7 +133,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
           <div className='mb-5'>
             <label
               htmlFor='password'
-              className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+              className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
               {t('Password')}
             </label>
             <input
@@ -114,49 +150,15 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
             className='flex-center w-full bg-blue-200 hover:bg-blue-400'
             type='submit'
             disabled={isLoading}>
-            {isLoading && <FaSpinner className='animate-spin mr-2' />}
+            {isLoading && <FaSpinner className='mr-2 animate-spin' />}
             {t('Sign in')}
           </Button>
         </form>
-        <div className='mt-10'>
-          <div className='flex-center gap-3'>
-            <hr className='border-border-1 w-full' />
-            <span className='font-semibold text-text-1'>Or</span>
-            <hr className='border-border-1 w-full' />
-          </div>
-          <div className='loginTool mt-10 w-full flex flex-col gap-3'>
-            <Button
-              variant='outline'
-              className='flex-center w-full mb-5 hover:bg-blue-400 '
-              disabled={isLoading}
-              onClick={() => {
-                setIsLoading(true);
-                signIn('google').finally(() => setIsLoading(false));
-              }}>
-              <span className='icon mr-2'>
-                <IoLogoGoogle className='size-5' />
-              </span>
-              <span>Continue with Gmail</span>
-            </Button>
-            <Button
-              variant='outline'
-              className='flex-center w-full mb-5 hover:bg-blue-400'
-              disabled={isLoading}
-              onClick={() => {
-                setIsLoading(true);
-                signIn('github').finally(() => setIsLoading(false));
-              }}>
-              <span className='icon mr-2'>
-                <IoLogoGithub className='size-5' />
-              </span>
-              <span>Continue with Github</span>
-            </Button>
-          </div>
-        </div>
-        <div className='max-w-sm flex-center'>
+
+        <div className='flex-center mt-2 max-w-sm'>
           <div className='flex-start'>
             <div className='me-2 text-text-1'>{t("Don't have an account yet?")}</div>
-            <Link href='/register' className='text-primary-800 dark:text-primary-500 hover:underline'>
+            <Link href='/register' className='text-primary-800 hover:underline dark:text-primary-500'>
               {t('Sign up')}
             </Link>
           </div>

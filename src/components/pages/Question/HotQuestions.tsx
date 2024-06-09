@@ -1,5 +1,6 @@
-import { useGetHotQuestions } from '@/hooks/query';
+import { Link } from '@/navigation';
 import { Skeleton } from '@mui/material';
+import { useGetHotQuestions } from '@/hooks/query';
 import { useTranslations } from 'next-intl';
 
 export interface IHotQuestionsProps {}
@@ -21,14 +22,14 @@ export default function HotQuestions({}: IHotQuestionsProps) {
               </div>
             ))
           : hotQuestions.map((question, index) => (
-              <div key={index}>
+              <Link key={index} href={`/questions/${question._id}`}>
                 <span className='min-w-10 rounded-md bg-green-400 px-2 py-1 text-center text-black'>
                   {question.vote_score}
                 </span>
                 <div className='line-clamp-2 text-blue-400 duration-300 hover:text-blue-500'>
                   {question.title}
                 </div>
-              </div>
+              </Link>
             ))}
       </div>
     </div>

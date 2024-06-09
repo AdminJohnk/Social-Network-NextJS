@@ -92,6 +92,7 @@ export default function AddEditExperience({
       </div>
       <div className='flex-center mt-6'>
         <Button
+          type='button'
           className={cn('button text-white max-md:flex-1 lg:px-6', !isChanged && 'select-none')}
           disabled={!isChanged}
           onClick={onSubmit}>

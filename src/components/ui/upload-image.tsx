@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { getImageURL } from '@/lib/utils';
 import Image from 'next/image';
+import { showErrorToast } from './toast';
 
 interface IProfileUpload {
   fieldChange: (files: File) => void;
@@ -28,22 +29,18 @@ export const ProfileUpload = ({ fieldChange, mediaURL }: IProfileUpload) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted: onDrop,
     onDropRejected: () => {
-      //   form.setError("image", {
-      //     message: "This photo is too large. Please try another one.",
-      //   });
+      showErrorToast(t('Your image is too big!'));
     },
     accept: {
       'image/png': ['.png'],
       'image/gif': ['.gif'],
       'image/jpeg': ['.jpeg', '.jpg'],
-      'image/webp': ['.webp'],
+      'image/webp': ['.webp']
     },
     maxSize: 1024 * 1024 * 10,
     multiple: false,
     onError: (error) => {
-      //   form.setError("image", {
-      //     message: error.message,
-      //   });
+      showErrorToast(error.message);
     }
   });
 

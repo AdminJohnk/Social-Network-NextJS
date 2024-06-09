@@ -55,7 +55,7 @@ export default function QuestionDetail({ params: { id } }: IQuestionDetailProps)
       {isLoadingQuestion ? (
         <></>
       ) : (
-        <div className='ms-60 mt-16 pb-5 pt-5 max-lg:ms-0'>
+        <div className='ms-60 mt-16 pb-5 pt-5 max-lg/2:ms-0'>
           <div className='mx-auto max-w-[1070px]' id='question'>
             <div>
               <div className='flex justify-between'>

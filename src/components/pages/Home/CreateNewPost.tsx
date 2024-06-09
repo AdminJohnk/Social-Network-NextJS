@@ -1,20 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-import PostPrivacy from '@/components/shared/PostPrivacy';
-import Editor from '@/components/shared/Editor/Editor';
 import { useTranslations } from 'next-intl';
-import { CircularProgress } from '@mui/material';
-import { Editor as EditorProps } from '@tiptap/react';
+import { useState } from 'react';
 
-import { Visibility } from '@/types';
+import Editor from '@/components/shared/Editor/Editor';
+import PostPrivacy from '@/components/shared/PostPrivacy';
+import PostTemplate from '@/components/shared/PostTemplate';
+import UploadImage from '@/components/shared/UploadImage';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { useCreatePost, useUploadImages } from '@/hooks/mutation';
 import { useGetAllHashtags } from '@/hooks/query';
-import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
-import UploadImage from '@/components/shared/UploadImage';
-import PostTemplate from '@/components/shared/PostTemplate';
+import { cn } from '@/lib/utils';
+import { Visibility } from '@/types';
+import { CircularProgress } from '@mui/material';
+import { Editor as EditorProps } from '@tiptap/react';
 
 interface ICreateNewPostProps {
   handleClose: () => void;
@@ -113,18 +113,18 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
   };
 
   return (
-    <div className='relative mx-auto bg-background-1 shadow-xl rounded-lg w-[800px] animate-fade-up'>
-      <div className='text-center py-4 border-b mb-0 border-border-1'>
+    <div className='relative mx-auto w-[800px] animate-fade-up rounded-lg bg-background-1 shadow-xl'>
+      <div className='mb-0 border-b border-border-1 py-4 text-center'>
         <h2 className='text-sm font-medium text-text-1'>{t('Create Post')}</h2>
       </div>
 
       {isLoadingAllHashtags ? (
-        <div className='flex-center w-full h-full p-5'>
+        <div className='flex-center h-full w-full p-5'>
           <CircularProgress size={20} className='!text-text-1' />
         </div>
       ) : (
         <>
-          <div className='max-h-[520px] overflow-y-scroll custom-scrollbar-bg'>
+          <div className='custom-scrollbar-bg max-h-[520px] overflow-y-scroll'>
             <div className='mt-3 ps-4'>
               <Editor
                 setEditor={setEditor}
@@ -133,21 +133,21 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
               />
             </div>
 
-            <div className='*:mb-3 text-sm py-2 px-4 font-medium'>
+            <div className='px-4 py-2 text-sm font-medium *:mb-3'>
               <PostTemplate editor={editor} />
               <UploadImage setImagesOfS3={setImages} />
             </div>
           </div>
 
-          <div className={cn('p-5 flex-between', communityID && 'flex-end')}>
+          <div className={cn('flex-between p-5', communityID && 'flex-end')}>
             {!communityID && <PostPrivacy privacy={privacy} setPrivacy={setPrivacy} />}
             <div className='flex items-center gap-2'>
               <Button
                 type='button'
-                className={cn('button lg:px-6 text-white max-md:flex-1', isLoading && 'select-none')}
+                className={cn('button text-white max-md:flex-1 lg:px-6', isLoading && 'select-none')}
                 disabled={isLoading}
                 onClick={handleSubmit}>
-                {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+                {isLoading && <CircularProgress size={20} className='mr-2 !text-text-1' />}
                 {t('Create')} <span className='ripple-overlay'></span>
               </Button>
             </div>

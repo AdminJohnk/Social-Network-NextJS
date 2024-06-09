@@ -5,13 +5,14 @@ import { Link } from '@/navigation';
 
 interface ITabsProps {
   id: string;
+  idTab?: string;
   active?: number;
+  children: React.ReactNode;
   rootClassName?: string;
   navClassName?: string;
   ulClassName?: string;
   backChevronClassName?: string;
   forwardChevronClassName?: string;
-  children?: React.ReactNode;
   disableChevron?: boolean;
 }
 
@@ -19,10 +20,11 @@ function Tabs(props: ITabsProps) {
   const makeColor = false;
   return (
     <div className={cn('relative -mb-px px-2', props.rootClassName)} data-uk-slider='finite: true'>
-      <nav className={cn('overflow-hidden uk-slider-container pt-2', props.navClassName)}>
+      <nav className={cn('uk-slider-container overflow-hidden pt-2', props.navClassName)}>
         <ul
+          id={props.idTab}
           className={cn(
-            'uk-slider-items w-[calc(100%+10px)] capitalize font-semibold text-text-1',
+            'uk-slider-items w-[calc(100%+10px)] font-semibold capitalize text-text-1',
             props.ulClassName
           )}
           data-uk-switcher={`connect: #${
@@ -39,22 +41,22 @@ function Tabs(props: ITabsProps) {
           <Link
             href=''
             className={cn(
-              'absolute -translate-y-1/2 top-1/2 left-0 flex items-center w-20 h-full p-2.5 justify-start rounded-xl',
+              'absolute left-0 top-1/2 flex h-full w-20 -translate-y-1/2 items-center justify-start rounded-xl p-2.5',
               makeColor && 'bg-gradient-to-r from-white via-white dark:from-dark-1 dark:via-dark-1',
               props.backChevronClassName
             )}
             data-uk-slider-item='previous'>
-            <IoChevronBack className='text-2xl ml-1' />
+            <IoChevronBack className='ml-1 text-2xl' />
           </Link>
           <Link
             href=''
             className={cn(
-              'absolute right-0 -translate-y-1/2 top-1/2 flex items-center w-20 h-full p-2.5 justify-end rounded-xl',
+              'absolute right-0 top-1/2 flex h-full w-20 -translate-y-1/2 items-center justify-end rounded-xl p-2.5',
               makeColor && 'bg-gradient-to-l from-white via-white dark:from-dark-1 dark:via-dark-1',
               props.forwardChevronClassName
             )}
             data-uk-slider-item='next'>
-            <IoChevronForward className='text-2xl mr-1' />
+            <IoChevronForward className='mr-1 text-2xl' />
           </Link>
         </>
       )}
@@ -90,7 +92,7 @@ function TabTitle(props: ITabTitleProps) {
       <Link
         href=''
         className={cn(
-          'inline-block hover:text-blue-400 select-none border-b-2 border-transparent p-4 transition-colors duration-300 ease-in-out aria-expanded:border-blue-500 aria-expanded:text-blue-500',
+          'inline-block select-none border-b-2 border-transparent p-4 transition-colors duration-300 ease-in-out hover:text-blue-400 aria-expanded:border-blue-500 aria-expanded:text-blue-500',
           props.className
         )}>
         {props.children}

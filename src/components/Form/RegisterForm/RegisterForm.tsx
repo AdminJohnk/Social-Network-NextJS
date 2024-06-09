@@ -73,18 +73,16 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
   return (
     <div className={cn(className, 'flex-center')}>
       <div className='w-full'>
-        <div className='flex-center'>
-          <div>
-            <div className='flex-center'>
-              <FaSnowflake className='icon_logo text-text-1' />
-              <span className='h2-bold text-text-1 ms-3'>DevHub</span>
-            </div>
-            <div className='h3-bold text-text-1 my-3'>{t('Create an account')}</div>
+        <div className='flex-center flex-col'>
+          <div className='flex-center'>
+            <FaSnowflake className='icon_logo text-text-1' />
+            <span className='h2-bold ms-3 text-text-1'>DevHub</span>
           </div>
+          <div className='h3-bold my-3 text-text-1'>{t('Create an account')}</div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='mb-5'>
-            <label htmlFor='name' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+            <label htmlFor='name' className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
               {t('Name')}
             </label>
             <input
@@ -98,7 +96,7 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
             {errors.name && <p className='p-1 text-xs text-red-600'>{errors.name.message}</p>}
           </div>
           <div className='mb-5'>
-            <label htmlFor='alias' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+            <label htmlFor='alias' className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
               {t('Alias')}
             </label>
             <input
@@ -112,7 +110,7 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
             {errors.alias && <p className='p-1 text-xs text-red-600'>{errors.alias.message}</p>}
           </div>
           <div className='mb-5'>
-            <label htmlFor='email' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+            <label htmlFor='email' className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
               {t('Email')}
             </label>
             <input
@@ -128,7 +126,7 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
           <div className='mb-5'>
             <label
               htmlFor='password'
-              className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+              className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
               {t('Password')}
             </label>
             <input
@@ -144,7 +142,7 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
           <div className='mb-5'>
             <label
               htmlFor='repeat-password'
-              className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+              className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
               {t('Confirm Password')}
             </label>
             <input
@@ -159,15 +157,15 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
               <p className='p-1 text-xs text-red-600'>{errors.repeatPassword.message}</p>
             )}
           </div>
-          <Button className='w-full mb-5' disabled={isLoading}>
-            {isLoading && <FaSpinner className='animate-spin mr-2' />}
+          <Button className='mb-5 w-full' disabled={isLoading}>
+            {isLoading && <FaSpinner className='mr-2 animate-spin' />}
             {t('Sign up')}
           </Button>
         </form>
-        <div className='max-w-sm flex-center'>
+        <div className='flex-center max-w-sm'>
           <div className='flex-start'>
             <div className='me-2 text-text-1'>{t('Already have an account?')}</div>
-            <Link href='/login' className='text-primary-800 dark:text-primary-500 hover:underline'>
+            <Link href='/login' className='text-primary-800 hover:underline dark:text-primary-500'>
               {t('Sign in')}
             </Link>
           </div>

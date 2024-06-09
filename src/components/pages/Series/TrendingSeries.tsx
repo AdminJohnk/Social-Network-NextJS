@@ -1,11 +1,11 @@
 'use client';
 
-import { useFormatter, useNow, useTranslations } from 'next-intl';
-import { Link } from '@/navigation';
-import { useCallback } from 'react';
 import { isThisWeek, isThisYear, isToday } from 'date-fns';
+import { useFormatter, useNow, useTranslations } from 'next-intl';
+import { useCallback } from 'react';
 
 import { useGetAllSeries } from '@/hooks/query';
+import { Link } from '@/navigation';
 import { Skeleton } from '@mui/material';
 
 export default function TrendingSeries() {
