@@ -178,22 +178,22 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
   }, [textareaRef.current]);
 
   return (
-    <div className='absolute w-full bottom-0'>
+    <div className='absolute bottom-0 w-full'>
       <div className='relative -top-20 left-0 z-30'>
         {files.length > 0 && (
-          <div className='absolute overflow-auto w-[99.4%] h-20 flex px-4 pt-2 gap-5 z-10 bg-gradient-to-t via-white from-white via-30% from-30% dark:from-slate-900 dark:via-slate-900 custom-scrollbar-fg'>
+          <div className='custom-scrollbar-fg absolute z-10 flex h-20 w-[99.4%] gap-5 overflow-auto bg-gradient-to-t from-white from-30% via-white via-30% px-4 pt-2 dark:from-slate-900 dark:via-slate-900'>
             {files.map((file, index) => {
               return (
                 <div className='relative select-none' key={index}>
                   <Image
                     src={URL.createObjectURL(file)}
                     alt='Preview' // preview image
-                    className='rounded-sm min-h-[50px] min-w-[50px] max-h-[50px] max-w-[50px] object-cover'
+                    className='max-h-[50px] min-h-[50px] min-w-[50px] max-w-[50px] rounded-sm object-cover'
                     width={500}
                     height={500}
                   />
                   <FaXmark
-                    className='absolute block rounded-full -top-1 -right-1 w-4 h-4 cursor-pointer text-red-500 bg-slate-600'
+                    className='absolute -right-1 -top-1 block h-4 w-4 cursor-pointer rounded-full bg-slate-600 text-red-500'
                     onClick={() => {
                       setFiles(files.filter((_, i) => i !== index));
                     }}
@@ -204,45 +204,45 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
           </div>
         )}
       </div>
-      <div className='flex items-end md:gap-4 gap-2 md:p-3 p-2 overflow-hidden bg-background-1'>
-        <div id='message__wrap' className='flex items-center gap-2 h-full dark:text-white -mt-1.5 mb-1'>
+      <div className='flex items-end gap-2 overflow-hidden bg-background-1 p-2 md:gap-4 md:p-3'>
+        <div id='message__wrap' className='-mt-1.5 mb-1 flex h-full items-center gap-2 dark:text-white'>
           <button type='button' className='shrink-0'>
-            <IoAddCircleOutline className='text-3xl flex' />
+            <IoAddCircleOutline className='flex text-3xl' />
           </button>
           <div
             id='message__wrap_show'
-            className='dropbar pt-36 h-60 bg-gradient-to-t via-white from-white via-30% from-30% dark:from-slate-900 dark:via-slate-900'
+            className='dropbar h-60 bg-gradient-to-t from-white from-30% via-white via-30% pt-36 dark:from-slate-900 dark:via-slate-900'
             data-uk-drop='stretch: x; target: #message__wrap ;animation:  slide-bottom ;animate-out: true; pos: top-left; offset:10 ; mode: click ; duration: 200'>
             <div
-              className='sm:w-full p-3 flex justify-center gap-5'
+              className='flex justify-center gap-5 p-3 sm:w-full'
               data-uk-scrollspy='target: > button; cls: uk-animation-slide-bottom-small; delay: 100;repeat:true'>
               <button
                 {...getRootProps()}
                 type='button'
-                className='relative bg-green-50 text-green-600 border border-green-100 shadow-sm p-2.5 rounded-full shrink-0 duration-100 hover:scale-[1.15] dark:bg-dark-1 dark:border-0'>
+                className='relative shrink-0 rounded-full border border-green-100 bg-green-50 p-2.5 text-green-600 shadow-sm duration-100 hover:scale-[1.15] dark:border-0 dark:bg-dark-1'>
                 <input {...getInputProps()} className='cursor-pointer' />
-                <IoImages className='text-3xl flex' />
+                <IoImages className='flex text-3xl' />
               </button>
               <button
                 type='button'
-                className='bg-pink-50 text-pink-600 border border-pink-100 shadow-sm p-2.5 rounded-full shrink-0 duration-100 hover:scale-[1.15] dark:bg-dark-1 dark:border-0'>
-                <IoDocumentText className='text-3xl flex' />
+                className='shrink-0 rounded-full border border-pink-100 bg-pink-50 p-2.5 text-pink-600 shadow-sm duration-100 hover:scale-[1.15] dark:border-0 dark:bg-dark-1'>
+                <IoDocumentText className='flex text-3xl' />
               </button>
               <button
                 type='button'
-                className='bg-orange-50 text-orange-600 border border-orange-100 shadow-sm p-2.5 rounded-full shrink-0 duration-100 hover:scale-[1.15] dark:bg-dark-1 dark:border-0'>
-                <FaGift className='text-3xl flex' />
+                className='shrink-0 rounded-full border border-orange-100 bg-orange-50 p-2.5 text-orange-600 shadow-sm duration-100 hover:scale-[1.15] dark:border-0 dark:bg-dark-1'>
+                <FaGift className='flex text-3xl' />
               </button>
             </div>
           </div>
 
           <button type='button' className='shrink-0'>
-            <IoHappyOutline className='text-3xl flex' />
+            <IoHappyOutline className='flex text-3xl' />
           </button>
           <div
             className='dropbar p-2'
             data-uk-drop='stretch: x; target: #message__wrap ;animation: uk-animation-scale-up uk-transform-origin-bottom-left ;animate-out: true; pos: top-left ; offset:2; mode: click ; duration: 200 '>
-            <div className='w-fit bg-foreground-1 shadow-lg border rounded-xl pr-0 border-border-1'>
+            <div className='w-fit rounded-xl border border-border-1 bg-foreground-1 pr-0 shadow-lg'>
               <Picker
                 data={async () => {
                   const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
@@ -266,9 +266,9 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
           </div>
         </div>
         <Textarea
-          slotProps={{ textarea: { ref: textareaRef } }}
+          ref={textareaRef}
           maxRows={5}
-          className='w-full resize-none !bg-foreground-1 rounded-full px-4 p-2'
+          className='w-full resize-none rounded-full !bg-foreground-1 p-2 px-4'
           placeholder={t('Write your message')}
           value={messageContent}
           onChange={(e) => {
@@ -304,16 +304,16 @@ export default function InputChat({ conversationID, members }: IInputChatProps) 
           <button
             type='button'
             className={cn(
-              'text-white shrink-0 px-1 py-2',
+              'shrink-0 px-1 py-2 text-white',
               checkEmpty
-                ? 'text-gray-400 cursor-not-allowed'
-                : 'text-blue-500 hover:text-blue-700 hover:scale-110 cursor-pointer'
+                ? 'cursor-not-allowed text-gray-400'
+                : 'cursor-pointer text-blue-500 hover:scale-110 hover:text-blue-700'
             )}
             onClick={() => handleSubmit(messageContent)}>
-            <IoSendOutline className='text-xl flex' />
+            <IoSendOutline className='flex text-xl' />
           </button>
         ) : (
-          <button type='button' className='text-text-1 cursor-pointer mb-1' onClick={handleLike}>
+          <button type='button' className='mb-1 cursor-pointer text-text-1' onClick={handleLike}>
             <IoHeart className='text-3xl !text-red-600' />
           </button>
         )}
