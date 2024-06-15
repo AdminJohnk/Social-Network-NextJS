@@ -18,7 +18,7 @@ const InputStyle = forwardRef<HTMLInputElement, IInputStyleProps>(
           {...props}
           maxLength={maxLength}
           className={cn(
-            'border-gray-200 text-blue-gray-700 disabled:bg-blue-gray-50 peer h-full w-full border-b bg-transparent pb-1.5 pt-4 font-sans text-[1rem] font-normal outline outline-0 transition-all placeholder:opacity-0 focus:border-violet-500 focus:outline-0 focus:placeholder:opacity-100 disabled:border-0 text-text-1',
+            'text-blue-gray-700 disabled:bg-blue-gray-50 peer h-full w-full border-b border-gray-200 bg-transparent pb-1.5 pt-4 font-sans text-[1rem] font-normal text-text-1 outline-0 transition-all placeholder:opacity-0 focus:border-violet-500 focus:outline-0 focus:placeholder:opacity-100 disabled:border-0',
             className
           )}
           placeholder=''

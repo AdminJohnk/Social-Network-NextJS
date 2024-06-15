@@ -111,7 +111,6 @@ export default function CreateHeader() {
             <div className='flex-1 text-text-1'>
               <Link href=''>
                 <h4 className='text-sm font-medium'>{t('Communities')}</h4>
-                <h4 className='text-sm font-medium'>{t('Communities')}</h4>
               </Link>
               <div className='mt-1 text-xs'>
                 {t('Connect with diverse communities around various topics')}

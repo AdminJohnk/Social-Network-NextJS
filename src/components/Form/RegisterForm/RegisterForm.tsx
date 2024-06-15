@@ -93,7 +93,7 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
               autoComplete='name'
               {...register('name')}
             />
-            {errors.name && <p className='p-1 text-xs text-red-600'>{errors.name.message}</p>}
+            {errors.name && <p className='p-1 text-xs text-red-600'>{t(errors.name.message)}</p>}
           </div>
           <div className='mb-5'>
             <label htmlFor='alias' className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
@@ -107,7 +107,7 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
               autoComplete='alias'
               {...register('alias')}
             />
-            {errors.alias && <p className='p-1 text-xs text-red-600'>{errors.alias.message}</p>}
+            {errors.alias && <p className='p-1 text-xs text-red-600'>{t(errors.alias.message)}</p>}
           </div>
           <div className='mb-5'>
             <label htmlFor='email' className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
@@ -121,7 +121,7 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
               autoComplete='email'
               {...register('email')}
             />
-            {errors.email && <p className='p-1 text-xs text-red-600'>{errors.email.message}</p>}
+            {errors.email && <p className='p-1 text-xs text-red-600'>{t(errors.email.message)}</p>}
           </div>
           <div className='mb-5'>
             <label
@@ -137,7 +137,7 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
               autoComplete='password'
               {...register('password')}
             />
-            {errors.password && <p className='p-1 text-xs text-red-600'>{errors.password.message}</p>}
+            {errors.password && <p className='p-1 text-xs text-red-600'>{t(errors.password.message)}</p>}
           </div>
           <div className='mb-5'>
             <label
@@ -154,7 +154,7 @@ export default function RegisterForm({ className }: IRegisterFormProps) {
               {...register('repeatPassword')}
             />
             {errors.repeatPassword && (
-              <p className='p-1 text-xs text-red-600'>{errors.repeatPassword.message}</p>
+              <p className='p-1 text-xs text-red-600'>{t(errors.repeatPassword.message)}</p>
             )}
           </div>
           <Button className='mb-5 w-full' disabled={isLoading}>
