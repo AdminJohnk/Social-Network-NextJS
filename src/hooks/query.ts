@@ -14,7 +14,7 @@ import { ApplyDefaults } from '@/lib/utils';
 import { seriesService } from '@/services/SeriesService';
 import { hashtagService } from '@/services/HashtagService';
 import { questionService } from '@/services/QuestionService';
-import { number } from 'zod';
+import { adminService } from '@/services/AdminService';
 
 // ---------------------------FETCH HOOKS---------------------------
 
@@ -1395,4 +1395,156 @@ export const useGetAllListQuestions = () => {
     allListQuestions: data!,
     isFetchingAllListQuestions: isFetching
   };
-}
+};
+
+// ------------------------------Admin hooks--------------------------------
+
+export const useGetAllUsersAdmin = (page: number, pageSize?: number) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['allUsersAdmin', page, pageSize ?? 10],
+    queryFn: async () => {
+      const { data } = await adminService.getAllUsers(page + 1, pageSize);
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingAllUsers: isPending,
+    isErrorAllUsers: isError,
+    allUsers: data!,
+    isFetchingAllUsers: isFetching
+  };
+};
+
+export const useGetNumberOfUsersAdmin = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['numberOfUsersAdmin'],
+    queryFn: async () => {
+      const { data } = await adminService.getNumberOfUsers();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingNumberOfUsers: isPending,
+    isErrorNumberOfUsers: isError,
+    numberOfUsers: data!,
+    isFetchingNumberOfUsers: isFetching
+  };
+};
+
+export const useGetAllPostsAdmin = (pageSize?: number) => {
+  const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['allPostsAdmin', pageSize ?? 10],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await adminService.getAllPosts(pageParam, pageSize);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < (pageSize ?? 20)) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingAllPosts: isPending,
+    isErrorAllPosts: isError,
+    allPosts: data!,
+    isFetchingAllPosts: isFetching,
+    hasNextPosts: hasNextPage,
+    fetchNextPosts: fetchNextPage,
+    isFetchingNextPosts: isFetchingNextPage
+  };
+};
+
+export const useGetNumberOfPostsAdmin = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['numberOfPostsAdmin'],
+    queryFn: async () => {
+      const { data } = await adminService.getNumberOfPosts();
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingNumberOfPosts: isPending,
+    isErrorNumberOfPosts: isError,
+    numberOfPosts: data!,
+    isFetchingNumberOfPosts: isFetching
+  };
+};
+
+export const useGetAllParentCommentsAdmin = (postID: string, pageSize?: number) => {
+  const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['allParentCommentsAdmin', postID],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await adminService.getAllParentComments(postID, pageParam, pageSize);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < (pageSize ?? 20)) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingAllParentComments: isPending,
+    isErrorAllParentComments: isError,
+    allParentComments: data!,
+    isFetchingAllParentComments: isFetching,
+    hasNextParentComments: hasNextPage,
+    fetchNextParentComments: fetchNextPage,
+    isFetchingNextParentComments: isFetchingNextPage
+  };
+};
+
+export const useGetAllChildCommentsAdmin = (parentCommentID: string, pageSize?: number) => {
+  const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['allChildCommentsAdmin', parentCommentID],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await adminService.getAllChildComments(parentCommentID, pageParam, pageSize);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < (pageSize ?? 20)) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingAllChildComments: isPending,
+    isErrorAllChildComments: isError,
+    allChildComments: data!,
+    isFetchingAllChildComments: isFetching,
+    hasNextChildComments: hasNextPage,
+    fetchNextChildComments: fetchNextPage,
+    isFetchingNextChildComments: isFetchingNextPage
+  };
+};

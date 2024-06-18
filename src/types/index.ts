@@ -282,6 +282,13 @@ export interface ICommentPost {
   createdAt: string;
 }
 
+export interface IUpdateCommentPost {
+  _id: string;
+  post: string;
+  parent?: string;
+  content: string;
+}
+
 export interface ISelectedComment {
   isReply: boolean;
   idComment: string | null;

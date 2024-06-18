@@ -637,5 +637,6 @@
   "Reset your password": "Reset your password",
   "Your new password": "Your new password",
   "Confirm your new password": "Confirm your new password",
-  "Forgot password?": "Forgot password?"
+  "Forgot password?": "Forgot password?",
+  "You are not authorized to view this page!": "You are not authorized to view this page!"
 }

@@ -637,5 +637,6 @@
   "Reset your password": "Đặt lại mật khẩu của bạn",
   "Your new password": "Mật khẩu mới của bạn",
   "Confirm your new password": "Xác nhận mật khẩu mới của bạn",
-  "Forgot password?": "Quên mật khẩu?"
+  "Forgot password?": "Quên mật khẩu?",
+  "You are not authorized to view this page!": "Bạn không được quyền để xem trang này!"
 }

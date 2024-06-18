@@ -636,5 +636,6 @@
   "Reset your password": "重置您的密码",
   "Your new password": "您的新密码",
   "Confirm your new password": "确认您的新密码",
-  "Forgot password?": "忘记密码?"
+  "Forgot password?": "忘记密码?",
+  "You are not authorized to view this page!": "您无权查看此页面!"
 }
