@@ -313,7 +313,7 @@
   "Change language": "Change language",
   "Notifications": "Notifications",
   "Account": "Account",
-  "View Notifications": "View Notifications",
+  "View all Notifications": "View all Notifications",
   "Notification setting": "Notification setting",
   "See all messages": "See all Messages",
   "Play game with friends have fun": "Play game with friends have fun",
@@ -638,5 +638,15 @@
   "Your new password": "Your new password",
   "Confirm your new password": "Confirm your new password",
   "Forgot password?": "Forgot password?",
-  "You are not authorized to view this page!": "You are not authorized to view this page!"
+  "You are not authorized to view this page!": "You are not authorized to view this page!",
+  "like your post": "like your post",
+  "share your post": "share your post",
+  "send you a friend request": "send you a friend request",
+  "accepted your friend request": "accepted your friend request",
+  "commented on your post": "commented on your post",
+  "replied to your comment": "replied to your comment",
+  "liked your comment": "liked your comment",
+  "disliked your comment": "disliked your comment",
+  "created a post": "created a post",
+  "No notification found": "No notification found"
 }

@@ -301,7 +301,7 @@
   "Change language": "更改语言",
   "Notifications": "通知",
   "Account": "账户",
-  "View Notifications": "查看通知",
+  "View all Notifications": "查看所有通知",
   "Notification setting": "通知设置",
   "See all messages": "查看所有消息",
   "Play game with friends have fun": "和朋友一起玩游戏很有趣",
@@ -637,5 +637,15 @@
   "Your new password": "您的新密码",
   "Confirm your new password": "确认您的新密码",
   "Forgot password?": "忘记密码?",
-  "You are not authorized to view this page!": "您无权查看此页面!"
+  "You are not authorized to view this page!": "您无权查看此页面!",
+  "like your post": "喜欢您的帖子",
+  "share your post": "分享您的帖子",
+  "send you a friend request": "发送您一个好友请求",
+  "accepted your friend request": "接受了您的好友请求",
+  "commented on your post": "评论了您的帖子",
+  "replied to your comment": "回复了您的评论",
+  "liked your comment": "喜欢了您的评论",
+  "disliked your comment": "不喜欢了您的评论",
+  "created a post": "创建了一个帖子",
+  "No notification found": "未找到通知"
 }

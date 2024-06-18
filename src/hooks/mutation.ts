@@ -69,6 +69,7 @@ import { imageService } from '@/services/ImageService';
 import { seriesService } from '@/services/SeriesService';
 import { communityService } from '@/services/CommunityService';
 import { questionService } from '@/services/QuestionService';
+import { notiService } from '@/services/NotificationService';
 
 // ----------------------------- MUTATIONS -----------------------------
 
@@ -2943,3 +2944,72 @@ export const useDeleteCommentAdmin = () => {
     isSuccessDeleteCommentAdmin: isSuccess
   };
 };
+
+export const useReadAllNotification = () => { 
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async () => {
+      const { data: notification } = await notiService.readAllNotifications();
+      return notification.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['unRedNotiNumber']
+      });
+    }
+  });
+
+  return {
+    mutateReadAllNotification: mutateAsync,
+    isLoadingReadAllNotification: isPending,
+    isErrorReadAllNotification: isError,
+    isSuccessReadAllNotification: isSuccess
+  };
+}
+
+export const useMarkIsReadNotify = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (notiID: string) => {
+      const { data: notification } = await notiService.markIsReadNotify(notiID);
+      return notification.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allNotifications']
+      });
+    }
+  });
+
+  return {
+    mutateMarkIsReadNoti: mutateAsync,
+    isLoadingMarkIsReadNoti: isPending,
+    isErrorMarkIsReadNoti: isError,
+    isSuccessMarkIsReadNoti: isSuccess
+  };
+}
+
+export const useSetSubUnRedNotiNumber = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async () => {
+      const { data: notification } = await notiService.setSubUnRedNotiNumber();
+      return notification.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['unRedNotiNumber']
+      });
+    }
+  });
+
+  return {
+    mutateSetSubUnRedNotiNumber: mutateAsync,
+    isLoadingSetSubUnRedNotiNumber: isPending,
+    isErrorSetSubUnRedNotiNumber: isError,
+    isSuccessSetSubUnRedNotiNumber: isSuccess
+  };
+}

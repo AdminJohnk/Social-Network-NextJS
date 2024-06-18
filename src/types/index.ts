@@ -144,6 +144,7 @@ export interface IUserInfo {
   members: IUserInfo[];
   post_number: number;
   is_friend: boolean;
+  unread_noti_number: number;
 }
 
 export interface IReputation {
@@ -461,23 +462,6 @@ export interface ICommunity {
   waitlist_post_number: number;
   createdAt: string;
 }
-
-export interface INotification {
-  _id: string;
-  type: string;
-  sender: IUserInfo;
-  receiver: IUserInfo;
-  content: string;
-  createAt: string;
-  options: {
-    post: string;
-    comment: string;
-    conversation: string;
-    community: string;
-  };
-  is_viewed: boolean;
-}
-
 export interface ICreateSearchLog {
   user: string;
   keyword?: string;
@@ -860,4 +844,75 @@ export interface IRemoveFromListQuestion {
 export interface IUpdateNameListQuestion {
   old_name: string;
   new_name: string;
+}
+
+
+export const NotificationType = {
+  // ==================== One to One ====================
+  LIKEPOST_001: {
+    type: 'LIKEPOST_001',
+    kind: 'one_to_one',
+    content: 'liked your post'
+  },
+  SHAREPOST_001: {
+    type: 'SHAREPOST_001',
+    kind: 'one_to_one',
+    content: 'shared your post'
+  },
+  SENDFRIENDREQUEST_001: {
+    type: 'SENDFRIENDREQUEST_001',
+    kind: 'one_to_one',
+    content: 'send you a friend request'
+  },
+  ACCEPTFRIENDREQUEST_001: {
+    type: 'ACCEPTFRIENDREQUEST_001',
+    kind: 'one_to_one',
+    content: 'accepted your friend request'
+  },
+  COMMENTPOST_001: {
+    type: 'COMMENTPOST_001',
+    kind: 'one_to_one',
+    content: 'commented on your post'
+  },
+  REPLYCOMMENT_001: {
+    type: 'REPLYCOMMENT_001',
+    kind: 'one_to_one',
+    content: 'replied to your comment'
+  },
+  LIKECOMMENT_001: {
+    type: 'LIKECOMMENT_001',
+    kind: 'one_to_one',
+    content: 'liked your comment'
+  },
+  DISLIKECOMMENT_001: {
+    type: 'DISLIKECOMMENT_001',
+    kind: 'one_to_one',
+    content: 'disliked your comment'
+  },
+  // ==================== One to Many ====================
+  CREATEPOST_001: {
+    type: 'CREATEPOST_001',
+    kind: 'one_to_many',
+    content: 'created a post'
+  }
+} as const;
+
+export type NotiEnum = keyof typeof NotificationType;
+
+export interface INotification {
+  _id: string;
+  type: NotiEnum;
+  sender: IUserInfo;
+  receiver: IUserInfo;
+  content: string;
+  is_read: boolean;
+  is_pushed: boolean;
+  options: {
+    post?: string;
+    friend?: string;
+    comment?: string;
+    conversation?: string;
+    community?: string;
+  };
+  createAt: string;
 }
