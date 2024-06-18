@@ -2945,7 +2945,7 @@ export const useDeleteCommentAdmin = () => {
   };
 };
 
-export const useReadAllNotification = () => { 
+export const useReadAllNotification = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
@@ -2966,7 +2966,7 @@ export const useReadAllNotification = () => {
     isErrorReadAllNotification: isError,
     isSuccessReadAllNotification: isSuccess
   };
-}
+};
 
 export const useMarkIsReadNotify = () => {
   const queryClient = useQueryClient();
@@ -2980,6 +2980,9 @@ export const useMarkIsReadNotify = () => {
       queryClient.invalidateQueries({
         queryKey: ['allNotifications']
       });
+      queryClient.invalidateQueries({
+        queryKey: ['unRedNotiNumber']
+      });
     }
   });
 
@@ -2989,7 +2992,7 @@ export const useMarkIsReadNotify = () => {
     isErrorMarkIsReadNoti: isError,
     isSuccessMarkIsReadNoti: isSuccess
   };
-}
+};
 
 export const useSetSubUnRedNotiNumber = () => {
   const queryClient = useQueryClient();
@@ -3012,4 +3015,4 @@ export const useSetSubUnRedNotiNumber = () => {
     isErrorSetSubUnRedNotiNumber: isError,
     isSuccessSetSubUnRedNotiNumber: isSuccess
   };
-}
+};

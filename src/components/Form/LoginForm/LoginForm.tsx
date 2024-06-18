@@ -83,7 +83,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
         <div className='loginTool mt-5 flex w-full flex-col gap-3'>
           <Button
             variant='outline'
-            className='flex-center mb-5 w-full hover:bg-blue-400'
+            className='flex-center mb-5 w-full'
             disabled={isLoading}
             onClick={() => {
               setIsLoading(true);
@@ -96,7 +96,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
           </Button>
           <Button
             variant='outline'
-            className='flex-center mb-5 w-full hover:bg-blue-400'
+            className='flex-center mb-5 w-full'
             disabled={isLoading}
             onClick={() => {
               setIsLoading(true);
@@ -146,10 +146,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
             />
             {errors.password && <p className='p-1 text-xs text-red-600'>{t(errors.password.message)}</p>}
           </div>
-          <Button
-            className='flex-center w-full bg-blue-200 hover:bg-blue-400'
-            type='submit'
-            disabled={isLoading}>
+          <Button className='flex-center w-full' type='submit' disabled={isLoading}>
             {isLoading && <FaSpinner className='mr-2 animate-spin' />}
             {t('Sign in')}
           </Button>
@@ -162,7 +159,7 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
         <div className='flex-center mt-2'>
           <div className='flex-center'>
             <div className='me-2 text-text-1'>{t("Don't have an account yet?")}</div>
-            <Link href='/register' className='text-primary-800 hover:underline dark:text-primary-500'>
+            <Link href='/register' className='text-primary-800 dark:text-primary-500 hover:underline'>
               {t('Sign up')}
             </Link>
           </div>
