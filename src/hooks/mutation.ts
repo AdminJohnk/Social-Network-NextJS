@@ -2980,9 +2980,6 @@ export const useMarkIsReadNotify = () => {
       queryClient.invalidateQueries({
         queryKey: ['allNotifications']
       });
-      queryClient.invalidateQueries({
-        queryKey: ['unRedNotiNumber']
-      });
     }
   });
 

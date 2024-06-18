@@ -317,7 +317,8 @@ export const NotifyService = () => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    notiSocket.emit(Socket.SETUP, currentUserInfo?._id);
+    notiSocket.emit(Socket.SETUP, currentUserInfo._id);
+
     notiSocket.on(Socket.NOTI, (notification: INotification) => {
       queryClient.invalidateQueries({ queryKey: ['unRedNotiNumber'] });
       queryClient.invalidateQueries({ queryKey: ['allNotifications'] });

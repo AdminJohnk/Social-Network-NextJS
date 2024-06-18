@@ -1,12 +1,10 @@
 import { useMarkIsReadNotify, useSetSubUnRedNotiNumber } from '@/hooks/mutation';
-import { usePostData } from '@/hooks/query';
 import { cn, getImageURL } from '@/lib/utils';
-import { Link } from '@/navigation';
+import { useRouter } from '@/navigation';
 import { INotification, NotificationType } from '@/types';
 import { useQueryClient } from '@tanstack/react-query';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 const {
   LIKEPOST_001,
   SHAREPOST_001,
