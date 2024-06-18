@@ -313,7 +313,7 @@
   "Change language": "Change language",
   "Notifications": "Notifications",
   "Account": "Account",
-  "View Notifications": "View Notifications",
+  "View all Notifications": "View all Notifications",
   "Notification setting": "Notification setting",
   "See all messages": "See all Messages",
   "Play game with friends have fun": "Play game with friends have fun",
@@ -622,5 +622,15 @@
   "Move": "Move",
   "Remove from list": "Remove from list",
   "Are you absolutely sure delete this list?": "Are you absolutely sure delete this list?",
-  "You will not be able to recover list after deletion!": "You will not be able to recover list after deletion!"
+  "You will not be able to recover list after deletion!": "You will not be able to recover list after deletion!",
+  "like your post": "like your post",
+  "share your post": "share your post",
+  "send you a friend request": "send you a friend request",
+  "accepted your friend request": "accepted your friend request",
+  "commented on your post": "commented on your post",
+  "replied to your comment": "replied to your comment",
+  "liked your comment": "liked your comment",
+  "disliked your comment": "disliked your comment",
+  "created a post": "created a post",
+  "No notification found": "No notification found"
 }

@@ -62,5 +62,9 @@ export const Socket = {
   END_VIDEO_CALL: 'end_video',
   END_VOICE_CALL: 'end_audio',
   SEND_END_VIDEO_CALL: 'send_end_video',
-  SEND_END_VOICE_CALL: 'send_end_audio'
+  SEND_END_VOICE_CALL: 'send_end_audio',
+
+  // =================== Notification ===================
+  NOTI_ARR: 'NOTI_ARR',
+  NOTI: 'NOTI'
 };

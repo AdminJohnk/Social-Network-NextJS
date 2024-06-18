@@ -311,7 +311,7 @@
   "Change language": "Thay đổi ngôn ngữ",
   "Notifications": "Thông báo",
   "Account": "Tài khoản",
-  "View Notifications": "Xem thông báo",
+  "View all Notifications": "Xem tất cả thông báo",
   "Notification setting": "Cài đặt thông báo",
   "See all messages": "Xem tất cả tin nhắn",
   "Play game with friends have fun": "Chơi trò chơi với bạn bè vui vẻ",
@@ -622,5 +622,15 @@
   "Move": "Di chuyển",
   "Remove from list": "Xóa khỏi danh sách",
   "Are you absolutely sure delete this list?": "Bạn có chắc chắn muốn xóa danh sách này không?",
-  "You will not be able to recover list after deletion!": "Bạn sẽ không thể khôi phục danh sách sau khi xóa!"
+  "You will not be able to recover list after deletion!": "Bạn sẽ không thể khôi phục danh sách sau khi xóa!",
+  "liked your post": "thích bài viết của bạn",
+  "shared your post": "chia sẻ bài viết của bạn",
+  "sent you a friend request": "gửi cho bạn một lời mời kết bạn",
+  "accepted your friend request": "chấp nhận lời mời kết bạn của bạn",
+  "commented on your post": "bình luận về bài viết của bạn",
+  "replied to your comment": "trả lời bình luận của bạn",
+  "liked your comment": "thích bình luận của bạn",
+  "disliked your comment": "không thích bình luận của bạn",
+  "created a post": "đã tạo một bài viết",
+  "No notification found": "Không tìm thấy thông báo"
 }

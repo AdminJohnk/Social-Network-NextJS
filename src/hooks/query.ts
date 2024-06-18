@@ -269,20 +269,22 @@ export const useUserPostsData = (userID: string) => {
  * - `isFetchingPost` is a boolean that indicates whether the query is currently fetching.
  */
 export const usePostData = (postID: string) => {
-  const { data, isPending, isError, isFetching } = useQuery({
+  const { data, isPending, isError, isFetching, refetch } = useQuery({
     queryKey: ['post', postID],
     queryFn: async () => {
       const { data } = await postService.getPostByID(postID);
       return data.metadata;
     },
-    staleTime: Infinity
+    staleTime: Infinity,
+    enabled: !!postID
   });
 
   return {
     isLoadingPost: isPending,
     isErrorPost: isError,
     post: data!,
-    isFetchingPost: isFetching
+    isFetchingPost: isFetching,
+    refetchPost: refetch
   };
 };
 
@@ -774,35 +776,6 @@ export const useGetCommunitiesByUserID = (userID: string) => {
     isErrorCommunities: isError,
     communities: data!,
     isFetchingCommunities: isFetching
-  };
-};
-
-export const useGetNoti = (userID: number) => {
-  const { data, isPending, isError, isFetching } = useInfiniteQuery({
-    queryKey: ['noti', userID],
-    queryFn: async ({ pageParam }) => {
-      const { data } = await notiService.getNoti(userID, pageParam);
-      return data.metadata;
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage.length < 5) {
-        return undefined;
-      }
-      return lastPageParam + 1;
-    },
-    select: (data) => {
-      return data.pages.flat();
-    },
-    enabled: !!userID,
-    staleTime: Infinity
-  });
-
-  return {
-    isLoadingNoti: isPending,
-    isErrorNoti: isError,
-    noti: data!,
-    isFetchingNoti: isFetching
   };
 };
 
@@ -1394,5 +1367,56 @@ export const useGetAllListQuestions = () => {
     isErrorAllListQuestions: isError,
     allListQuestions: data!,
     isFetchingAllListQuestions: isFetching
+  };
+};
+
+export const useGetAllNotifications = () => {
+  const { data, isPending, isError, isFetching, refetch, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['allNotifications'],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await notiService.getAllNotifications(pageParam);
+        return data.metadata;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        if (lastPage.length < 10) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      select: (data) => {
+        return data.pages.flat();
+      },
+      staleTime: Infinity
+    });
+
+  return {
+    isLoadingAllNotifications: isPending,
+    isErrorAllNotifications: isError,
+    allNotifications: data!,
+    isFetchingAllNotifications: isFetching,
+    refetchAllNotifications: refetch,
+    hasNextAllNotifications: hasNextPage,
+    fetchNextAllNotifications: fetchNextPage,
+    isFetchingNextAllNotifications: isFetchingNextPage
+  };
+};
+
+export const useGetUnRedNotiNumber = () => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['unRedNotiNumber'],
+    queryFn: async () => {
+      const { data } = await notiService.getUnRedNotiNumber();
+      return data.metadata;
+    },
+    staleTime: 60000 * 3
+  });
+
+  return {
+    isLoadingUnRedNotiNumber: isPending,
+    isErrorUnRedNotiNumber: isError,
+    unRedNotiNumber: data!,
+    isFetchingUnRedNotiNumber: isFetching
   };
 }
