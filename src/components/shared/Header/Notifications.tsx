@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { Link } from '@/navigation';
 import {
   IoCheckmarkCircleOutline,
@@ -11,7 +10,7 @@ import {
 } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 import NotificationItem from '../NotificationItem';
-import { useGetAllNotifications, useCurrentUserInfo, useGetUnRedNotiNumber } from '@/hooks/query';
+import { useGetAllNotifications, useGetUnRedNotiNumber } from '@/hooks/query';
 import Nodata from '../Nodata';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
@@ -35,7 +34,7 @@ export default function NotificationsHeader() {
   const [unread_noti_number, setUnread_noti_number] = useState<number>(0);
 
   useEffect(() => {
-    if (unRedNotiNumber) {
+    if (unRedNotiNumber !== undefined) {
       setUnread_noti_number(unRedNotiNumber);
     }
   }, [unRedNotiNumber]);
@@ -68,7 +67,7 @@ export default function NotificationsHeader() {
             'absolute right-0 top-0 -m-1 rounded-full bg-red-600 px-1 text-xs text-light-1',
             unread_noti_number === 0 && 'hidden'
           )}>
-          {unread_noti_number || 0}
+          {unread_noti_number}
         </div>
         <IoNotificationsOutline className='text-2xl sm:hidden' />
       </button>
@@ -85,7 +84,7 @@ export default function NotificationsHeader() {
             <div
               className='group w-[280px]'
               data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click; offset:5'>
-              <nav className='text-sm'>
+              <nav className='text-sm hover:*:!bg-hover-1'>
                 <Link href=''>
                   <IoCheckmarkCircleOutline className='shrink-0 text-xl' />
                   {t('Mark all as read')}
@@ -110,9 +109,9 @@ export default function NotificationsHeader() {
             </div>
           ) : (
             <div className='p-1 pl-2 text-sm font-normal'>
-              {allNotifications?.map((notification, index) => (
+              {allNotifications?.map((notification) => (
                 <NotificationItem
-                  key={index}
+                  key={notification._id}
                   notification={notification}
                   unread_noti_number={unread_noti_number}
                   setUnread_noti_number={setUnread_noti_number}

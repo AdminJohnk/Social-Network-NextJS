@@ -5,6 +5,7 @@ import { getSession } from 'next-auth/react';
 
 import { postService } from '@/services/PostService';
 import { userService } from '@/services/UserService';
+import { adminService } from '@/services/AdminService';
 import {
   IConversation,
   ICreateComment,
@@ -54,7 +55,9 @@ import {
   IRemoveFromListQuestion,
   IUpdateNameListQuestion,
   IVerifyCode,
-  IForgotPassword
+  IForgotPassword,
+  IUserRegister,
+  IUpdateCommentPost
 } from '@/types';
 import { messageService } from '@/services/MessageService';
 import { authService } from '@/services/AuthService';
@@ -2748,9 +2751,201 @@ export const useDeleteListQuestion = () => {
     isErrorDeleteListQuestion: isError,
     isSuccessDeleteListQuestion: isSuccess
   };
-}
+};
 
-export const useReadAllNotification = () => { 
+// ------------------------------Admin hooks--------------------------------
+
+export const useCreateUserAdmin = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUserRegister) => {
+      const { data: user } = await adminService.createUser(data);
+      return user.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allUsersAdmin']
+      });
+    }
+  });
+
+  return {
+    mutateCreateUserAdmin: mutateAsync,
+    isLoadingCreateUserAdmin: isPending,
+    isErrorCreateUserAdmin: isError,
+    isSuccessCreateUserAdmin: isSuccess
+  };
+};
+
+export const useUpdateUserAdmin = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUserUpdate & { userID: string }) => {
+      const { data: user } = await adminService.updateUser(data.userID, data);
+      return user.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allUsersAdmin']
+      });
+    }
+  });
+
+  return {
+    mutateUpdateUserAdmin: mutateAsync,
+    isLoadingUpdateUserAdmin: isPending,
+    isErrorUpdateUserAdmin: isError,
+    isSuccessUpdateUserAdmin: isSuccess
+  };
+};
+
+export const useDeleteUserAdmin = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (userID: string) => {
+      const { data: user } = await adminService.deleteUser(userID);
+      return user.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allUsersAdmin']
+      });
+    }
+  });
+
+  return {
+    mutateDeleteUserAdmin: mutateAsync,
+    isLoadingDeleteUserAdmin: isPending,
+    isErrorDeleteUserAdmin: isError,
+    isSuccessDeleteUserAdmin: isSuccess
+  };
+};
+
+export const useCreatePostAdmin = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: ICreatePost) => {
+      const { data: post } = await adminService.createPost(data);
+      return post.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allPostsAdmin']
+      });
+    }
+  });
+
+  return {
+    mutateCreatePostAdmin: mutateAsync,
+    isLoadingCreatePostAdmin: isPending,
+    isErrorCreatePostAdmin: isError,
+    isSuccessCreatePostAdmin: isSuccess
+  };
+};
+
+export const useUpdatePostAdmin = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdatePost & { userID: string }) => {
+      const { data: post } = await adminService.updatePost(data.userID, data);
+      return post.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allPostsAdmin']
+      });
+    }
+  });
+
+  return {
+    mutateUpdatePostAdmin: mutateAsync,
+    isLoadingUpdatePostAdmin: isPending,
+    isErrorUpdatePostAdmin: isError,
+    isSuccessUpdatePostAdmin: isSuccess
+  };
+};
+
+export const useDeletePostAdmin = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (postID: string) => {
+      const { data: post } = await adminService.deletePost(postID);
+      return post.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allPostsAdmin']
+      });
+    }
+  });
+
+  return {
+    mutateDeletePostAdmin: mutateAsync,
+    isLoadingDeletePostAdmin: isPending,
+    isErrorDeletePostAdmin: isError,
+    isSuccessDeletePostAdmin: isSuccess
+  };
+};
+
+export const useUpdateCommentAdmin = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: IUpdateCommentPost & { commentID: string }) => {
+      const { data: comment } = await adminService.updateComment(data.commentID, data);
+      return comment.metadata;
+    },
+    onSuccess(data) {
+      queryClient.invalidateQueries({
+        queryKey: ['allParentCommentsAdmin', data.post]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['allChildCommentsAdmin', data.parent]
+      });
+    }
+  });
+
+  return {
+    mutateUpdateCommentAdmin: mutateAsync,
+    isLoadingUpdateCommentAdmin: isPending,
+    isErrorUpdateCommentAdmin: isError,
+    isSuccessUpdateCommentAdmin: isSuccess
+  };
+};
+
+export const useDeleteCommentAdmin = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (commentID: string) => {
+      const { data: comment } = await adminService.deleteComment(commentID);
+      return comment.metadata;
+    },
+    onSuccess(data) {
+      queryClient.invalidateQueries({
+        queryKey: ['allParentCommentsAdmin', data.post]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['allChildCommentsAdmin', data.parent]
+      });
+    }
+  });
+
+  return {
+    mutateDeleteCommentAdmin: mutateAsync,
+    isLoadingDeleteCommentAdmin: isPending,
+    isErrorDeleteCommentAdmin: isError,
+    isSuccessDeleteCommentAdmin: isSuccess
+  };
+};
+
+export const useReadAllNotification = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isError, isSuccess } = useMutation({
@@ -2771,7 +2966,7 @@ export const useReadAllNotification = () => {
     isErrorReadAllNotification: isError,
     isSuccessReadAllNotification: isSuccess
   };
-}
+};
 
 export const useMarkIsReadNotify = () => {
   const queryClient = useQueryClient();
@@ -2794,7 +2989,7 @@ export const useMarkIsReadNotify = () => {
     isErrorMarkIsReadNoti: isError,
     isSuccessMarkIsReadNoti: isSuccess
   };
-}
+};
 
 export const useSetSubUnRedNotiNumber = () => {
   const queryClient = useQueryClient();
@@ -2817,4 +3012,4 @@ export const useSetSubUnRedNotiNumber = () => {
     isErrorSetSubUnRedNotiNumber: isError,
     isSuccessSetSubUnRedNotiNumber: isSuccess
   };
-}
+};

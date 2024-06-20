@@ -283,6 +283,13 @@ export interface ICommentPost {
   createdAt: string;
 }
 
+export interface IUpdateCommentPost {
+  _id: string;
+  post: string;
+  parent?: string;
+  content: string;
+}
+
 export interface ISelectedComment {
   isReply: boolean;
   idComment: string | null;
@@ -838,6 +845,7 @@ export interface IUpdateNameListQuestion {
   old_name: string;
   new_name: string;
 }
+
 
 export const NotificationType = {
   // ==================== One to One ====================

@@ -19,19 +19,6 @@ const config: Config = {
 
     extend: {
       colors: {
-        primary: {
-          '50': '#eff6ff',
-          '100': '#dbeafe',
-          '200': '#bfdbfe',
-          '300': '#93c5fd',
-          '400': '#60a5fa',
-          '500': '#3b82f6',
-          '600': '#2563eb',
-          '700': '#1d4ed8',
-          '800': '#1e40af',
-          '900': '#1e3a8a',
-          '950': '#172554'
-        },
         hover: {
           1: 'var(--hover1)',
           2: 'var(--hover2)',
@@ -39,12 +26,14 @@ const config: Config = {
         },
         background: {
           1: 'var(--background1)',
-          2: 'var(--background2)'
+          2: 'var(--background2)',
+          3: 'hsl(var(--background))'
         },
         foreground: {
           1: 'var(--foreground1)',
           2: 'var(--foreground2)',
-          3: 'var(--foreground3)'
+          3: 'var(--foreground3)',
+          4: 'hsl(var(--foreground))'
         },
         text: {
           1: 'var(--text1)',
@@ -53,7 +42,8 @@ const config: Config = {
         },
         border: {
           1: 'var(--border1)',
-          2: 'var(--border2)'
+          2: 'var(--border2)',
+          3: 'hsl(var(--border))'
         },
         dark: {
           1: 'var(--dark1)'
@@ -84,6 +74,36 @@ const config: Config = {
           2: 'var(--pink2)',
           3: 'var(--pink3)',
           4: 'var(--pink4)'
+        },
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))'
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))'
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))'
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))'
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))'
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))'
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))'
         }
       },
       fontFamily: {
