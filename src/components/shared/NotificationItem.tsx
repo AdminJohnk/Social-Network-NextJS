@@ -71,12 +71,12 @@ export default function NotificationItem({
         className
       )}
       onClick={() => {
-        router.push(link);
         if (!notification.is_read) {
           mutateMarkIsReadNoti(notification._id);
         }
         setUnread_noti_number && setUnread_noti_number(unread_noti_number! - 1);
         mutateSetSubUnRedNotiNumber();
+        router.push(link);
       }}>
       <div className='relative h-12 w-12 shrink-0'>
         <Image
