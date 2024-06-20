@@ -1,12 +1,9 @@
 import Nodata from '@/components/shared/Nodata';
 import NotificationItem from './NotificationItem';
-import { INotification } from '@/types';
 import { useTranslations } from 'next-intl';
 import { IoCheckmarkCircleOutline, IoEllipsisHorizontal, IoSettingsOutline } from 'react-icons/io5';
 import { useNotificationStore } from '@/store/notification';
-import { useGetAllNotifications } from '@/hooks/query';
-import { useEffect } from 'react';
-import { Link, useRouter } from '@/navigation';
+import { useRouter } from '@/navigation';
 import { useMarkAllAsReadNotify } from '@/hooks/mutation';
 
 export interface INotificationListProps {}
@@ -64,13 +61,15 @@ export default function NotificationList(props: INotificationListProps) {
           </div>
         ) : (
           <div className='p-1 pl-2 text-sm font-normal'>
-            {allNotifyState?.map((notification) => (
-              <NotificationItem
-                key={notification._id}
-                notification={notification}
-                className='uk-drop-close'
-              />
-            ))}
+            {allNotifyState?.map((notification) => {
+              return (
+                <NotificationItem
+                  key={notification._id}
+                  notification={notification}
+                  className='uk-drop-close'
+                />
+              );
+            })}
           </div>
         )}
       </div>

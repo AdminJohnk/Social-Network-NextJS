@@ -39,10 +39,10 @@ export default function NotificationItem({ notification, className }: INotificat
   const [notificationState, setNotificationState] = useState<INotification>(notification);
 
   useEffect(() => {
-    if (notificationState) {
-      setNotificationState(notificationState);
+    if (notification) {
+      setNotificationState(notification);
     }
-  }, [notificationState]);
+  }, [notification]);
 
   const isPostNotify = () => {
     if (
