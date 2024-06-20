@@ -166,6 +166,7 @@ export interface ICreatePost {
   images?: (string | undefined)[];
   hashtags?: string[];
   rmHashtags?: string[];
+  tags?: string[];
 }
 
 export interface IUpdatePost {
@@ -853,4 +854,12 @@ export interface IRemoveFromListQuestion {
 export interface IUpdateNameListQuestion {
   old_name: string;
   new_name: string;
+}
+
+
+export interface DescArray {
+  title: string;
+  color1: string;
+  color: string;
+  svg: JSX.Element;
 }

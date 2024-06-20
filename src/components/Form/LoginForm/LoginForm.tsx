@@ -153,9 +153,11 @@ export default function LoginForm({ callbackUrl, className }: IRegisterFormProps
             {isLoading && <FaSpinner className='mr-2 animate-spin' />}
             {t('Sign in')}
           </Button>
-          <Link href='/forgot-password'>
-            <span className='forgot flex justify-center align-middle'>Forgot your password?</span>
-          </Link>
+          <div className='mt-2'>
+            <Link href='/forgot-password'>
+              <span className='forgot flex justify-center align-middle'>{t('Forgot your password?')}</span>
+            </Link>
+          </div>
         </form>
 
         <div className='flex-center mt-2 max-w-sm'>

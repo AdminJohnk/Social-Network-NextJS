@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from '@/navigation';
 import { useUpdateUser } from '@/hooks/mutation';
 import { useCurrentUserInfo } from '@/hooks/query';
-import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { showErrorToast } from '@/components/ui/toast';
 import { CircularProgress } from '@mui/material';
 
 export interface ISelectInterestedProps {
