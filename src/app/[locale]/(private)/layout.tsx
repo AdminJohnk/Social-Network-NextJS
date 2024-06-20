@@ -1,6 +1,6 @@
 'use client';
 
-import { ChatService, PresenceService } from '@/components/ActiveService';
+import { ChatService, NotifyService, PresenceService } from '@/components/ActiveService';
 import LoadingLogo from '@/components/shared/LoadingLogo';
 import { useCurrentUserInfo } from '@/hooks/query';
 
@@ -19,6 +19,7 @@ export default function PrivateLayout({ children }: IPrivateLayoutProps) {
         <>
           <ChatService />
           <PresenceService />
+          <NotifyService/>
           {children}
         </>
       )}

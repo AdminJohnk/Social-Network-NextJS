@@ -18,6 +18,20 @@ export const userRegisterSchema = z
     path: ['repeatPassword']
   });
 
+export const forgotPasswordSchema = z.object({
+  email: z.string().email({ message: 'Invalid email' })
+});
+
+export const resetPasswordSchema = z
+  .object({
+    password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
+    repeatPassword: z.string().min(6, { message: 'Password must be at least 6 characters' })
+  })
+  .refine((data) => data.password === data.repeatPassword, {
+    message: 'Passwords do not match',
+    path: ['repeatPassword']
+  });
+
 export const userGeneralTabSchema = z.object({
   name: z.string().min(3, { message: 'Name must be at least 3 characters' }),
   alias: z.string().min(3, { message: 'Alias must be at least 5 characters' }),

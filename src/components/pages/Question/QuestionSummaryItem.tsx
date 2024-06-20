@@ -14,8 +14,8 @@ import { useRemoveFromListQuestion, useRemoveFromSavedQuestion } from '@/hooks/m
 
 export interface IQuestionSummaryItemProps {
   question: IQuestionSummaryItem;
-  allListQuestion: IAllListQuestion;
-  setAllQuestions: (value: IAllListQuestion) => void;
+  allListQuestion?: IAllListQuestion;
+  setAllQuestions?: (value: IAllListQuestion) => void;
   savedQuestionsState?: IQuestionSummaryItem[];
   setSavedQuestionsState?: (value: IQuestionSummaryItem[]) => void;
   feature?: 'saves';
@@ -64,11 +64,11 @@ export default function QuestionSummaryItem({
   };
 
   const handleRemoveFromList = () => {
-    const newAllListQuestion = { ...allListQuestion };
+    const newAllListQuestion = { ...allListQuestion } as IAllListQuestion;
     newAllListQuestion.list_category.find((list) => {
       list.name === from && list.questions.splice(list.questions.indexOf(question), 1);
     });
-    setAllQuestions(newAllListQuestion);
+    setAllQuestions && setAllQuestions(newAllListQuestion);
 
     mutateRemoveFromListQuestion({
       from,

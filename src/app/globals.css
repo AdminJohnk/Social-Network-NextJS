@@ -56,6 +56,27 @@
     --pink4: #e3c6d7;
 
     --scroll: #ff0000;
+
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -107,6 +128,26 @@
     --pink4: #e3c6d7;
 
     --scroll: #ff0000;
+
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
   }
 }
 
@@ -123,7 +164,7 @@
 
 @layer components {
   .icon_logo {
-    @apply h-[50px] w-[50px] flex-center;
+    @apply flex-center h-[50px] w-[50px];
     padding: 8px;
     border: double 4px transparent;
     border-radius: 50%;
@@ -135,7 +176,7 @@
   }
 
   .icon_logo_mini {
-    @apply h-[40px] w-[40px] flex-center;
+    @apply flex-center h-[40px] w-[40px];
     padding: 4px;
     border: double 4px transparent;
     border-radius: 50%;
@@ -235,10 +276,19 @@
     width: 16px;
     bottom: 2px;
     left: 2px;
-    -webkit-transition: 0.4s, -webkit-box-shadow 0.3s;
-    transition: 0.4s, -webkit-box-shadow 0.3s;
-    transition: 0.4s, box-shadow 0.3s;
-    transition: 0.4s, box-shadow 0.3s, -webkit-box-shadow 0.3s;
+    -webkit-transition:
+      0.4s,
+      -webkit-box-shadow 0.3s;
+    transition:
+      0.4s,
+      -webkit-box-shadow 0.3s;
+    transition:
+      0.4s,
+      box-shadow 0.3s;
+    transition:
+      0.4s,
+      box-shadow 0.3s,
+      -webkit-box-shadow 0.3s;
     border-radius: 50px;
   }
 
@@ -559,15 +609,15 @@
   }
 
   .text-1 {
-    @apply text-text-2 hover:text-text-1 duration-300 cursor-pointer;
+    @apply cursor-pointer text-text-2 duration-300 hover:text-text-1;
   }
 
   .bg-1 {
-    @apply bg-foreground-2 hover:bg-hover-2 duration-300 cursor-pointer;
+    @apply cursor-pointer bg-foreground-2 duration-300 hover:bg-hover-2;
   }
 
   .bg-2 {
-    @apply bg-foreground-1 hover:bg-hover-3 duration-300 cursor-pointer;
+    @apply cursor-pointer bg-foreground-1 duration-300 hover:bg-hover-3;
   }
 
   /* Custom scrollbar background*/

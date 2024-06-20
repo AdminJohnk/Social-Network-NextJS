@@ -48,14 +48,13 @@ export default function PasswordTab() {
     [values]
   );
 
-  async function onSubmit({ newPassword, oldPassword }: FormData) {
+  async function onSubmit({ newPassword }: FormData) {
     setIsLoading(true);
 
     await mutateChangePassword(
       {
         email: session?.email || '',
-        oldPassword,
-        newPassword
+        password: newPassword
       },
       {
         onError: () => {
@@ -78,61 +77,61 @@ export default function PasswordTab() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='space-y-6'>
-        <div className='md:flex items-center gap-16 justify-between max-md:space-y-3'>
-          <label className='md:w-32 text-right'>{t('Current Password')}</label>
+        <div className='items-center justify-between gap-16 max-md:space-y-3 md:flex'>
+          <label className='text-right md:w-32'>{t('Current Password')}</label>
           <div className='flex-1 max-md:mt-4'>
             <input
               type='password'
               placeholder='******'
-              className='w-full rounded-lg bg-foreground-2 border-none'
+              className='w-full rounded-lg border-none bg-foreground-2'
               {...register('oldPassword')}
             />
             {errors.oldPassword && (
-              <div className='text-red-500 text-sm mt-1'>{errors.oldPassword.message}</div>
+              <div className='mt-1 text-sm text-red-500'>{errors.oldPassword.message}</div>
             )}
           </div>
         </div>
 
-        <div className='md:flex items-center gap-16 justify-between max-md:space-y-3'>
-          <label className='md:w-32 text-right'>{t('New Password')}</label>
+        <div className='items-center justify-between gap-16 max-md:space-y-3 md:flex'>
+          <label className='text-right md:w-32'>{t('New Password')}</label>
           <div className='flex-1 max-md:mt-4'>
             <input
               type='password'
               placeholder='******'
-              className='w-full rounded-lg bg-foreground-2 border-none'
+              className='w-full rounded-lg border-none bg-foreground-2'
               {...register('newPassword')}
             />
             {errors.newPassword && (
-              <div className='text-red-500 text-sm mt-1'>{errors.newPassword.message}</div>
+              <div className='mt-1 text-sm text-red-500'>{errors.newPassword.message}</div>
             )}
           </div>
         </div>
 
-        <div className='md:flex items-center gap-16 justify-between max-md:space-y-3'>
-          <label className='md:w-32 text-right'>{t('Confirm New Password')}</label>
+        <div className='items-center justify-between gap-16 max-md:space-y-3 md:flex'>
+          <label className='text-right md:w-32'>{t('Confirm New Password')}</label>
           <div className='flex-1 max-md:mt-4'>
             <input
               type='password'
               placeholder='******'
-              className='w-full rounded-lg bg-foreground-2 border-none'
+              className='w-full rounded-lg border-none bg-foreground-2'
               {...register('repeatPassword')}
             />
             {errors.repeatPassword && (
-              <div className='text-red-500 text-sm mt-1'>{errors.repeatPassword.message}</div>
+              <div className='mt-1 text-sm text-red-500'>{errors.repeatPassword.message}</div>
             )}
           </div>
         </div>
       </div>
 
-      <div className='flex items-center justify-center gap-4 mt-16'>
+      <div className='mt-16 flex items-center justify-center gap-4'>
         <Button
           type='submit'
           className={cn(
-            'button lg:px-6 text-white max-md:flex-1',
+            'button text-white max-md:flex-1 lg:px-6',
             (!isChanged || isLoading) && 'select-none'
           )}
           disabled={isLoading || !isChanged}>
-          {isLoading && <CircularProgress size={20} className='!text-text-1 mr-2' />}
+          {isLoading && <CircularProgress size={20} className='mr-2 !text-text-1' />}
           {t('Save')}
         </Button>
       </div>

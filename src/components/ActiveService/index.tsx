@@ -18,13 +18,15 @@ import {
   useSendMessage
 } from '@/hooks/mutation';
 import { useSocketStore } from '@/store/socket';
-import { IConversation, IMessage, ISocketCall } from '@/types';
+import { IConversation, IMessage, INotification, ISocketCall } from '@/types';
 import { Socket } from '@/lib/utils/constants/SettingSystem';
 import { getImageURL } from '@/lib/utils';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { audioCall, videoChat } from '@/lib/utils/call';
 import { capitalizeFirstLetter } from '@/lib/utils/convertText';
+import { showNotifyToast } from '../ui/toast';
+import NotificationItem from '../shared/NotificationItem';
 
 export const PresenceService = () => {
   const { currentUserInfo } = useCurrentUserInfo();
@@ -242,23 +244,23 @@ export const ChatService = () => {
 
   return (
     <Dialog open={openCall} onOpenChange={setOpenCall}>
-      <DialogContent className='bg-background-1 max-w-[600px] border-none'>
+      <DialogContent className='max-w-[600px] border-none bg-background-1'>
         <DialogHeader>
           <DialogTitle>{callType === 'video' ? t('Video Call') : t('Voice Call')}</DialogTitle>
         </DialogHeader>
         {callType === 'video' ? <FaVideo className='text-2xl' /> : <FaPhone className='text-2xl' />}
-        <span className='text-sm font-medium text-left ml-2 select-none'>
+        <span className='ml-2 select-none text-left text-sm font-medium'>
           {callType === 'video' ? t('Video Call') : t('Voice Call')}
         </span>
-        <div className='flex flex-row items-center justify-center pt-4 pb-2'>
+        <div className='flex flex-row items-center justify-center pb-2 pt-4'>
           <Image
             width={500}
             height={500}
-            className='h-12 w-12 mr-3 rounded-full overflow-hidden'
+            className='mr-3 h-12 w-12 overflow-hidden rounded-full'
             src={getImageURL(dataCall?.user_image, 'avatar_mini')}
             alt='avatar'
           />
-          <div className='font-semibold text-lg'>
+          <div className='text-lg font-semibold'>
             {isMissed ? (
               <>
                 {callType === 'video' ? t('You missed a video call') : t('You missed a voice call')}&nbsp;
@@ -306,4 +308,28 @@ export const ChatService = () => {
       </DialogContent>
     </Dialog>
   );
+};
+
+export const NotifyService = () => {
+  const { notiSocket } = useSocketStore();
+  const { currentUserInfo } = useCurrentUserInfo();
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    notiSocket.emit(Socket.SETUP, currentUserInfo._id);
+
+    notiSocket.on(Socket.NOTI, (notification: INotification) => {
+      queryClient.invalidateQueries({ queryKey: ['unRedNotiNumber'] });
+      queryClient.invalidateQueries({ queryKey: ['allNotifications'] });
+      showNotifyToast(<NotificationItem notification={notification} />);
+    });
+    return () => {
+      if (notiSocket) {
+        notiSocket.off(Socket.NOTI_ARR);
+      }
+    };
+  }, []);
+
+  return <></>;
 };

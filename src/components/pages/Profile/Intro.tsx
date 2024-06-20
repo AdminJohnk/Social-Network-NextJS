@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  IoLocationOutline,
-  IoBriefcaseOutline,
-  IoPeopleOutline,
-  IoAt
-} from 'react-icons/io5';
+import { IoLocationOutline, IoBriefcaseOutline, IoPeopleOutline, IoAt } from 'react-icons/io5';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { PiGraduationCap } from 'react-icons/pi';
@@ -22,8 +17,7 @@ export default function Intro({ profileID }: IIntroProps) {
   const t = useTranslations();
 
   const { currentUserInfo } = useCurrentUserInfo();
-  const { otherUserInfo: user, isLoadingOtherUserInfo } =
-    useOtherUserInfo(profileID);
+  const { otherUserInfo: user, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
 
   const [more, setMore] = useState(false);
 
@@ -39,19 +33,17 @@ export default function Intro({ profileID }: IIntroProps) {
       {isLoadingOtherUserInfo ? (
         <div></div>
       ) : (
-        <div className='bg-foreground-1 rounded-lg shadow-sm p-5 px-6'>
+        <div className='rounded-lg bg-foreground-1 p-5 px-6 shadow-sm'>
           <div className='flex items-center justify-between text-text-1'>
-            <h3 className='font-bold text-lg'> {t('Intro')} </h3>
+            <h3 className='text-lg font-bold'> {t('Intro')} </h3>
           </div>
 
-          <ul className='text-text-2 space-y-4 mt-4 text-sm '>
+          <ul className='mt-4 space-y-4 text-sm text-text-2'>
             {user?.alias && (
               <li className='flex items-center gap-3'>
                 <div className='flex items-center gap-3'>
                   <IoAt className='size-6' />
-                  <span className='text-blue-600 cursor-default hover:underline'>
-                    {user.alias}
-                  </span>
+                  <span className='cursor-default text-blue-600 hover:underline'>{user.alias}</span>
                 </div>
               </li>
             )}
@@ -60,9 +52,7 @@ export default function Intro({ profileID }: IIntroProps) {
                 <IoLocationOutline className='size-6' />
                 <div>
                   {t('Live In')}
-                  <span className='otherUserInfo?.font-semibold text-text-1 ms-1'>
-                    {user.location}
-                  </span>
+                  <span className='otherUserInfo?.font-semibold ms-1 text-text-1'>{user.location}</span>
                 </div>
               </li>
             )}
@@ -72,9 +62,7 @@ export default function Intro({ profileID }: IIntroProps) {
 
                 <div>
                   {t('Studied at')}
-                  <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>
-                    {user.education}
-                  </span>
+                  <span className='otherUserInfo?.font-semibold ms-1 text-text-1'>{user.education}</span>
                 </div>
               </li>
             )}
@@ -84,7 +72,7 @@ export default function Intro({ profileID }: IIntroProps) {
 
                 <div>
                   {t('Works at')}
-                  <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>
+                  <span className='otherUserInfo?.font-semibold ms-1 text-text-1'>
                     {user.experiences[0].company_name}
                   </span>
                 </div>
@@ -96,7 +84,7 @@ export default function Intro({ profileID }: IIntroProps) {
 
                 <div>
                   {t('Position')}
-                  <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>
+                  <span className='otherUserInfo?.font-semibold ms-1 text-text-1'>
                     {user?.experiences[0].position_name}
                   </span>
                 </div>
@@ -106,25 +94,20 @@ export default function Intro({ profileID }: IIntroProps) {
               <IoPeopleOutline className='size-6' />
               <div>
                 {t('Friends')}
-                <span className='otherUserInfo?.font-semibold text-text-1 ms-1 '>
-                  {user?.friend_number}
-                </span>
+                <span className='otherUserInfo?.font-semibold ms-1 text-text-1'>{user?.friend_number}</span>
               </div>
             </li>
           </ul>
 
           {/* <!-- Expertise --> */}
           {user?.tags.length > 0 && (
-            <div className='flex flex-wrap gap-1 text-sm mt-4 font-semibold capitalize'>
+            <div className='mt-4 flex flex-wrap gap-1 text-sm font-semibold capitalize'>
               {tags.map((tag, index) => {
-                const desc = descArrays.find(item => item.title === tag);
+                const desc = descArrays.find((item) => item.title === tag);
                 return (
-                  <div
-                    key={index}
-                    className='itemTag border-[0.5px] border-border-1 select-none px-4 py-2'
-                  >
+                  <div key={index} className='itemTag select-none border-[0.5px] border-border-1 px-4 py-2'>
                     <div className='flex-start'>
-                      <span className='*:size-5 mr-2'>{desc?.svg}</span>
+                      <span className='mr-2 *:size-5'>{desc?.svg}</span>
                       <span>{desc?.title}</span>
                     </div>
                   </div>
@@ -134,11 +117,10 @@ export default function Intro({ profileID }: IIntroProps) {
           )}
           {user?.tags.length > 6 && (
             <div
-              className='mt-3 text-text-2 hover:text-text-1 duration-300 cursor-pointer'
+              className='mt-3 cursor-pointer text-text-2 duration-300 hover:text-text-1'
               onClick={() => {
                 setMore(!more);
-              }}
-            >
+              }}>
               {more ? t('Show less') : t('Show more')}
             </div>
           )}

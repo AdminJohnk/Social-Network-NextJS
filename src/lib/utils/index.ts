@@ -24,10 +24,7 @@ const ImageURL = (src: string, option: option) => {
   return `https://ik.imagekit.io/admintck/${src}${query}`;
 };
 
-export const getImageURL = (
-  src?: string | null,
-  option: option = 'default'
-) => {
+export const getImageURL = (src?: string | null, option: option = 'default') => {
   if (!src) return '';
   return ImageURL(src, option);
 };
@@ -48,9 +45,7 @@ export function truncateText(text: string, maxLength: number) {
 
 import { IPost, IUserInfo } from '@/types';
 
-export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(
-  obj: T
-): T => {
+export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(obj: T): T => {
   const defaultValues: IUserInfo | IPost = {
     _id: '',
     id_incr: 0,
@@ -82,6 +77,8 @@ export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(
     pendingFriend_number: 0,
     post_number: 0,
     type: 'Post',
+    level: 1,
+    reputation: 0,
     visibility: 'public',
     post_attributes: {
       user: {
@@ -98,6 +95,9 @@ export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(
         tags: [],
         alias: '',
         about: '',
+        favorite_questions: [],
+        level: 1,
+        reputation: 0,
         posts: [],
         experiences: [],
         repositories: [],
@@ -139,13 +139,10 @@ export const ApplyDefaults = <T extends IUserInfo | IPost | IPost[]>(
   if (!obj) return obj;
 
   if (Array.isArray(obj)) {
-    return obj.map(item => ({ ...defaultValues, ...item })) as T;
+    return obj.map((item) => ({ ...defaultValues, ...item })) as T;
   }
 
   return { ...defaultValues, ...obj } as T;
 };
 
-export const github = new GitHub(
-  process.env.REPO_GITHUB_ID!,
-  process.env.REPO_GITHUB_SECRET!
-);
+export const github = new GitHub(process.env.REPO_GITHUB_ID!, process.env.REPO_GITHUB_SECRET!);
