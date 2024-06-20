@@ -40,7 +40,7 @@ export default function NotificationList(props: INotificationListProps) {
                       return { ...notification, is_read: true };
                     });
                     setAllNotifyState(newAllNotifyState);
-                    mutateMarkAllAsReadNoti();
+                    mutateMarkAllAsReadNoti(); 
                   }}>
                   <IoCheckmarkCircleOutline className='shrink-0 text-xl' />
                   {t('Mark all as read')}
