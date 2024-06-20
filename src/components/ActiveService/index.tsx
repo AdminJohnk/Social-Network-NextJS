@@ -26,7 +26,7 @@ import { Button } from '@/components/ui/button';
 import { audioCall, videoChat } from '@/lib/utils/call';
 import { capitalizeFirstLetter } from '@/lib/utils/convertText';
 import { showNotifyToast } from '../ui/toast';
-import NotificationItem from '../shared/NotificationItem';
+import NotificationItem from '../pages/Notification/NotificationItem';
 
 export const PresenceService = () => {
   const { currentUserInfo } = useCurrentUserInfo();
@@ -319,10 +319,10 @@ export const NotifyService = () => {
   useEffect(() => {
     notiSocket.emit(Socket.SETUP, currentUserInfo._id);
 
-    notiSocket.on(Socket.NOTI, (notification: INotification) => {
-      queryClient.invalidateQueries({ queryKey: ['unRedNotiNumber'] });
-      queryClient.invalidateQueries({ queryKey: ['allNotifications'] });
-      showNotifyToast(<NotificationItem notification={notification} />);
+    notiSocket.on(Socket.NOTI, async (notification: INotification) => {
+      await queryClient.invalidateQueries({ queryKey: ['unRedNotiNumber'] });
+      await queryClient.invalidateQueries({ queryKey: ['allNotifications'] });
+      await showNotifyToast(<NotificationItem notification={notification} />);
     });
     return () => {
       if (notiSocket) {

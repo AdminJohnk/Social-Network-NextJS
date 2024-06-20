@@ -1,20 +1,20 @@
 import LogoHeader from './Logo';
 import SearchHeader from './Search';
 import CreateHeader from './Create';
-import NotificationsHeader from './Notifications';
+import NotificationsHeader from '../Notifications';
 import MessagesHeader from './Messages';
 import ProfileHeader from './Profile';
 import Language from './Language';
 
 export default function Header() {
   return (
-    <header className='z-50 h-[--m-top] fixed top-0 left-0 w-full flex items-center bg-background-1 backdrop-blur-xl border-b border-border-1'>
-      <div className='flex items-center w-full xl:px-6 px-2 max-lg:gap-10'>
+    <header className='fixed left-0 top-0 z-50 flex h-[--m-top] w-full items-center border-b border-border-1 bg-background-1 backdrop-blur-xl'>
+      <div className='flex w-full items-center px-2 max-lg:gap-10 xl:px-6'>
         <LogoHeader />
-        <div className='flex-1 relative'>
-          <div className='max-w-[1220px] mx-auto flex items-center'>
+        <div className='relative flex-1'>
+          <div className='mx-auto flex max-w-[1220px] items-center'>
             <SearchHeader />
-            <div className='flex items-center sm:gap-4 gap-2 absolute right-5 top-1/2 -translate-y-1/2 text-text-1'>
+            <div className='absolute right-5 top-1/2 flex -translate-y-1/2 items-center gap-2 text-text-1 sm:gap-4'>
               <CreateHeader />
               <MessagesHeader />
               <NotificationsHeader />

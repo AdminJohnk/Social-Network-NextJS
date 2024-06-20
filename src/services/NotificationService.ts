@@ -27,6 +27,14 @@ class NotificationService extends BaseService {
   setSubUnRedNotiNumber = async (): Promise<AxiosResponse<IResponse<boolean>>> => {
     return await this.put(`/notifications/sub-unread-number`);
   };
+
+  markAllAsReadNotify = async (): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.put(`/notifications/mark-all-read`);
+  };
+
+  deleteNotify = async (id: string): Promise<AxiosResponse<IResponse<boolean>>> => {
+    return await this.delete(`/notifications/${id}`);
+  };
 }
 
 export const notiService = new NotificationService();

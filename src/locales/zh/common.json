@@ -647,5 +647,7 @@
   "liked your comment": "喜欢了您的评论",
   "disliked your comment": "不喜欢了您的评论",
   "created a post": "创建了一个帖子",
-  "No notification found": "未找到通知"
+  "No notification found": "未找到通知",
+  "Open Notifications": "打开通知",
+  "Remove this notification": "移除此通知"
 }

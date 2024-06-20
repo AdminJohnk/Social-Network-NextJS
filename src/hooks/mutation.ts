@@ -3013,3 +3013,49 @@ export const useSetSubUnRedNotiNumber = () => {
     isSuccessSetSubUnRedNotiNumber: isSuccess
   };
 };
+
+export const useMarkAllAsReadNotify = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async () => {
+      const { data: notification } = await notiService.markAllAsReadNotify();
+      return notification.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allNotifications']
+      });
+    }
+  });
+
+  return {
+    mutateMarkAllAsReadNoti: mutateAsync,
+    isLoadingMarkAllAsReadNoti: isPending,
+    isErrorMarkAllAsReadNoti: isError,
+    isSuccessMarkAllAsReadNoti: isSuccess
+  };
+}
+
+export const useDeleteNotify = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (notiID: string) => {
+      const { data: notification } = await notiService.deleteNotify(notiID);
+      return notification.metadata;
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['allNotifications']
+      });
+    }
+  });
+
+  return {
+    mutateDeleteNotify: mutateAsync,
+    isLoadingDeleteNotify: isPending,
+    isErrorDeleteNotify: isError,
+    isSuccessDeleteNotify: isSuccess
+  };
+}
