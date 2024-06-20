@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import { useReadAllNotification } from '@/hooks/mutation';
 import { useNotificationStore } from '@/store/notification';
-import NotificationList from '../pages/Notification/NotificationList';
+import NotificationList from '../../pages/Notification/NotificationList';
 
 export default function NotificationsHeader() {
   const t = useTranslations();

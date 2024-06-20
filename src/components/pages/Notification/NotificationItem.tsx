@@ -9,11 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import {
-  IoCheckmarkCircleOutline,
-  IoEllipsisHorizontal,
-  IoSettingsOutline
-} from 'react-icons/io5';
+import { IoCheckmarkCircleOutline, IoEllipsisHorizontal, IoSettingsOutline } from 'react-icons/io5';
 const {
   LIKEPOST_001,
   SHAREPOST_001,
@@ -38,7 +34,8 @@ export default function NotificationItem({ notification, className }: INotificat
   const { mutateMarkIsReadNoti } = useMarkIsReadNotify();
   const { mutateSetSubUnRedNotiNumber } = useSetSubUnRedNotiNumber();
   const { mutateDeleteNotify } = useDeleteNotify();
-  const { unReadNotifyNumber, setUnReadNotifyNumber, allNotifyState, setAllNotifyState } = useNotificationStore();
+  const { unReadNotifyNumber, setUnReadNotifyNumber, allNotifyState, setAllNotifyState } =
+    useNotificationStore();
   const [notificationState, setNotificationState] = useState<INotification>(notification);
 
   useEffect(() => {
@@ -137,9 +134,8 @@ export default function NotificationItem({ notification, className }: INotificat
         <div
           className='group w-[280px]'
           data-uk-dropdown='pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click; offset:5'>
-          <nav className='text-sm hover:*:!bg-hover-1'>
-            <Link
-              href=''
+          <nav className='*:flex-start text-sm *:cursor-pointer *:gap-2 *:rounded-md *:px-2 *:py-2 *:duration-300 hover:*:!bg-hover-1'>
+            <div
               className='uk-dropdown-close'
               onClick={() => {
                 mutateMarkIsReadNoti(notificationState._id);
@@ -148,9 +144,8 @@ export default function NotificationItem({ notification, className }: INotificat
               }}>
               <IoCheckmarkCircleOutline className='shrink-0 text-xl' />
               {t('Mark as read')}
-            </Link>
-            <Link
-              href=''
+            </div>
+            <div
               className='uk-dropdown-close'
               onClick={() => {
                 mutateDeleteNotify(notificationState._id);
@@ -161,7 +156,7 @@ export default function NotificationItem({ notification, className }: INotificat
               }}>
               <IoSettingsOutline className='shrink-0 text-xl' />
               {t('Remove this notification')}
-            </Link>
+            </div>
           </nav>
         </div>
       </div>
