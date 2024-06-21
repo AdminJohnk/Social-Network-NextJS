@@ -48,7 +48,8 @@ export default function ButtonRemoveSavePost({ post_id }: IButtonRemoveSavePostP
     <>
       <Button
         onClick={handleOpenDeletePost}
-        className='base-bold !bg-foreground-2 hover:!bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-lg items-end mr-1'>
+        variant={'main'}
+        className='base-bold '>
         {t('Remove favorites')}
       </Button>
       <AlertDialog open={openDeletePost} onOpenChange={setOpenDeletePost}>
