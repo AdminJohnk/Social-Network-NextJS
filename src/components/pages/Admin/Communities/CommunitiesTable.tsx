@@ -19,14 +19,14 @@ import {
 } from '@tanstack/react-table';
 import { Skeleton } from '@mui/material';
 
-import { DataTablePagination } from './data-table-pagination';
-import { DataTableToolbar } from './data-table-toolbar';
-import { useGetAllUsersAdmin, useGetNumberOfUsersAdmin } from '@/hooks/query';
-import { userColumns } from './columns';
-import { IUserInfo } from '@/types';
+import { DataTablePagination } from '../data-table-pagination';
+import { DataTableToolbar } from '../Posts/data-table-toolbar';
+import { useGetAllCommunitiesAdmin, useGetNumberOfCommunitiesAdmin } from '@/hooks/query';
+import { communityColumns } from '../columns';
+import { ICommunity } from '@/types';
 // import { cn } from '@/lib/utils';
 
-export function UsersTable() {
+export function CommunitiesTable() {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -37,18 +37,18 @@ export function UsersTable() {
     pageSize: 10
   });
 
-  const { numberOfUsers } = useGetNumberOfUsersAdmin();
-  const { allUsers, isFetchingAllUsers, isLoadingAllUsers } = useGetAllUsersAdmin(
+  const { numberOfCommunities } = useGetNumberOfCommunitiesAdmin();
+  const { allCommunities, isFetchingAllCommunities, isLoadingAllCommunities } = useGetAllCommunitiesAdmin(
     pagination.pageIndex,
     pagination.pageSize
   );
 
-  const defaultData = useMemo(() => [] as IUserInfo[], []);
+  const defaultData = useMemo(() => [] as ICommunity[], []);
 
   const table = useReactTable({
-    data: allUsers ?? defaultData,
-    columns: userColumns,
-    rowCount: numberOfUsers ?? 0,
+    data: allCommunities ?? defaultData,
+    columns: communityColumns,
+    rowCount: numberOfCommunities ?? 0,
     state: {
       sorting,
       columnVisibility,
@@ -73,7 +73,7 @@ export function UsersTable() {
 
   return (
     <div className='space-y-4'>
-      {isLoadingAllUsers ? (
+      {isLoadingAllCommunities ? (
         <div className='flex items-center justify-between'>
           <div className='flex flex-1 items-center space-x-2'>
             <Skeleton
@@ -89,7 +89,7 @@ export function UsersTable() {
         <DataTableToolbar table={table} />
       )}
       <div className='rounded-md border border-border-1'>
-        {isFetchingAllUsers ? (
+        {isFetchingAllCommunities ? (
           <Table /* style={{ width: table.getCenterTotalSize() }} */>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -107,7 +107,7 @@ export function UsersTable() {
             <TableBody>
               {Array.from({ length: 10 }).map((_, index) => (
                 <TableRow key={index}>
-                  {Array.from({ length: userColumns.length }).map((_, index) => (
+                  {Array.from({ length: communityColumns.length }).map((_, index) => (
                     <TableCell key={index}>
                       <Skeleton className='!h-8 !bg-foreground-2' variant='text' width='100%' height='100%' />
                     </TableCell>
@@ -158,7 +158,7 @@ export function UsersTable() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={userColumns.length} className='h-24 text-center'>
+                  <TableCell colSpan={communityColumns.length} className='h-24 text-center'>
                     No results.
                   </TableCell>
                 </TableRow>
@@ -167,7 +167,7 @@ export function UsersTable() {
           </Table>
         )}
       </div>
-      {isLoadingAllUsers ? (
+      {isLoadingAllCommunities ? (
         <div className='flex items-center justify-between'>
           <div className='flex flex-1 items-center space-x-2'>
             <Skeleton

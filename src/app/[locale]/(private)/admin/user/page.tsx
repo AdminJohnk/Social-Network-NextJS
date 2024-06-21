@@ -5,7 +5,7 @@ import { useRouter } from '@/navigation';
 
 import { FiAlertCircle } from 'react-icons/fi';
 import { UserNav } from '@/components/pages/Admin/user-nav';
-import { UsersTable } from '@/components/pages/Admin/UsersTable';
+import { UsersTable } from '@/components/pages/Admin/Users/UsersTable';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 

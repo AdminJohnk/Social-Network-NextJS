@@ -1,6 +1,6 @@
-import { redirect } from "@/navigation";
+import { permanentRedirect } from "@/navigation";
 
 
 export default function AdminPage () {
-  redirect('/admin/user')
+  permanentRedirect('/admin/user')
 }

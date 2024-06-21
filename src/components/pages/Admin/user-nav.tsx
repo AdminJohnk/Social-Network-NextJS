@@ -28,7 +28,7 @@ export function UserNav() {
           <Avatar
             className='h-9 w-9'
             src={getImageURL(currentUserInfo.user_image, 'avatar')}
-            alt='@shadcn'></Avatar>
+            alt='avatar'></Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56' align='end' forceMount>
