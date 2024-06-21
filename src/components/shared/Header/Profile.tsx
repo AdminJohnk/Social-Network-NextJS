@@ -12,6 +12,7 @@ import { useTranslations } from 'next-intl';
 
 import { getImageURL } from '@/lib/utils';
 import { useCurrentUserInfo } from '@/hooks/query';
+import { FaUserSecret } from 'react-icons/fa';
 
 export default function ProfileHeader() {
   const { toggleMode, mode } = useThemeMode();
@@ -69,6 +70,23 @@ export default function ProfileHeader() {
                 </h6>
               </div>
             </Link>
+
+            {currentUserInfo.role.includes('0101') && (
+              <>
+                <hr className='border-border-1' />
+
+                <nav className='p-2 text-sm font-normal text-text-1'>
+                  <Link href={`/admin`}>
+                    <div
+                      className='flex items-center gap-2.5 rounded-md p-2 px-2.5 hover:bg-hover-1'
+                      onClick={closeProfileDropdown}>
+                      <FaUserSecret className='size-6' />
+                      {t('Admin Dashboard')}
+                    </div>
+                  </Link>
+                </nav>
+              </>
+            )}
 
             <hr className='border-border-1' />
 

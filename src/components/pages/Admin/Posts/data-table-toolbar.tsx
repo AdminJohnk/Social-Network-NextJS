@@ -4,9 +4,9 @@ import { Table } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
 
-import { DataTableFacetedFilter } from './data-table-faceted-filter';
+import { DataTableFacetedFilter } from '../data-table-faceted-filter';
 import { RxCross2 } from 'react-icons/rx';
-import { DataTableViewOptions } from './data-table-view-options';
+import { DataTableViewOptions } from '../data-table-view-options';
 import { ClassValue } from 'clsx';
 import { cn } from '@/lib/utils';
 
@@ -24,9 +24,9 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 items-center space-x-2'>
         <input
-          placeholder='Filter tasks...'
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('title')?.setFilterValue(event.target.value)}
+          placeholder='Search'
+          value={(table.getColumn('author')?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn('author')?.setFilterValue(event.target.value)}
           className={cn(classStyleInput, 'h-8 w-[150px] lg:w-[250px]')}
         />
         {/* {table.getColumn('status') && (

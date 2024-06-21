@@ -1,5 +1,7 @@
 'use client';
 
+import { SeriesTable } from '@/components/pages/Admin/Series/SeriesTable';
+import { UserNav } from '@/components/pages/Admin/user-nav';
 import { Button } from '@/components/ui/button';
 import { useCurrentUserInfo } from '@/hooks/query';
 import { useRouter } from '@/navigation';
@@ -28,5 +30,18 @@ export default function SeriesManagement({}: ISeriesManagementProps) {
       </section>
     );
 
-  return <div></div>;
+  return (
+    <div className='hidden h-full flex-1 flex-col space-y-8 p-8 md:flex'>
+      <div className='flex items-center justify-between space-y-2'>
+        <div>
+          <h2 className='text-2xl font-bold tracking-tight'>Series management</h2>
+          <p className='text-muted-foreground'>Manage series and their contents, categories, and tags.</p>
+        </div>
+        <div className='flex items-center space-x-2'>
+          <UserNav />
+        </div>
+      </div>
+      <SeriesTable />
+    </div>
+  );
 }

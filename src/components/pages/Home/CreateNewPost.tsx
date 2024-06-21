@@ -12,9 +12,10 @@ import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 import { useCreatePost, useUploadImages } from '@/hooks/mutation';
 import { useGetAllHashtags } from '@/hooks/query';
 import { cn } from '@/lib/utils';
-import { Visibility } from '@/types';
+import { DescArray, Visibility } from '@/types';
 import { CircularProgress } from '@mui/material';
 import { Editor as EditorProps } from '@tiptap/react';
+import PostTags from '@/components/shared/PostTags';
 
 interface ICreateNewPostProps {
   handleClose: () => void;
@@ -29,6 +30,8 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
 
   const [privacy, setPrivacy] = useState<Visibility>('public');
   const [editor, setEditor] = useState<EditorProps>();
+
+  const [tags, setTags] = useState<DescArray[]>([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -61,6 +64,8 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
 
     const imagesUploaded = await handleUploadImages();
 
+    const postTags = tags.map((tag) => tag.title);
+
     if (communityID) {
       mutateCreatePost(
         {
@@ -70,7 +75,8 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
           scope: 'Community',
           visibility: privacy,
           community: communityID,
-          hashtags: hashtags ? uniqueHashtags : undefined
+          hashtags: hashtags ? uniqueHashtags : undefined,
+          tags: postTags
         },
         {
           onSuccess() {
@@ -93,7 +99,8 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
           content: content || '',
           images: imagesUploaded,
           visibility: privacy,
-          hashtags: hashtags ? uniqueHashtags : undefined
+          hashtags: hashtags ? uniqueHashtags : undefined,
+          tags: postTags
         },
         {
           onSuccess() {
@@ -132,8 +139,21 @@ export default function CreateNewPost({ handleClose, communityID }: ICreateNewPo
                 dataSuggestions={allHashtags?.map((tag) => tag.name.substring(1)) || []}
               />
             </div>
-
+            {tags && (<div className='flex flex-wrap gap-2 mx-4 my-2'>
+              {tags.map((item, index) => (
+                <div
+                  key={index}
+                  className='itemTag border-[0.5px] border-border-1 select-none px-2 py-1 bg-foreground-2'>
+                  <div className='flex-start'>
+                    <span className='*:size-5 mr-2'>{item.svg}</span>
+                    <span>{item.title}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            )}
             <div className='px-4 py-2 text-sm font-medium *:mb-3'>
+              <PostTags tags={tags} setTags={setTags} />
               <PostTemplate editor={editor} />
               <UploadImage setImagesOfS3={setImages} />
             </div>

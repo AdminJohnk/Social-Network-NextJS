@@ -2,9 +2,12 @@ import { AxiosResponse } from 'axios';
 import { BaseService } from './BaseService';
 import {
   ICommentPost,
+  ICommunity,
   ICreatePost,
   IPost,
+  IQuestion,
   IResponse,
+  ISeries,
   IUpdateCommentPost,
   IUpdatePost,
   IUserInfo,
@@ -35,6 +38,36 @@ class AdminService extends BaseService {
 
   getNumberOfPosts = async (): Promise<AxiosResponse<IResponse<number>>> => {
     return await this.get(`/admin/posts/number`);
+  };
+
+  getNumberOfSeries = async (): Promise<AxiosResponse<IResponse<number>>> => {
+    return await this.get(`/admin/series/number`);
+  };
+
+  getAllSeries = async (page: number, pageSize?: number): Promise<AxiosResponse<IResponse<ISeries[]>>> => {
+    return await this.get(`/admin/series/${page}/${pageSize ?? 10}`);
+  };
+
+  getNumberOfCommunities = async (): Promise<AxiosResponse<IResponse<number>>> => {
+    return await this.get(`/admin/communities/number`);
+  };
+
+  getAllCommunities = async (
+    page: number,
+    pageSize?: number
+  ): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
+    return await this.get(`/admin/communities/${page}/${pageSize ?? 10}`);
+  };
+
+  getNumberOfQuestions = async (): Promise<AxiosResponse<IResponse<number>>> => {
+    return await this.get(`/admin/questions/number`);
+  };
+
+  getAllQuestions = async (
+    page: number,
+    pageSize?: number
+  ): Promise<AxiosResponse<IResponse<IQuestion[]>>> => {
+    return await this.get(`/admin/questions/${page}/${pageSize ?? 10}`);
   };
 
   getAllParentComments = async (
