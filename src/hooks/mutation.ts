@@ -70,6 +70,7 @@ import { seriesService } from '@/services/SeriesService';
 import { communityService } from '@/services/CommunityService';
 import { questionService } from '@/services/QuestionService';
 import { notiService } from '@/services/NotificationService';
+import { aiChatService } from '@/services/AIChatService';
 
 // ----------------------------- MUTATIONS -----------------------------
 
@@ -3035,7 +3036,7 @@ export const useMarkAllAsReadNotify = () => {
     isErrorMarkAllAsReadNoti: isError,
     isSuccessMarkAllAsReadNoti: isSuccess
   };
-}
+};
 
 export const useDeleteNotify = () => {
   const queryClient = useQueryClient();
@@ -3058,4 +3059,20 @@ export const useDeleteNotify = () => {
     isErrorDeleteNotify: isError,
     isSuccessDeleteNotify: isSuccess
   };
-}
+};
+
+export const useChatAI = () => {
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (message: string) => {
+      const { data } = await aiChatService.chatAI(message);
+      return data;
+    }
+  });
+
+  return {
+    mutateChatAI: mutateAsync,
+    isLoadingChatAI: isPending,
+    isErrorChatAI: isError,
+    isSuccessChatAI: isSuccess
+  };
+};

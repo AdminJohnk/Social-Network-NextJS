@@ -16,6 +16,7 @@ import { hashtagService } from '@/services/HashtagService';
 import { questionService } from '@/services/QuestionService';
 import { adminService } from '@/services/AdminService';
 import { recommendService } from '@/services/RecommendService';
+import { aiChatService } from '@/services/AIChatService';
 
 // ---------------------------FETCH HOOKS---------------------------
 
@@ -1667,7 +1668,6 @@ export const useGetAllChildCommentsAdmin = (parentCommentID: string, pageSize?: 
     isFetchingNextChildComments: isFetchingNextPage
   };
 };
-
 export const useGetRecommendUsers = (userID: string) => {
   const { data, isPending, isError, isFetching } = useQuery({
     queryKey: ['recommendUsers', userID],
