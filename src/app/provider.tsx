@@ -18,6 +18,8 @@ export const QueryProvider = ({ children }: { children: React.ReactNode }) => {
             throwOnError: (error) => {
               const errorResponse = error as ErrorResponse;
 
+              console.log('errorResponse', errorResponse)
+
               if (errorResponse.response.status === 401) {
                 return true;
               }

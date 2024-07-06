@@ -847,7 +847,6 @@ export interface IUpdateNameListQuestion {
   new_name: string;
 }
 
-
 export const NotificationType = {
   // ==================== One to One ====================
   LIKEPOST_001: {
@@ -918,11 +917,26 @@ export interface INotification {
   createAt: string;
 }
 
-
-
 export interface DescArray {
   title: string;
   color1: string;
   color: string;
   svg: JSX.Element;
+}
+
+export interface IUserRecommended {
+  _id: string;
+  id_incr: number;
+  name: string;
+  email: string;
+  role: string[];
+  phone_number: string;
+  user_image: string;
+  cover_image: string;
+  tags: string[];
+  alias: string;
+  about: string;
+  level: number;
+  location: string;
+  createdAt: string;
 }
