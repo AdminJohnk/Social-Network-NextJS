@@ -15,6 +15,7 @@ import { seriesService } from '@/services/SeriesService';
 import { hashtagService } from '@/services/HashtagService';
 import { questionService } from '@/services/QuestionService';
 import { adminService } from '@/services/AdminService';
+import { recommendService } from '@/services/RecommendService';
 
 // ---------------------------FETCH HOOKS---------------------------
 
@@ -1583,7 +1584,7 @@ export const useGetNumberOfQuestionsAdmin = () => {
     numberOfQuestions: data!,
     isFetchingNumberOfQuestions: isFetching
   };
-}
+};
 
 export const useGetAllQuestionsAdmin = (page: number, pageSize?: number) => {
   const { data, isPending, isError, isFetching } = useQuery({
@@ -1664,5 +1665,23 @@ export const useGetAllChildCommentsAdmin = (parentCommentID: string, pageSize?: 
     hasNextChildComments: hasNextPage,
     fetchNextChildComments: fetchNextPage,
     isFetchingNextChildComments: isFetchingNextPage
+  };
+};
+
+export const useGetRecommendUsers = (userID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['recommendUsers', userID],
+    queryFn: async () => {
+      const { data } = await recommendService.getRecommendUsers(userID);
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingRecommendUsers: isPending,
+    isErrorRecommendUsers: isError,
+    recommendUsers: data!,
+    isFetchingRecommendUsers: isFetching
   };
 };

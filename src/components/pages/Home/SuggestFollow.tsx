@@ -1,3 +1,7 @@
+'use client';
+
+import { useCurrentUserInfo, useGetRecommendUsers } from '@/hooks/query';
+import { getImageURL } from '@/lib/utils';
 import { Avatar } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { FiRefreshCw } from 'react-icons/fi';
@@ -33,6 +37,9 @@ const FollowList = [
 export default function SuggestFollow() {
   const t = useTranslations();
 
+  const { currentUserInfo } = useCurrentUserInfo();
+  const { recommendUsers, isLoadingRecommendUsers } = useGetRecommendUsers(currentUserInfo._id);
+
   return (
     <div className='suggest-follow px-5 py-4 bg-foreground-1 rounded-lg'>
       <div className='flex-between'>
@@ -42,22 +49,24 @@ export default function SuggestFollow() {
         </span>
       </div>
       <div className='mt-5'>
-        {FollowList.map((item, index) => {
-          return (
-            <div key={index} className='flex-between mb-5'>
-              <div className='flex-start'>
-                <Avatar src={item.avatar} sx={{ width: 40, height: 40 }} />
-                <div className='flex flex-col ms-3'>
-                  <span className='base-bold'>{item.name}</span>
-                  <span className='small-regular text-text-2'>{item.feature}</span>
+        {isLoadingRecommendUsers ?
+          (<></>) :
+          recommendUsers.map((item, index) => {
+            return (
+              <div key={index} className='flex-between mb-5'>
+                <div className='flex-start'>
+                  <Avatar src={getImageURL(item.user_image)} sx={{ width: 40, height: 40 }} />
+                  <div className='flex flex-col ms-3'>
+                    <span className='base-bold'>{item.name}</span>
+                    <span className='small-regular text-text-2'>{item.alias}</span>
+                  </div>
                 </div>
+                <button className='base-bold bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl'>
+                  {t('Follow')}
+                </button>
               </div>
-              <button className='base-bold bg-foreground-2 hover:bg-hover-2 duration-300 text-text-2 px-4 py-1 rounded-2xl'>
-                {t('Follow')}
-              </button>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
