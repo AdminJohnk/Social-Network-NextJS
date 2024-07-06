@@ -16,7 +16,7 @@ function SampleNextArrow(props: React.ButtonHTMLAttributes<HTMLSpanElement>) {
   return (
     <span
       className={cn(
-        'text-text-1 text-xl absolute -right-3 top-2 rounded-full bg-foreground-2 cursor-pointer'
+        'absolute -right-3 top-2 cursor-pointer rounded-full bg-foreground-2 text-xl text-text-1'
       )}
       onClick={onClick}>
       <IoIosArrowForward />
@@ -28,7 +28,9 @@ function SamplePrevArrow(props: React.ButtonHTMLAttributes<HTMLSpanElement>) {
   const { onClick } = props;
   return (
     <span
-      className={cn('text-text-1 text-xl absolute -left-5 top-2 rounded-full bg-foreground-2 cursor-pointer ml-2')}
+      className={cn(
+        'absolute -left-5 top-2 ml-2 cursor-pointer rounded-full bg-foreground-2 text-xl text-text-1'
+      )}
       onClick={onClick}>
       <IoIosArrowBack />
     </span>
@@ -52,7 +54,9 @@ export default function OnlineFriend() {
   const { activeMembers: members } = useSocketStore();
 
   const friendsIsOnline = useMemo(() => {
-    return currentUserInfo.friends.filter((friend) => members.some((member) => member._id === friend._id && member.is_online));
+    return currentUserInfo.friends.filter((friend) =>
+      members.some((member) => member._id === friend._id && member.is_online)
+    );
   }, [currentUserInfo.friends, members]);
 
   const listEmptyStart = useMemo(() => {
@@ -64,40 +68,47 @@ export default function OnlineFriend() {
   }, [friendsIsOnline, listEmptyStart]);
 
   return (
-    <div className='online-friend px-5 py-4 bg-foreground-1 rounded-lg'>
+    <div className='online-friend rounded-lg bg-foreground-1 px-5 py-4'>
       <div className='flex-start'>
         <span className='h5-bold'>{t('Online friends')}</span>
       </div>
       <div className='mt-6'>
-        <Slider {...settings}>
-          {friendsIsOnline.length < 10 ?
-            Array(listEmptyStart).fill(null).map((_, index) => (
-              <div key={index} className='p-1'>
-                <div className='w-10 h-10'></div>
-              </div>
-            )) : null
-          }
-          {Children.toArray(
-            friendsIsOnline.map((friend) => {
-              return (
+        {friendsIsOnline.length !== 0 ? (
+          <Slider {...settings}>
+            {friendsIsOnline.length < 10
+              ? Array(listEmptyStart)
+                  .fill(null)
+                  .map((_, index) => (
+                    <div key={index} className='p-1'>
+                      <div className='h-10 w-10'></div>
+                    </div>
+                  ))
+              : null}
+            {Children.toArray(
+              friendsIsOnline.map((friend) => (
                 <Link
-                  key={friend._id}
                   href={`/profile/${friend._id}`}
-                  className='p-1 cursor-pointer'
+                  className='cursor-pointer p-1'
                   data-uk-tooltip={`title: ${friend.name}; pos: top; delay: 200; offset: 6`}>
                   <AvatarMessage user={friend} />
                 </Link>
-              );
-            })
-          )}
-          {friendsIsOnline.length < 10 ?
-            Array(listEmptyEnd).fill(null).map((_, index) => (
-              <div key={index} className='p-1'>
-                <div className='w-10 h-10'></div>
-              </div>
-            )) : null
-          }
-        </Slider>
+              ))
+            )}
+            {friendsIsOnline.length < 10
+              ? Array(listEmptyEnd)
+                  .fill(null)
+                  .map((_, index) => (
+                    <div key={index} className='p-1'>
+                      <div className='h-10 w-10'></div>
+                    </div>
+                  ))
+              : null}
+          </Slider>
+        ) : (
+          <div className='flex-center w-full'>
+            <span className='text-text-2'>{t('No online friends')}</span>
+          </div>
+        )}
       </div>
     </div>
   );

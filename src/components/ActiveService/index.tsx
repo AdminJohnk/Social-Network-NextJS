@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { FaPhone, FaVideo } from 'react-icons/fa6';
 import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -14,8 +14,7 @@ import {
   useReceiveDissolveGroup,
   useReceiveLeaveGroup,
   useReceiveMessage,
-  useReceiveSeenMessage,
-  useSendMessage
+  useReceiveSeenMessage
 } from '@/hooks/mutation';
 import { useSocketStore } from '@/store/socket';
 import { IConversation, IMessage, INotification, ISocketCall } from '@/types';
@@ -24,7 +23,6 @@ import { getImageURL } from '@/lib/utils';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { audioCall, videoChat } from '@/lib/utils/call';
-import { capitalizeFirstLetter } from '@/lib/utils/convertText';
 import { showNotifyToast } from '../ui/toast';
 import NotificationItem from '../pages/Notification/NotificationItem';
 
@@ -100,7 +98,7 @@ export const ChatService = () => {
 
   const { currentUserInfo } = useCurrentUserInfo();
 
-  const { mutateSendMessage } = useSendMessage();
+  // const { mutateSendMessage } = useSendMessage();
   const { mutateReceiveConversation } = useReceiveConversation();
   const { mutateReceiveLeaveGroup } = useReceiveLeaveGroup();
   const { mutateReceiveDissolveGroup } = useReceiveDissolveGroup();
@@ -113,28 +111,28 @@ export const ChatService = () => {
   const [callType, setCallType] = useState<string>();
   const [isMissed, setIsMissed] = useState(false);
 
-  const handleSendEndCall = useCallback(
-    (data: ISocketCall, type: 'video' | 'voice', status: 'missed' | 'ended') => {
-      const message = {
-        _id: uuidv4().replace(/-/g, ''),
-        conversation_id: data?.conversation_id,
-        sender: {
-          _id: data?.author._id,
-          user_image: data?.author.user_image,
-          name: data?.author.name
-        },
-        isSending: true,
-        content: `${capitalizeFirstLetter(type)} call ${status}`,
-        seen: [],
-        type: type,
-        createdAt: new Date()
-      };
+  // const handleSendEndCall = useCallback(
+  //   (data: ISocketCall, type: 'video' | 'voice', status: 'missed' | 'ended') => {
+  //     const message = {
+  //       _id: uuidv4().replace(/-/g, ''),
+  //       conversation_id: data?.conversation_id,
+  //       sender: {
+  //         _id: data?.author._id,
+  //         user_image: data?.author.user_image,
+  //         name: data?.author.name
+  //       },
+  //       isSending: true,
+  //       content: `${capitalizeFirstLetter(type)} call ${status}`,
+  //       seen: [],
+  //       type: type,
+  //       createdAt: new Date()
+  //     };
 
-      mutateSendMessage(message as unknown as IMessage);
-      chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: data?.conversation_id, message });
-    },
-    []
-  );
+  //     mutateSendMessage(message as unknown as IMessage);
+  //     chatSocket.emit(Socket.PRIVATE_MSG, { conversationID: data?.conversation_id, message });
+  //   },
+  //   []
+  // );
 
   useEffect(() => {
     chatSocket.emit(Socket.SETUP, currentUserInfo._id);
@@ -213,12 +211,12 @@ export const ChatService = () => {
         setCallType(undefined);
       }
     });
-    chatSocket.on(Socket.SEND_END_VIDEO_CALL, (data: ISocketCall) => {
-      handleSendEndCall(data, 'video', data.type);
-    });
-    chatSocket.on(Socket.SEND_END_VOICE_CALL, (data: ISocketCall) => {
-      handleSendEndCall(data, 'voice', data.type);
-    });
+    // chatSocket.on(Socket.SEND_END_VIDEO_CALL, (data: ISocketCall) => {
+    //   handleSendEndCall(data, 'video', data.type);
+    // });
+    // chatSocket.on(Socket.SEND_END_VOICE_CALL, (data: ISocketCall) => {
+    //   handleSendEndCall(data, 'voice', data.type);
+    // });
 
     return () => {
       chatSocket.off(Socket.PRIVATE_CONVERSATION);
@@ -240,7 +238,7 @@ export const ChatService = () => {
       chatSocket.off(Socket.SEND_END_VIDEO_CALL);
       chatSocket.off(Socket.SEND_END_VOICE_CALL);
     };
-  }, [openCall, notiCall, isMissed]);
+  }, []);
 
   return (
     <Dialog open={openCall} onOpenChange={setOpenCall}>
@@ -296,6 +294,7 @@ export const ChatService = () => {
             <Button
               type='button'
               onClick={() => {
+                pauseNoti();
                 callType === 'video'
                   ? videoChat(dataCall!.conversation_id)
                   : audioCall(dataCall!.conversation_id);
@@ -322,7 +321,7 @@ export const NotifyService = () => {
     notiSocket.on(Socket.NOTI, async (notification: INotification) => {
       await queryClient.invalidateQueries({ queryKey: ['unRedNotiNumber'] });
       await queryClient.invalidateQueries({ queryKey: ['allNotifications'] });
-      await showNotifyToast(<NotificationItem notification={notification} />);
+      showNotifyToast(<NotificationItem notification={notification} />);
     });
     return () => {
       if (notiSocket) {
