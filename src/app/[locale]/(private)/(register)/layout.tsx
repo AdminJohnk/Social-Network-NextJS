@@ -13,7 +13,7 @@ export interface IPrivateLayoutProps {
 export default function PrivateLayout({ children, params: { locale } }: IPrivateLayoutProps) {
   unstable_setRequestLocale(locale);
   return (
-    <main className='w-full flex-center'>
+    <main className='flex-center w-full'>
       <div className='h-full w-1/2 max-md:w-11/12'>
         <FloatTool />
         {children}

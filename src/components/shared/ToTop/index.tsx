@@ -41,7 +41,7 @@ export default function ToTop() {
   return (
     <div
       ref={topRef}
-      className='fixed bottom-4 right-4 z-50 cursor-pointer bg-foreground-1 rounded-full drop-shadow-xl'
+      className='fixed bottom-4 right-4 z-9 cursor-pointer bg-foreground-1 rounded-full drop-shadow-xl'
       onClick={() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }}>

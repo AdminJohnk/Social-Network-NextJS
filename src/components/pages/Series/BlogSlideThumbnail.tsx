@@ -73,7 +73,7 @@ export default function BlogSlideThumbnail() {
           <li key={item._id} className='w-full overflow-hidden rounded-xl'>
             <Link href={`/series/${item._id}`}>
               <Image
-                src={getImageURL(item.cover_image, 'post')}
+                src={getImageURL(item.cover_image)}
                 alt='cover'
                 className='h-full w-full object-cover'
                 width={1000}

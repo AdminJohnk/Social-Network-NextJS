@@ -15,6 +15,7 @@ import { seriesService } from '@/services/SeriesService';
 import { hashtagService } from '@/services/HashtagService';
 import { questionService } from '@/services/QuestionService';
 import { adminService } from '@/services/AdminService';
+import { aiChatService } from '@/services/AIChatService';
 
 // ---------------------------FETCH HOOKS---------------------------
 
