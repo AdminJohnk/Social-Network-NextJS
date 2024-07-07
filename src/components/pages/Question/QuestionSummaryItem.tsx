@@ -155,7 +155,10 @@ export default function QuestionSummaryItem({
           <div className='mt-2'>
             <div className='flex-start gap-2'>
               {question.hashtags.map((tag, index) => (
-                <Link key={index} href={`/questions/tags/${tag}`} className='tag bg-1 rounded-md px-1'>
+                <Link
+                  key={index}
+                  href={`/questions/tags/${encodeURIComponent(tag)}`}
+                  className='tag bg-1 rounded-md px-1'>
                   {tag}
                 </Link>
               ))}

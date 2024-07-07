@@ -190,7 +190,7 @@ export default function QuestionItem({ question }: IQuestionItemProps) {
           <ShowContent content={question.problem + question.expect} />
           <div className='flex-start *:bg-1 mt-6 gap-3 *:rounded-sm *:p-1'>
             {question.hashtags.map((tag, index) => (
-              <Link key={index} href={`/questions/tags/${tag}`}>
+              <Link key={index} href={`/questions/tags/${encodeURIComponent(tag)}`}>
                 {tag}
               </Link>
             ))}
