@@ -76,7 +76,6 @@ export default function NotificationItem({ notification, className }: INotificat
       notificationState.type === ACCEPTFRIENDREQUEST_001.type
     ) {
       queryClient.invalidateQueries({ queryKey: ['currentUserInfo'] });
-      console.log('notification::', notificationState);
       return `/profile/${notificationState.options.friend}`;
     }
     return '';
