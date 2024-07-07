@@ -7,7 +7,6 @@ import Draggable from 'react-draggable';
 import { IoMdClose } from 'react-icons/io';
 import { IoMdInformationCircle } from 'react-icons/io';
 import { IoMdSend } from 'react-icons/io';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useState } from 'react';
 import ShowContent from './ShowContent/ShowContent';
 import { useChatAI } from '@/hooks/mutation';
