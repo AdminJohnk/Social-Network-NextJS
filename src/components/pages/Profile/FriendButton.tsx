@@ -23,8 +23,45 @@ export interface IFriendButtonProps {
   variant?: 'main' | 'default';
 }
 
-export default function FriendButton({ profileID, variant = 'main' }: IFriendButtonProps) {
+const ButtonComponent = ({
+  isLoading,
+  preIcon,
+  onClick,
+  variant = 'main',
+  buttonText
+}: Partial<{
+  isLoading: boolean;
+  preIcon: React.ReactNode;
+  onClick: () => void;
+  variant?: 'main' | 'default';
+  buttonText: string;
+}>) => {
   const t = useTranslations();
+
+  return (
+    <Button
+      className='whitespace-nowrap'
+      variant={variant}
+      preIcon={isLoading ? <CircularProgress size={17} className='!text-text-1' /> : preIcon}
+      onClick={onClick}>
+      {t(buttonText)}
+    </Button>
+  );
+};
+
+const NavComponent = ({ onClick, text }: { onClick: () => void; text: string }) => {
+  const t = useTranslations();
+
+  return (
+    <nav className='*:cursor-pointer *:rounded-md *:px-4 *:py-2 *:duration-300 hover:*:!bg-hover-1'>
+      <div className='uk-drop-close' onClick={onClick}>
+        <span className='text-sm'>{t(text)}</span>
+      </div>
+    </nav>
+  );
+};
+
+export default function FriendButton({ profileID, variant = 'main' }: IFriendButtonProps) {
   const { otherUserInfo, isLoadingOtherUserInfo } = useOtherUserInfo(profileID);
   const { currentUserInfo } = useCurrentUserInfo();
 
@@ -58,26 +95,6 @@ export default function FriendButton({ profileID, variant = 'main' }: IFriendBut
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const ButtonComponent = ({
-    isLoading,
-    preIcon,
-    onClick,
-    buttonText
-  }: Partial<{
-    isLoading: boolean;
-    preIcon: React.ReactNode;
-    onClick: () => void;
-    buttonText: string;
-  }>) => (
-    <Button
-      className='whitespace-nowrap'
-      variant={variant}
-      preIcon={isLoading ? <CircularProgress size={17} className='!text-text-1' /> : preIcon}
-      onClick={onClick}>
-      {t(buttonText)}
-    </Button>
-  );
-
   const handleButtonClick = (mutateFunction: UseMutateAsyncFunction<void, Error, string, unknown>) => {
     setIsLoading(true);
     mutateFunction(profileID, {
@@ -87,20 +104,13 @@ export default function FriendButton({ profileID, variant = 'main' }: IFriendBut
     });
   };
 
-  const NavComponent = ({ onClick, text }: { onClick: () => void; text: string }) => (
-    <nav className='*:cursor-pointer *:rounded-md *:px-4 *:py-2 *:duration-300 hover:*:!bg-hover-1'>
-      <div className='uk-drop-close' onClick={onClick}>
-        <span className='text-sm'>{t(text)}</span>
-      </div>
-    </nav>
-  );
-
   return isMe ? null : isLoadingOtherUserInfo ? (
     <Skeleton className='!bg-foreground-1' variant='circular' width={40} height={40} />
   ) : (
     <>
       {!isFriend && !sentRequest && !receivedRequest && (
         <ButtonComponent
+          variant={variant}
           isLoading={isLoading}
           preIcon={<IoAddCircle className='text-xl' />}
           onClick={() => handleButtonClick(mutateAddFriendUser)}
@@ -109,6 +119,7 @@ export default function FriendButton({ profileID, variant = 'main' }: IFriendBut
       )}
       {sentRequest && (
         <ButtonComponent
+          variant={variant}
           isLoading={isLoading}
           preIcon={<MdCancel className='text-xl' />}
           onClick={() => handleButtonClick(mutateCancelFriendUser)}
@@ -118,6 +129,7 @@ export default function FriendButton({ profileID, variant = 'main' }: IFriendBut
       {receivedRequest && (
         <div>
           <ButtonComponent
+            variant={variant}
             isLoading={isLoading}
             preIcon={<RiArrowGoBackFill className='text-xl' />}
             buttonText='Response'
@@ -133,6 +145,7 @@ export default function FriendButton({ profileID, variant = 'main' }: IFriendBut
       {isFriend && (
         <div>
           <ButtonComponent
+            variant={variant}
             isLoading={isLoading}
             preIcon={<FaCheckCircle className='text-xl' />}
             buttonText='Friend'
