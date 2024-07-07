@@ -157,7 +157,7 @@ export default function QuestionSummaryItem({
               {question.hashtags.map((tag, index) => (
                 <Link
                   key={index}
-                  href={`/questions/tags/${encodeURIComponent(tag)}`}
+                  href={`/questions/tags/${encodeURIComponent(tag.replace(/\./g, '%2E'))}`}
                   className='tag bg-1 rounded-md px-1'>
                   {tag}
                 </Link>

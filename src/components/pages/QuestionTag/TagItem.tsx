@@ -18,7 +18,7 @@ export default function TagItem({ tag }: ITagItemProps) {
         <div className='rounded-md border border-border-1 px-3 py-4'>
           <div className='flex-between'>
             <Link
-              href={`/questions/tags/${encodeURIComponent(tag.name)}`}
+              href={`/questions/tags/${encodeURIComponent(tag.name.replace(/\./g, '%2E'))}`}
               className='bg-1 rounded-md px-2 py-1 font-semibold'>
               {tag.name}
             </Link>
