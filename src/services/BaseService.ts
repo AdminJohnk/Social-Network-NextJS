@@ -1,7 +1,7 @@
 import axios, { type Method } from 'axios';
 import { getSession } from 'next-auth/react';
 
-import { API_KEY, CLIENT_ID, DOMAIN_NAME } from '@/lib/utils/constants/SettingSystem';
+import { API_KEY, CLIENT_ID, DOMAIN_NAME, RECOMMEND_DOMAIN } from '@/lib/utils/constants/SettingSystem';
 
 const mainAxios = axios.create();
 
@@ -44,6 +44,10 @@ class BaseService {
 
   getGithub = async (url: string) => {
     return await axios.get(url);
+  };
+
+  getRecommend = async (url: string) => {
+    return await axios.get(`${RECOMMEND_DOMAIN}${url}`);
   };
 }
 

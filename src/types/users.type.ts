@@ -16,8 +16,8 @@ export interface UserLogin {
   tokens: {
     accessToken: string;
     refreshToken: string;
-    accessTokenGithub?: string;
   };
+  accessTokenGithub?: string;
 }
 
 export interface UserGetParams {

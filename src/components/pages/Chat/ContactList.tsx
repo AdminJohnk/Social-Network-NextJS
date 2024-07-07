@@ -81,23 +81,23 @@ export default function ContactList({ contacts }: IContactListProps) {
     <>
       {/* <!-- heading title --> */}
       <div className='p-4'>
-        <div className='flex mt-2 items-center justify-between'>
-          <h2 className='text-2xl font-bold text-black ml-1 dark:text-white'> {t('Contacts')} </h2>
+        <div className='mt-2 flex items-center justify-between'>
+          <h2 className='ml-1 text-2xl font-bold text-black dark:text-white'> {t('Contacts')} </h2>
           {/* <!-- right action buttons --> */}
-          <div className='p-2 rounded-full hover:bg-hover-1'>
-            <FaUserPlus className='text-2xl rounded-lg' />
+          <div className='rounded-full p-2 hover:bg-hover-1'>
+            <FaUserPlus className='rounded-lg text-2xl' />
           </div>
         </div>
 
         {/* <!-- search --> */}
         <div className='relative mt-4'>
-          <div className='absolute left-3 bottom-1/2 translate-y-1/2 flex'>
+          <div className='absolute bottom-1/2 left-3 flex translate-y-1/2'>
             <IoSearchOutline className='text-xl' />
           </div>
           <input
             type='text'
             placeholder={t('Search')}
-            className='w-full !pl-10 !py-2 !rounded-lg bg-foreground-1'
+            className='w-full !rounded-lg bg-foreground-1 !py-2 !pl-10'
             onChange={(e) => {
               setSearch(e.target.value);
               if (!isLoadingSearch) setIsLoadingSearch(true);
@@ -105,12 +105,12 @@ export default function ContactList({ contacts }: IContactListProps) {
           />
         </div>
       </div>
-      <div className='px-2 w-full'>
+      <div className='w-full px-2'>
         <div className='flex flex-col gap-1 overflow-auto'>
           {searchFriends.length === 0 ? (
             <div className='flex-center flex-row gap-4'>
               <Image
-                className='!text-red-500 h-10 w-10'
+                className='h-10 w-10 !text-red-500'
                 src='https://static.thenounproject.com/png/3668369-200.png'
                 alt={t('Not found any friends')}
                 width={500}
@@ -123,13 +123,11 @@ export default function ContactList({ contacts }: IContactListProps) {
               return (
                 <Button
                   variant='main'
-                  className='user flex items-center justify-start bg-transparent gap-3 cursor-pointer p-4 rounded-xl hover:bg-hover-1'
+                  className='user flex-start gap-3 rounded-xl bg-transparent p-4 hover:bg-hover-1'
                   disabled={isCreateConversation}
                   key={item._id}
                   onClick={() => handleOnClick(item._id)}>
-                  <div className='avatar relative'>
-                    <AvatarMessage key={item._id} user={item} />
-                  </div>
+                  <AvatarMessage key={item._id} user={item} />
                   <div className='name text-center font-bold'>{item.name}</div>
                 </Button>
               );

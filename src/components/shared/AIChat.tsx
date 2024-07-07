@@ -1,38 +1,33 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { useAIChatStore } from '@/store/aichat';
 import { useTranslations } from 'next-intl';
-import Draggable from 'react-draggable';
-import { IoMdClose } from 'react-icons/io';
-import { IoMdInformationCircle } from 'react-icons/io';
-import { IoMdSend } from 'react-icons/io';
+import Image from 'next/image';
 import { useState } from 'react';
-import ShowContent from './ShowContent/ShowContent';
+import Draggable from 'react-draggable';
+import { IoMdClose, IoMdInformationCircle, IoMdSend } from 'react-icons/io';
+
 import { useChatAI } from '@/hooks/mutation';
+import { useCurrentUserInfo } from '@/hooks/query';
+import { cn, getImageURL } from '@/lib/utils';
+import { useAIChatStore } from '@/store/aichat';
 import { CircularProgress } from '@mui/material';
 
-function escapeHTML(text: string) {
-  return text.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
-}
+import Markdown from './Markdown';
+import { Button } from '../ui/button';
+import { PiPlus } from 'react-icons/pi';
 
-function textToHTML(text: string) {
-  const paragraphs = text.split(/\n\n/g);
-  const htmlParagraphs = paragraphs.map((paragraph: string) => {
-    const html = paragraph.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-    return `<p>${escapeHTML(html)}</p>`;
-  });
-  return htmlParagraphs.join('');
-}
+type AiResponse = {
+  question: boolean;
+  content: string;
+};
 
-export interface IAIChatProps {}
-
-export default function AIChat(props: IAIChatProps) {
+export default function AIChat() {
   const t = useTranslations();
-
   const { aiChatStatus, setAIChatStatus } = useAIChatStore();
   const [question, setQuestion] = useState<string>('');
-  const [aiResponse, setAIResponse] = useState<string>('');
+  const [aiResponses, setAIResponses] = useState<AiResponse[]>([]);
+
+  const { currentUserInfo } = useCurrentUserInfo();
 
   const { mutateChatAI, isLoadingChatAI } = useChatAI();
 
@@ -42,14 +37,33 @@ export default function AIChat(props: IAIChatProps) {
     const questionSub = question;
     setQuestion('');
 
-    setAIResponse(aiResponse + '\n\n' + questionSub);
-    const newResponse = aiResponse + '\n\n' + questionSub;
+    setAIResponses((prev) => [
+      ...prev,
+      {
+        question: true,
+        content: questionSub
+      }
+    ]);
+    // const newResponse = aiResponses+ '\n\n' + questionSub;
 
     const result = await mutateChatAI(questionSub);
-    const htmlResponse = textToHTML(result);
+    // const htmlResponse = textToHTML(result);
 
-    setAIResponse(newResponse + '\n' + htmlResponse);
+    // setAIResponse(newResponse + '\n' + result);
+    setAIResponses((prev) => [
+      ...prev,
+      {
+        question: false,
+        content: result
+      }
+    ]);
   };
+
+  const createNew = () => {
+    setAIResponses([]);
+    setQuestion('');
+  };
+
   return (
     <Draggable handle='strong'>
       <div
@@ -68,13 +82,67 @@ export default function AIChat(props: IAIChatProps) {
           </div>
         </strong>
         {/* content chat */}
-        <div className='custom-scrollbar-fg h-[75%] overflow-y-scroll py-3'>
-          <ShowContent content={aiResponse} />
+        <div className='custom-scrollbar-fg h-[75%] space-y-3 overflow-y-scroll py-3'>
+          {aiResponses.map((response, index) => {
+            const isMe = response.question;
+            return (
+              <div key={index} className='mb-2 flex flex-col items-start gap-1'>
+                <div className='flex-start'>
+                  {isMe ? (
+                    <Image
+                      src={getImageURL(currentUserInfo?.user_image)}
+                      alt='avatar'
+                      className='h-8 w-8 rounded-full object-cover'
+                      width={400}
+                      height={400}
+                    />
+                  ) : (
+                    <Image
+                      src='/images/avatars/avatar-1.jpg'
+                      alt='avatar'
+                      className='h-8 w-8 rounded-full'
+                      width={400}
+                      height={400}
+                    />
+                  )}
+                  {isMe ? (
+                    <div className='ms-3 flex flex-col'>
+                      <span className='base-bold'>{currentUserInfo?.name}</span>
+                    </div>
+                  ) : (
+                    <div className='ms-3 flex flex-col'>
+                      <span className='base-bold'>AI</span>
+                    </div>
+                  )}
+                </div>
+                <div className='flex-start ms-3'>
+                  <div className='invisible size-8' />
+                  <div
+                    className={cn(
+                      'rounded-lg p-2',
+                      isMe ? 'bg-foreground-2 text-text-2' : 'bg-background-1 text-text-1'
+                    )}>
+                    <Markdown key={index}>{response.content}</Markdown>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+          {/* <ShowContent content={aiResponse} /> */}
         </div>
         {/* input chat */}
-        <div className='flex-between mb-2 h-[15%]'>
+        <div className='flex-center mb-2 h-[15%] w-full'>
+          <Button
+            variant='main'
+            className='me-2 rounded-full border border-border-1 bg-transparent text-text-1'
+            size='icon'
+            onClick={() => createNew()}
+            disabled={isLoadingChatAI || aiResponses.length === 0}
+            data-uk-tooltip={`title: ${t('New conversation')}; pos: bottom; offset:6; delay: 300`}>
+            <PiPlus className='size-6 cursor-pointer text-blue-500 duration-300 hover:text-blue-600' />
+          </Button>
           <textarea
-            className='custom-scrollbar-bg w-full resize-none rounded-lg border border-border-1 bg-transparent p-2 text-[0.9rem]'
+            className='custom-scrollbar-bg w-[90%] resize-none rounded-lg border border-border-1 bg-transparent p-2 text-[0.9rem]'
             rows={3}
             value={question}
             placeholder='Type your question...'
@@ -85,7 +153,7 @@ export default function AIChat(props: IAIChatProps) {
               }
             }}
           />
-          <button className='ms-2 w-[5%] bg-transparent' onClick={() => handleQuestion()}>
+          <button className='ms-2 bg-transparent' onClick={() => handleQuestion()}>
             {isLoadingChatAI ? (
               <CircularProgress size={20} className='mr-2 !text-text-1' />
             ) : (

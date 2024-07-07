@@ -1,16 +1,17 @@
 'use client';
 
+import { useFormatter, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowUp, IoIosMore } from 'react-icons/io';
+
+import { useCommentsData, useCurrentUserInfo } from '@/hooks/query';
+import { getImageURL } from '@/lib/utils';
+import { Link } from '@/navigation';
+import { useCommentStore } from '@/store/comment';
+import { ICommentPost } from '@/types';
 import { Avatar, CircularProgress } from '@mui/material';
 
-import { getImageURL } from '@/lib/utils';
-import { useCommentStore } from '@/store/comment';
-import { useCommentsData, useCurrentUserInfo } from '@/hooks/query';
 import HoverUser from '../Post/HoverUser';
-import { Link } from '@/navigation';
-import { ICommentPost } from '@/types';
 
 export interface ICommentListProps {
   postID: string;
@@ -19,6 +20,7 @@ export interface ICommentListProps {
 
 export default function CommentList({ postID, comment_number }: ICommentListProps) {
   const t = useTranslations();
+  const format = useFormatter();
 
   const { currentUserInfo } = useCurrentUserInfo();
   const { comments, isLoadingComments } = useCommentsData(postID);
@@ -36,6 +38,8 @@ export default function CommentList({ postID, comment_number }: ICommentListProp
       setCommentToShow(commentToShow.filter((item) => item !== id));
     }
   };
+
+  const handleDateTime = (date: string) => format.relativeTime(new Date(date), new Date());
 
   const showContent = (content: string, id: string) => {
     if (commentToShow.includes(id)) {
@@ -78,6 +82,7 @@ export default function CommentList({ postID, comment_number }: ICommentListProp
           <>
             <div className='*:mb-3'>
               {commentList.map((comment) => {
+                const isMe = currentUserInfo._id === comment.user._id;
                 return (
                   <div key={comment._id} className='flex-start !items-start'>
                     <HoverUser user={comment.user}>
@@ -86,10 +91,13 @@ export default function CommentList({ postID, comment_number }: ICommentListProp
                       </Link>
                     </HoverUser>
                     <div className='ms-3 flex w-fit max-w-[80%] flex-col rounded-lg bg-foreground-2 px-4 py-2'>
-                      <div className='base-bold hover:underline'>
-                        <HoverUser user={comment.user}>
-                          <Link href={`/profile/${comment.user._id}`}>{comment.user.name}</Link>
-                        </HoverUser>
+                      <div className='flex-start gap-2'>
+                        <div className='base-bold hover:underline'>
+                          <HoverUser user={comment.user}>
+                            <Link href={`/profile/${comment.user._id}`}>{comment.user.name}</Link>
+                          </HoverUser>
+                        </div>
+                        <span className='small-regular'>{handleDateTime(comment.createdAt)}</span>
                       </div>
                       <div className='w-full break-words'>
                         <span>{showContent(comment.content, comment._id)}</span>
@@ -102,13 +110,28 @@ export default function CommentList({ postID, comment_number }: ICommentListProp
                         )}
                       </div>
                     </div>
+                    {isMe && (
+                      <div className='popover'>
+                        <div className='ml-1 cursor-pointer rounded-full p-1 hover:bg-hover-1'>
+                          <IoIosMore className='size-6' />
+                        </div>
+                        <div
+                          className='!w-fit'
+                          data-uk-drop='offset:6;pos: bottom-left; mode: click; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-left'>
+                          <ul className='space-y-1 rounded-lg border border-border-1 bg-foreground-1 p-1 text-text-1 *:cursor-pointer *:rounded-lg'>
+                            <li className='p-1.5 hover:bg-hover-1'>{t('Edit')}</li>
+                            <li className='p-1.5 hover:bg-hover-1'>{t('Delete')}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}
             </div>
             {comments.length > 3 && (
               <div
-                className='flex-start cursor-pointer text-text-3 duration-300 hover:text-primary-500'
+                className='flex-start hover:text-primary-500 cursor-pointer text-text-3 duration-300'
                 onClick={() => {
                   setShowMoreComment(!showMoreComment);
                 }}>

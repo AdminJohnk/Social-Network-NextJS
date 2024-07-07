@@ -65,14 +65,16 @@ const handler = NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_ID || '',
       clientSecret: process.env.GITHUB_SECRET || '',
-      profile: async (profile) => {
+      profile: async (profile, tokens) => {
         if (profile) {
-          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub(profile);
+          const { data }: { data: IResponse<UserLogin> } = await authService.loginWithGithub({...profile,
+            accessTokenGitHub: tokens.accessToken
+          });
 
           if (data) {
             return {
               id: data.metadata.user._id,
-              access_token_github: data.metadata.tokens.accessTokenGithub,
+              access_token_github: data.metadata.accessTokenGithub,
               email: data.metadata.user.email,
               access_token: data.metadata.tokens.accessToken,
               refresh_token: data.metadata.tokens.refreshToken

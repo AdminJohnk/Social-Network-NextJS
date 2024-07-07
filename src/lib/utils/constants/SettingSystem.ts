@@ -1,4 +1,5 @@
 export const DOMAIN_NAME = process.env.NEXT_PUBLIC_API_BASE;
+export const RECOMMEND_DOMAIN = process.env.NEXT_PUBLIC_API_RECOMMENDATION;
 
 export const USER_LOGIN = 'user_login';
 export const ID_USER = '_id';

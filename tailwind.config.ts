@@ -131,6 +131,11 @@ const config: Config = {
       }
     }
   },
-  plugins: [require('tailwindcss-animate'), require('tailwindcss-animated'), flowbite.plugin()]
+  plugins: [
+    require('tailwindcss-animate'),
+    require('tailwindcss-animated'),
+    require('@tailwindcss/typography'),
+    flowbite.plugin()
+  ]
 };
 export default config;
