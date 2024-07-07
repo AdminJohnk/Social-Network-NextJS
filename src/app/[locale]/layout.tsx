@@ -47,7 +47,7 @@ export default async function LocaleLayout({ children, params: { locale } }: ILo
 
       <Script src='/js/uikit.min.js' />
 
-      <body className={cn(font.className, 'h-dvh custom-scrollbar-bg')}>
+      <body className={cn(font.className, 'custom-scrollbar-bg h-dvh')}>
         <QueryProvider>
           <SessionProvider>
             <NextIntlClientProvider messages={message} locale={locale}>
