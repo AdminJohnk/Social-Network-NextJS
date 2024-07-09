@@ -21,6 +21,7 @@ export default function SearchHeader() {
 
   const searchRef = useRef<HTMLInputElement>(null);
 
+  const [cursor, setCursor] = useState(0);
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState<IUserInfo[]>([]);
 
@@ -28,7 +29,7 @@ export default function SearchHeader() {
 
   const { searchLogs, isLoadingSearchLogs } = useGetSearchLogs();
   const { currentUserInfo } = useCurrentUserInfo();
-  const { usersByName, isLoadingUsersByName } = useGetUsersByName(searchDebounce);
+  const { usersByName, isLoadingUsersByName } = useGetUsersByName(searchDebounce.trim());
 
   const { mutateCreateSearchLog } = useCreateSearchLog();
   const { mutateDeleteSearchLog } = useDeleteSearchLog();
@@ -100,15 +101,25 @@ export default function SearchHeader() {
         <input
           ref={searchRef}
           type='text'
+          value={search}
           placeholder={`${t('Search Friends, Posts')}..`}
           className='h-12 w-full border-none !bg-transparent !pl-10 !text-sm !font-normal'
           onChange={(e) => {
-            setSearch(e.target.value.trim());
+            setSearch(e.currentTarget.value);
+          }}
+          onClick={(e) => {
+            const currentCursor = e.currentTarget.selectionStart;
+            setCursor(currentCursor || 0);
           }}
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
               getSearchPage(search);
             }
+            if (e.key === ' ') {
+              setSearch((pre) => pre.slice(0, cursor) + ' ' + pre.slice(cursor));
+            }
+            const currentCursor = e.currentTarget.selectionStart;
+            setCursor(currentCursor || 0);
           }}
         />
       </div>
@@ -166,7 +177,9 @@ export default function SearchHeader() {
                       />
                       <div>
                         <div>{user.name}</div>
-                        <div className='mt-0.5 text-xs font-medium text-blue-500'>{t('Friend')}</div>
+                        {user.is_friend && (
+                          <div className='mt-0.5 text-xs font-medium text-blue-500'>{t('Friend')}</div>
+                        )}
                       </div>
                       <IoClose
                         className='absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full p-0.5 text-lg hover:bg-hover-2'
@@ -206,7 +219,9 @@ export default function SearchHeader() {
                       />
                       <div>
                         <div>{user.name}</div>
-                        <div className='mt-0.5 text-xs font-medium text-blue-500'>{t('Friend')}</div>
+                        {user.is_friend && (
+                          <div className='mt-0.5 text-xs font-medium text-blue-500'>{t('Friend')}</div>
+                        )}
                       </div>
                     </div>
                   ))
