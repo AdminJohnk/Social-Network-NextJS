@@ -201,7 +201,7 @@ export default function CreateEditCommunity({ handleClose, dataEdit }: ICreateEd
         </h2>
       </div>
 
-      <div className='max-h-[700px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
+      <div className='max-h-[500px] overflow-y-scroll custom-scrollbar-bg px-5 py-4 *:mt-7'>
         <div className='relative !mt-3'>
           <InputStyle
             label={t('Community Name')}

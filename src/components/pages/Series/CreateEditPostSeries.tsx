@@ -247,7 +247,7 @@ export default function CreateEditPostSeries({
         <div className='editor space-y-5'>
           <Editor
             setEditor={setEditor}
-            placeholder={t('Introduction about the post')}
+            placeholder={t('Write your post here')}
             content={dataEdit?.content || ''}
             autofocus={false}
           />

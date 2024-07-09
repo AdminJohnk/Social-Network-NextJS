@@ -84,12 +84,12 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
                 <div className='flex flex-col gap-0.5 p-1 bg-foreground-1 rounded-lg shadow-lg *:px-2.5 *:py-1.5 hover:*:!bg-hover-1 *:cursor-pointer *:rounded-lg *:uk-drop-close'>
                   <div>
                     <div
-                      className='flex-start gap-2 uk-drop-close'
+                      className='flex-start gap-2 uk-drop-close text-1'
                       onClick={() => {
                         setOpenEditPost(true);
                       }}>
-                      <FaPencilAlt className='size-4 text-1' />
-                      <span>{t('Edit')}</span>
+                      <FaPencilAlt className='size-4' />
+                      <span className='base-regular'>{t('Edit')}</span>
                     </div>
                     <Modal open={openEditPost} handleClose={() => setOpenEditPost(false)}>
                       <CreateEditPostSeries
@@ -114,9 +114,9 @@ export function PostItem({ post, series_id, isMe }: IPostItemProps) {
                     <AlertDialogTrigger
                       className='w-full text-1 uk-drop-close'
                       onClick={handleOpenDeletePost}>
-                      <div className='flex-start gap-2'>
-                        <BiSolidTrashAlt className='size-5 text-1' />
-                        <span>{t('Delete')}</span>
+                      <div className='flex-start gap-2 text-1'>
+                        <BiSolidTrashAlt className='size-5' />
+                        <span className='base-regular'>{t('Delete')}</span>
                       </div>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
