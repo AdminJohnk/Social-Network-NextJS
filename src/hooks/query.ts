@@ -1685,3 +1685,21 @@ export const useGetRecommendUsers = (userID: string) => {
     isFetchingRecommendUsers: isFetching
   };
 };
+
+export const useGetRecommendCommunities = (userID: string) => {
+  const { data, isPending, isError, isFetching } = useQuery({
+    queryKey: ['recommendCommunities', userID],
+    queryFn: async () => {
+      const { data } = await recommendService.getRecommendCommunities(userID);
+      return data.metadata;
+    },
+    staleTime: Infinity
+  });
+
+  return {
+    isLoadingRecommendCommunities: isPending,
+    isErrorRecommendCommunities: isError,
+    recommendCommunities: data!,
+    isFetchingRecommendCommunities: isFetching
+  };
+}

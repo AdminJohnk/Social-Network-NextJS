@@ -1,13 +1,12 @@
 'use client';
 
-import { Radio } from 'flowbite-react';
-import { use, useMemo, useState } from 'react';
+import {  useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { FaPencilAlt, FaUserFriends } from 'react-icons/fa';
 import { FaPeopleGroup } from 'react-icons/fa6';
 
 import descArrays from '@/lib/descriptions/Tags';
-import { useCurrentUserInfo, useGetCommunitiesByUserID, useGetCommunityByID } from '@/hooks/query';
+import { useCurrentUserInfo, useGetCommunitiesByUserID } from '@/hooks/query';
 import SlideHeader from '@/components/pages/Register/SlideHeader';
 import { useRouter } from '@/navigation';
 import { Button } from '@/components/ui/button';
