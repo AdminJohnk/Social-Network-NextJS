@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { BaseService } from './BaseService';
-import { IResponse, IUserRecommended } from '@/types';
+import { ICommunity, IResponse, IUserRecommended } from '@/types';
 
 class RecommendService extends BaseService {
   constructor() {
@@ -10,6 +10,10 @@ class RecommendService extends BaseService {
   getRecommendUsers = async (userID: string): Promise<AxiosResponse<IResponse<IUserRecommended[]>>> => {
     return await this.getRecommend(`/users/${userID}`);
   };
+
+  getRecommendCommunities = async (userID: string): Promise<AxiosResponse<IResponse<ICommunity[]>>> => {
+    return await this.getRecommend(`/communities/${userID}`);
+  }
 }
 
 export const recommendService = new RecommendService();

@@ -9,7 +9,7 @@ import { useRouter } from '@/navigation';
 import { cn, getImageURL } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import SlideHeader from '@/components/pages/Register/SlideHeader';
-import { useCurrentUserInfo, useGetAllCommunities } from '@/hooks/query';
+import { useCurrentUserInfo, useGetRecommendCommunities } from '@/hooks/query';
 import { CircularProgress } from '@mui/material';
 import { useCancelJoinCommunity, useJoinCommunity, useLeaveCommunity } from '@/hooks/mutation';
 import { showErrorToast } from '@/components/ui/toast';
@@ -25,7 +25,7 @@ export default function SelectCommunities({ }: ISelectCommunitiesProps) {
   const router = useRouter();
   const { currentUserInfo } = useCurrentUserInfo();
 
-  const { allCommunities, isLoadingAllCommunities } = useGetAllCommunities();
+  const { recommendCommunities, isLoadingRecommendCommunities } = useGetRecommendCommunities(currentUserInfo._id);
   const { mutateJoinCommunity, isLoadingJoinCommunity } = useJoinCommunity();
   const { mutateCancelJoinCommunity, isLoadingCancelJoinCommunity } = useCancelJoinCommunity();
   const { mutateLeaveCommunity, isLoadingLeaveCommunity } = useLeaveCommunity();
@@ -63,91 +63,6 @@ export default function SelectCommunities({ }: ISelectCommunitiesProps) {
         }
       ]
     },
-    // {
-    //   groupName: 'DevOps & Infrastructure',
-    //   data: [
-    //     {
-    //       id: 1,
-    //       name: 'Kubernetes Zone',
-    //       image: 'https://foghornconsulting.com/wp-content/uploads/2022/01/kubernetes-1.png',
-    //       members: 9394,
-    //       about: 'Sharing kubernetes tips and tricks, and other infrastructure related topics.'
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'AWS',
-    //       image: 'https://ih1.redbubble.net/image.2107976074.2036/st,small,507x507-pad,600x600,f8f8f8.jpg',
-    //       members: 3033,
-    //       about: 'A place to discuss all things AWS, including the AWS SDKs, AWS CLI, and more.'
-    //     },
-    //     {
-    //       id: 3,
-    //       name: 'DevOps',
-    //       image: 'https://cdn.dribbble.com/users/13574/screenshots/9711275/logo-devops.png',
-    //       members: 3835,
-    //       about: 'DevOps Community'
-    //     }
-    //   ]
-    // },
-    // {
-    //   groupName: 'Front End',
-    //   data: [
-    //     {
-    //       id: 1,
-    //       name: 'React.JS',
-    //       image:
-    //         'https://w7.pngwing.com/pngs/403/269/png-transparent-react-react-native-logos-brands-in-colors-icon-thumbnail.png',
-    //       members: 14203,
-    //       about: 'A JavaScript library for building user interfaces'
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'Vue.JS',
-    //       image:
-    //         'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/640px-Vue.js_Logo_2.svg.png',
-    //       members: 5310,
-    //       about: 'The Progressive JavaScript Framework'
-    //     },
-    //     {
-    //       id: 3,
-    //       name: 'Angular',
-    //       image:
-    //         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/2048px-Angular_full_color_logo.svg.png',
-    //       members: 1776,
-    //       about: 'Angular is a platform for building mobile and desktop web applications.'
-    //     },
-    //     {
-    //       id: 4,
-    //       name: 'HTML & CSS',
-    //       image:
-    //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ70hL-7iNj-Vju1OiqKFn898rvclzwPKsNA&usqp=CAU',
-    //       members: 2947,
-    //       about: 'HTML & CSS'
-    //     }
-    //   ]
-    // },
-    // {
-    //   groupName: 'Back End',
-    //   data: [
-    //     {
-    //       id: 1,
-    //       name: 'Node.JS',
-    //       image: 'https://ih1.redbubble.net/image.1637717834.1604/pp,840x830-pad,1000x1000,f8f8f8.u1.jpg',
-    //       members: 3508,
-    //       about:
-    //         'Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser.'
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'GraphQL',
-    //       image:
-    //         'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/768px-GraphQL_Logo.svg.png?20161105194737',
-    //       members: 5310,
-    //       about:
-    //         'GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.'
-    //     }
-    //   ]
-    // }
   ];
 
   return (
@@ -157,7 +72,7 @@ export default function SelectCommunities({ }: ISelectCommunitiesProps) {
         <span className='font-bold text-3xl max-md:text-lg'> {t('Here are some relevant communities for you')}.</span>
 
         <div className='*:mt-4'>
-          {isLoadingAllCommunities ? (
+          {isLoadingRecommendCommunities ? (
             <div className='flex justify-center items-center'>
               <div className='flex flex-col items-center'>
                 <CircularProgress />
@@ -166,9 +81,9 @@ export default function SelectCommunities({ }: ISelectCommunitiesProps) {
             </div>
           ) : communityArray.map((item, index) => (
             <div key={index}>
-              <span className='font-semibold'>{item.groupName}</span>
+              {/* <span className='font-semibold'>{item.groupName}</span> */}
               <div className='flex flex-wrap gap-4 mt-2'>
-                {allCommunities.map((comInfo, index) => {
+                {recommendCommunities.map((comInfo, index) => {
                   const isMember = comInfo.members.some((member) => member._id === currentUserInfo._id);
                   const isRequested = comInfo.waitlist_users.some((request) => request._id === currentUserInfo._id);
 

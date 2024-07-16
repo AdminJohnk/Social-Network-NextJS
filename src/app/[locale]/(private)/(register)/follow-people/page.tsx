@@ -1,13 +1,12 @@
 'use client';
 
-import { useMemo } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { useRouter } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import SlideHeader from '@/components/pages/Register/SlideHeader';
-import { useAllUsersData, useCurrentUserInfo } from '@/hooks/query';
+import { useCurrentUserInfo, useGetRecommendUsers } from '@/hooks/query';
 import { getImageURL } from '@/lib/utils';
 import FriendButton from '@/components/pages/Profile/FriendButton';
 import { CircularProgress } from '@mui/material';
@@ -19,7 +18,7 @@ export default function FollowPeople({ }: IFollowPeopleProps) {
   const t = useTranslations();
   const router = useRouter();
   const { currentUserInfo } = useCurrentUserInfo();
-  const { allUsers, isLoadingAllUsers } = useAllUsersData();
+  const { recommendUsers, isLoadingRecommendUsers } = useGetRecommendUsers(currentUserInfo._id);
 
   return (
     <div>
@@ -27,14 +26,14 @@ export default function FollowPeople({ }: IFollowPeopleProps) {
       <div className='mt-4'>
         <span className='font-bold text-3xl max-md:text-lg'> {t('Here are some people with similar interests')}</span>
         <div className='*:mt-4'>
-          {isLoadingAllUsers ? (
+          {isLoadingRecommendUsers ? (
             <div className='flex justify-center items-center'>
               <div className='flex flex-col items-center'>
                 <CircularProgress />
                 <span className='mt-4'>Loading...</span>
               </div>
             </div>
-          ) : allUsers.length > 0 && allUsers.map((item, index) => (
+          ) : recommendUsers.length > 0 && recommendUsers.map((item, index) => (
             <div key={index} className='bg-foreground-1 rounded-lg p-4 flex gap-4 items-center justify-between'>
               <div className='flex-start gap-3'>
                 <Image width={500} height={500} src={getImageURL(item.user_image)} alt='avatar' className='w-14 h-14 rounded-full' />
